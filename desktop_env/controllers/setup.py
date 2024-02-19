@@ -20,6 +20,7 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 from desktop_env.controllers.python import PythonController
 from desktop_env.evaluators.metrics.utils import compare_urls
+from desktop_env import configs
 
 logger = logging.getLogger("desktopenv.setup")
 
@@ -52,13 +53,20 @@ class SetupController:
             config_type: str = cfg["type"]
             parameters: Dict[str, Any] = cfg["parameters"]
 
-            # Assumes all the setup the functions should follow this name
-            # protocol
             setup_function: str = "_{:}_setup".format(config_type)
-            assert hasattr(self, setup_function), f'Setup controller cannot find init function {setup_function}'
-            getattr(self, setup_function)(**parameters)
-
-            logger.info("SETUP: %s(%s)", setup_function, str(parameters))
+            if hasattr(self, setup_function):
+                # Assumes all the setup the functions should follow this name
+                # protocol
+                # assert hasattr(self, setup_function), f'Setup controller cannot find init function {setup_function}'
+                getattr(self, setup_function)(**parameters)
+                logger.info("SETUP: %s(%s)", setup_function, str(parameters))
+            else:
+                # customized setup functions
+                setup_function: str = "{:}_setup".format(config_type)
+                config_function = getattr(configs, setup_function, None)
+                assert config_function is not None, f'Setup controller cannot find function {setup_function}'
+                config_function(self, **parameters)
+                logger.info("SETUP: %s(%s)", setup_function, str(parameters))
 
         # self._download_setup(config)
         # self._change_wallpaper(config)
