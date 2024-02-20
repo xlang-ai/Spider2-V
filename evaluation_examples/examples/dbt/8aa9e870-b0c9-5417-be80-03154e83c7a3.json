@@ -1,0 +1,84 @@
+{
+    "id": "8aa9e870-b0c9-5417-be80-03154e83c7a3",
+    "snapshot": "dbt",
+    "instruction": "Create a dbt project jaffle_shop in ~/projects, connect it to duckdb at jaffle_shop/jaffle_shop.duckdb for both dev and prod targets, and load data from jaffle-shop-data.zip with dbt seed.",
+    "source": [
+        "https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup#",
+        "https://docs.getdbt.com/guides/manual-install?step=3",
+        "https://docs.getdbt.com/reference/commands/seed"
+    ],
+    "config": [
+        {
+            "type": "download_and_execute",
+            "parameters": {
+                "url": "https://drive.usercontent.google.com/download?id=1pwiqJ_jlVx-PTsqa5afaLyYGCVbjI0wR&export=download&authuser=0&confirm=t",
+                "path": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "evaluator": {
+      "func": [
+            "check_yaml_file",
+            "check_include_exclude",
+            "check_local_database"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "dbt_profiles",
+                "dirs": [
+                    "/home/user/.dbt",
+                    "/home/user/projects/jaffle_shop",
+                    "$DBT_PROFILES_DIR"
+                ],
+                "dest": "profiles.yml"
+            },
+            {
+                "type": "vm_script_output",
+                "url": "https://drive.usercontent.google.com/download?id=1qdnZjDl48nkuSty2LTb3DaJicSO42kWq&export=download&authuser=0&confirm=t",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.duckdb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": [
+                    ["match", ["jaffle_shop", "outputs", "dev", "type"], "duckdb"],
+                    ["match", ["jaffle_shop", "outputs", "prod", "type"], "duckdb"],
+                    ["contain", ["jaffle_shop", "outputs", "dev", "path"], "jaffle_shop.duckdb"],
+                    ["contain", ["jaffle_shop", "outputs", "prod", "path"], "jaffle_shop.duckdb"]
+                ]
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": ["succeed"],
+                    "exclude": ["failed"]
+                }
+            },
+            {
+                "type": "cloud_file",
+                "path": "https://drive.usercontent.google.com/download?id=12xJuEcBxGqPHjJriUPnkuGRkw9HsZniJ&export=download&authuser=0&confirm=t",
+                "dest": "jaffle_shop.gold.duckdb"
+            }
+        ],
+        "options": [
+            {},
+            {},
+            {
+                "db_type": "duckdb",
+                "check_type": ["table-schema-content"]
+            }
+        ]
+    }
+}

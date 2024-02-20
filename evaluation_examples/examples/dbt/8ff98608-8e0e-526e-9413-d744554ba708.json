@@ -1,0 +1,64 @@
+{
+    "id": "8ff98608-8e0e-526e-9413-d744554ba708",
+    "snapshot": "dbt",
+    "instruction": "Remove dbt example models, create a \"customers\" dbt model using raw_customers and raw_orders with columns customer_ids, first_name, last_name, first_order_date, most_recent_order_date, and number_of_orders (default 0). Set materialization to table.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=8",
+        "https://docs.getdbt.com/guides/manual-install?step=9",
+        "https://docs.getdbt.com/guides/manual-install?step=10"
+    ],
+    "config": [
+        {
+            "type": "download_and_execute",
+            "parameters": {
+                "url": "https://drive.usercontent.google.com/download?id=1w9DJYNPI4p-S6saUZN1DAD9PDvlVZN-_&export=download&authuser=0&confirm=t",
+                "path": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude",
+            "check_local_database"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "vm_script_output",
+                "url": "https://drive.usercontent.google.com/download?id=1qA3bv2U-kMK0UgtdhcymWhjoqRBKyVao&export=download&authuser=0&confirm=t",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.duckdb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": ["succeed"],
+                    "exclude": ["failed"]
+                }
+            },
+            {
+                "type": "cloud_file",
+                "path": "https://drive.usercontent.google.com/download?id=1BnTQOiDIKriWGhLRj7C8MPgfk4JH-uf9&export=download&authuser=0&confirm=t",
+                "dest": "jaffle_shop.gold.duckdb"
+            }
+        ],
+        "options": [
+            {},
+            {
+                "db_type": "duckdb",
+                "check_type": ["table-schema-content"]
+            }
+        ]
+    }
+}

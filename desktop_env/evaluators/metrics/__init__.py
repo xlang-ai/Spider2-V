@@ -119,4 +119,7 @@ from .vscode import (
     check_json_settings,
     check_json_keybindings
 )
-from .dbt import check_yaml_file, check_dbt_command, check_database
+from .dbt import (
+    check_yaml_file,
+    check_local_database
+)

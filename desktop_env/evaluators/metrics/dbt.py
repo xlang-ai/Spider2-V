@@ -23,6 +23,7 @@ def check_yaml_file(result: str, rules: Dict[str, List[Tuple[str, List[Union[str
         float: 1.0 if all rules are matched, 0.0 otherwise
     """
     try:
+        if result is None: return 0
         with open(result, 'r') as inf:
             config = yaml.safe_load(inf)
         for rule in rules:
@@ -47,6 +48,9 @@ def check_yaml_file(result: str, rules: Dict[str, List[Tuple[str, List[Union[str
                     return 0
             elif match_type == 'in':
                 if value not in expected_value:
+                    return 0
+            elif match_type == 'contain':
+                if expected_value not in value:
                     return 0
             elif match_type == 'not_null':
                 if not value:
@@ -95,7 +99,7 @@ def check_dbt_command(result: Union[str, List[str]], rules: Union[List[Tuple[str
         return check_single_dbt_output(result, rules, **kwargs)
 
 
-def check_database(result: str, expected: str, **kwargs) -> str:
+def check_local_database(result: str, expected: str, **kwargs) -> str:
     """ Compare two databases according to kwargs
     @args:
         result(str): path to result database
@@ -126,6 +130,7 @@ def check_database(result: str, expected: str, **kwargs) -> str:
     check_type = validate_check_type(check_type)
     if db_type == 'duckdb':
         try:
+            conn1, conn2 = None, None
             conn1 = duckdb.connect(result)
             conn2 = duckdb.connect(expected)
 
@@ -184,9 +189,9 @@ def check_database(result: str, expected: str, **kwargs) -> str:
             return 1
         except Exception as e:
             logger.info('[ERROR]: unexpected error occurred when comparing databases!', e)
-            return 0
         finally:
-            conn1.close()
-            conn2.close()
+            if conn1: conn1.close()
+            if conn2: conn2.close()
+        return 0
     else:
         raise ValueError('[ERROR]: unknown db type!')

@@ -1,0 +1,65 @@
+{
+    "id": "492c2c87-b04a-544a-b5dd-eb808036bf85",
+    "snapshot": "dbt",
+    "instruction": "Split the customers dbt model into two: 1. Move the customers CTE to models/stg_customers.sql. 2. Move the orders CTE to models/stg_orders.sql, materializing both as views. 3. Update models/customers.sql to reference these staged models using ref.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=11"
+    ],
+    "config": [
+        {
+            "type": "download_and_execute",
+            "parameters": {
+                "url": "https://drive.usercontent.google.com/download?id=1J5HBaoe6hMUqj4yCfIOEh9nlLbIc8n0R&export=download&authuser=0&confirm=t",
+                "path": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude",
+            "check_local_database"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "vm_script_output",
+                "url": "https://drive.usercontent.google.com/download?id=1ZYBai7cemdHKRxy9jApDV2SsX5UHRrKe&export=download&authuser=0&confirm=t",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.duckdb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": ["succeed"],
+                    "exclude": ["failed"]
+                }
+            },
+            {
+                "type": "cloud_file",
+                "path": "https://drive.usercontent.google.com/download?id=1rtRXtgKiwyWSVPCbDVkjYXh8AMni7t1W&export=download&authuser=0&confirm=t",
+                "dest": "jaffle_shop.gold.duckdb"
+            }
+        ],
+        "options": [
+            {},
+            {
+                "db_type": "duckdb",
+                "check_type": [
+                    "table-schema-content",
+                    "view-schema-content"
+                ]
+            }
+        ]
+    }
+}

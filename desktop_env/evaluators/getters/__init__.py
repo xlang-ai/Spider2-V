@@ -15,7 +15,7 @@ from .chrome import (
     get_active_tab_info
 )
 from .file import get_cloud_file, get_vm_file, get_cache_file
-from .general import get_vm_command_line, get_vm_terminal_output
+from .general import get_vm_script_output, get_vm_command_line, get_vm_terminal_output
 from .gimp import get_gimp_config_file
 from .impress import get_audio_in_slide
 from .info import get_vm_screen_size, get_vm_window_size, get_vm_wallpaper, get_list_directory

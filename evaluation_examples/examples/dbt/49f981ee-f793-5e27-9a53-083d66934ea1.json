@@ -1,0 +1,37 @@
+{
+    "id": "49f981ee-f793-5e27-9a53-083d66934ea1",
+    "snapshot": "dbt",
+    "instruction": "Add dbt test for the three models in jaffle_shop project. 1) Create a YAML file in the models directory, named models/schema.yml. 2) Ensure that customer_id and order_id are unique and not empty in related tables or views. Column status must be value from placed, shipped, completed, return_pending, returned. And customer_id in stg_orders is not null and is a foreign key in the referenced stg_customers. 3) Run dbt test, and confirm that all tests passed.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=12"
+    ],
+    "config": [
+        {
+            "type": "download_and_execute",
+            "parameters": {
+                "url": "https://drive.usercontent.google.com/download?id=1fUfM6MoF6u33YKgHgssgMp-DB8MC6O-o&export=download&authuser=0&confirm=t",
+                "path": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "url": "https://drive.usercontent.google.com/download?id=1-q8fj4WatBL4eHanNVzAaMXHPX7JdyJj&export=download&authuser=0&confirm=t",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["succeed"],
+                "exclude": ["failed"]
+            }
+        }
+    }
+}
