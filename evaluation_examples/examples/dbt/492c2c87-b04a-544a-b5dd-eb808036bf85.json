@@ -1,7 +1,7 @@
 {
     "id": "492c2c87-b04a-544a-b5dd-eb808036bf85",
     "snapshot": "dbt",
-    "instruction": "Split the customers dbt model into two: 1. Move the customers CTE to models/stg_customers.sql. 2. Move the orders CTE to models/stg_orders.sql, materializing both as views. 3. Update models/customers.sql to reference these staged models using ref.",
+    "instruction": "Separate the logic out into separate models: 1. Create a new SQL file, models/stg_customers.sql, with the SQL from the customers CTE in the original query. 2) Create a second new SQL file, models/stg_orders.sql, with the SQL from the orders CTE in the original query, materializing both as views. 3. Edit the SQL in models/customers.sql file to reference these two staged models using ref.",
     "source": [
         "https://docs.getdbt.com/guides/manual-install?step=11"
     ],
