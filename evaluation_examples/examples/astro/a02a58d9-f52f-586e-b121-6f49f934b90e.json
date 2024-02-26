@@ -1,0 +1,72 @@
+{
+    "id": "a02a58d9-f52f-586e-b121-6f49f934b90e",
+    "snapshot": "astro",
+    "instruction": "I want to integrate the provided project `jaffle_shop` into an Airflow DBT task group. Name the target DAG as jaffle_shop_dag, and schedule it to run at 10:00 a.m. every day. Implement it with Astro and Cosmos in the current working directory.",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-dbt"
+    ],
+    "config": [
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "google-chrome",
+                    "--remote-debugging-port=1337"
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "socat",
+                    "tcp-listen:9222,fork",
+                    "tcp:localhost:1337"
+                ]
+            }
+        },
+        {
+            "type": "chrome_open_tabs",
+            "parameters": {
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://www.airbnb.com"
+                ]
+            }
+        },
+        {
+            "type": "download_and_execute",
+            "parameters": {
+                "url": "https://drive.usercontent.google.com/download?id=1bNETue7uiF435fXmzVUVZoXx2bbZ6Ltn&export=download&authuser=0&confirm=t",
+                "path": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "postgresql",
+        "airflow",
+        "astro",
+        "cosmos"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "url": "https://drive.usercontent.google.com/download?id=11Vd-zFBC2PF7aTE1IjKkJCryulp7x6Gs&export=download&authuser=0&confirm=t",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

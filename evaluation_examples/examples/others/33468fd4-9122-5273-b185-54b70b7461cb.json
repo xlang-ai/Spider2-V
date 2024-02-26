@@ -1,0 +1,45 @@
+{
+    "id": "33468fd4-9122-5273-b185-54b70b7461cb",
+    "snapshot": "data_agent",
+    "instruction": "Install docker for me. The password for sudo is 'password' (' not included). By the way, configure it to auto-start on boot and allow me to prevent typing the password each time.",
+    "source": [
+        "https://docs.docker.com/engine/install/ubuntu/",
+        "https://docs.docker.com/engine/install/linux-postinstall/"
+    ],
+    "config": [
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "docker",
+        "os"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "url": "https://drive.usercontent.google.com/download?id=1-n1JS7muwEiKwURC7N0RZVIxG-BV3JDs&export=download&authuser=0&confirm=t",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
