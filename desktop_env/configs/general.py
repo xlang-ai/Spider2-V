@@ -1,4 +1,23 @@
 #coding=utf8
+import logging, time
+
+logger = logging.getLogger("desktopenv.setup")
+
+
+def get_browser(p, url, trial=15):
+    for attempt in range(trial):
+        try:
+            browser = p.chromium.connect_over_cdp(url)
+            break
+        except Exception as e:
+            if attempt < trial - 1:
+                logger.error(f"Attempt {attempt + 1}: Failed to connect Google Chrome, retrying. Error: {e}")
+                time.sleep(1)
+            else:
+                logger.error(f"Failed to connect after multiple attempts: {e}")
+                return None
+    return browser
+
 
 def download_and_execute_setup(controller, url: str, path: str = '/home/user/init.sh'):
     """ Download a script from a remote url and execute it to setup the environment.

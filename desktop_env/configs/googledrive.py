@@ -1,6 +1,7 @@
 #coding=utf8
 import tempfile, requests, logging, time, json
 from typing import List
+from .general import get_browser
 from playwright.sync_api import sync_playwright, TimeoutError
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive, GoogleDriveFile, GoogleDriveFileList
@@ -102,18 +103,7 @@ def googledrive_login_setup(controller, **config):
     remote_debugging_url = f"http://{host}:{port}"
 
     with sync_playwright() as p:
-        browser = None
-        for attempt in range(15):
-            try:
-                browser = p.chromium.connect_over_cdp(remote_debugging_url)
-                break
-            except Exception as e:
-                if attempt < 14:
-                    logger.error(f"Attempt {attempt + 1}: Failed to connect, retrying. Error: {e}")
-                    time.sleep(1)
-                else:
-                    logger.error(f"Failed to connect after multiple attempts: {e}")
-                    raise e
+        browser = get_browser(p, remote_debugging_url)
         if not browser:
             return
 

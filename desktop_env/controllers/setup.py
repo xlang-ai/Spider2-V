@@ -61,7 +61,7 @@ class SetupController:
                 getattr(self, setup_function)(**parameters)
                 logger.info("SETUP: %s(%s)", setup_function, str(parameters))
             else:
-                # customized setup functions
+                # customized setup functions (in desktop_env/configs/__init__.py), not started with underscore _, but still has suffix _setup
                 setup_function: str = "{:}_setup".format(config_type)
                 config_function = getattr(configs, setup_function, None)
                 assert config_function is not None, f'Setup controller cannot find function {setup_function}'
