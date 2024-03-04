@@ -1,30 +1,10 @@
 #coding=utf8
-import logging, time, json, re
+import logging, time, json, re, os, random, requests
+from typing import List, Union
 from playwright.sync_api import sync_playwright, expect, TimeoutError
-from .general import get_browser
+from .general import get_browser, copyfile_from_guest_to_host_setup, get_element_desktop_position, simulate_human_click, expand_toggle_button
 
 logger = logging.getLogger("desktopenv.setup")
-
-
-def expand_toggle_button(button, key, value, trials=3):
-    """ Click the toggle button to obtain the desired `key=value` state.
-    @return:
-        True: the desired state is obtained via clicking the toggle button
-        False: unable to achieve the desired state after maximum trials = 3
-    """
-    count = 0
-    while count < trials:
-        try:
-            # click the toggle button and attribute check are not synchronous, delay exists
-            # assert to_have_attribute has timeout (5s), while get_attribute may fetch out-of-date values
-            expect(button).to_have_attribute(key, value)
-            return True
-        except:
-            button.click()
-            button.page.wait_for_load_state('load')
-        count += 1
-    logger.error(f'[ERROR]: Failed to achieve the desired {key}={value} state for toggle button after {trials} trials!')
-    return False
 
 
 def google_account_login_in(page, email, password):
@@ -43,11 +23,23 @@ def google_account_login_in(page, email, password):
         expect(next_button).to_be_enabled()
         next_button.click()
 
-        page.wait_for_load_state('load', timeout=10000)
+        page.wait_for_load_state('load')
     except TimeoutError:
         logger.info('[WARNING]: timeout when trying to login in Google Account, probably network problem or already logined in!')
     except Exception as e:
         logger.info('[ERROR]: unexpected error when trying to login in Google Account!')
+    return
+
+
+def google_account_login_in_alert(page):
+    try:
+        button = page.locator('button').filter(has_text=re.compile('not now', flags=re.I))
+        expect(button).to_be_enabled(timeout=5000) # use short waiting time, because the alert is not always shown
+        button.click()
+        page.wait_for_load_state('load')
+    except:
+        # logger.info('[INFO]: Some alert is popped up, just skip!')
+        pass
     return
 
 
@@ -56,16 +48,17 @@ def gcp_first_login_popup_webgui(page):
     """
     try:
         popup = page.locator('mat-dialog-container form div[formgroupname="tosAcceptancesFormGroup"]')
-        expect(popup).to_be_visible()
+        expect(popup).to_be_visible(timeout=5000) # use short waiting time, because the popup only appears for the first time
         checkbox = popup.locator('mat-checkbox input[type="checkbox"]')
         expect(checkbox).to_be_visible()
         checkbox.check()
         agree_button = page.locator('mat-dialog-actions button').filter(has_text=re.compile("Agree and continue"))
         expect(agree_button).to_be_enabled()
         agree_button.click()
-        page.wait_for_load_state('load', timeout=10000)
+        page.wait_for_load_state('load')
     except:
-        logger.info('[INFO]: No first login popup is seen, just skip!')
+        # logger.info('[INFO]: No first login popup is seen, just skip!')
+        pass
     return
 
 
@@ -267,7 +260,7 @@ def gcp_create_via_webgui(page, **config):
 
     try:
         quota_button = page.locator('a#p6ntest-quota-submit-button')
-        expect(quota_button).to_be_visible(timeout=3000)
+        expect(quota_button).to_be_visible(timeout=5000)
         logger.error('[ERROR]: Quota button is seen, GCP creation is not permitted due to quota limitation!')
         return
     except Exception as e:
@@ -343,7 +336,7 @@ def gcp_restore_via_webgui(page, **config):
     restore_button = page.locator('#pending-deletion-button')
     expect(restore_button).to_be_enabled()
     restore_button.click()
-    page.wait_for_load_state('networkidle', timeout=10000)
+    page.wait_for_load_state('networkidle')
 
     prj_name, prj_id = config.get('project_name', None), config.get("project_id", None)
     if prj_name is None and prj_id is None:
@@ -530,7 +523,7 @@ def gcp_login_via_webgui(page, **config):
     """
     if 'url' in config:
         page.goto(config['url'])
-        page.wait_for_load_state('load', timeout=10000)
+        page.wait_for_load_state('load')
         return
 
     if 'project_id' not in config:
@@ -545,13 +538,192 @@ def gcp_login_via_webgui(page, **config):
     product = config.get('product', 'bigquery')
     url_template = f'https://console.cloud.google.com/{product}?project={project_id}'
     page.goto(url_template)
-    page.wait_for_load_state('load', timeout=5000)
+    page.wait_for_load_state('load')
+    return
+
+
+def gcp_service_account_via_webgui(page, **config):
+    """ Given a GCP, create a new service account and obtain the .json key file via web GUI. By default, each GCP can have at most 100 service accounts.
+    @args:
+        project_id(str): the project id, if unknown, use gcp_info_via_webgui to get it from project name
+        project_name(str): the project name, easier to remember than project id
+        email(str): google account email to access the service account, default is the current logined in account
+        role(str): the role of the service account, default is 'Owner'
+    @return:
+        x, y: the position of the download button, used to simulate the click action
+    """
+    if 'project_id' not in config:
+        assert 'project_name' in config, "At least provide project name to create a service account and the keyfile."
+        infos = gcp_info_via_webgui(page, **config)
+        if infos is None:
+            logger.error(f'[ERROR]: GCP (project_name={config["project_name"]}) not found, unable to create a service account!')
+            return
+        config['project_id'] = infos['project_id']
+
+    project_id = config['project_id']
+    page.goto(f"https://console.cloud.google.com/iam-admin/serviceaccounts?project={project_id}")
+    page.wait_for_load_state('load')
+
+    create_button = page.locator('button[aria-label="Create service account" i]')
+    expect(create_button).to_be_enabled()
+    create_button.click()
+
+    # 1. first, create serivice account id (use default generator)
+    id_input = page.locator('input[formcontrolname="accountId"][aria-required="true"]')
+    expect(id_input).to_be_editable()
+    auto_button = page.locator('button[cfctooltip="Generate ID" i]')
+    expect(auto_button).to_be_enabled()
+    auto_button.click()
+    expect(id_input).to_have_attribute('aria-invalid', 'false')
+    account = id_input.input_value() + f'@{project_id}.iam.gserviceaccount.com'
+    continue_button = page.locator('button').filter(has_text=re.compile(r'create and continue', flags=re.I))
+    expect(continue_button).to_be_enabled()
+    continue_button.click()
+
+    # 2. second, assign the role to the service account
+    selector = page.locator('cfc-select-dual-column')
+    expect(selector).to_be_visible()
+    selector.click()
+    filter_input = page.locator('cfc-select-filter input[placeholder="Type to filter"][role="combobox"][aria-expanded="true"]')
+    expect(filter_input).to_be_editable()
+    role = config.get("role", "Owner")
+    filter_input.fill(role)
+    first_option = page.locator('div.cfc-select-body > div[role="listbox"] > div.cfc-select-filter-view > mat-option').first
+    expect(first_option).to_be_visible()
+    first_option.click()
+    continue_button = page.locator('button.cfc-stepper-step-continue-button').filter(has_text=re.compile(r'continue', flags=re.I))
+    expect(continue_button).to_be_enabled()
+    continue_button.click()
+
+    # 3. third, grant users access to this service account    
+    input_box = page.locator('cfc-iam-member-bar[formcontrolname="users"] input')
+    expect(input_box).to_be_editable()
+    input_box.fill(config['email'])
+    
+    input_box = page.locator('cfc-iam-member-bar[formcontrolname="admins"] input')
+    expect(input_box).to_be_editable()
+    input_box.fill(config['email'])
+
+    # 4. third, create the service account
+    done_button = page.locator('button[type="submit" i]').filter(has_text=re.compile(r'done', flags=re.I))
+    expect(done_button).to_be_enabled()
+    done_button.click()
+
+    def search_account_row(page, account):
+        table = page.locator('table[aria-busy="false"]')
+        expect(table).to_be_visible()
+        for row in table.locator('tbody tr').all():
+            current_email = row.evaluate('el => el.children[1].innerText').strip()
+            if current_email == account:
+                return row
+        return None
+    
+    row = search_account_row(page, account)
+    if row is None:
+        logger.error(f'[ERROR]: The service account {account} is not found, no keyfile is downloaded!')
+        return
+
+    action_button = row.locator('button[aria-label="Service account actions menu" i]')
+    expect(action_button).to_be_enabled()
+    action_button.click()
+    key_button = page.locator('cfc-menu-section cfc-menu-item[label="Manage keys" i] a')
+    expect(key_button).to_be_visible()
+    key_button.click()
+
+    add_button = page.locator('cfc-service-account-key-list > div > button').filter(has_text=re.compile('add key', flags=re.I))
+    expect(add_button).to_be_visible()
+    add_button.click()
+    create_key = page.locator('cfc-menu-section cfc-menu-item[label="Create new key" i] a')
+    expect(create_key).to_be_visible()
+    create_key.click()
+    create_button = page.locator('mat-dialog-container cfc-progress-button button').filter(has_text=re.compile('create', flags=re.I))
+    expect(create_button).to_be_visible()
+
+    position = get_element_desktop_position(page, create_button)
+    x, y = (position[0][0] + position[1][0]) / 2, (position[0][1] + position[1][1]) / 2
+    return {'x': x, 'y': y, 'account': account}
+
+
+def google_cloud_service_account_setup(controller, **config):
+    """ Create a new service account and obtain the .json key file via web GUI.
+    @args: for config
+        host(str): the host ip address, default to the ip address of the running virtual machine
+        port(str): debugging port of web browser, default to 9222
+        settings_file(str): .json settings file of the Google Account, containing `email` and `password` fields
+        projects([List[Dict[str, Any]]]): project dict to create service accounts, each dict contains 'project_name' and 'role' fields (default to 'Owner')
+    """
+    host = config.get('host', controller.vm_ip)
+    port = config.get('port', 9222)
+    remote_debugging_url = f"http://{host}:{port}"
+    settings_file = config.get('settings_file', "evaluation_examples/settings/google/settings.json")
+    settings = json.load(open(settings_file))
+    email, password = settings['email'], settings['password']
+    
+    def sync_playwright_browser(project):
+        with sync_playwright() as p:
+            browser = get_browser(p, remote_debugging_url)
+            if not browser:
+                logger.error(f'[ERROR]: Nothing done. Failed to obtain the browser instance from {remote_debugging_url} .')
+                return
+            context = browser.contexts[0]
+            page = context.new_page()
+            page.set_default_timeout(timeout=10000) # defaults to 10s
+            page.set_default_navigation_timeout(timeout=100000) # affects the page.goto() method, 100s
+
+            if idx == 0:
+                page.goto("https://console.cloud.google.com/cloud-resource-manager")
+                google_account_login_in(page, email, password) # needs to login in Google Account for the first time
+                google_account_login_in_alert(page)
+                gcp_first_login_popup_webgui(page) # handle the first login popup if it appears, o.w. just skip
+
+            # 1. create project if the target project name not exists
+            prj_id = gcp_create_via_webgui(page, **project)
+
+            # 2. create service account and obtain keyfile
+            project['project_id'], project['email'], project['role'] = prj_id, email, project.get('role', 'Owner')
+            output = gcp_service_account_via_webgui(page, **project)
+            project['service_account'] = output['account']
+        return output, project
+
+    for idx, project in enumerate(config.get('projects', [])):
+        output, project = sync_playwright_browser(project)
+        # we found that in the playwright environment, the click action to download the keyfile will fail
+        # leave some time to exit the playwright environment and then simulate the human click action
+        time.sleep(3)
+        simulate_human_click(controller, (output['x'], output['y']))
+        time.sleep(5) # leave some time for downloading
+        vm_path = resolve_keyfile_path(controller, output['account'])
+        if not vm_path: continue
+
+        local_path = os.path.join(os.path.dirname(settings_file), f'{project["project_id"]}.json')
+        copyfile_from_guest_to_host_setup(controller, vm_path, local_path)
+        project['keyfile_path'] = local_path
+
+    return config.get('projects', [])
+
+
+def resolve_keyfile_path(controller, account: str):
+    """ Given the service account email, return the path of the keyfile in the virtual machine. By default, the keyfile is saved in the ~/Downloads directory.
+    """
+    command_list = ["python3", "-c", f"import os, json; keydir = '/home/user/Downloads'; paths = [os.path.join(keydir, f) for f in os.listdir(keydir) if json.load(open(os.path.join(keydir, f)))['client_email'] == '{account}']; print(paths[0])"]
+    payload = json.dumps({"command": command_list, "shell": False})
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    try:
+        http_server = f'http://{controller.vm_ip}:5000'
+        response = requests.post(http_server + "/execute", headers=headers, data=payload)
+        if response.status_code == 200:
+            return response.json()['output'].strip()
+    except: pass
+    logger.error(f"[ERROR]: Failed to obtain the keyfile path for service account={account}!")
     return
 
 
 def google_cloud_project_webgui_setup(controller, **config):
     """ By default, all Google Cloud Projects (GCPs) belong to the organization 'No organization'. The user needs to provide the Google Account in settings_file (evaluation_examples/settings/google/settings.json).
-    @args:
+    @args: for config
         host(str): the host ip address, default to the ip address of the running virtual machine
         port(str): debugging port of web browser, default to 9222
         url(str): goto the url to manage GCPs, usually starts with Google Account login in page,
@@ -578,22 +750,25 @@ def google_cloud_project_webgui_setup(controller, **config):
 
         context = browser.contexts[0]
         page = context.new_page()  # Create a new page (tab) within the existing browser context
-        page.goto(config.get('url', "https://console.cloud.google.com/cloud-resource-manager"))
+        page.set_default_timeout(timeout=10000) # defaults to 10s
+        page.set_default_navigation_timeout(timeout=100000) # affects the page.goto() method, 100s
 
+        page.goto(config.get('url', "https://console.cloud.google.com/cloud-resource-manager"))
         settings_file = config.pop('settings_file', "evaluation_examples/settings/google/settings.json")
         settings = json.load(open(settings_file))
         email, password = settings['email'], settings['password']
         google_account_login_in(page, email, password) # needs to login in Google Account for the first time
+        google_account_login_in_alert(page)
         gcp_first_login_popup_webgui(page) # handle the first login popup if it appears, o.w. just skip
 
         registered_functions = {
+            'info': gcp_info_via_webgui,
             'create': gcp_create_via_webgui,
             'delete': gcp_delete_via_webgui,
             'rename': gcp_rename_via_webgui,
             'restore': gcp_restore_via_webgui,
-            'login': gcp_login_via_webgui,
             'api': gcp_api_via_webgui,
-            'info': gcp_info_via_webgui,
+            'login': gcp_login_via_webgui,
         }
         consistent, name2id_mappings = config.get('consistent', True), {}
         for action in config['actions']:
@@ -608,7 +783,6 @@ def google_cloud_project_webgui_setup(controller, **config):
                     name2id_mappings[action['parameters']['new_name']] = output
                 elif 'project_name' in action['parameters']:
                     name2id_mappings[action['parameters']['project_name']] = output
-
             time.sleep(3)
 
         return browser, context
@@ -622,141 +796,41 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Google Cloud Project Setup")
     parser.add_argument('-p', '--path', type=str, required=True, help='Path to the virtual machine .vmx file')
     parser.add_argument('-s', '--snapshot', type=str, required=True, help='Name of the snapshot to restore')
+    parser.add_argument('-c', '--config', type=str, help='Path to the configuration file to init GCPs')
     args = parser.parse_args(sys.argv[1:])
     stdout_handler = logging.StreamHandler(sys.stdout)
     logger.addHandler(stdout_handler)
     logger.setLevel(logging.INFO)
 
-    # test each action in the list
-    config = {
-        "consistent": True,
-        "settings_file": "evaluation_examples/settings/google/settings.json",
-        "actions": [
-            # {
-            #     "type": "info",
-            #     "parameters": {
-            #         "project_name": "My First Project"
-            #     }
-            # }
-            # {
-            #     "type": "create",
-            #     "parameters": {
-            #         "project_name": "My Fourth Project"
-            #     }
-            # },
-            # {
-            #     "type": "create",
-            #     "parameters": {
-            #         "project_name": "My Fourth Project",
-            #     }
-            # },
-            # {
-            #     "type": "create",
-            #     "parameters": {
-            #         "project_name": "My Fifth Project",
-            #         "project_id": "my-fifth-project-123456"
-            #     }
-            # },
-            # {
-            #     "type": "api",
-            #     "parameters": {
-            #         "enable": True,
-            #         "product": "gmail",
-            #         "project_name": "My Second Project"
-            #     }
-            # },
-            # {
-            #     "type": "api",
-            #     "parameters": {
-            #         "enable": True,
-            #         "product": "bigquery",
-            #         "project_id": "my-second-project-123456"
-            #     }
-            # },
-            # {
-            #     "type": "api",
-            #     "parameters": {
-            #         "enable": False,
-            #         "product": "gmail",
-            #         "project_name": "My Second Project",
-            #         "project_id": "my-second-project-123456"
-            #     }
-            # },
-            # {
-            #     "type": "restore",
-            #     "parameters": {
-            #         "project_name": "My Project 31662"
-            #     }
-            # },
-            # {
-            #     "type": "restore",
-            #     "parameters": {
-            #     }
-            # },
-            # {
-            #     "type": "rename",
-            #     "parameters": {
-            #         "project_name": "My Fourth Project",
-            #         "new_name": "My 4th Project"
-            #     }
-            # },
-            # {
-            #     "type": "rename",
-            #     "parameters": {
-            #         "project_name": "My Fifth Project",
-            #         "new_name": "My 5th Project"
-            #     }
-            # },
-            {
-                "type": "api",
-                "parameters": {
-                    "project_name": "My 1st Project",
-                    "product": "bigquery",
-                    "enable": True
-                }
-            },
-            {
-                "type": "api",
-                "parameters": {
-                    "project_name": "My 1st Project",
-                    "product": "bigquery",
-                    "enable": True
-                }
-            },
-            {
-                "type": "api",
-                "parameters": {
-                    "project_name": "My 1st Project",
-                    "product": "bigquery",
-                    "enable": False
-                }
-            },
-            {
-                "type": "api",
-                "parameters": {
-                    "project_name": "My 1st Project",
-                    "product": "bigquery",
-                    "enable": False
-                }
-            },
-            {
-                "type": "login",
-                "parameters": {
-                    "project_name": "My 1st Project",
-                    "product": "bigquery"
-                }
-            }
-        ]
-    }
-
     p = subprocess.Popen(["vmrun", "-T", "ws", "revertToSnapshot", args.path, args.snapshot])
     p.wait()
     p = subprocess.Popen(["vmrun", "-T", "ws", "start", args.path])
     p.wait()
-
     vm_ip = subprocess.run(["vmrun", "-T", "ws", "getGuestIPAddress", args.path, "-wait"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8").stdout.strip()
     print('VM IP: %s' % vm_ip)
+
     setup_controller = SetupController(vm_ip=vm_ip, cache_dir='tmp')
     setup_controller._launch_setup(command=["google-chrome", "--remote-debugging-port=1337"])
     setup_controller._launch_setup(command=["socat", "tcp-listen:9222,fork", "tcp:localhost:1337"])
-    google_cloud_project_webgui_setup(setup_controller, **config)
+    settings_file = "evaluation_examples/settings/google/settings.json"
+
+    # test each action by modifying the config, this will overwrite the args.config filepath
+    # config = {
+    #     "consistent": True,
+    #     "settings_file": settings_file,
+    #     "actions": [
+    #         {
+    #             "type": "api",
+    #             "parameters": {
+    #                 "project_name": "My 1st Project",
+    #                 "product": "bigquery"
+    #             }
+    #         }
+    #     ]
+    # }
+    # google_cloud_project_webgui_setup(setup_controller, **config)
+
+    projects = json.load(open(args.config, 'r'))
+    config = {"settings_file": settings_file, "projects": projects}
+    projects = google_cloud_service_account_setup(setup_controller, **config)
+    json.dump(projects, open(args.config, 'w'), indent=4)
