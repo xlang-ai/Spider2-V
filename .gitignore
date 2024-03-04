@@ -176,3 +176,6 @@ cache
 
 test.xlsx
 test2.xlsx
+
+evaluation_examples/settings/*/*.json
+*.json

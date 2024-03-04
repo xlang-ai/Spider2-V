@@ -1,0 +1,18 @@
+[
+    {
+        "project_name": "project-one",
+        "role": "Owner",
+        "project_id": "xxxx-xxxx-xxxx",
+        "email": "xxxx@gmail.com",
+        "service_account": "service-account@{project_id}.iam.gserviceaccount.com",
+        "keyfile_path": "evaluation_examples/settings/google/{project_id}.json"
+    },
+    {
+        "project_name": "project-two",
+        "role": "Owner",
+        "project_id": "xxxx-xxxx-xxxx",
+        "email": "xxxx@gmail.com",
+        "service_account": "service-account@{project_id}.iam.gserviceaccount.com",
+        "keyfile_path": "evaluation_examples/settings/google/{project_id}.json"
+    }
+]
