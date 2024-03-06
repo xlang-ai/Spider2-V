@@ -450,8 +450,8 @@ def gcp_api_via_webgui(page, **config):
     @args:
         project_id(str): the project id, if unknown, use gcp_info_via_webgui to get it from project name
         project_name(str): the project name, easier to remember than project id
-        product(str): the product/API to manipulate (insert into the url template below), default is 'bigquery',
-            f'https://console.cloud.google.com/apis/library/{product}.googleapis.com?project={project_id}'
+        apis(List[str]): the products/APIs to manipulate (insert into the url template below), default is ['serviceusage', 'servicemanagement', 'cloudresourcemanager', 'bigquery', 'cloudapis'],
+            f'https://console.cloud.google.com/apis/library/{api_name}.googleapis.com?project={project_id}'
         enable(bool): enable the API or disable the API, default is True, enable the API
     """
     if 'project_id' not in config:
@@ -463,53 +463,59 @@ def gcp_api_via_webgui(page, **config):
         config['project_id'] = infos['project_id']
 
     project_id = config['project_id']
-    product = config.get('product', 'bigquery')
-    url_template = f'https://console.cloud.google.com/apis/library/{product}.googleapis.com?project={project_id}'
-    page.goto(url_template)
-    page.wait_for_load_state('load')
-    expect(page.locator('button[role="link"]')).to_be_visible()
-
+    apis = config.get('apis', ['serviceusage', 'servicemanagement', 'cloudresourcemanager', 'bigquery', 'cloudapis'])
     enable = config.get('enable', True) # two choices: enable or disable
-    if enable:
-        button = page.locator('button[aria-label="enable this API" i]')
-        if button.count() == 0: # the API is already enabled
-            assert page.locator('button[aria-label="manage this API" i]').count() > 0
-            logger.info(f'Google API Service {product} has been enabled for GCP: project_id={project_id}')
-            return project_id
 
-        button.last.click()
-        button = page.locator('button[aria-label="Disable API" i]')
-        expect(button).to_be_visible(timeout=30000) # waiting for the web response, may take longer time
-        logger.info(f'Google API Service {product} is enabled for GCP: project_id={project_id}')
-    else: # disable the API
-        button = page.locator('button[aria-label="manage this API" i]')
-        if button.count() == 0: # the API is not enabled yet, do nothing
-            assert page.locator('button[aria-label="enable this API" i]').count() > 0
-            logger.info(f'Google API Service {product} is not enabled for GCP: project_id={project_id}')
-            return project_id
+    def confirm_disable_popups(page):
+        try:
+            button = page.locator('mat-dialog-container[role="alertdialog"] button').filter(has_text=re.compile(r'disable', flags=re.I))
+            expect(button).to_be_visible(timeout=5000)
+            button.click()
+        except: pass
+        try:
+            button = page.locator('mat-dialog-container[role="alertdialog"] button').filter(has_text=re.compile(r'confirm', flags=re.I))
+            expect(button).to_be_visible(timeout=5000)
+            button.click()
+        except: pass
+        return
 
-        button.last.click()
-        button = page.locator('button[aria-label="Disable API" i]')
-        expect(button).to_be_visible()
-        button.click()
+    def enable_or_disable_one_api(page, product, project_id):
+        url_template = f'https://console.cloud.google.com/apis/library/{product}.googleapis.com?project={project_id}'
+        page.goto(url_template)
+        page.wait_for_load_state('load')
+        enable_button = page.locator('button[aria-label="enable this API" i]')
+        manage_button = page.locator('button[aria-label="manage this API" i]')
+        expect(enable_button.last.or_(manage_button.last)).to_be_visible()
 
-        def confirm_popups(page):
-            try:
-                button = page.locator('mat-dialog-container[role="alertdialog"] button').filter(has_text=re.compile(r'disable', flags=re.I))
-                expect(button).to_be_visible()
-                button.click()
-            except: pass
-            try:
-                button = page.locator('mat-dialog-container[role="alertdialog"] button').filter(has_text=re.compile(r'confirm', flags=re.I))
-                expect(button).to_be_visible()
-                button.click()
-            except: pass
-            return
+        if enable:
+            if enable_button.count() == 0: # the API is already enabled
+                assert manage_button.count() > 0
+                logger.info(f'Google API Service {product} has been enabled for GCP: project_id={project_id}')
+                return project_id
 
-        confirm_popups(page)
-        button = page.locator('button[aria-label="enable this API" i]').last
-        expect(button).to_be_visible(timeout=30000)
-        logger.info(f'Google API Service {product} is disabled for GCP: project_id={project_id}')
+            enable_button.last.click()
+            disable_button = page.locator('button[aria-label="Disable API" i]')
+            expect(disable_button).to_be_visible(timeout=300000) # waiting for the web response, may take longer time
+            logger.info(f'Google API Service {product} is enabled for GCP: project_id={project_id}')
+        else: # disable the API
+            if manage_button.count() == 0: # the API is not enabled yet, do nothing
+                assert enable_button.count() > 0
+                logger.info(f'Google API Service {product} is not enabled for GCP: project_id={project_id}')
+                return project_id
+
+            manage_button.last.click()
+            disable_button = page.locator('button[aria-label="Disable API" i]')
+            expect(disable_button).to_be_visible()
+            disable_button.click()
+            confirm_disable_popups(page)
+            enable_button = page.locator('button[aria-label="enable this API" i]').last
+            expect(enable_button).to_be_visible(timeout=300000)
+            logger.info(f'Google API Service {product} is disabled for GCP: project_id={project_id}')
+        return
+
+    for product in apis:
+        enable_or_disable_one_api(page, product, project_id)
+
     return project_id
 
 
@@ -570,7 +576,7 @@ def gcp_service_account_via_webgui(page, **config):
 
     # 1. first, create serivice account id (use default generator)
     id_input = page.locator('input[formcontrolname="accountId"][aria-required="true"]')
-    expect(id_input).to_be_editable()
+    expect(id_input).to_be_editable(timeout=20000)
     auto_button = page.locator('button[cfctooltip="Generate ID" i]')
     expect(auto_button).to_be_enabled()
     auto_button.click()
@@ -582,9 +588,9 @@ def gcp_service_account_via_webgui(page, **config):
 
     # 2. second, assign the role to the service account
     selector = page.locator('cfc-select-dual-column')
-    expect(selector).to_be_visible()
+    expect(selector).to_be_visible(timeout=20000)
     selector.click()
-    filter_input = page.locator('cfc-select-filter input[placeholder="Type to filter"][role="combobox"][aria-expanded="true"]')
+    filter_input = page.locator('cfc-select-filter input[role="combobox"][aria-expanded="true"]')
     expect(filter_input).to_be_editable()
     role = config.get("role", "Owner")
     filter_input.fill(role)
@@ -597,7 +603,7 @@ def gcp_service_account_via_webgui(page, **config):
 
     # 3. third, grant users access to this service account    
     input_box = page.locator('cfc-iam-member-bar[formcontrolname="users"] input')
-    expect(input_box).to_be_editable()
+    expect(input_box).to_be_editable(timeout=20000)
     input_box.fill(config['email'])
     
     input_box = page.locator('cfc-iam-member-bar[formcontrolname="admins"] input')
@@ -678,9 +684,13 @@ def google_cloud_service_account_setup(controller, **config):
 
             # 1. create project if the target project name not exists
             prj_id = gcp_create_via_webgui(page, **project)
+            project['project_id'] = prj_id
 
-            # 2. create service account and obtain keyfile
-            project['project_id'], project['email'], project['role'] = prj_id, email, project.get('role', 'Owner')
+            # 2. enable some APIs by default
+            gcp_api_via_webgui(page, **project)
+
+            # 3. create service account and obtain keyfile
+            project['email'], project['role'] = email, project.get('role', 'Owner')
             output = gcp_service_account_via_webgui(page, **project)
             project['service_account'] = output['account']
         return output, project
@@ -823,7 +833,8 @@ if __name__ == '__main__':
     #             "type": "api",
     #             "parameters": {
     #                 "project_name": "My 1st Project",
-    #                 "product": "bigquery"
+    #                 "apis": ["bigquery"],
+    #                 "enable": True
     #             }
     #         }
     #     ]

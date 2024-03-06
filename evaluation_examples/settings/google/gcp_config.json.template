@@ -1,15 +1,29 @@
 [
     {
-        "project_name": "project-one",
-        "role": "Owner",
+        "project_name": "project-one", // set project name
+        "role": "Owner", // set the privilege for service account
+        "apis": [
+            "serviceusage",
+            "servicemanagement",
+            "cloudresourcemanager",
+            "bigquery",
+            "cloudapis"
+        ], // set the default enabled APIs for this project
         "project_id": "xxxx-xxxx-xxxx",
         "email": "xxxx@gmail.com",
         "service_account": "service-account@{project_id}.iam.gserviceaccount.com",
         "keyfile_path": "evaluation_examples/settings/google/{project_id}.json"
     },
     {
-        "project_name": "project-two",
-        "role": "Owner",
+        "project_name": "project-two", // set project name
+        "role": "Owner", // set the privilege for service account
+        "apis": [
+            "serviceusage",
+            "servicemanagement",
+            "cloudresourcemanager",
+            "bigquery",
+            "cloudapis"
+        ], // set the default enabled APIs for this project
         "project_id": "xxxx-xxxx-xxxx",
         "email": "xxxx@gmail.com",
         "service_account": "service-account@{project_id}.iam.gserviceaccount.com",
