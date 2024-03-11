@@ -2,7 +2,14 @@
 import logging, time, json, re, os, random, requests
 from typing import List, Union
 from playwright.sync_api import sync_playwright, expect, TimeoutError
-from .general import get_browser, copyfile_from_guest_to_host_setup, get_element_desktop_position, simulate_human_click, expand_toggle_button
+from .general import (
+    get_browser,
+    copyfile_from_guest_to_host_setup,
+    copyfile_from_host_to_guest_setup,
+    get_element_desktop_position,
+    simulate_human_click,
+    expand_toggle_button
+)
 
 logger = logging.getLogger("desktopenv.setup")
 
@@ -59,6 +66,33 @@ def gcp_first_login_popup_webgui(page):
     except:
         # logger.info('[INFO]: No first login popup is seen, just skip!')
         pass
+    return
+
+
+def gcp_upload_keyfile_setup(controller, **config):
+    """ Upload the GCP keyfile to the guest machine. The keyfile is used to authenticate the GCP account. The keyfile is usually a json file and can be downloaded from the GCP console.
+    @args:
+        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/google/gcp_config.json'
+        project_name(str): the GCP name to search in the config file, if not provided, use project_index to get the project
+        project_index(int): the index of the project in the config file, default is 0
+        dest(str): the path to save the keyfile on the guest machine, default is '/home/user/gcp_keyfile.json'
+    """
+    config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    gcp_config = json.load(open(config_file, 'r'))
+    if 'project_name' in config:
+        prj_name = config['project_name']
+        for proj in gcp_config:
+            if prj_name == proj['project_name']:
+                gcp_config = proj
+                break
+        else:
+            raise ValueError(f'[ERROR]: The specified project name {prj_name} is not found in the GCP config file!')
+    else:
+        assert 'project_index' in config, "Must specify either project_name or project_index in config!"
+        gcp_config = gcp_config[config['project_index']]
+    keyfile = gcp_config['keyfile_path']
+    dest = config.get('dest', '/home/user/gcp_keyfile.json')
+    copyfile_from_host_to_guest_setup(controller, keyfile, dest)
     return
 
 
@@ -650,7 +684,7 @@ def gcp_service_account_via_webgui(page, **config):
     return {'x': x, 'y': y, 'account': account}
 
 
-def google_cloud_service_account_setup(controller, **config):
+def gcp_config_webgui_setup(controller, **config):
     """ Create a new service account and obtain the .json key file via web GUI.
     @args: for config
         host(str): the host ip address, default to the ip address of the running virtual machine
@@ -731,7 +765,7 @@ def resolve_keyfile_path(controller, account: str):
     return
 
 
-def google_cloud_project_webgui_setup(controller, **config):
+def gcp_webgui_setup(controller, **config):
     """ By default, all Google Cloud Projects (GCPs) belong to the organization 'No organization'. The user needs to provide the Google Account in settings_file (evaluation_examples/settings/google/settings.json).
     @args: for config
         host(str): the host ip address, default to the ip address of the running virtual machine
@@ -839,9 +873,9 @@ if __name__ == '__main__':
     #         }
     #     ]
     # }
-    # google_cloud_project_webgui_setup(setup_controller, **config)
+    # gcp_webgui_setup(setup_controller, **config)
 
     projects = json.load(open(args.config, 'r'))
     config = {"settings_file": settings_file, "projects": projects}
-    projects = google_cloud_service_account_setup(setup_controller, **config)
+    projects = gcp_config_webgui_setup(setup_controller, **config)
     json.dump(projects, open(args.config, 'w'), indent=4)

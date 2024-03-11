@@ -1,5 +1,19 @@
 #coding=utf8
-from .general import download_and_execute_setup
+from .general import (
+    download_and_execute_setup,
+    google_chrome_browser_setup
+)
+
+from .bigquery import (
+    bigquery_init_setup,
+    bigquery_login_setup
+)
+
+from .google_cloud import (
+    gcp_upload_keyfile_setup,
+    gcp_webgui_setup,
+    gcp_config_webgui_setup
+)
 
 from .googledrive import (
     googledrive_init_setup,

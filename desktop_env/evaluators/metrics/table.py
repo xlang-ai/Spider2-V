@@ -418,6 +418,9 @@ def compare_csv(result: str, expected: str, **options) -> float:
     if options.get("ignore_case", False):
         result_lines = map(str.lower, result_lines)
         expected_lines = map(str.lower, expected_lines)
+    if options.get("ignore_order", False):
+        result_lines = sorted(result_lines)
+        expected_lines = sorted(expected_lines)
 
     metric: bool = list(result_lines) == list(expected_lines)
     return float(metric)

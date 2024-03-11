@@ -1,29 +1,31 @@
 [
     {
-        "project_name": "project-one", // set project name
-        "role": "Owner", // set the privilege for service account
+        "project_name": "bigquery-project", // DO NOT MODIFY
+        "role": "Owner", // DO NOT MODIFY
         "apis": [
             "serviceusage",
             "servicemanagement",
             "cloudresourcemanager",
             "bigquery",
             "cloudapis"
-        ], // set the default enabled APIs for this project
+        ], // DO NOT MODIFY
+        // the following 4 fields should be replaced with concrete values
         "project_id": "xxxx-xxxx-xxxx",
         "email": "xxxx@gmail.com",
         "service_account": "service-account@{project_id}.iam.gserviceaccount.com",
         "keyfile_path": "evaluation_examples/settings/google/{project_id}.json"
     },
     {
-        "project_name": "project-two", // set project name
-        "role": "Owner", // set the privilege for service account
+        "project_name": "googleads-project", // DO NOT MODIFY
+        "role": "Owner",  // DO NOT MODIFY
         "apis": [
             "serviceusage",
             "servicemanagement",
             "cloudresourcemanager",
             "bigquery",
             "cloudapis"
-        ], // set the default enabled APIs for this project
+        ],  // DO NOT MODIFY
+        // the following 4 fields should be replaced with concrete values
         "project_id": "xxxx-xxxx-xxxx",
         "email": "xxxx@gmail.com",
         "service_account": "service-account@{project_id}.iam.gserviceaccount.com",

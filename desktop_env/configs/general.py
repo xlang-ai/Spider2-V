@@ -1,7 +1,8 @@
 #coding=utf8
-import os, logging, time, requests, json, random
+import os, logging, time, requests, json, random, uuid
 from typing import List, Union, Tuple
 from playwright.sync_api import expect
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 logger = logging.getLogger("desktopenv.setup")
 
@@ -19,6 +20,14 @@ def get_browser(p, url, trial=15):
                 logger.error(f"Failed to connect after multiple attempts: {e}")
                 return None
     return browser
+
+
+def google_chrome_browser_setup(controller, **config):
+    debugging_port = config.get('debugging_port', 1337)
+    listening_port = config.get('listening_port', 9222)
+    controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"])
+    controller._launch_setup(command=["socat", f"tcp-listen:{listening_port},fork", f"tcp:localhost:{debugging_port}"])
+    return
 
 
 def simulate_human_click(controller, x_y: Tuple[float, float]):
@@ -90,6 +99,37 @@ def get_element_desktop_position(page, element):
     return [(x1, y1), (x2, y2)]
 
 
+def download_file_to_local(controller, url, path='output.bin', use_cache=True):
+    cache_path: str = os.path.join(controller.cache_dir, "{:}_{:}".format(
+        uuid.uuid5(uuid.NAMESPACE_URL, url),
+        os.path.basename(path)))
+
+    if use_cache and os.path.exists(cache_path): return cache_path
+
+    max_retries = 3
+    downloaded = False
+    e = None
+    for i in range(max_retries):
+        try:
+            response = requests.get(url, stream=True)
+            response.raise_for_status()
+
+            with open(cache_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+            # logger.info("File downloaded successfully")
+            downloaded = True
+            break
+
+        except requests.RequestException as e:
+            pass
+            # logger.error(f"Failed to download {url} caused by {e}. Retrying... ({max_retries - i - 1} attempts left)")
+    if not downloaded:
+        raise requests.RequestException(f"Failed to download {url} after {max_retries} trials. Error: {e}")
+    return cache_path
+
+
 def download_and_execute_setup(controller, url: str, path: str = '/home/user/init.sh', options: List[str] = []):
     """ Download a script from a remote url and execute it to setup the environment.
     @args:
@@ -117,7 +157,7 @@ def copyfile_from_guest_to_host_setup(controller, src: str, dest: str):
     http_server = f"http://{controller.vm_ip}:5000"
     response = requests.post(http_server + "/file", data={"file_path": src})
     if response.status_code != 200:
-        logger.error(f"[ERROR]: Failed to copy VM file. Status code: {response.status_code}")
+        logger.error(f"[ERROR]: Failed to copy file from VM. Status code: {response.status_code}")
         return
 
     file = response.content
@@ -126,4 +166,30 @@ def copyfile_from_guest_to_host_setup(controller, src: str, dest: str):
         os.makedirs(parent_dir, exist_ok=True)
     with open(dest, "wb") as of:
         of.write(file)
+    return
+
+
+def copyfile_from_host_to_guest_setup(controller, src: str, dest: str):
+    """ Transfer a file from VM to host.
+    @args:
+        controller(desktop_env.controllers.SetupController): the controller object
+        src(str): local file path
+        dest(str): VM file path
+    """
+    http_server = f"http://{controller.vm_ip}:5000"
+
+    form = MultipartEncoder({
+        "file_path": dest,
+        "file_data": (os.path.basename(dest), open(src, "rb"))
+    })
+    headers = {"Content-Type": form.content_type}
+
+    try:
+        response = requests.post(http_server + "/setup/upload", headers=headers, data=form)
+        if response.status_code == 200:
+            logger.info(f"Command executed successfully: {response.text}", )
+        else:
+            logger.error(f"Failed to upload file {src} to {dest}. Status code: {response.text}")
+    except requests.exceptions.RequestException as e:
+        logger.error("An error occurred while trying to send the request: %s", e)
     return
