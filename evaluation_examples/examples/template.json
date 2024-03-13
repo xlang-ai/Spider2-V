@@ -11,10 +11,12 @@
         "app2"
     ],
     "tags": [
-        "cli+gui",
-        "abstract",
-        "account"
+        "cli+gui", // cli or cli+gui
+        "abstract", // verbose or abstract
+        "account", // optional
+        "multimodal" // optional
     ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "",
