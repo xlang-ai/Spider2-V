@@ -4,6 +4,7 @@ import os
 import platform
 import sqlite3
 import time
+from urllib.parse import unquote
 from typing import Dict, Any, List
 from urllib.parse import urlparse, parse_qs
 
@@ -11,7 +12,7 @@ import lxml.etree
 import requests
 from lxml.cssselect import CSSSelector
 from lxml.etree import _Element
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive, GoogleDriveFileList, GoogleDriveFile
 
@@ -33,6 +34,83 @@ WARNING:
 1. Functions from this script assume that no account is registered on Chrome, otherwise the default file path needs to be changed.
 2. The functions are not tested on Windows and Mac, but they should work.
 """
+
+
+def get_info_from_website(env, config: Dict[Any, Any]) -> Any:
+    """ Get information from a website. Especially useful when the information may be updated through time.
+    Args:
+        env (Any): The environment object.
+        config (Dict[Any, Any]): The configuration dictionary.
+            - url (str): The URL of the website to visit
+            - infos (List[Dict[str, str]]): The list of information to be extracted from the website. Each dictionary contains:
+                - action (str): chosen from 'inner_text', 'attribute', 'click_and_inner_text', 'click_and_attribute', etc., concretely,
+                    - inner_text: extract the inner text of the element specified by the selector
+                    - attribute: extract the attribute of the element specified by the selector
+                    - click_and_inner_text: click elements following the selector and then extract the inner text of the last element
+                    - click_and_attribute: click elements following the selector and then extract the attribute of the last element
+                - selector (Union[str, List[str]]): The CSS selector(s) of the element(s) to be extracted.
+                - attribute (str): optional for 'attribute' and 'click_and_attribute', the attribute to be extracted.
+            - backups (Any): The backup information to be returned if the extraction fails.
+    """
+    try:
+        host = env.vm_ip
+        port = 9222  # fixme: this port is hard-coded, need to be changed from config file
+        remote_debugging_url = f"http://{host}:{port}"
+        with sync_playwright() as p:
+            # connect to remote Chrome instance
+            try:
+                browser = p.chromium.connect_over_cdp(remote_debugging_url)
+            except Exception as e:
+                # If the connection fails (e.g., the agent close the browser instance), start a new browser instance
+                app = 'chromium' if 'arm' in platform.machine() else 'google-chrome'
+                payload = json.dumps({"command": [
+                    app,
+                    "--remote-debugging-port=1337"
+                ], "shell": False})
+                headers = {"Content-Type": "application/json"}
+                requests.post("http://" + host + ":5000/setup" + "/launch", headers=headers, data=payload)
+                time.sleep(5)
+                browser = p.chromium.connect_over_cdp(remote_debugging_url)
+
+            page = browser.contexts[0].new_page()
+            page.goto(config["url"])
+            page.wait_for_load_state('load')
+            infos = []
+            for info_dict in config.get('infos', []):
+                if page.url != config["url"]:
+                    page.goto(config["url"])
+                    page.wait_for_load_state('load')
+                action = info_dict.get('action', 'inner_text')
+                if action == "inner_text":
+                    ele = page.wait_for_selector(info_dict['selector'], state='attached', timeout=10000)
+                    infos.append(ele.inner_text())
+                elif action == "attribute":
+                    ele = page.wait_for_selector(info_dict['selector'], state='attached', timeout=10000)
+                    infos.append(ele.get_attribute(info_dict['attribute']))
+                elif action == 'click_and_inner_text':
+                    for idx, sel in enumerate(info_dict['selector']):
+                        if idx != len(info_dict['selector']) - 1:
+                            link = page.wait_for_selector(sel, state='attached', timeout=10000)
+                            link.click()
+                            page.wait_for_load_state('load')
+                        else:
+                            ele = page.wait_for_selector(sel, state='attached', timeout=10000)
+                            infos.append(ele.inner_text())
+                elif action == 'click_and_attribute':
+                    for idx, sel in enumerate(info_dict['selector']):
+                        if idx != len(info_dict['selector']) - 1:
+                            link = page.wait_for_selector(sel, state='attached', timeout=10000)
+                            link.click()
+                            page.wait_for_load_state('load')
+                        else:
+                            ele = page.wait_for_selector(sel, state='attached')
+                            infos.append(ele.get_attribute(info_dict['attribute']))
+                else:
+                    raise NotImplementedError(f'The action {action} is not supported yet.')
+        return infos
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to obtain information from the website: {config["url"]}. Use backup results instead.')
+        return config.get('backups', None)
 
 
 # The following ones just need to load info from the files of software, no need to connect to the software
@@ -506,6 +584,10 @@ def get_active_url_from_accessTree(env, config):
     if len(elements) == 0:
         print("no elements found")
         return None
+    elif elements[-1].text is None:
+        print("no text found")
+        return None
+
     active_tab_url = config["goto_prefix"] + elements[0].text if "goto_prefix" in config.keys() else "https://" + \
                                                                                                      elements[0].text
     print("active tab url now: {}".format(active_tab_url))
@@ -923,6 +1005,43 @@ def get_find_unpacked_extension_path(env, config: Dict[str, str]):
         return "Google"
 
 
+def get_find_installed_extension_name(env, config: Dict[str, str]):
+    os_type = env.vm_platform
+    if os_type == 'Windows':
+        preference_file_path = env.controller.execute_python_command("""import os; print(os.path.join(os.getenv('LOCALAPPDATA'),
+                                            'Google\\Chrome\\User Data\\Default\\Preferences'))""")['output'].strip()
+    elif os_type == 'Darwin':
+        preference_file_path = env.controller.execute_python_command(
+            "import os; print(os.path.join(os.getenv('HOME'), 'Library/Application Support/Google/Chrome/Default/Preferences'))")[
+            'output'].strip()
+    elif os_type == 'Linux':
+        if "arm" in platform.machine():
+            preference_file_path = env.controller.execute_python_command(
+                "import os; print(os.path.join(os.getenv('HOME'), 'snap/chromium/common/chromium/Default/Preferences'))")[
+                'output'].strip()
+        else:
+            preference_file_path = env.controller.execute_python_command(
+                "import os; print(os.path.join(os.getenv('HOME'), '.config/google-chrome/Default/Preferences'))")[
+                'output'].strip()
+
+    else:
+        raise Exception('Unsupported operating system')
+
+    try:
+        content = env.controller.get_file(preference_file_path)
+        data = json.loads(content)
+        # Preferences store all the path of installed extensions, return them all and let metrics try to find one matches the targeted extension path
+        all_extensions_name = []
+        all_extensions = data.get('extensions', {}).get('settings', {})
+        for id in all_extensions.keys():
+            name = all_extensions[id]["manifest"]["name"]
+            all_extensions_name.append(name)
+        return all_extensions_name
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        return "Google"
+
+
 def get_data_delete_automacally(env, config: Dict[str, str]):
     """
     This function is used to open th "auto-delete" mode of chromium
@@ -950,8 +1069,8 @@ def get_data_delete_automacally(env, config: Dict[str, str]):
     try:
         content = env.controller.get_file(preference_file_path)
         data = json.loads(content)
-        data_delete_state = data["profile"]["exit_type"]
-        return data_delete_state
+        data_delete_state = data["profile"].get("default_content_setting_values", None)
+        return "true" if data_delete_state is not None else "false"
     except Exception as e:
         logger.error(f"Error: {e}")
         return "Google"
@@ -990,6 +1109,7 @@ def get_active_tab_html_parse(env, config: Dict[str, Any]):
     """
     active_tab_url = get_active_url_from_accessTree(env, config)
     if not isinstance(active_tab_url, str):
+        logger.error("active_tab_url is not a string")
         return None
     host = env.vm_ip
     port = 9222  # fixme: this port is hard-coded, need to be changed from config file
@@ -1022,12 +1142,14 @@ def get_active_tab_html_parse(env, config: Dict[str, Any]):
         for context in browser.contexts:
             for page in context.pages:
                 page.wait_for_load_state("networkidle")
-                if page.url == active_tab_url:
+                # the accTree and playwright can get encoding(percent-encoding) characters, we need to convert them to normal characters
+                if unquote(page.url) == unquote(active_tab_url):
                     target_page = page
-                    print("tartget page url: ", target_page.url)
-                    print("tartget page title: ", target_page.title())
+                    print("\33[32mtartget page url: ", target_page.url, "\33[0m")
+                    print("\33[32mtartget page title: ", target_page.title(), "\33[0m")
                     break
         if target_page is None:
+            logger.error("Your tab is not the target tab.")
             return {}
         return_json = {}
         if config["category"] == "class":

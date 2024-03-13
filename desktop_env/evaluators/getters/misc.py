@@ -1,5 +1,5 @@
 import logging
-from typing import TypeVar
+from typing import TypeVar, Dict
 from datetime import datetime, timedelta
 
 logger = logging.getLogger("desktopenv.getters.misc")
@@ -74,13 +74,13 @@ relativeTime_to_IntDay = {
     "first monday four months later": "special"
 }
 
-def get_rule(env, config: R) -> R:
+def get_rule(env, config: Dict[str, R]) -> R:
     """
     Returns the rule as-is.
     """
     return config["rules"]
 
-def get_rule_relativeTime(env, config: R) -> R:
+def get_rule_relativeTime(env, config: Dict[str, R]) -> R:
     """
     According to the rule definded in funciton "apply_rules_to_timeFormat", convert the relative time to absolute time.
     config:
@@ -195,3 +195,10 @@ def get_accessibility_tree(env, *args) -> str:
     accessibility_tree: str = env.controller.get_accessibility_tree()
     logger.debug("AT@eval: %s", accessibility_tree)
     return accessibility_tree
+
+def get_time_diff_range(env, config) -> str:
+    try:
+        return config["diff_range_in_minutes"]
+    except:
+        logger.error("diff_range_in_minutes not found in config.")
+        return None

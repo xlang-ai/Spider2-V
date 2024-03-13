@@ -42,4 +42,11 @@ func-timeout
 beautifulsoup4
 dashscope
 google-generativeai
+PyYaml
+mutagen
+easyocr
+borb
+pypdf2
+pdfplumber
 db-dtypes
+

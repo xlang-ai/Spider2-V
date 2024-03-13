@@ -1,13 +1,17 @@
 {
 	"id": "b5062e3e-641c-4e3a-907b-ac864d2e7652",
 	"snapshot": "libreoffice_calc",
-	"instruction": "I've got a mass of different categories of paper in PDF under folder \"~/Documents/Papers\". Please help me to extract the name, mail, and affiliation of the first author of all the papers and note them in an Excel table. The corresponding headers should be added in the table. Simply sort the authors by their full names ascendingly. The summary file should be saved as \"~/authors.xlsx\".",
+	"instruction": "Please help me to extract the name, e-mail, and affiliation of the first author from each paper in the folder and organize them in an Excel table. Include headers for each field. Sort the authors by their full names alphabetically and save the table as \"~/authors.xlsx\".",
 	"source": "authors",
 	"config": [
 		{
 			"type": "command",
 			"parameters": {
-				"command": ["mkdir", "-p", "/home/user/Documents/Papers"]
+				"command": [
+					"mkdir",
+					"-p",
+					"/home/user/Documents/Papers"
+				]
 			}
 		},
 		{
@@ -30,6 +34,15 @@
 						"path": "/home/user/Documents/Papers/deng_mind2web.pdf",
 						"url": "https://papers.nips.cc/paper_files/paper/2023/file/5950bf290a1570ea401bf98882128160-Paper-Datasets_and_Benchmarks.pdf"
 					}
+				]
+			}
+		},
+		{
+			"type": "execute",
+			"parameters": {
+				"command": [
+					"nautilus",
+					"/home/user/Documents/Papers"
 				]
 			}
 		}
@@ -58,35 +71,40 @@
 		"func": "compare_table",
 		"result": {
 			"type": "vm_file",
-			"path": [
-				"/home/user/authors.xlsx",
-				"/home/user/authors-Sheet1.csv"
-			],
-			"dest": [
-				"authors.xlsx",
-				"authors-Sheet1.csv"
-			],
-			"multi": true
+			"path": "/home/user/authors.xlsx",
+			"dest": "authors.xlsx"
 		},
 		"expected": {
 			"type": "cloud_file",
-			"path": [
-				"https://drive.google.com/uc?id=1fttbvfHuoQfsQUk3fVXkJsCu231jhnQj&export=download",
-				"https://drive.google.com/uc?id=1fq4hbk1g9R_SjknzwFAqvyF1ICyNYfok&export=download"
-			],
-			"dest": [
-				"authors-gt.xlsx",
-				"authors-gt-Sheet1.csv"
-			],
-			"multi": true
+			"path": "https://drive.google.com/uc?id=1fttbvfHuoQfsQUk3fVXkJsCu231jhnQj&export=download",
+			"dest": "authors-gt.xlsx"
 		},
 		"options": {
 			"rules": [
 				{
-					"type": "sheet_print",
+					"type": "sheet_fuzzy",
 					"sheet_idx0": "RNSheet1",
 					"sheet_idx1": "ENSheet1",
-					"ignore_case": true
+					"rules": [
+						{
+							"range": ["A1:C1"],
+							"type": "includes",
+							"ignore_case": true
+						},
+						{
+							"range": ["A2:B5"],
+							"type": "exact_match",
+							"trim_leadings": " ",
+							"trim_trailings": " "
+						},
+						{
+							"range": ["C2:C5"],
+							"type": "exact_match",
+							"trim_leadings": " ",
+							"trim_trailings": " ",
+							"ignore_case": true
+						}
+					]
 				}
 			]
 		}
