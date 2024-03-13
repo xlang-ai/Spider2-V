@@ -147,6 +147,23 @@ def download_and_execute_setup(controller, url: str, path: str = '/home/user/ini
     return
 
 
+def upload_and_execute_setup(controller, path: str, dest: str = '/home/user/init.sh', options: List[str] = []):
+    """ Upload a script from local to VM and execute it to setup the environment.
+    @args:
+        controller(desktop_env.controllers.SetupController): the controller object
+        path(str): local path to the script
+        dest(str): the path to save the script on VM (default: '~/init.sh')
+        options(List[str]): optional arguments to execute the script (default: [])
+    """
+    # upload the script
+    copyfile_from_host_to_guest_setup(controller, src=path, dest=dest)
+    # execute the script
+    controller._execute_setup(command=["chmod", "a+x", dest])
+    controller._execute_setup(command=["/bin/bash", dest] + options)
+    controller._execute_setup(command=["rm", "-f", dest])
+    return
+
+
 def copyfile_from_guest_to_host_setup(controller, src: str, dest: str):
     """ Transfer a file from VM to host.
     @args:

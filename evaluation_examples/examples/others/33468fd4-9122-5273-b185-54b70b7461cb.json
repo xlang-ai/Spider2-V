@@ -23,6 +23,10 @@
         "docker",
         "os"
     ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

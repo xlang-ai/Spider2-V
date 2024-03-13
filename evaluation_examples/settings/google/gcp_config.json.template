@@ -3,12 +3,8 @@
         "project_name": "bigquery-project", // DO NOT MODIFY
         "role": "Owner", // DO NOT MODIFY
         "apis": [
-            "serviceusage",
-            "servicemanagement",
-            "cloudresourcemanager",
-            "bigquery",
             "cloudapis"
-        ], // DO NOT MODIFY
+        ], // MINIMUM API COLLECTION, DO NOT MODIFY
         // the following 4 fields should be replaced with concrete values
         "project_id": "xxxx-xxxx-xxxx",
         "email": "xxxx@gmail.com",
@@ -19,12 +15,8 @@
         "project_name": "googleads-project", // DO NOT MODIFY
         "role": "Owner",  // DO NOT MODIFY
         "apis": [
-            "serviceusage",
-            "servicemanagement",
-            "cloudresourcemanager",
-            "bigquery",
             "cloudapis"
-        ],  // DO NOT MODIFY
+        ],  // MINIMUM API COLLECTION, DO NOT MODIFY
         // the following 4 fields should be replaced with concrete values
         "project_id": "xxxx-xxxx-xxxx",
         "email": "xxxx@gmail.com",

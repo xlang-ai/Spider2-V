@@ -19,6 +19,10 @@
         "dbt",
         "chromium"
     ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
     "evaluator": {
         "func": [
             "check_yaml_file",

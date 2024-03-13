@@ -1,27 +1,38 @@
 {
-  "id": "",
-  "snapshot": "libreoffice_calc",
-  "instruction": "",
-  "source": "",
-  "config": [
-    {
-      "type": "",
-      "parameters": {}
+    "id": "xxxxxxxx-xxxxxx-xxxxxx",
+    "snapshot": "snapshot_name",
+    "instruction": "",
+    "source": [
+        "source_url1",
+        "source_url2"
+    ],
+    "related_apps": [
+        "app1",
+        "app2"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "config": [
+        {
+            "type": "",
+            "parameters": {
+
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "metric_func",
+        "result": {
+            "type": ""
+        },
+        "expected": {
+            "type": ""
+        },
+        "options": {}
     }
-  ],
-  "trajectory": "trajectories/",
-  "related_apps": [
-    "app1",
-    "app2"
-  ],
-  "evaluator": {
-    "postconfig": [],
-    "func": "func",
-    "result": {
-      "type": ""
-    },
-    "expected": {
-      "type": ""
-    }
-  }
 }

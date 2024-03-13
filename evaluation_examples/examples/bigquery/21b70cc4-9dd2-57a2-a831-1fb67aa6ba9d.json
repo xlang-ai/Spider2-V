@@ -59,6 +59,11 @@
         "bigquery",
         "chrome"
     ],
+    "tags": [
+        "abstract",
+        "cli+gui",
+        "account"
+    ],
     "evaluator": {
         "func": "compare_csv",
         "result": {

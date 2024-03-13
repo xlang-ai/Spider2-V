@@ -50,6 +50,10 @@
         "astro",
         "cosmos"
     ],
+    "tags": [
+        "abstract",
+        "cli+gui"
+    ],
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

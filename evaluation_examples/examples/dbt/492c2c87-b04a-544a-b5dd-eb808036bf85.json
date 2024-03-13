@@ -19,6 +19,10 @@
         "dbt",
         "duckdb"
     ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
     "evaluator": {
         "func": [
             "check_include_exclude",
