@@ -5,22 +5,17 @@ import os
 import re
 import time
 import uuid
+import openai
+import xml.etree.ElementTree as ET
 from http import HTTPStatus
 from io import BytesIO
 from typing import Dict, List
-import xml.etree.ElementTree as ET
-
+from google.api_core.exceptions import InvalidArgument
 import backoff
 import dashscope
 import google.generativeai as genai
-import openai
 import requests
 from PIL import Image
-from openai import (
-    APIConnectionError,
-    APIError,
-    RateLimitError
-)
 
 from mm_agents.accessibility_tree_wrap.heuristic_retrieve import find_leaf_nodes, filter_nodes, draw_bounding_boxes
 from mm_agents.prompts import SYS_PROMPT_IN_SCREENSHOT_OUT_CODE, SYS_PROMPT_IN_SCREENSHOT_OUT_ACTION, \
@@ -29,7 +24,7 @@ from mm_agents.prompts import SYS_PROMPT_IN_SCREENSHOT_OUT_CODE, SYS_PROMPT_IN_S
     SYS_PROMPT_IN_SOM_A11Y_OUT_TAG, \
     SYS_PROMPT_SEEACT, ACTION_DESCRIPTION_PROMPT_SEEACT, ACTION_GROUNDING_PROMPT_SEEACT
 
-import logging
+# todo: cross-check with visualwebarena
 
 logger = logging.getLogger("desktopenv.agent")
 
@@ -41,10 +36,10 @@ def encode_image(image_path):
 
 
 def linearize_accessibility_tree(accessibility_tree):
-    #leaf_nodes = find_leaf_nodes(accessibility_tree)
+    # leaf_nodes = find_leaf_nodes(accessibility_tree)
     filtered_nodes = filter_nodes(ET.fromstring(accessibility_tree))
 
-    linearized_accessibility_tree = "tag\tname\ttext\tposition\tsize\n"
+    linearized_accessibility_tree = "tag\tname\ttext\tposition (top-left x&y)\tsize (w&h)\n"
     # Linearize the accessibility tree nodes into a table format
 
     for node in filtered_nodes:
@@ -168,63 +163,59 @@ def parse_code_from_som_string(input_string, masks):
     return actions
 
 
-class GPT4v_Agent:
+class PromptAgent:
     def __init__(
             self,
-            api_key,
-            instruction,
             model="gpt-4-vision-preview",
-            max_tokens=500,
+            max_tokens=1500,
+            top_p=0.9,
+            temperature=0.5,
             action_space="computer_13",
-            exp="screenshot_a11y_tree"
-            # exp can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som", "seeact"]
+            observation_type="screenshot_a11y_tree",
+            # observation_type can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som", "seeact"]
+            max_trajectory_length=3
     ):
-
-        self.instruction = instruction
         self.model = model
         self.max_tokens = max_tokens
+        self.top_p = top_p
+        self.temperature = temperature
         self.action_space = action_space
-        self.exp = exp
-        self.max_trajectory_length = 3
-
-        self.headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
+        self.observation_type = observation_type
+        self.max_trajectory_length = max_trajectory_length
 
         self.thoughts = []
         self.actions = []
         self.observations = []
 
-        if exp == "screenshot":
+        if observation_type == "screenshot":
             if action_space == "computer_13":
                 self.system_message = SYS_PROMPT_IN_SCREENSHOT_OUT_ACTION
             elif action_space == "pyautogui":
                 self.system_message = SYS_PROMPT_IN_SCREENSHOT_OUT_CODE
             else:
                 raise ValueError("Invalid action space: " + action_space)
-        elif exp == "a11y_tree":
+        elif observation_type == "a11y_tree":
             if action_space == "computer_13":
                 self.system_message = SYS_PROMPT_IN_A11Y_OUT_ACTION
             elif action_space == "pyautogui":
                 self.system_message = SYS_PROMPT_IN_A11Y_OUT_CODE
             else:
                 raise ValueError("Invalid action space: " + action_space)
-        elif exp == "both":
+        elif observation_type == "screenshot_a11y_tree":
             if action_space == "computer_13":
                 self.system_message = SYS_PROMPT_IN_BOTH_OUT_ACTION
             elif action_space == "pyautogui":
                 self.system_message = SYS_PROMPT_IN_BOTH_OUT_CODE
             else:
                 raise ValueError("Invalid action space: " + action_space)
-        elif exp == "som":
+        elif observation_type == "som":
             if action_space == "computer_13":
                 raise ValueError("Invalid action space: " + action_space)
             elif action_space == "pyautogui":
                 self.system_message = SYS_PROMPT_IN_SOM_A11Y_OUT_TAG
             else:
                 raise ValueError("Invalid action space: " + action_space)
-        elif exp == "seeact":
+        elif observation_type == "seeact":
             if action_space == "computer_13":
                 raise ValueError("Invalid action space: " + action_space)
             elif action_space == "pyautogui":
@@ -232,15 +223,13 @@ class GPT4v_Agent:
             else:
                 raise ValueError("Invalid action space: " + action_space)
         else:
-            raise ValueError("Invalid experiment type: " + exp)
+            raise ValueError("Invalid experiment type: " + observation_type)
 
-        self.system_message = self.system_message + "\nYou are asked to complete the following task: {}".format(
-            self.instruction)
-
-    def predict(self, obs: Dict) -> List:
+    def predict(self, instruction: str, obs: Dict) -> List:
         """
         Predict the next action(s) based on the current observation.
         """
+        system_message = self.system_message + "\nYou are asked to complete the following task: {}".format(instruction)
 
         # Prepare the payload for the API call
         messages = []
@@ -251,7 +240,7 @@ class GPT4v_Agent:
             "content": [
                 {
                     "type": "text",
-                    "text": self.system_message
+                    "text": system_message
                 },
             ]
         })
@@ -272,7 +261,7 @@ class GPT4v_Agent:
         for previous_obs, previous_action, previous_thought in zip(_observations, _actions, _thoughts):
 
             # {{{1
-            if self.exp == "both":
+            if self.observation_type == "screenshot_a11y_tree":
                 _screenshot = previous_obs["screenshot"]
                 _linearized_accessibility_tree = previous_obs["accessibility_tree"]
                 logger.debug("LINEAR AT: %s", _linearized_accessibility_tree)
@@ -294,7 +283,7 @@ class GPT4v_Agent:
                         }
                     ]
                 })
-            elif self.exp in ["som", "seeact"]:
+            elif self.observation_type in ["som", "seeact"]:
                 _screenshot = previous_obs["screenshot"]
                 _linearized_accessibility_tree = previous_obs["accessibility_tree"]
                 logger.debug("LINEAR AT: %s", _linearized_accessibility_tree)
@@ -316,7 +305,7 @@ class GPT4v_Agent:
                         }
                     ]
                 })
-            elif self.exp == "screenshot":
+            elif self.observation_type == "screenshot":
                 _screenshot = previous_obs["screenshot"]
 
                 messages.append({
@@ -335,7 +324,7 @@ class GPT4v_Agent:
                         }
                     ]
                 })
-            elif self.exp == "a11y_tree":
+            elif self.observation_type == "a11y_tree":
                 _linearized_accessibility_tree = previous_obs["accessibility_tree"]
 
                 messages.append({
@@ -349,7 +338,7 @@ class GPT4v_Agent:
                     ]
                 })
             else:
-                raise ValueError("Invalid experiment type: " + self.exp)  # 1}}}
+                raise ValueError("Invalid observation_type type: " + self.observation_type)  # 1}}}
 
             messages.append({
                 "role": "assistant",
@@ -362,11 +351,11 @@ class GPT4v_Agent:
             })
 
         # {{{1
-        if self.exp in ["screenshot", "both"]:
+        if self.observation_type in ["screenshot", "screenshot_a11y_tree"]:
             base64_image = encode_image(obs["screenshot"])
             linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"])
 
-            if self.exp == "both":
+            if self.observation_type == "screenshot_a11y_tree":
                 self.observations.append({
                     "screenshot": base64_image,
                     "accessibility_tree": linearized_accessibility_tree
@@ -383,7 +372,7 @@ class GPT4v_Agent:
                     {
                         "type": "text",
                         "text": "Given the screenshot as below. What's the next step that you will do to help with the task?"
-                        if self.exp == "screenshot"
+                        if self.observation_type == "screenshot"
                         else "Given the screenshot and info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(
                             linearized_accessibility_tree)
                     },
@@ -396,7 +385,7 @@ class GPT4v_Agent:
                     }
                 ]
             })
-        elif self.exp == "a11y_tree":
+        elif self.observation_type == "a11y_tree":
             linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"])
 
             self.observations.append({
@@ -414,7 +403,7 @@ class GPT4v_Agent:
                     }
                 ]
             })
-        elif self.exp == "som":
+        elif self.observation_type == "som":
             # Add som to the screenshot
             masks, drew_nodes, tagged_screenshot = tag_screenshot(obs["screenshot"], obs["accessibility_tree"])
             base64_image = encode_image(tagged_screenshot)
@@ -442,7 +431,7 @@ class GPT4v_Agent:
                     }
                 ]
             })
-        elif self.exp == "seeact":
+        elif self.observation_type == "seeact":
             # Add som to the screenshot
             masks, drew_nodes, tagged_screenshot = tag_screenshot(obs["screenshot"], obs["accessibility_tree"])
             base64_image = encode_image(tagged_screenshot)
@@ -470,21 +459,23 @@ class GPT4v_Agent:
                 ]
             })
         else:
-            raise ValueError("Invalid experiment type: " + self.exp)  # 1}}}
+            raise ValueError("Invalid observation_type type: " + self.observation_type)  # 1}}}
 
-        with open("messages.json", "w") as f:
-            f.write(json.dumps(messages, indent=4))
+        # with open("messages.json", "w") as f:
+        #     f.write(json.dumps(messages, indent=4))
 
-
+        logger.info("Generating content with GPT model: %s", self.model)
         response = self.call_llm({
             "model": self.model,
             "messages": messages,
-            "max_tokens": self.max_tokens
+            "max_tokens": self.max_tokens,
+            "top_p": self.top_p,
+            "temperature": self.temperature
         })
 
-        logger.debug("RESPONSE: %s", response)
+        logger.info("RESPONSE: %s", response)
 
-        if self.exp == "seeact":
+        if self.observation_type == "seeact":
             messages.append({
                 "role": "assistant",
                 "content": [
@@ -506,17 +497,20 @@ class GPT4v_Agent:
                 ]
             })
 
+            logger.info("Generating content with GPT model: %s", self.model)
             response = self.call_llm({
                 "model": self.model,
                 "messages": messages,
-                "max_tokens": self.max_tokens
+                "max_tokens": self.max_tokens,
+                "top_p": self.top_p,
+                "temperature": self.temperature
             })
-            print(response)
+            logger.info("RESPONSE: %s", response)
 
         try:
             actions = self.parse_actions(response, masks)
             self.thoughts.append(response)
-        except Exception as e:
+        except ValueError as e:
             print("Failed to parse action from response", e)
             actions = None
             self.thoughts.append("")
@@ -525,86 +519,98 @@ class GPT4v_Agent:
 
     @backoff.on_exception(
         backoff.expo,
-        (Exception),
-        max_tries=10
+        # here you should add more model exceptions as you want,
+        # but you are forbidden to add "Exception", that is, a common type of exception
+        # because we want to catch this kind of Exception in the outside to ensure each example won't exceed the time limit
+        (openai.RateLimitError,
+        openai.BadRequestError,
+        openai.InternalServerError,
+        InvalidArgument),
+        max_tries=5
     )
+
     def call_llm(self, payload):
+
         if self.model.startswith("gpt"):
-            logger.info("Generating content with GPT model: %s", self.model)
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"
+            }
+            # logger.info("Generating content with GPT model: %s", self.model)
             response = requests.post(
                 "https://api.openai.com/v1/chat/completions",
-                headers=self.headers,
+                headers=headers,
                 json=payload
             )
 
             if response.status_code != 200:
                 if response.json()['error']['code'] == "context_length_exceeded":
-                    print("Context length exceeded. Retrying with a smaller context.")
-                    payload["messages"] = payload["messages"][-1:]
+                    logger.error("Context length exceeded. Retrying with a smaller context.")
+                    payload["messages"] = [payload["messages"][0]] + payload["messages"][-1:]
                     retry_response = requests.post(
                         "https://api.openai.com/v1/chat/completions",
-                        headers=self.headers,
+                        headers=headers,
                         json=payload
                     )
                     if retry_response.status_code != 200:
-                        print("Failed to call LLM: " + retry_response.text)
+                        logger.error("Failed to call LLM even after attempt on shortening the history: " + retry_response.text)
                         return ""
 
-                print("Failed to call LLM: " + response.text)
+                logger.error("Failed to call LLM: " + response.text)
                 time.sleep(5)
                 return ""
             else:
                 return response.json()['choices'][0]['message']['content']
 
-        elif self.model.startswith("mistral"):
-            print("call mistral")
-            messages = payload["messages"]
-            max_tokens = payload["max_tokens"]
-
-            misrtal_messages = []
-
-            for i, message in enumerate(messages):
-                mistral_message = {
-                    "role": message["role"],
-                    "content": []
-                }
-
-                for part in message["content"]:
-                    mistral_message['content'] = part['text'] if part['type'] == "text" else None
-
-                misrtal_messages.append(mistral_message)
-
-            # the mistral not support system message in our endpoint, so we concatenate it at the first user message
-            if misrtal_messages[0]['role'] == "system":
-                misrtal_messages[1]['content'] = misrtal_messages[0]['content'] + "\n" + misrtal_messages[1]['content']
-                misrtal_messages.pop(0)
-
-            # openai.api_base = "http://localhost:8000/v1"
-            # openai.api_key = "test"
-            # response = openai.ChatCompletion.create(
-            #     messages=misrtal_messages,
-            #     model="Mixtral-8x7B-Instruct-v0.1"
-            # )
-
-            from openai import OpenAI
-            TOGETHER_API_KEY = "d011650e7537797148fb6170ec1e0be7ae75160375686fae02277136078e90d2"
-
-            client = OpenAI(api_key=TOGETHER_API_KEY,
-                            base_url='https://api.together.xyz',
-                            )
-            logger.info("Generating content with Mistral model: %s", self.model)
-            response = client.chat.completions.create(
-                messages=misrtal_messages,
-                model="mistralai/Mixtral-8x7B-Instruct-v0.1",
-                max_tokens=1024
-            )
-
-            try:
-                # return response['choices'][0]['message']['content']
-                return response.choices[0].message.content
-            except Exception as e:
-                print("Failed to call LLM: " + str(e))
-                return ""
+        # elif self.model.startswith("mistral"):
+        #     print("Call mistral")
+        #     messages = payload["messages"]
+        #     max_tokens = payload["max_tokens"]
+        #
+        #     misrtal_messages = []
+        #
+        #     for i, message in enumerate(messages):
+        #         mistral_message = {
+        #             "role": message["role"],
+        #             "content": []
+        #         }
+        #
+        #         for part in message["content"]:
+        #             mistral_message['content'] = part['text'] if part['type'] == "text" else None
+        #
+        #         misrtal_messages.append(mistral_message)
+        #
+        #     # the mistral not support system message in our endpoint, so we concatenate it at the first user message
+        #     if misrtal_messages[0]['role'] == "system":
+        #         misrtal_messages[1]['content'] = misrtal_messages[0]['content'] + "\n" + misrtal_messages[1]['content']
+        #         misrtal_messages.pop(0)
+        #
+        #     # openai.api_base = "http://localhost:8000/v1"
+        #     # openai.api_key = "test"
+        #     # response = openai.ChatCompletion.create(
+        #     #     messages=misrtal_messages,
+        #     #     model="Mixtral-8x7B-Instruct-v0.1"
+        #     # )
+        #
+        #     from openai import OpenAI
+        #     TOGETHER_API_KEY = "d011650e7537797148fb6170ec1e0be7ae75160375686fae02277136078e90d2"
+        #
+        #     client = OpenAI(api_key=TOGETHER_API_KEY,
+        #                     base_url='https://api.together.xyz',
+        #                     )
+        #     logger.info("Generating content with Mistral model: %s", self.model)
+        #     response = client.chat.completions.create(
+        #         messages=misrtal_messages,
+        #         model="mistralai/Mixtral-8x7B-Instruct-v0.1",
+        #         max_tokens=1024
+        #     )
+        #
+        #     try:
+        #         # return response['choices'][0]['message']['content']
+        #         return response.choices[0].message.content
+        #     except Exception as e:
+        #         print("Failed to call LLM: " + str(e))
+        #         return ""
 
         elif self.model.startswith("gemini"):
             def encoded_img_to_pil_img(data_str):
@@ -616,6 +622,8 @@ class GPT4v_Agent:
 
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
+            top_p = payload["top_p"]
+            temperature = payload["temperature"]
 
             gemini_messages = []
             for i, message in enumerate(messages):
@@ -652,8 +660,9 @@ class GPT4v_Agent:
                 for message in gemini_messages:
                     message_history_str += "<|" + message['role'] + "|>\n" + message['parts'][0] + "\n"
                 gemini_messages = [{"role": "user", "parts": [message_history_str, gemini_messages[-1]['parts'][1]]}]
+                # gemini_messages[-1]['parts'][1].save("output.png", "PNG")
 
-            print(gemini_messages)
+            # print(gemini_messages)
             api_key = os.environ.get("GENAI_API_KEY")
             assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
             genai.configure(api_key=api_key)
@@ -661,7 +670,16 @@ class GPT4v_Agent:
             response = genai.GenerativeModel(self.model).generate_content(
                 gemini_messages,
                 generation_config={
-                    "max_output_tokens": max_tokens
+                    "candidate_count": 1,
+                    "max_output_tokens": max_tokens,
+                    "top_p": top_p,
+                    "temperature": temperature
+                },
+                safety_settings={
+                    "harassment": "block_none",
+                    "hate": "block_none",
+                    "sex": "block_none",
+                    "danger": "block_none"
                 }
             )
 
@@ -672,6 +690,8 @@ class GPT4v_Agent:
         elif self.model.startswith("qwen"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
+            top_p = payload["top_p"]
+            temperature = payload["temperature"]
 
             qwen_messages = []
 
@@ -682,13 +702,16 @@ class GPT4v_Agent:
                 }
                 assert len(message["content"]) in [1, 2], "One text, or one text with one image"
                 for part in message["content"]:
-                    qwen_message['content'].append({"image": part['image_url']['url']}) if part['type'] == "image_url" else None
+                    qwen_message['content'].append({"image": part['image_url']['url']}) if part[
+                                                                                               'type'] == "image_url" else None
                     qwen_message['content'].append({"text": part['text']}) if part['type'] == "text" else None
 
                 qwen_messages.append(qwen_message)
 
-            response = dashscope.MultiModalConversation.call(model='qwen-vl-plus',
-                                                             messages=messages)
+            response = dashscope.MultiModalConversation.call(
+                model='qwen-vl-plus',
+                messages=messages,  # todo: add the hyperparameters
+            )
             # The response status_code is HTTPStatus.OK indicate success,
             # otherwise indicate request is failed, you can get error code
             # and message from code and message.
@@ -707,7 +730,7 @@ class GPT4v_Agent:
 
     def parse_actions(self, response: str, masks=None):
 
-        if self.exp in ["screenshot", "a11y_tree", "both"]:
+        if self.observation_type in ["screenshot", "a11y_tree", "screenshot_a11y_tree"]:
             # parse from the response
             if self.action_space == "computer_13":
                 actions = parse_actions_from_string(response)
@@ -719,7 +742,7 @@ class GPT4v_Agent:
             self.actions.append(actions)
 
             return actions
-        elif self.exp in ["som", "seeact"]:
+        elif self.observation_type in ["som", "seeact"]:
             # parse from the response
             if self.action_space == "computer_13":
                 raise ValueError("Invalid action space: " + self.action_space)
@@ -731,3 +754,8 @@ class GPT4v_Agent:
             self.actions.append(actions)
 
             return actions
+
+    def reset(self):
+        self.thoughts = []
+        self.actions = []
+        self.observations = []
