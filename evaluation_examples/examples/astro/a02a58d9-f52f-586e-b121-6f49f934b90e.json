@@ -7,22 +7,10 @@
     ],
     "config": [
         {
-            "type": "launch",
+            "type": "google_chrome_browser",
             "parameters": {
-                "command": [
-                    "google-chrome",
-                    "--remote-debugging-port=1337"
-                ]
-            }
-        },
-        {
-            "type": "launch",
-            "parameters": {
-                "command": [
-                    "socat",
-                    "tcp-listen:9222,fork",
-                    "tcp:localhost:1337"
-                ]
+                "debugging_port": 1337,
+                "listening_port": 9222
             }
         },
         {
