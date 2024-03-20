@@ -63,7 +63,7 @@ def execute_command():
 
     # Execute the command without any safety checks.
     try:
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell, text=True)
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell, text=True, timeout=120)
         return jsonify({
             'status': 'success',
             'output': result.stdout,
@@ -283,6 +283,15 @@ def _create_atspi_node(node: Accessible, depth: int = 0, flag: Optional[str] = N
         # Character", just in case
         text = text.replace("\ufffc", "").replace("\ufffd", "")
     #  }}} Text # 
+
+    #  Image {{{ # 
+    try:
+        node.queryImage()
+    except NotImplementedError:
+        pass
+    else:
+        attribute_dict["image"] = "true"
+    #  }}} Image # 
 
     #  Selection {{{ # 
     try:
@@ -536,12 +545,14 @@ def _create_pywinauto_node(node: BaseWrapper, depth: int = 0, flag: Optional[str
     node_role_name = "".join( map( lambda ch: ch if ch.isidentifier()\
                                                  or ch in {"-"}\
                                                  or ch.isalnum()
-                              else "-"
+                                               else "-"
                                  , node_role_name
                                  )
                             )
     if node_role_name.strip() == "":
         node_role_name = "unknown"
+    if not node_role_name[0].isalpha():
+        node_role_name = "tag" + node_role_name
 
     xml_node = lxml.etree.Element(
         node_role_name,
