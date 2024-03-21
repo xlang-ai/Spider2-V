@@ -5,14 +5,10 @@
 	"source": "SheetCopilot@154",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"url": "https://drive.google.com/uc?id=1Non152JxCxXJI2jL-nVf58YlxoTQXOhw&export=download",
-						"path": "/home/user/SalesRep.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/0a2e43bf-b26c-4631-a966-af9dfa12c9e5/SalesRep.xlsx",
+				"dest": "/home/user/SalesRep.xlsx"
 			}
 		},
 		{
@@ -60,9 +56,9 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1baJa_qF1UPcqe4tG2xG5pX4JOP4sW0Oz&export=download",
-			"dest": "5_SalesRep_gt1.xlsx"
+			"type": "local_file",
+			"dest": "gold_SalesRep_gt1.xlsx",
+			"path": "evaluation_examples/examples/sheetcopilot/0a2e43bf-b26c-4631-a966-af9dfa12c9e5/5_SalesRep_gt1.xlsx"
 		},
 		"result": {
 			"type": "vm_file",

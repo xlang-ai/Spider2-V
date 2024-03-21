@@ -1,10 +1,11 @@
-import os
+import os, shutil, logging
 from typing import Dict, List, Set
 from typing import Optional, Any, Union
 from datetime import datetime
 import requests
 import pandas as pd
 
+logger = logging.getLogger("desktopenv.getters.file")
 
 def get_content_from_vm_file(env, config: Dict[str, Any]) -> Any:
     """
@@ -23,6 +24,28 @@ def get_content_from_vm_file(env, config: Dict[str, Any]) -> Any:
             return last_row_as_list
     else:
         raise NotImplementedError(f"File type {file_type} not supported")
+
+
+def get_local_file(env, config: Dict[str, Any]) -> Any:
+    """ File is already on the local host machine.
+    Config:
+        path (str): absolute path on the local machine
+        dest (str): file name to be copied into the cache dir, by default, use the base name of the path
+    """
+    path = config["path"]
+    dest = config.get('dest', os.path.basename(path))
+    dest = os.path.join(env.cache_dir, dest)
+    if not os.path.exists(path):
+        logger.error(f'[ERROR]: The specified file path {path} is not found on the local machine!')
+        return
+    
+    if os.path.isdir(path): # recursively copy the directory (overwrite if exists)
+        if os.path.exists(dest) and os.path.isdir(dest):
+            shutil.rmtree(dest)
+        shutil.copytree(path, dest, dirs_exist_ok=True)
+    else: # directly copy the file (overwrite if exists)
+        shutil.copyfile(path, dest)
+    return dest
 
 
 def get_cloud_file(env, config: Dict[str, Any]) -> Union[str, List[str]]:
