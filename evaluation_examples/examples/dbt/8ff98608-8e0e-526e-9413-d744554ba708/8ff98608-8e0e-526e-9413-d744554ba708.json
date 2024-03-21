@@ -1,0 +1,75 @@
+{
+    "id": "8ff98608-8e0e-526e-9413-d744554ba708",
+    "snapshot": "dbt",
+    "instruction": "Remove dbt example models, create a \"customers\" dbt model using raw_customers and raw_orders with columns customer_ids, first_name, last_name, first_order_date, most_recent_order_date, and number_of_orders (default 0). Set materialization to table.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=8",
+        "https://docs.getdbt.com/guides/manual-install?step=9",
+        "https://docs.getdbt.com/guides/manual-install?step=10"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/8ff98608-8e0e-526e-9413-d744554ba708/jaffle_shop.zip",
+                "dest": "/home/user/jaffle_shop.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/8ff98608-8e0e-526e-9413-d744554ba708/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude",
+            "check_local_database"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dbt/8ff98608-8e0e-526e-9413-d744554ba708/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.duckdb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": ["succeed"],
+                    "exclude": ["failed"]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/dbt/8ff98608-8e0e-526e-9413-d744554ba708/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.gold.duckdb"
+            }
+        ],
+        "options": [
+            {},
+            {
+                "db_type": "duckdb",
+                "check_type": ["table-schema-content"]
+            }
+        ]
+    }
+}

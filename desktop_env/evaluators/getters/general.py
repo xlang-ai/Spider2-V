@@ -10,15 +10,18 @@ def get_vm_script_output(env, config: Dict[str, str]):
     @args:
         env(desktop_env.envs.DesktopEnv): the environment object
         config(Dict[str, Any]): contain keys
-            url (str): remote url to download the testing script
+            src (str): remote url or local path to download the testing script
             dest (str): the path to save the script on VM
             shell (bool): optional. if the script is a shell script, defaults to False
     """
     vm_ip = env.vm_ip
     port = 5000
     # download the testing script from remote url to VM
-    url, dest = config["url"], config["dest"]
-    env.setup_controller._download_setup([{"url": url, "path": dest}])
+    src, dest = config["src"], config["dest"]
+    if src.startswith('http'):
+        env.setup_controller._download_setup([{"url": src, "path": dest}])
+    else:
+        env.setup_controller.setup([{"type": "copyfile_from_host_to_guest", "parameters": {"src": src, "dest": dest}}])
     env.setup_controller._execute_setup(command=["chmod", "a+x", dest])
 
     # execute the script to obtain the output

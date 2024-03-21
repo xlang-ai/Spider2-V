@@ -1,0 +1,65 @@
+{
+    "id": "a02a58d9-f52f-586e-b121-6f49f934b90e",
+    "snapshot": "astro",
+    "instruction": "I want to integrate the provided project `jaffle_shop` into an Airflow DBT task group. Name the target DAG as jaffle_shop_dag, and schedule it to run at 10:00 a.m. every day. Implement it with Astro and Cosmos in the current working directory.",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-dbt"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/a02a58d9-f52f-586e-b121-6f49f934b90e/jaffle_shop.zip",
+                "dest": "/home/user/jaffle_shop.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/a02a58d9-f52f-586e-b121-6f49f934b90e/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "postgresql",
+        "airflow",
+        "astro",
+        "cosmos"
+    ],
+    "tags": [
+        "abstract",
+        "cli+gui"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/astro/a02a58d9-f52f-586e-b121-6f49f934b90e/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

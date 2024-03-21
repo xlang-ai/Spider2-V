@@ -15,6 +15,8 @@ def get_dbt_profiles(env, config: Dict[str, str]) -> str:
     """
     for fp in config["dirs"]:
         if fp.startswith('$'):
+            # fetching ENV vars does not work, because the command below is executed in a new shell in non-login, non-interactive mode
+            # thus, the environment variable is not available
             fp = get_vm_command_line(env, {"command": ["/bin/bash", "-c", f"echo \"{fp}\""]})
             if type(fp) == str and fp.strip() != "":
                 file = get_vm_file(env, {"path": fp.strip() + '/profiles.yml', "dest": config["dest"]})

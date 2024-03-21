@@ -1,7 +1,6 @@
 #coding=utf8
 from .general import (
-    download_and_execute_setup,
-    upload_and_execute_setup,
+    script_and_execute_setup,
     copyfile_from_guest_to_host_setup,
     copyfile_from_host_to_guest_setup,
     google_chrome_browser_setup

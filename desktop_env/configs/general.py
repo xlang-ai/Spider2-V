@@ -1,7 +1,7 @@
 #coding=utf8
 import os, logging, time, requests, json, random, uuid, platform
 from typing import List, Union, Tuple
-from playwright.sync_api import expect
+from playwright.sync_api import expect, sync_playwright
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 logger = logging.getLogger("desktopenv.setup")
@@ -15,7 +15,7 @@ def get_browser(p, url, trial=15):
         except Exception as e:
             if attempt < trial - 1:
                 logger.error(f"Attempt {attempt + 1}: Failed to connect Google Chrome, retrying. Error: {e}")
-                time.sleep(1)
+                time.sleep(3)
             else:
                 logger.error(f"Failed to connect after multiple attempts: {e}")
                 return None
@@ -23,10 +23,42 @@ def get_browser(p, url, trial=15):
 
 
 def google_chrome_browser_setup(controller, **config):
+    """ Setup the Google Chrome browser with remote debugging port and listening port, and open some url pages.
+    config(Dict[str, Any]):
+        debugging_port(int): the remote debugging port in VM (default: 1337)
+        listening_port(int): the listening port in localhost (default: 9222)
+        urls(List[str]): a list of urls to open in the browser (default: [])
+    """
     debugging_port = config.get('debugging_port', 1337)
     listening_port = config.get('listening_port', 9222)
     controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"])
     controller._launch_setup(command=["socat", f"tcp-listen:{listening_port},fork", f"tcp:localhost:{debugging_port}"])
+
+    urls_to_open = config.get('urls', [])
+    if urls_to_open:
+        remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
+        with sync_playwright() as p:
+            browser = get_browser(p, remote_debugging_url)
+            if not browser:
+                logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+                return
+
+            for i, url in enumerate(urls_to_open):
+                if i == 0: # get content
+                    context = browser.contexts[0]
+
+                page = context.new_page()  # Create a new page within the existing context
+                try:
+                    page.goto(url, timeout=60000)
+                except:
+                    logger.warning(f"[WARNING]: opening URL {url} exceeds time limit.")
+
+                if i == 0: # clear the default tab
+                    default_page = context.pages[0]
+                    default_page.close()
+
+            # Do not close the context or browser; they will remain open after script ends
+            return browser, context
     return
 
 
@@ -132,35 +164,21 @@ def download_file_to_local(controller, url, path='output.bin', use_cache=True):
     return cache_path
 
 
-def download_and_execute_setup(controller, url: str, path: str = '/home/user/init.sh', options: List[str] = []):
-    """ Download a script from a remote url and execute it to setup the environment.
+def script_and_execute_setup(controller, src: str, dest: str = '/home/user/init.sh', options: List[str] = []):
+    """ Upload a script from remote cloud or localhost to VM and execute it to setup the environment.
     @args:
         controller(desktop_env.controllers.SetupController): the controller object
-        url(str): remote url to download the script
-        path(str): the path to save the script on VM (default: '~/init.sh')
-        options(List[str]): optional arguments to execute the script (default: [])
-    """
-    # download the script
-    controller._download_setup([{'url': url, 'path': path}])
-    # execute the script
-    controller._execute_setup(command=["chmod", "a+x", path])
-    controller._execute_setup(command=["/bin/bash", path] + options)
-    controller._execute_setup(command=["rm", "-f", path])
-    return
-
-
-def upload_and_execute_setup(controller, path: str, dest: str = '/home/user/init.sh', options: List[str] = []):
-    """ Upload a script from local to VM and execute it to setup the environment.
-    @args:
-        controller(desktop_env.controllers.SetupController): the controller object
-        path(str): local path to the script
+        src(str): remote url or local path to the script
         dest(str): the path to save the script on VM (default: '~/init.sh')
         options(List[str]): optional arguments to execute the script (default: [])
     """
-    if platform.system() == 'Windows':
-        path = path.replace('/', '\\')
-    # upload the script
-    copyfile_from_host_to_guest_setup(controller, src=path, dest=dest)
+    if src.startswith('http'): # url path
+        controller._download_setup([{'url': src, 'path': dest}])
+    else:
+        if platform.system() == 'Windows':
+            src = src.replace('/', '\\')
+        copyfile_from_host_to_guest_setup(controller, src=src, dest=dest)
+
     # execute the script
     controller._execute_setup(command=["chmod", "a+x", dest])
     controller._execute_setup(command=["/bin/bash", dest] + options)

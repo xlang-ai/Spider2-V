@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import platform
 import os.path
 import sqlite3
 import tempfile
@@ -465,6 +466,9 @@ class SetupController:
                     dest(List[str]): the path in the google drive to store the downloaded file
         """
         settings_file = config.get('settings_file', 'evaluation_examples/settings/googledrive/settings.yml')
+        if platform.system() == 'Windows':
+            settings_file = settings_file.replace('/', '\\')
+
         gauth = GoogleAuth(settings_file=settings_file)
         drive = GoogleDrive(gauth)
 
@@ -534,7 +538,7 @@ class SetupController:
         @args:
             config(Dict[str, Any]): contain keys
                 settings_file(str): path to the settings file
-                platform(str): platform to login, implemented platforms include:
+                tool(str): tool platform to login, implemented tools include:
                     googledrive: https://drive.google.com/drive/my-drive
 
         """
@@ -559,9 +563,9 @@ class SetupController:
                 return
 
             context = browser.contexts[0]
-            platform = config['platform']
+            tool = config['tool']
 
-            if platform == 'googledrive':
+            if tool == 'googledrive':
                 url = 'https://drive.google.com/drive/my-drive'
                 page = context.new_page()  # Create a new page (tab) within the existing context
                 try:
@@ -569,7 +573,10 @@ class SetupController:
                 except:
                     logger.warning("Opening %s exceeds time limit", url) # only for human test
                 logger.info(f"Opened new page: {url}")
-                settings = json.load(open(config['settings_file']))
+                settings_file = config.get('settings_file', 'evaluation_examples/settings/google/settings.json')
+                if platform.system() == 'Windows':
+                    settings_file = settings_file.replace('/', '\\')
+                settings = json.load(open(settings_file, 'r'))
                 email, password = settings['email'], settings['password']
 
                 try:

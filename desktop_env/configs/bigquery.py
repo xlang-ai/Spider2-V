@@ -77,7 +77,9 @@ def bigquery_init_setup(controller, **config):
                 return
             if 'data_from_csv' in action:
                 url_path = action['data_from_csv']
-                local_path = download_file_to_local(controller, url_path, f'{table_ref}.csv')
+                if url_path.startswith('http'):
+                    local_path = download_file_to_local(controller, url_path, f'{table_ref}.csv')
+                else: local_path = url_path
                 # either autodetect or schema must be provided
                 config = {'skip_leading_rows': 1, 'autodetect': True} if schema is None else {'skip_leading_rows': 0, 'schema': schema}
                 job_config = bigquery.LoadJobConfig(source_format=bigquery.SourceFormat.CSV, **config)
