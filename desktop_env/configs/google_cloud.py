@@ -1,5 +1,5 @@
 #coding=utf8
-import logging, time, json, re, os, random, requests
+import logging, time, json, re, os, random, platform, requests
 from typing import List, Union
 from playwright.sync_api import sync_playwright, expect, TimeoutError
 from .general import (
@@ -78,6 +78,8 @@ def gcp_upload_keyfile_setup(controller, **config):
         dest(str): the path to save the keyfile on the guest machine, default is '/home/user/gcp_keyfile.json'
     """
     config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    if platform.system() == 'Windows':
+        config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))
     if 'project_name' in config:
         prj_name = config['project_name']
@@ -696,6 +698,8 @@ def gcp_config_webgui_setup(controller, **config):
     port = config.get('port', 9222)
     remote_debugging_url = f"http://{host}:{port}"
     settings_file = config.get('settings_file', "evaluation_examples/settings/google/settings.json")
+    if platform.system() == 'Windows':
+        settings_file = settings_file.replace('/', '\\')
     settings = json.load(open(settings_file))
     email, password = settings['email'], settings['password']
     
@@ -799,6 +803,8 @@ def gcp_webgui_setup(controller, **config):
 
         page.goto(config.get('url', "https://console.cloud.google.com/cloud-resource-manager"))
         settings_file = config.pop('settings_file', "evaluation_examples/settings/google/settings.json")
+        if platform.system() == 'Windows':
+            settings_file = settings_file.replace('/', '\\')
         settings = json.load(open(settings_file))
         email, password = settings['email'], settings['password']
         google_account_login_in(page, email, password) # needs to login in Google Account for the first time

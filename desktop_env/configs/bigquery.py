@@ -1,5 +1,5 @@
 #coding=utf8
-import json, logging
+import json, logging, platform
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from google.cloud.bigquery.dataset import DatasetListItem
@@ -22,6 +22,8 @@ def bigquery_init_setup(controller, **config):
             - empty: empty the entire GCP, including datasets, jobs, routines, models, tables, etc.
     """
     config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    if platform.system() == 'Windows':
+        config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))
     if 'project_name' in config:
         prj_name = config['project_name']
@@ -98,6 +100,8 @@ def bigquery_login_setup(controller, **config):
         project_index(int): the index of the project in the config file, either this field or project_name must be provided
     """
     config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    if platform.system() == 'Windows':
+        config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))
     if 'project_name' in config:
         prj_name = config['project_name']

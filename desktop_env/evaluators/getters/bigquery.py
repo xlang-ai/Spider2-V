@@ -1,5 +1,5 @@
 #coding=utf8
-import json, os, logging
+import json, os, logging, platform
 from google.cloud import bigquery
 from google.oauth2 import service_account
 from google.cloud.bigquery.dataset import DatasetListItem
@@ -24,6 +24,8 @@ def get_bigquery_table_to_csv(env, config):
         filepath: the filepath containing target db content if found, otherwise None
     """
     config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    if platform.system() == 'Windows':
+        config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))
     if 'project_name' in config:
         prj_name = config['project_name']

@@ -1,5 +1,5 @@
 #coding=utf8
-import os, logging, time, requests, json, random, uuid
+import os, logging, time, requests, json, random, uuid, platform
 from typing import List, Union, Tuple
 from playwright.sync_api import expect
 from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -100,6 +100,8 @@ def get_element_desktop_position(page, element):
 
 
 def download_file_to_local(controller, url, path='output.bin', use_cache=True):
+    if platform.system() == 'Windows':
+        path = path.replace('/', '\\')
     cache_path: str = os.path.join(controller.cache_dir, "{:}_{:}".format(
         uuid.uuid5(uuid.NAMESPACE_URL, url),
         os.path.basename(path)))
@@ -155,6 +157,8 @@ def upload_and_execute_setup(controller, path: str, dest: str = '/home/user/init
         dest(str): the path to save the script on VM (default: '~/init.sh')
         options(List[str]): optional arguments to execute the script (default: [])
     """
+    if platform.system() == 'Windows':
+        path = path.replace('/', '\\')
     # upload the script
     copyfile_from_host_to_guest_setup(controller, src=path, dest=dest)
     # execute the script
@@ -178,6 +182,8 @@ def copyfile_from_guest_to_host_setup(controller, src: str, dest: str):
         return
 
     file = response.content
+    if platform.system() == 'Windows':
+        dest = dest.replace('/', '\\')
     parent_dir = os.path.dirname(dest)
     if not os.path.exists(parent_dir):
         os.makedirs(parent_dir, exist_ok=True)
@@ -194,7 +200,8 @@ def copyfile_from_host_to_guest_setup(controller, src: str, dest: str):
         dest(str): VM file path
     """
     http_server = f"http://{controller.vm_ip}:5000"
-
+    if platform.system() == 'Windows':
+        src = src.replace('/', '\\')
     form = MultipartEncoder({
         "file_path": dest,
         "file_data": (os.path.basename(dest), open(src, "rb"))
@@ -204,7 +211,7 @@ def copyfile_from_host_to_guest_setup(controller, src: str, dest: str):
     try:
         response = requests.post(http_server + "/setup/upload", headers=headers, data=form)
         if response.status_code == 200:
-            logger.info(f"Command executed successfully: {response.text}", )
+            logger.info(f"Command executed successfully: {response.text}")
         else:
             logger.error(f"Failed to upload file {src} to {dest}. Status code: {response.text}")
     except requests.exceptions.RequestException as e:

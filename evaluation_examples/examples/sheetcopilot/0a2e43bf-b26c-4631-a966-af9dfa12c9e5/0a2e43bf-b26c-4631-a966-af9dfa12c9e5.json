@@ -57,8 +57,8 @@
 		"func": "compare_table",
 		"expected": {
 			"type": "local_file",
-			"dest": "gold_SalesRep_gt1.xlsx",
-			"path": "evaluation_examples/examples/sheetcopilot/0a2e43bf-b26c-4631-a966-af9dfa12c9e5/5_SalesRep_gt1.xlsx"
+			"path": "evaluation_examples/examples/sheetcopilot/0a2e43bf-b26c-4631-a966-af9dfa12c9e5/5_SalesRep_gt1.xlsx",
+			"dest": "gold_SalesRep_gt1.xlsx"
 		},
 		"result": {
 			"type": "vm_file",
