@@ -11,6 +11,10 @@ from .bigquery import (
     bigquery_login_setup
 )
 
+from .dagster import (
+    dagster_webui_init_setup
+)
+
 from .google_cloud import (
     gcp_upload_keyfile_setup,
     gcp_webgui_setup,

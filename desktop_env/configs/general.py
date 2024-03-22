@@ -1,25 +1,48 @@
 #coding=utf8
 import os, logging, time, requests, json, random, uuid, platform
-from typing import List, Union, Tuple
-from playwright.sync_api import expect, sync_playwright
+from typing import List, Union, Tuple, Any
+from playwright.sync_api import expect, sync_playwright, BrowserContext, Page
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 logger = logging.getLogger("desktopenv.setup")
 
 
-def get_browser(p, url, trial=15):
+def get_browser(p, url, trial=3):
     for attempt in range(trial):
         try:
             browser = p.chromium.connect_over_cdp(url)
             break
         except Exception as e:
             if attempt < trial - 1:
-                logger.error(f"Attempt {attempt + 1}: Failed to connect Google Chrome, retrying. Error: {e}")
+                # logger.error(f"Attempt {attempt + 1}: Failed to connect Google Chrome, retrying. Error: {e}")
                 time.sleep(3)
             else:
+                # TODO: add error handling for browser close and re-open
                 logger.error(f"Failed to connect after multiple attempts: {e}")
-                return None
+                return
     return browser
+
+
+def find_page_by_url(context: BrowserContext, url: str, matching_func: callable = lambda x, y: x == y):
+    """ Find the page with the specified URL in the context.
+    @args:
+        context(playwright.sync_api.BrowserContext): the browser context object
+        url(str): the URL of the page to find
+        matching_func(callable): the function to match the URL, default is exact match
+    @return:
+        page: the page object with the specified URL, if found else None
+    """
+    for page in context.pages:
+        if matching_func(page.url, url):
+            return page
+    return
+
+
+def init_page_with_js(page: Page, script_path: str) -> Any:
+    with open(script_path, 'r') as f:
+        js_script = f.read().strip()
+    page.evaluate(js_script)
+    return page
 
 
 def google_chrome_browser_setup(controller, **config):
@@ -27,11 +50,13 @@ def google_chrome_browser_setup(controller, **config):
     config(Dict[str, Any]):
         debugging_port(int): the remote debugging port in VM (default: 1337)
         listening_port(int): the listening port in localhost (default: 9222)
+        incognito(bool): whether to open the browser in incognito mode (default: False)
         urls(List[str]): a list of urls to open in the browser (default: [])
     """
     debugging_port = config.get('debugging_port', 1337)
     listening_port = config.get('listening_port', 9222)
-    controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"])
+    options = ["--incognito"] if config.get('incognito', False) else []
+    controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"] + options)
     controller._launch_setup(command=["socat", f"tcp-listen:{listening_port},fork", f"tcp:localhost:{debugging_port}"])
 
     urls_to_open = config.get('urls', [])
@@ -50,7 +75,7 @@ def google_chrome_browser_setup(controller, **config):
                 page = context.new_page()  # Create a new page within the existing context
                 try:
                     page.goto(url, timeout=60000)
-                except:
+                except Exception as e:
                     logger.warning(f"[WARNING]: opening URL {url} exceeds time limit.")
 
                 if i == 0: # clear the default tab
