@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "https://drive.google.com/uc?id=1gRFurvUFCy-MpU7PQS_rMo9HUk5ZiDRj&export=download",
+						"url": "evaluation_examples/examples/sheetcopilot/852527e8-1b97-466c-a12f-b6b095df59bc/WeeklySales.xlsx",
 						"path": "/home/user/WeeklySales.xlsx"
 					}
 				]
@@ -61,7 +61,7 @@
 		"func": "compare_table",
 		"expected": {
 			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1xJBACBEhTRinZx3kZRMhJa12i468P55u&export=download",
+			"path": "evaluation_examples/examples/sheetcopilot/852527e8-1b97-466c-a12f-b6b095df59bc/9_WeeklySales_gt1.xlsx",
 			"dest": "9_WeeklySales_gt1.xlsx"
 		},
 		"result": {

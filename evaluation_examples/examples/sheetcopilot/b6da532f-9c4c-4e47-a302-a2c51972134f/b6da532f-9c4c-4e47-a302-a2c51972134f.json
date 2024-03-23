@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "https://drive.google.com/uc?id=1zejyjqheZOyLaYXS2X8ds6QrZCj3P096&export=download",
+						"url": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/PeriodRate.xlsx",
 						"path": "/home/user/PeriodRate.xlsx"
 					}
 				]
@@ -61,7 +61,7 @@
 		"func": "compare_table",
 		"expected": {
 			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1J-1yO83vTuleYBnF8n6f5ykGju4U1CvS&export=download",
+			"path": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/3_PeriodRate_gt1.xlsx",
 			"dest": "3_PeriodRate_gt1.xlsx"
 		},
 		"result": {

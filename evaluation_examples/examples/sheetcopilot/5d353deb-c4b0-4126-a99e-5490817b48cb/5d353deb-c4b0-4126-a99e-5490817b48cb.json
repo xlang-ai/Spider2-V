@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "https://drive.google.com/uc?id=1v2Hfrd5fE2JG7H_ED6NbtC8G7hd8aOrM&export=download",
+						"url": "evaluation_examples/examples/sheetcopilot/5d353deb-c4b0-4126-a99e-5490817b48cb/EasyGDPBreakdown.xlsx",
 						"path": "/home/user/EasyGDPBreakdown.xlsx"
 					}
 				]
@@ -61,7 +61,7 @@
 		"func": "compare_table",
 		"expected": {
 			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1HOOwYo4Z6DOxz6SKBIgqL_YFll_eSikS&export=download",
+			"path": "evaluation_examples/examples/sheetcopilot/5d353deb-c4b0-4126-a99e-5490817b48cb/9_EasyGDPBreakdown_gt1.xlsx",
 			"dest": "9_EasyGDPBreakdown_gt1.xlsx"
 		},
 		"result": {

@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "https://drive.google.com/uc?id=1vdXYHCk66mZG-03VeKL9saiPkr7ykMZG&export=download",
+						"url": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/GDPBreakdown.xlsx",
 						"path": "/home/user/GDPBreakdown.xlsx"
 					}
 				]
@@ -61,7 +61,7 @@
 		"func": "compare_table",
 		"expected": {
 			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1S_x_aPXel7IzsxkQt0brcicQT2LqoF5M&export=download",
+			"path": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/1_GDPBreakdown_gt1.xlsx",
 			"dest": "1_GDPBreakdown_gt1.xlsx"
 		},
 		"result": {

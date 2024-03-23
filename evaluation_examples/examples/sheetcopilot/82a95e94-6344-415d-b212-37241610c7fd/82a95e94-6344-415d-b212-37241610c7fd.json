@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "https://drive.google.com/uc?id=1qSoApRNbONzv1wUHLq_jujgKB65bmwgx&export=download",
+						"url": "evaluation_examples/examples/sheetcopilot/82a95e94-6344-415d-b212-37241610c7fd/PricingTable (1).xlsx",
 						"path": "/home/user/PricingTable.xlsx"
 					}
 				]
@@ -61,7 +61,7 @@
 		"func": "compare_table",
 		"expected": {
 			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1kLoJkIZUg4s3w1wytoZjSXXo44Qk0F7t&export=download",
+			"path": "evaluation_examples/examples/sheetcopilot/82a95e94-6344-415d-b212-37241610c7fd/9_PricingTable_gt1.xlsx",
 			"dest": "9_PricingTable_gt1.xlsx"
 		},
 		"result": {
