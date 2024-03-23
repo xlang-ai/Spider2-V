@@ -56,7 +56,7 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
+			"type": "local_file",
 			"path": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/1_GDPBreakdown_gt1.xlsx",
 			"dest": "1_GDPBreakdown_gt1.xlsx"
 		},

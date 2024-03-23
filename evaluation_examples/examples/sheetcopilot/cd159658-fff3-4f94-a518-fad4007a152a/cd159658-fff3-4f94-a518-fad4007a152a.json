@@ -56,7 +56,7 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
+			"type": "local_file",
 			"path": "evaluation_examples/examples/sheetcopilot/cd159658-fff3-4f94-a518-fad4007a152a/6_SummerSales_gt1.xlsx",
 			"dest": "6_SummerSales_gt1.xlsx"
 		},

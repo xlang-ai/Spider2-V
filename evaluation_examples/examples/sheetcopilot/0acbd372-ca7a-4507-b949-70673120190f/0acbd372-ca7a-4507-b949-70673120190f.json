@@ -56,7 +56,7 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
+			"type": "local_file",
 			"path": "evaluation_examples/examples/sheetcopilot/0acbd372-ca7a-4507-b949-70673120190f/1_NetIncome_gt1.xlsx",
 			"dest": "1_NetIncome_gt1.xlsx"
 		},

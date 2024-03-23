@@ -56,7 +56,7 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
+			"type": "local_file",
 			"path": "evaluation_examples/examples/sheetcopilot/96042ca2-6ea0-461c-8ba8-81efdc07bbf5/8_PricingTable_gt1.xlsx",
 			"dest": "8_PricingTable_gt1.xlsx"
 		},

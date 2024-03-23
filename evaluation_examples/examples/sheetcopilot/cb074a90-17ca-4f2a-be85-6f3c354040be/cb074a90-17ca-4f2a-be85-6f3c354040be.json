@@ -56,7 +56,7 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
+			"type": "local_file",
 			"path": "evaluation_examples/examples/sheetcopilot/cb074a90-17ca-4f2a-be85-6f3c354040be/4_IncomeStatement_gt1.xlsx",
 			"dest": "4_IncomeStatement_gt1.xlsx"
 		},
