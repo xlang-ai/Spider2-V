@@ -5,12 +5,12 @@
 	"source": "SheetCopilot@32",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
 				"files": [
 					{
 						"src": "evaluation_examples/examples/sheetcopilot/5d353deb-c4b0-4126-a99e-5490817b48cb/EasyGDPBreakdown.xlsx",
-						"path": "/home/user/EasyGDPBreakdown.xlsx"
+						"dest": "/home/user/EasyGDPBreakdown.xlsx"
 					}
 				]
 			}

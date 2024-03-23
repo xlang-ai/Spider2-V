@@ -5,12 +5,12 @@
 	"source": "SheetCopilot@181",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
 				"files": [
 					{
 						"src": "evaluation_examples/examples/sheetcopilot/cd159658-fff3-4f94-a518-fad4007a152a/SummerSales.xlsx",
-						"path": "/home/user/SummerSales.xlsx"
+						"dest": "/home/user/SummerSales.xlsx"
 					}
 				]
 			}

@@ -5,12 +5,12 @@
 	"source": "SheetCopilot@121",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
 				"files": [
 					{
 						"src": "evaluation_examples/examples/sheetcopilot/0acbd372-ca7a-4507-b949-70673120190f/NetIncome.xlsx",
-						"path": "/home/user/NetIncome.xlsx"
+						"dest": "/home/user/NetIncome.xlsx"
 					}
 				]
 			}
