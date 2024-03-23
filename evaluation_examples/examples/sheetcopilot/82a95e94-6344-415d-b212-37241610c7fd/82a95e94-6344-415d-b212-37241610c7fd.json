@@ -7,12 +7,8 @@
 		{
 			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"src": "evaluation_examples/examples/sheetcopilot/82a95e94-6344-415d-b212-37241610c7fd/PricingTable (1).xlsx",
-						"dest": "/home/user/PricingTable.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/82a95e94-6344-415d-b212-37241610c7fd/PricingTable (1).xlsx",
+				"dest": "/home/user/PricingTable.xlsx"
 			}
 		},
 		{

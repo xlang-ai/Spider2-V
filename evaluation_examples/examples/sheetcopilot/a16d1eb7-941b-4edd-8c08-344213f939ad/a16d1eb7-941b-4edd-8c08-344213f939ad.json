@@ -7,12 +7,8 @@
 		{
 			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"src": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/GDPBreakdown.xlsx",
-						"dest": "/home/user/GDPBreakdown.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/GDPBreakdown.xlsx",
+				"dest": "/home/user/GDPBreakdown.xlsx"
 			}
 		},
 		{

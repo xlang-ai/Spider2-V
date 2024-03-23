@@ -7,12 +7,8 @@
 		{
 			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"src": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/PeriodRate.xlsx",
-						"dest": "/home/user/PeriodRate.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/PeriodRate.xlsx",
+				"dest": "/home/user/PeriodRate.xlsx"
 			}
 		},
 		{

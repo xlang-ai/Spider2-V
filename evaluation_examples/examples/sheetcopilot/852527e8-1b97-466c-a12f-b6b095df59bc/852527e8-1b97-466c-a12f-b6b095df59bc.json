@@ -7,12 +7,8 @@
 		{
 			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"src": "evaluation_examples/examples/sheetcopilot/852527e8-1b97-466c-a12f-b6b095df59bc/WeeklySales.xlsx",
-						"dest": "/home/user/WeeklySales.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/852527e8-1b97-466c-a12f-b6b095df59bc/WeeklySales.xlsx",
+				"dest": "/home/user/WeeklySales.xlsx"
 			}
 		},
 		{
