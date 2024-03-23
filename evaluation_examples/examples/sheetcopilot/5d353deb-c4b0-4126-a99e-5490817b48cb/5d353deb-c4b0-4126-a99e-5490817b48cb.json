@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/5d353deb-c4b0-4126-a99e-5490817b48cb/EasyGDPBreakdown.xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/5d353deb-c4b0-4126-a99e-5490817b48cb/EasyGDPBreakdown.xlsx",
 						"path": "/home/user/EasyGDPBreakdown.xlsx"
 					}
 				]

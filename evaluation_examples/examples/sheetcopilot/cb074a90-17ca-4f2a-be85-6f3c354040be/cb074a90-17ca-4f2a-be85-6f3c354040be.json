@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/cb074a90-17ca-4f2a-be85-6f3c354040be/IncomeStatement.xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/cb074a90-17ca-4f2a-be85-6f3c354040be/IncomeStatement.xlsx",
 						"path": "/home/user/IncomeStatement.xlsx"
 					}
 				]

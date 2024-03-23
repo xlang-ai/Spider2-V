@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/82a95e94-6344-415d-b212-37241610c7fd/PricingTable (1).xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/82a95e94-6344-415d-b212-37241610c7fd/PricingTable (1).xlsx",
 						"path": "/home/user/PricingTable.xlsx"
 					}
 				]

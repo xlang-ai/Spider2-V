@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/852527e8-1b97-466c-a12f-b6b095df59bc/WeeklySales.xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/852527e8-1b97-466c-a12f-b6b095df59bc/WeeklySales.xlsx",
 						"path": "/home/user/WeeklySales.xlsx"
 					}
 				]

@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/cd159658-fff3-4f94-a518-fad4007a152a/SummerSales.xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/cd159658-fff3-4f94-a518-fad4007a152a/SummerSales.xlsx",
 						"path": "/home/user/SummerSales.xlsx"
 					}
 				]

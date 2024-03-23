@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/GDPBreakdown.xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/a16d1eb7-941b-4edd-8c08-344213f939ad/GDPBreakdown.xlsx",
 						"path": "/home/user/GDPBreakdown.xlsx"
 					}
 				]

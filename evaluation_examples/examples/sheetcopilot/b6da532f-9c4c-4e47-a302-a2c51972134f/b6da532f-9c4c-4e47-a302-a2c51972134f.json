@@ -9,7 +9,7 @@
 			"parameters": {
 				"files": [
 					{
-						"url": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/PeriodRate.xlsx",
+						"src": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/PeriodRate.xlsx",
 						"path": "/home/user/PeriodRate.xlsx"
 					}
 				]
