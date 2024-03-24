@@ -1,7 +1,7 @@
 {
 	"id": "b6da532f-9c4c-4e47-a302-a2c51972134f",
 	"snapshot": "libreoffice_calc",
-	"instruction": "Display the average annual rate corresponding to each period per year in a new sheet named \"Sheet2\".",
+	"instruction": "Display number of period and annual rate corresponding to each period per year in a new sheet named /Sheet2/ by creating a pivot table.",
 	"source": "SheetCopilot@126",
 	"config": [
 		{
