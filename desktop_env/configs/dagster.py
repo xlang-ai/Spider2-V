@@ -21,9 +21,42 @@ def dagster_webui_close_popups(page: Page):
     return
 
 
+def dagster_webgui_materialize_assets(page: Page, timeout: int = 60000):
+    """ Goto the Assets page and materialize selected assets, by default materializing all assets.
+    @args:
+        timeout(int): waiting time for materializing all assets, default is 60000ms
+    """
+    asset_menu = page.locator('a[href="/assets"]').filter(has_text="Assets")
+    expect(asset_menu).to_be_enabled()
+    asset_menu.click()
+    reload_button = page.locator('button').filter(has_text="Reload definitions")
+    expect(reload_button).to_be_enabled()
+    reload_button.click()
+    expect(reload_button).to_be_enabled() # waiting for reload to finish
+    # select the first checkbox, by default materialize all assets
+    checkbox = page.locator('label[for="checkbox-1"]').first
+    expect(checkbox).to_be_enabled()
+    if not checkbox.is_checked():
+        checkbox.click()
+        expect(checkbox).to_be_checked()
+    materialize_button = page.locator('button').filter(has_text="Materialize selected")
+    expect(materialize_button).to_be_enabled()
+    materialize_button.click()
+
+    total_count = page.locator('input[type="checkbox"]').count() - 1
+    materialized_span = page.locator('xpath=//span[text() and not(child::*)]').filter(has_text="Materialized")
+    expect(materialized_span).to_have_count(total_count, timeout=timeout) # ensure all assets are materialized
+
+    if checkbox.is_checked():
+        checkbox.click()
+        expect(checkbox).not_to_be_checked()
+    return
+
+
 DAGSTER_WEBUI_FUNCTIONS = {
     "execute_js": init_page_with_js,
-    "close_popups": dagster_webui_close_popups
+    "close_popups": dagster_webui_close_popups,
+    "materialize_assets": dagster_webgui_materialize_assets
 }
 
 

@@ -21,7 +21,7 @@
             "type": "launch",
             "parameters": {
                 "command": [
-                "C:\Program Files\Google\Chrome\Application\chrome.exe",
+                "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
                 "--remote-debugging-port=1337"
                 ]
             }
@@ -46,7 +46,7 @@
             "type": "login",
             "parameters": {
                 "settings_file": "evaluation_examples/settings/google/settings.json",
-                "platform": "googledrive"
+                "tool": "googledrive"
             }
         },
         {

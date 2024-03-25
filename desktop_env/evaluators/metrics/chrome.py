@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 import re
 import shutil
 from itertools import product
@@ -140,6 +141,18 @@ def is_expected_search_query(active_tab_info: Dict[str, str], rules: Dict[str, A
     if matched:
         return 1.
     return 0.
+
+
+def compare_json_file(path1: str, path2: str, **kwargs) -> float:
+    with open(path1, 'r') as f1:
+        content1 = json.load(f1)
+    with open(path2, 'r') as f2:
+        content2 = json.load(f2)
+    
+    if content1 == content2:
+        return 1.
+    else:
+        return .0
 
 
 def compare_pdfs(pdf1_path: Union[str, List[str]], pdf2_path: Union[str, List[str]]):

@@ -1,7 +1,7 @@
 {
-    "id": "9f8eab3f-3c9f-4def-9061-43a65fd83974",
+    "id": "5fee7fff-5745-462a-a289-7d10346111fe",
     "snapshot": "dagster",
-    "instruction": "In the current dagster project, create an asset `top10_story_ids` in module hacker_news to download and save the list of top 10 story ids from HackerNews into data/story_ids.json. And materialize it in the opened UI.",
+    "instruction": "I have created an asset to download the top 10 story ids in the opened project. Could you help me extend it into a pipeline `top10_story_ids -> top10_stories -> top5_mfw`, which further downloads the list of these 10 stories into data/stories.json and calculates top 5 most frequent words in titles into data/mfw.json (dict with format word: count)? Oh, please exclude words in stopwords.txt during counting. For splitting text into words, just use the basic text.split() method and ignore case.",
     "source": [
         "https://docs.dagster.io/tutorial/writing-your-first-asset"
     ],
@@ -16,9 +16,16 @@
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/5fee7fff-5745-462a-a289-7d10346111fe/hacker_news.zip",
+                "dest": "/home/user/hacker_news.zip"
+            }
+        },
+        {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/9f8eab3f-3c9f-4def-9061-43a65fd83974/init.sh",
+                "src": "evaluation_examples/examples/dagster/5fee7fff-5745-462a-a289-7d10346111fe/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -41,6 +48,9 @@
                 "actions": [
                     {
                         "type": "close_popups"
+                    },
+                    {
+                        "type": "materialize_assets"
                     }
                 ]
             }
@@ -52,25 +62,31 @@
             {
                 "type": "copyfile_from_host_to_guest",
                 "parameters": {
-                    "src": "evaluation_examples/examples/dagster/9f8eab3f-3c9f-4def-9061-43a65fd83974/golden_hacker_news.zip",
+                    "src": "evaluation_examples/examples/dagster/5fee7fff-5745-462a-a289-7d10346111fe/golden_hacker_news.zip",
                     "dest": "/home/user/hacker_news.zip"
                 }
             }
         ],
         "func": [
             "check_include_exclude",
+            "compare_json_file",
             "compare_json_file"
         ],
         "result": [
             {
                 "type": "vm_script_output",
-                "src": "evaluation_examples/examples/dagster/9f8eab3f-3c9f-4def-9061-43a65fd83974/eval.sh",
+                "src": "evaluation_examples/examples/dagster/5fee7fff-5745-462a-a289-7d10346111fe/eval.sh",
                 "dest": "/home/user/eval.sh"
             },
             {
                 "type": "vm_file",
-                "path": "/home/user/projects/hacker_news/data/story_ids.json",
-                "dest": "story_ids.json"
+                "path": "/home/user/projects/hacker_news/data/stories.json",
+                "dest": "stories.json"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/hacker_news/data/mfw.json",
+                "dest": "mfw.json"
             }
         ],
         "expected": [
@@ -87,8 +103,13 @@
             },
             {
                 "type": "vm_file",
-                "path": "/home/user/golden_hacker_news/data/story_ids.json",
-                "dest": "golden_story_ids.json"
+                "path": "/home/user/hacker_news/data/stories.json",
+                "dest": "golden_stories.json"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/hacker_news/data/mfw.json",
+                "dest": "golden_mfw.json"
             }
         ]
     }

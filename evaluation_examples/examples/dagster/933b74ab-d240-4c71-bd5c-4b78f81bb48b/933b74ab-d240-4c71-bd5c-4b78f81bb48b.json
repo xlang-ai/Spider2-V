@@ -1,0 +1,80 @@
+{
+    "id": "933b74ab-d240-4c71-bd5c-4b78f81bb48b",
+    "snapshot": "dagster",
+    "instruction": "I just built a 3-step Dagster pipeline. Now, I want to run it regularly to keep all assets up to date. Name the target job `hacker_news_pipeline` and schedule it to run every hour.",
+    "source": [
+        "https://docs.dagster.io/tutorial/writing-your-first-asset"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/933b74ab-d240-4c71-bd5c-4b78f81bb48b/hacker_news.zip",
+                "dest": "/home/user/hacker_news.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/933b74ab-d240-4c71-bd5c-4b78f81bb48b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com",
+                    "http://localhost:3000"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    },
+                    {
+                        "type": "materialize_assets",
+                        "timeout": 60000
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/dagster/933b74ab-d240-4c71-bd5c-4b78f81bb48b/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

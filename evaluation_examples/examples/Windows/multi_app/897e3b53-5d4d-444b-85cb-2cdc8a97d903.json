@@ -51,7 +51,7 @@
             "type": "login",
             "parameters": {
                 "settings_file": "evaluation_examples/settings/google/settings.json",
-                "platform": "googledrive"
+                "tool": "googledrive"
             }
         },
         {

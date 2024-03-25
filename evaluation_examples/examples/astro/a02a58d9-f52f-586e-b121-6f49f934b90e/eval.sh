@@ -29,6 +29,7 @@ contains_all=true
 for task in "${task_list[@]}"; do
     if [[ ! ${jaffle_shop_tasks} == *"$task"* ]]; then
         contains_all=false
+        break
     fi
 done
 if ${contains_all}; then
