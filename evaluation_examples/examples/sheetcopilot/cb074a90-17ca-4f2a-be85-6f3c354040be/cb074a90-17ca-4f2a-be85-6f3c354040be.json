@@ -5,14 +5,10 @@
 	"source": "SheetCopilot@86",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"url": "https://drive.google.com/uc?id=1mXsdnVfTwJGUeErnDPi00-qet-OoUCKP&export=download",
-						"path": "/home/user/IncomeStatement.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/cb074a90-17ca-4f2a-be85-6f3c354040be/IncomeStatement.xlsx",
+				"dest": "/home/user/IncomeStatement.xlsx"
 			}
 		},
 		{
@@ -60,8 +56,8 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1pcIlTRX3Y9lbAehS6u6el8sCUAQt8af_&export=download",
+			"type": "local_file",
+			"path": "evaluation_examples/examples/sheetcopilot/cb074a90-17ca-4f2a-be85-6f3c354040be/4_IncomeStatement_gt1.xlsx",
 			"dest": "4_IncomeStatement_gt1.xlsx"
 		},
 		"result": {

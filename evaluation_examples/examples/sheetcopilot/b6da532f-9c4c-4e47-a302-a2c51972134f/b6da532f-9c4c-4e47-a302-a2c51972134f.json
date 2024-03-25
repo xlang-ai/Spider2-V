@@ -1,18 +1,14 @@
 {
 	"id": "b6da532f-9c4c-4e47-a302-a2c51972134f",
 	"snapshot": "libreoffice_calc",
-	"instruction": "Display the average annual rate corresponding to each period per year in a new sheet named \"Sheet2\".",
+	"instruction": "Display number of period and annual rate corresponding to each period per year in a new sheet named /Sheet2/ by creating a pivot table.",
 	"source": "SheetCopilot@126",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"url": "https://drive.google.com/uc?id=1zejyjqheZOyLaYXS2X8ds6QrZCj3P096&export=download",
-						"path": "/home/user/PeriodRate.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/PeriodRate.xlsx",
+				"dest": "/home/user/PeriodRate.xlsx"
 			}
 		},
 		{
@@ -60,8 +56,8 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1J-1yO83vTuleYBnF8n6f5ykGju4U1CvS&export=download",
+			"type": "local_file",
+			"path": "evaluation_examples/examples/sheetcopilot/b6da532f-9c4c-4e47-a302-a2c51972134f/3_PeriodRate_gt1.xlsx",
 			"dest": "3_PeriodRate_gt1.xlsx"
 		},
 		"result": {

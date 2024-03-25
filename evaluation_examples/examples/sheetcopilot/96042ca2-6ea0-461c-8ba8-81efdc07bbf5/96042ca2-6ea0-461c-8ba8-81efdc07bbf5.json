@@ -5,14 +5,10 @@
 	"source": "SheetCopilot@142",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"url": "https://drive.google.com/uc?id=1qSoApRNbONzv1wUHLq_jujgKB65bmwgx&export=download",
-						"path": "/home/user/PricingTable.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/96042ca2-6ea0-461c-8ba8-81efdc07bbf5/PricingTable.xlsx",
+				"dest": "/home/user/PricingTable.xlsx"
 			}
 		},
 		{
@@ -60,8 +56,8 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=12dmUZiWmBtq8pzsnKCnZKqIGjISRzSAj&export=download",
+			"type": "local_file",
+			"path": "evaluation_examples/examples/sheetcopilot/96042ca2-6ea0-461c-8ba8-81efdc07bbf5/8_PricingTable_gt1.xlsx",
 			"dest": "8_PricingTable_gt1.xlsx"
 		},
 		"result": {

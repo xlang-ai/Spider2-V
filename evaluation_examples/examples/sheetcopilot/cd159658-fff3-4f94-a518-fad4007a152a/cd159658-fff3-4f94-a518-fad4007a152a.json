@@ -5,14 +5,10 @@
 	"source": "SheetCopilot@181",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"url": "https://drive.google.com/uc?id=1bNHlYdEXNBBHab1kiYaD35Xc3hNIyR8J&export=download",
-						"path": "/home/user/SummerSales.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/cd159658-fff3-4f94-a518-fad4007a152a/SummerSales.xlsx",
+				"dest": "/home/user/SummerSales.xlsx"
 			}
 		},
 		{
@@ -60,8 +56,8 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1L_ZbEAdbTubB6pcXFoM4N-qjiXLJ2KCp&export=download",
+			"type": "local_file",
+			"path": "evaluation_examples/examples/sheetcopilot/cd159658-fff3-4f94-a518-fad4007a152a/6_SummerSales_gt1.xlsx",
 			"dest": "6_SummerSales_gt1.xlsx"
 		},
 		"result": {
