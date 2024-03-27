@@ -1,18 +1,14 @@
 {
 	"id": "fe29cdf3-d317-47b3-a657-d61f97f00b88",
 	"snapshot": "libreoffice_calc",
-	"instruction": "Calculate the total revenue for each month in a new sheet and draw a bar chart for the results.",
+	"instruction": "Calculate the total revenue for each month as a pivot table in a new sheet and draw a bar chart for the results.",
 	"source": "SheetCopilot@61",
 	"config": [
 		{
-			"type": "download",
+			"type": "copyfile_from_host_to_guest",
 			"parameters": {
-				"files": [
-					{
-						"url": "https://drive.google.com/uc?id=1I29YyV7zFdNqbsQw0SWD9pDuLz3oHlge&export=download",
-						"path": "/home/user/EntireSummerSales.xlsx"
-					}
-				]
+				"src": "evaluation_examples/examples/sheetcopilot/fe29cdf3-d317-47b3-a657-d61f97f00b88/EntireSummerSales.xlsx",
+				"dest": "/home/user/EntireSummerSales.xlsx"
 			}
 		},
 		{
@@ -60,8 +56,8 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1_gUOT7TuqIk3g-wn5wG1gZfxkwMJ0rDK&export=download",
+			"type": "local_file",
+			"path": "evaluation_examples/examples/sheetcopilot/fe29cdf3-d317-47b3-a657-d61f97f00b88/12_EntireSummerSales_gt1.xlsx",
 			"dest": "12_EntireSummerSales_gt1.xlsx"
 		},
 		"result": {
@@ -73,16 +69,16 @@
 			"rules": [
 				{
 					"type": "chart",
-					"sheet_idx0": 0,
-					"sheet_idx1": "EI0",
+					"sheet_idx0": "RI1",
+					"sheet_idx1": "EI1",
 					"chart_props": [
 						"type"
 					]
 				},
 				{
 					"type": "pivot_table",
-					"sheet_idx0": 0,
-					"sheet_idx1": "EI0",
+					"sheet_idx0": "RI1",
+					"sheet_idx1": "EI1",
 					"pivot_props": [
 						"col_fields",
 						"filter",
