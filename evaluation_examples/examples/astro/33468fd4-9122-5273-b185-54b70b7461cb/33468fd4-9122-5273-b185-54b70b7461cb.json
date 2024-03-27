@@ -1,12 +1,19 @@
 {
     "id": "33468fd4-9122-5273-b185-54b70b7461cb",
-    "snapshot": "data_agent",
-    "instruction": "Install docker for me. The password for sudo is 'password' (' not included). By the way, configure it to auto-start on boot and allow me to prevent typing the password each time.",
+    "snapshot": "astro",
+    "instruction": "I want to build an airflow project connecting to a local postgres database. Could you install docker, astro-cli and postgresql for me. The sudo password is 'password' (' not included). By the way, configure docker and postgresql to auto-start on boot, and allow me to prevent typing sudo when using docker each time.",
     "source": [
         "https://docs.docker.com/engine/install/ubuntu/",
         "https://docs.docker.com/engine/install/linux-postinstall/"
     ],
     "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/33468fd4-9122-5273-b185-54b70b7461cb/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
         {
             "type": "launch",
             "parameters": {

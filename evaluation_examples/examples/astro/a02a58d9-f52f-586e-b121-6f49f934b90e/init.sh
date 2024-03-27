@@ -3,6 +3,7 @@
 ####################################################################################################
 # Please ensure that Chromium or Chrome, VSCode, docker and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
+# Docker engine is installed following official docs: https://docs.docker.com/engine/install/ubuntu/
 # The current user should be added into group docker.
 # The dbt project jaffle_shop.zip should be uploaded to the home directory before running this script.
 # This script is tested on Ubuntu 20.04 LTS.
@@ -15,6 +16,14 @@ PASSWORD=password
 DB_NAME=jaffle_shop
 DB_USER=user
 DB_PASSWORD=password
+
+VERSION=10.5.0
+img=quay.io/astronomer/astro-runtime:${VERSION}
+images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
+echo ${images} | grep -Fiq -- "$img"
+if [ $? -ne 0 ]; then
+    docker pull ${img}
+fi
 
 function install_postgres() {
     cd /home
