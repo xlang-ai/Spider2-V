@@ -15,6 +15,10 @@ from .dagster import (
     dagster_webui_init_setup
 )
 
+from .airbyte import (
+    airbyte_webui_init_setup
+)
+
 from .google_cloud import (
     gcp_upload_keyfile_setup,
     gcp_webgui_setup,

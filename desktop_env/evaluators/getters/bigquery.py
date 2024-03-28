@@ -9,6 +9,10 @@ from google.cloud.bigquery.table import TableListItem
 logger = logging.getLogger("desktopenv.getters.bigquery")
 
 
+def get_bigquery_database_to_zip(env, config):
+    pass
+
+
 def get_bigquery_table_to_csv(env, config):
     """ Given the project name or index, dataset id and table id, return the table content if found, otherwise return None.
     @args:

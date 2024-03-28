@@ -7,7 +7,7 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 logger = logging.getLogger("desktopenv.setup")
 
 
-def get_browser(p, url, trial=3):
+def get_browser(p, url, trial=15):
     for attempt in range(trial):
         try:
             browser = p.chromium.connect_over_cdp(url)
