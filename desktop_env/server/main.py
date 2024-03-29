@@ -414,9 +414,18 @@ def _create_pywinauto_node(node: BaseWrapper, depth: int = 0, flag: Optional[str
     attribute_dict: Dict[str, Any] = {"name": node.element_info.name}
 
     #  States {{{ # 
-    attribute_dict["{{{:}}}enabled".format(_accessibility_ns_map["st"])] = str(node.is_enabled()).lower()
-    attribute_dict["{{{:}}}visible".format(_accessibility_ns_map["st"])] = str(node.is_visible()).lower()
-    attribute_dict["{{{:}}}active".format(_accessibility_ns_map["st"])] = str(node.is_active()).lower()
+    try:
+        attribute_dict["{{{:}}}enabled".format(_accessibility_ns_map["st"])] = str(node.is_enabled()).lower()
+    except:
+        pass
+    try:
+        attribute_dict["{{{:}}}visible".format(_accessibility_ns_map["st"])] = str(node.is_visible()).lower()
+    except:
+        pass
+    try:
+        attribute_dict["{{{:}}}active".format(_accessibility_ns_map["st"])] = str(node.is_active()).lower()
+    except:
+        pass
 
     if hasattr(node, "is_minimized"):
         try:
@@ -522,21 +531,45 @@ def _create_pywinauto_node(node: BaseWrapper, depth: int = 0, flag: Optional[str
 
     #  Value {{{ # 
     if hasattr(node, "get_step"):
-        attribute_dict["{{{:}}}step".format(_accessibility_ns_map["val"])] = str(node.get_step())
+        try:
+            attribute_dict["{{{:}}}step".format(_accessibility_ns_map["val"])] = str(node.get_step())
+        except:
+            pass
     if hasattr(node, "value"):
-        attribute_dict["{{{:}}}value".format(_accessibility_ns_map["val"])] = str(node.value())
+        try:
+            attribute_dict["{{{:}}}value".format(_accessibility_ns_map["val"])] = str(node.value())
+        except:
+            pass
     if hasattr(node, "get_value"):
-        attribute_dict["{{{:}}}value".format(_accessibility_ns_map["val"])] = str(node.get_value())
+        try:
+            attribute_dict["{{{:}}}value".format(_accessibility_ns_map["val"])] = str(node.get_value())
+        except:
+            pass
     elif hasattr(node, "get_position"):
-        attribute_dict["{{{:}}}value".format(_accessibility_ns_map["val"])] = str(node.get_position())
+        try:
+            attribute_dict["{{{:}}}value".format(_accessibility_ns_map["val"])] = str(node.get_position())
+        except:
+            pass
     if hasattr(node, "min_value"):
-        attribute_dict["{{{:}}}min".format(_accessibility_ns_map["val"])] = str(node.min_value())
+        try:
+            attribute_dict["{{{:}}}min".format(_accessibility_ns_map["val"])] = str(node.min_value())
+        except:
+            pass
     elif hasattr(node, "get_range_min"):
-        attribute_dict["{{{:}}}min".format(_accessibility_ns_map["val"])] = str(node.get_range_min())
+        try:
+            attribute_dict["{{{:}}}min".format(_accessibility_ns_map["val"])] = str(node.get_range_min())
+        except:
+            pass
     if hasattr(node, "max_value"):
-        attribute_dict["{{{:}}}max".format(_accessibility_ns_map["val"])] = str(node.max_value())
+        try:
+            attribute_dict["{{{:}}}max".format(_accessibility_ns_map["val"])] = str(node.max_value())
+        except:
+            pass
     elif hasattr(node, "get_range_max"):
-        attribute_dict["{{{:}}}max".format(_accessibility_ns_map["val"])] = str(node.get_range_max())
+        try:
+            attribute_dict["{{{:}}}max".format(_accessibility_ns_map["val"])] = str(node.get_range_max())
+        except:
+            pass
     #  }}} Value # 
 
     attribute_dict["{{{:}}}class".format(_accessibility_ns_map["win"])] = str(type(node))
@@ -603,9 +636,14 @@ def get_accessibility_tree():
 
 @app.route('/screen_size', methods=['POST'])
 def get_screen_size():
-    d = display.Display()
-    screen_width = d.screen().width_in_pixels
-    screen_height = d.screen().height_in_pixels
+    if platform_name=="Linux":
+        d = display.Display()
+        screen_width = d.screen().width_in_pixels
+        screen_height = d.screen().height_in_pixels
+    elif platform_name=="Windows":
+        user32 = ctypes.windll.user32
+        screen_width: int = user32.GetSystemMetrics(0)
+        screen_height: int = user32.GetSystemMetrics(1)
     return jsonify(
         {
             "width": screen_width,

@@ -58,7 +58,8 @@ class DesktopEnv(gym.Env):
             tmp_dir: str = "tmp",
             cache_dir: str = "cache",
             screen_size: Tuple[int] = (1920, 1080),
-            headless: bool = False
+            headless: bool = False,
+            require_a11y_tree: bool = True,
     ):
         """
         Args:
@@ -77,6 +78,7 @@ class DesktopEnv(gym.Env):
         self.cache_dir_base: str = cache_dir
         self.vm_screen_size = screen_size  # todo: add the logic to get the screen size from the VM
         self.headless = headless
+        self.require_a11y_tree = require_a11y_tree
 
         os.makedirs(self.tmp_dir_base, exist_ok=True)
 
@@ -144,7 +146,13 @@ class DesktopEnv(gym.Env):
         image_path: str = os.path.join(self.tmp_dir, "screenshots", "{:d}.png".format(self._step_no))
 
         # Get the screenshot and save to the image_path
-        screenshot = self.controller.get_screenshot()
+        max_retries = 20
+        for _ in range(max_retries):
+            screenshot = self.controller.get_screenshot()
+            if screenshot is not None:
+                break
+            time.sleep(1)
+
         with open(image_path, "wb") as f:
             f.write(screenshot)
 
@@ -248,7 +256,7 @@ class DesktopEnv(gym.Env):
 
         observation = {
             "screenshot": self._get_obs(),
-            "accessibility_tree": self.controller.get_accessibility_tree(),
+            "accessibility_tree": self.controller.get_accessibility_tree() if self.require_a11y_tree else None,
         }
         return observation
 
@@ -284,7 +292,7 @@ class DesktopEnv(gym.Env):
 
         observation = {
             "screenshot": self._get_obs(),
-            "accessibility_tree": self.controller.get_accessibility_tree(),
+            "accessibility_tree": self.controller.get_accessibility_tree() if self.require_a11y_tree else None,
             # "terminal": self.controller.get_terminal_output(),
             "instruction": self.instruction
         }

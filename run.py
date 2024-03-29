@@ -95,6 +95,10 @@ def config() -> argparse.Namespace:
     parser.add_argument("--max_tokens", type=int, default=1500)
     parser.add_argument("--stop_token", type=str, default=None)
 
+    # example config
+    parser.add_argument("--domain", type=str, default="all")
+    parser.add_argument("--test_all_meta_path", type=str, default="evaluation_examples/test_all.json")
+
     # logging related
     parser.add_argument("--result_dir", type=str, default="./results")
     args = parser.parse_args()
@@ -144,6 +148,7 @@ def test(
         action_space=agent.action_space,
         screen_size=(args.screen_width, args.screen_height),
         headless=args.headless,
+        require_a11y_tree=args.observation_type in ["a11y_tree", "screenshot_a11y_tree", "som"],
     )
 
     for domain in tqdm(test_all_meta, desc="Domain"):
@@ -211,6 +216,8 @@ def get_unfinished(action_space, use_model, observation_type, result_dir, total_
         domain_path = os.path.join(target_dir, domain)
         if os.path.isdir(domain_path):
             for example_id in os.listdir(domain_path):
+                if example_id == "onboard":
+                    continue
                 example_path = os.path.join(domain_path, example_id)
                 if os.path.isdir(example_path):
                     if "result.txt" not in os.listdir(example_path):
@@ -264,8 +271,11 @@ if __name__ == '__main__':
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
     args = config()
 
-    with open("evaluation_examples/test_all.json", "r", encoding="utf-8") as f:
+    with open(args.test_all_meta_path, "r", encoding="utf-8") as f:
         test_all_meta = json.load(f)
+
+    if args.domain != "all":
+        test_all_meta = {args.domain: test_all_meta[args.domain]}
 
     test_file_list = get_unfinished(
         args.action_space,

@@ -15,6 +15,7 @@ import dashscope
 import google.generativeai as genai
 import openai
 import requests
+import tiktoken
 from PIL import Image
 from google.api_core.exceptions import InvalidArgument
 
@@ -33,49 +34,49 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 
-def linearize_accessibility_tree(accessibility_tree):
+def linearize_accessibility_tree(accessibility_tree, platform="ubuntu"):
     # leaf_nodes = find_leaf_nodes(accessibility_tree)
-    filtered_nodes = filter_nodes(ET.fromstring(accessibility_tree))
+    filtered_nodes = filter_nodes(ET.fromstring(accessibility_tree), platform)
 
     linearized_accessibility_tree = ["tag\tname\ttext\tposition (top-left x&y)\tsize (w&h)"]
     # Linearize the accessibility tree nodes into a table format
 
     for node in filtered_nodes:
-        #linearized_accessibility_tree += node.tag + "\t"
-        #linearized_accessibility_tree += node.attrib.get('name') + "\t"
+        # linearized_accessibility_tree += node.tag + "\t"
+        # linearized_accessibility_tree += node.attrib.get('name') + "\t"
         if node.text:
-            text = ( node.text if '"' not in node.text\
-                else '"{:}"'.format(node.text.replace('"', '""'))
-                   )
+            text = (node.text if '"' not in node.text \
+                        else '"{:}"'.format(node.text.replace('"', '""'))
+                    )
         elif node.get("{uri:deskat:uia.windows.microsoft.org}class", "").endswith("EditWrapper") \
                 and node.get("{uri:deskat:value.at-spi.gnome.org}value"):
             text: str = node.get("{uri:deskat:value.at-spi.gnome.org}value")
-            text = (text if '"' not in text\
-                else '"{:}"'.format(text.replace('"', '""'))
-                   )
+            text = (text if '"' not in text \
+                        else '"{:}"'.format(text.replace('"', '""'))
+                    )
         else:
             text = '""'
-        #linearized_accessibility_tree += node.attrib.get(
-                #, "") + "\t"
-        #linearized_accessibility_tree += node.attrib.get('{uri:deskat:component.at-spi.gnome.org}size', "") + "\n"
+        # linearized_accessibility_tree += node.attrib.get(
+        # , "") + "\t"
+        # linearized_accessibility_tree += node.attrib.get('{uri:deskat:component.at-spi.gnome.org}size', "") + "\n"
         linearized_accessibility_tree.append(
-                "{:}\t{:}\t{:}\t{:}\t{:}".format(
-                    node.tag, node.get("name", ""), text
-                  , node.get('{uri:deskat:component.at-spi.gnome.org}screencoord', "")
-                  , node.get('{uri:deskat:component.at-spi.gnome.org}size', "")
-                  )
-              )
+            "{:}\t{:}\t{:}\t{:}\t{:}".format(
+                node.tag, node.get("name", ""), text
+                , node.get('{uri:deskat:component.at-spi.gnome.org}screencoord', "")
+                , node.get('{uri:deskat:component.at-spi.gnome.org}size', "")
+            )
+        )
 
     return "\n".join(linearized_accessibility_tree)
 
 
-def tag_screenshot(screenshot, accessibility_tree):
+def tag_screenshot(screenshot, accessibility_tree, platform="ubuntu"):
     # Creat a tmp file to store the screenshot in random name
     uuid_str = str(uuid.uuid4())
     os.makedirs("tmp/images", exist_ok=True)
     tagged_screenshot_file_path = os.path.join("tmp/images", uuid_str + ".png")
     # nodes = filter_nodes(find_leaf_nodes(accessibility_tree))
-    nodes = filter_nodes(ET.fromstring(accessibility_tree), check_image=True)
+    nodes = filter_nodes(ET.fromstring(accessibility_tree), platform=platform, check_image=True)
     # Make tag screenshot
     marks, drew_nodes, element_list = draw_bounding_boxes(nodes, screenshot, tagged_screenshot_file_path)
 
@@ -171,9 +172,19 @@ def parse_code_from_som_string(input_string, masks):
     return actions
 
 
+def trim_accessibility_tree(linearized_accessibility_tree, max_tokens):
+    enc = tiktoken.encoding_for_model("gpt-4")
+    tokens = enc.encode(linearized_accessibility_tree)
+    if len(tokens) > max_tokens:
+        linearized_accessibility_tree = enc.decode(tokens[:max_tokens])
+        linearized_accessibility_tree += "[...]\n"
+    return linearized_accessibility_tree
+
+
 class PromptAgent:
     def __init__(
             self,
+            platform="ubuntu",
             model="gpt-4-vision-preview",
             max_tokens=1500,
             top_p=0.9,
@@ -181,8 +192,10 @@ class PromptAgent:
             action_space="computer_13",
             observation_type="screenshot_a11y_tree",
             # observation_type can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som"]
-            max_trajectory_length=3
+            max_trajectory_length=3,
+            a11y_tree_max_tokens=10000
     ):
+        self.platform = platform
         self.model = model
         self.max_tokens = max_tokens
         self.top_p = top_p
@@ -190,6 +203,7 @@ class PromptAgent:
         self.action_space = action_space
         self.observation_type = observation_type
         self.max_trajectory_length = max_trajectory_length
+        self.a11y_tree_max_tokens = a11y_tree_max_tokens
 
         self.thoughts = []
         self.actions = []
@@ -251,9 +265,14 @@ class PromptAgent:
             , "The number of observations and actions should be the same."
 
         if len(self.observations) > self.max_trajectory_length:
-            _observations = self.observations[-self.max_trajectory_length:]
-            _actions = self.actions[-self.max_trajectory_length:]
-            _thoughts = self.thoughts[-self.max_trajectory_length:]
+            if self.max_trajectory_length == 0:
+                _observations = []
+                _actions = []
+                _thoughts = []
+            else:
+                _observations = self.observations[-self.max_trajectory_length:]
+                _actions = self.actions[-self.max_trajectory_length:]
+                _thoughts = self.thoughts[-self.max_trajectory_length:]
         else:
             _observations = self.observations
             _actions = self.actions
@@ -350,8 +369,13 @@ class PromptAgent:
         # {{{1
         if self.observation_type in ["screenshot", "screenshot_a11y_tree"]:
             base64_image = encode_image(obs["screenshot"])
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"])
+            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"],
+                                                                         platform=self.platform) if self.observation_type == "screenshot_a11y_tree" else None
             logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+
+            if linearized_accessibility_tree:
+                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
+                                                                        self.a11y_tree_max_tokens)
 
             if self.observation_type == "screenshot_a11y_tree":
                 self.observations.append({
@@ -384,8 +408,13 @@ class PromptAgent:
                 ]
             })
         elif self.observation_type == "a11y_tree":
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"])
+            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"],
+                                                                         platform=self.platform)
             logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+
+            if linearized_accessibility_tree:
+                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
+                                                                        self.a11y_tree_max_tokens)
 
             self.observations.append({
                 "screenshot": None,
@@ -404,9 +433,14 @@ class PromptAgent:
             })
         elif self.observation_type == "som":
             # Add som to the screenshot
-            masks, drew_nodes, tagged_screenshot, linearized_accessibility_tree = tag_screenshot(obs["screenshot"], obs["accessibility_tree"])
+            masks, drew_nodes, tagged_screenshot, linearized_accessibility_tree = tag_screenshot(obs["screenshot"], obs[
+                "accessibility_tree"], self.platform)
             base64_image = encode_image(tagged_screenshot)
             logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+
+            if linearized_accessibility_tree:
+                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
+                                                                        self.a11y_tree_max_tokens)
 
             self.observations.append({
                 "screenshot": base64_image,
@@ -436,7 +470,7 @@ class PromptAgent:
         # with open("messages.json", "w") as f:
         #     f.write(json.dumps(messages, indent=4))
 
-        #logger.info("PROMPT: %s", messages)
+        # logger.info("PROMPT: %s", messages)
 
         response = self.call_llm({
             "model": self.model,
@@ -539,17 +573,10 @@ class PromptAgent:
 
             logger.debug("CLAUDE MESSAGE: %s", repr(claude_messages))
 
-            # headers = {
-            #     "x-api-key": os.environ["ANTHROPIC_API_KEY"],
-            #     "anthropic-version": "2023-06-01",
-            #     "content-type": "application/json"
-            # }
-
             headers = {
-                "Accept": "application / json",
-                "Authorization": "Bearer " + os.environ["ANTHROPIC_API_KEY"],
-                "User-Agent": "Apifox/1.0.0 (https://apifox.com)",
-                "Content-Type": "application/json"
+                "x-api-key": os.environ["ANTHROPIC_API_KEY"],
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json"
             }
 
             payload = {
@@ -561,8 +588,7 @@ class PromptAgent:
             }
 
             response = requests.post(
-                # "https://chat.claude.com/v1/chat/completions",
-                "https://api.aigcbest.top/v1/chat/completions",
+                "https://api.anthropic.com/v1/messages",
                 headers=headers,
                 json=payload
             )
@@ -572,14 +598,10 @@ class PromptAgent:
                 logger.error("Failed to call LLM: " + response.text)
                 time.sleep(5)
                 return ""
-            # else:
-            #     return response.json()['content'][0]['text']
             else:
-                return response.json()['choices'][0]['message']['content']
-
+                return response.json()['content'][0]['text']
 
         elif self.model.startswith("mistral"):
-            print("Call mistral")
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
@@ -598,14 +620,13 @@ class PromptAgent:
 
                 mistral_messages.append(mistral_message)
 
-
             from openai import OpenAI
 
             client = OpenAI(api_key=os.environ["TOGETHER_API_KEY"],
                             base_url='https://api.together.xyz',
                             )
             logger.info("Generating content with Mistral model: %s", self.model)
-            
+
             flag = 0
             while True:
                 try:
@@ -613,7 +634,9 @@ class PromptAgent:
                     response = client.chat.completions.create(
                         messages=mistral_messages,
                         model=self.model,
-                        max_tokens=max_tokens
+                        max_tokens=max_tokens,
+                        top_p=top_p,
+                        temperature=temperature
                     )
                     break
                 except:
@@ -631,7 +654,6 @@ class PromptAgent:
 
         elif self.model.startswith("THUDM"):
             # THUDM/cogagent-chat-hf
-            print("Call CogAgent")
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
@@ -664,7 +686,9 @@ class PromptAgent:
             payload = {
                 "model": self.model,
                 "max_tokens": max_tokens,
-                "messages": cog_messages
+                "messages": cog_messages,
+                "temperature": temperature,
+                "top_p": top_p
             }
 
             base_url = "http://127.0.0.1:8000"
@@ -677,7 +701,6 @@ class PromptAgent:
             else:
                 print("Failed to call LLM: ", response.status_code)
                 return ""
-
 
         elif self.model.startswith("gemini"):
             def encoded_img_to_pil_img(data_str):
@@ -734,32 +757,37 @@ class PromptAgent:
             assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
             genai.configure(api_key=api_key)
             logger.info("Generating content with Gemini model: %s", self.model)
-            response = genai.GenerativeModel(self.model).generate_content(
-                gemini_messages,
-                generation_config={
-                    "candidate_count": 1,
-                    "max_output_tokens": max_tokens,
-                    "top_p": top_p,
-                    "temperature": temperature
-                },
-                safety_settings={
-                    "harassment": "block_none",
-                    "hate": "block_none",
-                    "sex": "block_none",
-                    "danger": "block_none"
-                }
-            )
-
+            request_options = {"timeout": 120}
+            gemini_model = genai.GenerativeModel(self.model)
             try:
+                response = gemini_model.generate_content(
+                    gemini_messages,
+                    generation_config={
+                        "candidate_count": 1,
+                        "max_output_tokens": max_tokens,
+                        "top_p": top_p,
+                        "temperature": temperature
+                    },
+                    safety_settings={
+                        "harassment": "block_none",
+                        "hate": "block_none",
+                        "sex": "block_none",
+                        "danger": "block_none"
+                    },
+                    request_options=request_options
+                )
                 return response.text
             except Exception as e:
-                logger.error("Meet exception when calling Gemini API, " + str(e))
+                logger.error("Meet exception when calling Gemini API, " + str(e.__class__.__name__) + str(e))
+                logger.error(f"count_tokens: {gemini_model.count_tokens(gemini_messages)}")
+                logger.error(f"generation_config: {max_tokens}, {top_p}, {temperature}")
                 return ""
         elif self.model.startswith("qwen"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
-            temperature = payload["temperature"]
+            if payload["temperature"]:
+                logger.warning("Qwen model does not support temperature parameter, it will be ignored.")
 
             qwen_messages = []
 
@@ -778,7 +806,9 @@ class PromptAgent:
 
             response = dashscope.MultiModalConversation.call(
                 model='qwen-vl-plus',
-                messages=messages,  # todo: add the hyperparameters
+                messages=messages,
+                max_length=max_tokens,
+                top_p=top_p,
             )
             # The response status_code is HTTPStatus.OK indicate success,
             # otherwise indicate request is failed, you can get error code
