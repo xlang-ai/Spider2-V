@@ -49,3 +49,4 @@ from .bigquery import (
     get_bigquery_database_to_zip
 )
 from .airbyte import get_airbyte_localhost_page
+from .snowflake import get_snowflake_user_info

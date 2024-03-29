@@ -1,0 +1,89 @@
+{
+    "id": "e34f8f1f-3b5c-45af-b76b-b643ae09f055",
+    "snapshot": "snowflake",
+    "instruction": "Help me create a new user with information in config.yaml for Snowflake.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/e34f8f1f-3b5c-45af-b76b-b643ae09f055/config.yaml",
+                "dest": "/home/user/Desktop/config.yaml"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_user",
+                        "username": "snowman"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/Desktop/config.yaml"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "is_snowflake_user_created",
+        "result": {
+            "type": "snowflake_user_info",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "username": "snowman"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "NAME": "SNOWMAN",
+                "LOGIN_NAME": "SNOWSTORM",
+                "FIRST_NAME": "Snow",
+                "LAST_NAME": "Storm",
+                "EMAIL": "snow.storm@snowflake.com",
+                "MUST_CHANGE_PASSWORD": "false",
+                "DISABLED": "false",
+                "SNOWFLAKE_LOCK": "false",
+                "DEFAULT_WAREHOUSE": "COMPUTE_WH",
+                "PASSWORD": "20!4@sn0wf@ll",
+                "ROLE": "SYSADMIN"
+            }
+        },
+        "options": {
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+        }
+    }
+}

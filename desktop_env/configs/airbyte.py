@@ -2,7 +2,7 @@
 import os, logging, time, requests, json, random, uuid, platform
 from typing import List, Union, Tuple
 from playwright.sync_api import expect, sync_playwright, BrowserContext, Page
-from .general import get_browser, find_page_by_url, init_page_with_js
+from .general import get_browser
 
 logger = logging.getLogger("desktopenv.setup")
 
@@ -59,7 +59,7 @@ def airbyte_webui_init_setup(controller, **config):
     """ Log into the airbyte localhost webui and perform environment setup. Arguments for config dict:
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
-        url(str): the url of the dagster webui, default is localhost 'http://localhost:8000'
+        url(str): the url of the airbyte webui, default is localhost 'http://localhost:8000'
         actions(list): the list of actions to perform, each action is one dict with `type` field chosen from ['empty']:
     """
     listening_port = config.get('listening_port', 9222)

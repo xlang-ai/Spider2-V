@@ -157,5 +157,9 @@ from .dbt import (
     check_local_database
 )
 
+from .snowflake import (
+    is_snowflake_user_created
+)
+
 def infeasible():
     pass
