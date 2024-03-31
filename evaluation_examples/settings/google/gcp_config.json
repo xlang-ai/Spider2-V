@@ -1,0 +1,32 @@
+[
+    {
+        "project_name": "bigquery-project",
+        "role": "Owner",
+        "apis": [
+            "serviceusage",
+            "servicemanagement",
+            "cloudresourcemanager",
+            "bigquery",
+            "cloudapis"
+        ],
+        "project_id": "apt-rite-415611",
+        "email": "xlang2024anonym@gmail.com",
+        "service_account": "service-account-236@apt-rite-415611.iam.gserviceaccount.com",
+        "keyfile_path": "evaluation_examples/settings/google/apt-rite-415611.json"
+    },
+    {
+        "project_name": "googleads-project",
+        "role": "Owner",
+        "apis": [
+            "serviceusage",
+            "servicemanagement",
+            "cloudresourcemanager",
+            "bigquery",
+            "cloudapis"
+        ],
+        "project_id": "ecstatic-valve-415611",
+        "email": "xlang2024anonym@gmail.com",
+        "service_account": "service-account@ecstatic-valve-415611.iam.gserviceaccount.com",
+        "keyfile_path": "evaluation_examples/settings/google/ecstatic-valve-415611.json"
+    }
+]
