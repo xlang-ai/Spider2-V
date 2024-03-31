@@ -182,5 +182,5 @@ at_processing
 test.xlsx
 test2.xlsx
 
-evaluation_examples/settings/*/*.json
+#evaluation_examples/settings/*/*.json
 !evaluation_examples/settings/*/settings.json
