@@ -41,16 +41,14 @@ logger.addHandler(sdebug_handler)
 logger = logging.getLogger("desktopenv.human_debug")
 
 instruction = """
-Test one example based on human actions in VM, you can type in:
+Debugging one example, you can directly work in VM or type in:
 1. reset/RESET: reset the environment to the initial state.
 2. evaluate/EVALUATE: evaluate the current state of the environment.
 3. exit/EXIT: exit the environment and program.
-4. concrete actions in desktop_env/envs/actions.py, e.g., {"action_type": "TYPING", "parameters": {"text": "echo hello"}}
+4. concrete action dict in desktop_env/envs/actions.py, e.g., '{"action_type": "TYPING", "parameters": {"text": "echo hello"}}'
+(note that, the string of action dict should use double quotes for string keys and values)
 Now, let us start:
 """
-
-# KEYBOARD_KEYS = ['\t', '\n', '\r', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', 'accept', 'add', 'alt', 'altleft', 'altright', 'apps', 'backspace', 'browserback', 'browserfavorites', 'browserforward', 'browserhome', 'browserrefresh', 'browsersearch', 'browserstop', 'capslock', 'clear', 'convert', 'ctrl', 'ctrlleft', 'ctrlright', 'decimal', 'del', 'delete', 'divide', 'down', 'end', 'enter', 'esc', 'escape', 'execute', 'f1', 'f10', 'f11', 'f12', 'f13', 'f14', 'f15', 'f16', 'f17', 'f18', 'f19', 'f2', 'f20', 'f21', 'f22', 'f23', 'f24', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'final', 'fn', 'hanguel', 'hangul', 'hanja', 'help', 'home', 'insert', 'junja', 'kana', 'kanji', 'launchapp1', 'launchapp2', 'launchmail', 'launchmediaselect', 'left', 'modechange', 'multiply', 'nexttrack', 'nonconvert', 'num0', 'num1', 'num2', 'num3', 'num4', 'num5', 'num6', 'num7', 'num8', 'num9', 'numlock', 'pagedown', 'pageup', 'pause', 'pgdn', 'pgup', 'playpause', 'prevtrack', 'print', 'printscreen', 'prntscrn', 'prtsc', 'prtscr', 'return', 'right', 'scrolllock', 'select', 'separator', 'shift', 'shiftleft', 'shiftright', 'sleep', 'stop', 'subtract', 'tab', 'up', 'volumedown', 'volumemute', 'volumeup', 'win', 'winleft', 'winright', 'yen', 'command', 'option', 'optionleft', 'optionright']
-
 
 def human_agent():
     """ Runs the Gym environment with human input.
@@ -89,13 +87,17 @@ def human_agent():
                 result = env.evaluate()
                 logger.info("Result: %.2f", result)
                 continue
+            
+            try:
+                action = json.loads(action_str)
+                logger.info("Take Action: %s", json.dumps(action, ensure_ascii=False))
+            except:
+                logger.error(f'[ERROR]: Failed to parser action string, please check the format: {action_str}')
+                continue
 
-            logger.info("Take Action: %s", action_str)
-
-            observation, reward, done, info = env.step(action, pause=0.5)
+            observation, reward, done, info = env.step(action, pause=1)
 
             logger.info("Observation[screenshot]: %s" % (observation['screenshot']))
-            logger.info("Observation[terminal]:\n%s" % (observation['terminal']))
             logger.info("================================\n")
             if done:
                 logger.info("Episode finished.")
@@ -106,9 +108,6 @@ def human_agent():
         except Exception as e:
             logger.exception("Unknown exception occurred. Exiting...")
             break
-
-    # result = env.evaluate()
-    # logger.info("Result: %.2f", result)
 
     # env.close()
     # logger.info("Environment closed.")
