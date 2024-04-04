@@ -52,3 +52,5 @@ wandb
 wrapt_timeout_decorator
 db-dtypes
 snowflake
+duckdb
+google-cloud-bigquery
