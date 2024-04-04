@@ -82,15 +82,17 @@ curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: appli
 "
 # 4. get source id and write into file
 curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
+read -r source_id < /home/user/srcid.txt
+rm /home/user/srcid.txt
 # 5. get destination definition id
-destination_name="Local SQLite"
+destination_name="Local CSV"
 destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_definitions/list -H "Content-Type: application/json" | jq -rM ".destinationDefinitions | .[] | select(.name == \"${destination_name}\") | .destinationDefinitionId")
 # 6. create destination, the connectionConfiguration field is destination-specific
 curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: application/json" -d "
 {
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
-        \"destination_path\": \"/local/faker.db\"
+        \"destination_path\": \"/local/csv_destination\"
     },
     \"destinationDefinitionId\": \"${destination_defid}\",
     \"name\": \"${destination_name}\", 
@@ -99,3 +101,10 @@ curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: 
 "
 # 7. get destination id and write into file
 curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId" > /home/user/destid.txt
+read -r destination_id < /home/user/destid.txt
+rm /home/user/destid.txt
+# 8. create connection
+connection=$(cat /home/user/connection.json | sed "s/\${source_id}/${source_id}/" | sed "s/\${destination_id}/${destination_id}/")
+curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: application/json" -d "${connection}"
+# 9. get connection id
+curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
