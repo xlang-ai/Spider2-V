@@ -1,0 +1,98 @@
+{
+    "id": "65bf1d55-6c9b-49ec-9455-91b376f48cb4",
+    "snapshot": "airbyte",
+    "instruction": "The connection from a cloud file to snowflake is not used any more. Just delete it as well as the source and destination in the Airbyte UI.",
+    "source": [
+        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "database": "COVID19",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/65bf1d55-6c9b-49ec-9455-91b376f48cb4/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/settings/snowflake/settings.json",
+                "dest": "/home/user/settings.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/65bf1d55-6c9b-49ec-9455-91b376f48cb4/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/65bf1d55-6c9b-49ec-9455-91b376f48cb4/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

@@ -26,8 +26,33 @@ def snowflake_delete_user(client: SnowflakeConnection, **config: Dict[str, Any])
     return
 
 
+def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, Any]):
+    """ Create the specified database in snowflake. Arguments for config dict:
+    @args:
+        database(str): the name of the database to create, required
+        schema(str): the name of the schema to create
+        delete_first(bool): delete the database if already exists, default True
+    """
+    try:
+        cursor = None
+        cursor = client.cursor()
+        delete_first = config.get('delete_first', True)
+        if delete_first:
+            cursor.execute(f'DROP DATABASE IF EXISTS {config["database"]} CASCADE;')
+        cursor.execute(f'CREATE DATABASE IF NOT EXISTS {config["database"]};')
+        if config.get('schema', ''):
+            command = f'begin; USE DATABASE {config["database"]}; CREATE SCHEMA IF NOT EXISTS {config["schema"]}; commit;'
+            cursor.execute(command)
+    except:
+        logger.error(f"[ERROR]: failed to create database {config['database']} in snowflake!")
+    finally:
+        if cursor is not None: cursor.close()
+    return
+
+
 SNOWFLAKE_INIT_FUNCTIONS = {
     "delete_user": snowflake_delete_user,
+    "create_database": snowflake_create_database
 }
 
 

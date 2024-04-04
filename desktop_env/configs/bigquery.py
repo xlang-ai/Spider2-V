@@ -14,14 +14,14 @@ logger = logging.getLogger("desktopenv.setup")
 def bigquery_init_setup(controller, **config):
     """ Setup the BigQuery client and perform environment setup. Please ensure that BigQuery API is enabled for the specified project. Arguments for config dict:
     @args:
-        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/google/gcp_config.json'
+        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/settings/google/gcp_config.json'
         project_name(str): the GCP name to search in the config file, if not provided, use project_index to get the project
         project_index(int): the index of the project in the config file, either this field or project_name must be provided
         actions(list): the list of actions to perform, each action is one dict with `type` field chosen from ['empty']:
         (No perfect documentation found, please refer to bigquery source codes for more details)
             - empty: empty the entire GCP, including datasets, jobs, routines, models, tables, etc.
     """
-    config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    config_file = config.get('config_file', 'evaluation_examples/settings/google/gcp_config.json')
     if platform.system() == 'Windows':
         config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))
@@ -97,11 +97,11 @@ def bigquery_login_setup(controller, **config):
     """ Login in to the specified GCP. Arguments for config dict:
     @args:
         settings_file(str): the path to the google account and password, default is 'evaluation_examples/google/settings.json'
-        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/google/gcp_config.json'
+        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/settings/google/gcp_config.json'
         project_name(str): the GCP name to search in the config file, if not provided, use project_index to get the project
         project_index(int): the index of the project in the config file, either this field or project_name must be provided
     """
-    config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    config_file = config.get('config_file', 'evaluation_examples/settings/google/gcp_config.json')
     if platform.system() == 'Windows':
         config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))

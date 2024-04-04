@@ -72,12 +72,12 @@ def gcp_first_login_popup_webgui(page):
 def gcp_upload_keyfile_setup(controller, **config):
     """ Upload the GCP keyfile to the guest machine. The keyfile is used to authenticate the GCP account. The keyfile is usually a json file and can be downloaded from the GCP console.
     @args:
-        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/google/gcp_config.json'
+        config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/settings/google/gcp_config.json'
         project_name(str): the GCP name to search in the config file, if not provided, use project_index to get the project
         project_index(int): the index of the project in the config file, default is 0
         dest(str): the path to save the keyfile on the guest machine, default is '/home/user/gcp_keyfile.json'
     """
-    config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    config_file = config.get('config_file', 'evaluation_examples/settings/google/gcp_config.json')
     if platform.system() == 'Windows':
         config_file = config_file.replace('/', '\\')
     gcp_config = json.load(open(config_file, 'r'))
