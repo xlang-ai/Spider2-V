@@ -1,0 +1,67 @@
+{
+    "id": "22edb3d6-9700-48e8-80fe-6a9650186aca",
+    "snapshot": "airbyte",
+    "instruction": "Help me set up the destination of data transfer to a local JSON file in the Airbyte local UI. The target file path is /local/json_destination.",
+    "source": [
+        "https://docs.airbyte.com/using-airbyte/getting-started/add-a-destination"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/22edb3d6-9700-48e8-80fe-6a9650186aca/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/22edb3d6-9700-48e8-80fe-6a9650186aca/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

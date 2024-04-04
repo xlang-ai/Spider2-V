@@ -60,4 +60,42 @@ BASIC_AUTH_PASSWORD=""
 
 cd /home/user/projects
 start_airbyte_server
-sleep 20
+sleep 60
+
+# create source and destination
+# 1. get workspace id
+workspace=$(curl -X POST http://localhost:8000/api/v1/workspaces/list -H "Content-Type: application/json" -d {} | jq -rM ".workspaces | .[] | .workspaceId")
+# 2. get source definition id
+source_name="Sample Data (Faker)"
+source_defid=$(curl -X POST http://localhost:8000/api/v1/source_definitions/list -H "Content-Type: application/json" | jq -rM ".sourceDefinitions | .[] | select(.name == \"${source_name}\") | .sourceDefinitionId")
+# 3. create source, the connectionConfiguration field is source-specific
+curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: application/json" -d "
+{
+    \"workspaceId\": \"${workspace}\",
+    \"connectionConfiguration\": {
+        \"count\": 1000
+    },
+    \"sourceDefinitionId\": \"${source_defid}\",
+    \"name\": \"${source_name}\", 
+    \"sourceName\": \"${source_name}\"
+}
+"
+# 4. get source id and write into file
+curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
+# 5. get destination definition id
+destination_name="Local JSON"
+destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_definitions/list -H "Content-Type: application/json" | jq -rM ".destinationDefinitions | .[] | select(.name == \"${destination_name}\") | .destinationDefinitionId")
+# 6. create destination, the connectionConfiguration field is destination-specific
+curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: application/json" -d "
+{
+    \"workspaceId\": \"${workspace}\",
+    \"connectionConfiguration\": {
+        \"destination_path\": \"/local/json_destination\"
+    },
+    \"destinationDefinitionId\": \"${destination_defid}\",
+    \"name\": \"${destination_name}\", 
+    \"destinationName\": \"${destination_name}\"
+}
+"
+# 7. get destination id and write into file
+curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId" > /home/user/destid.txt
