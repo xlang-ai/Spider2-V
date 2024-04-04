@@ -8,6 +8,7 @@ logger = logging.getLogger("desktopenv.setup")
 
 
 def get_browser(p, url, trial=15):
+    
     for attempt in range(trial):
         try:
             browser = p.chromium.connect_over_cdp(url)
@@ -58,7 +59,7 @@ def google_chrome_browser_setup(controller, **config):
     options = ["--incognito"] if config.get('incognito', False) else []
     controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"] + options)
     controller._launch_setup(command=["socat", f"tcp-listen:{listening_port},fork", f"tcp:localhost:{debugging_port}"])
-
+    
     urls_to_open = config.get('urls', [])
     if urls_to_open:
         remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"

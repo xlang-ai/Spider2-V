@@ -76,3 +76,46 @@ def get_bigquery_table_to_csv(env, config):
     finally:
         client.close()
     return output_file
+
+
+def get_bigquery_datasets(env, config):
+    """ Given the project name or index, dataset id and table id, return the table content if found, otherwise return None.
+    @args:
+        env(dict): the environment dictionary
+        config(dict): the configuration dictionary
+            - config_file(str): the path to the GCP config file
+            - project_name(str): the project name
+            - project_index(int): the project index, either project_name or project_index must be specified
+    @return:
+        datasets(list): the list of datasets
+    """
+    config_file = config.get('config_file', 'evaluation_examples/google/gcp_config.json')
+    if platform.system() == 'Windows':
+        config_file = config_file.replace('/', '\\')
+    gcp_config = json.load(open(config_file, 'r'))
+    if 'project_name' in config:
+        prj_name = config['project_name']
+        for proj in gcp_config:
+            if prj_name == proj['project_name']:
+                gcp_config = proj
+                break
+        else:
+            raise ValueError(f'[ERROR]: The specified project name {prj_name} is not found in the GCP config file!')
+    else:
+        assert 'project_index' in config, "Must specify either project_name or project_index in config!"
+        gcp_config = gcp_config[config['project_index']]
+    keyfile_path, project_id = gcp_config['keyfile_path'], gcp_config['project_id']
+    credentials = service_account.Credentials.from_service_account_file(keyfile_path)
+    client = bigquery.Client(project=project_id, credentials=credentials)
+
+    try:
+        datasets = client.list_datasets(project=project_id)
+        dataset_names = []
+        for dataset in datasets:
+            dataset_names.append(dataset.dataset_id)
+    except:
+        logger.error(f'[ERROR]: Failed to get the {project_id} project from bigquery!')
+        client.close()
+        return
+
+    return dataset_names

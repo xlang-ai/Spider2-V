@@ -46,7 +46,8 @@ from .calc import get_conference_city_in_order
 from .dbt import get_dbt_profiles
 from .bigquery import (
     get_bigquery_table_to_csv,
-    get_bigquery_database_to_zip
+    get_bigquery_database_to_zip,
+    get_bigquery_datasets
 )
 from .airbyte import get_airbyte_localhost_page
 from .snowflake import get_snowflake_user_info

@@ -71,7 +71,14 @@ def is_in_list(result, rules) -> float:
         return 1.
     else:
         return 0.
-
+    
+def is_not_in_list(result, rules) -> float:
+    expect = rules["exclude"]
+    if expect not in result:
+        return 1.
+    else:
+        return 0.
+    
 
 def diff_text_file(result: str, expect: str) -> float:
     if result is None:

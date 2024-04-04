@@ -1,0 +1,84 @@
+{
+    "id": "950f4d46-c41c-49d0-b120-33ba722d82fd",
+    "snapshot": "bigquery",
+    "instruction": "The babynames dataset is not used anymore. Help me delete it.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
+    ],
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "babynames",
+                        "table_id": "names_2014",
+                        "schema_from_json": [
+                            {
+                                "name": "name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "assigned_sex_at_birth",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "count",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/950f4d46-c41c-49d0-b120-33ba722d82fd/yob2014.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chrome"
+    ],
+    "tags": [
+        "abstract",
+        "cli+gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "is_not_in_list",
+        "result": {
+            "type": "bigquery_datasets",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "exclude": "babynames"
+            }
+        }
+    }
+}
