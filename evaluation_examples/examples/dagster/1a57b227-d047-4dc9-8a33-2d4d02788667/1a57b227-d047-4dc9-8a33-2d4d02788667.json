@@ -1,0 +1,72 @@
+{
+    "id": "1a57b227-d047-4dc9-8a33-2d4d02788667",
+    "snapshot": "dagster",
+    "instruction": "I want to create an empty dagster project called \"dagster-proj\" at the current directory. Please first install dagster using pip.",
+    "source": [
+        "https://docs.dagster.io/getting-started/create-new-project"
+    ],
+    "related_apps": [
+        "dagster"
+    ],
+    "tags": [
+        "cli",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/1a57b227-d047-4dc9-8a33-2d4d02788667/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": [
+            "check_include_exclude",
+            "diff_text_file"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/1a57b227-d047-4dc9-8a33-2d4d02788667/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/dagster-proj/pyproject.toml",
+                "dest": "pyproject.toml"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/dagster/1a57b227-d047-4dc9-8a33-2d4d02788667/pyproject.toml",
+                "dest": "pyproject_gold.toml"
+            }
+        ]
+    }
+}

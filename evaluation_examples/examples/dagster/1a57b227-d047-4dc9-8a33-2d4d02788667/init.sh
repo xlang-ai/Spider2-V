@@ -11,24 +11,9 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # create conda environment and install dagster
-mkdir -p ~/projects/ && cd ~/projects
 source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n dagster python=3.11 -y
+conda create -n dagster python=3.11 -y
 conda activate dagster
-pip install dagster
 
-# create the target dagster project
-PROJECT_NAME=hacker_news
-dagster project scaffold --name $PROJECT_NAME
-cd $PROJECT_NAME
-pip install -e ".[dev]"
-
-# start dagster Web UI service
-dagster dev -p 3000 &
-sleep 5
-
-code /home/user/projects/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
-gnome-terminal --maximize --working-directory=/home/user/projects/$PROJECT_NAME
-code /home/user/projects/$PROJECT_NAME/$PROJECT_NAME/assets.py

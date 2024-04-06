@@ -1,24 +1,30 @@
 {
-    "id": "9f8eab3f-3c9f-4def-9061-43a65fd83974",
+    "id": "22ef9058-6188-422a-9c12-e6934e4ed936",
     "snapshot": "dagster",
-    "instruction": "In the current dagster project, create an asset `top10_story_ids` in module hacker_news to download and save the list of top 10 story ids from HackerNews into data/story_ids.json.",
+    "instruction": "Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets.",
     "source": [
-        "https://docs.dagster.io/tutorial/writing-your-first-asset"
+        "https://docs.dagster.io/getting-started/create-new-project"
     ],
     "related_apps": [
-        "chromium",
         "dagster"
     ],
     "tags": [
-        "cli+gui",
+        "cli",
         "abstract"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/22ef9058-6188-422a-9c12-e6934e4ed936/hacker_news.zip",
+                "dest": "/home/user/hacker_news.zip"
+            }
+        },
+        {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/9f8eab3f-3c9f-4def-9061-43a65fd83974/init.sh",
+                "src": "evaluation_examples/examples/dagster/22ef9058-6188-422a-9c12-e6934e4ed936/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,8 +58,8 @@
             {
                 "type": "copyfile_from_host_to_guest",
                 "parameters": {
-                    "src": "evaluation_examples/examples/dagster/9f8eab3f-3c9f-4def-9061-43a65fd83974/golden_hacker_news.zip",
-                    "dest": "/home/user/hacker_news.zip"
+                    "src": "evaluation_examples/examples/dagster/22ef9058-6188-422a-9c12-e6934e4ed936/golden_hacker_news.zip",
+                    "dest": "/home/user/golden_hacker_news.zip"
                 }
             }
         ],
@@ -64,12 +70,12 @@
         "result": [
             {
                 "type": "vm_script_output",
-                "src": "evaluation_examples/examples/dagster/9f8eab3f-3c9f-4def-9061-43a65fd83974/eval.sh",
+                "src": "evaluation_examples/examples/dagster/22ef9058-6188-422a-9c12-e6934e4ed936/eval.sh",
                 "dest": "/home/user/eval.sh"
             },
             {
                 "type": "vm_file",
-                "path": "/home/user/projects/hacker_news/data/story_ids.json",
+                "path": "/home/user/hacker_news/data/story_ids.json",
                 "dest": "story_ids.json"
             }
         ],
@@ -78,7 +84,7 @@
                 "type": "rule",
                 "rules": {
                     "include": [
-                        "succeed"
+                        "succeeded"
                     ],
                     "exclude": [
                         "failed"
@@ -87,7 +93,7 @@
             },
             {
                 "type": "vm_file",
-                "path": "/home/user/hacker_news/data/story_ids.json",
+                "path": "/home/user/golden_hacker_news/data/story_ids.json",
                 "dest": "golden_story_ids.json"
             }
         ]
