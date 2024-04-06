@@ -1,0 +1,68 @@
+{
+    "id": "0dff0011-afff-4ab8-ae07-83f5ab95d215",
+    "snapshot": "dagster",
+    "instruction": "I heard dagster can start a local server. Could you launch the web page on port 8004?",
+    "source": [
+        "https://docs.dagster.io/concepts/webserver/ui"
+    ],
+    "related_apps": [
+        "dagster"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/0dff0011-afff-4ab8-ae07-83f5ab95d215/dagster-proj.zip",
+                "dest": "/home/user/dagster-proj.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/0dff0011-afff-4ab8-ae07-83f5ab95d215/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/dagster-proj/"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/0dff0011-afff-4ab8-ae07-83f5ab95d215/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    }
+}
