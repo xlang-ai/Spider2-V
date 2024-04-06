@@ -1,7 +1,7 @@
 {
-    "id": "492c2c87-b04a-544a-b5dd-eb808036bf85",
+    "id": "1137ff65-39d1-423e-bb70-7ef0a34cb90a",
     "snapshot": "dbt",
-    "instruction": "Separate the logic out into separate models: 1. Create a new SQL file, models/stg_customers.sql, with the SQL from the customers CTE in the original query. 2) Create a second new SQL file, models/stg_orders.sql, with the SQL from the orders CTE in the original query. 3. Edit the SQL in models/customers.sql file to reference these two staged models using ref.",
+    "instruction": "Please help me materialize the two test example models as tables, then execute them.",
     "source": [
         "https://docs.getdbt.com/guides/manual-install?step=11"
     ],
@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/dbt/492c2c87-b04a-544a-b5dd-eb808036bf85/jaffle_shop.zip",
-                "dest": "/home/user/jaffle_shop.zip"
+                "src": "evaluation_examples/examples/dbt/1137ff65-39d1-423e-bb70-7ef0a34cb90a/materialize_test.zip",
+                "dest": "/home/user/materialize_test.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/dbt/492c2c87-b04a-544a-b5dd-eb808036bf85/init.sh",
+                "src": "evaluation_examples/examples/dbt/1137ff65-39d1-423e-bb70-7ef0a34cb90a/init.sh",
                 "dest": "/home/user/init.sh"
             }
         }
@@ -39,13 +39,13 @@
         "result": [
             {
                 "type": "vm_script_output",
-                "src": "evaluation_examples/examples/dbt/492c2c87-b04a-544a-b5dd-eb808036bf85/eval.sh",
+                "src": "evaluation_examples/examples/dbt/1137ff65-39d1-423e-bb70-7ef0a34cb90a/eval.sh",
                 "dest": "/home/user/eval.sh"
             },
             {
                 "type": "vm_file",
-                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
-                "dest": "jaffle_shop.duckdb"
+                "path": "/home/user/projects/materialize_test/materialize_test.duckdb",
+                "dest": "materialize_test.duckdb"
             }
         ],
         "expected": [
@@ -58,14 +58,15 @@
             },
             {
                 "type": "local_file",
-                "path": "evaluation_examples/examples/dbt/492c2c87-b04a-544a-b5dd-eb808036bf85/jaffle_shop.duckdb",
-                "dest": "jaffle_shop.gold.duckdb"
+                "path": "evaluation_examples/examples/dbt/1137ff65-39d1-423e-bb70-7ef0a34cb90a/materialize_test.gold.duckdb",
+                "dest": "materialize_test.gold.duckdb"
             }
         ],
         "options": [
             {},
             {
-                "db_type": "duckdb"
+                "db_type": "duckdb",
+                "check_type": ["table-schema-content"]
             }
         ]
     }

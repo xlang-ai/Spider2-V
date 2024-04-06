@@ -11,6 +11,11 @@ from .bigquery import (
     bigquery_login_setup
 )
 
+from .dbt import (
+    dbt_cloud_init_setup,
+    dbt_cloud_webui_login_setup
+)
+
 from .dagster import (
     dagster_webui_init_setup
 )

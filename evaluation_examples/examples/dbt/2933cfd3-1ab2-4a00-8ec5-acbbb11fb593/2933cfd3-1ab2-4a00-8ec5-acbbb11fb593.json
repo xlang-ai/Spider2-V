@@ -1,0 +1,74 @@
+{
+    "id": "2933cfd3-1ab2-4a00-8ec5-acbbb11fb593",
+    "snapshot": "dbt",
+    "instruction": "I've created an empty dbt cloud project named \"test_connection\". Could you help me set up the connection to a BigQuery GCP? You don't need to configure the repository for the project, and the credential file is provided at desktop.",
+    "source": [
+        "https://docs.getdbt.com/guides/bigquery?step=5"
+    ],
+    "related_apps": [
+        "chromium",
+        "dbt"
+    ],
+    "tags": [
+        "gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/settings/google/apt-rite-415611.json",
+                "dest": "/home/user/Desktop/dbt-user-creds.json"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "test_connection"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://cloud.getdbt.com/",
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_project_info_output",
+            "field": "connection_type",
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["bigquery"],
+                "exclude": ["None"]
+            }
+        }
+    }
+}

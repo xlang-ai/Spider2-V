@@ -43,7 +43,10 @@ from .vlc import get_vlc_playing_info, get_vlc_config, get_default_video_player
 from .vscode import get_vscode_config
 from .calc import get_conference_city_in_order
 
-from .dbt import get_dbt_profiles
+from .dbt import (
+    get_dbt_profiles,
+    get_dbt_project_info_output
+)
 from .bigquery import (
     get_bigquery_table_to_csv,
     get_bigquery_database_to_zip,

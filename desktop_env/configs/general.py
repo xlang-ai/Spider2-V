@@ -52,11 +52,14 @@ def google_chrome_browser_setup(controller, **config):
         debugging_port(int): the remote debugging port in VM (default: 1337)
         listening_port(int): the listening port in localhost (default: 9222)
         incognito(bool): whether to open the browser in incognito mode (default: False)
+        full_screen(bool): whether to open the browser in maximize size (default: False)
         urls(List[str]): a list of urls to open in the browser (default: [])
     """
     debugging_port = config.get('debugging_port', 1337)
     listening_port = config.get('listening_port', 9222)
     options = ["--incognito"] if config.get('incognito', False) else []
+    if config.get('full_screen', False):
+        options.append("--start-maximized")
     controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"] + options)
     controller._launch_setup(command=["socat", f"tcp-listen:{listening_port},fork", f"tcp:localhost:{debugging_port}"])
     

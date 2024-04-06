@@ -1,5 +1,6 @@
 #coding=utf8
-import os
+import json
+import os, subprocess
 from typing import Dict
 from .general import get_vm_command_line
 from .file import get_vm_file
@@ -28,3 +29,36 @@ def get_dbt_profiles(env, config: Dict[str, str]) -> str:
                 return file
 
     return None
+
+def get_dbt_project_info_output(env, config: Dict[str, str]):
+    """ Print the information on Dbt cloud projects.
+    @args:
+        env(desktop_env.envs.DesktopEnv): the environment object
+        config (dict):
+            setting_files: the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
+            field: the specific field we want to extract for evaluation. Could be:
+            - name
+            - connection_type
+            - ... (to be added)
+
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/dbt_cloud/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+
+    os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
+    os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+
+    state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
+    project_list = json.loads(state.stdout)['data']
+
+    field = config.get("field", "name")
+
+    if len(project_list) == 0:
+        return "None"
+    elif field == "connection_type":
+        if project_list[0]["connection"] is None:
+            return "None"
+        return project_list[0]["connection"]["type"]
+    else:
+        return project_list[0][field]
+
