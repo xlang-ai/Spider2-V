@@ -45,7 +45,8 @@ from .calc import get_conference_city_in_order
 
 from .dbt import (
     get_dbt_profiles,
-    get_dbt_project_info_output
+    get_dbt_project_info,
+    get_dbt_environment_info
 )
 from .bigquery import (
     get_bigquery_table_to_csv,

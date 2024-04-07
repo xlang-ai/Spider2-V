@@ -1,4 +1,4 @@
-#coding=utf8
+# coding=utf8
 import json
 import os, subprocess
 from typing import Dict
@@ -30,17 +30,14 @@ def get_dbt_profiles(env, config: Dict[str, str]) -> str:
 
     return None
 
-def get_dbt_project_info_output(env, config: Dict[str, str]):
-    """ Print the information on Dbt cloud projects.
+
+def get_dbt_project_info(env, config: Dict[str, str]):
+    """ Retrieve the information on Dbt cloud projects.
     @args:
         env(desktop_env.envs.DesktopEnv): the environment object
         config (dict):
             setting_files: the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
-            field: the specific field we want to extract for evaluation. Could be:
-            - name
-            - connection_type
-            - ... (to be added)
-
+            fields (list, required): the specific fields we want to extract for evaluation. Could be:
     """
     settings_file = config.get('settings_file', 'evaluation_examples/settings/dbt_cloud/settings.json')
     settings = json.load(open(settings_file, 'r'))
@@ -51,14 +48,66 @@ def get_dbt_project_info_output(env, config: Dict[str, str]):
     state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
     project_list = json.loads(state.stdout)['data']
 
-    field = config.get("field", "name")
+    if len(project_list) == 0:
+        return "None"
+
+    result = ""
+    fields = config.get("fields", [])
+
+    for field in fields:
+
+        if field == "name":
+            result += project_list[0]['name']
+        elif field == "connection_type":
+            connection = project_list[0]['connection']
+            if connection is None:
+                result += "None"
+            else:
+                result += connection['type']
+
+        result += " "
+
+    return result
+
+
+def get_dbt_environment_info(env, config: Dict[str, str]):
+    """ Retrieve the information on Dbt project environment. (Assume one project for each account)
+    @args:
+        env(desktop_env.envs.DesktopEnv): the environment object
+        config (dict):
+            setting_files: the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
+            name (required): the name of to-be-evaluate environment
+            fields (list, required): the specific fields we want to extract for evaluation. Could be:
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/dbt_cloud/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+
+    os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
+    os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+
+    state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
+    project_list = json.loads(state.stdout)['data']
 
     if len(project_list) == 0:
         return "None"
-    elif field == "connection_type":
-        if project_list[0]["connection"] is None:
-            return "None"
-        return project_list[0]["connection"]["type"]
-    else:
-        return project_list[0][field]
 
+    os.environ["DBT_CLOUD_PROJECT_ID"] = str(project_list[0]['id'])
+
+    state = subprocess.run('dbt-cloud environment list', shell=True, capture_output=True, text=True)
+    env_list = json.loads(state.stdout)['data']
+
+    result = ""
+    name = config.get("name", "New Environment")
+    fields = config.get("fields", [])
+
+    found = False
+    for env in env_list:
+        if env['name'] == name:
+            found = True
+            for field in fields:
+                result += env[field]
+                result += " "
+
+    if not found:
+        return "None"
+    return result

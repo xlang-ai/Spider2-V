@@ -1,9 +1,9 @@
 {
-    "id": "2933cfd3-1ab2-4a00-8ec5-acbbb11fb593",
+    "id": "f96a5913-1489-40bb-a432-8411b1c61533",
     "snapshot": "dbt",
-    "instruction": "I've created an empty dbt cloud project named \"test_connection\". Could you help me set up the connection to a BigQuery GCP? You don't need to configure the repository for the project, and the credential file is provided at desktop.",
+    "instruction": "Help me create a new development environment named \"dev env\" using dbt version 1.5. Save the environment without configuring connection and repository, which will be handled by me. ",
     "source": [
-        "https://docs.getdbt.com/guides/bigquery?step=5"
+        "https://docs.getdbt.com/docs/dbt-cloud-environments"
     ],
     "related_apps": [
         "chromium",
@@ -16,13 +16,6 @@
     ],
     "counterpart": "",
     "config": [
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/settings/google/apt-rite-415611.json",
-                "dest": "/home/user/Desktop/dbt-user-creds.json"
-            }
-        },
         {
             "type": "google_chrome_browser",
             "parameters": {
@@ -41,7 +34,7 @@
                     },
                     {
                         "type": "create_project",
-                        "project_name": "test_connection"
+                        "project_name": "environment_test"
                     }
                 ]
             }
@@ -51,6 +44,7 @@
             "parameters": {
                 "listening_port": 9222,
                 "url": "https://cloud.getdbt.com/",
+                "skip_step": 2,
                 "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
             }
         }
@@ -59,14 +53,15 @@
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
-            "type": "dbt_project_info",
-            "fields": ["connection_type"],
+            "type": "dbt_environment_info",
+            "name": "dev env",
+            "fields": ["dbt_version", "type"],
             "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["bigquery"],
+                "include": ["1.5.0-latest", "development"],
                 "exclude": ["None"]
             }
         }

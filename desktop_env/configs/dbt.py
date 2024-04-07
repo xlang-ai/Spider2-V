@@ -116,9 +116,22 @@ def dbt_cloud_webui_login_setup(controller, **config):
             project_list = json.loads(state.stdout)['data']
             if len(project_list) > 0:
                 project_id = project_list[0]["id"]
-                page.goto(f'https://cloud.getdbt.com/{settings["account_id"]}/projects/{project_id}/setup')
+                page.goto(f'https://cloud.getdbt.com/{settings["account_id"]}/projects/{project_id}/setup', wait_until='load')
 
-            # tick remember me
+                # skip the connection/repository configuration
+                # 0 - no skip
+                # 1 - skip connection configuration
+                # 2 - skip connection + repository configuration
+                skip_step = config.get("skip_step", 0)
+                for i in range(skip_step):
+                    page.wait_for_selector('button[type="button"]')
+                    skip = page.locator('button[type="button"]').filter(has_text="Skip")
+                    expect(skip).to_be_visible()
+                    skip.click()
+
+                    # fixme: hard wait!!
+                    page.wait_for_timeout(1500)
+                    page.wait_for_load_state('load')
 
         except Exception as e:
             logger.error(f'[ERROR]: failed to login to the dbt Cloud website! {e}')
