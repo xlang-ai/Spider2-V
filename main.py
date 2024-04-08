@@ -53,7 +53,7 @@ def human_agent():
     args = parser.parse_args(sys.argv[1:])
 
     example_path = args.example if args.example is not None and os.path.exists(args.example) else \
-        'evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/57a13efe-c008-4bc9-8959-36276115da0b.json'
+        'evaluation_examples/examples/astro/13a85457-328c-41ac-a358-e6e978c4b392/13a85457-328c-41ac-a358-e6e978c4b392.json'
     with open(example_path, "r", encoding="utf-8") as f:
         example = json.load(f)
         if args.snapshot is not None:
