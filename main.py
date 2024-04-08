@@ -47,13 +47,13 @@ def human_agent():
     Runs the Gym environment with human input.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', type=str, default=r"C:\Users\tianbaox\Documents\Virtual Machines\Ubuntu3\Ubuntu3.vmx", help="Path to the virtual machine .vmx file.")
-    parser.add_argument('-s', '--snapshot', type=str, default='init_state', help="Name of the snapshot to restore.")
+    parser.add_argument('-p', '--path', type=str, default=r"/Users/fujipqiu/Linux/Ubuntu.vmwarevm/Ubuntu.vmx", help="Path to the virtual machine .vmx file.")
+    parser.add_argument('-s', '--snapshot', type=str, default='astro', help="Name of the snapshot to restore.")
     parser.add_argument('-e', '--example', type=str, help="Path to the example json file.")
     args = parser.parse_args(sys.argv[1:])
 
     example_path = args.example if args.example is not None and os.path.exists(args.example) else \
-        'evaluation_examples/examples/multi_apps/5990457f-2adb-467b-a4af-5c857c92d762.json'
+        'evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/57a13efe-c008-4bc9-8959-36276115da0b.json'
     with open(example_path, "r", encoding="utf-8") as f:
         example = json.load(f)
         if args.snapshot is not None:

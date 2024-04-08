@@ -1,0 +1,27 @@
+{
+    "id": "67ee22b5-caf1-4aa9-92c5-57546b3d823c",
+    "snapshot": "airflow",
+    "instruction": "My recent DAG run just failed, open the log page in graph view for me to debug.",
+    "source": [
+        "View task logs on the Astro UI"
+    ],
+    "config": [],
+    "trajectory": "",
+    "related_apps": [],
+    "tags": [],
+    "evaluator": {
+        "func": "",
+        "result": {
+            "type": "",
+            "src": "",
+            "dest": ""
+        },
+        "expected": {
+            "type": "",
+            "rules": {
+                "include": [],
+                "exclude": []
+            }
+        }
+    }
+}

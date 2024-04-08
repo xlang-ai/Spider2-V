@@ -1,0 +1,47 @@
+{
+    "id": "699e0c0a-3fdc-4c10-ad9f-c4c9d7a9947b",
+    "snapshot": "astro",
+    "instruction": "Could you create an empty airflow project in the current directory for me and launch the project on local server at port 8002.",
+    "source": [
+        "https://docs.astronomer.io/learn/get-started-with-airflow"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/699e0c0a-3fdc-4c10-ad9f-c4c9d7a9947b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "astro",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/astro/699e0c0a-3fdc-4c10-ad9f-c4c9d7a9947b/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

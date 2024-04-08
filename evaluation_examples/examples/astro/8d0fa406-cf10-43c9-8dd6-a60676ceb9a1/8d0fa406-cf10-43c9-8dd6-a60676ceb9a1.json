@@ -1,0 +1,27 @@
+{
+    "id": "8d0fa406-cf10-43c9-8dd6-a60676ceb9a1",
+    "snapshot": "airflow",
+    "instruction": NaN,
+    "source": [
+        "Set up a custom XCom backend"
+    ],
+    "config": [],
+    "trajectory": "",
+    "related_apps": [],
+    "tags": [],
+    "evaluator": {
+        "func": "",
+        "result": {
+            "type": "",
+            "src": "",
+            "dest": ""
+        },
+        "expected": {
+            "type": "",
+            "rules": {
+                "include": [],
+                "exclude": []
+            }
+        }
+    }
+}

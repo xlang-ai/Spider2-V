@@ -1,0 +1,47 @@
+{
+    "id": "57a13efe-c008-4bc9-8959-36276115da0b",
+    "snapshot": "astro",
+    "instruction": "Help me trigger the DAG in Airflow",
+    "source": [
+        "https://docs.astronomer.io/learn/get-started-with-airflow"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "astro",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

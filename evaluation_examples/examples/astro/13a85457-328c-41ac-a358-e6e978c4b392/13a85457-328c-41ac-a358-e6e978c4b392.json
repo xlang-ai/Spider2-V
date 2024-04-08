@@ -1,0 +1,27 @@
+{
+    "id": "13a85457-328c-41ac-a358-e6e978c4b392",
+    "snapshot": "airflow",
+    "instruction": NaN,
+    "source": [
+        "Create Airflow Listeners"
+    ],
+    "config": [],
+    "trajectory": "",
+    "related_apps": [],
+    "tags": [],
+    "evaluator": {
+        "func": "",
+        "result": {
+            "type": "",
+            "src": "",
+            "dest": ""
+        },
+        "expected": {
+            "type": "",
+            "rules": {
+                "include": [],
+                "exclude": []
+            }
+        }
+    }
+}
