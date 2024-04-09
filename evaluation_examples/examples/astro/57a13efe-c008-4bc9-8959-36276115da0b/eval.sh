@@ -2,7 +2,7 @@
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate astro
-cd /home/user/projects/workFlow_Echo
+cd /home/user/projects/workFlow
 
 astro dev start >/dev/null 2>/dev/null
 export DAG_ID=workFlow_Echo
