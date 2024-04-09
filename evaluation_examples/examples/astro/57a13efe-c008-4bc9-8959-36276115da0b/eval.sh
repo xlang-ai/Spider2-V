@@ -5,8 +5,8 @@ conda activate astro
 cd /home/user/projects/Project
 
 astro dev start >/dev/null 2>/dev/null
-export DAG_ID = example_astronauts
-export CONTAINER = $(astro dev ps | grep "webserver" | awk '{print $1}')
+export DAG_ID=example_astronauts
+export CONTAINER=$(astro dev ps | grep "webserver" | awk '{print $1}')
 
 # check whether the DAG is not paused
 active_flag=$(docker exec -i $CONTAINER airflow dags details -o plain ${DAG_ID} | grep "is_paused" | grep -i "false")

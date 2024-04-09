@@ -1,9 +1,10 @@
 #!/bin/bash
 
 ####################################################################################################
-# Please ensure that Chromium or Chrome, VSCode, docker and anaconda3 is installed on your system before running this script.
+# Please ensure that Chromium or Chrome, VSCode, docker anaconda and astro cli are installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Docker engine is installed following official docs: https://docs.docker.com/engine/install/ubuntu/
+# Docker version 26.0.0
 # The current user should be added into group docker.
 # This script is tested on Ubuntu 22.04.4 LTS.
 ####################################################################################################
