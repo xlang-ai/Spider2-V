@@ -218,7 +218,8 @@ def check_local_database(result: str, expected: str, **kwargs) -> str:
         return validate_types
 
     kwargs['check_type'] = validate_check_type(check_type)
-    kwargs['targets'] = kwargs.get('targets', [])
+    kwargs['table_targets'] = kwargs.get('table_targets', [])
+    kwargs['view_targets'] = kwargs.get('view_targets', [])
 
     func = CHECK_LOCAL_DB_FUNCTIONS[db_type]
     return func(result, expected, **kwargs)
