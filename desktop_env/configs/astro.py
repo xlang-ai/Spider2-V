@@ -76,9 +76,13 @@ def astro_webui_init_setup(controller, **config):
         if page is None:
             logger.error('[ERROR]: failed to connect to Airflow Web UI!')
             return
-
+        
         for action in config.get('actions', []):
             action_type = action.pop('type')
             init_func = ASTRO_WEBUI_FUNCTIONS[action_type]
             init_func(page, **action)
+
+        # Close extra windows
+        for i in range(2):
+            context.pages[0].close()
     return
