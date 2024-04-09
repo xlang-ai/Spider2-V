@@ -14,7 +14,8 @@ def dbt_cloud_create_project(**config: Dict[str, Any]):
         project_name (str): the name of the project. default "Analytics" (as in dbt Cloud default)
     """
     name = config.get("project_name", "Analytics")
-    subprocess.run(f'dbt-cloud project create --name \"{name}\"')
+    subprocess.run(['dbt-cloud', 'project', 'create', '--name', f'{name}'],
+                   shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
 
     return
 
@@ -27,14 +28,17 @@ def dbt_cloud_delete_project(**config: Dict[str, Any]):
     """
     # suppose trial account - one project per account
     if config.get("project_id", False):
-        subprocess.run(f'dbt-cloud project delete --project-id {config["project_id"]}', shell=True)
+        subprocess.run(['dbt-cloud', 'project', 'delete', '--project-id', f'{config["project_id"]}'],
+                               shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
     else:
-        state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
+        state = subprocess.run(['dbt-cloud', 'project', 'list'],
+                            shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
         project_list = json.loads(state.stdout)['data']
         if len(project_list) == 0:
             logger.info('[INFO]: there are no projects to be deleted!')
         else:
-            subprocess.run(f'dbt-cloud project delete --project-id {project_list[0]["id"]}', shell=True)
+            subprocess.run(['dbt-cloud', 'project', 'delete', '--project-id', f'{project_list[0]["id"]}'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
 
     return
 
@@ -95,7 +99,7 @@ def dbt_cloud_webui_login_setup(controller, **config):
 
         try:
             email = page.locator('input[id="email"]')
-            expect(email).to_be_editable(timeout=20000)
+            expect(email).to_be_editable(timeout=60000)
             email.fill(settings['email'])
             password = page.locator('input[id="password"]')
             expect(password).to_be_editable()
@@ -107,12 +111,15 @@ def dbt_cloud_webui_login_setup(controller, **config):
             expect(signin).to_be_enabled()
             signin.click()
             page.wait_for_load_state('load')
+            button = page.locator('button[data-testid="settings-menu"]')
+            expect(button).to_be_visible(timeout=60000)
 
             # navigate to the specific account page
             os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
             os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
 
-            state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
+            state = subprocess.run(['dbt-cloud', 'project', 'list'],
+                                   shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
             project_list = json.loads(state.stdout)['data']
             if len(project_list) > 0:
                 project_id = project_list[0]["id"]
