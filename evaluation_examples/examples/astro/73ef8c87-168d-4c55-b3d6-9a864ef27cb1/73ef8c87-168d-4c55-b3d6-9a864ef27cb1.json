@@ -1,0 +1,27 @@
+{
+    "id": "73ef8c87-168d-4c55-b3d6-9a864ef27cb1",
+    "snapshot": "airflow",
+    "instruction": NaN,
+    "source": [
+        "Customize Operator Extra Links"
+    ],
+    "config": [],
+    "trajectory": "",
+    "related_apps": [],
+    "tags": [],
+    "evaluator": {
+        "func": "",
+        "result": {
+            "type": "",
+            "src": "",
+            "dest": ""
+        },
+        "expected": {
+            "type": "",
+            "rules": {
+                "include": [],
+                "exclude": []
+            }
+        }
+    }
+}

@@ -280,7 +280,7 @@ class PythonController:
     # Additional info
     def get_vm_platform(self):
         """
-        Gets the size of the vm screen.
+        Gets the platform of the vm.
         """
         return self.execute_python_command("import platform; print(platform.system())")['output'].strip()
 

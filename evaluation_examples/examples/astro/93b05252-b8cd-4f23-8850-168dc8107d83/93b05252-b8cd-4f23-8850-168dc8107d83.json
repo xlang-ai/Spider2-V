@@ -1,0 +1,27 @@
+{
+    "id": "93b05252-b8cd-4f23-8850-168dc8107d83",
+    "snapshot": "airflow",
+    "instruction": "Could you please build a connection to the opened bigquery project with key file in /path/key.json.",
+    "source": [
+        "Create a BigQuery connection in Airflow"
+    ],
+    "config": [],
+    "trajectory": "",
+    "related_apps": [],
+    "tags": [],
+    "evaluator": {
+        "func": "",
+        "result": {
+            "type": "",
+            "src": "",
+            "dest": ""
+        },
+        "expected": {
+            "type": "",
+            "rules": {
+                "include": [],
+                "exclude": []
+            }
+        }
+    }
+}
