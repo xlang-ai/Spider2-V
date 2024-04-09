@@ -1,6 +1,6 @@
 #coding=utf8
 import yaml, logging, re
-import duckdb
+import duckdb, sqlite3
 from typing import List, Tuple, Optional, Any, Union, Dict
 
 logger = logging.getLogger("desktopenv.metrics.dbt")
@@ -99,16 +99,106 @@ def check_dbt_command(result: Union[str, List[str]], rules: Union[List[Tuple[str
         return check_single_dbt_output(result, rules, **kwargs)
 
 
+def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
+    check_type = kwargs['check_type']
+    table_targets, view_targets = kwargs['table_targets'], kwargs['view_targets']
+    connect_func = kwargs.get('connect_func', duckdb.connect)
+    try:
+        conn1, conn2 = None, None
+        conn1 = connect_func(result)
+        conn2 = connect_func(expected)
+
+        if 'table' in check_type:
+            tables1 = conn1.execute("select name from sqlite_master where type='table' order by name").fetchall()
+            tables2 = conn2.execute("select name from sqlite_master where type='table' order by name").fetchall()
+            tables1 = [tb[0] for tb in tables1 if table_targets == [] or tb[0] in table_targets]
+            tables2 = [tb[0] for tb in tables1 if table_targets == [] or tb[0] in table_targets]
+            if tables1 != tables2:
+                logger.info(f"[ERROR]: tables in two databases are different!")
+                return 0
+
+        if 'view' in check_type:
+            views1 = conn1.execute("select name from sqlite_master where type='view' order by name").fetchall()
+            views2 = conn2.execute("select name from sqlite_master where type='view' order by name").fetchall()
+            views1 = [vw[0] for vw in views1 if view_targets == [] or vw[0] in view_targets]
+            views2 = [vw[0] for vw in views2 if view_targets == [] or vw[0] in view_targets]
+            if views1 != views2:
+                logger.info(f"[ERROR]: views in two databases are different!")
+                return 0
+
+        if 'table-schema' in check_type:
+            for table in tables1:
+                table_name = table[0]
+                table_schema1 = conn1.execute(f"PRAGMA table_info({table_name})").fetchall()
+                table_schema2 = conn2.execute(f"PRAGMA table_info({table_name})").fetchall()
+                if table_schema1 != table_schema2:
+                    logger.info(f"[ERROR]: table {table_name} in two databases has different schemas!")
+                    return 0
+
+        if 'view-schema' in check_type:
+            for view in views1:
+                view_name = view[0]
+                view_schema1 = conn1.execute(f"PRAGMA table_info({view_name})").fetchall()
+                view_schema2 = conn2.execute(f"PRAGMA table_info({view_name})").fetchall()
+                if view_schema1 != view_schema2:
+                    logger.info(f"[ERROR]: view {view_name} in two databases has different schemas!")
+                    return 0
+
+        if 'table-schema-content' in check_type:
+            for table in tables1:
+                table_name = table[0]
+                # Compare db contents
+                table_data1 = conn1.execute(f"SELECT * FROM {table_name}").fetchall()
+                table_data2 = conn2.execute(f"SELECT * FROM {table_name}").fetchall()
+                if table_data1 != table_data2:
+                    logger.info(f"[ERROR]: contents in the table {table_name} are different!")
+                    return 0
+        
+        if 'view-schema-content' in check_type:
+            for view in views1:
+                view_name = view[0]
+                view_data1 = conn1.execute(f"SELECT * FROM {view_name}").fetchall()
+                view_data2 = conn2.execute(f"SELECT * FROM {view_name}").fetchall()
+                if view_data1 != view_data2:
+                    logger.info(f"[ERROR]: contents in the view {view_name} are different!")
+                    return 0
+
+        # If all checks pass, the databases are the same
+        return 1
+    except Exception as e:
+        logger.info('[ERROR]: unexpected error occurred when comparing databases!', e)
+    finally:
+        if conn1: conn1.close()
+        if conn2: conn2.close()
+    return 0
+
+
+def check_local_sqlite3(result: str, expected: str, **kwargs) -> float:
+    kwargs['connect_func'] = sqlite3.connect
+    return check_local_duckdb(result, expected, **kwargs)
+
+
+CHECK_LOCAL_DB_FUNCTIONS = {
+    'duckdb': check_local_duckdb,
+    'sqlite3': check_local_sqlite3,
+    # 'postgresql': check_local_postgresql
+}
+
+
 def check_local_database(result: str, expected: str, **kwargs) -> str:
     """ Compare two databases according to kwargs
     @args:
         result(str): path to result database
         expected(str): path to expected database
         kwargs(dict): a dict of comparison options including,
-            db_type(str): type of database, support duckdb, etc.
+            db_type(str): type of database, support duckdb, sqlite3, etc.
+            table_targets(List[str]): list of tables to compare, if [], default to all tables
+            view_targets(List[str]): list of views to compare, if [], default to all views
             check_type(List[str]): different types of database objects to check, choices are
                 table, view, table-schema, view-schema, table-schema-content, view-schema-content
     """
+    if result is None: return 0
+
     db_type = kwargs.get('db_type', 'duckdb')
     check_type = kwargs.get("check_type", ["table", "view"])
 
@@ -127,71 +217,8 @@ def check_local_database(result: str, expected: str, **kwargs) -> str:
         validate_types = sorted(types)
         return validate_types
 
-    check_type = validate_check_type(check_type)
-    if db_type == 'duckdb':
-        try:
-            conn1, conn2 = None, None
-            conn1 = duckdb.connect(result)
-            conn2 = duckdb.connect(expected)
+    kwargs['check_type'] = validate_check_type(check_type)
+    kwargs['targets'] = kwargs.get('targets', [])
 
-            if 'table' in check_type:
-                tables1 = conn1.execute("select name from sqlite_master where type='table'").fetchall()
-                tables2 = conn2.execute("select name from sqlite_master where type='table'").fetchall()
-                if sorted(tables1) != sorted(tables2):
-                    logger.info(f"[ERROR]: tables in two databases are different!")
-                    return 0
-
-            if 'view' in check_type:
-                views1 = conn1.execute("select name from sqlite_master where type='view'").fetchall()
-                views2 = conn2.execute("select name from sqlite_master where type='view'").fetchall()
-                if sorted(views1) != sorted(views2):
-                    logger.info(f"[ERROR]: views in two databases are different!")
-                    return 0
-
-            if 'table-schema' in check_type:
-                for table in tables1:
-                    table_name = table[0]
-                    table_schema1 = conn1.execute(f"PRAGMA table_info({table_name})").fetchall()
-                    table_schema2 = conn2.execute(f"PRAGMA table_info({table_name})").fetchall()
-                    if table_schema1 != table_schema2:
-                        logger.info(f"[ERROR]: table {table_name} in two databases has different schemas!")
-                        return 0
-
-            if 'view-schema' in check_type:
-                for view in views1:
-                    view_name = view[0]
-                    view_schema1 = conn1.execute(f"PRAGMA table_info({view_name})").fetchall()
-                    view_schema2 = conn2.execute(f"PRAGMA table_info({view_name})").fetchall()
-                    if view_schema1 != view_schema2:
-                        logger.info(f"[ERROR]: view {view_name} in two databases has different schemas!")
-                        return 0
-
-            if 'table-schema-content' in check_type:
-                for table in tables1:
-                    table_name = table[0]
-                    # Compare db contents
-                    table_data1 = conn1.execute(f"SELECT * FROM {table_name}").fetchall()
-                    table_data2 = conn2.execute(f"SELECT * FROM {table_name}").fetchall()
-                    if table_data1 != table_data2:
-                        logger.info(f"[ERROR]: contents in the table {table_name} are different!")
-                        return 0
-            
-            if 'view-schema-content' in check_type:
-                for view in views1:
-                    view_name = view[0]
-                    view_data1 = conn1.execute(f"SELECT * FROM {view_name}").fetchall()
-                    view_data2 = conn2.execute(f"SELECT * FROM {view_name}").fetchall()
-                    if view_data1 != view_data2:
-                        logger.info(f"[ERROR]: contents in the view {view_name} are different!")
-                        return 0
-
-            # If all checks pass, the databases are the same
-            return 1
-        except Exception as e:
-            logger.info('[ERROR]: unexpected error occurred when comparing databases!', e)
-        finally:
-            if conn1: conn1.close()
-            if conn2: conn2.close()
-        return 0
-    else:
-        raise ValueError('[ERROR]: unknown db type!')
+    func = CHECK_LOCAL_DB_FUNCTIONS[db_type]
+    return func(result, expected, **kwargs)
