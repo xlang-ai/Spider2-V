@@ -127,8 +127,7 @@ def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
                 return 0
 
         if 'table-schema' in check_type:
-            for table in tables1:
-                table_name = table[0]
+            for table_name in tables1:
                 table_schema1 = conn1.execute(f"PRAGMA table_info({table_name})").fetchall()
                 table_schema2 = conn2.execute(f"PRAGMA table_info({table_name})").fetchall()
                 if table_schema1 != table_schema2:
@@ -136,8 +135,7 @@ def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
                     return 0
 
         if 'view-schema' in check_type:
-            for view in views1:
-                view_name = view[0]
+            for view_name in views1:
                 view_schema1 = conn1.execute(f"PRAGMA table_info({view_name})").fetchall()
                 view_schema2 = conn2.execute(f"PRAGMA table_info({view_name})").fetchall()
                 if view_schema1 != view_schema2:
@@ -145,8 +143,7 @@ def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
                     return 0
 
         if 'table-schema-content' in check_type:
-            for table in tables1:
-                table_name = table[0]
+            for table_name in tables1:
                 # Compare db contents
                 table_data1 = conn1.execute(f"SELECT * FROM {table_name}").fetchall()
                 table_data2 = conn2.execute(f"SELECT * FROM {table_name}").fetchall()
@@ -155,8 +152,7 @@ def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
                     return 0
         
         if 'view-schema-content' in check_type:
-            for view in views1:
-                view_name = view[0]
+            for view_name in views1:
                 view_data1 = conn1.execute(f"SELECT * FROM {view_name}").fetchall()
                 view_data2 = conn2.execute(f"SELECT * FROM {view_name}").fetchall()
                 if view_data1 != view_data2:
