@@ -1,26 +1,62 @@
 {
     "id": "67ee22b5-caf1-4aa9-92c5-57546b3d823c",
-    "snapshot": "airflow",
+    "snapshot": "astro",
     "instruction": "My recent DAG run just failed, open the log page in graph view for me to debug.",
     "source": [
         "View task logs on the Astro UI"
     ],
-    "config": [],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin", 
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
     "trajectory": "",
     "related_apps": [],
     "tags": [],
     "evaluator": {
-        "func": "",
+        "func": "check_include_exclude",
         "result": {
-            "type": "",
-            "src": "",
-            "dest": ""
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/eval.sh",
+            "dest": "/home/user/eval.sh"
         },
         "expected": {
-            "type": "",
+            "type": "rule",
             "rules": {
-                "include": [],
-                "exclude": []
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
             }
         }
     }

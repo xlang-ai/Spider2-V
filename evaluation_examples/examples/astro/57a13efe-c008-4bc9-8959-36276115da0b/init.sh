@@ -1,15 +1,16 @@
 #!/bin/bash
 
 ####################################################################################################
-# Please ensure that Chromium or Chrome, VSCode, docker and anaconda3 is installed on your system before running this script.
+# Please ensure that Chromium or Chrome, VSCode, docker anaconda and astro cli are installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Docker engine is installed following official docs: https://docs.docker.com/engine/install/ubuntu/
+# Docker version 26.0.0
 # The current user should be added into group docker.
 # This script is tested on Ubuntu 22.04.4 LTS.
 ####################################################################################################
 
 # Create a directory for the project
-mkdir -p ~/projects/Project
+mkdir -p ~/projects
 
 # Set the password for sudo commands
 PASSWORD=password
@@ -25,11 +26,16 @@ function create_astro_env() {
 create_astro_env
 
 function to_ready_state(){
-    cd /home/user/projects/Project # Change the current directory to the project directory     
-    # Initialize and activate the Astro environment for the Airflow project
-    astro dev init
-    astro dev start >/dev/null 2>&1
-    # TODO: Use Playwright to automatically fill in the username and password
+    cd /home/user/projects
+    mv /home/user/workFlow.zip .
+    chmod a+x workFlow.zip  
+    unzip -q workFlow.zip  
+    rm -rf workFlow.zip 
+    cd /home/user/projects/workFlow
+    yes | astro dev init 2>&1 
+    astro dev start >/dev/null 2>&1 
+    wait
 }
 to_ready_state
+
 
