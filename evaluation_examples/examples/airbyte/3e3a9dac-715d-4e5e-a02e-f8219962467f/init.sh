@@ -61,7 +61,7 @@ BASIC_AUTH_PASSWORD=""
 cd /home/user/projects
 start_airbyte_server
 sleep 60
-
+gnome-terminal --maximize --working-directory=/home/user/Desktop
 # create source and destination
 # 1. get workspace id
 workspace=$(curl -X POST http://localhost:8000/api/v1/workspaces/list -H "Content-Type: application/json" -d {} | jq -rM ".workspaces | .[] | .workspaceId")

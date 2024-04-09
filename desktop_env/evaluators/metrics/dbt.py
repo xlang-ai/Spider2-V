@@ -112,7 +112,7 @@ def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
             tables1 = conn1.execute("select name from sqlite_master where type='table' order by name").fetchall()
             tables2 = conn2.execute("select name from sqlite_master where type='table' order by name").fetchall()
             tables1 = [tb[0] for tb in tables1 if table_targets == [] or tb[0] in table_targets]
-            tables2 = [tb[0] for tb in tables1 if table_targets == [] or tb[0] in table_targets]
+            tables2 = [tb[0] for tb in tables2 if table_targets == [] or tb[0] in table_targets]
             if tables1 != tables2:
                 logger.info(f"[ERROR]: tables in two databases are different!")
                 return 0
