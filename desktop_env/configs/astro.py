@@ -27,28 +27,6 @@ def waiting_for_astro_server(context: BrowserContext, url: str = "http://localho
         return page
     return
 
-# #TODO： Test validation, name of components unknown
-# def astro_webui_login(page: Page, username: str = "admin", password: str = "admin"):
-#     try:
-#         username_input = page.locator('input[name="username"]')
-#         expect(username_input).to_be_editable()
-#         username_input.fill(username)
-#         password_input = page.locator('input[name="password"]')
-#         expect(password_input).to_be_editable()
-#         password_input.fill(password)
-#         # time.sleep(3) # wait for the button to be enabled
-#         button = page.locator('button[type="submit"]')
-#         # expect(button).to_be_visible()
-#         # pos = button.bounding_box()
-#         # page.mouse.click(pos['x'], pos['y'])
-#         expect(button).to_be_enabled()
-#         button.click()
-#         homepage = page.locator('a[aria-label="Homepage"]')
-#         expect(homepage).to_be_visible()
-#     except:
-#         logger.warning("[WARNING]: Failed to fill in username and password on astro localhost login page!")
-#     return
-
 def astro_webui_login (page: Page, username: str = "admin", password: str = "admin"):
     try:
 

@@ -1,6 +1,6 @@
 {
     "id": "13a85457-328c-41ac-a358-e6e978c4b392",
-    "snapshot": "airflow",
+    "snapshot": "astro",
     "instruction": "Create Airflow Listeners",
     "source": [
         "https://docs.astronomer.io/learn/airflow-listeners"

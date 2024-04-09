@@ -10,7 +10,7 @@
 ####################################################################################################
 
 # Create a directory for the project
-mkdir -p ~/projects/Project
+mkdir -p ~/projects
 
 # Set the password for sudo commands
 PASSWORD=password
@@ -26,11 +26,16 @@ function create_astro_env() {
 create_astro_env
 
 function to_ready_state(){
-    cd /home/user/projects/Project # Change the current directory to the project directory     
-    # Initialize and activate the Astro environment for the Airflow project
-    astro dev init
-    astro dev start >/dev/null 2>&1
-    # TODO: Use Playwright to automatically fill in the username and password
+    cd /home/user/projects
+    mv /home/user/workFlow.zip .
+    chmod a+x workFlow.zip  
+    unzip -q workFlow.zip  
+    rm -rf workFlow.zip 
+    cd /home/user/projects/workFlow
+    yes | astro dev init 2>&1 
+    astro dev start >/dev/null 2>&1 
+    wait
 }
 to_ready_state
+
 

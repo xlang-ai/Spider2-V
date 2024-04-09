@@ -2,10 +2,10 @@
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate astro
-cd /home/user/projects/Project
+cd /home/user/projects/workFlow_Echo
 
 astro dev start >/dev/null 2>/dev/null
-export DAG_ID=example_astronauts
+export DAG_ID=workFlow_Echo
 export CONTAINER=$(astro dev ps | grep "webserver" | awk '{print $1}')
 
 # check whether the DAG is not paused
