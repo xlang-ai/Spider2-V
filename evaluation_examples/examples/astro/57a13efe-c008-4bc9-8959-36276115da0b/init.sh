@@ -15,6 +15,20 @@ mkdir -p ~/projects
 # Set the password for sudo commands
 PASSWORD=password
 
+VERSION=10.5.0
+img=quay.io/astronomer/astro-runtime:${VERSION}
+images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
+echo ${images} | grep -Fiq -- "$img"
+if [ $? -ne 0 ]; then
+    docker pull ${img} >/dev/null 2>&1
+fi
+
+VERSION=1.25.0
+astro version | grep "$VERSION"
+if [ $? -ne 0 ]; then
+    echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- -v $VERSION" >/dev/null
+fi
+
 # Function to create an Astro environment using Conda
 function create_astro_env() {
     source /home/user/anaconda3/etc/profile.d/conda.sh  # Load the conda script
@@ -32,7 +46,7 @@ function to_ready_state(){
     unzip -q workFlow.zip  
     rm -rf workFlow.zip 
     cd /home/user/projects/workFlow
-    yes | astro dev init 2>&1 
+    echo "y" | astro dev init --runtime-version 4.1.0 
     astro dev start >/dev/null 2>&1 
     wait
 }
