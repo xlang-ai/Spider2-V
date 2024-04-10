@@ -26,11 +26,42 @@ def snowflake_delete_user(client: SnowflakeConnection, **config: Dict[str, Any])
     return
 
 
+def snowflake_delete_database(client: SnowflakeConnection, **config: Dict[str, Any]):
+    """ Delete the specified database in snowflake. Arguments for config dict:
+    @args:
+        database(str): database name to delete, optional, if not specified, delete all except preserved
+        preserved(List[str]): special databases to preserve, this field will be used if `database` argument is not specified
+    """
+    database = config.get('database', None)
+    preserved = config.get('preserved', ['SNOWFLAKE', 'SNOWFLAKE_SAMPLE_DATA'])
+    try:
+        cursor = None
+        cursor = client.cursor()
+        if database is not None:
+            if type(database) == str:
+                cursor.execute(f'DROP DATABASE IF EXISTS {database} CASCADE;')
+            else:
+                assert iter(database), "database field is not iterable"
+                for db in database:
+                    cursor.execute(f'DROP DATABASE IF EXISTS {db} CASCADE;')
+        else: # delete all DBs except preserved
+            all_dbs = cursor.execute(f'SHOW DATABASES;').fetchall()
+            for db in all_dbs:
+                db_name = db[1]
+                if db_name not in preserved: # 0 -> created datetime, 1 -> name
+                    cursor.execute(f'DROP DATABASE IF EXISTS {db_name} CASCADE;')
+    except Exception as e:
+        logger.error(f'[ERROR]: unexpected error occurred when trying to delete database {e}')
+    finally:
+        if cursor is not None: cursor.close()
+    return
+
+
 def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, Any]):
     """ Create the specified database in snowflake. Arguments for config dict:
     @args:
         database(str): the name of the database to create, required
-        schema(str): the name of the schema to create
+        schema(str): the name of the schema to create, optional, default to None
         delete_first(bool): delete the database if already exists, default True
     """
     try:
@@ -38,9 +69,9 @@ def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, A
         cursor = client.cursor()
         delete_first = config.get('delete_first', True)
         if delete_first:
-            cursor.execute(f'DROP DATABASE IF EXISTS {config["database"]} CASCADE;')
+            snowflake_delete_database(client, database=config['database'])
         cursor.execute(f'CREATE DATABASE IF NOT EXISTS {config["database"]};')
-        if config.get('schema', ''):
+        if config.get('schema', None):
             command = f'begin; USE DATABASE {config["database"]}; CREATE SCHEMA IF NOT EXISTS {config["schema"]}; commit;'
             cursor.execute(command)
     except:
@@ -52,6 +83,7 @@ def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, A
 
 SNOWFLAKE_INIT_FUNCTIONS = {
     "delete_user": snowflake_delete_user,
+    "delete_database": snowflake_delete_database,
     "create_database": snowflake_create_database
 }
 
@@ -82,6 +114,20 @@ def snowflake_init_setup(controller, **config):
         logger.error(f'[ERROR]: Unknown error occurred when connecting to snowflake during environment initialization!\n{e}')
     finally:
         if client is not None: client.close()
+    return
+
+
+def snowflake_skip_popups(page: Page):
+    try:
+        skip = page.locator('div[role="button"][aria-disabled="false"]').filter(has_text="Skip for now")
+        expect(skip).to_be_enabled()
+        skip.click()
+    except: pass
+    try:
+        skip = page.locator('div[role="button"][data-testid="feedback-popover-close-button"]')
+        expect(skip).to_be_enabled()
+        skip.click()
+    except: pass
     return
 
 
@@ -128,11 +174,7 @@ def snowflake_login_setup(controller, **config):
             logger.error(f'[ERROR]: failed to login to the snowflake website! {e}')
             return
         
-        try:
-            skip = page.locator('div[role="button"][aria-disabled="false"]').filter(has_text="Skip for now")
-            expect(skip).to_be_enabled()
-            skip.click()
-        except: pass
+        snowflake_skip_popups(page)
 
         logger.info('[INFO]: successfully logged into the snowflake website!')
     return
