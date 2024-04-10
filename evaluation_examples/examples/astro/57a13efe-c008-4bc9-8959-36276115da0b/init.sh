@@ -15,25 +15,30 @@ mkdir -p ~/projects
 # Set the password for sudo commands
 PASSWORD=password
 
-VERSION=10.5.0
-img=quay.io/astronomer/astro-runtime:${VERSION}
+ASTRO_RUNTIME_VERSION=10.5.0
+POSTGRES_VERSION=12.6
+declare -a image_list=(
+    "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
+    "postgres:${POSTGRES_VERSION}"
+)
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
-echo ${images} | grep -Fiq -- "$img"
-if [ $? -ne 0 ]; then
-    docker pull ${img} >/dev/null 2>&1
-fi
-
-VERSION=1.25.0
-astro version | grep "$VERSION"
-if [ $? -ne 0 ]; then
-    echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- -v $VERSION" >/dev/null
-fi
+for img in ${image_list[@]}; do
+    echo ${images} | grep -Fiq -- "$img"
+    if [ $? -ne 0 ]; then
+        docker pull ${img} >/dev/null 2>&1
+    fi
+done
 
 # Function to create an Astro environment using Conda
 function create_astro_env() {
     source /home/user/anaconda3/etc/profile.d/conda.sh  # Load the conda script
     conda create -n astro python=3.11 -y >/dev/null 2>&1  # Create a new conda environment named "astro" with Python 3.11
     conda activate astro  # Activate the "astro" environment
+    ASTRO_CLI_VERSION=1.25.0
+    astro version | grep "$ASTRO_CLI_VERSION"
+    if [ $? -ne 0 ]; then
+        echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
+    fi
     echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc  # Add the conda script to the .bashrc file for automatic activation
     echo "conda activate astro" >> ~/.bashrc  # Add the activation command to the .bashrc file for automatic activation
 }
@@ -46,10 +51,9 @@ function to_ready_state(){
     unzip -q workFlow.zip  
     rm -rf workFlow.zip 
     cd /home/user/projects/workFlow
-    echo "y" | astro dev init --runtime-version 4.1.0 
-    astro dev start >/dev/null 2>&1 
+    echo -e "y\n" | astro dev init
+    sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
+    astro dev start --no-browser >/dev/null 2>&1
     wait
 }
 to_ready_state
-
-

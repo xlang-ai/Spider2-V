@@ -17,13 +17,19 @@ DB_NAME=jaffle_shop
 DB_USER=user
 DB_PASSWORD=password
 
-VERSION=11.0.0
-img=quay.io/astronomer/astro-runtime:${VERSION}
+ASTRO_RUNTIME_VERSION=10.5.0
+POSTGRES_VERSION=12.6
+declare -a image_list=(
+    "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
+    "postgres:${POSTGRES_VERSION}"
+)
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
-echo ${images} | grep -Fiq -- "$img"
-if [ $? -ne 0 ]; then
-    docker pull ${img}
-fi
+for img in ${image_list[@]}; do
+    echo ${images} | grep -Fiq -- "$img"
+    if [ $? -ne 0 ]; then
+        docker pull ${img} >/dev/null 2>&1
+    fi
+done
 
 function install_postgres() {
     cd /home
@@ -61,6 +67,8 @@ unzip -q jaffle_shop.zip
 mv jaffle_shop/profiles.yml ~/.dbt/
 mv jaffle_shop/.astro .
 rm -f jaffle_shop.zip
+echo -e "y\n" | astro dev init
+sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
 cd jaffle_shop
 { dbt debug ; dbt seed ; dbt run ; dbt test ; } >/dev/null 2>&1
 
