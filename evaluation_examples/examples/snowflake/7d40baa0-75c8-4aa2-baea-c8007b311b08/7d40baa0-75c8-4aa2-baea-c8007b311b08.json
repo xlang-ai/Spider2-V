@@ -1,0 +1,72 @@
+{
+    "id": "7d40baa0-75c8-4aa2-baea-c8007b311b08",
+    "snapshot": "snowflake",
+    "instruction": "In the opened web page, create a new database called \"RANKINGS\" and load data from a local file into it. Here are the detailed requirements:\n- local file: .csv on desktop\n- target schema: PUBLIC\n- table name: university_rankings\n- columns: use header line (replace whitespaces and hyphens into underlines \"_\")\n- column types: use auto-detection",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/data-load-web-ui#loading-data-using-snowsight"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/7d40baa0-75c8-4aa2-baea-c8007b311b08/National_Universities_Rankings.csv",
+                "dest": "/home/user/Desktop/National_Universities_Rankings.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "RANKINGS",
+            "schema": "PUBLIC",
+            "table": "university_rankings",
+            "include_header": true,
+            "dest": "university_rankings.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/7d40baa0-75c8-4aa2-baea-c8007b311b08/university_rankings_gold.csv",
+            "dest": "university_rankings_gold.csv"
+        }
+    }
+}
