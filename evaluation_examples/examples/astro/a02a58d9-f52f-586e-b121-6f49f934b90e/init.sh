@@ -17,7 +17,7 @@ DB_NAME=jaffle_shop
 DB_USER=user
 DB_PASSWORD=password
 
-VERSION=10.5.0
+VERSION=11.0.0
 img=quay.io/astronomer/astro-runtime:${VERSION}
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
 echo ${images} | grep -Fiq -- "$img"
@@ -45,7 +45,11 @@ function create_astro_env() {
     conda create -n astro python=3.11 -y >/dev/null 2>&1
     conda activate astro
     pip install dbt-core dbt-postgres >/dev/null 2>&1
-    echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s >/dev/null 2>&1"
+    VERSION=1.25.0
+    astro version | grep "$VERSION"
+    if [ $? -ne 0 ]; then
+        echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${VERSION} >/dev/null 2>&1"
+    fi
     echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
     echo "conda activate astro" >> ~/.bashrc
 }
