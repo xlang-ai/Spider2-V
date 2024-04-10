@@ -25,6 +25,7 @@ from .airbyte import (
 )
 
 from .astro import (
+    astro_refresh_page_setup,
     astro_webui_init_setup
 )
 

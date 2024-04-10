@@ -44,7 +44,7 @@ from .vscode import get_vscode_config
 from .calc import get_conference_city_in_order
 
 from .dbt import (
-    get_dbt_profiles,
+    get_dbt_profiles, 
     get_dbt_project_info,
     get_dbt_environment_info
 )
@@ -54,7 +54,5 @@ from .bigquery import (
     get_bigquery_datasets
 )
 from .airbyte import get_airbyte_localhost_page
-from .snowflake import (
-    get_snowflake_user_info,
-    get_snowflake_table_to_csv
-)
+from .astro import get_validate_Correct_Url
+from .snowflake import get_snowflake_user_info

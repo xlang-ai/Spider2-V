@@ -1,11 +1,18 @@
 {
     "id": "67ee22b5-caf1-4aa9-92c5-57546b3d823c",
     "snapshot": "astro",
-    "instruction": "My recent DAG run just failed, open the log page in graph view for me to debug.",
+    "instruction": "My recent DAG 'workFlow_Echo' run has just failed, open the log page of the task 'processing' in graph view for me to debug.",
     "source": [
         "View task logs on the Astro UI"
     ],
     "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/workFlow.zip",
+                "dest": "/home/user/workFlow.zip"
+            }
+        },
         {
             "type": "script_and_execute",
             "parameters": {
@@ -36,17 +43,38 @@
                     }
                 ]
             }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/run.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "astro_refresh_page",
+            "parameters":{              
+            }
         }
     ],
-    "trajectory": "",
-    "related_apps": [],
-    "tags": [],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "astro",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "abstract",
+        "cli+gui"
+    ],
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
-            "type": "vm_script_output",
+            "type": "validate_Correct_Url",
             "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/eval.sh",
-            "dest": "/home/user/eval.sh"
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
         },
         "expected": {
             "type": "rule",
