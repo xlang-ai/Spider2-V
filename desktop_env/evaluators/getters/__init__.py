@@ -54,5 +54,5 @@ from .bigquery import (
     get_bigquery_datasets
 )
 from .airbyte import get_airbyte_localhost_page
-from .astro import get_validate_Correct_Url
+from .astro import get_validate_correct_url
 from .snowflake import get_snowflake_user_info
