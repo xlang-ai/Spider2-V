@@ -1,0 +1,67 @@
+{
+    "id": "49feb36a-d462-44d0-8a4c-73d385a6d66d",
+    "snapshot": "snowflake",
+    "instruction": "I heard there are many free to download datasets on Snowflake marketplace. And I am really curious about worldwide addresses. Could you help me get one database about it? Name it `WORLDWIDE_ADDRESSES`.",
+    "source": [
+        "https://other-docs.snowflake.com/en/collaboration/consumer-listings-access"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_database_schema_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "WORLDWIDE_ADDRESSES",
+            "schema": "ADDRESS",
+            "include_type": true, 
+            "dest": "schema.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/49feb36a-d462-44d0-8a4c-73d385a6d66d/schema.csv",
+            "dest": "schema_gold.csv"
+        }
+    }
+}

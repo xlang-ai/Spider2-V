@@ -187,7 +187,8 @@ def snowflake_login_setup(controller, **config):
             button = page.locator('div[role="button"][aria-disabled="false"]').filter(has_text="Sign in")
             expect(button).to_be_enabled()
             button.click()
-            page.wait_for_load_state('load')
+            nav = page.locator('nav[role="navigation"]')
+            expect(nav).to_be_visible(timeout=60000)
         except Exception as e:
             logger.error(f'[ERROR]: failed to login to the snowflake website! {e}')
             return
