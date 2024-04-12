@@ -1,0 +1,122 @@
+{
+    "id": "62266774-3272-4ce1-ba09-2235c22a1b80",
+    "snapshot": "airbyte",
+    "instruction": "My project leader asks me to create an efficient data pipeline for e-commerce analytics. Our goal is to use Airbyte for data integration, dbt for transformation, and Snowflake for data warehousing. Most codes for dbt have been finished and detailed requirements are provided in README.md of the opened project. Help me complete the remaining work.",
+    "source": [
+        "https://airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/keyfile.json"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/62266774-3272-4ce1-ba09-2235c22a1b80/ecommerce_analytics.zip",
+                "dest": "/home/user/ecommerce_analytics.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/62266774-3272-4ce1-ba09-2235c22a1b80/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "check_include_exclude",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/airbyte/62266774-3272-4ce1-ba09-2235c22a1b80/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "snowflake_database_schema_to_csv",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": [
+                    "raw_data",
+                    "transformed_data"
+                ],
+                "dest": "schema.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/airbyte/62266774-3272-4ce1-ba09-2235c22a1b80/schema.csv",
+                "dest": "schema_gold.csv"
+            }
+        ]
+    }
+}

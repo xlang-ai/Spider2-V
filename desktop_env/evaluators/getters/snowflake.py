@@ -7,6 +7,64 @@ from snowflake.connector import SnowflakeConnection
 logger = logging.getLogger("desktopenv.getters.snowflake")
 
 
+def write_data_into_csv(rows, csv_file, headers=[]):
+    with open(csv_file, 'w', newline='') as of:
+        writer = csv.writer(of)
+        if headers != []:
+            writer.writerow(headers)
+        for row in rows:
+            writer.writerow(row)
+    return csv_file
+
+
+def get_snowflake_database_schema_to_csv(env, config: Dict[str, Any]) -> str:
+    """ Get the database schema from snowflake and write into a json file. Arguments for config dict:
+    @args:
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
+        database(Union[str, List[str]]): the database (or list) to be checked, required
+        schema(Union[str, List[str]]): schema name to be checked, default to 'PUBLIC' with the same length of database
+        include_type(bool): whether include data type for columns, default to False
+        dest(str): the path to the json file, required
+    @returns:
+        json_file(str): the path to the json file, which contains the database schema, if found, else None
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/snowflake/settings.json')
+    if platform.system() == 'Windows':
+        settings_file = settings_file.replace('/', '\\')
+    settings = json.load(open(settings_file, 'r'))
+    account = settings['account']
+    matched = re.search(r'https://(.*?)\.snowflakecomputing\.com', account)
+    if matched: settings['account'] = matched.group(1)
+
+    client, cursor = None, None
+    csv_file = os.path.join(env.cache_dir, config['dest'])
+    database = config['database']
+    schema = config.get('schema', 'PUBLIC')
+    headers = ['database', 'schema', 'table', 'column', 'type'] if config.get('include_type', False) else ['database', 'schema', 'table', 'column']
+    data_type = ', DATA_TYPE' if config.get('include_type', False) else ''
+    query_template = f'SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME{data_type} FROM {{database}}.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = \'{{schema}}\' ORDER BY TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME;'
+    try:
+        client: SnowflakeConnection = connector.connect(**settings)
+        cursor = client.cursor()
+        if type(database) == str:
+            cursor.execute(f'USE DATABASE {database};')
+            rows = cursor.execute(query_template.format(database=database, schema=schema)).fetchall()
+            write_data_into_csv(rows, csv_file, headers)
+        else:
+            rows = []
+            for idx, db in enumerate(database):
+                cur_schema = schema[idx] if type(schema) == list else schema
+                cursor.execute(f'USE DATABASE {db};')
+                rows += cursor.execute(query_template.format(database=db, schema=cur_schema)).fetchall()
+            write_data_into_csv(rows, csv_file, headers)
+    except Exception as e:
+        logger.error(f'[ERROR]: unexpected error occurred when fetching database schema on Snowflake. {e}')
+    finally:
+        if cursor is not None: cursor.close()
+        if client is not None: client.close()
+    return csv_file
+
+
 def get_snowflake_table_to_csv(env, config: Dict[str, Any]) -> str:
     """ Get the table schema and data from snowflake. Arguments for config dict:
     @args:
@@ -34,13 +92,9 @@ def get_snowflake_table_to_csv(env, config: Dict[str, Any]) -> str:
         client: SnowflakeConnection = connector.connect(**settings)
         cursor = client.cursor()
         cursor.execute(f'SELECT * FROM {table};')
-        with open(csv_file, 'w', newline='') as of:
-            writer = csv.writer(of)
-            if include_header:
-                headers = [col.name for col in cursor.description]
-                writer.writerow(headers)
-            for row in cursor:
-                writer.writerow(row)
+        headers = [col.name for col in cursor.description]
+        rows = cursor.fetchall()
+        write_data_into_csv(rows, csv_file, headers)
     except:
         logger.error(f'[ERROR]: failed to write data in table {table} into csv file {csv_file}')
         return

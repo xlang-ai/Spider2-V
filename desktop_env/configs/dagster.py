@@ -60,6 +60,17 @@ DAGSTER_WEBUI_FUNCTIONS = {
 }
 
 
+def dagster_webui_login(page, url='http://localhost:3000', trial=10):
+    for _ in range(trial):
+        try:
+            page.goto(url, wait_until='load')
+            return page
+        except:
+            logger.warning(f'[WARNING]: failed to open the Dagster localhost webui page {url}. Retry...')
+            time.sleep(3)
+    return
+
+
 def dagster_webui_init_setup(controller, **config):
     """ Log into the dagster localhost webui and perform environment setup. Arguments for config dict:
     @args:
@@ -82,7 +93,7 @@ def dagster_webui_init_setup(controller, **config):
         if page is None:
             # logger.error(f'[ERROR]: failed to find the Dagster localhost webui page {url}. Nothing done.')
             page = context.new_page()
-            page.goto(url, wait_until='load')
+            page = dagster_webui_login(page, url)
         
         for action in config.get('actions', []):
             action_type = action.pop('type')

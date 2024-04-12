@@ -2,7 +2,7 @@
 import os, re, logging, time, requests, json, random, uuid, platform
 from typing import List, Union, Tuple, Dict, Any
 from playwright.sync_api import expect, sync_playwright, BrowserContext, Page
-from .general import get_browser
+from .general import get_browser, copyfile_from_host_to_guest_setup, find_page_by_url
 from snowflake import connector
 from snowflake.connector import SnowflakeConnection
 
@@ -81,10 +81,24 @@ def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, A
     return
 
 
+def snowflake_copy_keyfile(client: SnowflakeConnection, **config: Dict[str, Any]):
+    """ Copy the keyfile to the specified path. Arguments for config dict:
+    @args:
+        keyfile_path(str): the path to the keyfile, required
+        dest(str): the path to the destination, default is '/home/user/keyfile.json'
+    """
+    dest = config.get('dest', '/home/user/keyfile.json')
+    controller = config['controller']
+    src = config['keyfile_path']
+    copyfile_from_host_to_guest_setup(controller, src, dest)
+    return
+
+
 SNOWFLAKE_INIT_FUNCTIONS = {
     "delete_user": snowflake_delete_user,
     "delete_database": snowflake_delete_database,
-    "create_database": snowflake_create_database
+    "create_database": snowflake_create_database,
+    "copy_keyfile": snowflake_copy_keyfile,
 }
 
 
@@ -108,6 +122,7 @@ def snowflake_init_setup(controller, **config):
         # initialize the cloud workspace, e.g., users, databases, tables, etc.
         for action in config.get('actions', []):
             action_type = action.pop('type')
+            action['keyfile_path'], action['controller'] = settings_file, controller
             init_func = SNOWFLAKE_INIT_FUNCTIONS[action_type]
             init_func(client, **action)
     except Exception as e:
@@ -151,12 +166,14 @@ def snowflake_login_setup(controller, **config):
             return
         
         context = browser.contexts[0]
-        page = context.new_page()
-        page.goto(url, wait_until='load')
+        page = find_page_by_url(context, url, matching_func=lambda x, y: x.startswith(y))
+        if page is None:
+            page = context.new_page()
+            page.goto(url, wait_until='load')
 
         try:
             account = page.locator('input[aria-label="Account identifier"]')
-            expect(account).to_be_editable()
+            expect(account).to_be_editable(timeout=60000)
             account.fill(settings['account'])
             signin = page.locator('div[role="button"][aria-disabled="false"]').filter(has_text="Sign in")
             expect(signin).to_be_visible()
@@ -170,6 +187,7 @@ def snowflake_login_setup(controller, **config):
             button = page.locator('div[role="button"][aria-disabled="false"]').filter(has_text="Sign in")
             expect(button).to_be_enabled()
             button.click()
+            page.wait_for_load_state('load')
         except Exception as e:
             logger.error(f'[ERROR]: failed to login to the snowflake website! {e}')
             return
