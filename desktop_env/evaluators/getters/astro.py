@@ -19,7 +19,7 @@ _accessibility_ns_map = {
     "act": "uri:deskat:action.at-spi.gnome.org"
 }
 
-def get_validate_Correct_Url(env, config: Dict[str, str]):
+def get_validate_correct_url(env, config: Dict[str, str]):
     """
     @args:
         env(desktop_env.envs.DesktopEnv): the environment object
