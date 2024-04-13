@@ -1,5 +1,7 @@
-#coding=utf8
+# coding=utf8
+import base64
 import os, logging, time, requests, json, random, uuid, platform
+import shutil
 from typing import List, Union, Tuple, Any
 from playwright.sync_api import expect, sync_playwright, BrowserContext, Page
 from requests_toolbelt.multipart.encoder import MultipartEncoder
@@ -8,7 +10,6 @@ logger = logging.getLogger("desktopenv.setup")
 
 
 def get_browser(p, url, trial=15):
-    
     for attempt in range(trial):
         try:
             browser = p.chromium.connect_over_cdp(url)
@@ -62,7 +63,7 @@ def google_chrome_browser_setup(controller, **config):
         options.append("--start-maximized")
     controller._launch_setup(command=["google-chrome", f"--remote-debugging-port={debugging_port}"] + options)
     controller._launch_setup(command=["socat", f"tcp-listen:{listening_port},fork", f"tcp:localhost:{debugging_port}"])
-    
+
     urls_to_open = config.get('urls', [])
     if urls_to_open:
         remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
@@ -73,7 +74,7 @@ def google_chrome_browser_setup(controller, **config):
                 return
 
             for i, url in enumerate(urls_to_open):
-                if i == 0: # get content
+                if i == 0:  # get content
                     context = browser.contexts[0]
 
                 page = context.new_page()  # Create a new page within the existing context
@@ -82,7 +83,7 @@ def google_chrome_browser_setup(controller, **config):
                 except Exception as e:
                     logger.warning(f"[WARNING]: opening URL {url} exceeds time limit.")
 
-                if i == 0: # clear the default tab
+                if i == 0:  # clear the default tab
                     default_page = context.pages[0]
                     default_page.close()
 
@@ -115,7 +116,8 @@ def simulate_human_click(controller, x_y: Tuple[float, float]):
         http_server = 'http://' + controller.vm_ip + ':5000'
         response = requests.post(http_server + "/execute", headers=headers, data=payload)
         if response.status_code == 200: return
-    except: pass
+    except:
+        pass
     logger.error(f"[ERROR]: Failed to simulate human click at position {x_y}, status code: {response.status_code}")
     return
 
@@ -201,7 +203,7 @@ def script_and_execute_setup(controller, src: str, dest: str = '/home/user/init.
         dest(str): the path to save the script on VM (default: '~/init.sh')
         options(List[str]): optional arguments to execute the script (default: [])
     """
-    if src.startswith('http'): # url path
+    if src.startswith('http'):  # url path
         controller._download_setup([{'url': src, 'path': dest}])
     else:
         if platform.system() == 'Windows':
@@ -239,16 +241,32 @@ def copyfile_from_guest_to_host_setup(controller, src: str, dest: str):
     return
 
 
-def copyfile_from_host_to_guest_setup(controller, src: str, dest: str):
-    """ Transfer a file from VM to host.
+def copyfile_from_host_to_guest_setup(controller, src: str, dest: str, json_encode=False):
+    """ Transfer a file from host to VM.
     @args:
         controller(desktop_env.controllers.SetupController): the controller object
         src(str): local file path
         dest(str): VM file path
     """
     http_server = f"http://{controller.vm_ip}:5000"
+
+    temp_src = "cache/encoded_key_file.json"
     if platform.system() == 'Windows':
         src = src.replace('/', '\\')
+        temp_src = temp_src.replace('/', '\\')
+
+    if json_encode:
+        os.remove(temp_src)
+        shutil.copy(src, temp_src)
+        with open(temp_src, "r") as f:
+            data = json.load(f)
+        for key, value in data.items():
+            encoded_value = base64.b64encode(str(value).encode()).decode()
+            data[key] = encoded_value
+        with open(temp_src, "w") as f:
+            json.dump(data, f, indent=4)
+        src = temp_src
+
     form = MultipartEncoder({
         "file_path": dest,
         "file_data": (os.path.basename(dest), open(src, "rb"))
@@ -263,4 +281,5 @@ def copyfile_from_host_to_guest_setup(controller, src: str, dest: str):
             logger.error(f"Failed to upload file {src} to {dest}. Status code: {response.text}")
     except requests.exceptions.RequestException as e:
         logger.error("An error occurred while trying to send the request: %s", e)
+
     return

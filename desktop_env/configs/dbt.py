@@ -29,23 +29,94 @@ def dbt_cloud_delete_project(**config: Dict[str, Any]):
     # suppose trial account - one project per account
     if config.get("project_id", False):
         subprocess.run(['dbt-cloud', 'project', 'delete', '--project-id', f'{config["project_id"]}'],
-                               shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
+                       shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                       encoding="utf-8")
     else:
         state = subprocess.run(['dbt-cloud', 'project', 'list'],
-                            shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
+                               shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                               encoding="utf-8")
         project_list = json.loads(state.stdout)['data']
         if len(project_list) == 0:
             logger.info('[INFO]: there are no projects to be deleted!')
         else:
             subprocess.run(['dbt-cloud', 'project', 'delete', '--project-id', f'{project_list[0]["id"]}'],
-                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                           encoding="utf-8")
+
+    return
+
+
+def dbt_cloud_create_env(**config: Dict[str, Any]):
+    """ Create a new environment. Before running this function, a project should be created in the given account.
+    @args:
+        env_name (str): the name of the project. default "New Environment" (as in dbt Cloud default)
+    """
+    name = config.get("env_name", "New Environment")
+    state = subprocess.run(['dbt-cloud', 'project', 'list'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                           encoding="utf-8")
+    project_list = json.loads(state.stdout)['data']
+    if len(project_list) == 0:
+        logger.info('[INFO]: there are no projects to create environments on!')
+    else:
+        os.environ["DBT_CLOUD_PROJECT_ID"] = str(project_list[0]['id'])
+        subprocess.run(['dbt-cloud', 'environment', 'create', '--name', f'{name}', '--dbt-version', '1.5.0-latest'],
+                       shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                       encoding="utf-8")
+    return
+
+
+def dbt_cloud_create_job(**config: Dict[str, Any]):
+    """ Create a new job. Before running this function, a project and an environment should be initiated.
+    @args:
+        job_name (str): the name of the job. default "New Job" (as in dbt Cloud default)
+        env_name (str): since multiple envs could be created in a project, environment name is required4
+        execute_steps (list): the execution steps of the job
+    """
+
+    job_name = config.get("job_name", "New Job")
+    env_name = config.get("env_name", "New Environment")
+    execute_steps = config.get("execute_steps", [])
+
+    state = subprocess.run(['dbt-cloud', 'project', 'list'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                           encoding="utf-8")
+    project_list = json.loads(state.stdout)['data']
+    if len(project_list) == 0:
+        logger.info('[INFO]: there are no projects to create jobs on!')
+    else:
+        os.environ["DBT_CLOUD_PROJECT_ID"] = str(project_list[0]['id'])
+        state = subprocess.run(['dbt-cloud', 'environment', 'list'],
+                               shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                               encoding="utf-8")
+        env_list = json.loads(state.stdout)['data']
+
+        if len(env_list) == 0:
+            logger.info('[INFO]: there are no environments to create jobs on!')
+        else:
+            found = False
+            env_id = ""
+            for env in env_list:
+                if env['name'] == env_name:
+                    found = True
+                    env_id = env['id']
+                    break
+            if found is not True:
+                logger.info('[INFO]: there are no environments with the specified name!')
+                return
+            subprocess.run(['dbt-cloud', 'job', 'create',
+                            '--environment-id', f'{env_id}', '--name', f'{job_name}', '--execute-steps', f'{str(execute_steps)}'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                           encoding="utf-8")
 
     return
 
 
 DBT_CLOUD_FUNCTIONS = {
     "create_project": dbt_cloud_create_project,
-    "delete_project": dbt_cloud_delete_project
+    "delete_project": dbt_cloud_delete_project,
+    "create_environment": dbt_cloud_create_env,
+    "create_job": dbt_cloud_create_job
 }
 
 
@@ -119,11 +190,13 @@ def dbt_cloud_webui_login_setup(controller, **config):
             os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
 
             state = subprocess.run(['dbt-cloud', 'project', 'list'],
-                                   shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
+                                   shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                                   encoding="utf-8")
             project_list = json.loads(state.stdout)['data']
             if len(project_list) > 0:
                 project_id = project_list[0]["id"]
-                page.goto(f'https://cloud.getdbt.com/{settings["account_id"]}/projects/{project_id}/setup', wait_until='load')
+                page.goto(f'https://cloud.getdbt.com/{settings["account_id"]}/projects/{project_id}/setup',
+                          wait_until='load')
 
                 # skip the connection/repository configuration
                 # 0 - no skip

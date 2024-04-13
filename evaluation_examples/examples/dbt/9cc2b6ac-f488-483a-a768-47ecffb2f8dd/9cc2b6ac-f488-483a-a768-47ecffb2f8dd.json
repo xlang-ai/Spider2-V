@@ -1,0 +1,74 @@
+{
+    "id": "9cc2b6ac-f488-483a-a768-47ecffb2f8dd",
+    "snapshot": "dbt",
+    "instruction": "Please help me schedule a new deploy job named \"Thanksgiving_Day\" on the given environment \"Thanksgiving_Sales\". This job should be triggered only at 12:00 PM on every year's Thanksgiving Day.",
+    "source": [
+        "https://docs.getdbt.com/docs/deploy/deploy-jobs",
+        "https://www.geeksforgeeks.org/crontab-in-linux-with-examples/"
+    ],
+    "related_apps": [
+        "chromium",
+        "dbt"
+    ],
+    "tags": [
+        "gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "Thanksgiving"
+                    },
+                    {
+                        "type": "create_environment",
+                        "env_name": "Thanksgiving_Sales"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://cloud.getdbt.com/",
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_job_info",
+            "name": "Thanksgiving_Day",
+            "fields": ["cron_humanized"],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["At 12:00 PM, between day 22 and 28 of the month, only on Thursday, only in November"],
+                "exclude": ["None"]
+            }
+        }
+    }
+}

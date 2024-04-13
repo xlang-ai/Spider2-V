@@ -1,0 +1,73 @@
+{
+    "id": "d9310e1b-881d-41a6-9845-fbc5c81e491c",
+    "snapshot": "dbt",
+    "instruction": "Create a new deploy job named \"check_source\" on the environment of the same name. Suppose the snapshot freshness info has been configured, this job should constantly and independently capture the source freshness snapshots. Choose a proper timing interval given a lowest dataset SLA frequency of 2 hours.",
+    "source": [
+        "https://docs.getdbt.com/docs/deploy/source-freshness"
+    ],
+    "related_apps": [
+        "chromium",
+        "dbt"
+    ],
+    "tags": [
+        "gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "",
+    "config": [
+         {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "Check_Source"
+                    },
+                    {
+                        "type": "create_environment",
+                        "env_name": "check_source"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://cloud.getdbt.com/",
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_job_info",
+            "name": "check_source",
+            "fields": ["run_generate_sources", "time_type", "time_interval"],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["True", "every_hour", "1"],
+                "exclude": ["None"]
+            }
+        }
+    }
+}

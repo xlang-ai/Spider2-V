@@ -1,0 +1,77 @@
+{
+    "id": "a7ecc930-d4da-4313-bc2c-cc9181834b60",
+    "snapshot": "dbt",
+    "instruction": "In the project named \"snowflake_transform\", please help me set up connections to the given Snowflake account. Choose your own names for database and warehouse. The credential file is provided at the desktop, with its values being protected under base64 encryption scheme.",
+    "source": [
+        "https://docs.getdbt.com/guides/snowflake?step=4",
+        "https://en.wikipedia.org/wiki/Base64"
+    ],
+    "related_apps": [
+        "chromium",
+        "dbt",
+        "snowflake"
+    ],
+    "tags": [
+        "gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/settings/snowflake/settings.json",
+                "dest": "/home/user/Desktop/dbt-user-creds.json",
+                "json_encode": true
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "snowflake_transform"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://cloud.getdbt.com/",
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_project_info",
+            "fields": ["connection_type"],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["snowflake"],
+                "exclude": ["None"]
+            }
+        }
+    }
+}
