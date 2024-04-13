@@ -95,8 +95,8 @@ def get_snowflake_table_to_csv(env, config: Dict[str, Any]) -> str:
         headers = [col.name for col in cursor.description]
         rows = cursor.fetchall()
         write_data_into_csv(rows, csv_file, headers)
-    except:
-        logger.error(f'[ERROR]: failed to write data in table {table} into csv file {csv_file}')
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to write data in table {table} into csv file {csv_file}. {e}')
         return
     finally:
         if client is not None: client.close()
