@@ -11,10 +11,28 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # create conda environment and install dagster
+cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda create -n dagster python=3.11 -y
+# conda create -n dagster python=3.11 -y
 conda activate dagster
+# pip install dagster
+pip install dagster-webserver
+# Please uncomment the above two lines if you want to install dagster in a new conda environment.
 
-echo "export DAGSTER_HOME=~/.dagster" >> ~/.bashrc
+mkdir -p ~/.dagster
+export DAGSTER_HOME=~/.dagster
+# create the target dagster project
+PROJECT_NAME=file-watch-sensor
+dagster project scaffold --name $PROJECT_NAME
+mkdir -p $PROJECT_NAME/files
+cd $PROJECT_NAME
+# pip install -e ".[dev]"
+
+# start dagster Web UI service
+dagster dev -p 3000 &
+sleep 5
+
+code /home/user/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
+echo "export DAGSTER_HOME=~/.dagster" >> ~/.bashrc

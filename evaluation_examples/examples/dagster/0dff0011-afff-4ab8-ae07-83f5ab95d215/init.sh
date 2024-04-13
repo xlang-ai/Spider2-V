@@ -18,7 +18,8 @@ echo "export DAGSTER_HOME=/home/user/.dagster" >> /home/user/.bashrc
 source /home/user/anaconda3/etc/profile.d/conda.sh
 # conda create -n dagster python=3.11 -y
 conda activate dagster
-pip install dagster
+# pip install dagster
+# Please uncomment the above two lines if you haven't installed dagster
 
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
