@@ -1,26 +1,84 @@
 {
     "id": "93b05252-b8cd-4f23-8850-168dc8107d83",
-    "snapshot": "airflow",
-    "instruction": "Could you please build a connection to the opened bigquery project with key file in /path/key.json.",
+    "snapshot": "astro",
+    "instruction": "I want to establish two external links for my dag. The detailed information of the links are in readme.md. Please finish my_extra_link_plugin.py which I opened in vscode for you, then open 'weather_data_dag' on astro website and show me the links in get_hong_kong_weather",
     "source": [
-        "Create a BigQuery connection in Airflow"
+        "https://docs.astronomer.io/learn/operator-extra-link-tutorial"
     ],
-    "config": [],
-    "trajectory": "",
-    "related_apps": [],
-    "tags": [],
-    "evaluator": {
-        "func": "",
-        "result": {
-            "type": "",
-            "src": "",
-            "dest": ""
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/93b05252-b8cd-4f23-8850-168dc8107d83/weather.zip",
+                "dest": "/home/user/weather.zip"
+            }
         },
-        "expected": {
-            "type": "",
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/93b05252-b8cd-4f23-8850-168dc8107d83/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin", 
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "astro",
+        "chromium",
+        "vscode",
+        "docker"
+    ],
+    "tags": [
+        "abstract",
+        "cli+gui"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "html_check",
+            "src": "evaluation_examples/examples/astro/93b05252-b8cd-4f23-8850-168dc8107d83/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "url": "",
+            "strings":[
+                "href=\"https://wttr.in/HongKong\">WTTRWeather",
+                "href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP\">HTTP file"
+            ]
+        },
+        "expected": 
+        {
+            "type": "rule",
             "rules": {
-                "include": [],
-                "exclude": []
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
             }
         }
     }
