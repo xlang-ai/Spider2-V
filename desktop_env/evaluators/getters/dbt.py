@@ -16,8 +16,8 @@ def get_dbt_profiles(env, config: Dict[str, str]) -> str:
     """
     for fp in config["dirs"]:
         if fp.startswith('$'):
-            # fetching ENV vars does not work, because the command below is executed in a new shell in non-login, non-interactive mode
-            # thus, the environment variable is not available
+            # fetching ENV vars does not work, because the command below is executed in a new shell in non-login,
+            # non-interactive mode thus, the environment variable is not available
             fp = get_vm_command_line(env, {"command": ["/bin/bash", "-c", f"echo \"{fp}\""]})
             if type(fp) == str and fp.strip() != "":
                 file = get_vm_file(env, {"path": fp.strip() + '/profiles.yml', "dest": config["dest"]})
@@ -107,6 +107,60 @@ def get_dbt_environment_info(env, config: Dict[str, str]):
             for field in fields:
                 result += env[field]
                 result += " "
+
+    if not found:
+        return "None"
+    return result
+
+
+def get_dbt_job_info(env, config: Dict[str, str]):
+    """ Retrieve the information on Dbt project job.
+        @args:
+            env(desktop_env.envs.DesktopEnv): the environment object
+            config (dict):
+                setting_files: the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
+                name (required): the name of to-be-evaluate job
+                fields (list, required): the specific fields we want to extract for evaluation. Could be:
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/dbt_cloud/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+
+    os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
+    os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+
+    state = subprocess.run(['dbt-cloud', 'project', 'list'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                           encoding="utf-8")
+    project_list = json.loads(state.stdout)['data']
+    if len(project_list) == 0:
+        return "None"
+    else:
+        os.environ["DBT_CLOUD_PROJECT_ID"] = str(project_list[0]['id'])
+
+    state = subprocess.run(['dbt-cloud', 'job', 'list'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
+                           encoding="utf-8")
+    job_list = json.loads(state.stdout)['data']
+
+    if len(job_list) == 0:
+        return "None"
+
+    result = ""
+    name = config.get("name", "New Job")
+    fields = config.get("fields", [])
+
+    found = False
+    for job in job_list:
+        if job['name'] == name:
+            found = True
+            for field in fields:
+                if field.startswith('time_'):
+                    schedule = job['schedule']['time']
+                    time_type = field[5:]
+                    result += str(schedule[time_type])
+                else:
+                    result += str(job[field])
+                result += ' '
 
     if not found:
         return "None"
