@@ -12,13 +12,27 @@ logger = logging.getLogger("desktopenv.setup")
 def snowflake_delete_user(client: SnowflakeConnection, **config: Dict[str, Any]):
     """ Delete the specified user in snowflake. Arguments for config dict:
     @args:
-        username(str): the username to delete
+        username(str): the username to delete, optional, if not specified, delete all users except the current user and system preserved SNOWFLAKE
     """
     try:
         cursor = None
-        username = config['username']
         cursor = client.cursor()
-        cursor.execute(f'DROP USER IF EXISTS {username}')
+        username = config.get('username', None)
+        if username is not None:
+            if type(username) == str:
+                cursor.execute(f'DROP USER IF EXISTS {username}')
+            else:
+                assert iter(username), "username field is neither string nor iterable"
+                for name in username:
+                    cursor.execute(f'DROP USER IF EXISTS {name}')
+        else:
+            current_user = cursor.execute('SELECT CURRENT_USER();').fetchone()[0]
+            preserved = ['SNOWFLAKE', current_user]
+            all_users = cursor.execute('SHOW USERS;').fetchall()
+            for user in all_users:
+                username = user[0]
+                if username in preserved: continue
+                cursor.execute(f'DROP USER IF EXISTS {username}')
     except:
         logger.error(f'[ERROR]: failed to delete the specified user `{username}` in snowflake!')
     finally:
@@ -30,10 +44,9 @@ def snowflake_delete_database(client: SnowflakeConnection, **config: Dict[str, A
     """ Delete the specified database in snowflake. Arguments for config dict:
     @args:
         database(str): database name to delete, optional, if not specified, delete all except preserved
-        preserved(List[str]): special databases to preserve, this field will be used if `database` argument is not specified
     """
     database = config.get('database', None)
-    preserved = config.get('preserved', ['SNOWFLAKE', 'SNOWFLAKE_SAMPLE_DATA'])
+    preserved = ['SNOWFLAKE', 'SNOWFLAKE_SAMPLE_DATA']
     try:
         cursor = None
         cursor = client.cursor()
@@ -41,7 +54,7 @@ def snowflake_delete_database(client: SnowflakeConnection, **config: Dict[str, A
             if type(database) == str:
                 cursor.execute(f'DROP DATABASE IF EXISTS {database} CASCADE;')
             else:
-                assert iter(database), "database field is not iterable"
+                assert iter(database), "database field is neither string nor iterable"
                 for db in database:
                     cursor.execute(f'DROP DATABASE IF EXISTS {db} CASCADE;')
         else: # delete all DBs except preserved
