@@ -18,6 +18,11 @@ def dagster_webui_close_popups(page: Page):
         expect(dismiss_button).to_be_enabled()
         dismiss_button.click()
     except: pass
+    try:
+        close_button = page.locator('button').filter(has_text="Close")
+        expect(close_button).to_be_enabled()
+        close_button.click()
+    except: pass
     return
 
 
@@ -32,7 +37,7 @@ def dagster_webgui_materialize_assets(page: Page, timeout: int = 60000):
     reload_button = page.locator('button').filter(has_text="Reload definitions")
     expect(reload_button).to_be_enabled()
     reload_button.click()
-    expect(reload_button).to_be_enabled() # waiting for reload to finish
+    expect(reload_button).to_be_enabled(timeout=timeout) # waiting for reload to finish
     # select the first checkbox, by default materialize all assets
     checkbox = page.locator('label[for="checkbox-1"]').first
     expect(checkbox).to_be_enabled()
