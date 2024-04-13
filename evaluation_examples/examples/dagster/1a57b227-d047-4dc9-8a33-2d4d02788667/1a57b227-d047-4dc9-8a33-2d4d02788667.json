@@ -1,7 +1,7 @@
 {
     "id": "1a57b227-d047-4dc9-8a33-2d4d02788667",
     "snapshot": "dagster",
-    "instruction": "I want to create an empty dagster project called \"dagster-proj\" at the current directory. Please first install dagster using pip.",
+    "instruction": "I want to create an empty dagster project called \"dagster-proj\" at the current directory.",
     "source": [
         "https://docs.dagster.io/getting-started/create-new-project"
     ],

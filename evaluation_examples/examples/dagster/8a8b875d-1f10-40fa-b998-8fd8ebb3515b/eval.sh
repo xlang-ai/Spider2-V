@@ -1,9 +1,17 @@
 #!/bin/bash
 
-cd ~/test-ops-and-jobs
+PROJECT_NAME=test-ops-and-jobs
+
+cd ~/$PROJECT_NAME
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 pip install pytest > /dev/null
+
+rm -rf $PROJECT_NAME/files
+mkdir -p $PROJECT_NAME/files
+echo "Hello World!" > $PROJECT_NAME/files/helloworld.txt
+echo "Welcome to dagster!" > $PROJECT_NAME/files/welcome.txt
+echo "This is the test for ops and jobs." > $PROJECT_NAME/files/ops_and_jobs.txt
 
 pytest test_file_sizes_job.py
 

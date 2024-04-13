@@ -1,7 +1,7 @@
 {
     "id": "8a8b875d-1f10-40fa-b998-8fd8ebb3515b",
     "snapshot": "dagster",
-    "instruction": "In the open directory \"test-ops-and-jobs\", create a new python file \"file_sizes_job.py\" and define 4 dagster ops \"get_file_sizes\", \"get_total_file_size\", \"get_max_file_size\", and \"report_file_stats\" to get the sizes of files in the directory \"/home/user/test-ops-jobs/files\", calculate the total file size, compute the largest size of all files, and output the total and largest file sizes in the dagster log, respectively. Also define in \"file_sizes_job.py\" a job which reports the total and largest file sizes in the \"files\" directory. Visualize the job in the dagster UI on port 3000. Do not modify the files in the \"files\" directory.",
+    "instruction": "In the open directory \"test-ops-and-jobs\", create a new python file \"file_sizes_job.py\" and define 4 dagster ops \"get_file_sizes\", \"get_total_file_size\", \"get_max_file_size\", and \"report_file_stats\" to get the sizes of files in the directory \"/home/user/test-ops-jobs/files\", calculate the total file size, compute the largest size of all files, and output the total and largest file sizes in the dagster log, respectively. Also define in \"file_sizes_job.py\" a job which reports the total and largest file sizes in the \"files\" directory. Visualize the job in the dagster UI on port 3000.",
     "source": [
         "https://docs.dagster.io/guides/dagster/intro-to-ops-jobs/connecting-ops"
     ],

@@ -1,0 +1,85 @@
+{
+    "id": "46eb418d-c5d3-46b7-9f48-999f8a75c960",
+    "snapshot": "dagster",
+    "instruction": "Build a sensor \"directory_sensor\" that watches for file creation in the directory \"/home/user/file-watch-sensor/files\". When there is a new file created in that directory, launch the job \"log_file_job\" to output its filename. Start the sensor in the UI.",
+    "source": [
+        "https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/46eb418d-c5d3-46b7-9f48-999f8a75c960/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/46eb418d-c5d3-46b7-9f48-999f8a75c960/log_file_job.py",
+                "dest": "/home/user/file-watch-sensor/file_watch_sensor/log_file_job.py"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com",
+                    "http://localhost:3000"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/46eb418d-c5d3-46b7-9f48-999f8a75c960/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "helloworld.txt",
+                        "welcome.txt",
+                        "test_sensor.txt",
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    }
+}
