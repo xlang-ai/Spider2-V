@@ -61,5 +61,7 @@ from .astro import (
 from .snowflake import (
     get_snowflake_user_info,
     get_snowflake_table_to_csv,
-    get_snowflake_database_schema_to_csv
+    get_snowflake_database_schema_to_csv,
+    get_snowflake_function_result,
+    get_snowflake_log_message
 )

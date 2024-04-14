@@ -66,3 +66,23 @@ def is_snowflake_user_created(result_dict: Dict[str, Any], expected: Dict[str, s
         return 1.0
     
     return 0.
+
+
+def check_snowflake_log_message(result_dict: Dict[str, Any], expected: Dict[str, str], **options) -> float:
+    """ Check if the log message contains the expected information.
+    Arguments for config dict:
+    @args:
+        result_dict(Dict[str, str]): the dict of log message, each key(uppercased)-value pair is like, e.g.,
+            {'severity': 'INFO', 'message': 'Logging from Python function.'}
+        expected(Dict[str, str]): the expected log message, e.g., 
+            {'severity': 'INFO', 'message': 'Logging from Python function.'}
+    @returns:
+        bool: True if the log message contains the expected information, False otherwise
+    """
+    if result_dict is None:
+        return 0.
+    if result_dict.get('severity', None) != expected['severity']:
+        return 0.
+    if result_dict.get('message', None) != expected['message']:
+        return 0.
+    return 1.0

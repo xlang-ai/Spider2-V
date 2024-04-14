@@ -160,7 +160,8 @@ from .dbt import (
 )
 
 from .snowflake import (
-    is_snowflake_user_created
+    is_snowflake_user_created,
+    check_snowflake_log_message
 )
 
 def infeasible():

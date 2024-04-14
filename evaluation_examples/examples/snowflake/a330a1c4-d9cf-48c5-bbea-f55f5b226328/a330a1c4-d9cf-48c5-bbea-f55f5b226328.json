@@ -1,0 +1,85 @@
+{
+    "id": "a330a1c4-d9cf-48c5-bbea-f55f5b226328",
+    "snapshot": "snowflake",
+    "instruction": "",
+    "source": [
+        "https://docs.snowflake.com/en/developer-guide/logging-tracing/tutorials/logging-tracing-getting-started"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "exact_match",
+            "check_snowflake_log_message"
+        ],
+        "result": [
+            {
+                "type": "snowflake_function_result",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "log_trace_db",
+                "table": "event_table",
+                "function": "log_trace_data"
+            },
+            {
+                "type": "snowflake_log_message",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "log_trace_db",
+                "table": "event_table",
+                "logger": "logger"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "expected": "SUCCESS"
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "severity": "INFO",
+                    "message": "Logging from Python function."
+                }
+            }
+        ]
+    }
+}
