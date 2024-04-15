@@ -1,0 +1,13 @@
+{
+    "menu_id": "number",
+    "menu_type_id": "number",
+    "menu_type": "string",
+    "truck_brand_name": "string",
+    "menu_item_id": "number",
+    "menu_item_name": "string",
+    "item_category": "string",
+    "item_subcategory": "string",
+    "cost_of_goods_usd": "number",
+    "sale_price_usd": "number",
+    "menu_item_health_metrics_obj": "object"
+}

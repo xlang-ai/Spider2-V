@@ -1,0 +1,112 @@
+{
+    "id": "07a5f2ae-3f2d-4ec5-9ebf-2607ff607f4a",
+    "snapshot": "snowflake",
+    "instruction": "My work today is to load data from a remote Amazon S3 bucket into a snowflake database. The concrete tasks are introduced in the opened file on Desktop.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/07a5f2ae-3f2d-4ec5-9ebf-2607ff607f4a/tasks.md",
+                "dest": "/home/user/Desktop/tasks.md"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/07a5f2ae-3f2d-4ec5-9ebf-2607ff607f4a/columns.json",
+                "dest": "/home/user/Desktop/columns.json"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/tasks.md"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "check_include_exclude",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "snowflake_execution_result",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "sql_command": "LIST @tasty_bytes.food.awsstage;",
+                "return_string": true
+            },
+            {
+                "type": "snowflake_table_to_csv",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "tasty_bytes",
+                "schema": "food",
+                "table": "menu",
+                "include_header": true,
+                "dest": "menu.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "s3://sfquickstarts/tastybytes/raw_pos/menu/menu.csv.gz"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/07a5f2ae-3f2d-4ec5-9ebf-2607ff607f4a/menu.csv",
+                "dest": "menu.csv"
+            }
+        ]
+    }
+}

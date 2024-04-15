@@ -8,6 +8,40 @@ from snowflake.connector import SnowflakeConnection
 
 logger = logging.getLogger("desktopenv.setup")
 
+def remove_comments(sql_script):
+    # remove single-line .sql comment
+    sql_script = re.sub(r'--.*?$', '', sql_script, flags=re.MULTILINE)
+    # remove multi-line .sql comments
+    sql_script = re.sub(r'/\*.*?\*/', '', sql_script, flags=re.DOTALL)
+    return sql_script
+
+
+def snowflake_execute_script(client: SnowflakeConnection, **config: Dict[str, Any]) -> str:
+    """ Execute a SQL script in Snowflake. General approach for initialization.
+    @config:
+        sql_command(Union[List[str], str]): the SQL command or command list to be executed
+        sql_script(str): file path to the SQL script to be executed, either this field or `sql_command` should be provided
+    """
+    try:
+        cursor = client.cursor()
+        if config.get('sql_script', False):
+            with open(config['sql_script'], 'r') as f:
+                sql_command = f.read()
+                sql_command = remove_comments(sql_command)
+                sql_command = [s.strip() for s in sql_command.split(';') if s.strip()]
+        else:
+            sql_command = config['sql_command']
+            if type(sql_command) == str: sql_command = [sql_command]
+        for s in sql_command:
+            cursor.execute(s)
+        return
+    except:
+        logger.error(f'[ERROR]: failed to execute the SQL command/script on Snowflake!')
+        return
+    finally:
+        if cursor is not None: cursor.close()
+        if client is not None: client.close()
+
 
 def snowflake_delete_user(client: SnowflakeConnection, **config: Dict[str, Any]):
     """ Delete the specified user in snowflake. Arguments for config dict:
@@ -85,7 +119,9 @@ def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, A
             snowflake_delete_database(client, database=config['database'])
         cursor.execute(f'CREATE DATABASE IF NOT EXISTS {config["database"]};')
         if config.get('schema', None):
-            command = f'begin; USE DATABASE {config["database"]}; CREATE SCHEMA IF NOT EXISTS {config["schema"]}; commit;'
+            command = f'USE DATABASE {config["database"]};'
+            cursor.execute(command)
+            command = f'CREATE SCHEMA IF NOT EXISTS {config["schema"]};'
             cursor.execute(command)
     except:
         logger.error(f"[ERROR]: failed to create database {config['database']} in snowflake!")
@@ -108,6 +144,7 @@ def snowflake_copy_keyfile(client: SnowflakeConnection, **config: Dict[str, Any]
 
 
 SNOWFLAKE_INIT_FUNCTIONS = {
+    "execute_script": snowflake_execute_script,
     "delete_user": snowflake_delete_user,
     "delete_database": snowflake_delete_database,
     "create_database": snowflake_create_database,

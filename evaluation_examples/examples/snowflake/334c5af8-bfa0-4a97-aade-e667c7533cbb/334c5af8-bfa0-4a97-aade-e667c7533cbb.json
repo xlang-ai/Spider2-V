@@ -1,0 +1,84 @@
+{
+    "id": "334c5af8-bfa0-4a97-aade-e667c7533cbb",
+    "snapshot": "snowflake",
+    "instruction": "Could you help me query the Snowflake database IMDB and save the top 20 dramatic movies since 2000 into file top20movies.csv on desktop. The detailed requirements are listed in requirements.txt.",
+    "source": [
+        "https://community.snowflake.com/s/article/NULL-values-are-exported-as-blank"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/334c5af8-bfa0-4a97-aade-e667c7533cbb/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/334c5af8-bfa0-4a97-aade-e667c7533cbb/requirements.txt",
+                "dest": "/home/user/Desktop/requirements.txt"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/requirements.txt"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/top20movies.csv",
+            "dest": "top20movies.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/334c5af8-bfa0-4a97-aade-e667c7533cbb/top20movies.csv",
+            "dest": "gold_top20movies.csv"
+        }
+    }
+}

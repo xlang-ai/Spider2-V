@@ -17,6 +17,63 @@ def write_data_into_csv(rows, csv_file, headers=[]):
     return csv_file
 
 
+def get_snowflake_execution_result(env, config: Dict[str, Any]) -> str:
+    """ Get the execution results of a specific SQL command/SQL script, return the output to a file or string.
+    @config:
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
+        sql_command(str): the SQL command to be executed
+        sql_script(str): file path to the SQL script to be executed, either this field or `sql_command` should be provided.
+            Attention, the sql_script contains only one SQL command (multiple SQL commands not supported)
+        include_header(bool): whether return the header execution output, default to true
+        return_string(bool): concatenate output results into string (usually for quick evaluation), default to True.
+            note that, this field is only used when `dest` is not provided
+        dest(str): the path to the output file, optional, if not provided, directly return the execution results
+    @returns:
+        result(Union[str, Any]): the path to the output result or raw output object
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/snowflake/settings.json')
+    if platform.system() == 'Windows':
+        settings_file = settings_file.replace('/', '\\')
+    settings = json.load(open(settings_file, 'r'))
+    account = settings['account']
+    matched = re.search(r'https://(.*?)\.snowflakecomputing\.com', account)
+    if matched: settings['account'] = matched.group(1)
+    client, cursor, headers = None, None, []
+    result_file = config.get('dest', None)
+    include_header = config.get('include_header', True)
+
+    try:
+        client: SnowflakeConnection = connector.connect(**settings)
+        cursor = client.cursor()
+        if config.get('sql_script', False):
+            with open(config['sql_script'], 'r') as f:
+                sql_command = f.read()
+        else: sql_command = config['sql_command']
+        cursor.execute(sql_command)
+
+        if result_file is not None:
+            if include_header:
+                headers = [col.name for col in cursor.description]
+            rows = cursor.fetchall()
+            write_data_into_csv(rows, result_file, headers)
+            return result_file
+        else:
+            result = cursor.fetchall()
+            if include_header:
+                headers = [col.name for col in cursor.description]
+                result = [headers] + result
+            if config.get('return_string', True):
+                # by default, use '\n' as row separator, ',' as column separator
+                result = '\n'.join([','.join([str(c) for c in row]) for row in result])
+            return str(result)
+    except:
+        logger.error(f'[ERROR]: failed to execute the SQL command/script on Snowflake!')
+        return
+    finally:
+        if cursor is not None: cursor.close()
+        if client is not None: client.close()
+
+
 def get_snowflake_database_schema_to_csv(env, config: Dict[str, Any]) -> str:
     """ Get the database schema from snowflake and write into a json file. Arguments for config dict:
     @args:
@@ -85,14 +142,15 @@ def get_snowflake_table_to_csv(env, config: Dict[str, Any]) -> str:
     if matched: settings['account'] = matched.group(1)
     settings['database'], settings['schema'] = config['database'], config.get('schema', 'PUBLIC')
 
-    client, cursor = None, None
+    client, cursor, headers = None, None, []
     table, include_header = config['table'], config.get('include_header', True)
     csv_file = os.path.join(env.cache_dir, config.get('dest', f'{config["table"]}.csv'))
     try:
         client: SnowflakeConnection = connector.connect(**settings)
         cursor = client.cursor()
         cursor.execute(f'SELECT * FROM {table};')
-        headers = [col.name for col in cursor.description]
+        if include_header:
+            headers = [col.name for col in cursor.description]
         rows = cursor.fetchall()
         write_data_into_csv(rows, csv_file, headers)
     except:
