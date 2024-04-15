@@ -2,6 +2,8 @@ from typing import Dict
 import requests
 import logging
 import platform
+from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
 from typing import Dict, Any, List
 logger = logging.getLogger("desktopenv.getters.general")
 
@@ -120,3 +122,58 @@ def get_validate_correct_url(env, config: Dict[str, str]):
             result += f"{element} check failed；"
 
     return result
+
+def get_html_check(env, config: Dict[str, str]) -> float:
+    """
+     @args:
+        env(desktop_env.envs.DesktopEnv): the environment object
+        config(Dict[str, Any]): contain keys
+            src (str): remote url or local path to download the testing script
+            dest (str): the path to save the script on VM
+            shell (bool): optional. if the script is a shell script, defaults to False
+            url (str): the url to open in the browser
+            strings (List[str]): the strings to check in the html content
+    """
+    vm_ip = env.vm_ip
+    port = 5000
+    # download the testing script from remote url to VM
+    src, dest = config["src"], config["dest"]
+    if src.startswith('http'):
+        env.setup_controller._download_setup([{"url": src, "path": dest}])
+    else:
+        env.setup_controller.setup([{"type": "copyfile_from_host_to_guest", "parameters": {"src": src, "dest": dest}}])
+    env.setup_controller._execute_setup(command=["chmod", "a+x", dest])
+
+    # execute the script to obtain the output
+    script = ["/bin/bash", dest]
+    shell = config.get("shell", False)
+    response = requests.post(f"http://{vm_ip}:{port}/execute", json={"command": script, "shell": shell})
+
+    print(response.json())
+
+    if response.status_code == 200:
+        result_json = response.json()
+        target_url = result_json.get("output", "")
+    else:
+        logger.error("Failed to get vm script output. Status code: %d", response.status_code)
+        return None
+    
+    url, strings = config["url"], config["strings"]
+    
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        if url:
+            page = browser.new_page()
+            page.goto(url)
+        else:
+            page = browser.new_page()
+            page.goto(target_url)
+            if not page:
+                raise Exception("Url not found")
+        html_text = page.content()
+        browser.close()
+
+    soup = BeautifulSoup(html_text, 'lxml')
+    html_text = soup.prettify()
+
+    return 'Link check succeed.' if all(s in html_text for s in strings) else 'Link check failed.'

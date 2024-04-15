@@ -71,7 +71,7 @@
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
-            "type": "validate_Correct_Url",
+            "type": "validate_correct_url",
             "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"

@@ -96,7 +96,5 @@ def astro_webui_init_setup(controller, **config):
 
         page = context.pages[0]
         page.close()
-        page = context.pages[0]
-        page.close()
         
     return

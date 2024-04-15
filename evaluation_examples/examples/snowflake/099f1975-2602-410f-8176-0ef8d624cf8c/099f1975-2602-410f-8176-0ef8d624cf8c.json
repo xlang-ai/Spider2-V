@@ -1,0 +1,63 @@
+{
+    "id": "099f1975-2602-410f-8176-0ef8d624cf8c",
+    "snapshot": "snowflake",
+    "instruction": "Please open a new SQL worksheet and run the code in code.txt. After the execution, please download the chart directly and rename it to chart.png.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-visualizations"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/099f1975-2602-410f-8176-0ef8d624cf8c/code.txt",
+                "dest": "/home/user/Desktop/code.txt"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/Desktop/code.txt"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/chart.png",
+            "dest": "chart.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/099f1975-2602-410f-8176-0ef8d624cf8c/chart_gold.png",
+            "dest": "chart_gold.png"
+        }
+    }
+}

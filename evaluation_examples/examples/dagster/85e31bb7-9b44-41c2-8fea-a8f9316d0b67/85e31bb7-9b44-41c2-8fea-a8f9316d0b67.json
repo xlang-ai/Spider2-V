@@ -1,9 +1,9 @@
 {
-    "id": "3d0a78fd-2fc3-48e0-9d2c-280afc247b56",
+    "id": "85e31bb7-9b44-41c2-8fea-a8f9316d0b67",
     "snapshot": "dagster",
-    "instruction": "Help me test the sensor \"math_sensor\" with cursor value \"123\" in the opened dagster UI and run the requested job with the configuration of the run request.",
+    "instruction": "I have a dbt project \"jaffle_shop\". Please integrate this project into dagster and add a dagster asset \"customers\" according to the schema provided by the file \"~/dbt-dagster-project/jaffle_shop/customers_schema.yml\". Materialize the asset in the opened dagster UI.",
     "source": [
-        "https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors#testing-sensors"
+        "https://docs.dagster.io/tutorial/writing-your-first-asset"
     ],
     "related_apps": [
         "chromium",
@@ -18,14 +18,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/3d0a78fd-2fc3-48e0-9d2c-280afc247b56/math-proj.zip",
-                "dest": "/home/user/math-proj.zip"
+                "src": "evaluation_examples/examples/dagster/85e31bb7-9b44-41c2-8fea-a8f9316d0b67/dbt-dagster-proj.zip",
+                "dest": "/home/user/dbt-dagster-proj.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/3d0a78fd-2fc3-48e0-9d2c-280afc247b56/init.sh",
+                "src": "evaluation_examples/examples/dagster/85e31bb7-9b44-41c2-8fea-a8f9316d0b67/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -55,13 +55,29 @@
     ],
     "trajectory": "trajectories/",
     "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/85e31bb7-9b44-41c2-8fea-a8f9316d0b67/gold_customers.csv",
+                    "dest": "/home/user/dbt-dagster-proj/gold_customers.csv"
+                }
+            },
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/85e31bb7-9b44-41c2-8fea-a8f9316d0b67/export_customers.py",
+                    "dest": "/home/user/dbt-dagster-proj/export_customers.py"
+                }
+            }
+        ],
         "func": [
             "check_include_exclude"
         ],
         "result": [
             {
                 "type": "vm_script_output",
-                "src": "evaluation_examples/examples/dagster/3d0a78fd-2fc3-48e0-9d2c-280afc247b56/eval.sh",
+                "src": "evaluation_examples/examples/dagster/85e31bb7-9b44-41c2-8fea-a8f9316d0b67/eval.sh",
                 "dest": "/home/user/eval.sh"
             }
         ],

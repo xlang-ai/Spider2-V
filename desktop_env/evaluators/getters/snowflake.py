@@ -1,5 +1,5 @@
 #coding=utf8
-import json, re, logging, csv, os, platform
+import json, re, logging, csv, os, platform, time
 from typing import Dict, Any
 from snowflake import connector
 from snowflake.connector import SnowflakeConnection
@@ -153,8 +153,8 @@ def get_snowflake_table_to_csv(env, config: Dict[str, Any]) -> str:
             headers = [col.name for col in cursor.description]
         rows = cursor.fetchall()
         write_data_into_csv(rows, csv_file, headers)
-    except:
-        logger.error(f'[ERROR]: failed to write data in table {table} into csv file {csv_file}')
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to write data in table {table} into csv file {csv_file}. {e}')
         return
     finally:
         if client is not None: client.close()
@@ -199,6 +199,77 @@ def get_snowflake_user_info(env, config: Dict[str, Any]) -> Dict[str, Any]:
     except Exception as e:
         logger.error(f'[ERROR]: failed to get full user information from Snowflake! {e}')
         return result_dict
+    finally:
+        if cursor is not None: cursor.close()
+        if client is not None: client.close()
+
+
+def get_snowflake_function_result(env, config: Dict[str, Any]) -> Any:
+    """ Get the result of a snowflake function. Arguments for config dict:
+    @args:
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
+        database(str): the database name of the target table, required
+        table(str): the table name to get the information, required
+        function(str): the name of the function to be called, required
+    @returns:
+        result(Any): the result of the function call, can be any type
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/snowflake/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+    account = settings['account']
+    matched = re.search(r'https://(.*?)\.snowflakecomputing\.com', account)
+    if matched: settings['account'] = matched.group(1)
+    settings['database'], settings['schema'] = config['database'], config.get('schema', 'PUBLIC')
+
+    client, cursor = None, None
+    try:
+        client: SnowflakeConnection = connector.connect(**settings)
+        cursor = client.cursor()
+        cursor.execute(f"ALTER ACCOUNT SET EVENT_TABLE = {config['database']}.public.{config['table']}")
+        cursor.execute('ALTER SESSION SET LOG_LEVEL = INFO')
+        cursor.execute(f"SELECT {config['function']}()")
+        result = cursor.fetchone()[0]
+        return result
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to get the function result from Snowflake! {e}')
+        return None
+    finally:
+        if cursor is not None: cursor.close()
+        if client is not None: client.close()
+
+
+def get_snowflake_log_message(env, config: Dict[str, Any]) -> str:
+    """ Get the log message from snowflake. Arguments for config dict:
+    @args:
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
+        database(str): the database name of the target table, required
+        table(str): the table name to get the information, required
+        logger(str): the name of the logger to get the information, required
+    @returns:
+        result_dict(Dict[str, Any]): the dict of log message, each key(uppercased)-value pair is like, e.g.,
+            {'severity': 'INFO', 'message': 'Logging from Python function.'}
+    """
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/snowflake/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+    account = settings['account']
+    matched = re.search(r'https://(.*?)\.snowflakecomputing\.com', account)
+    if matched: settings['account'] = matched.group(1)
+    settings['database'], settings['schema'] = config['database'], config.get('schema', 'PUBLIC')
+
+    client, cursor = None, None
+    try:
+        client: SnowflakeConnection = connector.connect(**settings)
+        cursor = client.cursor()
+        for _ in range(3):
+            cursor.execute(f"SELECT RECORD['severity_text'], VALUE FROM {config['database']}.public.{config['table']} WHERE RECORD_TYPE = 'LOG' AND SCOPE['name'] = '{config['logger']}'")
+            result = cursor.fetchone()
+            if result is not None:
+                break
+            time.sleep(60)
+        return {'severity': result[0].strip('"'), 'message': result[1].strip('"')}
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to get log message from Snowflake! {e}')
+        return None
     finally:
         if cursor is not None: cursor.close()
         if client is not None: client.close()
