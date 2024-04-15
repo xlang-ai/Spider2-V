@@ -1,9 +1,9 @@
 {
-    "id": "3d0a78fd-2fc3-48e0-9d2c-280afc247b56",
+    "id": "cc95a46e-6902-43c3-988a-90e0306dd7b9",
     "snapshot": "dagster",
-    "instruction": "Help me test the sensor \"math_sensor\" with cursor value \"123\" in the opened dagster UI and run the requested job with the configuration of the run request.",
+    "instruction": "Create a partitioned dagster asset to retrieve information of the Astronomy Picture of the Day starting from April 1, 2024 from the website \"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=YYYY-MM-DD\" and save url to the high quality image to \"data/apod_url_YYYY-MM-DD.txt\", where YYYY-MM-DD should be replaced with the actual date. Materialize the asset in the dagster UI from April 10, 2024 to April 13, 2024.",
     "source": [
-        "https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors#testing-sensors"
+        "https://docs.dagster.io/concepts/partitions-schedules-sensors/partitioning-assets"
     ],
     "related_apps": [
         "chromium",
@@ -16,16 +16,9 @@
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/examples/dagster/3d0a78fd-2fc3-48e0-9d2c-280afc247b56/math-proj.zip",
-                "dest": "/home/user/math-proj.zip"
-            }
-        },
-        {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/3d0a78fd-2fc3-48e0-9d2c-280afc247b56/init.sh",
+                "src": "evaluation_examples/examples/dagster/cc95a46e-6902-43c3-988a-90e0306dd7b9/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -55,13 +48,22 @@
     ],
     "trajectory": "trajectories/",
     "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/cc95a46e-6902-43c3-988a-90e0306dd7b9/gold_data.zip",
+                    "dest": "/home/user/apod-proj/gold_data.zip"
+                }
+            }
+        ],
         "func": [
             "check_include_exclude"
         ],
         "result": [
             {
                 "type": "vm_script_output",
-                "src": "evaluation_examples/examples/dagster/3d0a78fd-2fc3-48e0-9d2c-280afc247b56/eval.sh",
+                "src": "evaluation_examples/examples/dagster/cc95a46e-6902-43c3-988a-90e0306dd7b9/eval.sh",
                 "dest": "/home/user/eval.sh"
             }
         ],
