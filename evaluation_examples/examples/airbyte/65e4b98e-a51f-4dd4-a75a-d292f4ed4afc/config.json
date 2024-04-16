@@ -1,0 +1,12 @@
+{
+    "MySQL": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "alice",
+        "password": "xbCad9dg",
+        "database": "CARS"
+    },
+    "LocalJSON": {
+        "path": "/json_data"
+    }
+}

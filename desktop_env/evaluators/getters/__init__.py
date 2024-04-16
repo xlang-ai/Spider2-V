@@ -53,7 +53,9 @@ from .bigquery import (
     get_bigquery_database_to_zip,
     get_bigquery_datasets
 )
-from .airbyte import get_airbyte_localhost_page
+from .airbyte import (
+    get_airbyte_localhost_page
+)
 from .astro import (
     get_validate_correct_url,
     get_html_check

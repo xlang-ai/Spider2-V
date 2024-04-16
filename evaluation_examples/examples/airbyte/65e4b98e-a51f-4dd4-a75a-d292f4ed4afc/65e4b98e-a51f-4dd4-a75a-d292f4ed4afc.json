@@ -1,0 +1,94 @@
+{
+    "id": "65e4b98e-a51f-4dd4-a75a-d292f4ed4afc",
+    "snapshot": "airbyte",
+    "instruction": "I hope to synchronize data regularly from a MySQL database to a local json file. Since the database is frequently updated, please set the schedule to every 12 hours. By the way, to reduce streaming traffic, only transfer the minimal data changes each time. The detailed configuration is provided in the opened file on desktop. Could you help me finish this task?",
+    "source": [
+        "https://airbyte.com/tutorials/mysql-change-data-capture-cdc"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "mysql"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/65e4b98e-a51f-4dd4-a75a-d292f4ed4afc/mysql_init.sql",
+                "dest": "/home/user/mysql_init.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/65e4b98e-a51f-4dd4-a75a-d292f4ed4afc/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/65e4b98e-a51f-4dd4-a75a-d292f4ed4afc/config.json",
+                "dest": "/home/user/Desktop/config.json"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/config.json"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/65e4b98e-a51f-4dd4-a75a-d292f4ed4afc/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
