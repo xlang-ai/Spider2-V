@@ -131,11 +131,11 @@ def get_html_check(env, config: Dict[str, str]) -> float:
             src (str): remote url or local path to download the testing script
             dest (str): the path to save the script on VM
             shell (bool): optional. if the script is a shell script, defaults to False
-            url (str): the url to open in the browser
             strings (List[str]): the strings to check in the html content
     """
     vm_ip = env.vm_ip
     port = 5000
+
     # download the testing script from remote url to VM
     src, dest = config["src"], config["dest"]
     if src.startswith('http'):
@@ -147,33 +147,57 @@ def get_html_check(env, config: Dict[str, str]) -> float:
     # execute the script to obtain the output
     script = ["/bin/bash", dest]
     shell = config.get("shell", False)
-    response = requests.post(f"http://{vm_ip}:{port}/execute", json={"command": script, "shell": shell})
 
-    print(response.json())
+    response = requests.post(f"http://{vm_ip}:{port}/execute", json={"command": script, "shell": shell})
 
     if response.status_code == 200:
         result_json = response.json()
         target_url = result_json.get("output", "")
+        print ('Target Url:', target_url)
     else:
         logger.error("Failed to get vm script output. Status code: %d", response.status_code)
         return None
     
-    url, strings = config["url"], config["strings"]
+    strings = config["strings"]
+
+    port = 9222
+    remote_debugging_url = f"http://{vm_ip}:{port}"
     
     with sync_playwright() as p:
+    # connect to remote Chrome instance, since it is supposed to be the active one, we won't start a new one if failed
+        try:
+            browser = p.chromium.connect_over_cdp(remote_debugging_url)
+        except Exception as e:
+            return f"Failed to connect to remote Chrome instance: {e}"
+
         browser = p.chromium.launch()
-        if url:
-            page = browser.new_page()
-            page.goto(url)
-        else:
-            page = browser.new_page()
-            page.goto(target_url)
-            if not page:
-                raise Exception("Url not found")
+        page = browser.new_page()
+
+        print(f"Navigating to target_url: {target_url}")
+        # try: 
+        #     page.goto(target_url)
+        # except Exception as e:
+        #     return f"Failed to navigate to target_url: {e}"
+        
+        page.goto(target_url)
+        if not page:
+            raise Exception("Url not found")
         html_text = page.content()
         browser.close()
 
     soup = BeautifulSoup(html_text, 'lxml')
     html_text = soup.prettify()
 
-    return 'Link check succeed.' if all(s in html_text for s in strings) else 'Link check failed.'
+    print(html_text)
+
+    flag = False
+
+    for s in strings:
+        if s in html_text:
+            flag = True
+            logger.info(f"Found {s} in the html content.")
+        else:
+            flag = False
+            break
+
+    return 'Link check succeed.' if flag else 'Link check failed.'
