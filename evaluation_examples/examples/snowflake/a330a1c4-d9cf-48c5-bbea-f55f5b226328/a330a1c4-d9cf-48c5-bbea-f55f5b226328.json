@@ -30,6 +30,9 @@
                 "actions": [
                     {
                         "type": "delete_database"
+                    },
+                    {
+                        "type": "delete_warehouse"
                     }
                 ]
             }

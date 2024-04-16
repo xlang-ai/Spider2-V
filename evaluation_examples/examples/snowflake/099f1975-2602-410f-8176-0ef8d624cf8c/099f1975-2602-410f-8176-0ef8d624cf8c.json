@@ -1,7 +1,7 @@
 {
     "id": "099f1975-2602-410f-8176-0ef8d624cf8c",
     "snapshot": "snowflake",
-    "instruction": "Please open a new SQL worksheet and run the code in code.txt. After the execution, please download the chart directly and rename it to chart.png.",
+    "instruction": "Please open a new SQL worksheet and run the code in code.txt. After the execution, please select the line chart type and modify the chart title to \"Number of Orders in the First 10 Days\". Finally, download the chart and rename it to chart.png.",
     "source": [
         "https://docs.snowflake.com/en/user-guide/ui-snowsight-visualizations"
     ],

@@ -94,14 +94,43 @@ def snowflake_delete_database(client: SnowflakeConnection, **config: Dict[str, A
         else: # delete all DBs except preserved
             all_dbs = cursor.execute(f'SHOW DATABASES;').fetchall()
             for db in all_dbs:
-                db_name = db[1]
-                if db_name not in preserved: # 0 -> created datetime, 1 -> name
+                db_name = db[1] # 0 -> created datetime, 1 -> name
+                if db_name not in preserved:
                     cursor.execute(f'DROP DATABASE IF EXISTS {db_name} CASCADE;')
     except Exception as e:
         logger.error(f'[ERROR]: unexpected error occurred when trying to delete database {e}')
     finally:
         if cursor is not None: cursor.close()
     return
+
+
+def snowflake_delete_warehouse(client: SnowflakeConnection, **config: Dict[str, Any]):
+    """ Delete the specified warehouse in snowflake. Arguments for config dict:
+    @args:
+        warehouse(str): the name of the warehouse to delete, optional, if not specified, delete all except preserved
+    """
+    warehouse = config.get('warehouse', None)
+    preserved = ['COMPUTE_WH']
+    try:
+        cursor = None
+        cursor = client.cursor()
+        if warehouse is not None:
+            if type(warehouse) == str:
+                cursor.execute(f'DROP WAREHOUSE IF EXISTS {warehouse}')
+            else:
+                assert iter(warehouse), "warehouse field is neither string nor iterable"
+                for wh in warehouse:
+                    cursor.execute(f'DROP WAREHOUSE IF EXISTS {wh}')
+        else: # delete all warehouses except preserved
+            all_whs = cursor.execute(f'SHOW WAREHOUSES').fetchall()
+            for wh in all_whs:
+                wh_name = wh[0]
+                if wh_name not in preserved:
+                    cursor.execute(f'DROP WAREHOUSE IF EXISTS {wh_name}')
+    except:
+        logger.error(f'[ERROR]: failed to delete the specified warehouse `{warehouse}` in snowflake!')
+    finally:
+        if cursor is not None: cursor.close()
 
 
 def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, Any]):
@@ -147,6 +176,7 @@ SNOWFLAKE_INIT_FUNCTIONS = {
     "execute_script": snowflake_execute_script,
     "delete_user": snowflake_delete_user,
     "delete_database": snowflake_delete_database,
+    "delete_warehouse": snowflake_delete_warehouse,
     "create_database": snowflake_create_database,
     "copy_keyfile": snowflake_copy_keyfile,
 }
