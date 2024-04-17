@@ -1,7 +1,7 @@
 {
     "id": "93b05252-b8cd-4f23-8850-168dc8107d83",
     "snapshot": "astro",
-    "instruction": "I want to establish two external links for my dag. The detailed information of the links are in readme-1.md in project folder. Please finish my_extra_link_plugin.py which I opened in vscode for you, then open 'weather_data_dag' on astro website and show me the links in task: get_hong_kong_weather",
+    "instruction": "I want to establish two external links (see README.md) for my DAG 'weather_data_dag'. Please finish my_extra_link_plugin.py, rerun the DAG and ensure these two links are visible in the DAG details page.",
     "source": [
         "https://docs.astronomer.io/learn/connections"
     ],
@@ -62,14 +62,12 @@
             "type": "html_check",
             "src": "evaluation_examples/examples/astro/93b05252-b8cd-4f23-8850-168dc8107d83/eval.sh",
             "dest": "/home/user/eval.sh",
-            "url": "",
-            "strings": [
-                "href=\"https://wttr.in/HongKong\">WTTRWeather",
-                "href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP\">HTTP file"
+            "css_paths": [
+                "a[href='https://developer.mozilla.org/en-US/docs/Web/HTTP']",
+                "a[href='https://wttr.in/HongKong']"
             ]
         },
-        "expected": 
-        {
+        "expected": {
             "type": "rule",
             "rules": {
                 "include": [

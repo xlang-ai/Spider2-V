@@ -2,7 +2,8 @@ from typing import Dict
 import requests
 import logging
 import platform
-from playwright.sync_api import sync_playwright
+from .general import get_vm_script_output
+from playwright.sync_api import sync_playwright, expect
 from bs4 import BeautifulSoup
 from typing import Dict, Any, List
 logger = logging.getLogger("desktopenv.getters.general")
@@ -123,81 +124,49 @@ def get_validate_correct_url(env, config: Dict[str, str]):
 
     return result
 
+
 def get_html_check(env, config: Dict[str, str]) -> float:
     """
      @args:
         env(desktop_env.envs.DesktopEnv): the environment object
         config(Dict[str, Any]): contain keys
-            src (str): remote url or local path to download the testing script
-            dest (str): the path to save the script on VM
-            shell (bool): optional. if the script is a shell script, defaults to False
-            strings (List[str]): the strings to check in the html content
+            src(str): remote url or local path to download the testing script
+            dest(str): the path to save the script on VM
+            shell(bool): optional. if the script is a shell script, defaults to False
+            css_paths(Dict[str]): paths to all elements to be checked
     """
-    vm_ip = env.vm_ip
-    port = 5000
-
-    # download the testing script from remote url to VM
-    src, dest = config["src"], config["dest"]
-    if src.startswith('http'):
-        env.setup_controller._download_setup([{"url": src, "path": dest}])
-    else:
-        env.setup_controller.setup([{"type": "copyfile_from_host_to_guest", "parameters": {"src": src, "dest": dest}}])
-    env.setup_controller._execute_setup(command=["chmod", "a+x", dest])
-
-    # execute the script to obtain the output
-    script = ["/bin/bash", dest]
-    shell = config.get("shell", False)
-
-    response = requests.post(f"http://{vm_ip}:{port}/execute", json={"command": script, "shell": shell})
-
-    if response.status_code == 200:
-        result_json = response.json()
-        target_url = result_json.get("output", "")
-        print ('Target Url:', target_url)
-    else:
-        logger.error("Failed to get vm script output. Status code: %d", response.status_code)
-        return None
+    script_config = {
+        "src": config['src'],
+        "dest": config.get('dest', '/home/user/eval.sh'),
+        "shell": config.get('shell', False)
+    }
+    target_url = get_vm_script_output(env, script_config)
+    if target_url is None:
+        return 'Link check failed'
     
-    strings = config["strings"]
+    host = env.vm_ip
+    port = 9222  # fixme: this port is hard-coded, need to be changed from config file
 
-    port = 9222
-    remote_debugging_url = f"http://{vm_ip}:{port}"
-    
+    remote_debugging_url = f"http://{host}:{port}"
     with sync_playwright() as p:
-    # connect to remote Chrome instance, since it is supposed to be the active one, we won't start a new one if failed
+        # connect to remote Chrome instance
         try:
             browser = p.chromium.connect_over_cdp(remote_debugging_url)
+        except:
+            logger.error(f"[ERROR]: Failed to connect to remote Chrome instance at {remote_debugging_url}")
+            return "Connection to Google failed"
+
+        context = browser.contexts[0]
+        page = context.new_page()
+
+        try:
+            page.goto(target_url)
+            page.wait_for_load_state('load')
+            css_paths = config.get('css_paths', [])
+            timeout = config.get('timeout', 5000)
+            for css_path in css_paths:
+                element = page.locator(css_path)
+                expect(element).to_be_visible(timeout=timeout)
+            return "Checking elements succeed"
         except Exception as e:
-            return f"Failed to connect to remote Chrome instance: {e}"
-
-        browser = p.chromium.launch()
-        page = browser.new_page()
-
-        print(f"Navigating to target_url: {target_url}")
-        # try: 
-        #     page.goto(target_url)
-        # except Exception as e:
-        #     return f"Failed to navigate to target_url: {e}"
-        
-        page.goto(target_url)
-        if not page:
-            raise Exception("Url not found")
-        html_text = page.content()
-        browser.close()
-
-    soup = BeautifulSoup(html_text, 'lxml')
-    html_text = soup.prettify()
-
-    print(html_text)
-
-    flag = False
-
-    for s in strings:
-        if s in html_text:
-            flag = True
-            logger.info(f"Found {s} in the html content.")
-        else:
-            flag = False
-            break
-
-    return 'Link check succeed.' if flag else 'Link check failed.'
+            return f"Checking elements failed"

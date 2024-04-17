@@ -9,6 +9,9 @@
 # This script is tested on Ubuntu 22.04.4 LTS.
 ####################################################################################################
 
+exec 1>/dev/null
+exec 2>/dev/null
+
 # Create a directory for the project
 mkdir -p ~/projects
 
@@ -30,18 +33,18 @@ for img in ${image_list[@]}; do
 done
 
 # # Function to create an Astro environment using Conda
-# function create_astro_env() {
-#     source /home/user/anaconda3/etc/profile.d/conda.sh  # Load the conda script
-#     conda create -n astro python=3.11 -y >/dev/null 2>&1  # Create a new conda environment named "astro" with Python 3.11
-#     conda activate astro  # Activate the "astro" environment
-#     ASTRO_CLI_VERSION=1.25.0
-#     astro version | grep "$ASTRO_CLI_VERSION"
-#     if [ $? -ne 0 ]; then
-#         echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
-#     fi
-#     echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc  # Add the conda script to the .bashrc file for automatic activation
-#     echo "conda activate astro" >> ~/.bashrc  # Add the activation command to the .bashrc file for automatic activation
-# }
+function create_astro_env() {
+    source /home/user/anaconda3/etc/profile.d/conda.sh  # Load the conda script
+    conda create -n astro python=3.11 -y >/dev/null 2>&1  # Create a new conda environment named "astro" with Python 3.11
+    conda activate astro  # Activate the "astro" environment
+    ASTRO_CLI_VERSION=1.25.0
+    astro version | grep "$ASTRO_CLI_VERSION"
+    if [ $? -ne 0 ]; then
+        echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
+    fi
+    echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc  # Add the conda script to the .bashrc file for automatic activation
+    echo "conda activate astro" >> ~/.bashrc  # Add the activation command to the .bashrc file for automatic activation
+}
 # create_astro_env
 
 function to_ready_state(){
@@ -52,11 +55,14 @@ function to_ready_state(){
     rm -rf weather.zip 
     cd /home/user/projects/weather
     echo -e "y\n" | astro dev init
+    rm -rf /home/user/projects/weather/dags/exampledag.py
     sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
+    code /home/user/projects/weather
     astro dev start --no-browser >/dev/null 2>&1
     wait
 }
 to_ready_state
 
 gnome-terminal --working-directory=/home/user/projects/weather
-code /home/user/projects/weather/plugins/my_extra_link_plugins.py
+code /home/user/projects/weather/plugins/my_extra_link_plugin.py
+code /home/user/projects/weather/README.md
