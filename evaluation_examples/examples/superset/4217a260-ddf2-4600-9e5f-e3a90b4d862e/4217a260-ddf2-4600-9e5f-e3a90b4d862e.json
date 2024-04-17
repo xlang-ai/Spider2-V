@@ -1,0 +1,57 @@
+{
+    "id": "4217a260-ddf2-4600-9e5f-e3a90b4d862e",
+    "snapshot": "superset",
+    "instruction": "I am a beginner to Superset. Could you help me launch the local server and navigate to the homepage at port 8088?",
+    "source": [
+        "https://superset.apache.org/docs/installation/installing-superset-using-docker-compose"
+    ],
+    "related_apps": [
+        "docker",
+        "superset"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/4217a260-ddf2-4600-9e5f-e3a90b4d862e/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "superset_localhost_page",
+            "url": "http://localhost:8088",
+            "title": "superset"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
