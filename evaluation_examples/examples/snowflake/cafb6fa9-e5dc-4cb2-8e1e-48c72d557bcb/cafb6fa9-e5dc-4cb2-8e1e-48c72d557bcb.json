@@ -1,0 +1,53 @@
+{
+    "id": "cafb6fa9-e5dc-4cb2-8e1e-48c72d557bcb",
+    "snapshot": "snowflake",
+    "instruction": "I intend to find some specific customers in the database. Please create a new SQL worksheet named \"Top 10 customers from China with the most account balances\". Select the \"SNOWFLAKE_SAMPLE_DATA\" database and the \"TPCH_SF1\" schema for the worksheet. Finally, you need to write a SQL to retrieve the information of those customers. Note that you do not need to run the SQL. Also, do not close the webpage because I'll use it later.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_worksheet_sql_result",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "worksheet": "Top 10 customers from China with the most account balances",
+            "database": "SNOWFLAKE_SAMPLE_DATA",
+            "schema": "TPCH_SF1",
+            "dest": "customer.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/cafb6fa9-e5dc-4cb2-8e1e-48c72d557bcb/customer_gold.csv",
+            "dest": "customer_gold.csv"
+        }
+    }
+}
