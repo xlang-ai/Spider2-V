@@ -3,6 +3,8 @@ import json, re, logging, csv, os, platform, time
 from typing import Dict, Any
 from snowflake import connector
 from snowflake.connector import SnowflakeConnection
+from desktop_env.configs.general import get_browser
+from playwright.sync_api import sync_playwright
 
 logger = logging.getLogger("desktopenv.getters.snowflake")
 
@@ -273,3 +275,64 @@ def get_snowflake_log_message(env, config: Dict[str, Any]) -> str:
     finally:
         if cursor is not None: cursor.close()
         if client is not None: client.close()
+
+
+def get_snowflake_worksheet_sql_result(env, config: Dict[str, Any]) -> str:
+    """ Get the result of a snowflake worksheet SQL command. Arguments for config dict:
+    @args:
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
+        worksheet(str): the name of the worksheet to execute the SQL command, required
+        database(str): the database name of the target table, required
+        schema(str): the schema name of the target table, required
+        dest(str): csv file name, required
+    @returns:
+        csv_file(str): the path to the csv file, which contains the execution result, if found, else None
+    """
+    listening_port = config.get('listening_port', 9222)
+    remote_debugging_url = f"http://{env.vm_ip}:{listening_port}"
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return None
+        context = browser.contexts[0]
+        for page in context.pages:
+            try:
+                worksheet_tab = page.locator(f'div[data-action-name="worksheet-tab"][aria-label="{config["worksheet"]}"]')
+                if worksheet_tab.count() > 0:
+                    break
+            except:
+                continue
+        else:
+            logger.error(f'[ERROR]: failed to find the worksheet "{config["worksheet"]}" in the running VM!')
+            return None
+        db_and_schema_selector = page.locator('div[role="button"][data-testid="databaseAndSchemaSelector"]')
+        if db_and_schema_selector.inner_text() != f'{config["database"]}.{config["schema"]}':
+            logger.error(f'[ERROR]: the selected database and schema is not the same as the target "{config["database"]}.{config["schema"]}"!')
+            return None
+        worksheet_content = page.locator('div[aria-label="worksheet"]')
+        sql = worksheet_content.inner_text().replace('\n', ' ').split(';')[-1]
+
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/snowflake/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+    account = settings['account']
+    matched = re.search(r'https://(.*?)\.snowflakecomputing\.com', account)
+    if matched: settings['account'] = matched.group(1)
+    settings['database'], settings['schema'] = config['database'], config['schema']
+
+    client, cursor, headers = None, None, []
+    csv_file = os.path.join(env.cache_dir, config['dest'])
+    try:
+        client: SnowflakeConnection = connector.connect(**settings)
+        cursor = client.cursor()
+        cursor.execute(sql)
+        headers = [col.name for col in cursor.description]
+        rows = cursor.fetchall()
+        write_data_into_csv(rows, csv_file, headers)
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to execute SQL command "{sql}" in worksheet "{config["worksheet"]}" on Snowflake! {e}')
+        return
+    finally:
+        if client is not None: client.close()
+        if cursor is not None: cursor.close()
+    return csv_file
