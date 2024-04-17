@@ -40,6 +40,10 @@ from .google_cloud import (
     gcp_config_webgui_setup
 )
 
+from .superset import (
+    superset_webui_init_setup
+)
+
 from .googledrive import (
     googledrive_init_setup,
     googledrive_login_setup

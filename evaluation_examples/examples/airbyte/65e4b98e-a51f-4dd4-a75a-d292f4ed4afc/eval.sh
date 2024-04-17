@@ -2,8 +2,8 @@
 
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate airbyte
+# source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda activate airbyte
 
 # 1. check the connection from Faker to Snowflake
 # API docs: see https://airbyte-public-api-docs.s3.us-east-2.amazonaws.com/rapidoc-api-docs.html#overview
