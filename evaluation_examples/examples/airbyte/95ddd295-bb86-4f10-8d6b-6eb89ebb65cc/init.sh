@@ -27,7 +27,6 @@ mkdir -p /home/user/projects
 # start airbyte local server
 # download images are very slow, better pre-download them in VM snapshots
 VERSION=0.55.2 # $(awk -F'=' '/^VERSION=/ {print $2; exit}' run-ab-platform.sh)
-POSTGRES_VERSION=9.3.25
 # declare -a image_list=(
 #     "alpine/socat"
 #     "airbyte/init:${VERSION}"
@@ -71,28 +70,18 @@ cd /home/user/projects
 start_airbyte_server
 
 # configure Postgres
-#pull image
+# pull image
 docker pull postgres
 # Start a source Postgres container
 docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres
 # Start a destination Postgres container running at port 3000 on localhost
 docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres
-# docker exec -it airbyte-source psql --username=postgres
-# #在postgres里操作文件
-# MYSQL_FILE=/home/user/mysql_init.sql
-# MYSQL_CONTAINER_FILE=/home/mysql_init.sql
-# docker cp ${MYSQL_FILE} airbyte-source:${MYSQL_CONTAINER_FILE}
-# # 在容器内执行 SQL 文件
-
 docker exec -i airbyte-source bash -c "sed -i '/^#*wal_level/c\wal_level = logical' /var/lib/postgresql/data/postgresql.conf"
 docker restart airbyte-source
-
-# docker exec -i airbyte-source psql -U postgres -f ${MYSQL_CONTAINER_FILE}
 docker exec -i airbyte-source psql -U postgres -c "CREATE TABLE cdc_file (id integer PRIMARY KEY, name VARCHAR(200));"
 docker exec -i airbyte-source psql -U postgres -c "INSERT INTO cdc_file(id, name) VALUES(1, 'A1 CDCSyn');"
 docker exec -i airbyte-source psql -U postgres -c "INSERT INTO cdc_file(id, name) VALUES(2, 'A2 CDCSyn');"
 # Configure the Postgres source for CDC replication
-
 docker exec -i airbyte-source psql -U postgres -c "SELECT pg_create_logical_replication_slot('airbyte_slot', 'pgoutput');"
 docker exec -i airbyte-source psql -U postgres -c "CREATE PUBLICATION cdc_pub FOR TABLE cdc_file;"
 
