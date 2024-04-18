@@ -11,7 +11,7 @@ token=$(curl -X POST "http://localhost:8088/api/v1/security/login" \
         "provider": "db"
     }' | jq -rM ".access_token")
 
-#csrf_token=$(curl -X GET "http://localhost:8088/api/v1/security/csrf_token/" \
+#csrf_token=$(curl -c /home/user/cookies.txt -X GET "http://localhost:8088/api/v1/security/csrf_token/" \
 #    -H "Authorization: Bearer ${token}" \
 #    -H "Content-Type: application/json" | jq -rM ".result")
 #echo $csrf_token
@@ -54,8 +54,9 @@ else
 fi
 
 # this API is used to test the connection itself, not whether the connection is built
-#msg=$(curl -X POST "http://localhost:8088/api/v1/database/test_connection/" \
+#msg=$(curl -b /home/user/cookies.txt -X POST "http://localhost:8088/api/v1/database/test_connection/" \
 #     -H "Authorization: Bearer ${token}" \
+#     -H "X-CSRFToken: ${csrf_token}" \
 #     -H "Content-Type: application/json" \
 #     -d "{
 #         \"sqlalchemy_uri\": \"postgresql://${username}:${password}@${host}:${port}/${db_name}\"
