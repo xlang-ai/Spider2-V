@@ -25,11 +25,9 @@ for workspaceid in ${workspaces}; do
         source_name=$(echo $source_config | jq -rM ".sourceName")
         source_database=$(echo $source_config | jq -rM ".connectionConfiguration.database")
         source_port=$(echo $source_config | jq -rM ".connectionConfiguration.port")
-        replication_slot=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.replication_slot")
-        publication=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.publication")
-
-        #username=$(echo $source_config | jq -rM ".connectionConfiguration.username")
-        if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ] && [ "${replication_slot}" = "airbyte_slot" ] && [ "${publication}" = "cdc_pub" ]; then
+        replication_slot=$(echo $source_config | jq -rM ".replication_method.replication_slot")
+        publication=$(echo $source_config | jq -rM ".replication_method.publication")
+        if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ]; then
             echo "Airbyte Connection from source Postgres, succeed"
         else
             echo "Airbyte Connection from source Postgres, failed."
@@ -51,18 +49,39 @@ for workspaceid in ${workspaces}; do
 
         # check the connection config
         connection_config=$(echo $connections | jq -rM ".connections | .[${i}] | .")
-        incremental=$(echo $connection_config | grep "\"syncMode\": \"incremental\"")
+        stream_length=$(echo $connection_config | jq ".syncCatalog.streams | length")
+        # # check the configuration of the newest stream
+        # sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[-1].config.syncMode") 
+        # destination_sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[-1].config.destinationSyncMode")
+        # if [ "${sync_mode}" = "full_refresh" ] && [ "${destination_sync_mode}" = "overwrite" ]; then
+        #     echo "Full-refresh-overwrite Connection config, succeed"
+        #     airbyte_connection=true
+        # else
+        #     echo "Full-refresh-overwrite configuration check failed."
+        #     break
+        # fi
+        all_streams_valid=true
 
-        if [ -n "$incremental" ]; then
-            echo "Airbyte CDC Connection config, succeed."
+        # 循环遍历每一个 stream
+        for (( i=0; i<length; i++ )) do
+            sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.syncMode")
+            destination_sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.destinationSyncMode")
+            if [ "${sync_mode}" != "full_refresh" ]|| [ "${destination_sync_mode}" != "overwrite" ]; then
+                all_streams_valid=false
+            fi
+        done
+
+        # 检查所有流是否通过配置检查
+        if [ "${all_streams_valid}" = true ]; then
+            echo "Full-refresh-overwrite Connection config, succeed."
             airbyte_connection=true
         else
-            echo "Airbyte CDC Connection config, failed."
-            break
+            echo "Full-refresh-overwrite Connection config, failed."
+            airbyte_connection=false
         fi
     done
 done
 if [ ${airbyte_connection} = false ] ; then
-    echo "Airbyte Connection from source Postgres to destination Postgres, failed"
+    echo "Airbyte Full-refresh-overwrite Connection from source Postgres to destination Postgres, failed"
     exit 0
 fi

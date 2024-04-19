@@ -1,7 +1,7 @@
 {
-    "id": "95ddd295-bb86-4f10-8d6b-6eb89ebb65cc",
+    "id": "f82b4771-fdcf-497b-bd69-500e4ce2c1d7",
     "snapshot": "airbyte",
-    "instruction": "Please help me synchronize data in the default database postgres from the source Postgres to the destination Postgres. When synchronizing data, please read changes directly from a transaction log (using CDC) and capture every change from a source database and moving it to a target. The detailed configuration are provided in the opened file on desktop.",
+    "instruction": "Please help me synchronize data in the default database postgres from the source Postgres to the destination Postgres. When synchronizing data, please retrieve all available data requested from the source and writes it in the destination, and overwrite all data in the destination table with a new copy of the source data. The detailed configuration are provided in the opened file on desktop.",
     "source": [
         "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
     ],
@@ -19,7 +19,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/95ddd295-bb86-4f10-8d6b-6eb89ebb65cc/init.sh",
+                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -47,7 +47,7 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/95ddd295-bb86-4f10-8d6b-6eb89ebb65cc/config.json",
+                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/config.json",
                 "dest": "/home/user/Desktop/config.json"
             }
         },
@@ -67,7 +67,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/airbyte/95ddd295-bb86-4f10-8d6b-6eb89ebb65cc/eval.sh",
+            "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

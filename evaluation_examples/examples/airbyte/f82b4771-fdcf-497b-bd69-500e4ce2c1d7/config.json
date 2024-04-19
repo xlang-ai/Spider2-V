@@ -1,21 +1,26 @@
 {
     "source Postgres": {
-        "name": "cdc-source",
+        "name": "Postgres-source",
         "host": "localhost",
         "port": 2000,
-        "database name": "postgres", 
+        "database name": "postgres",
         "user": "postgres",
         "password": "password",
-        "replication_slot": "airbyte_slot",
-        "publication": "cdc_pub"
+        "Schemas": "public"
     },
     "destination Postgres": {
-        "name": "cdc-destination",
+        "name": "Postgres-destination",
         "host": "localhost",
         "port": 3000,
         "db name": "postgres",
         "default schema": "public",
         "user": "postgres",
         "password": "password"
+        
+    },
+    "connection": {
+        "Destination namespace": "Mirror source structure",
+        "Destination Stream Prefix": "overwrite_",
+        "Sync Mode": "full refresh | Overwrite"
     }
 }
