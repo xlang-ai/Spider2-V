@@ -67,7 +67,8 @@ def human_agent():
         action_space="computer_13"
     )
 
-    # reset the environment to certain snapshot
+    # reset the environment to certain snapshot (add proxy if needed)
+    # observation = env.reset(task_config=example, proxy={'host': "172.16.12.1", "port": 58591})
     observation = env.reset(task_config=example)
     done = False
 

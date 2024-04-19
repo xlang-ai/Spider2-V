@@ -11,8 +11,9 @@ import traceback
 import uuid
 from datetime import datetime, timedelta
 from typing import Any, Union, Optional
-from typing import Dict, List
-
+from typing import Dict, List, Tuple
+from lxml import etree
+from lxml.etree import _Element
 import shutil
 import requests
 from playwright.sync_api import sync_playwright, TimeoutError
@@ -69,13 +70,89 @@ class SetupController:
         return results
 
 
+    def _proxy_setup(self, controller: PythonController, proxy: Dict[str, Any]):
+        """ Setup the system-level proxy for VM during env.reset(). Please ensure that:
+        1. the proxy is running on the host and ALLOW connections from a local LAN, or the listening address is 0.0.0.0 instead of 127.0.0.1
+        2. the proxy port won't conflict with other ports used in evaluation_examples
+        3. the network mode for VM is NAT
+        @args:
+            controller: PythonController class object
+            proxy:
+                host(str): it should be the host ip in VMnet8 for VMWare workstation, or the ip sharing the same LAN with VM for VMWare Fusion. Note that, this host ip is not 127.0.0.1.
+                port(int): port number, see the proxy configured in your host, required
+                conn_types(List[str]): connection types, chosen from http, https, ftp, socks5. By default, using http and https is enough.
+        """
+        host, port, types = proxy['host'], proxy['port'], proxy.get('types', ['http', 'https'])
+        pylogger = logging.getLogger("desktopenv.pycontroller")
+        old_level = pylogger.getEffectiveLevel()
+        pylogger.setLevel(logging.ERROR)
+        # 1. lauch the gnome-control-center
+        self._launch_setup(command=['gnome-control-center', 'network'])
+
+        def get_position(element: _Element, x_ratio: float = 0.5, y_ratio: float = 0.5) -> Tuple[float, float]:
+            top_left = element.attrib.get('{uri:deskat:component.at-spi.gnome.org}screencoord')
+            x, y = re.search(r'\((\d+), (\d+)\)', top_left).groups()
+            size = element.attrib.get('{uri:deskat:component.at-spi.gnome.org}size')
+            w, h = re.search(r'\((\d+), (\d+)\)', size).groups()
+            return float(x) + float(w) * x_ratio, float(y) + float(h) * y_ratio
+
+        # 2. click the network proxy button
+        root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        button = root.xpath("//label[@name='Network Proxy']/following-sibling::push-button[1]")[0]
+        x, y = get_position(button)
+        controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+        time.sleep(0.5)
+        # 3. click the manual proxy configuration
+        root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        button: _Element = root.xpath("//radio-button[@name='Manual']")[0]
+        if not button.attrib.get('{uri:deskat:state.at-spi.gnome.org}checked'):
+            x, y = get_position(button)
+            controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+            time.sleep(0.5)
+            root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        # 4. set the proxy host and port
+        xpaths = {
+            "http": '//spin-button[@name="HTTP proxy port"]',
+            "https": '//spin-button[@name="HTTPS proxy port"]'
+        }
+        for conn_type in types:
+            port_path = xpaths[conn_type]
+            port_box: _Element = root.xpath(port_path)[0]
+            x, y = get_position(port_box, 0.25)
+            controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+            controller.execute_action({"action_type": "HOTKEY", "parameters": {'keys': ['ctrl', 'a']}})
+            controller.execute_action({"action_type": "TYPING", "parameters": {'text': str(port)}})
+            
+            horizon = port_box.attrib.get('{uri:deskat:component.at-spi.gnome.org}screencoord').split(',')[1]
+            parent: _Element = port_box.getparent()
+            host_box: _Element = [child for child in parent.iterchildren() if child.tag == 'text' and child.attrib.get('{uri:deskat:component.at-spi.gnome.org}screencoord').split(',')[1] == horizon][0]
+            x, y = get_position(host_box)
+            controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+            controller.execute_action({"action_type": "HOTKEY", "parameters": {'keys': ['ctrl', 'a']}})
+            controller.execute_action({"action_type": "TYPING", "parameters": {'text': host}})
+        time.sleep(0.5)
+        # 5. close the dialog window
+        button = root.xpath("//dialog[@name='Network Proxy']//push-button[@name='Close']")[0]
+        x, y = get_position(button)
+        controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+        time.sleep(0.5)
+        # 6. close the gnome-control-center
+        root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        button = root.xpath("//application[@name='gnome-control-center']//push-button[@name='Close']")[0]
+        x, y = get_position(button)
+        controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+        time.sleep(0.5)
+        pylogger.setLevel(old_level)
+        return
+
+
     def check_network_connection(self) -> bool:
         """ Check the connection status of the VM.
         """
-        check_script_path = '/home/user/server/network_server.sh'
+        check_script_path = '/home/user/server/check_network_service.sh'
         flag = self._execution_result(command=["bash", "-c", f'if [ -f "{check_script_path}" ]; then echo found; else echo not_found; fi'])['output'].strip()
         if flag == 'not_found':
-            source_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'network_server.sh')
+            source_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'check_network_service.sh')
             getattr(configs, 'copyfile_from_host_to_guest_setup')(self, src=source_file, dest=check_script_path)
         results = self._execution_result(command=['bash', check_script_path])
         if re.search(r'succeed', results['output'], flags=re.I):
@@ -149,21 +226,6 @@ class SetupController:
     # print("An error occurred while trying to execute the command:", e)
     # except requests.exceptions.RequestException as e:
     # print("An error occurred while trying to execute the command:", e)
-
-
-    def _proxy_setup(self, proxy: Dict[str, Any]):
-        """ Setup the system-level proxy for VM during env.reset(). Please ensure that:
-        1. the proxy is running on the host and ALLOW connections from a local LAN, or the listening address is 0.0.0.0 instead of 127.0.0.1
-        2. the proxy port won't conflict with other ports used in evaluation_examples
-        3. the network mode for VM is NAT
-        @proxy:
-            host(str): it should be the host ip in VMnet8 for VMWare workstation, or the ip sharing the same LAN with VM for VMWare Fusion. Note that, this host ip is not 127.0.0.1.
-            port(int): port number, see the proxy configured in your host, required
-            conn_types(List[str]): connection types, chosen from http, https, ftp, socks5. By default, using http and https is enough.
-        """
-        host, port, types = proxy['host'], proxy['port'], proxy.get('types', ['http', 'https'])
-        #TODO: implement the proxy setup
-        return
 
 
     def _download_setup(self, files: List[Dict[str, str]]):

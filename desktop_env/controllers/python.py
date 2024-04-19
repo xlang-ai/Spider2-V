@@ -63,12 +63,9 @@ class PythonController:
         Executes a python command on the server.
         It can be used to execute the pyautogui commands, or... any other python command. who knows?
         """
-        # command_list = ["python", "-c", self.pkgs_prefix.format(command=command)]
         command_list = ["python", "-c", self.pkgs_prefix.format(command=command)]
         payload = json.dumps({"command": command_list, "shell": False})
-        headers = {
-            'Content-Type': 'application/json'
-        }
+        headers = {'Content-Type': 'application/json'}
 
         try:
             response = requests.post(self.http_server + "/execute", headers=headers, data=payload, timeout=90)
