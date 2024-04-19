@@ -71,7 +71,7 @@ start_airbyte_server
 
 # configure Postgres
 # pull image
-docker pull postgres
+docker pull postgres:16.2
 # Start a source Postgres container
 docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres
 # Start a destination Postgres container running at port 3000 on localhost
