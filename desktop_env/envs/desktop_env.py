@@ -214,7 +214,7 @@ class DesktopEnv(gym.Env):
                 or (len(self.metric) == len(self.result_getter) == len(self.expected_getter) == len(
                     self.metric_options)))
 
-    def reset(self, task_config: Optional[Dict[str, Any]] = None, seed=None, options=None) -> Dict[str, Any]:
+    def reset(self, task_config: Optional[Dict[str, Any]] = None, proxy: Dict[str, Any] = {}, seed=None, options=None) -> Dict[str, Any]:
         logger.info("Resetting environment...")
 
         logger.info("Switching task...")
@@ -249,6 +249,9 @@ class DesktopEnv(gym.Env):
         print(self.vm_screen_size)
 
         logger.info("Setting up environment...")
+        if proxy: # using proxy to visit some webs, e.g., Google Cloud
+            self.setup_controller._proxy_setup(proxy=proxy)
+        self.setup_controller.check_network_connection()
         self.setup_controller.setup(self.config)
 
         time.sleep(5)

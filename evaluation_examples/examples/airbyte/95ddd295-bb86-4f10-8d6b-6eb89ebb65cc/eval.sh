@@ -27,7 +27,6 @@ for workspaceid in ${workspaces}; do
         source_port=$(echo $source_config | jq -rM ".connectionConfiguration.port")
         replication_slot=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.replication_slot")
         publication=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.publication")
-
         #username=$(echo $source_config | jq -rM ".connectionConfiguration.username")
         if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ] && [ "${replication_slot}" = "airbyte_slot" ] && [ "${publication}" = "cdc_pub" ]; then
             echo "Airbyte Connection from source Postgres, succeed"

@@ -1,3 +1,4 @@
+import re
 import json
 import logging
 import os
@@ -36,6 +37,53 @@ class SetupController:
 
     def reset_cache_dir(self, cache_dir: str):
         self.cache_dir = cache_dir
+
+
+    def _execution_result(self, command: List[str] = [], retries: int = 3) -> Dict[str, Any]:
+        """ Get the execution results of the command.
+        @return:
+            results(Dict[str, Any]): the execution results, including keys
+                status(str): the status of the execution
+                returncode(int): the return code of the execution
+                output(str): the standard output of the execution
+                error(str): the standard error of the execution
+        """
+        nb_failings, results = 0, {"status": "failed", "returncode": 1, "output": "", "error": ""}
+        while nb_failings < retries:
+            try:
+                payload = json.dumps({"command": command, "shell": False})
+                headers = {"Content-Type": "application/json"}
+                response = requests.post(self.http_server + "/execute", headers=headers, data=payload)
+                if response.status_code == 200:
+                    results = response.json()
+                    return results
+                else:
+                    nb_failings += 1
+                    logger.warning(f"[WARNING]: Returned status code is not 200 when sending command {' '.join(command)}. Retrying {nb_failings}...")
+            except requests.exceptions.RequestException as e:
+                logger.warning(f"[WARNING]: An unexpected error {e} occurred when sending command {' '.join(command)}. Retrying {nb_failings}...")
+                # traceback.print_exc()
+                nb_failings += 1
+                time.sleep(0.3)
+
+        return results
+
+
+    def check_network_connection(self) -> bool:
+        """ Check the connection status of the VM.
+        """
+        check_script_path = '/home/user/server/network_server.sh'
+        flag = self._execution_result(command=["bash", "-c", f'if [ -f "{check_script_path}" ]; then echo found; else echo not_found; fi'])['output'].strip()
+        if flag == 'not_found':
+            source_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'network_server.sh')
+            getattr(configs, 'copyfile_from_host_to_guest_setup')(self, src=source_file, dest=check_script_path)
+        results = self._execution_result(command=['bash', check_script_path])
+        if re.search(r'succeed', results['output'], flags=re.I):
+            logger.info('[INFO]: Network connection is available.')
+            return True
+        logger.error('[ERROR]: Network connection is not available.')
+        return False
+
 
     def setup(self, config: List[Dict[str, Any]]):
         """
@@ -101,6 +149,22 @@ class SetupController:
     # print("An error occurred while trying to execute the command:", e)
     # except requests.exceptions.RequestException as e:
     # print("An error occurred while trying to execute the command:", e)
+
+
+    def _proxy_setup(self, proxy: Dict[str, Any]):
+        """ Setup the system-level proxy for VM during env.reset(). Please ensure that:
+        1. the proxy is running on the host and ALLOW connections from a local LAN, or the listening address is 0.0.0.0 instead of 127.0.0.1
+        2. the proxy port won't conflict with other ports used in evaluation_examples
+        3. the network mode for VM is NAT
+        @proxy:
+            host(str): it should be the host ip in VMnet8 for VMWare workstation, or the ip sharing the same LAN with VM for VMWare Fusion. Note that, this host ip is not 127.0.0.1.
+            port(int): port number, see the proxy configured in your host, required
+            conn_types(List[str]): connection types, chosen from http, https, ftp, socks5. By default, using http and https is enough.
+        """
+        host, port, types = proxy['host'], proxy['port'], proxy.get('types', ['http', 'https'])
+        #TODO: implement the proxy setup
+        return
+
 
     def _download_setup(self, files: List[Dict[str, str]]):
         """
