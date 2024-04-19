@@ -32,8 +32,14 @@ def snowflake_execute_script(client: SnowflakeConnection, **config: Dict[str, An
         else:
             sql_command = config['sql_command']
             if type(sql_command) == str: sql_command = [sql_command]
+        query_ids = []
         for s in sql_command:
             cursor.execute(s)
+            query_ids.append(cursor.sfqid)
+        if config.get('query_ids_path', None):
+            with open(os.path.join(config['controller'].cache_dir, config['query_ids_path']), 'w', encoding='utf-8') as file:
+                for query_id in query_ids:
+                    file.write(query_id + '\n')
         return
     except:
         logger.error(f'[ERROR]: failed to execute the SQL command/script on Snowflake!')
@@ -159,6 +165,26 @@ def snowflake_create_database(client: SnowflakeConnection, **config: Dict[str, A
     return
 
 
+def snowflake_create_table(client: SnowflakeConnection, **config: Dict[str, Any]):
+    """ Create the specified table in snowflake. Arguments for config dict:
+    @args:
+        database(str): the name of the database to create the table in, required
+        schema(str): the name of the schema to create the table in, default to PUBLIC
+        table(str): the name of the table to create, required
+        sql(str): the SQL command to create the table, required
+    """
+    try:
+        cursor = None
+        cursor = client.cursor()
+        cursor.execute(f"USE DATABASE {config['database']}")
+        cursor.execute(f"USE SCHEMA {config.get('schema', 'PUBLIC')}")
+        cursor.execute(f"CREATE OR REPLACE TABLE {config['table']} AS {config['sql']}")
+    except:
+        logger.error(f"[ERROR]: failed to create table {config['table']} in snowflake!")
+    finally:
+        if cursor is not None: cursor.close()
+
+
 def snowflake_copy_keyfile(client: SnowflakeConnection, **config: Dict[str, Any]):
     """ Copy the keyfile to the specified path. Arguments for config dict:
     @args:
@@ -178,6 +204,7 @@ SNOWFLAKE_INIT_FUNCTIONS = {
     "delete_database": snowflake_delete_database,
     "delete_warehouse": snowflake_delete_warehouse,
     "create_database": snowflake_create_database,
+    "create_table": snowflake_create_table,
     "copy_keyfile": snowflake_copy_keyfile,
 }
 
