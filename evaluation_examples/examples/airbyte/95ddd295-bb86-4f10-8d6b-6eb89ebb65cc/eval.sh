@@ -5,7 +5,7 @@ exec 2>/dev/null
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate airbyte
 
-# 1. check the connection from souce Postgres to source Postgres
+# 1. check the connection from source Postgres to source Postgres
 # API docs: see https://airbyte-public-api-docs.s3.us-east-2.amazonaws.com/rapidoc-api-docs.html#overview
 workspaces=$(curl -X POST http://localhost:8000/api/v1/workspaces/list -H "Content-Type: application/json" -d {} | jq -rM ".workspaces | .[] | .workspaceId")
 
@@ -32,7 +32,7 @@ for workspaceid in ${workspaces}; do
         if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ] && [ "${replication_slot}" = "airbyte_slot" ] && [ "${publication}" = "cdc_pub" ]; then
             echo "Airbyte Connection from source Postgres, succeed"
         else
-            echo "Airbyte Connection from source Postgres, failed."
+#            echo "Airbyte Connection from source Postgres, failed."
             continue
         fi
         
@@ -45,7 +45,7 @@ for workspaceid in ${workspaces}; do
         if [ "${destination_name}" = "Postgres" ] && [ "${destination_port}" = "3000" ] && [ "${destination_database}" = "postgres" ]; then
             echo "Airbyte Connection to destination Postgres, succeed"
         else
-            echo "Airbyte Connection to destination Postgres, failed."
+#            echo "Airbyte Connection to destination Postgres, failed."
             continue
         fi
 
@@ -56,9 +56,9 @@ for workspaceid in ${workspaces}; do
         if [ -n "$incremental" ]; then
             echo "Airbyte CDC Connection config, succeed."
             airbyte_connection=true
-        else
-            echo "Airbyte CDC Connection config, failed."
             break
+#        else
+#            echo "Airbyte CDC Connection config, failed."
         fi
     done
 done

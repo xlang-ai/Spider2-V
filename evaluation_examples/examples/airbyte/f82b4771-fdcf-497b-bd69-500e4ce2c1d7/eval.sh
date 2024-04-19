@@ -17,7 +17,7 @@ for workspaceid in ${workspaces}; do
     declare -a source_ids=($(echo ${connections} | jq -rM ".connections | .[] | .sourceId"))
     declare -a destination_ids=($(echo ${connections} | jq -rM ".connections | .[] | .destinationId"))
     length=${#source_ids[@]}
-    
+
     for (( i=0; i<$length; i++ )); do
         # check the source
         source_id=${source_ids[$i]}
@@ -25,15 +25,13 @@ for workspaceid in ${workspaces}; do
         source_name=$(echo $source_config | jq -rM ".sourceName")
         source_database=$(echo $source_config | jq -rM ".connectionConfiguration.database")
         source_port=$(echo $source_config | jq -rM ".connectionConfiguration.port")
-        replication_slot=$(echo $source_config | jq -rM ".replication_method.replication_slot")
-        publication=$(echo $source_config | jq -rM ".replication_method.publication")
         if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ]; then
             echo "Airbyte Connection from source Postgres, succeed"
         else
-            echo "Airbyte Connection from source Postgres, failed."
+#            echo "Airbyte Connection from source Postgres, failed."
             continue
         fi
-        
+
         # check the destination
         destination_id=${destination_ids[$i]}
         destination_config=$(curl -X POST http://localhost:8000/api/v1/destinations/get -H "Content-Type: application/json" -d "{\"destinationId\": \"${destination_id}\"}")
@@ -43,45 +41,31 @@ for workspaceid in ${workspaces}; do
         if [ "${destination_name}" = "Postgres" ] && [ "${destination_port}" = "3000" ] && [ "${destination_database}" = "postgres" ]; then
             echo "Airbyte Connection to destination Postgres, succeed"
         else
-            echo "Airbyte Connection to destination Postgres, failed."
+#            echo "Airbyte Connection to destination Postgres, failed."
             continue
         fi
-
         # check the connection config
         connection_config=$(echo $connections | jq -rM ".connections | .[${i}] | .")
         stream_length=$(echo $connection_config | jq ".syncCatalog.streams | length")
-        # # check the configuration of the newest stream
-        # sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[-1].config.syncMode") 
-        # destination_sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[-1].config.destinationSyncMode")
-        # if [ "${sync_mode}" = "full_refresh" ] && [ "${destination_sync_mode}" = "overwrite" ]; then
-        #     echo "Full-refresh-overwrite Connection config, succeed"
-        #     airbyte_connection=true
-        # else
-        #     echo "Full-refresh-overwrite configuration check failed."
-        #     break
-        # fi
+        # check the configuration of all streams
         all_streams_valid=true
-
-        # 循环遍历每一个 stream
         for (( i=0; i<length; i++ )) do
             sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.syncMode")
             destination_sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.destinationSyncMode")
-            if [ "${sync_mode}" != "full_refresh" ]|| [ "${destination_sync_mode}" != "overwrite" ]; then
+            if [ "${sync_mode}" != "full_refresh" ] || [ "${destination_sync_mode}" != "overwrite" ]; then
                 all_streams_valid=false
             fi
         done
-
-        # 检查所有流是否通过配置检查
         if [ "${all_streams_valid}" = true ]; then
             echo "Full-refresh-overwrite Connection config, succeed."
             airbyte_connection=true
-        else
-            echo "Full-refresh-overwrite Connection config, failed."
-            airbyte_connection=false
+            break
+#        else
+#            echo "Full-refresh-overwrite Connection config, failed."
         fi
     done
 done
 if [ ${airbyte_connection} = false ] ; then
-    echo "Airbyte Full-refresh-overwrite Connection from source Postgres to destination Postgres, failed"
+    echo "Airbyte full-refresh-overwrite connection from source Postgres to destination Postgres, failed"
     exit 0
 fi

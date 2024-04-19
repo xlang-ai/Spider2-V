@@ -74,7 +74,6 @@ start_airbyte_server
 docker pull debezium/postgres:16-alpine
 # Start a source Postgres container
 docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d debezium/postgres:16-alpine
-
 # Start a destination Postgres container running at port 3000 on localhost
 docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d debezium/postgres:16-alpine
 sleep 10
