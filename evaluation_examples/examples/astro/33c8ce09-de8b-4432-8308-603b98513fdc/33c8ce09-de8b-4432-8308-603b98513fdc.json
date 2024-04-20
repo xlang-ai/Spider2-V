@@ -3,7 +3,7 @@
     "snapshot": "astro",
     "instruction": "Show me the first DAG project in graph view. I need to check it now.",
     "source": [
-        "https://docs.astronomer.io/learn/get-started-with-airflow"
+        "https://docs.astronomer.io/learn/airflow-ui"
     ],
     "config": [
         {
