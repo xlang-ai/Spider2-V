@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate astro
+#conda activate astro
 cd /home/user/projects/workFlow
 
 export DAG_SEARCH_SET='search=Astro'

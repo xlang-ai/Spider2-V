@@ -42,11 +42,10 @@ function create_astro_env() {
     echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc  # Add the conda script to the .bashrc file for automatic activation
     echo "conda activate astro" >> ~/.bashrc  # Add the activation command to the .bashrc file for automatic activation
 }
-create_astro_env
+#create_astro_env
 
 function to_ready_state(){
     cd /home/user/projects
-    cd /home/user/projects/workFlow
     yes | astro dev init 2>&1 
     astro dev start >/dev/null 2>&1 
     wait

@@ -166,7 +166,9 @@ def get_html_check(env, config: Dict[str, str]) -> float:
             timeout = config.get('timeout', 5000)
             for css_path in css_paths:
                 element = page.locator(css_path)
+                print(f"Checking element {css_path}")
                 expect(element).to_be_visible(timeout=timeout)
+                print (f"Element {css_path} is visible")
             return "Checking elements succeed"
         except Exception as e:
             return f"Checking elements failed"

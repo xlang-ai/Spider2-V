@@ -1,22 +1,22 @@
 {
-    "id": "73ef8c87-168d-4c55-b3d6-9a864ef27cb1",
+    "id": "fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b",
     "snapshot": "astro",
-    "instruction": "I want to use wttr.in api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the http id is http_weather_service. Trigger the dag once you finish.",
+    "instruction": "I know one of my SQL checking tasks failed. Please create connection, run the DAG and show me the log page of the specific task instance that failed on astro web ui for me to debug. The detail of connection is in README.md.",
     "source": [
-        "https://docs.astronomer.io/learn/connections"
+        "https://docs.astronomer.io/learn/airflow-sql-data-quality"
     ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/weather.zip",
-                "dest": "/home/user/weather.zip"
+                "src": "evaluation_examples/examples/astro/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/SQL_Check.zip",
+                "dest": "/home/user/SQL_Check.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/init.sh",
+                "src": "evaluation_examples/examples/astro/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -50,7 +50,6 @@
         "airflow",
         "astro",
         "chromium",
-        "vscode",
         "docker"
     ],
     "tags": [
@@ -60,12 +59,12 @@
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
-            "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/eval.sh",
-            "dest": "/home/user/eval.sh"
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/astro/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
         },
-        "expected": 
-        {
+        "expected": {
             "type": "rule",
             "rules": {
                 "include": [

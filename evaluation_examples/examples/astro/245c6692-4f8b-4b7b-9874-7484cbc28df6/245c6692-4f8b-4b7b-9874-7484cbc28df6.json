@@ -1,22 +1,22 @@
 {
-    "id": "73ef8c87-168d-4c55-b3d6-9a864ef27cb1",
+    "id": "245c6692-4f8b-4b7b-9874-7484cbc28df6",
     "snapshot": "astro",
-    "instruction": "I want to use wttr.in api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the http id is http_weather_service. Trigger the dag once you finish.",
+    "instruction": "I want to see how my task documentaion looks like on astro web ui. Please read README.md with content and format details of documentation, then add necessary code in DAG file to create a task documentaion. Run the dag for me to check your work.",
     "source": [
-        "https://docs.astronomer.io/learn/connections"
+        "https://docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial"
     ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/weather.zip",
-                "dest": "/home/user/weather.zip"
+                "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/task_today.zip",
+                "dest": "/home/user/task_today.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/init.sh",
+                "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -50,8 +50,8 @@
         "airflow",
         "astro",
         "chromium",
-        "vscode",
-        "docker"
+        "docker",
+        "vscode"
     ],
     "tags": [
         "abstract",
@@ -60,12 +60,16 @@
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
-            "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/eval.sh",
-            "dest": "/home/user/eval.sh"
+            "type": "html_check",
+            "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "css_paths": [
+                "a[href='https://wttr.in/HongKong']",
+                "a[href='https://store.steampowered.com/']",
+                "a[href='https://www.bilibili.com/']"
+            ]
         },
-        "expected": 
-        {
+        "expected": {
             "type": "rule",
             "rules": {
                 "include": [
@@ -78,3 +82,6 @@
         }
     }
 }
+
+
+

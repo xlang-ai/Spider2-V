@@ -1,22 +1,22 @@
 {
-    "id": "73ef8c87-168d-4c55-b3d6-9a864ef27cb1",
+    "id": "06b8d673-f953-4f82-86b3-5f5cfe5c8aec",
     "snapshot": "astro",
-    "instruction": "I want to use wttr.in api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the http id is http_weather_service. Trigger the dag once you finish.",
+    "instruction": "I would like to connect to sqlite and check the data quality of a SQL using SQLCheckOperator, details of which can be found in README.md. Please create connection, finish the DAG file sql_data_quality, restart, trigger the dag, download the log file of Checker task you have finished and rename them accordingly by the task_id for me to check the quality of the data. Click Download in the detail screen of corresponding task instance of your run on astronomer web-ui. ",
     "source": [
-        "https://docs.astronomer.io/learn/connections"
+        "https://docs.astronomer.io/learn/airflow-sql-data-quality"
     ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/weather.zip",
-                "dest": "/home/user/weather.zip"
+                "src": "evaluation_examples/examples/astro/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/SQL_Check.zip",
+                "dest": "/home/user/SQL_Check.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/init.sh",
+                "src": "evaluation_examples/examples/astro/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -50,8 +50,7 @@
         "airflow",
         "astro",
         "chromium",
-        "vscode",
-        "docker"
+        "vscode"
     ],
     "tags": [
         "abstract",
@@ -61,11 +60,10 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/eval.sh",
+            "src": "evaluation_examples/examples/astro/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/eval.sh",
             "dest": "/home/user/eval.sh"
         },
-        "expected": 
-        {
+        "expected": {
             "type": "rule",
             "rules": {
                 "include": [

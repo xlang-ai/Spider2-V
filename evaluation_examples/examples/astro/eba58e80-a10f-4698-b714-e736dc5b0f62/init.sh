@@ -49,20 +49,22 @@ function create_astro_env() {
 
 function to_ready_state(){
     cd /home/user/projects
-    mv /home/user/weather.zip .
-    chmod a+x weather.zip  
-    unzip -q weather.zip  
-    rm -rf weather.zip 
-    cd /home/user/projects/weather
+    mv /home/user/SQL_Check.zip .
+    chmod a+x SQL_Check.zip  
+    unzip -q SQL_Check.zip  
+    rm -rf SQL_Check.zip 
+    cd /home/user/projects/SQL_Check
     echo -e "y\n" | astro dev init
-    rm -rf /home/user/projects/weather/dags/exampledag.py
+    rm -rf /home/user/projects/SQL_Check/dags/exampledag.py
     sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
-    code --user-data-dir=/home/user/projects/weather
+    code --user-data-dir=/home/user/projects/SQL_Check
     astro dev start --no-browser >/dev/null 2>&1
     wait
 }
 to_ready_state
 
-gnome-terminal --working-directory=/home/user/projects/weather
-code /home/user/projects/weather/plugins/my_extra_link_plugin.py
-code /home/user/projects/weather/README.md
+gnome-terminal --working-directory=/home/user/Downloads
+gnome-terminal --working-directory=/home/user/projects/SQL_Check
+code /home/user/projects/SQL_Check/dags/SQL_Check.py
+code /home/user/projects/SQL_Check/include/custom_check.sql
+code /home/user/projects/SQL_Check/README.md
