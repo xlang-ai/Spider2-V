@@ -1,0 +1,71 @@
+{
+    "id": "13d420b9-b685-4afb-ac98-997cbbd266d9",
+    "snapshot": "astro",
+    "instruction": "I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-ui"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/13d420b9-b685-4afb-ac98-997cbbd266d9/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin", 
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "astro",
+        "chromium"
+    ],
+    "tags": [
+        "abstract",
+        "gui"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/astro/13d420b9-b685-4afb-ac98-997cbbd266d9/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
