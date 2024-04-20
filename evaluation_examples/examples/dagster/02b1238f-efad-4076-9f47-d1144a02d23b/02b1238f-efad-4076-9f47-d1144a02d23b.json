@@ -1,0 +1,83 @@
+{
+    "id": "02b1238f-efad-4076-9f47-d1144a02d23b",
+    "snapshot": "dagster",
+    "instruction": "In the current dagster project, configure the notebook \"iris_classification/notebooks/iris-kmeans-notebook.ipynb\" as a dagster asset called \"iris_kmeans_notebook\" to fetch the dagster asset \"iris_data\" defined at \"iris_classification/assets/__init__.py\". Then materialize the notebook to conduct K-means classification on the Iris dataset.",
+    "source": [
+        "https://docs.dagster.io/integrations/dagstermill/using-notebooks-with-dagster"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/02b1238f-efad-4076-9f47-d1144a02d23b/iris-classification.zip",
+                "dest": "/home/user/iris-classification.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com",
+                    "http://localhost:3000"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/02b1238f-efad-4076-9f47-d1144a02d23b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/02b1238f-efad-4076-9f47-d1144a02d23b/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    }
+}
