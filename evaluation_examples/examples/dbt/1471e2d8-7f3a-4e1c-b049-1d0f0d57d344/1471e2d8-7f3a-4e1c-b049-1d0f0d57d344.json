@@ -1,0 +1,52 @@
+{
+    "id": "1471e2d8-7f3a-4e1c-b049-1d0f0d57d344",
+    "snapshot": "dbt",
+    "instruction": "Complete the model \"dim_customers.sql\" by adding an additional column with boolean values named \"valid_email_address\". Then execute it to create the transformed table \"dim_customers\", which stores customers who have provided a valid email address before those who have not. An email address is valid if it is in the format of \"[address]@[valid_TLD]\", and all valid TLDs are extracted by model \"top_level_email_domains.sql\".",
+    "source": [
+        "https://docs.getdbt.com/docs/build/unit-tests"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/1471e2d8-7f3a-4e1c-b049-1d0f0d57d344/email_address.zip",
+                "dest": "/home/user/email_address.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/1471e2d8-7f3a-4e1c-b049-1d0f0d57d344/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
+   "evaluator": {
+        "func": "check_local_database",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/projects/email_address/email_address.duckdb",
+            "dest": "email_address.duckdb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/dbt/1471e2d8-7f3a-4e1c-b049-1d0f0d57d344/email_address.gold.duckdb",
+            "dest": "email_address.gold.duckdb"
+        },
+        "options": {
+            "db_type": "duckdb",
+            "check_type": ["table-schema-content"],
+            "table_targets": ["dim_customers"],
+            "schema_name": "email_address"
+        }
+    }
+}
