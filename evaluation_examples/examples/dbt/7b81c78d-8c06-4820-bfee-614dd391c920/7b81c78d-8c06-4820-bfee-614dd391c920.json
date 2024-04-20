@@ -1,0 +1,59 @@
+{
+    "id": "7b81c78d-8c06-4820-bfee-614dd391c920",
+    "snapshot": "dbt",
+    "instruction": "Configure the snapshot \"orders_snapshot.sql\" using \"timestamp\" strategy to detect row changes. The corresponding snapshot table should be created at \"analytics.snapshots.orders_snapshot\". Then, replaced the staled seed \"raw_orders.csv\" with the up-to-date one I provided at Desktop. Re-run the project and take a new snapshot so that the snapshot table is able to reflect this update.",
+    "source": [
+        "https://docs.getdbt.com/docs/build/snapshots"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/7b81c78d-8c06-4820-bfee-614dd391c920/analytics.zip",
+                "dest": "/home/user/analytics.zip"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/7b81c78d-8c06-4820-bfee-614dd391c920/raw_orders.csv",
+                "dest": "/home/user/Desktop/raw_orders.csv"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/7b81c78d-8c06-4820-bfee-614dd391c920/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "dbt",
+        "duckdb"
+    ],
+    "tags": [
+        "abstract",
+        "cli"
+    ],
+    "evaluator": {
+        "func": "check_local_database",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/projects/analytics/analytics.duckdb",
+            "dest": "analytics.duckdb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/dbt/7b81c78d-8c06-4820-bfee-614dd391c920/analytics.gold.duckdb",
+            "dest": "analytics.gold.duckdb"
+        },
+        "options": {
+            "db_type": "duckdb",
+            "check_type": ["table-schema-content"],
+            "table_targets": ["orders_snapshot"],
+            "schema_name": "snapshots"
+        }
+    }
+}

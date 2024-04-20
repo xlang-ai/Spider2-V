@@ -108,6 +108,15 @@ def check_local_duckdb(result: str, expected: str, **kwargs) -> float:
         conn1 = connect_func(result)
         conn2 = connect_func(expected)
 
+        schema_name = kwargs.get('schema_name', '')
+        if len(schema_name) > 0:
+            has_schema = conn1.execute(f"select schema_name from information_schema.schemata where schema_name = '{schema_name}'")
+            if has_schema.fetchone() is None:
+                logger.info("[ERROR]: schema does not exist in the result table!")
+                return 0
+            conn1.execute(f'set schema to {schema_name}')
+            conn2.execute(f'set schema to {schema_name}')
+
         if 'table' in check_type:
             tables1 = conn1.execute("select name from sqlite_master where type='table' order by name").fetchall()
             tables2 = conn2.execute("select name from sqlite_master where type='table' order by name").fetchall()
@@ -192,6 +201,8 @@ def check_local_database(result: str, expected: str, **kwargs) -> str:
             view_targets(List[str]): list of views to compare, if [], default to all views
             check_type(List[str]): different types of database objects to check, choices are
                 table, view, table-schema, view-schema, table-schema-content, view-schema-content
+            schema_name (str): the name of the specific schema to be checked. it is guaranteed that
+                the schema exists in the expected table
     """
     if result is None: return 0
 
