@@ -60,6 +60,9 @@ def literal_match(result: Any, expected: Any, **options) -> float:
         ignore_case = options.get('ignore_case', False)
         result = [str(s) for s in result] if not ignore_case else [str(s).lower() for s in result]
         expected = [str(s) for s in expected] if not ignore_case else [str(s).lower() for s in expected]
+        if options.get('ignore_order', False):
+            result.sort()
+            expected.sort()
         return float(result == expected)
     else:
         raise NotImplementedError(f"Type {type} not supported")

@@ -329,9 +329,9 @@ def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
             return
 
         try:
-            new_worksheet = page.locator('div[data-testid="new-button"]')
-            expect(new_worksheet).to_be_enabled(timeout=60000)
-            new_worksheet.click()
+            new_worksheet_or_folder = page.locator('div[data-testid="new-button"]')
+            expect(new_worksheet_or_folder).to_be_enabled(timeout=60000)
+            new_worksheet_or_folder.click()
             sql_worksheet = page.locator('div[role="listbox"] > div:nth-child(1)')
             expect(sql_worksheet).to_be_enabled(timeout=60000)
             sql_worksheet.click()

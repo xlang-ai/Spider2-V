@@ -1,0 +1,55 @@
+{
+    "id": "b8a3addd-3044-41fd-b25d-f690302637d6",
+    "snapshot": "snowflake",
+    "instruction": "Please help me create a new snowflake folder named \"Online shopping\". Please also create two SQL worksheets in the folder: \"Books products\" and \"Electronics products\".",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "literal_match",
+        "result": {
+            "type": "snowflake_worksheet_names_in_folder",
+            "folder_name": "Online shopping"
+        },
+        "expected": {
+            "type": "list",
+            "list": [
+                "Books products",
+                "Electronics products"
+            ]
+        },
+        "options": {
+            "type": "list",
+            "ignore_order": true
+        }
+    }
+}

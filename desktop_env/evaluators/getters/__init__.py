@@ -29,6 +29,7 @@ from .chrome import (
 )
 from .file import get_cloud_file, get_vm_file, get_local_file, get_cache_file, get_content_from_vm_file
 from .general import (
+    get_list,
     get_vm_command_line,
     get_vm_terminal_output,
     get_vm_command_error,
@@ -68,7 +69,8 @@ from .snowflake import (
     get_snowflake_log_message,
     get_snowflake_function_result,
     get_snowflake_worksheet_sql,
-    get_snowflake_worksheet_sql_result
+    get_snowflake_worksheet_sql_result,
+    get_snowflake_worksheet_names_in_folder
 )
 from .superset import (
     get_superset_localhost_page    

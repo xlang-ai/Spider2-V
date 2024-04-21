@@ -48,8 +48,7 @@
         "postconfig": [],
         "func": "exact_match",
         "result": {
-            "type": "snowflake_worksheet_sql",
-            "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            "type": "snowflake_worksheet_sql"
         },
         "expected": {
             "type": "rule",
