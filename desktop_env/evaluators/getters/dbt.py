@@ -120,6 +120,7 @@ def get_dbt_job_info(env, config: Dict[str, str]):
             config (dict):
                 setting_files: the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
                 name (required): the name of to-be-evaluate job
+                prev_name: the name of the job whose completion will trigger the target job
                 fields (list, required): the specific fields we want to extract for evaluation. Could be:
     """
     settings_file = config.get('settings_file', 'evaluation_examples/settings/dbt_cloud/settings.json')
@@ -146,11 +147,13 @@ def get_dbt_job_info(env, config: Dict[str, str]):
         return "None"
 
     result = ""
+    job_id = {}
     name = config.get("name", "New Job")
     fields = config.get("fields", [])
 
     found = False
     for job in job_list:
+        job_id[job['name']] = job['id']
         if job['name'] == name:
             found = True
             for field in fields:
@@ -158,6 +161,17 @@ def get_dbt_job_info(env, config: Dict[str, str]):
                     schedule = job['schedule']['time']
                     time_type = field[5:]
                     result += str(schedule[time_type])
+                elif field == "job_completion_trigger_condition":
+                    if job[field] is None:
+                        return "None"
+                    condition = job[field]['condition']
+                    prev_name = config.get("prev_name", "New Job")
+                    if condition['job_id'] == job_id[prev_name]:
+                        result += "matched "
+                    else:
+                        result += "mismatched "
+                    for status in condition['statuses']:
+                        result += str(status) + ' '
                 else:
                     result += str(job[field])
                 result += ' '

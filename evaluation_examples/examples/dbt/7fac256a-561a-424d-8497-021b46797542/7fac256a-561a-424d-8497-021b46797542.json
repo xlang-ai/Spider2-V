@@ -1,0 +1,79 @@
+{
+    "id": "7fac256a-561a-424d-8497-021b46797542",
+    "snapshot": "dbt",
+    "instruction": "Create a job named \"Sales_Summary\" on environment \"Christmas_Sales\" that will only be triggered after the success completion of another given job \"Sales_Process\".",
+    "source": [
+        "https://docs.getdbt.com/guides/zapier-new-cloud-job?step=1"
+    ],
+    "related_apps": [
+        "chromium",
+        "dbt"
+    ],
+    "tags": [
+        "gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "Christmas"
+                    },
+                    {
+                        "type": "create_environment",
+                        "env_name": "Christmas_Sales"
+                    },
+                    {
+                        "type": "create_job",
+                        "env_name": "Christmas_Sales",
+                        "job_name": "Sales_Process"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://cloud.getdbt.com/",
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_job_info",
+            "name": "Sales_Summary",
+            "prev_name": "Sales_Process",
+            "fields": ["job_completion_trigger_condition"],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["matched", "10"],
+                "exclude": ["mismatched", "20", "30", "None"]
+            }
+        }
+    }
+}

@@ -76,7 +76,7 @@ def dbt_cloud_create_job(**config: Dict[str, Any]):
 
     job_name = config.get("job_name", "New Job")
     env_name = config.get("env_name", "New Environment")
-    execute_steps = config.get("execute_steps", [])
+    execute_steps = config.get("execute_steps", ["dbt build"])
 
     state = subprocess.run(['dbt-cloud', 'project', 'list'],
                            shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
@@ -104,10 +104,8 @@ def dbt_cloud_create_job(**config: Dict[str, Any]):
             if found is not True:
                 logger.info('[INFO]: there are no environments with the specified name!')
                 return
-            subprocess.run(['dbt-cloud', 'job', 'create',
-                            '--environment-id', f'{env_id}', '--name', f'{job_name}', '--execute-steps', f'{str(execute_steps)}'],
-                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
-                           encoding="utf-8")
+            subprocess.run(['dbt-cloud', 'job', 'create', '--environment-id', f'{env_id}', '--name', f'{job_name}', '--execute-steps', f'{execute_steps}'],
+                           shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True, encoding="utf-8")
 
     return
 
@@ -169,16 +167,16 @@ def dbt_cloud_webui_login_setup(controller, **config):
         page.goto(url, wait_until='load')
 
         try:
-            email = page.locator('input[id="email"]')
+            email = page.locator('input[id="username"]')
             expect(email).to_be_editable(timeout=60000)
             email.fill(settings['email'])
             password = page.locator('input[id="password"]')
             expect(password).to_be_editable()
             password.fill(settings['password'])
-            remember = page.locator('input[type="checkbox"]')
-            expect(remember).not_to_be_checked()
-            remember.check()
-            signin = page.locator('button[id="sign-in"]')
+            # remember = page.locator('input[type="checkbox"]')
+            # expect(remember).not_to_be_checked()
+            # remember.check()
+            signin = page.locator('button[name="action"]')
             expect(signin).to_be_enabled()
             signin.click()
             page.wait_for_load_state('load')
