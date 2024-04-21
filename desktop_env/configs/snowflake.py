@@ -304,3 +304,47 @@ def snowflake_login_setup(controller, **config):
 
         logger.info('[INFO]: successfully logged into the snowflake website!')
     return
+
+
+def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
+    """ Write the SQLs in the new worksheet. Arguments for config dict:
+    @args:
+        listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
+        sqls(List[str]): the list of SQLs to be written in the new worksheet, default is empty list
+    """
+    listening_port = config.get('listening_port', 9222)
+    remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
+    sqls = config.get('sqls', [])
+
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return
+
+        context = browser.contexts[0]
+        page = find_page_by_url(context, 'https://app.snowflake.com', matching_func=lambda x, y: x.startswith(y))
+        if page is None:
+            logger.error('[ERROR]: failed to find the snowflake website page!')
+            return
+
+        try:
+            new_worksheet = page.locator('div[data-testid="new-button"]')
+            expect(new_worksheet).to_be_enabled(timeout=60000)
+            new_worksheet.click()
+            sql_worksheet = page.locator('div[role="listbox"] > div:nth-child(1)')
+            expect(sql_worksheet).to_be_enabled(timeout=60000)
+            sql_worksheet.click()
+            worksheet_content = page.locator('div[aria-label="worksheet"]')
+            run = page.locator('div[role="button"][aria-label="Run"]')
+            for sql in sqls:
+                expect(worksheet_content).to_be_editable(timeout=60000)
+                worksheet_content.fill(sql)
+                expect(run).to_be_enabled(timeout=60000)
+                run.click()
+                time.sleep(10)
+        except Exception as e:
+            logger.error(f'[ERROR]: failed to write SQLs in the new worksheet! {e}')
+            return
+
+        logger.info('[INFO]: successfully wrote SQLs in the new worksheet!')

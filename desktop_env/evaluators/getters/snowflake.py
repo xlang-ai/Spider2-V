@@ -3,7 +3,7 @@ import json, re, logging, csv, os, platform, time
 from typing import Dict, Any
 from snowflake import connector
 from snowflake.connector import SnowflakeConnection
-from desktop_env.configs.general import get_browser
+from desktop_env.configs.general import get_browser, find_page_by_url
 from playwright.sync_api import sync_playwright
 
 logger = logging.getLogger("desktopenv.getters.snowflake")
@@ -275,6 +275,29 @@ def get_snowflake_log_message(env, config: Dict[str, Any]) -> str:
     finally:
         if cursor is not None: cursor.close()
         if client is not None: client.close()
+
+
+def get_snowflake_worksheet_sql(env, config: Dict[str, Any]) -> str:
+    """ Get the SQL command in the opened snowflake worksheet. Arguments for config dict:
+    @args:
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
+    @returns:
+        sql(str): the SQL command in the opened snowflake worksheet, if found, else None
+    """
+    listening_port = config.get('listening_port', 9222)
+    remote_debugging_url = f"http://{env.vm_ip}:{listening_port}"
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return None
+        context = browser.contexts[0]
+        page = find_page_by_url(context, 'https://app.snowflake.com', matching_func=lambda x, y: x.startswith(y))
+        if page is None:
+            logger.error('[ERROR]: failed to find the worksheet in the running VM!')
+            return None
+        worksheet_content = page.locator('div[aria-label="worksheet"]')
+        return worksheet_content.inner_text().strip()
 
 
 def get_snowflake_worksheet_sql_result(env, config: Dict[str, Any]) -> str:

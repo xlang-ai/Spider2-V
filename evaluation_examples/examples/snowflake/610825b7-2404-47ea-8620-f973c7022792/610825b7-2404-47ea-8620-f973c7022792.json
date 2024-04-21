@@ -1,0 +1,61 @@
+{
+    "id": "610825b7-2404-47ea-8620-f973c7022792",
+    "snapshot": "snowflake",
+    "instruction": "I want to roll back the SQL to the second version in the opened worksheet. Can you help me with that? Please do not close the webpage after the rollback.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "snowflake_write_sqls_in_new_worksheet",
+            "parameters": {
+                "listening_port": 9222,
+                "sqls": [
+                    "SELECT * FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER",
+                    "SELECT S_SUPPKEY, S_NAME, S_ACCTBAL FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER WHERE S_ACCTBAL > 5000",
+                    "SELECT S_SUPPKEY, S_NAME, S_ACCTBAL FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER WHERE S_ACCTBAL < 5000 ORDER BY S_ACCTBAL DESC LIMIT 10"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "exact_match",
+        "result": {
+            "type": "snowflake_worksheet_sql",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": "SELECT S_SUPPKEY, S_NAME, S_ACCTBAL FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER WHERE S_ACCTBAL > 5000"
+            }
+        }
+    }
+}

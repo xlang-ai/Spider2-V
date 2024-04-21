@@ -67,6 +67,7 @@ from .snowflake import (
     get_snowflake_execution_result,
     get_snowflake_log_message,
     get_snowflake_function_result,
+    get_snowflake_worksheet_sql,
     get_snowflake_worksheet_sql_result
 )
 from .superset import (
