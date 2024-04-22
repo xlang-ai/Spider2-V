@@ -1,0 +1,61 @@
+{
+    "id": "910797bf-086d-4d21-9d8d-22758f2cd4a4",
+    "snapshot": "jupyterlab",
+    "instruction": "Open the jupyterlab notebook under Downloads folder for me at port 1036.",
+    "source": [
+        "https://docs.jupyter.org/en/latest/running.html#how-do-i-start-the-notebook-using-a-custom-ip-or-port"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyterlab"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyterlab/910797bf-086d-4d21-9d8d-22758f2cd4a4/Aragon_Conviction_Voting_Model.ipynb",
+                "dest": "/home/user/Downloads/Aragon_Conviction_Voting_Model.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyterlab/910797bf-086d-4d21-9d8d-22758f2cd4a4/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "is_expected_url_pattern_match",
+        "result": {
+            "type": "active_tab_info",
+            "goto_prefix": "http://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": [
+                    "http://localhost:1036",
+                    "Aragon_Conviction_Voting_Model\\.ipynb"
+                ]
+            }
+        }
+    }
+}

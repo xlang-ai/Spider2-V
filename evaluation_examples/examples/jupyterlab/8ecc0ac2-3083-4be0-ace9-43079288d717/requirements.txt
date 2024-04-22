@@ -1,0 +1,7 @@
+jupyter==1.0.0
+jupyterlab==4.1.6
+numpy
+pandas
+matplotlib
+seaborn
+scipy

@@ -164,5 +164,9 @@ from .snowflake import (
     check_snowflake_log_message
 )
 
+from .jupyterlab import (
+    is_jupyter_cell_executed
+)
+
 def infeasible():
     pass

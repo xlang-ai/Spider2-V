@@ -1,0 +1,93 @@
+{
+    "id": "8ecc0ac2-3083-4be0-ace9-43079288d717",
+    "snapshot": "jupyterlab",
+    "instruction": "Help me run all cells in this jupyter notebook. I hope to check the results.",
+    "source": [
+        "https://docs.jupyter.org/en/latest/running.html#how-do-i-start-the-notebook-using-a-custom-ip-or-port"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyterlab"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyterlab/8ecc0ac2-3083-4be0-ace9-43079288d717/sports.zip",
+                "dest": "/home/user/Downloads/sports.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyterlab/8ecc0ac2-3083-4be0-ace9-43079288d717/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyterlab && jupyter lab /home/user/Downloads/sports-products.ipynb"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "script_and_execute",
+                "parameters": {
+                    "src": "evaluation_examples/examples/jupyterlab/8ecc0ac2-3083-4be0-ace9-43079288d717/wait.sh",
+                    "dest": "/home/user/Downloads/wait.sh"
+                }
+            },
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "JupyterLab"
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            }
+        ],
+        "func": "is_jupyter_cell_executed",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/sports-products.ipynb",
+            "dest": "sports-products.ipynb"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": []
+            }
+        }
+    }
+}
