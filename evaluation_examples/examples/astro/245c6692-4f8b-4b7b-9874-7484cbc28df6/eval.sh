@@ -3,7 +3,7 @@
 # ensure that no error information is output
 exec 2>/dev/null
 
-cd /home/user/projects/weather
+cd /home/user/projects/task_today
 # astro dev restart >/dev/null 2>&1
 export DAG_ID=task_today
 export CONTAINER_ID=$(docker ps | grep "webserver" | awk '{print $1}')

@@ -1,0 +1,79 @@
+{
+    "id": "7d443060-49a4-4d27-8bde-2ad0f6ae209b",
+    "snapshot": "astro",
+    "instruction": "I would like to implement several test functions on dags and tasks in airflow. The details of these functions are in README.md. Finish these functions in test_dag.py file and trigger the dag for me.",
+    "source": [
+        "https://docs.astronomer.io/learn/testing-airflow#debug-interactively-with-dagtest"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/7d443060-49a4-4d27-8bde-2ad0f6ae209b/today_task.zip",
+                "dest": "/home/user/today_task.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/astro/7d443060-49a4-4d27-8bde-2ad0f6ae209b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin", 
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "astro",
+        "chromium",
+        "docker",
+        "vscode"
+    ],
+    "tags": [
+        "abstract",
+        "gui+cli"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/astro/7d443060-49a4-4d27-8bde-2ad0f6ae209b/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
