@@ -78,11 +78,81 @@ docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432
 docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d debezium/postgres:16-alpine
 sleep 10
 # create table
-docker exec -i airbyte-source psql -U postgres -d postgres -c "CREATE TABLE full_refresh_file(id integer PRIMARY KEY, name VARCHAR(200));"
-docker exec -i airbyte-source psql -U postgres -d postgres -c "INSERT INTO full_refresh_file(id, name) VALUES(1, 'Mary X');"
-docker exec -i airbyte-source psql -U postgres -d postgres -c "INSERT INTO full_refresh_file(id, name) VALUES(2, 'John D');"
+docker exec -i airbyte-source psql -U postgres -d postgres -c "CREATE TABLE basic_file(id integer PRIMARY KEY, name VARCHAR(200));"
+docker exec -i airbyte-source psql -U postgres -d postgres -c "INSERT INTO basic_file(id, name) VALUES(1, 'Mary X');"
+docker exec -i airbyte-source psql -U postgres -d postgres -c "INSERT INTO basic_file(id, name) VALUES(2, 'John D');"
 
-sleep 60
-#docker exec -it airbyte-destination psql --username=postgres
-
+# create source and destination
+# 1. get workspace id
+workspace=$(curl -X POST http://localhost:8000/api/v1/workspaces/list -H "Content-Type: application/json" -d {} | jq -rM ".workspaces | .[] | .workspaceId")
+# 2. get source definition id
+source_name="Postgres"
+source_defid=$(curl -X POST http://localhost:8000/api/v1/source_definitions/list -H "Content-Type: application/json" | jq -rM ".sourceDefinitions | .[] | select(.name == \"${source_name}\") | .sourceDefinitionId")
+# 3. create source, the connectionConfiguration field is source-specific
+curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: application/json" -d "
+{
+    \"workspaceId\": \"${workspace}\",
+    \"connectionConfiguration\": {
+        \"host\": \"localhost\",
+        \"port\": 2000,
+        \"schemas\": [\"public\"],
+        \"database\": \"postgres\",
+        \"password\": \"password\",
+        \"ssl_mode\": {
+            \"mode\": \"disable\"
+        },
+        \"username\": \"postgres\",
+        \"tunnel_method\": {
+            \"tunnel_method\": \"NO_TUNNEL\"
+        },
+        \"replication_method\": {
+            \"method\": \"Standard\"
+        }
+    },
+    \"sourceDefinitionId\": \"${source_defid}\",
+    \"name\": \"${source_name}\", 
+    \"sourceName\": \"${source_name}\"
+}
+"
+# 4. get source id and write into file
+curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
+read -r source_id < /home/user/srcid.txt
+# 5. get destination definition id
+destination_name="Postgres"
+destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_definitions/list -H "Content-Type: application/json" | jq -rM ".destinationDefinitions | .[] | select(.name == \"${destination_name}\") | .destinationDefinitionId")
+# 6. create destination, the connectionConfiguration field is destination-specific
+curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: application/json" -d "
+{
+    \"workspaceId\": \"${workspace}\",
+    \"connectionConfiguration\": {
+       \"ssl\": false,
+       \"host\": \"localhost\",
+       \"port\": 3000,
+       \"schema\": \"public\",
+       \"database\": \"postgres\",
+       \"password\": \"password\",
+       \"ssl_mode\":{
+            \"mode\": \"disable\"
+        },
+        \"username\": \"postgres\",
+        \"tunnel_method\":{
+            \"tunnel_method\": \"NO_TUNNEL\"
+        },
+        \"disable_type_dedupe\": false
+    },
+    \"destinationDefinitionId\": \"${destination_defid}\",
+    \"name\": \"${destination_name}\", 
+    \"destinationName\": \"${destination_name}\"
+}
+"
+rm /home/user/settings.json
+# 7. get destination id and write into file
+curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId" > /home/user/destid.txt
+read -r destination_id < /home/user/destid.txt
+# 8. create connection
+connection=$(cat /home/user/connection.json | sed "s/\${source_id}/${source_id}/" | sed "s/\${destination_id}/${destination_id}/")
+curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: application/json" -d "${connection}"
+# 9. get connection id
+curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
+rm /home/user/connection.json
 
