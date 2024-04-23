@@ -101,6 +101,7 @@ from .gimp import (
     check_image_file_size
 )
 from .libreoffice import check_libre_locale
+from .others import compare_epub, check_mp3_meta
 from .pdf import check_pdf_pages
 from .slides import (
     check_presenter_console_disable,
@@ -152,7 +153,7 @@ from .vscode import (
     check_html_background_image,
     compare_zip_files
 )
-from .others import compare_epub, check_mp3_meta
+
 
 from .dbt import (
     check_yaml_file,

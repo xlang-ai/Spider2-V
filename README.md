@@ -1,14 +1,39 @@
-# OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments
-
 <p align="center">
-<a href="https://os-world.github.io/">Website</a> •
-<a href="">Paper</a>
+  <img src="https://huggingface.co/datasets/xlangai/assets/resolve/main/github_banner_v2.png" alt="Banner">
 </p>
 
-## Updates
-- 2024-04-04: We released our [paper](), [environment and benchmark](https://github.com/xlang-ai/OSWorld), and [project page](https://os-world.github.io/). Check it out!
+<p align="center">
+  <a href="https://os-world.github.io/">Website</a> •
+  <a href="https://arxiv.org/abs/2404.07972">Paper</a> •
+  <a href="https://github.com/xlang-ai/OSWorld/tree/main/evaluation_examples">Data</a> •
+  <a href="https://os-world.github.io/explorer.html">Data Viewer</a> •
+  <a href="https://discord.gg/4Gnw7eTEZR">Discord</a>
+</p>
 
-## Installation
+<p align="center">
+    <a href="https://img.shields.io/badge/PRs-Welcome-red">
+        <img src="https://img.shields.io/badge/PRs-Welcome-red">
+    </a>
+    <a href="https://img.shields.io/github/last-commit/xlang-ai/OSWorld?color=green">
+        <img src="https://img.shields.io/github/last-commit/xlang-ai/OSWorld?color=green">
+    </a>
+    <a href="https://opensource.org/licenses/Apache-2.0">
+        <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
+    </a>
+    <a href="https://badge.fury.io/py/desktop-env">
+        <img src="https://badge.fury.io/py/desktop-env.svg">
+    </a>
+    <a href="https://pepy.tech/project/desktop-env">
+        <img src="https://static.pepy.tech/badge/desktop-env">
+    </a>
+    <br/>
+</p>
+
+
+## 📢 Updates
+- 2024-04-11: We released our [paper](https://arxiv.org/abs/2404.07972), [environment and benchmark](https://github.com/xlang-ai/OSWorld), and [project page](https://os-world.github.io/). Check it out!
+
+## 💾 Installation
 ### On Your Desktop or Server (Non-Virtualized Platform)
 Suppose you are operating on a system that has not been virtualized, meaning you are not utilizing a virtualized environment like AWS, Azure, or k8s. If this is the case, proceed with the instructions below. However, if you are on a virtualized platform, please refer to the [virtualized platform](https://github.com/xlang-ai/OSWorld?tab=readme-ov-file#virtualized-platform) section.
 
@@ -39,27 +64,12 @@ vmrun -T ws list
 ```
 If the installation along with the environment variable set is successful, you will see the message showing the current running virtual machines.
 
-3. Obtain the virtual machine image. If you are using Linux or Windows with an x86_64 CPU, install the environment package and download the examples and the virtual machine image by executing the following commands:
-Remove the `nogui` parameter if you wish to view the activities within the virtual machine.
-```bash
-wget https://huggingface.co/datasets/xlangai/ubuntu_x86/resolve/main/Ubuntu.zip
-unzip Ubuntu.zip
-vmrun -T ws start "Ubuntu/Ubuntu.vmx" nogui
-vmrun -T ws snapshot "Ubuntu/Ubuntu.vmx" "init_state"
-```
-
-For macOS with Apple chips, you should install the specially prepared virtual machine image by executing the following commands:
-```bash
-wget https://huggingface.co/datasets/xlangai/ubuntu_arm/resolve/main/Ubuntu.zip
-unzip Ubuntu.zip
-vmrun -T fusion start "Ubuntu/Ubuntu.vmx" nogui
-vmrun -T fusion snapshot "Ubuntu/Ubuntu.vmx" "init_state"
-```
+All set! Our setup script will automatically download the necessary virtual machines and configure the environment for you.
 
 ### On AWS or Azure (Virtualized platform)
 We are working on supporting it 👷. Please hold tight!
 
-## Quick Start
+## 🚀 Quick Start
 Run the following minimal example to interact with the environment:
 ```python
 from desktop_env.envs.desktop_env import DesktopEnv
@@ -95,19 +105,22 @@ example = {
     }
 }
 
-env = DesktopEnv(
-    path_to_vm=r"Ubuntu/DesktopEnv-Ubuntu 64-bit Arm.vmx",
-    action_space="pyautogui"
-)
+env = DesktopEnv(action_space="pyautogui")
 
 obs = env.reset(task_config=example)
 obs, reward, done, info = env.step("pyautogui.rightClick()")
 ```
 You will see all the logs of the system running normally, including the successful creation of the environment, completion of setup, and successful execution of actions. In the end, you will observe a successful right-click on the screen, which means you are ready to go.
 
-## Experiments
+## 🧪 Experiments
 ### Agent Baselines
 If you wish to run the baseline agent used in our paper, you can execute the following command as an example under the GPT-4V pure-screenshot setting:
+
+Set **OPENAI_API_KEY** environment variable with your API key
+```bash
+export OPENAI_API_KEY='changme'
+```
+
 ```bash
 python run.py --path_to_vm Ubuntu/Ubuntu.vmx --headless --observation_type screenshot --model gpt-4-vision-preview --result_dir ./results
 ```
@@ -121,7 +134,7 @@ Please start by reading through the [agent interface](https://github.com/xlang-a
 Correctly implement the agent interface and import your customized version in the `run.py` file.
 Afterward, you can execute a command similar to the one in the previous section to run the benchmark on your agent.
 
-## FAQ
+## ❓ FAQ
 ### What are the running times and costs under different settings?
 | Setting                        | Expected Time* | Budget Cost (Full Test Set/Small Test Set) |
 | ------------------------------ | -------------- | ------------------------------------------ |
@@ -133,13 +146,15 @@ Afterward, you can execute a command similar to the one in the previous section 
 \*No environment parallelism. Calculated in April 2024.
 
 
-## Citation
+## 📄 Citation
 If you find this environment useful, please consider citing our work:
 ```
-@article{OSWorld,
-  title={},
-  author={},
-  journal={arXiv preprint arXiv:xxxx.xxxx},
-  year={2024}
+@misc{OSWorld,
+      title={OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments}, 
+      author={Tianbao Xie and Danyang Zhang and Jixuan Chen and Xiaochuan Li and Siheng Zhao and Ruisheng Cao and Toh Jing Hua and Zhoujun Cheng and Dongchan Shin and Fangyu Lei and Yitao Liu and Yiheng Xu and Shuyan Zhou and Silvio Savarese and Caiming Xiong and Victor Zhong and Tao Yu},
+      year={2024},
+      eprint={2404.07972},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI}
 }
 ```
