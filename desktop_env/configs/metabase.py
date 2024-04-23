@@ -1,5 +1,5 @@
 #coding=utf8
-import os, re, logging, time, requests, json, random, uuid, platform
+import os, re, logging, time, requests, json, random, uuid, platform, time
 from typing import List, Union, Tuple, Dict, Any
 from playwright.sync_api import expect, sync_playwright, BrowserContext, Page
 from .general import get_browser, copyfile_from_host_to_guest_setup, find_page_by_url
@@ -32,9 +32,10 @@ def metabase_webui_setup(page: Page, config: Dict[str, Any] = {}):
         # 2. configure language
         language = config.get('language', 'en')
         language_selector = page.locator(f'input[type="radio"][value="{language}"]')
-        expect(language_selector).to_be_visible()
+        expect(language_selector).to_be_enabled()
         if not language_selector.is_checked():
             language_selector.check()
+            expect(language_selector).to_be_checked()
         button = page.locator('button').filter(has_text="Next")
         expect(button).to_be_enabled()
         button.click()
@@ -53,7 +54,7 @@ def metabase_webui_setup(page: Page, config: Dict[str, Any] = {}):
             "input[name='password']": password,
             "input[name='password_confirm']": password
         }
-        for input_selector in []:
+        for input_selector in input_dict:
             input_box = page.locator(input_selector)
             expect(input_box).to_be_editable()
             input_box.fill(input_dict[input_selector])
@@ -91,8 +92,8 @@ def metabase_webui_setup(page: Page, config: Dict[str, Any] = {}):
         page.wait_for_load_state('load')
         toggle_bar = page.locator('button[data-testid="sidebar-toggle"][aria-label="Toggle sidebar"]')
         expect(toggle_bar).to_be_visible()
-    except:
-        logger.error(f'[ERROR]: failed to login to superset webui {url}')
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to setup Metabase getting started page. {e}')
         return
     return page
 
