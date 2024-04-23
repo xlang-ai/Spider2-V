@@ -1,0 +1,53 @@
+{
+    "id": "7c38e400-d52c-4e07-b6c6-e2b4a1b38a6d",
+    "snapshot": "metabase",
+    "instruction": "Some experts tell me that we can run a self-hosted Metabase using java. Complete this job for me at localhost with port 3000. I want to see the welcome page.",
+    "source": [
+        "https://www.metabase.com/docs/latest/installation-and-operation/running-the-metabase-jar-file"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/7c38e400-d52c-4e07-b6c6-e2b4a1b38a6d/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "is_expected_url_pattern_match",
+        "result": {
+            "type": "active_tab_info",
+            "goto_prefix": "http://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": [
+                    "http://localhost:3000"
+                ]
+            }
+        }
+    }
+}

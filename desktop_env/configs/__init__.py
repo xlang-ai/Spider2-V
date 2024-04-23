@@ -45,6 +45,10 @@ from .superset import (
     superset_webui_init_setup
 )
 
+from .metabase import (
+    metabase_webui_init_setup
+)
+
 from .googledrive import (
     googledrive_init_setup,
     googledrive_login_setup
