@@ -1,0 +1,94 @@
+{
+    "id": "0fa19e8e-efba-42a6-8649-67ff203dbe87",
+    "snapshot": "airbyte",
+    "instruction": "I have created a connection from postgres to snowflake. After the current sync, can you help me add 2 rows with any arbitrary value and then compare the difference of replicated data in the user table with data-diff cli and save the results into a csv file (diff_test.csv)? Pay attention to the case of the database name.",
+    "source": [
+        "https://airbyte.com/tutorials/validate-data-replication-postgres-snowflake"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "snowflake"
+    ],
+    "tags": [
+        "cli",
+        "abstract"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "database": "development",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/settings/snowflake/settings.json",
+                "dest": "/home/user/settings.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/diff_test.csv",
+            "dest": "diff_test.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/diff_gold.csv",
+            "dest": "diff_gold.csv"
+        }
+    }
+}

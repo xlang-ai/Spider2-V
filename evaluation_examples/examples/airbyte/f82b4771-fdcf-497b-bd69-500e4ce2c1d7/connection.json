@@ -1,0 +1,61 @@
+{ 
+    "name": "Postgres → Postgres", 
+    "namespaceDefinition": "destination", 
+    "prefix": "", 
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "syncCatalog": { 
+        "streams": [ 
+            { 
+                "stream": { 
+                    "name": "basic_file", 
+                    "jsonSchema": { 
+                        "type": "object", 
+                        "properties": { 
+                            "id": { 
+                                "type": "number", 
+                                "airbyte_type": "integer" 
+                            }, 
+                            "name": { 
+                                "type": "string" 
+                            } 
+                        } 
+                    }, 
+                    "supportedSyncModes": [ 
+                        "full_refresh", 
+                        "incremental" 
+                    ], 
+                    "defaultCursorField": [], 
+                    "sourceDefinedPrimaryKey": [ 
+                        [ 
+                            "id" 
+                        ] 
+                    ], 
+                    "namespace": "public" 
+                }, 
+                "config": { 
+                    "syncMode": "full_refresh", 
+                    "cursorField": [], 
+                    "destinationSyncMode": "overwrite", 
+                    "primaryKey": [ 
+                        [ 
+                            "id" 
+                        ] 
+                    ], 
+                    "aliasName": "basic_file", 
+                    "selected": true, 
+                    "fieldSelectionEnabled": false 
+                } 
+            } 
+        ] 
+    }, 
+    "scheduleType": "basic", 
+    "scheduleData": { 
+        "basicSchedule": { 
+            "timeUnit": "hours", 
+            "units": 24 
+        } 
+    }, 
+    "status": "active", 
+    "geography": "auto"
+}

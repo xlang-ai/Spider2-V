@@ -1,7 +1,7 @@
 {
     "id": "f82b4771-fdcf-497b-bd69-500e4ce2c1d7",
     "snapshot": "airbyte",
-    "instruction": "Please help me synchronize data in the default database postgres from the source Postgres to the destination Postgres. When synchronizing data, please retrieve all available data requested from the source and writes it in the destination, and overwrite all data in the destination table with a new copy of the source data. The detailed configuration are provided in the opened file on desktop.",
+    "instruction": "There is already an airbyte connection from Postgres to Postgres existed. Please help me change the connection sync mode from full refresh | Overwrite to full refresh | append.",
     "source": [
         "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
     ],
@@ -16,6 +16,13 @@
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
         {
             "type": "script_and_execute",
             "parameters": {
@@ -43,24 +50,7 @@
                     }
                 ]
             }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/config.json",
-                "dest": "/home/user/Desktop/config.json"
-            }
-        },
-        {
-            "type": "launch",
-            "parameters": {
-                "command": [
-                    "gedit",
-                    "/home/user/Desktop/config.json"
-                ]
-            }
         }
-
     ],
     "trajectory": "trajectories/",
     "evaluator": {

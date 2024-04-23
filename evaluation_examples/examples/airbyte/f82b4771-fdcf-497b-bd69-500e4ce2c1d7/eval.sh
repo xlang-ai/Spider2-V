@@ -52,7 +52,7 @@ for workspaceid in ${workspaces}; do
         for (( i=0; i<length; i++ )) do
             sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.syncMode")
             destination_sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.destinationSyncMode")
-            if [ "${sync_mode}" != "full_refresh" ] || [ "${destination_sync_mode}" != "overwrite" ]; then
+            if [ "${sync_mode}" != "full_refresh" ] || [ "${destination_sync_mode}" != "append" ]; then
                 all_streams_valid=false
             fi
         done

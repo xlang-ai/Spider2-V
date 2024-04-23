@@ -57,3 +57,4 @@ snowflake
 duckdb
 google-cloud-bigquery
 dbt-cloud-cli
+nbformat

@@ -30,6 +30,13 @@
                 "url": "https://app.snowflake.com",
                 "settings_file": "evaluation_examples/settings/snowflake/settings.json"
             }
+        },
+        {
+            "type": "snowflake_delete_folder",
+            "parameters": {
+                "listening_port": 9222,
+                "folder_name": "Online shopping"
+            }
         }
     ],
     "trajectory": "trajectories/",

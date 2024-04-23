@@ -379,8 +379,10 @@ def get_snowflake_worksheet_names_in_folder(env, config: Dict[str, Any]) -> List
         context = browser.contexts[0]
         page = context.new_page()
         page.goto('https://app.snowflake.com', wait_until='load')
-        time.sleep(15)
         try:
+            worksheet_or_folder_list = page.locator('div[role="rowgroup"]')
+            expect(worksheet_or_folder_list).to_be_enabled(timeout=60000)
+            time.sleep(3)
             for i in range(page.locator('div[role="rowgroup"] > div').count() - 1):
                 worksheet_or_folder = page.locator(f'div[role="rowgroup"] > div:nth-child({i + 2}) > div:nth-child(1) > a')
                 if worksheet_or_folder.get_attribute('aria-label') == config['folder_name']:
@@ -390,21 +392,13 @@ def get_snowflake_worksheet_names_in_folder(env, config: Dict[str, Any]) -> List
                 return None
             expect(worksheet_or_folder).to_be_enabled(timeout=60000)
             worksheet_or_folder.click()
-            time.sleep(15)
+            worksheet_list = page.locator('div[role="rowgroup"]')
+            expect(worksheet_list).to_be_enabled(timeout=60000)
+            time.sleep(3)
             worksheet_names = []
             for i in range(page.locator('div[role="rowgroup"] > div').count() - 1):
                 worksheet = page.locator(f'div[role="rowgroup"] > div:nth-child({i + 2}) > div:nth-child(1) > a')
                 worksheet_names.append(worksheet.get_attribute('aria-label'))
-            logger.info(f'[INFO]: successfully found the worksheet names {worksheet_names} in snowflake folder "{config["folder_name"]}"!')
-            manage = page.locator('h1[role="heading"]').first
-            expect(manage).to_be_enabled(timeout=60000)
-            manage.click()
-            delete_folder = page.locator('div[data-action-name="Delete Folder"]')
-            expect(delete_folder).to_be_enabled(timeout=60000)
-            delete_folder.click()
-            confirm = page.locator('div[class="c-modal-overlay js-modal-overlay"] > div:nth-child(1) > div:nth-child(3) > div:nth-child(3)')
-            expect(confirm).to_be_enabled(timeout=60000)
-            confirm.click()
         except Exception as e:
             logger.error(f'[ERROR]: failed to get worksheet names in snowflake folder "{config["folder_name"]}"! {e}')
             return None

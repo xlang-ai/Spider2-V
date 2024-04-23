@@ -348,3 +348,53 @@ def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
             return
 
         logger.info('[INFO]: successfully wrote SQLs in the new worksheet!')
+
+
+def snowflake_delete_folder_setup(controller, **config):
+    """ Delete the specified folder in snowflake. Arguments for config dict:
+    @args:
+        listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
+        folder_name(str): the name of the folder to delete, required
+    """
+    listening_port = config.get('listening_port', 9222)
+    remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
+
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return
+
+        context = browser.contexts[0]
+        page = find_page_by_url(context, 'https://app.snowflake.com', matching_func=lambda x, y: x.startswith(y))
+        if page is None:
+            logger.error('[ERROR]: failed to find the snowflake website page!')
+            return
+
+        try:
+            worksheet_or_folder_list = page.locator('div[role="rowgroup"]')
+            expect(worksheet_or_folder_list).to_be_enabled(timeout=60000)
+            time.sleep(3)
+            for i in range(page.locator('div[role="rowgroup"] > div').count() - 1):
+                worksheet_or_folder = page.locator(f'div[role="rowgroup"] > div:nth-child({i + 2}) > div:nth-child(1) > a')
+                if worksheet_or_folder.get_attribute('aria-label') == config['folder_name']:
+                    break
+            else:
+                logger.info(f'[INFO]: folder {config["folder_name"]} not found in snowflake!')
+                return
+            expect(worksheet_or_folder).to_be_enabled(timeout=60000)
+            worksheet_or_folder.click()
+            manage = page.locator('h1[role="heading"]').first
+            expect(manage).to_be_enabled(timeout=60000)
+            manage.click()
+            delete_folder = page.locator('div[data-action-name="Delete Folder"]')
+            expect(delete_folder).to_be_enabled(timeout=60000)
+            delete_folder.click()
+            confirm = page.locator('div[class="c-modal-overlay js-modal-overlay"] > div:nth-child(1) > div:nth-child(3) > div:nth-child(3)')
+            expect(confirm).to_be_enabled(timeout=60000)
+            confirm.click()
+        except Exception as e:
+            logger.error(f'[ERROR]: failed to delete folder {config["folder_name"]} in snowflake! {e}')
+            return
+
+        logger.info(f'[INFO]: successfully deleted folder {config["folder_name"]} in snowflake!')
