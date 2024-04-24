@@ -12,11 +12,8 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-# source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n metabase python=3.11 -y
-# conda activate metabase
-# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-# echo "conda activate metabase" >> ~/.bashrc
+echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+echo "conda activate metabase" >> ~/.bashrc
 
 mkdir -p /home/user/projects && cd /home/user/projects
 rm -rf metabase

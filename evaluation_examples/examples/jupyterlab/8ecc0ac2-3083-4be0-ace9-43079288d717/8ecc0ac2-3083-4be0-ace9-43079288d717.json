@@ -10,8 +10,7 @@
         "jupyterlab"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

@@ -7,11 +7,11 @@
     ],
     "related_apps": [
         "chromium",
+        "terminal",
         "jupyterlab"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

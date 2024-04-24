@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 exec 2>/dev/null
 
 PASSWORD='password'
@@ -19,7 +18,7 @@ wget -c https://downloads.metabase.com/v0.49.6/metabase.jar
 
 # 3. install postgres
 function install_postgres() {
-    echo $PASSWORD | sudo -S apt-get install postgresql postgresql-contrib -y >/dev/null 2>&1
+    echo $PASSWORD | sudo -S apt-get install postgresql postgresql-contrib -y >/dev/null
     cd /home
     # allow connection from any IP (including docker container)
     config_file=$(echo $PASSWORD | sudo -S -u postgres psql -tc "SHOW config_file" | awk 'NR==1 {print $1}')
@@ -31,5 +30,6 @@ function install_postgres() {
     echo $PASSWORD | sudo -S bash -c "sudo sed -i 's/local[[:space:]]\+replication[[:space:]]\+all[[:space:]]\+peer/local   replication     all                                     scram-sha-256/' ${hba_file}"
     echo $PASSWORD | sudo -S bash -c "echo \"host    all             all             172.16.0.0/14           scram-sha-256\" >> ${hba_file}"
     sudo systemctl restart postgresql
+    sudo systemctl enable postgresql
 }
 install_postgres

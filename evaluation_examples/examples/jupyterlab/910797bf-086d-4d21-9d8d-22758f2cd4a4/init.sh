@@ -12,11 +12,7 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda create -n jupyterlab python=3.11 -y
-conda activate jupyterlab
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate jupyterlab" >> ~/.bashrc
 
-# pip install jupyter==1.0.0 jupyterlab==4.1.6
 gnome-terminal --working-directory=/home/user

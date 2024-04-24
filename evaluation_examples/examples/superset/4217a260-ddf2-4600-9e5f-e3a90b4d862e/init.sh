@@ -19,34 +19,7 @@ echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate superset" >> ~/.bashrc
 
 # start superset local server using docker with fixed version
-function start_superset_server() {
-    git clone https://github.com/apache/superset.git
-    cd superset
-    export TAG=3.1.1
-    echo "export TAG=3.1.1 >> /home/user/.bashrc"
-    declare -a image_list=(
-        "redis:7"
-        "postgres:15"
-        "apachesuperset.docker.scarf.sh/apache/superset:${TAG}"
-    )
-    images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
-    for img in ${image_list[@]}; do
-        echo ${images} | grep -Fiq -- "$img"
-        if [ $? -ne 0 ]; then
-            docker pull ${img}
-        fi
-    done
-    # docker compose -f docker-compose-image-tag.yml up > start_server.log &
-    # while true; do
-    #     sleep 3
-    #     cat start_server.log | grep "Init Step 4/4"
-    #     if [ $? -eq 0 ]; then
-    #         # the server has been started
-    #         break
-    #     fi
-    # done
-}
+echo "export TAG=3.1.1 >> /home/user/.bashrc"
 
-mkdir -p /home/user/projects && cd /home/user/projects
 start_superset_server # only pre-install docker images to save time
 gnome-terminal --maximize --working-directory=/home/user/projects

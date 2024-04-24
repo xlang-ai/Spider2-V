@@ -31,19 +31,23 @@ export MB_DB_PORT=5432
 export MB_DB_USER=$DB_USER
 export MB_DB_PASS=$DB_PASSWORD
 export MB_DB_HOST=localhost
-cd /home/user/projects/metabase
-nohup java -jar metabase.jar > start_server.log 2>&1 &
-count=0
-while true; do
-    sleep 5
-    cat start_server.log | grep "Metabase Initialization COMPLETE"
-    if [ $? -eq 0 ]; then
-        echo "Metabase initialization completed."
-        break
-    fi
-    count=$(expr $count + 1)
-    if [ $count -gt 6 ]; then
-        echo "Metabase initialization failed."
-        exit 1
-    fi
-done
+
+function start_metabase_server() {
+    cd /home/user/projects/metabase
+    nohup java -jar metabase.jar > start_server.log 2>&1 &
+    count=0
+    while true; do
+        sleep 5
+        cat start_server.log | grep "Metabase Initialization COMPLETE"
+        if [ $? -eq 0 ]; then
+            echo "Metabase initialization completed."
+            break
+        fi
+        count=$(expr $count + 1)
+        if [ $count -gt 6 ]; then
+            echo "Metabase initialization failed."
+            exit 1
+        fi
+    done
+}
+start_metabase_server

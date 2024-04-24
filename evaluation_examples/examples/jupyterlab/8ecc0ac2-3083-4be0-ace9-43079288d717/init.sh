@@ -13,7 +13,6 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda create -n jupyterlab python=3.11 -y
 conda activate jupyterlab
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate jupyterlab" >> ~/.bashrc
@@ -21,5 +20,5 @@ echo "conda activate jupyterlab" >> ~/.bashrc
 cd /home/user/Downloads
 unzip sports.zip
 rm -rf sports.zip
-pip install -r requirements.txt
+# pip install -r requirements.txt # have been installed in snapshot_init.sh
 python -m ipykernel install --user --name jupyterlab --display-name "Python (jupyterlab)"

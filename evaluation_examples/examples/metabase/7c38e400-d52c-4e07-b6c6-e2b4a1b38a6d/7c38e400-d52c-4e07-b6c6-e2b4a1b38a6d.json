@@ -7,11 +7,11 @@
     ],
     "related_apps": [
         "chromium",
+        "terminal",
         "metabase"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
