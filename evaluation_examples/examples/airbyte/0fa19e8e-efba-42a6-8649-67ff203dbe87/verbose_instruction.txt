@@ -1,11 +1,12 @@
-In this task, we want to use data-diff in terminal to check the difference of replicated data from Postgres to Snowflake in the user table: 
-1. After waiting for the airbyte connection sync to complete (indicated by the icon turning into a green checkmark), switch the window to the terminal.
+In this task, we want to add 2 rows with specific values to the source database and use data-diff in terminal to check the difference of replicated data in the connection from Postgres to Snowflake: 
+1. Switch to the browser window;
+2. After waiting for the airbyte connection sync to complete (indicated by the icon turning into a green checkmark), switch the window to the terminal.
 In the terminal, enter the following commands to update the source's database:
-2. In the terminal, enter the following commands to update the source's database:
+3. In the terminal, enter the following commands to update the source's database:
 ```docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record4');```
 and
 ```docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record5');```
-3. In the terminal, enter the data-diff command and record the result in the data_diff.csv file, which looks like this:
+4. In the terminal, enter the data-diff command and record the result in the data_diff.csv file, which looks like this:
 ```data-diff DB1_URI TABLE1_NAME DB2_URI TABLE2_NAME >> diff_test.csv```
     (1)DB1_URI is in the form of "snowflake://[username]:[password]@[account]/[DATABASE]/[SCHEMA]?warehouse=[WAREHOUSE]&role=[ROLE]", and DB2 URI is in the format of "postgresql://[username]:[password]@localhost:5432/[database]". 
     (2)The Snowflake password is already provided in the desktop's config file, and other required information can be obtained from the airbyte connection's interactive interface. 

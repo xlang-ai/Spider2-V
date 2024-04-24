@@ -1,7 +1,7 @@
 {
     "id": "0fa19e8e-efba-42a6-8649-67ff203dbe87",
     "snapshot": "airbyte",
-    "instruction": "I have created a connection from postgres to snowflake. After the current sync, can you help me add 2 rows with any arbitrary value and then compare the difference of replicated data in the user table with data-diff cli and save the results into a csv file (diff_test.csv)? Pay attention to the case of the database name.The Snowflake password is already provided in the desktop's config file, and other required information can be obtained from the airbyte connection's interactive interface. ",
+    "instruction": "I have created a connection from postgres to snowflake. After the current sync finishes, can you help me add 2 rows to the source database  with values specified in the new_value.txt file on the desktop, then compare the difference of replicated data with data-diff cli and save the results into a csv file (diff_test.csv)? Pay attention to the case of the database name.The Snowflake password is already provided in the desktop's config file. ",
     "source": [
         "https://airbyte.com/tutorials/validate-data-replication-postgres-snowflake"
     ],
@@ -14,7 +14,7 @@
         "cli"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 3,
+    "action_number" : 4,
     "config": [
         {
             "type": "snowflake_init",
@@ -87,6 +87,22 @@
                 "command": [
                     "gedit",
                     "/home/user/Desktop/config.json"
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/new_value.txt",
+                "dest": "/home/user/Desktop/new_value.txt"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/new_value.txt"
                 ]
             }
         }
