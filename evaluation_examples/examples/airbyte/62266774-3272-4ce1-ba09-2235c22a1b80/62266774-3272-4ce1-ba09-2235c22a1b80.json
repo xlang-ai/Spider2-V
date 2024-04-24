@@ -7,11 +7,16 @@
     ],
     "related_apps": [
         "chromium",
+        "dbt",
+        "snowflake",
+        "terminal",
+        "vscode",
+        "docker",
         "airbyte"
     ],
     "tags": [
         "cli+gui",
-        "abstract"
+        "account"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

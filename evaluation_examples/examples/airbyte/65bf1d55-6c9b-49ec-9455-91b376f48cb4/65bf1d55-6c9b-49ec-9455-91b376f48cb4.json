@@ -7,11 +7,13 @@
     ],
     "related_apps": [
         "chromium",
-        "airbyte"
+        "airbyte",
+        "docker",
+        "snowflake"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "gui",
+        "account"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

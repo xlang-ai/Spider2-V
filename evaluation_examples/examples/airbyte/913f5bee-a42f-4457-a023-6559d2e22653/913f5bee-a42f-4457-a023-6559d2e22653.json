@@ -7,11 +7,11 @@
     ],
     "related_apps": [
         "chromium",
+        "docker",
         "airbyte"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

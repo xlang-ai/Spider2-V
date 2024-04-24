@@ -8,11 +8,11 @@
     "related_apps": [
         "chromium",
         "airbyte",
+        "docker",
         "mysql"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

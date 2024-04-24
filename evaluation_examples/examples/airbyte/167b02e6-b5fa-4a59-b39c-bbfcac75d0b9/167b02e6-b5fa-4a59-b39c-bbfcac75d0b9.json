@@ -7,11 +7,15 @@
     ],
     "related_apps": [
         "chromium",
-        "airbyte"
+        "terminal",
+        "airbyte",
+        "sqlite3",
+        "docker",
+        "bigquery"
     ],
     "tags": [
         "cli+gui",
-        "abstract"
+        "account"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

@@ -12,10 +12,10 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n airbyte python=3.11 -y
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
 
-mkdir -p /home/user/projects
+cd /home/user/projects
+rm -rf airbyte # remove the airbyte directory if it exists
 gnome-terminal --working-directory=/home/user/projects
