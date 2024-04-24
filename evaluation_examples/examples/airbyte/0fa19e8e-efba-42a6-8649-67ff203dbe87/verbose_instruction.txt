@@ -1,3 +1,4 @@
+In this task, we want to use data-diff in terminal to check the difference of replicated data from Postgres to Snowflake in the user table: 
 1. After waiting for the airbyte connection sync to complete (indicated by the icon turning into a green checkmark), switch the window to the terminal.
 In the terminal, enter the following commands to update the source's database:
 2. In the terminal, enter the following commands to update the source's database:

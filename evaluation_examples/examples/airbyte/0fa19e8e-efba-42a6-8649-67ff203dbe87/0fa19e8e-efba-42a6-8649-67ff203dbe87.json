@@ -11,10 +11,10 @@
         "snowflake"
     ],
     "tags": [
-        "cli",
-        "abstract"
+        "cli"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number" : 3,
     "config": [
         {
             "type": "snowflake_init",
