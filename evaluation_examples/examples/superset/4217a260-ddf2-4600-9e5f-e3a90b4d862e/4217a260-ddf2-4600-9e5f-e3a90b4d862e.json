@@ -7,11 +7,12 @@
     ],
     "related_apps": [
         "docker",
+        "terminal",
+        "chromium",
         "superset"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [

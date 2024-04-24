@@ -12,14 +12,12 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda create -n superset python=3.11 -y
-conda activate superset
-echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate superset" >> ~/.bashrc
+# source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda activate superset
+# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+# echo "conda activate superset" >> ~/.bashrc
 
 # start superset local server using docker with fixed version
 echo "export TAG=3.1.1 >> /home/user/.bashrc"
 
-start_superset_server # only pre-install docker images to save time
 gnome-terminal --maximize --working-directory=/home/user/projects

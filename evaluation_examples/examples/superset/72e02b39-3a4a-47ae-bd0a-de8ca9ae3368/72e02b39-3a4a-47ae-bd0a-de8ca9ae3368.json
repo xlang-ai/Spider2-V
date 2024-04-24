@@ -1,17 +1,17 @@
 {
     "id": "72e02b39-3a4a-47ae-bd0a-de8ca9ae3368",
-    "snapshot": "airbyte",
+    "snapshot": "superset",
     "instruction": "I want to perform some analysis on a local Postgres database using Superset. Help me build a connection to this DB.",
     "source": [
         "https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard#connecting-to-a-new-database"
     ],
     "related_apps": [
-        "postgres",
+        "postgresql",
+        "chromium",
         "superset"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
