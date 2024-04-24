@@ -12,23 +12,20 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-function create_airbyte_env() {
-    source /home/user/anaconda3/etc/profile.d/conda.sh
-    conda create -n airbyte python=3.11 -y
-    conda activate airbyte
-    echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-    echo "conda activate airbyte" >> ~/.bashrc
-}
-# create_airbyte_env # can be skipped since no pip install is needed
+# source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda create -n airbyte python=3.11 -y
+# conda activate airbyte
+# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+# echo "conda activate airbyte" >> ~/.bashrc
 mkdir -p /home/user/projects
 
 # configure Postgres
-POSTGRES_VERSION=15
+POSTGRES_VERSION=16-alpine
 # docker pull postgres:${POSTGRES_VERSION}
-# Start a source Postgres container running at port 3000 on localhost
-docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
+# Start a source Postgres container running at port 2000 on localhost
+docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d debezium/postgres:${POSTGRES_VERSION}
 # Start a destination Postgres container running at port 3000 on localhost
-docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres:${POSTGRES_VERSION}
+docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d debezium/postgres:${POSTGRES_VERSION}
 
 # start airbyte local server
 function start_airbyte_server() {

@@ -6,10 +6,14 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda create -n airbyte python=3.11 -y
 conda activate airbyte
 pip install dbt-snowflake==1.7.3 pytest==8.1.1 # for case 95ddd295-bb86-4f10-8d6b-6eb89ebb65cc
-pip install ...???... # for case 0fa19e8e-efba-42a6-8649-67ff203dbe87
+pip install data-diff # for case 0fa19e8e-efba-42a6-8649-67ff203dbe87
+pip install "pydantic>=1.10.12,<2.0.0"
+pip install psycopg2-binary
+pip install 'data-diff[postgresql]'
+pip install 'data-diff[snowflake]'
 
 VERSION=0.55.2 # $(awk -F'=' '/^VERSION=/ {print $2; exit}' run-ab-platform.sh)
-POSTGRES_VERSION=16
+POSTGRES_VERSION=16-alpine
 MYSQL_VERSION=8
 declare -a image_list=(
     "alpine/socat:1.8.0.0"
@@ -24,7 +28,7 @@ declare -a image_list=(
     "airbyte/airbyte-api-server:${VERSION}"
     "airbyte/connector-builder-server:${VERSION}"
     "airbyte/proxy:${VERSION}"
-    "postgres:${POSTGRES_VERSION}"
+    "debezium/postgres:${POSTGRES_VERSION}"
     "mysql:${MYSQL_VERSION}"
 )
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
