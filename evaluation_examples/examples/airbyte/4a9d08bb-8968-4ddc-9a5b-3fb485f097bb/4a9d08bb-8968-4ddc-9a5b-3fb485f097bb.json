@@ -1,7 +1,7 @@
 {
     "id": "4a9d08bb-8968-4ddc-9a5b-3fb485f097bb",
     "snapshot": "airbyte",
-    "instruction": "I want to use Airbyte local environment. Could you help me launch the corresponding web page at port 8000? You can use arbitrary email and company name.",
+    "instruction": "I want to use Airbyte local environment (e.g., with version 0.55.2). Could you help me launch the corresponding homepage at port 8000?",
     "source": [
         "https://docs.airbyte.com/deploying-airbyte/local-deployment?_gl=1*1kq4b3b*_gcl_au*MzAyMjU3NjM5LjE3MDk4NjgzOTU.#setup--launch-airbyte"
     ],

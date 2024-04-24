@@ -1,0 +1,6 @@
+In this task, we want to set up the data source as Faker:
+1. In the opened homepage of Airbyte, click the "Sources" link on the left panel;
+2. Then, in the search bar on the right, type in "faker" and you should see one panel with name "Sample Data (Faker)" below;
+3. Click this panel;
+4. After that, click the "Set up source" button in the pop-up window;
+5. Waiting for some time, the source will be verified and successfully configured.
