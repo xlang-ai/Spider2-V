@@ -1,7 +1,7 @@
 {
     "id": "f82b4771-fdcf-497b-bd69-500e4ce2c1d7",
     "snapshot": "airbyte",
-    "instruction": "There is already an airbyte connection from Postgres to Postgres existed. Please help me change the connection sync mode from full refresh | Overwrite to full refresh | append.",
+    "instruction": "There is already an airbyte connection from Postgres to Postgres created. Please help me change the connection sync mode from full refresh | Overwrite to full refresh | append.",
     "source": [
         "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
     ],
@@ -11,10 +11,10 @@
         "postgres"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number" : 4,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

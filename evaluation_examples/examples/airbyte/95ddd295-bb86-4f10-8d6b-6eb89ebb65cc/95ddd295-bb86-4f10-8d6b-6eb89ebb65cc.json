@@ -11,10 +11,10 @@
         "postgres"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number" : 19,
     "config": [
         {
             "type": "script_and_execute",

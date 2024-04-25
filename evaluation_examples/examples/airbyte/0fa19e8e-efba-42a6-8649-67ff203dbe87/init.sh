@@ -20,6 +20,10 @@ exec 2>/dev/null
 # echo "conda activate airbyte" >> ~/.bashrc
 mkdir -p /home/user/projects
 
+POSTGRES_VERSION=16-alpine
+# Start a source Postgres container running at port 5432 on localhost
+docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 5432:5432 -d 
+
 # start airbyte local server
 function start_airbyte_server() {
     git clone --depth=1 https://github.com/airbytehq/airbyte.git
@@ -74,12 +78,6 @@ BASIC_AUTH_PASSWORD=""
 cd /home/user/projects
 start_airbyte_server
 
-
-# configure Postgres
-# pull image
-docker pull postgres:16.0
-docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:16.0
-sleep 10
 
 # create database, schemas and tables
 docker exec -i airbyte-source psql -U postgres -c "CREATE DATABASE development;"
@@ -156,18 +154,11 @@ curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: a
 curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
 rm /home/user/connection.json
 
-#configure data-diff
-pip install data-diff
-pip install "pydantic>=1.10.12,<2.0.0"
-pip install psycopg2-binary
-pip install 'data-diff[postgresql]'
-pip install 'data-diff[snowflake]'
-
+# #configure data-diff
 
 gnome-terminal --maximize --working-directory=home/user/projects/
 
 # waiting for the first sync
-sleep 120
 
 #add data into source database
 # docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record4');"
