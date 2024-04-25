@@ -13,6 +13,6 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate jupyterlab" >> ~/.bashrc
+echo "conda activate jupyter" >> ~/.bashrc
 
 gnome-terminal --working-directory=/home/user

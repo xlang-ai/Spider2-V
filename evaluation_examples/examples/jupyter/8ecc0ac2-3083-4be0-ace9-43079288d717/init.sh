@@ -13,9 +13,9 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate jupyterlab
+conda activate jupyter
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate jupyterlab" >> ~/.bashrc
+echo "conda activate jupyter" >> ~/.bashrc
 
 cd /home/user/Downloads
 unzip sports.zip

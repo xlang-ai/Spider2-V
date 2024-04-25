@@ -1,23 +1,24 @@
 {
     "id": "8ecc0ac2-3083-4be0-ace9-43079288d717",
-    "snapshot": "jupyterlab",
+    "snapshot": "jupyter",
     "instruction": "Help me run all cells in this jupyter notebook. I hope to check the results.",
     "source": [
         "https://docs.jupyter.org/en/latest/running.html#how-do-i-start-the-notebook-using-a-custom-ip-or-port"
     ],
     "related_apps": [
         "chromium",
-        "jupyterlab"
+        "jupyter"
     ],
     "tags": [
         "gui"
     ],
+    "action_number": 3,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyterlab/8ecc0ac2-3083-4be0-ace9-43079288d717/sports.zip",
+                "src": "evaluation_examples/examples/jupyter/8ecc0ac2-3083-4be0-ace9-43079288d717/sports.zip",
                 "dest": "/home/user/Downloads/sports.zip"
             }
         },
@@ -34,7 +35,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyterlab/8ecc0ac2-3083-4be0-ace9-43079288d717/init.sh",
+                "src": "evaluation_examples/examples/jupyter/8ecc0ac2-3083-4be0-ace9-43079288d717/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -44,7 +45,7 @@
                 "command": [
                     "bash",
                     "-c",
-                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyterlab && jupyter lab /home/user/Downloads/sports-products.ipynb"
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Downloads/sports-products.ipynb"
                 ]
             }
         }
@@ -55,7 +56,7 @@
             {
                 "type": "script_and_execute",
                 "parameters": {
-                    "src": "evaluation_examples/examples/jupyterlab/8ecc0ac2-3083-4be0-ace9-43079288d717/wait.sh",
+                    "src": "evaluation_examples/examples/jupyter/8ecc0ac2-3083-4be0-ace9-43079288d717/wait.sh",
                     "dest": "/home/user/Downloads/wait.sh"
                 }
             },
