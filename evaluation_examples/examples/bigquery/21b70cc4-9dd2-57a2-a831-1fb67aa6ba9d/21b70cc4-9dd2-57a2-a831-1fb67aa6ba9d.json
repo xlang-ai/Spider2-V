@@ -5,6 +5,7 @@
     "source": [
         "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
     ],
+    "action_number": 11,
     "config": [
         {
             "type": "bigquery_init",
@@ -56,11 +57,10 @@
     "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
-        "chrome"
+        "chromium"
     ],
     "tags": [
-        "abstract",
-        "cli+gui",
+        "gui",
         "account"
     ],
     "evaluator": {

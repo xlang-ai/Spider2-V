@@ -8,10 +8,11 @@
     "related_apps": [
         "chromium",
         "airbyte",
+        "docker",
         "postgres"
     ],
     "tags": [
-        "cli"
+        "gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "action_number" : 19,

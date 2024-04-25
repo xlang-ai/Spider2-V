@@ -60,13 +60,13 @@
     "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
-        "chrome"
+        "chromium"
     ],
     "tags": [
-        "abstract",
-        "cli+gui",
+        "gui",
         "account"
     ],
+    "action_number": 8,
     "evaluator": {
         "func": "compare_csv",
         "result": {

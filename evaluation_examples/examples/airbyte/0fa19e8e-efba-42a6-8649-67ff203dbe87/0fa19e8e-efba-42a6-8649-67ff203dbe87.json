@@ -8,10 +8,13 @@
     "related_apps": [
         "chromium",
         "airbyte",
+        "docker",
+        "terminal",
         "snowflake"
     ],
     "tags": [
-        "cli"
+        "cli+gui",
+        "account"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "action_number" : 4,

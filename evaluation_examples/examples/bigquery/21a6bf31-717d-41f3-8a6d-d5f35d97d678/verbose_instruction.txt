@@ -1,0 +1,8 @@
+BigQuery provides many wonderful open datasets for free access. Today, we will explore one related to baseball. To achieve this goal:
+1. In the Explorer pane, click +Add.
+2. In the **Add** dialog, search `public datasets`
+3. Then click "Public Datasets".
+4. In the search bar next to header "Marketplace", type in "baseball" and click Enter.
+5. There should be only one dataset called "MLB 2016 Pitch-by-Pitch". Just click it.
+6. After loading, click the button "VIEW DATASET".
+7. Switch to the new opened web tab. It exhibits the dataset info about baseball. This is exactly what we want.
