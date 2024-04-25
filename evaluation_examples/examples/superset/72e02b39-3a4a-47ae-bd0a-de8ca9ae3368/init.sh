@@ -29,7 +29,7 @@ function start_superset_server() {
             echo "The server has been started"
             break
         fi
-        if [ $count -gt 6 ]; then
+        if [ $count -gt 10 ]; then
             echo "The server has not been started in 30 seconds"
             break
         fi

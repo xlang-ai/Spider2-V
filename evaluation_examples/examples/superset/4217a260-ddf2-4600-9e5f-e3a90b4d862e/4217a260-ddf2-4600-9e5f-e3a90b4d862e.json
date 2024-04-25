@@ -1,7 +1,7 @@
 {
     "id": "4217a260-ddf2-4600-9e5f-e3a90b4d862e",
     "snapshot": "superset",
-    "instruction": "I am a beginner to Superset. Could you help me launch the local server and navigate to the homepage at port 8088?",
+    "instruction": "I am a beginner to Superset. Could you help me launch the local server and navigate to the homepage at port 8088? The github repository for Superset has been downloaded in the current folder.",
     "source": [
         "https://superset.apache.org/docs/installation/installing-superset-using-docker-compose"
     ],
@@ -14,6 +14,7 @@
     "tags": [
         "cli+gui"
     ],
+    "action_number": 6,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {

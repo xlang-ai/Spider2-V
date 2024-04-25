@@ -1,0 +1,11 @@
+To launch the local web server at port 8088 for superset. We can follow these steps:
+1. In the opened terminal, type in `ls` to check the current folder structure. Based on the output results, we find that the folder `superset` has already existed.
+2. Enter the superset folder:
+`cd superset`
+3. Now, fire up Superset using Docker compose:
+`docker compose -f docker-compose-image-tag.yml up`
+4. Change to the chrome or chromium browser, head over to http://localhost:8088;
+5. Type in the default created account on the login page:
+username: admin
+password: admin
+6. Click the button "SIGN IN" and you will successfully log into the welcome page.
