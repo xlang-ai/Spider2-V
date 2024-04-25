@@ -25,7 +25,8 @@ cd ecommerce_analytics/
 code /home/user/projects/ecommerce_analytics
 
 function start_airbyte_server() {
-    cd /home/user/projects/airbyte
+    mv /home/user/projects/airbyte /home/user/projects/ecommerce_analytics/
+    cd /home/user/projects/ecommerce_analytics/airbyte
     bash run-ab-platform.sh > start_server.log &
     total_time=0
     while true; do

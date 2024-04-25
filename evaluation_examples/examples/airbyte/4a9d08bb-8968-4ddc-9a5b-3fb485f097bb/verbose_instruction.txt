@@ -1,14 +1,13 @@
 To setup and launch Airbyte in a local machine:
-1. open the terminal;
-2. download the following source archive to the current folder /home/user/projects:
+1. In the opened terminal, type in the following command to download the archived file to the current folder /home/user/projects:
 `wget -c https://github.com/airbytehq/airbyte/archive/refs/tags/v0.55.2.zip`
-3. unzip the .zip file:
+2. uncompress the downloaded .zip file:
 `unzip -q v0.55.2.zip`
-4. next, switch to the airbyte directory:
+3. next, switch to the airbyte directory:
 `cd airbyte-0.55.2`
-5. start the airbyte server via:
+4. start the airbyte server via:
 `bash run-ab-platform.sh`
-6. after waiting for roughly 40 seconds, open the chromium browser
-7. navigate to url http://localhost:8000, you should see a setup form collecting user information.
-8. since the server is launched in localhost, we can fill in any email and company name, e.g., anonymous@gmail.com and Google
-9. click the "submit" button, and after page re-direction, we have successfully logged into the aribyte homepage
+5. after waiting for roughly 40 seconds, switch to the chromium browser
+6. navigate to url http://localhost:8000, you should see a setup form collecting user information.
+7. since the server is launched in localhost, we can fill in any email and company name, e.g., anonymous@gmail.com and Google
+8. click the "submit" button, and after page re-direction, we have successfully logged into the aribyte homepage

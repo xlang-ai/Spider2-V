@@ -98,3 +98,4 @@ while true; do
     fi
 done
 rm -rf /home/user/srcid.txt /home/user/destid.txt /home/user/connid.txt /home/user/connection.json ${keyfile_path}
+gnome-terminal --maximize --working-directory=/home/user/

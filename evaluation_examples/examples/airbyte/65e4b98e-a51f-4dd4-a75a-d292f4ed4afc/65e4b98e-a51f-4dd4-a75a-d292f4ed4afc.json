@@ -1,7 +1,7 @@
 {
     "id": "65e4b98e-a51f-4dd4-a75a-d292f4ed4afc",
     "snapshot": "airbyte",
-    "instruction": "I hope to synchronize data regularly from a MySQL database to a local json file. Since the database is frequently updated, please set the schedule to every 12 hours. By the way, to reduce streaming traffic, only transfer the minimal data changes each time. The detailed configuration is provided in the opened file on desktop. Could you help me finish this task?",
+    "instruction": "I hope to synchronize data regularly from a MySQL database to a local json file \"/json_data\". Since the database is frequently updated, please set the schedule to every 12 hours. By the way, to reduce streaming traffic, only transfer the minimal data changes each time. The detailed configuration is provided in the opened file on desktop. Could you help me finish this task?",
     "source": [
         "https://airbyte.com/tutorials/mysql-change-data-capture-cdc"
     ],
@@ -14,6 +14,7 @@
     "tags": [
         "gui"
     ],
+    "action_number": 14,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {

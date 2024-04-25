@@ -1,0 +1,18 @@
+To completely delete one connection, we need to perform the following steps:
+1. We can find one connection from File to Snowflake in the main panel. Click this row;
+2. In the new window, choose the "Settings" button in the menu bar;
+3. Then, click the button "Delete this connection";
+4. A dialogue window will pop up. In the input box, type in the name of this connection "File (CSV, JSON, Excel, Feather, Parquet) → Snowflake";
+5. Only if the value is exactly correct, the "Delete" button will be enabled. Click it to delete the connection.
+6. Till now, the connection has been deleted. We still need to delete the data source and data destination. Click the "Sources" button on the left panel;
+7. Choose the configured data source "File";
+8. Scroll down to the bottom of the settings window;
+9. Click the button "Delete this source" at the bottom left;
+10. Similarly, we need to type in the correct source name in the pop-up window, that is "File (CSV, JSON, Excel, Feather, Parquet)";
+11. Click the "Delete" button;
+12. As for the data destination Snowflake, click the "Destinations" button on the menu bar;
+13. Choose and click the row with "Snowflake";
+14. Scroll down to the bottom of the new page;
+15. Click the button "Delete this destination";
+16. In the pop-up window, again, we need to type in the destination name "Snowflake" to confirm our decision;
+17. Click the "Delete" button. Now, we have completely deleted the connection as well as both the data source and destination.

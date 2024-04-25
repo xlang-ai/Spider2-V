@@ -1,0 +1,4 @@
+To run all cells in a jupyter notebook, one method is to run each cell one-by-one. Another simple method is to run all cells using one operation. To achieve this:
+1. In the opened web page, firstly locate and click the button "Run" in the menu bar on the top.
+2. In the drop-down menu, select and click "Run All Cells".
+3. Wait for a short time and all cells should be executed.

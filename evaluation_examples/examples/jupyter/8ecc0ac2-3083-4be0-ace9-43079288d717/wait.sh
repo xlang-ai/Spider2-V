@@ -3,7 +3,7 @@
 exec 2>/dev/null
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate jupyterlab
+conda activate jupyter
 token=$(jupyter lab list | sed -n '2p' | sed 's/.*token=\([^ &]*\).*/\1/')
 
 count=0

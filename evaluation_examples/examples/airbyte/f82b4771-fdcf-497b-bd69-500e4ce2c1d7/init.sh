@@ -13,7 +13,6 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n airbyte python=3.11 -y
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
@@ -21,48 +20,14 @@ mkdir -p /home/user/projects
 
 # configure Postgres
 POSTGRES_VERSION=16-alpine
-# docker pull postgres:${POSTGRES_VERSION}
 # Start a source Postgres container running at port 2000 on localhost
-docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d debezium/postgres:${POSTGRES_VERSION}
+docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
 # Start a destination Postgres container running at port 3000 on localhost
-docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d debezium/postgres:${POSTGRES_VERSION}
-
+docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres:${POSTGRES_VERSION}
 
 # start airbyte local server
 function start_airbyte_server() {
-    git clone --depth=1 https://github.com/airbytehq/airbyte.git
-    cd airbyte
-    VERSION=0.55.2
-    # declare -a image_list=(
-    #     "alpine/socat"
-    #     "airbyte/init:${VERSION}"
-    #     "airbyte/bootloader:${VERSION}"
-    #     "airbyte/db:${VERSION}"
-    #     "airbyte/worker:${VERSION}"
-    #     "airbyte/server:${VERSION}"
-    #     "airbyte/webapp:${VERSION}"
-    #     "airbyte/temporal:${VERSION}"
-    #     "airbyte/cron:${VERSION}"
-    #     "airbyte/airbyte-api-server:${VERSION}"
-    #     "airbyte/connector-builder-server:${VERSION}"
-    #     "airbyte/proxy:${VERSION}"
-    # )
-    # images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
-    # for img in ${image_list[@]}; do
-    #     echo ${images} | grep -Fiq -- "$img"
-    #     if [ $? -ne 0 ]; then
-    #         docker pull ${img}
-    #     fi
-    # done
-    sed -i.bak "s/^VERSION=.*$/VERSION=${VERSION}/" run-ab-platform.sh
-    bash run-ab-platform.sh -d # only download file
-    # remove airbyte basic auth, set username and password to empty ""
-    sed -i '/^BASIC_AUTH_USERNAME=/c\
-BASIC_AUTH_USERNAME=""
-' .env
-    sed -i '/^BASIC_AUTH_PASSWORD=/c\
-BASIC_AUTH_PASSWORD=""
-' .env
+    cd /home/user/projects/airbyte
     bash run-ab-platform.sh > start_server.log &
     total_time=0
     while true; do
@@ -78,8 +43,6 @@ BASIC_AUTH_PASSWORD=""
         fi
     done
 }
-
-cd /home/user/projects
 start_airbyte_server
 
 # create table

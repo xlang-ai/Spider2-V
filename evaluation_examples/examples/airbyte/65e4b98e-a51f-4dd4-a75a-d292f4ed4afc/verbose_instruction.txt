@@ -1,0 +1,20 @@
+In this data transfer task, we want to transfer data from a MySQL database to a local json file. We can follow the steps below:
+1. Go to the Airbyte UI page, and click "Create your first connection";
+2. In the search bar, type in "MySQL", and you should see one certified source connector;
+3. Click this source item, and the new pop-up window will ask you to fill in the concrete connection information;
+4. According to the opened config.json file, we need to fill in the form with key-values below.
+host: localhost
+port: 3306
+user: alice
+password: xbCad9dg
+database: CARS
+5. Leave the other fields unchanged, and scroll down to the bottom;
+6. Click the button "Set up source", it will cost some time for Airbyte to check the connection;
+7. Next, we need to configure the destination. In the search box, type in "local json";
+8. Select and click the filtered item "Local JSON";
+9. Type in value "/json_data" for the field "destination_path";
+10. Click the button "Set up destination" and wait for the system response;
+11. Now, we come to the configuration page for the connection. Firstly, replace the value in "Replication frequency" from "Every 24 hours" to a shorter period "Every 12 hours", such that the connection can handle more frequent data changes;
+12. Besides, scroll down to the bottom of the web page, and pinpoint the data stream called "cars_info";
+13. In the selector called "Sync mode", select a value "Incremental | Append" such that only the data changes will be transferred. This incremental mode will greatly reduce the total volume of transferred data;
+14. Eventually, click the button "Set up connection" to finish the entire task.
