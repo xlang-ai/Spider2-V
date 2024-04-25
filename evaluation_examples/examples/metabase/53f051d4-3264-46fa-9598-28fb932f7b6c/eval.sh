@@ -23,11 +23,18 @@ if [ "$first_name" != "John" ] || [ "$last_name" != "Wilson" ] || [ "$is_active"
     exit 1
 fi
 
-settings=$(curl -X GET http://localhost:3000/api/session/properties -H "X-Metabase-Session: ${session_id}")
-site_locale=$(echo $settings | jq -rM '.["site-locale"]')
-site_name=$(echo $settings | jq -rM '.["site-name"]')
+properties=$(curl -X GET http://localhost:3000/api/session/properties -H "X-Metabase-Session: ${session_id}")
+site_locale=$(echo $properties | jq -rM '.["site-locale"]')
+site_name=$(echo $properties | jq -rM '.["site-name"]')
 if [ "$site_locale" != "en" ] || [ "$site_name" != "Google" ]; then
     echo "Login setup to metabase failed."
+    exit 1
+fi
+
+settings=$(curl -X GET http://localhost:3000/api/setting -H "X-Metabase-Session: ${session_id}")
+tracking=$(echo $settings | jq '.[] | select(.key == "anon-tracking-enabled") | .value')
+if [ "$tracking" != "false" ] ; then
+    echo "Allow anonymous tracking, failed."
     exit 1
 fi
 

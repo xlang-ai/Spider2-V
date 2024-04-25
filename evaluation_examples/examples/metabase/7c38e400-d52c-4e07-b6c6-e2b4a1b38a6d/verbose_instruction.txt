@@ -1,0 +1,7 @@
+In this task, we hope to launch the local web server for Metabase using Java. To achieve this goal:
+1. Downloading the Open Source metabase.jar in the current folder:
+`wget -c https://downloads.metabase.com/v0.49.7/metabase.jar`
+2. Once completion, type in the following command to start the server:
+`java -jar metabase.jar`
+We need to wait for some time such that the local web server will be launched.
+3. Switch to the web browser, type in `http://localhost:3000` in the url box. Then, we will see the welcome page for Metabase.

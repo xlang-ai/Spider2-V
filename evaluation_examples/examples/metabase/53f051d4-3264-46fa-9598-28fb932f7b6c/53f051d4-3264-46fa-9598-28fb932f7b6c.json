@@ -3,7 +3,7 @@
     "snapshot": "metabase",
     "instruction": "Help me finish the metabase login setup with information shown in setup.json.",
     "source": [
-        "https://www.metabase.com/docs/latest/installation-and-operation/running-the-metabase-jar-file"
+        "https://www.metabase.com/docs/latest/configuring-metabase/setting-up-metabase"
     ],
     "related_apps": [
         "chromium",

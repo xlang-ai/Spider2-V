@@ -13,5 +13,5 @@
         "db_user": "user",
         "db_password": "password"
     },
-    "comments": "Do not allow sharing of data preferences and do not subscribe to any newsletters."
+    "comments": "Do not allow sharing of data preferences."
 }
