@@ -1,0 +1,6 @@
+The goal is to set the target of data transfer as a local path. We can follow the steps below:
+1. Click the "Destinations" icon on the menu bar on the left;
+2. In the search bar on the right, type in "local json";
+3. Choose the filtered item below;
+4. In the pop-up window, find the input box with name "Destination Path", and type in the target path "/local/json_destination"
+5. Click "Set up destination" button at the bottom and wait for the success signal.

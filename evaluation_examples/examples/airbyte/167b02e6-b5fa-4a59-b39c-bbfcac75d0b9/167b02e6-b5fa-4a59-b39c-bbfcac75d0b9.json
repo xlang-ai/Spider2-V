@@ -17,6 +17,7 @@
         "cli+gui",
         "account"
     ],
+    "action_number": 6,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
