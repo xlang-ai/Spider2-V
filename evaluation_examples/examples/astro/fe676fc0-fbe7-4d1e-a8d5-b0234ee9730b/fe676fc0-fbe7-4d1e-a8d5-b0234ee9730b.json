@@ -1,7 +1,7 @@
 {
     "id": "fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b",
     "snapshot": "astro",
-    "instruction": "I know one of my SQL checking tasks failed. Please create connection, run the DAG and show me the log page of the specific task instance that failed on astro web ui for me to debug. The detail of connection is in README.md.",
+    "instruction": "I am using Astronomer to place Airflow. I know one of my SQL checking tasks failed. Please create connection, run the DAG and show me the log page of the specific task instance that failed on astro web ui for me to debug. The detail of connection is in README.md.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-sql-data-quality"
     ],
@@ -45,10 +45,9 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": "13",
     "related_apps": [
         "airflow",
-        "astro",
         "chromium",
         "docker"
     ],

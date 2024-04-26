@@ -1,0 +1,11 @@
+I am using Astronomer to place Airflow
+Get instructions for completing my_extra_link_plugin.py from the README.md already open in VScode
+Follow the instructions to complete my_extra_link_plugin that has been opened in VScode
+    To be specific, import necessary function
+    Define WTTRWeatherLink and HTTPDocsLink respectively, specify name, operator and get_link following instructions given
+    Then, in class AirflowExtraLinkPlugin, add the links defined above to list operator_extra_links
+At last, save it
+Switch to airflow ui.
+Find weather_data_dag in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
+Click the triangle under the Action column on the far right to trigger dag
+Wait for the status of all tasks in the Runs column to change to "success" or "failed"

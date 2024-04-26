@@ -1,7 +1,7 @@
 {
     "id": "93b05252-b8cd-4f23-8850-168dc8107d83",
     "snapshot": "astro",
-    "instruction": "I want to establish two external links (see README.md) for my DAG 'weather_data_dag'. Please finish my_extra_link_plugin.py, rerun the DAG and ensure these two links are visible in the DAG details page.",
+    "instruction": "I am using Astronomer to place Airflow. I want to establish two external links (see README.md) for my DAG 'weather_data_dag'. Please finish my_extra_link_plugin.py, restart and trigger the DAG once you finish. ",
     "source": [
         "https://docs.astronomer.io/learn/connections"
     ],
@@ -45,12 +45,12 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": "8",
     "related_apps": [
         "airflow",
-        "astro",
-        "vscode",
-        "docker"
+        "chromium",
+        "docker",
+        "vscode"
     ],
     "tags": [
         "abstract",

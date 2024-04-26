@@ -1,0 +1,8 @@
+I am using Astronomer to place Airflow
+Read the README.md that has been opened in VSCode to get error logging information to adjust the test_dag file
+Adjust the DAG file ‘task_today.py’ that has been opened in VSCode
+        Adjust according to the error logging information
+At last, save it
+Find task_today in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
+Click the triangle under the Action column on the far right to trigger dag
+Wait for the status of all tasks in the Runs column to change to "success" or "failed"

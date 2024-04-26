@@ -44,11 +44,30 @@ def sql_data_quality():
     )
 
     check_column = SQLColumnCheckOperator(
-        
+        task_id="column_checks",
+        conn_id=_CONN_ID,
+        table=_TABLE_NAME,
+        partition_clause="bird_name IS NOT NULL",
+        column_mapping={
+            "bird_name": {
+                "null_check": {"equal_to": 0},
+                "distinct_check": {"geq_to": 5},
+            },
+            "observation_year": {"min":{"geq_to": 2018}, "max": {"less_than": 2024}},
+            "bird_happiness": {"min": {"greater_than": 0}, "max": {"leq_to": 10}},
+        },
     )
 
     check_table = SQLTableCheckOperator(
-        
+        task_id="table_checks",
+        conn_id=_CONN_ID,
+        table=_TABLE_NAME,
+        checks={
+            "average_happiness_check": {
+                "check_statement": "AVG(bird_happiness) >= 8",
+                "partition_clause": "observation_year >= 2019",
+            },
+        },
     )
 
     create_table >> populate_data >> [check_column, check_table]

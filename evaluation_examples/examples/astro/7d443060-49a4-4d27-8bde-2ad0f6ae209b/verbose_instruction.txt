@@ -1,0 +1,9 @@
+I am using Astronomer to place Airflow
+Read the README.md that has been opened in VSCode to get instructions on completing the test_dag file
+Complete the DAG file ‘test_dag.py’ that has been opened in VSCode
+        Define test_file_imports, test_dag_schedule_interval,test_task_workflow_order respectively following the instruction
+        Use "assert" to define expected test result for the last two test functions
+At last, save it.
+Find task_today in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
+Click the triangle under the Action column on the far right to trigger dag
+Wait for the status of all tasks in the Runs column to change to "success" or "failed"
