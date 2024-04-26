@@ -1,3 +1,3 @@
 I am using Astronomer to place Airflow
 In the DAG list, click the first DAG item' name
-In the detailed information box of DAG(the largest box in the middle of the webpage), click the "Graph" bottom in the top of the box.
+In the detailed information box of DAG(the largest box in the middle of the webpage), click the "Graph" bottom in the top of the box
