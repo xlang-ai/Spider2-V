@@ -3,32 +3,44 @@
 ####################################################################################################
 # Please ensure that Chromium or Chrome, VSCode and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
 exec 1>/dev/null
 exec 2>/dev/null
 
-# create conda environment and install dagster
-mkdir -p ~/projects/ && cd ~/projects
 source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n dagster python=3.11 -y
 conda activate dagster
-pip install dagster
-
-# create the target dagster project
-PROJECT_NAME=hacker_news
-dagster project scaffold --name $PROJECT_NAME
-cd $PROJECT_NAME
-pip install -e ".[dev]"
-
-# start dagster Web UI service
-dagster dev -p 3000 &
-sleep 5
-
-code /home/user/projects/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
+
+# unzip the initial dagster project
+PROJECT_NAME=hacker_news
+mkdir -p ~/projects/ && cd ~/projects
+dagster project scaffold --name ${PROJECT_NAME}
+cd ${PROJECT_NAME}
+
+function start_dagster_server() {
+    export DAGSTER_HOME=/home/user/.dagster
+    dagster dev -p 3000 >start_server.log 2>start_server.log &
+    count=0
+    while true; do
+        sleep 2
+        count=$(expr $count + 1)
+        cat start_server.log | grep -i "Serving dagster-webserver on"
+        if [ $? -eq 0 ]; then
+            echo "The dagster server has been started"
+            break
+        fi
+        if [ $count -gt 10 ]; then
+            echo "The dagster server has not been started in 20 seconds"
+            break
+        fi
+    done
+}
+start_dagster_server
+
+code /home/user/projects/$PROJECT_NAME
 gnome-terminal --maximize --working-directory=/home/user/projects/$PROJECT_NAME
 code /home/user/projects/$PROJECT_NAME/$PROJECT_NAME/assets.py

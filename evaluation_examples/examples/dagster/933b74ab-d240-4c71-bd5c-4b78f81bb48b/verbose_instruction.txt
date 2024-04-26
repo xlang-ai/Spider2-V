@@ -1,0 +1,57 @@
+In this task, we want to define a job to run the complete data pipeline regularly every hour. To achieve this:
+1. Open the VS Code editor on the left panel;
+2. Find and open the file with path 'hacker_news -> __init__.py';
+3. On the right panel, update the code in this file to add the job using the `define_asset_job` function:
+```
+from dagster import (
+    AssetSelection,
+    Definitions,
+    define_asset_job,
+    load_assets_from_modules,
+)
+
+from . import assets
+
+all_assets = load_assets_from_modules([assets])
+
+# Addition: define a job that will materialize the assets
+hacker_news_pipeline = define_asset_job("hacker_news_pipeline", selection=AssetSelection.all())
+
+defs = Definitions(
+    assets=all_assets,
+    jobs=[hacker_news_pipeline],  # Addition: add the job to Definitions object
+)
+```
+4. After defining a job, it can be attached to a schedule. To regularly update the assets, add the new `ScheduleDefinition` import, create a new schedule for the `hacker_news_pipeline`, and add the schedule to the code location. The code below is how the `__init__.py` should look after making these changes:
+```
+from dagster import (
+    AssetSelection,
+    Definitions,
+    ScheduleDefinition,
+    define_asset_job,
+    load_assets_from_modules,
+)
+
+from . import assets
+
+all_assets = load_assets_from_modules([assets])
+
+# Define a job that will materialize the assets
+hacker_news_pipeline = define_asset_job("hacker_news_pipeline", selection=AssetSelection.all())
+
+# Addition: a ScheduleDefinition the job it should run and a cron schedule of how frequently to run it
+hackernews_schedule = ScheduleDefinition(
+    job=hacker_news_pipeline,
+    cron_schedule="0 * * * *",  # every hour
+)
+
+defs = Definitions(
+    assets=all_assets,
+    schedules=[hackernews_schedule],
+)
+```
+5. Next, we can change to the Web UI;
+6. Reloading the project through the `Reload Definitions` button in the Assets page;
+6. After reloading completed, click the "Overview" button on the top menu bar;
+7. Switch to the `Schedules` tab in this page;
+8. We can see on entry called "hacker_news_pipeline_schedule" and the schedule has been set to "Every hour". Now, activate this schedule by finding and enabling the button under the column "Running".

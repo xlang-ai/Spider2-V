@@ -7,12 +7,13 @@
     ],
     "related_apps": [
         "chromium",
-        "dagster"
+        "dagster",
+        "vscode"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
+    "action_number": 8,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
