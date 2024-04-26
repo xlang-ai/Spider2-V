@@ -1,0 +1,17 @@
+This is a common dbt-core initialization task. To complete this, you need to:
+
+1. Initiate the ``jaffle_shop`` project running ``dbt init jaffle_shop``, and choose duckdb as the database.
+
+2. Unzip ``jaffle-shop-data.zip`` and move the seeds to /jaffle_shop/seeds.
+```
+unzip jaffle-shop-data.zip
+mv jaffle-shop-data/* jaffle_shop/seeds
+```
+
+3. Edit ``~/.dbt.profiles.yml`` so that the paths for both dev and prod projects are set to ``jaffle_shop.duckdb``.
+
+4. Run ``cd jaffle_shop`` to navigate into the project directory.
+
+5. Run ``dbt debug`` to connect to the database at jaffle_shop.duckdb.
+
+6. Run ``dbt seed`` to load the seeds.

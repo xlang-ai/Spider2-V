@@ -1,7 +1,7 @@
 {
     "id": "8ff98608-8e0e-526e-9413-d744554ba708",
     "snapshot": "dbt",
-    "instruction": "Remove dbt example models, create a \"customers\" dbt model using raw_customers and raw_orders with columns customer_ids, first_name, last_name, first_order_date, most_recent_order_date, and number_of_orders (default 0).",
+    "instruction": "Complete the declaration of the dbt model named \"customers\", then build it from scratch. The requirements are specified as comments in the sql file \"customers.sql\".",
     "source": [
         "https://docs.getdbt.com/guides/manual-install?step=8",
         "https://docs.getdbt.com/guides/manual-install?step=9",
