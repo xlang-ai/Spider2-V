@@ -1,0 +1,3 @@
+I am using Astronomer to place Airflow
+Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears
+Click the DAG dependencies in the dropdown menu
