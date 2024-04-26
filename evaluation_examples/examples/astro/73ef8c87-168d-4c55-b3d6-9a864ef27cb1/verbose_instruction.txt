@@ -1,0 +1,16 @@
+I am using Astronomer to place Airflow
+Select Admin from the menu at the top of the Airflow web page
+Click Connections
+Click the blue plus sign below the Search bar to create a new Connection
+The details of connection are as follows:
+    connection id is http_weather_service, 
+    connection type is HTTP, 
+    host is 'wttr.in', 
+    schema is 'https'
+First fill in the Connection Type so that the Connection table displays the correct format.
+Then fill in the remaining information
+Finally, at the bottom of the web page, click the dark blue Save button to save the Connection
+Find weather_data_dag in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
+Click the triangle under the Action column on the far right to trigger dag
+Wait for the status of all tasks in the Runs column to change to "success" or "failed"
+

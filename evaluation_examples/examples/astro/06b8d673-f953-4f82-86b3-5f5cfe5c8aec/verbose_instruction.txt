@@ -1,0 +1,29 @@
+I am using Astronomer to place Airflow
+Select Admin from the menu at the top of the Airflow web page
+Click Connections
+Click the blue plus sign below the Search bar to create a new Connection
+Read the README.md opened in VSCode to get instructions for building Connection
+First fill in the Connection Type so that the Connection table displays the correct format.
+Then fill in the remaining information
+Finally, at the bottom of the web page, click the dark blue Save button to save the Connection
+After the Connection build is completed, read the README.md that has been opened in VSCode to get instructions on completing the DAG file
+Complete the DAG file ‘SQL_Check.py’ that has been opened in VSCode
+        To be specific 
+        For SQLColumnCheckOperator, define task_id, conn_id, table with given variables and instructions
+        Then, define partition_clause and column_mapping with given instructions to set conditions for checking 
+        For SQLTableCheckOperator, define task_id, conn_id, table with given variables and instructions
+        Then, define checks with given instructions to set conditions for checking 
+At last, save it.
+In the opened ‘/home/user/projects/SQL_Check’ terminal, enter ```astro dev restart`` to restart the UI
+Find sql_data_quality in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
+Click the triangle under the Action column on the far right to trigger dag
+Wait for the status of all tasks in the Runs column to change to "success" or "failed"
+Click sql_data_quality in the Dag column to enter the task details of the DAG
+Under the histogram on the left side of the UI, click the rightmost box in the check_column task row to enter the corresponding task instance
+Click logs in the details row on the right to enter the log interface
+Click Download above the log content box to download the log
+Under the histogram on the left side of the UI, click the rightmost box in the check_table task row to enter the corresponding task instance
+Click logs in the details row on the right to enter the log interface
+Click Download above the log content box to download the log
+In the opened ‘/home/user/Downloads’ terminal, enter ```ls``` to get the file list
+Use ```mv``` to rename the log files containing check_column and check_table in their file names to check_column and check_table respectively

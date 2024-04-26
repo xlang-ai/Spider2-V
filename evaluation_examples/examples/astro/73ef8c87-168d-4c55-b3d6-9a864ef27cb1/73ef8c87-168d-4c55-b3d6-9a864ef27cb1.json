@@ -1,7 +1,7 @@
 {
     "id": "73ef8c87-168d-4c55-b3d6-9a864ef27cb1",
     "snapshot": "astro",
-    "instruction": "I want to use wttr.in api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the http id is http_weather_service. Trigger the dag once you finish.",
+    "instruction": "I am using Astronomer to place Airflow. I want to use 'wttr.in' api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the connection id is http_weather_service, connection type is HTTP, host is 'wttr.in' with schema 'https'. Trigger the dag once you finish.",
     "source": [
         "https://docs.astronomer.io/learn/connections"
     ],
@@ -45,13 +45,10 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": "8",
     "related_apps": [
         "airflow",
-        "astro",
-        "chromium",
-        "vscode",
-        "docker"
+        "chromium"
     ],
     "tags": [
         "abstract",

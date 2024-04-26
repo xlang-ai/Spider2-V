@@ -1,0 +1,3 @@
+I am using Astronomer to place Airflow
+In the DAG list, find a DAG with the tag Astro, and click ‘Astro’ in the Owner column to filter all DAGs with the tag Astro
+Click on the DAG header of the DAG list to arrange the DAGs in ascending order

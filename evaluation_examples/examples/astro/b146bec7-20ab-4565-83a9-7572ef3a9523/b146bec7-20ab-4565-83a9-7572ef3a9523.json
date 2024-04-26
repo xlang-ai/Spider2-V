@@ -1,7 +1,7 @@
 {
     "id": "b146bec7-20ab-4565-83a9-7572ef3a9523",
     "snapshot": "astro",
-    "instruction": "I have just implemented several test functions and found several errors using pytest. I provide you with the test error logs in README.md, please check these logs, adjust my DAG file accordingly, then trigger the dag. ",
+    "instruction": "I am using Astronomer to place Airflow. I have just implemented several test functions and found several errors using pytest. I provide you with the test error logs in README.md, please check these logs, adjust my DAG file accordingly, then trigger the dag. ",
     "source": [
         "https://docs.astronomer.io/learn/testing-airflow#debug-interactively-with-dagtest"
     ],
@@ -45,17 +45,16 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": "7",
     "related_apps": [
         "airflow",
-        "astro",
         "chromium",
         "docker",
         "vscode"
     ],
     "tags": [
         "abstract",
-        "gui+cli"
+        "cli+gui"
     ],
     "evaluator": {
         "func": "check_include_exclude",

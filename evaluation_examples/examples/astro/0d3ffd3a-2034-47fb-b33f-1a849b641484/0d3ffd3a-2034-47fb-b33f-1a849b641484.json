@@ -1,7 +1,7 @@
 {
     "id": "0d3ffd3a-2034-47fb-b33f-1a849b641484",
     "snapshot": "astro",
-    "instruction": "My boss told me to check all DAG with tag Astro, please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.",
+    "instruction": "I am using Astronomer to place Airflow. My boss told me to check all DAG with tag Astro, please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.",
     "source": [
         "https://docs.astronomer.io/learn/get-started-with-airflow"
     ],
@@ -38,10 +38,9 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": "2",
     "related_apps": [
         "airflow",
-        "astro",
         "chromium"
     ],
     "tags": [

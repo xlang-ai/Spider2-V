@@ -1,7 +1,7 @@
 {
     "id": "699e0c0a-3fdc-4c10-ad9f-c4c9d7a9947b",
     "snapshot": "astro",
-    "instruction": "Could you create an empty airflow project in the current directory for me and launch the project on local server at port 8002.",
+    "instruction": "I am using Astronomer to place Airflow. Could you create an empty airflow project in current directory for me and launch the project on local server at port 8002.",
     "source": [
         "https://docs.astronomer.io/learn/get-started-with-airflow"
     ],
@@ -14,16 +14,15 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": "3",
     "related_apps": [
         "airflow",
-        "astro",
         "chromium",
         "docker"
     ],
     "tags": [
         "abstract",
-        "cli"
+        "cli+gui"
     ],
     "evaluator": {
         "func": "check_include_exclude",
