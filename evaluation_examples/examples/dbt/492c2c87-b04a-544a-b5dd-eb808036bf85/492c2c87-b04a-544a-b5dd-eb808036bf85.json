@@ -1,7 +1,7 @@
 {
     "id": "492c2c87-b04a-544a-b5dd-eb808036bf85",
     "snapshot": "dbt",
-    "instruction": "Separate the logic out into separate models: 1. Create a new SQL file, models/stg_customers.sql, with the SQL from the customers CTE in the original query. 2) Create a second new SQL file, models/stg_orders.sql, with the SQL from the orders CTE in the original query. 3. Edit the SQL in models/customers.sql file to reference these two staged models using ref.",
+    "instruction": "Separate the logic of model \"customers\" out into two separate staged models, \"stg_customers\" and \"stg_orders\". These staged models capture the corresponding CTE in the original query, and being referenced by the original query using ``ref``.",
     "source": [
         "https://docs.getdbt.com/guides/manual-install?step=11"
     ],

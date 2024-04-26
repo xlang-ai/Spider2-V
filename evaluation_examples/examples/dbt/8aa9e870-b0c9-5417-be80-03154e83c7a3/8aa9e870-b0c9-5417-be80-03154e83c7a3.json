@@ -1,7 +1,7 @@
 {
     "id": "8aa9e870-b0c9-5417-be80-03154e83c7a3",
     "snapshot": "dbt",
-    "instruction": "Create a dbt project jaffle_shop in ~/projects, connect it to duckdb at jaffle_shop/jaffle_shop.duckdb for both dev and prod targets, and load data from jaffle-shop-data.zip with dbt seed.",
+    "instruction": "Create a dbt project jaffle_shop in ~/projects, connect it to duckdb at jaffle_shop.duckdb for both dev and prod targets, and load data from jaffle-shop-data.zip with dbt seed.",
     "source": [
         "https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup#",
         "https://docs.getdbt.com/guides/manual-install?step=3",
