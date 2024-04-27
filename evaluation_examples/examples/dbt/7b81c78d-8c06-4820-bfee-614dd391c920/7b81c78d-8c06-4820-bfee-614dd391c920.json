@@ -1,7 +1,7 @@
 {
     "id": "7b81c78d-8c06-4820-bfee-614dd391c920",
     "snapshot": "dbt",
-    "instruction": "Configure the snapshot \"orders_snapshot.sql\" using \"timestamp\" strategy to detect row changes. The corresponding snapshot table should be created at \"analytics.snapshots.orders_snapshot\". Then, replaced the staled seed \"raw_orders.csv\" with the up-to-date one I provided at Desktop. Re-run the project and take a new snapshot so that the snapshot table is able to reflect this update.",
+    "instruction": "Configure the snapshot \"orders_snapshot.sql\" using \"timestamp\" strategy to detect row changes. Load the seeds, execute the models and take a snapshot at \"analytics.snapshots.orders_snapshot\". Then, replaced the staled seed \"raw_orders.csv\" with the up-to-date one I provided at Desktop. Reload the seeds, re-run the models and take a new snapshot so that the snapshot table is able to reflect this update.",
     "source": [
         "https://docs.getdbt.com/docs/build/snapshots"
     ],
@@ -28,7 +28,7 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": 6,
     "related_apps": [
         "dbt",
         "duckdb"

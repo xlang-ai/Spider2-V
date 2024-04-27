@@ -132,6 +132,7 @@ def dbt_cloud_init_setup(controller, **config):
 
     os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
     os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+    os.environ["DBT_CLOUD_HOST"] = settings["cloud_host"]
 
     for action in config.get('actions', []):
         action_type = action.pop('type')
@@ -145,16 +146,16 @@ def dbt_cloud_webui_login_setup(controller, **config):
     """ Log into dbt Cloud website. Argument for the config dict:
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
-        url(str): the url of the dagster webui, default is 'https://cloud.getdbt.com/'
         settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
-
     """
 
     listening_port = config.get('listening_port', 9222)
     remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
-    url = config.get('url', 'https://cloud.getdbt.com/')
     settings_file = config.get('settings_file', 'evaluation_examples/settings/dbt_cloud/settings.json')
     settings = json.load(open(settings_file, 'r'))
+    url = "http://cloud.getdbt.com"
+    if "cloud_host" in settings:
+        url = f"http://{settings['cloud_host']}"
 
     with sync_playwright() as p:
         browser = get_browser(p, remote_debugging_url)
@@ -186,6 +187,7 @@ def dbt_cloud_webui_login_setup(controller, **config):
             # navigate to the specific account page
             os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
             os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+            os.environ["DBT_CLOUD_HOST"] = settings["cloud_host"]
 
             state = subprocess.run(['dbt-cloud', 'project', 'list'],
                                    shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
@@ -193,7 +195,7 @@ def dbt_cloud_webui_login_setup(controller, **config):
             project_list = json.loads(state.stdout)['data']
             if len(project_list) > 0:
                 project_id = project_list[0]["id"]
-                page.goto(f'https://cloud.getdbt.com/{settings["account_id"]}/projects/{project_id}/setup',
+                page.goto(f'{url}/{settings["account_id"]}/projects/{project_id}/setup',
                           wait_until='load')
 
                 # skip the connection/repository configuration

@@ -1,7 +1,7 @@
 {
     "id": "b146bec7-20ab-4565-83a9-7572ef3a9523",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. I have just implemented several test functions and found several errors using pytest. I provide you with the test error logs in README.md, please check these logs, adjust my DAG file accordingly, then trigger the dag. ",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I have just implemented several test functions and found several errors using pytest. I provide you with the test error logs in README.md, please check these logs, adjust my DAG file accordingly, then trigger the dag. ",
     "source": [
         "https://docs.astronomer.io/learn/testing-airflow#debug-interactively-with-dagtest"
     ],
@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/b146bec7-20ab-4565-83a9-7572ef3a9523/today_task.zip",
+                "src": "evaluation_examples/examples/airflow/b146bec7-20ab-4565-83a9-7572ef3a9523/today_task.zip",
                 "dest": "/home/user/today_task.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/b146bec7-20ab-4565-83a9-7572ef3a9523/init.sh",
+                "src": "evaluation_examples/examples/airflow/b146bec7-20ab-4565-83a9-7572ef3a9523/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -45,7 +45,7 @@
             }
         }
     ],
-    "action_number": "7",
+    "action_number": 8,
     "related_apps": [
         "airflow",
         "chromium",
@@ -60,7 +60,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/b146bec7-20ab-4565-83a9-7572ef3a9523/eval.sh",
+            "src": "evaluation_examples/examples/airflow/b146bec7-20ab-4565-83a9-7572ef3a9523/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

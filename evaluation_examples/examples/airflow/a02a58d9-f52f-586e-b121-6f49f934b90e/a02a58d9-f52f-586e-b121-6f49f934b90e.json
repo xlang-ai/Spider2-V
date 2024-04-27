@@ -9,7 +9,7 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/a02a58d9-f52f-586e-b121-6f49f934b90e/jaffle_shop.zip",
+                "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/jaffle_shop.zip",
                 "dest": "/home/user/jaffle_shop.zip"
             }
         },
@@ -26,7 +26,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/a02a58d9-f52f-586e-b121-6f49f934b90e/init.sh",
+                "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/init.sh",
                 "dest": "/home/user/init.sh"
             }
         }
@@ -47,7 +47,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/a02a58d9-f52f-586e-b121-6f49f934b90e/eval.sh",
+            "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

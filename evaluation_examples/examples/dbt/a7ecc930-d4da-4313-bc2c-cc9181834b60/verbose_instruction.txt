@@ -1,0 +1,12 @@
+This tasks requires you to set up a Snowflake connection and use online base64 decoder.
+1. Choose Snowflake, and click "Next".
+2. Open a new tab in chromium, search for "base64 decoder".
+3. Open ``dbt-user-creds.json`` at Desktop.
+4. Decode account, user, and password fields using the online base64 decoder.
+5. Fill the decoded "account" in "Account", decoded "user" in "Username", decoded "password" in "Password".
+6. Adjust the account to correct Snowflake account format. e.g.,
+* (wrong) db5261993.eu-central-1.snowflakecomputing.com
+* (correct) db5261993.east-us-2
+7. Fill in "Database" and "Warehouse" as long as they are not empty.
+8. Click "Test connection" to check whether the connection is successfully established.
+9. Click "Next".

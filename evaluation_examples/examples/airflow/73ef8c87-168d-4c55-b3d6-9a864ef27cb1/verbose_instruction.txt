@@ -1,16 +1,19 @@
-I am using Astronomer to place Airflow
-Select Admin from the menu at the top of the Airflow web page
-Click Connections
-Click the blue plus sign below the Search bar to create a new Connection
-The details of connection are as follows:
-    connection id is http_weather_service, 
-    connection type is HTTP, 
-    host is 'wttr.in', 
-    schema is 'https'
-First fill in the Connection Type so that the Connection table displays the correct format.
-Then fill in the remaining information
-Finally, at the bottom of the web page, click the dark blue Save button to save the Connection
-Find weather_data_dag in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
-Click the triangle under the Action column on the far right to trigger dag
-Wait for the status of all tasks in the Runs column to change to "success" or "failed"
+I am using Astronomer to deploy Airflow
+To build a connection on Airflow and trigger the dag, we can follow the setps:
+1. Click the VS Code editor on the left panel or dock
+2. According to the opened README.md file, we can extract the basic information about the connection. 
+3. Now, click the Chromium on the left panel to switch to the opened airflow web page.
+4. Click the "Admin" button in the top menu bar of the web page;
+5. Select "Connections" from the drop-down menu;
+6. In the new page, click the blue button "+" below the search bar to create new Connection;
+7. In the window "Add Connection", firstly set the category to "HTTP";
+8. Next, type in values from config.yaml into the corresponding fields in the form:
+   Connection id: http_weather_service, 
+   Host: 'wttr.in', 
+   Schema: 'https'
+9. After filling these fields, click the button "Save" at the bottom of the web page;
+10. Then, we will see a new line with name "http_weather_service" in the connection panel.
+11. On the Airflow web page, find 'weather_data_dag' in the DAG list and click the slider to the left of the name to Unpause dag; 
+12. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+13. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed".
 

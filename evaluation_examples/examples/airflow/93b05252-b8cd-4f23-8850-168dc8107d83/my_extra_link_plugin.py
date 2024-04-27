@@ -1,5 +1,3 @@
-# PS: Code for plugin to add extra links to operators is provided for cross_validation
-
 from airflow.plugins_manager import AirflowPlugin
 from airflow.models.baseoperator import BaseOperatorLink
 from airflow.providers.http.operators.http import SimpleHttpOperator

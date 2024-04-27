@@ -1,7 +1,7 @@
 {
     "id": "245c6692-4f8b-4b7b-9874-7484cbc28df6",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. I want to see how my task documentaion looks like on astro web ui. Please read README.md with content and format details of documentation, then add necessary code in DAG file to create a task documentaion. Run the dag for me to check your work.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I want to see how my task documentaion looks like on astro web ui. Please read README.md with content and format details of documentation, then add necessary code in DAG file to create a task documentaion. Run the dag for me to check your work.",
     "source": [
         "https://docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial"
     ],
@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/task_today.zip",
+                "src": "evaluation_examples/examples/airflow/245c6692-4f8b-4b7b-9874-7484cbc28df6/task_today.zip",
                 "dest": "/home/user/task_today.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/init.sh",
+                "src": "evaluation_examples/examples/airflow/245c6692-4f8b-4b7b-9874-7484cbc28df6/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -45,7 +45,7 @@
             }
         }
     ],
-    "action_number": "7",
+    "action_number": 9,
     "related_apps": [
         "airflow",
         "chromium",
@@ -60,7 +60,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "html_check",
-            "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/eval.sh",
+            "src": "evaluation_examples/examples/airflow/245c6692-4f8b-4b7b-9874-7484cbc28df6/eval.sh",
             "dest": "/home/user/eval.sh",
             "css_paths": [
                 "a[href='https://wttr.in/HongKong']",

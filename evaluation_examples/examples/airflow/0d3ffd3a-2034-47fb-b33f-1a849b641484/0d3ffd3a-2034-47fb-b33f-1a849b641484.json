@@ -1,7 +1,7 @@
 {
     "id": "0d3ffd3a-2034-47fb-b33f-1a849b641484",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. My boss told me to check all DAG with tag Astro, please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. My boss told me to check all DAG with tag Astro, please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.",
     "source": [
         "https://docs.astronomer.io/learn/get-started-with-airflow"
     ],
@@ -9,7 +9,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/0d3ffd3a-2034-47fb-b33f-1a849b641484/init.sh",
+                "src": "evaluation_examples/examples/airflow/0d3ffd3a-2034-47fb-b33f-1a849b641484/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -38,7 +38,7 @@
             }
         }
     ],
-    "action_number": "2",
+    "action_number": 3,
     "related_apps": [
         "airflow",
         "chromium"
@@ -51,7 +51,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/astro/0d3ffd3a-2034-47fb-b33f-1a849b641484/eval.sh",
+            "src": "evaluation_examples/examples/airflow/0d3ffd3a-2034-47fb-b33f-1a849b641484/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },

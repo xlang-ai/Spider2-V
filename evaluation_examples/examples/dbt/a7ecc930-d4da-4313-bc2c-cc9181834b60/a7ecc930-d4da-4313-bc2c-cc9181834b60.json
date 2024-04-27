@@ -16,7 +16,6 @@
         "abstract",
         "account"
     ],
-    "counterpart": "",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -53,12 +52,11 @@
             "type": "dbt_cloud_webui_login",
             "parameters": {
                 "listening_port": 9222,
-                "url": "https://cloud.getdbt.com/",
                 "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": 9,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

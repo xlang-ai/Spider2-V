@@ -1,5 +1,5 @@
 I am using Astronomer to place Airflow
-Wait for the status of all tasks in the Runs column to change to "success" or "failed"
-Click workFlow_Echo in the Dag column to enter the task details of the DAG
-Under the histogram on the left side of the UI, click the rightmost box in the 'processing' task row to enter the corresponding task instance
-Click logs in the details row on the right to enter the log interface
+To open the log file of the last instance of a task, we can follow the steps:
+1. Click "workFlow_Echo" in the Dag column to enter task details page of the dag;
+2. In the dag details page, click the rightmost box in the "processing" task row under the histogram on the left side of the UI to enter the corresponding task instance;
+3. Click logs in the details row on the right to enter the log page.

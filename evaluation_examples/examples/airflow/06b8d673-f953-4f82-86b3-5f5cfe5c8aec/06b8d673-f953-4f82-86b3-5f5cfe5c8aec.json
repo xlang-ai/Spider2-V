@@ -1,7 +1,7 @@
 {
     "id": "06b8d673-f953-4f82-86b3-5f5cfe5c8aec",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. I would like to connect to sqlite and check the data quality of a SQL using SQLCheckOperator, details of which can be found in README.md. Please create connection, finish the DAG file sql_data_quality, restart, trigger the dag, click download in the detail screen of corresponding task instance of your run on astronomer web-ui to download the log file of Checker task you have finished and rename them accordingly by the task_id for me to check the quality of the data.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to connect to sqlite and check the data quality of a SQL using SQLCheckOperator, details of which can be found in README.md. Please create connection, finish the DAG file sql_data_quality, restart, trigger the dag, click download in the detail screen of corresponding task instance of your run on astronomer web-ui to download the log file of Checker task you have finished and rename them accordingly by the task_id for me to check the quality of the data.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-sql-data-quality"
     ],
@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/SQL_Check.zip",
+                "src": "evaluation_examples/examples/airflow/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/SQL_Check.zip",
                 "dest": "/home/user/SQL_Check.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/init.sh",
+                "src": "evaluation_examples/examples/airflow/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -45,7 +45,7 @@
             }
         }
     ],
-    "action_number": "25",
+    "action_number": 30,
     "related_apps": [
         "airflow",
         "chromium",
@@ -60,7 +60,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/eval.sh",
+            "src": "evaluation_examples/examples/airflow/06b8d673-f953-4f82-86b3-5f5cfe5c8aec/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

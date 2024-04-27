@@ -1,7 +1,7 @@
 {
     "id": "73ef8c87-168d-4c55-b3d6-9a864ef27cb1",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. I want to use 'wttr.in' api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the connection id is http_weather_service, connection type is HTTP, host is 'wttr.in' with schema 'https'. Trigger the dag once you finish.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I want to use 'wttr.in' api in dag task to get HongKong's weather information.  I've already finish setting http operator for my dag 'weather_data_dag', please set api connection on astro website. Please be noted that the connection id is http_weather_service, connection type is HTTP, host is 'wttr.in' with schema 'https'. Trigger the dag once you finish.",
     "source": [
         "https://docs.astronomer.io/learn/connections"
     ],
@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/weather.zip",
+                "src": "evaluation_examples/examples/airflow/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/weather.zip",
                 "dest": "/home/user/weather.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/init.sh",
+                "src": "evaluation_examples/examples/airflow/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -45,7 +45,7 @@
             }
         }
     ],
-    "action_number": "8",
+    "action_number": 13,
     "related_apps": [
         "airflow",
         "chromium"
@@ -58,7 +58,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/eval.sh",
+            "src": "evaluation_examples/examples/airflow/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": 

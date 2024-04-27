@@ -14,7 +14,6 @@
         "abstract",
         "account"
     ],
-    "counterpart": "",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -47,13 +46,12 @@
             "type": "dbt_cloud_webui_login",
             "parameters": {
                 "listening_port": 9222,
-                "url": "https://cloud.getdbt.com/",
                 "skip_step": 2,
                 "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": 7,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

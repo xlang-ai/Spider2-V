@@ -44,6 +44,7 @@ def get_dbt_project_info(env, config: Dict[str, str]):
 
     os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
     os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+    os.environ["DBT_CLOUD_HOST"] = settings["cloud_host"]
 
     state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
     project_list = json.loads(state.stdout)['data']
@@ -84,6 +85,7 @@ def get_dbt_environment_info(env, config: Dict[str, str]):
 
     os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
     os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+    os.environ["DBT_CLOUD_HOST"] = settings["cloud_host"]
 
     state = subprocess.run('dbt-cloud project list', shell=True, capture_output=True, text=True)
     project_list = json.loads(state.stdout)['data']
@@ -128,6 +130,7 @@ def get_dbt_job_info(env, config: Dict[str, str]):
 
     os.environ["DBT_CLOUD_ACCOUNT_ID"] = settings["account_id"]
     os.environ["DBT_CLOUD_API_TOKEN"] = settings["token"]
+    os.environ["DBT_CLOUD_HOST"] = settings["cloud_host"]
 
     state = subprocess.run(['dbt-cloud', 'project', 'list'],
                            shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,

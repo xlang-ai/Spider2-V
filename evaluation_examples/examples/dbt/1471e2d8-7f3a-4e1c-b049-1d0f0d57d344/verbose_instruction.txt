@@ -1,0 +1,14 @@
+This task requires you to write sql to select a certain column.
+1. Edit models/dim_customers.sql, added an additional selection:
+```sql
+    coalesce (regexp_matches(
+        customers.email, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+    )
+    = true
+    and accepted_email_domains.tld is not null,
+    false) as is_valid_email_address
+from customers
+    left join accepted_email_domains
+    on customers.email_top_level_domain = lower(accepted_email_domains.tld)
+```
+2. Run ``dbt build`` to load the seeds and execute the models.

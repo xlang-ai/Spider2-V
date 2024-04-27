@@ -1,7 +1,7 @@
 {
     "id": "67ee22b5-caf1-4aa9-92c5-57546b3d823c",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. My recent DAG 'workFlow_Echo' run has just failed, open the log page of the task 'processing' in graph view for me to debug.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. My recent DAG 'workFlow_Echo' run has just failed, open the log page of the task 'processing' in graph view for me to debug.",
     "source": [
         "https://docs.astronomer.io/astro/view-logs"
     ],
@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/workFlow.zip",
+                "src": "evaluation_examples/examples/airflow/67ee22b5-caf1-4aa9-92c5-57546b3d823c/workFlow.zip",
                 "dest": "/home/user/workFlow.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/init.sh",
+                "src": "evaluation_examples/examples/airflow/67ee22b5-caf1-4aa9-92c5-57546b3d823c/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -47,7 +47,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/run.sh",
+                "src": "evaluation_examples/examples/airflow/67ee22b5-caf1-4aa9-92c5-57546b3d823c/run.sh",
                 "dest": "/home/user/run.sh"
             }
         },
@@ -57,7 +57,7 @@
             }
         }
     ],
-    "action_number": "4",
+    "action_number": 3,
     "related_apps": [
         "airflow",
         "chromium",
@@ -71,7 +71,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/astro/67ee22b5-caf1-4aa9-92c5-57546b3d823c/eval.sh",
+            "src": "evaluation_examples/examples/airflow/67ee22b5-caf1-4aa9-92c5-57546b3d823c/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },

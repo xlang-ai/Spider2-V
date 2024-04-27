@@ -1,7 +1,7 @@
 {
     "id": "33c8ce09-de8b-4432-8308-603b98513fdc",
-    "snapshot": "astro",
-    "instruction": "Show me the first DAG project in graph view. I need to check it now.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. Show me the first DAG project in graph view. I need to check it now.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-ui"
     ],
@@ -9,7 +9,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/33c8ce09-de8b-4432-8308-603b98513fdc/init.sh",
+                "src": "evaluation_examples/examples/airflow/33c8ce09-de8b-4432-8308-603b98513fdc/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -39,6 +39,7 @@
         }
     ],
     "trajectory": "trajectories/",
+    "action_number": 2,
     "related_apps": [
         "airflow",
         "astro",
@@ -52,7 +53,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/astro/33c8ce09-de8b-4432-8308-603b98513fdc/eval.sh",
+            "src": "evaluation_examples/examples/airflow/33c8ce09-de8b-4432-8308-603b98513fdc/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },
