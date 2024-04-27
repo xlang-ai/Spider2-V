@@ -1,0 +1,9 @@
+This task requires you to create a pivot table and a line chart.
+1. Select all columns from column A to G.
+2. Click "Insert", and choose "Pivot Table".
+3. Click "OK".
+4. Drag "Week" into "Raw Fields", and drag "Revenue ($)" into "Data Fields".
+5. Click "OK".
+6. Click "Insert", and choose "Chart".
+7. Choose "Line chart", and click "Finish".
+8. Save the sheet using Excel 2007-365 format.

@@ -1,0 +1,9 @@
+This task requires you to create a summary table and a pie chart.
+1. Select all columns from column A to G.
+2. Click "Insert", and choose "Pivot Table".
+3. Click "OK".
+4. Drag "Product" into "Raw Fields", and drag "Revenue" into "Data Fields".
+5. Click "OK".
+6. Click "Insert", and choose "Chart".
+7. Choose "Pie chart", and click "Finish".
+8. Save the sheet using Excel 2007-365 format.
