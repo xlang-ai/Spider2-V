@@ -13,7 +13,7 @@
         "cli+gui",
         "abstract"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number": 5,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

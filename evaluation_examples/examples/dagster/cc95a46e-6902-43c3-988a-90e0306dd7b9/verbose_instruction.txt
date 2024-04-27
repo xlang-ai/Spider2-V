@@ -1,0 +1,37 @@
+I want to create a partitioned dagster asset to retrieve information of the Astronomy Picture of the Day. Please follow these steps:
+1. Switch to VS Code and open the folder "apod_proj" in the left navbar and then the file "assets.py" in that folder.
+2. Define an asset in "asset.py" with the following code:
+```
+import os
+import urllib.request
+import json
+
+dir_name = "data"
+if not os.path.exists(dir_name):
+    os.makedirs(dir_name)
+
+from dagster import AssetExecutionContext, DailyPartitionsDefinition, asset
+
+@asset(partitions_def=DailyPartitionsDefinition(start_date="2024-04-01"))
+def apod_asset(context: AssetExecutionContext) -> None:
+    partition_date_str = context.partition_key
+
+    url = f"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date={partition_date_str}"
+    target_location = f"data/{partition_date_str}.json"
+
+    urllib.request.urlretrieve(url, target_location)
+
+    with open(target_location) as f:
+        data = json.load(f)
+
+    with open(f"data/apod_url_{partition_date_str}.txt", "w") as f:
+        f.write(data["hdurl"])
+```
+3. Go to Chromium and open the tab with the Dagster UI. Click "Reload" at the right of the page.
+4. Click the link to "apod_proj" in the table to open the project.
+5. Click "apod_asset" in the "default" table of the project page.
+6. You can now see the asset page of "apod_asset". Click "Materialize..." at the top-right.
+7. Under "Partition selection" in the pop-up window, drag the correct proportion of the bar until the text field shows "[2024-04-10...2024-04-13]".
+8. Click "Launch backfill" at the bottom-right of the pop-up window to launch the runs.
+9. A "Created backfill ..." pop-up will be shown on the top of the page. Click "View" after "Created backfill...".
+10. Wait for all the runs to finish. If there are any run errors, repeat steps 4-9 to launch the runs again.
