@@ -13,11 +13,8 @@ exec 2>/dev/null
 # create conda environment and install dagster
 cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n dagster python=3.11 -y
 conda activate dagster
-# pip install dagster
-pip install dagster-webserver dagster-duckdb dagster-duckdb-pandas
-# Please uncomment the above two lines if you want to install dagster in a new conda environment.
+pip install dagster-duckdb dagster-duckdb-pandas
 
 mkdir -p ~/.dagster
 export DAGSTER_HOME=~/.dagster
@@ -32,8 +29,25 @@ python -c "import duckdb; conn = duckdb.connect('iris_db.duckdb'); conn.close();
 # pip install -e ".[dev]"
 
 # start dagster Web UI service
-dagster dev -p 3000 &
-sleep 5
+function start_dagster_server() {
+    export DAGSTER_HOME=/home/user/.dagster
+    dagster dev -p 3000 >start_server.log 2>start_server.log &
+    count=0
+    while true; do
+        sleep 2
+        count=$(expr $count + 1)
+        cat start_server.log | grep -i "Serving dagster-webserver on"
+        if [ $? -eq 0 ]; then
+            echo "The dagster server has been started"
+            break
+        fi
+        if [ $count -gt 10 ]; then
+            echo "The dagster server has not been started in 20 seconds"
+            break
+        fi
+    done
+}
+start_dagster_server
 
 code /home/user/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
