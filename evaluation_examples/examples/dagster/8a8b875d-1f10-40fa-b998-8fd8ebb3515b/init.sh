@@ -12,9 +12,7 @@ exec 2>/dev/null
 
 # create conda environment and install dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n dagster python=3.11 -y
 conda activate dagster
-pip install dagster dagster-webserver pytest
 
 cd /home/user
 

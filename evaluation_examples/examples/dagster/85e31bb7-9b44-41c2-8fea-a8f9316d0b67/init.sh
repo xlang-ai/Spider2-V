@@ -29,8 +29,25 @@ cd /home/user/$PROJECT_NAME/jaffle_shop/jaffle_shop_dagster
 # pip install -e ".[dev]"
 
 # start dagster Web UI service
-dagster dev -p 3000 &
-sleep 5
+function start_dagster_server() {
+    export DAGSTER_HOME=/home/user/.dagster
+    dagster dev -p 3000 >start_server.log 2>start_server.log &
+    count=0
+    while true; do
+        sleep 2
+        count=$(expr $count + 1)
+        cat start_server.log | grep -i "Serving dagster-webserver on"
+        if [ $? -eq 0 ]; then
+            echo "The dagster server has been started"
+            break
+        fi
+        if [ $count -gt 10 ]; then
+            echo "The dagster server has not been started in 20 seconds"
+            break
+        fi
+    done
+}
+start_dagster_server
 
 code /home/user/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc

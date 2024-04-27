@@ -17,10 +17,19 @@
     "counterpart": "",
     "config": [
         {
-            "type": "copyfile_from_host_to_guest",
+            "type": "bigquery_init",
             "parameters": {
-                "src": "evaluation_examples/settings/google/apt-rite-415611.json",
-                "dest": "/home/user/Desktop/dbt-user-creds.json"
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/Desktop/dbt-user-creds.json"
+                    }
+                ]
             }
         },
         {

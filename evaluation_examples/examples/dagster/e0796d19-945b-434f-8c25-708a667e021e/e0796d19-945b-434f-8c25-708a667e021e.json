@@ -13,7 +13,7 @@
         "cli+gui",
         "abstract"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number": 2,
     "config": [
         {
             "type": "script_and_execute",

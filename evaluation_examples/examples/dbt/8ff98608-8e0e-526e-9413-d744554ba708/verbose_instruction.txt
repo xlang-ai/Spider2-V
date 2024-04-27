@@ -1,0 +1,14 @@
+In this task, you need to complete the declaration of a model and build it from scratch.
+
+1. Run ``dbt debug`` to connect database.
+2. Run ``dbt seed`` to load the seeds ``raw_customers`` and ``raw_orders`` used in the model ``customers.sql``.
+3. Paste the following sql codes to select required columns.
+```sql
+customers.customer_id,
+customers.first_name,
+customers.last_name,
+customer_orders.first_order_date,
+customer_orders.most_recent_order_date,
+coalesce(customer_orders.number_of_orders, 0) as number_of_orders
+```
+4. Run ``dbt run`` to execute the model.
