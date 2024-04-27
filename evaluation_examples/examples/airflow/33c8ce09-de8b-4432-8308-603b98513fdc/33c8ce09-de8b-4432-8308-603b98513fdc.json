@@ -9,7 +9,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/33c8ce09-de8b-4432-8308-603b98513fdc/init.sh",
+                "src": "evaluation_examples/examples/airflow/33c8ce09-de8b-4432-8308-603b98513fdc/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,7 +52,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/astro/33c8ce09-de8b-4432-8308-603b98513fdc/eval.sh",
+            "src": "evaluation_examples/examples/airflow/33c8ce09-de8b-4432-8308-603b98513fdc/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },

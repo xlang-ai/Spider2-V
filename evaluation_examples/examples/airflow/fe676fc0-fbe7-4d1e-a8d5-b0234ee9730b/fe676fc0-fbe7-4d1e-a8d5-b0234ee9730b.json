@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/SQL_Check.zip",
+                "src": "evaluation_examples/examples/airflow/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/SQL_Check.zip",
                 "dest": "/home/user/SQL_Check.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/init.sh",
+                "src": "evaluation_examples/examples/airflow/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -59,7 +59,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/astro/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/eval.sh",
+            "src": "evaluation_examples/examples/airflow/fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },

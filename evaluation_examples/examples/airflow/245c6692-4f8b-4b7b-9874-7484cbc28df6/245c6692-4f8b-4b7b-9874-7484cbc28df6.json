@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/task_today.zip",
+                "src": "evaluation_examples/examples/airflow/245c6692-4f8b-4b7b-9874-7484cbc28df6/task_today.zip",
                 "dest": "/home/user/task_today.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/init.sh",
+                "src": "evaluation_examples/examples/airflow/245c6692-4f8b-4b7b-9874-7484cbc28df6/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -60,7 +60,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "html_check",
-            "src": "evaluation_examples/examples/astro/245c6692-4f8b-4b7b-9874-7484cbc28df6/eval.sh",
+            "src": "evaluation_examples/examples/airflow/245c6692-4f8b-4b7b-9874-7484cbc28df6/eval.sh",
             "dest": "/home/user/eval.sh",
             "css_paths": [
                 "a[href='https://wttr.in/HongKong']",

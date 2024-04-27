@@ -9,14 +9,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/workFlow.zip",
+                "src": "evaluation_examples/examples/airflow/57a13efe-c008-4bc9-8959-36276115da0b/workFlow.zip",
                 "dest": "/home/user/workFlow.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/init.sh",
+                "src": "evaluation_examples/examples/airflow/57a13efe-c008-4bc9-8959-36276115da0b/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -59,7 +59,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/57a13efe-c008-4bc9-8959-36276115da0b/eval.sh",
+            "src": "evaluation_examples/examples/airflow/57a13efe-c008-4bc9-8959-36276115da0b/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

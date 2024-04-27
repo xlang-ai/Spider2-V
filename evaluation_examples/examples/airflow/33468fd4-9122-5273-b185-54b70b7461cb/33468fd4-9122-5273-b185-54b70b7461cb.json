@@ -10,7 +10,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/astro/33468fd4-9122-5273-b185-54b70b7461cb/init.sh",
+                "src": "evaluation_examples/examples/airflow/33468fd4-9122-5273-b185-54b70b7461cb/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -40,7 +40,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/astro/33468fd4-9122-5273-b185-54b70b7461cb/eval.sh",
+            "src": "evaluation_examples/examples/airflow/33468fd4-9122-5273-b185-54b70b7461cb/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {
