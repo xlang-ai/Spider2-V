@@ -144,6 +144,7 @@ dmypy.json
 # data
 **/data/**/*
 !**/utils/data/**/*
+recordings/
 
 # tmp files
 **/tmp/**/*

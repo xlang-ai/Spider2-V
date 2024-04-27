@@ -63,7 +63,7 @@
         "chromium"
     ],
     "tags": [
-        "gui",
+        "cli+gui",
         "account"
     ],
     "action_number": 8,
