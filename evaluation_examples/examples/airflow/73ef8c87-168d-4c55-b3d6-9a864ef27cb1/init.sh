@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ASTRO_RUNTIME_VERSION=10.5.0
+
 function to_ready_state(){
     echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
     echo "conda activate airflow" >> ~/.bashrc
