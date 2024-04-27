@@ -1,27 +1,59 @@
-I am using Astronomer to place Airflow
-Select Admin from the menu at the top of the Airflow web page
-Click Connections
-Click the blue plus sign below the Search bar to create a new Connection
-Read the README.md opened in VSCode to get instructions for building Connection
-First fill in the Connection Type so that the Connection table displays the correct format.
-Then fill in the remaining information
-Finally, at the bottom of the web page, click the dark blue Save button to save the Connection
-After the Connection is built, read the README.md that has been opened in VSCode to get instructions on completing the custom_check.sql file.
-Complete the DAG file ‘custom_check.sql’ that has been opened in VSCode
-    To be specific, define a SQL to construct a filtering process 
-Save it
-After custom_check.sql is written, read the README.md opened in VSCode to obtain instructions on completing the SQL_Check.py file.
-Complete the DAG file ‘SQL_Check.py’ that has been opened in VSCode 
-    To be specific, define task_id and conn_id
-    Then define the sql used for checking data quality
-At last, save it
-In the opened ‘/home/user/projects/SQL_Check’ terminal, enter ```astro dev restart`` to restart the UI
-Find sql_data_quality in the DAG list on the Airflow web page and click the slider to the left of the name to Unpause dag
-Click the triangle under the Action column on the far right to trigger dag
-Wait for the status of all tasks in the Runs column to change to "success" or "failed"
-Click sql_data_quality in the Dag column to enter the task details of the DAG.
-Under the histogram on the left side of the UI, click the rightmost box in the custom_happiness_check task row to enter the corresponding task instance.
-Click logs in the details row on the right to enter the log interface.
-Click Download above the log content box to download the log
-In the opened ‘/home/user/Downloads’ terminal, enter ```ls``` to get the file list
-Use ```mv``` to rename the log file containing custom_happiness_check in the file name to custom_happiness_check
+I am using Astronomer to deploy Airflow
+To build a connection on Airflow, create customed checker to check sql data quality and trigger the dag, we can follow the steps:
+1. Click the VS Code editor on the left panel or dock;
+2. According to the opened README.md file, we can extract the basic information about the connection; 
+3. Now, click the Chromium on the left panel to switch to the opened airflow web page;
+4. Click the "Admin" button in the top menu bar of the web page;
+5. Select "Connections" from the drop-down menu;
+6. In the new page, click the blue button "+" below the search bar to create new Connection;
+7. In the window "Add Connection", firstly set the category to "SQLite";
+8. Next, type in values from config.yaml into the corresponding fields in the form:
+   Connection id: sqlite_conn, 
+   Host: '/tmp/sqlite.db'
+9. After filling these fields, click the button "Save" at the bottom of the web page;
+10. Then, we will see a new line with name "sqlite_conn" in the connection panel;
+11. After the Connection build is completed, click the VS Code editor on the left panel or dock; 
+12. According to the opened README.md file, we can extract the instructions on completing the DAG file;
+13. Switch to the sql file 'custom_check.sql' that is opened in VSCode;
+14. We'll now define a customed SQL operation. Concretely, we'll calculate and compare the average "bird_happiness" value before and after 2019:
+ˋˋˋ
+# ... Keep the original ˋcustom_checkˋ codes
+
+WITH happiness_data AS (
+  SELECT
+    AVG(CASE WHEN observation_year >= 2019 THEN bird_happiness END) AS avg_happiness_post_2019,
+    AVG(CASE WHEN observation_year < 2019 THEN bird_happiness END) AS avg_happiness_pre_2019
+  FROM '{{ params.table_name }}'
+)
+SELECT CASE
+  WHEN avg_happiness_post_2019 < avg_happiness_pre_2019 THEN 1
+  ELSE 0
+END AS happiness_comparison
+FROM '{{ params.table_name }}' JOIN happiness_data;
+ˋˋˋ
+15. Save the file content, then swith to the "SQL_Check.py" that is opened in VSCode. We'll now define a SQLCheckOperator:
+ˋˋˋ
+# ... Keep the original ˋSQL_Checkˋ codes
+
+custom_happy_check = SQLCheckOperator(
+    task_id="custom_happiness_check",
+    conn_id=_CONN_ID,
+    sql="custom_check.sql",
+    params={"table_name": _TABLE_NAME},
+)
+ˋˋˋ
+16. Save the file content and switch to the opened ‘/home/user/projects/SQL_Check’ terminal.
+17. In the terminal, type in the following command to restart the UI:
+`astro dev restart` 
+18. Click the Chromium on the left pannel
+19. On the Airflow web page, find "sql_data_quality" in the DAG list and click the slider to the left of the name to Unpause dag; 
+20. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+21. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed";
+22. Click sql_data_quality in the Dag column to enter task details page of the dag;
+23. In the dag details page, click the rightmost box in the custom_happy_check task row under the histogram on the left side of the UI to enter the corresponding task instance;
+24. Click logs in the details row on the right to enter the log page;
+25. Click Download above the log content box to download the log; 
+26. Switch to the opened ‘/home/user/Downloads’ terminal, type in the following command to get the file list:
+`ls` 
+27. Then, type in the following command  to rename the log file containing custom_happy_check in their file names to custom_happy_check respectively:
+`mv "old_name" "new_name"`

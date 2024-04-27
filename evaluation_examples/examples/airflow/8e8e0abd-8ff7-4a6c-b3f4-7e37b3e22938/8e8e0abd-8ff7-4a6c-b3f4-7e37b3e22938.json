@@ -1,6 +1,6 @@
 {
     "id": "8e8e0abd-8ff7-4a6c-b3f4-7e37b3e22938",
-    "snapshot": "astro",
+    "snapshot": "airflow",
     "instruction": "I have started the MinIO Server in my computer with username ROOTNAME and password CHANGEME123 in port 9000. Please create a new bucket called custom-xcom-backend in the MinIO Server and create a connection to my Astro project. ",
     "source": [
         "https://docs.astronomer.io/learn/xcom-backend-tutorial"

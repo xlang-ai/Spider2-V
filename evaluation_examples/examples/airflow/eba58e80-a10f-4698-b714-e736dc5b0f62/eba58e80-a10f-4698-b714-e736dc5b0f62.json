@@ -1,7 +1,7 @@
 {
     "id": "eba58e80-a10f-4698-b714-e736dc5b0f62",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. Now, I would like to connect to sqlite and try creating a customed SQL check, details of which can be found in the README.md. Please create connection, finish the DAG file sql_data_quality and custom_check.sql, restart, trigger the dag, download the log file of Checker task you have finished and rename it accordingly by the task_id for me to check the quality of the data. Click Download in the detail screen of corresponding task instance of your run on astronomer web-ui to download log file. ",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. Now, I would like to connect to sqlite and try creating a customed SQL check, details of which can be found in the README.md. Please create connection, finish the DAG file sql_data_quality and custom_check.sql, restart, trigger the dag, download the log file of Checker task you have finished and rename it accordingly by the task_id for me to check the quality of the data. Click Download in the detail screen of corresponding task instance of your run on astronomer web-ui to download log file. ",
     "source": [
         "https://docs.astronomer.io/learn/airflow-sql-data-quality"
     ],
@@ -45,7 +45,7 @@
             }
         }
     ],
-    "action_number": "25",
+    "action_number": 27,
     "related_apps": [
         "airflow",
         "chromium",

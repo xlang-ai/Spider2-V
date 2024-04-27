@@ -1,6 +1,6 @@
 {
     "id": "33c8ce09-de8b-4432-8308-603b98513fdc",
-    "snapshot": "astro",
+    "snapshot": "airflow",
     "instruction": "Show me the first DAG project in graph view. I need to check it now.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-ui"

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 function to_ready_state(){
+    echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+    echo "conda activate airflow" >> ~/.bashrc
     cd /home/user/projects
     mv /home/user/today_task.zip .
     chmod a+x today_task.zip  

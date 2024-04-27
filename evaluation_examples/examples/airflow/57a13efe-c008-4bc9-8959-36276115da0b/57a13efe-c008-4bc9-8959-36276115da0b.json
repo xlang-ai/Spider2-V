@@ -1,7 +1,7 @@
 {
     "id": "57a13efe-c008-4bc9-8959-36276115da0b",
-    "snapshot": "astro",
-    "instruction": "I am using Astronomer to place Airflow. Help me trigger the DAG workFlow_Echo by airflow in graph view.",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. Help me trigger the DAG workFlow_Echo by airflow in graph view.",
     "source": [
         "https://docs.astronomer.io/learn/get-started-with-airflow"
     ],
@@ -45,7 +45,7 @@
             }
         }
     ],
-    "action_number": "3",
+    "action_number": 3,
     "related_apps": [
         "airflow",
         "chromium",

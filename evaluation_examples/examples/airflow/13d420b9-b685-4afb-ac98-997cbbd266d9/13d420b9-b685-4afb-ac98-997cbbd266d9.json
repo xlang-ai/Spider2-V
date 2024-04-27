@@ -1,6 +1,6 @@
 {
     "id": "13d420b9-b685-4afb-ac98-997cbbd266d9",
-    "snapshot": "astro",
+    "snapshot": "airflow",
     "instruction": "I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-ui"
