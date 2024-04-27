@@ -21,7 +21,7 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": 3,
     "related_apps": [
         "dbt",
         "duckdb"

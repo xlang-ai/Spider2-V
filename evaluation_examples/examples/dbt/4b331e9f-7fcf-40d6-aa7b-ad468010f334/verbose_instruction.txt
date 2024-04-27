@@ -7,5 +7,5 @@ sources:
     tables:
       - name: orders
 ```
-2. Run ``dbt seed`` and ``dbt run`` to re-run the entire project.
-3. Run ``dbt snapshot`` to check whether the snapshot is successful.
+2. Run ``dbt seed`` to load the seeds.
+3. Run ``dbt run`` to execute the models.

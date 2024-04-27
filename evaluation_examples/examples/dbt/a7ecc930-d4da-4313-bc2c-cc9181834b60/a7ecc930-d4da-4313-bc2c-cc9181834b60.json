@@ -16,7 +16,6 @@
         "abstract",
         "account"
     ],
-    "counterpart": "",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -57,7 +56,7 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": 9,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
