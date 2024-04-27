@@ -11,6 +11,7 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # create conda environment and install dagster
+# Please use a snapshot without dagster installed for this example
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda create -n dagster python=3.11 -y
 conda activate dagster

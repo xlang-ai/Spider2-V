@@ -17,7 +17,9 @@ from .dbt import (
 )
 
 from .dagster import (
-    dagster_webui_init_setup
+    dagster_webui_init_setup,
+    dagster_cloud_webui_login_setup,
+    dagster_environment_variables_setup
 )
 
 from .airbyte import (

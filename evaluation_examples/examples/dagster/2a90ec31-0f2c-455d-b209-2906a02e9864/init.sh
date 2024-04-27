@@ -11,19 +11,17 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # create conda environment and install dagster
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate dagster
-
 cd /home/user
+source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda create -n dagster python=3.11 -y
+conda activate dagster
+# pip install dagster
+# Please uncomment the above two lines if you want to install dagster in a new conda environment.
 
-PROJECT_NAME=test-ops-and-jobs
+mkdir -p ~/.dagster
+mkdir -p ~/.dagster_cloud_cli
+export DAGSTER_HOME=~/.dagster
 
-mkdir -p $PROJECT_NAME/files
-touch $PROJECT_NAME/file_sizes_job.py
-echo "Hello World!" > $PROJECT_NAME/files/helloworld.txt
-echo "Welcome to dagster!" > $PROJECT_NAME/files/welcome.txt
-echo "This is the test for ops and jobs." > $PROJECT_NAME/files/ops_and_jobs.txt
-
-code /home/user/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
+echo "export DAGSTER_HOME=~/.dagster" >> ~/.bashrc

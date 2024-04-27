@@ -3,7 +3,7 @@
     "snapshot": "dagster",
     "instruction": "Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets.",
     "source": [
-        "https://docs.dagster.io/getting-started/create-new-project"
+        "https://docs.dagster.io/tutorial/writing-your-first-asset#step-2-materialize-your-asset"
     ],
     "related_apps": [
         "dagster"
@@ -12,7 +12,7 @@
         "cli",
         "abstract"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number": 2,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

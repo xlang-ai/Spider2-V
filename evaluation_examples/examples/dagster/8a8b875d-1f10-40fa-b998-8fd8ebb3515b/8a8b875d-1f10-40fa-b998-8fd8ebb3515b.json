@@ -12,7 +12,7 @@
     "tags": [
         "cli+gui"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number": 8,
     "config": [
         {
             "type": "script_and_execute",

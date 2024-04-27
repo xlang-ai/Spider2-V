@@ -1,0 +1,3 @@
+I heard dagster can start a local server. Could you launch the web page on port 8004? To do this, please
+1. open the terminal and make sure you are in the folder "~/dagster-proj".
+2. Enter the command "dagster dev -p 8004".

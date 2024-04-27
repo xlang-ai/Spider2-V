@@ -1,0 +1,3 @@
+I want to create a scaffold dagster project called "dagster-proj" at the current directory. Please run the following commands in the terminal:
+1. pip install dagster dagster-webserver # to install dagster
+2. dagster project scaffold --name dagster-proj # to create a scaffold project
