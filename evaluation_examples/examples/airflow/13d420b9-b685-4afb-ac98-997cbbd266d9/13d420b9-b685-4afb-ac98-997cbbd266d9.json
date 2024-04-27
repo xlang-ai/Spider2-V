@@ -1,7 +1,7 @@
 {
     "id": "13d420b9-b685-4afb-ac98-997cbbd266d9",
     "snapshot": "airflow",
-    "instruction": "I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-ui"
     ],
@@ -38,6 +38,7 @@
             }
         }
     ],
+    "action_number": 2,
     "trajectory": "trajectories/",
     "related_apps": [
         "airflow",
