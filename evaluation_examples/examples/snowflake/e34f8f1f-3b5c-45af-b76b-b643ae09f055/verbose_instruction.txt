@@ -1,0 +1,24 @@
+To create a new user in Snowflake Snowsight, please follow these steps:
+1. Click the "+" button on the top right;
+2. Choose "SQL Worksheet" in the drop-down panel;
+3. In the opened blank worksheet, type in command:
+`USE ROLE USERADMIN;`
+and place the cursor in the USE ROLE line.
+4. In the upper-right corner of the worksheet, select "Run" (icon ►) to execute the current command.
+5. Next, copy the following lines into the worksheet and execute it via clicking "Run" again:
+```
+CREATE OR REPLACE USER snowman
+PASSWORD = '20!4@sn0wf@ll'
+LOGIN_NAME = 'snowstorm'
+FIRST_NAME = 'Snow'
+LAST_NAME = 'Storm'
+EMAIL = 'snow.storm@snowflake.com'
+MUST_CHANGE_PASSWORD = false
+DEFAULT_WAREHOUSE = COMPUTE_WH;
+```
+In the Results panel, we shall see "User SNOWMAN" successfully created.
+6. Afterwards, change the current role via typing and executing:
+`USE ROLE SECURITYADMIN;`
+7. And copy this command to grant a role `SYSADMIN` to the new user:
+`GRANT ROLE SYSADMIN TO USER snowman;`
+After running this command, we have finished all tasks.

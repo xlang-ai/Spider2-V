@@ -10,10 +10,10 @@
         "snowflake"
     ],
     "tags": [
-        "cli+gui",
-        "abstract",
+        "gui",
         "account"
     ],
+    "action_number": 15,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {

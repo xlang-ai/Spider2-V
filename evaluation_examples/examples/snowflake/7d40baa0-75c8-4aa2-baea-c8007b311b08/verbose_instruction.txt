@@ -1,0 +1,19 @@
+Today's job is to create a new database on Snowflake and load local data into it. In the opened Snowsight web page,
+1. Click "Data >> Databases" on the left menu panel.
+2. In the right panel, click "+ Database".
+3. In the Name field of pop-up window, type in the database name "RANKINGS"; 
+4. Click "Create" button;
+5. In the middle panel, choose entry "RANKINGS >> PUBLIC" to select this default schema;
+6. In the right panel, click the "Create >> Table >> From File" sequentially.
+7. In the pop-up window, click "Browse" and select the "National_Universities_Rankings.csv" file on Desktop.
+8. Scroll down to the input field with name "Name", type in the table name "university_rankings".
+9. Click button "Next" to firstly upload data into Snowsight.
+10. In this stage, choose "Delimited Files (CSV or TSV)" for "File format" (on the top left window);
+11. Click "View options" in this panel to expand more advanced settings;
+12. For the "Header" field, choose "First line contains header" to auto-detect the table schema;
+13. In the right panel, for those three headers which raise error messages due to invalid characters, type and replace all whitespaces or hyphens into underscores `_`:
+Tuition Fees -> Tuition_Fees
+In-state -> In_state
+Undergrad Enrollment -> Undergrad_Enrollment
+14. Click the button "Load" at the bottom right in this window to load all data.
+15. After waiting for a few seconds, we will see the system message "Successfully Loaded Data".
