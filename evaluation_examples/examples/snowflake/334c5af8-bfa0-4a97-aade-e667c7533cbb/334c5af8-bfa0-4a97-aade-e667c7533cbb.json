@@ -1,19 +1,20 @@
 {
     "id": "334c5af8-bfa0-4a97-aade-e667c7533cbb",
     "snapshot": "snowflake",
-    "instruction": "Could you help me query the Snowflake database IMDB and save the top 20 dramatic movies since 2000 into file top20movies.csv on desktop. The detailed requirements are listed in requirements.txt.",
+    "instruction": "Could you help me query the Snowflake database IMDB and save the top 20 dramatic movies since 2000 (including) into file top20movies.csv on desktop. The detailed requirements are listed in requirements.txt.",
     "source": [
         "https://community.snowflake.com/s/article/NULL-values-are-exported-as-blank"
     ],
     "related_apps": [
         "chromium",
+        "terminal",
         "snowflake"
     ],
     "tags": [
         "cli+gui",
-        "abstract",
         "account"
     ],
+    "action_number": 8,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {

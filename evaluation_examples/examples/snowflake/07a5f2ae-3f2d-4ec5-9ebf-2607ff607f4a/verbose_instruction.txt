@@ -1,0 +1,40 @@
+Given the to-do list, we will finish all tasks following these detailed steps:
+1. Click the "+ >> SQL Worksheet" button on the top right of the main page.
+2. In the opened blanked page, first set the role to "accountadmin" via typing:
+`USE ROLE accountadmin;`
+3. Click the button with icon "►" in the upper-right corner of the worksheet;
+4. Next, select the warehouse and run it:
+`USE WAREHOUSE compute_wh;`
+5. The first task is to create a Snowflake database "tasty_bytes" with schema "food", we type in:
+`CREATE OR REPLACE DATABASE tasty_bytes;`
+and run it to construct the database;
+6. As for the schema, similarly, we write down and run the following code in the worksheet:
+`CREATE OR REPLACE SCHEMA tasty_bytes.food;`
+7. Then, we create the target table "menu" in schema "food" to store the source data. Copy the following codes into the opened worksheet and run it:
+```
+CREATE OR REPLACE TABLE tasty_bytes.food.menu
+(
+    menu_id NUMBER,
+    menu_type_id NUMBER,
+    menu_type STRING,
+    truck_brand_name STRING,
+    menu_item_id NUMBER,
+    menu_item_name STRING,
+    item_category STRING,
+    item_subcategory STRING,
+    cost_of_goods_usd NUMBER,
+    sale_price_usd NUMBER,
+    menu_item_health_metrics_obj OBJECT
+);
+```
+8. Now, we have created the database, schema and table to store the data. We are going to create a stage that holds data files from Amazon S3. Type in:
+`CREATE OR REPLACE STAGE tasty_bytes.food.awsstage
+url = 's3://sfquickstarts/tastybytes/raw_pos/menu/menu.csv.gz'
+file_format = (type = csv);`
+Remember to execute it via clicking "Run" button in the upper-right corner of this worksheet.
+9. To load the data into the target table, we will use the COPY INTO command
+`COPY INTO tasty_bytes.food.menu
+FROM @tasty_bytes.food.awsstage;`
+, then select Run.
+10. After waiting for some seconds, we will see the results table with status "LOADED" and 100 rows loaded.
+Till now, we have finished all jobs in the to-do list.

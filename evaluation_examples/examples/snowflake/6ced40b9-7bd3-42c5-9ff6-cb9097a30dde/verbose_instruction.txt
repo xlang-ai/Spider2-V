@@ -1,0 +1,6 @@
+The user wants to check out the failed query history on Snowsight. To achieve this goal:
+1. Click "Monitoring >> Query History" on the left panel.
+2. On the right panel, change the "Status" filter on the top menu to value "Failed".
+3. For the "User" selector, choose value "All".
+4. For the third filter w.r.t. Date range, choose the entry "Last 3 days".
+Now, all queries satisfy the user intents are showing up.

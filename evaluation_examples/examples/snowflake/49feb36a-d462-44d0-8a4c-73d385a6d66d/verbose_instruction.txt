@@ -1,0 +1,8 @@
+In this task, we want to add one database from an existing marketplace on Snowflake. In the opened Snowsight web page, we need to do this:
+1. Click the "Data Products >> Marketplace" menu on the left panel;
+2. Then, in the search bar at the top of the right panel, type in "worldwide addresses" and press Enter.
+3. In the results of filtered choices, choose and click the first item, which should be "Worldwide Address Data". This free dataset from the OpenAddresses project allows Snowflake customers to map lat/long information to address details.
+4. On the right panel in the directed new page, click the "Get" button under the prompt "Free Unlimited access".
+5. There will be a pop-up window. Click "Options" to expand more settings.
+6. Type in the desired database name "WORLDWIDE_ADDRESSES" to replace the original one.
+7. Click "Get", and wait for a few moment. We will see that the database is "Ready to Use".

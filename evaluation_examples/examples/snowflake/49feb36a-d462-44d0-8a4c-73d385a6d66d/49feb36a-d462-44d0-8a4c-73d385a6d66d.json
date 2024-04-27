@@ -11,9 +11,9 @@
     ],
     "tags": [
         "cli+gui",
-        "abstract",
         "account"
     ],
+    "action_number": 7,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
