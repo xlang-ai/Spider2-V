@@ -13,15 +13,13 @@ mkdir -p ~/projects
 PASSWORD=password
 
 source /home/user/anaconda3/etc/profile.d/conda.sh  
-conda create -n astro python=3.11 -y >/dev/null 2>&1  
-conda activate astro 
+conda create -n airflow python=3.11 -y >/dev/null 2>&1  
+conda activate airflow
 
-pip install apache-airflow
+pip install apache-airflow==2.9.0
 
 ASTRO_CLI_VERSION=1.25.0
 echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
-echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc  # Add the conda script to the .bashrc file for automatic activation
-echo "conda activate astro" >> ~/.bashrc  # Add the activation command to the .bashrc file for automatic activation
 
 ASTRO_RUNTIME_VERSION=10.5.0
 POSTGRES_VERSION=16-alpine
