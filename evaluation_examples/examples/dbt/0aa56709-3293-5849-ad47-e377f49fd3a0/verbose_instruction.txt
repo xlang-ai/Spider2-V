@@ -1,0 +1,13 @@
+This task focuses on adding description to models and generate documents.
+1. Edit models/schema.yml, fill in each blank description with the following content:
+```yml
+One record per customer # 1
+Primary key # 2
+NULL when a customer has not yet placed an order. # 3
+This model cleans up customer data # 4
+Primary key # 5
+This model cleans up order data # 6
+Primary key # 7
+```
+2. Run ``dbt docs generate`` to generate the documentation website.
+3. Run ``dbt docs serve --port 8020`` to serve the website on port 8020.

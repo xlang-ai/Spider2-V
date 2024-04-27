@@ -1,0 +1,4 @@
+This task focuses on the model materialization settings.
+1. Edit dbt_project.yml, change ``+materialized: view`` to ``+materialized: table``.
+2. Edit models/test/my_first_dbt_model.sql, change ``{{ config(materialized='view') }}`` to ``{{ config(materialized='table') }}``.
+3. Run ``dbt run`` to execute models.

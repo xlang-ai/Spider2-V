@@ -10,11 +10,7 @@
 mkdir -p ~/.dbt
 mkdir -p ~/projects
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda create -n dbt python=3.11 -y >/dev/null 2>&1
-
 conda activate dbt
-pip install dbt-core dbt-duckdb >/dev/null 2>&1
 
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dbt" >> ~/.bashrc

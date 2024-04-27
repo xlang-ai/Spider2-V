@@ -1,7 +1,7 @@
 {
     "id": "0aa56709-3293-5849-ad47-e377f49fd3a0",
     "snapshot": "dbt",
-    "instruction": "Update models/schema.yml to add descriptions: 1) Add description for each table; 2) Add \"Primary key\" description to each table's primary key column; 3) Add description for customers.first_order_date column: \"NULL when a customer has not yet placed an order.\" Then, generate documentation for this project and launch the website on port 8020.",
+    "instruction": "Update models/schema.yml to add descriptions. The description requirements are specified in description.md in the working directory. Then, generate documentation for this project and launch the website on port 8020.",
     "source": [
         "https://docs.getdbt.com/guides/manual-install?step=13"
     ],
