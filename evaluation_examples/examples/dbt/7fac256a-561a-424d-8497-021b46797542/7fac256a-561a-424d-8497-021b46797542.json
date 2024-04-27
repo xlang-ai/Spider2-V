@@ -57,7 +57,7 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
+    "action_number": 7,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
