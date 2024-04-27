@@ -13,11 +13,8 @@ exec 2>/dev/null
 # create conda environment and install dagster
 cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n dagster python=3.11 -y
 conda activate dagster
-# pip install dagster
-pip install dagster-dbt dagster-webserver dbt-duckdb pandas
-# Please uncomment the above two lines if you want to install dagster in a new conda environment.
+pip install dagster-dbt duckdb dbt-duckdb pandas
 
 mkdir -p ~/.dagster
 export DAGSTER_HOME=~/.dagster
@@ -52,4 +49,3 @@ start_dagster_server
 code /home/user/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
-echo "export DAGSTER_HOME=~/.dagster" >> ~/.bashrc
