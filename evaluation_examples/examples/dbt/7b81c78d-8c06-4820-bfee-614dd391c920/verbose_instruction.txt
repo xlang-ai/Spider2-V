@@ -1,0 +1,13 @@
+This task requires you to utilize snapshot to reflex the change of table.
+1. Edit snapshots/orders_snapshot.sql, add following codes inside ``config()``:
+```sql
+target_schema='snapshots',
+unique_key='order_id',
+strategy='timestamp',
+updated_at='updated_at'
+```
+2. Run ``dbt seed`` and ``dbt run`` to load the seeds and execute the models.
+3. Run ``dbt snapshot`` to take a snapshot.
+4. Run ``mv /home/user/Desktop/raw_orders.csv seeds/raw_orders.csv`` to update the staled seed.
+5. Run ``dbt seed`` and ``dbt run`` to reload the seeds, re-run the models.
+6. Run ``dbt snapshot`` to take a new snapshot.

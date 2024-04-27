@@ -1,7 +1,7 @@
 {
     "id": "1471e2d8-7f3a-4e1c-b049-1d0f0d57d344",
     "snapshot": "dbt",
-    "instruction": "Complete the model \"dim_customers.sql\" by adding an additional column with boolean values named \"valid_email_address\". Then execute it to create the transformed table \"dim_customers\", which stores customers who have provided a valid email address before those who have not. An email address is valid if it is in the format of \"[address]@[valid_TLD]\", and all valid TLDs are extracted by model \"top_level_email_domains.sql\".",
+    "instruction": "Complete the model \"dim_customers.sql\" by adding an additional column with boolean values named \"is_valid_email_address\". Then execute it to create the transformed table \"dim_customers\", which stores customers who have provided a valid email address before those who have not. An email address is valid if it is in the format of \"[address]@[valid_TLD]\", and all valid TLDs are extracted by model \"top_level_email_domains.sql\".",
     "source": [
         "https://docs.getdbt.com/docs/build/unit-tests"
     ],

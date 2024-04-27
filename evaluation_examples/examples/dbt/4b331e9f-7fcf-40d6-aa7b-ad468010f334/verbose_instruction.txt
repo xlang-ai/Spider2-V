@@ -1,0 +1,11 @@
+This task requires you to declare source for dbt snapshot reference.
+1. edit models/schema.yml, added source declaration for ``analytics.orders``.
+```yml
+sources:
+  - name: analytics
+    schema: analytics
+    tables:
+      - name: orders
+```
+2. Run ``dbt seed`` and ``dbt run`` to re-run the entire project.
+3. Run ``dbt snapshot`` to check whether the snapshot is successful.

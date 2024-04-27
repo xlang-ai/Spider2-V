@@ -1,0 +1,9 @@
+This task aims to create a job to constantly check source freshness.
+1. Click "Deploy" in the upper panel.
+2. Choose "Jobs".
+3. Click "Create job", and choose "Deploy job".
+4. In job settings section, set the job name to "check_source".
+5. In execution settings section, check "Run source freshness" tick box.
+6. In triggers section, enable "Run on schedule".
+7. Choose "Every 1 hour" for "Run every (UTC)".
+8. Click "Save".
