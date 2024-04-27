@@ -1,0 +1,8 @@
+This task tests the use of job completion trigger.
+1. Click "Deploy" in the upper panel.
+2. Choose "Jobs".
+3. Click "Create job", and choose "Deploy job".
+4. In job settings section, set the job name to "Sales_Summary".
+5. In triggers section, enable "Run when another job finishes".
+6. Set "Project" as "Christmas", "Job" as "Sales_Process", "Completes on" as "Success".
+6. Click "Save".

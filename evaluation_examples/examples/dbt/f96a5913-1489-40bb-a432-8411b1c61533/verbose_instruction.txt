@@ -1,0 +1,6 @@
+This task requires you to create an environment for an existing project.
+1. Click "Create Environment".
+2. Change the Environment name to "dev env".
+3. Select "Development" as the Environment type.
+4. Choose 1.5 as the dbt version.
+5. Click "Save".

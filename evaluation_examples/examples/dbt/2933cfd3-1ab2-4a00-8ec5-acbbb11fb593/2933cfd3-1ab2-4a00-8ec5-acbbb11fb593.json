@@ -59,7 +59,6 @@
             "type": "dbt_cloud_webui_login",
             "parameters": {
                 "listening_port": 9222,
-                "url": "https://cloud.getdbt.com/",
                 "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
             }
         }

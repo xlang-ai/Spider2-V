@@ -1,0 +1,12 @@
+This task requires you to define a specific source freshness.
+1. Edit ``models/schema.yml`` to complete the declaration of sources.
+```yml
+sources:
+  - name: analytics
+    database: analytics
+    tables:
+      - name: orders
+        freshness:
+          error_after: {count: 5, period: hour}
+        loaded_at_field: "run_at"
+```

@@ -1,6 +1,7 @@
 {
-    "email": "",
-    "password": "",
-    "account_id": "",
-    "token": ""
+    "email": "xxxxx@xxx.com",
+    "password": "xxxxxxx",
+    "account_id": "xxxxxxx",
+    "token": "xxxxxxx",
+    "cloud_host": "xxxxx.com"
 }
