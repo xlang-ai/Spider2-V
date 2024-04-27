@@ -1,7 +1,7 @@
 {
     "id": "33468fd4-9122-5273-b185-54b70b7461cb",
-    "snapshot": "astro",
-    "instruction": "I want to build an airflow project connecting to a local postgres database. Could you install docker, astro-cli and postgresql for me. The sudo password is 'password' (' not included). By the way, configure docker and postgresql to auto-start on boot, and allow me to prevent typing sudo when using docker each time.",
+    "snapshot": "airflow",
+    "instruction": "I want to build an airflow project connecting to a local postgres database. Could you install docker, astro and postgresql for me. The sudo password is 'password' (' not included). By the way, configure docker and postgresql to auto-start on boot, and allow me to prevent typing sudo when using docker each time.",
     "source": [
         "https://docs.docker.com/engine/install/ubuntu/",
         "https://docs.docker.com/engine/install/linux-postinstall/"
@@ -26,12 +26,14 @@
         }
     ],
     "trajectory": "trajectories/",
+    "action_number": 9,
     "related_apps": [
         "docker",
-        "airflow"
+        "postgresql",
+        "airflow",
+        "terminal"
     ],
     "tags": [
-        "abstract",
         "cli"
     ],
     "evaluator": {

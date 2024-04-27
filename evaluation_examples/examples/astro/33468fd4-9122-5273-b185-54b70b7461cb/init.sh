@@ -5,7 +5,7 @@
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Docker engine is installed following official docs: https://docs.docker.com/engine/install/ubuntu/
 # Astro CLI is installed following official docs and Postgresql is installed via sudo apt-get install -y postgresql postgresql-contrib.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 exec 1>/dev/null
