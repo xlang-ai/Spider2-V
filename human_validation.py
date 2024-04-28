@@ -73,10 +73,10 @@ def human_agent():
         ...
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', type=str, default="/Users/rhythmcao/Virtual Machines.localized/ubuntu.vmwarevm/ubuntu.vmx", help="Path to the virtual machine .vmx file.")
-    parser.add_argument('-s', '--snapshot', type=str, help="Snapshot to load.")
+    parser.add_argument('-p', '--path', type=str, default="Ubuntu.vmwarevm/Ubuntu.vmx", help="Path to the virtual machine .vmx file.")
+    parser.add_argument('-s', '--snapshot', type=str, default="dbt", help="Snapshot to load.")
     parser.add_argument('-e', '--example', type=str, help='.json file path to a specific example to validate')
-    parser.add_argument('--example_from_file', type=str, help='Path to the file, each line containing an example id to validate.')
+    parser.add_argument('--example_from_file', type=str, default="dbt.txt", help='Path to the file, each line containing an example id to validate.')
     parser.add_argument('-r', '--recording', type=str, default='recordings', help='recording directory')
     args = parser.parse_args(sys.argv[1:])
     os.makedirs(args.recording, exist_ok=True)
@@ -95,7 +95,7 @@ def human_agent():
     )
     try:
         for example_path in checking_list:
-            with open(checking_list[0], 'r') as inf:
+            with open(example_path, 'r') as inf:
                 example = json.load(inf)
 
             # reset the environment to certain snapshot (add proxy if needed)
