@@ -3,5 +3,6 @@
 
 exec 2>/dev/null
 
+echo "password" | sudo -S apt install chromium-browser
 # please ensure that the Chromium or Chrome browser is installed,
 # and can be launched by the terminal command `chromium-browser` or `google-chrome`
