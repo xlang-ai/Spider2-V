@@ -1,0 +1,6 @@
+To roll back the SQL to the second version, please follow these steps:
+1. Click the "Code Versions" button on the top right of the worksheet;
+2. Click the second item in the list of code versions;
+3. Copy the SQL shown in the panel;
+4. Click the "Close" button on the bottom right of the panel;
+5. Replace the SQL in the worksheet with the copied one.

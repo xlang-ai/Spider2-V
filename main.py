@@ -62,6 +62,7 @@ def human_agent():
     assert os.path.exists(args.path), "The specified path to the .vmx file does not exist."
     env = DesktopEnv(
         path_to_vm=args.path,
+        snapshot_name=args.snapshot,
         action_space="computer_13"
     )
     # reset the environment to certain snapshot
