@@ -1,0 +1,12 @@
+To download the chart, please follow theses steps:
+1. Copy the code in the opened "code.txt" file.
+2. Switch to the webpage and click the "+" button on the top right;
+3. Choose "SQL Worksheet" in the drop-down panel;
+4. Paste the code in the opened blank worksheet;
+5. In the upper-right corner of the worksheet, select "Run" (icon ►) to execute the command.
+6. After the execution, choose "Chart" on the right side of "Results";
+7. Choose "Line" for the chart type on the right of the panel;
+8. Click the chart title, modify it as "Number of Orders in the First 10 Days", and press Enter to save it;
+9. Click the download button on the top right of the panel;
+10. Open the local path "/home/user/Downloads";
+11. Rename the chart file as "chart.png".
