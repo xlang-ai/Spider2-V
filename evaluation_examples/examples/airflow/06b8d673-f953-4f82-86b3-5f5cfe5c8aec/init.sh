@@ -22,5 +22,5 @@ to_ready_state
 
 gnome-terminal --working-directory=/home/user/Downloads
 gnome-terminal --working-directory=/home/user/projects/SQL_Check
-code /home/user/projects/SQL_Check/dags/SQL_Check.py
+code /home/user/projects/SQL_Check/dags/sql_data_quality.py
 code /home/user/projects/SQL_Check/README.md

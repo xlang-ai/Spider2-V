@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ASTRO_RUNTIME_VERSION=10.5.0
+
 mkdir -p ~/minio/data
 
 docker run \

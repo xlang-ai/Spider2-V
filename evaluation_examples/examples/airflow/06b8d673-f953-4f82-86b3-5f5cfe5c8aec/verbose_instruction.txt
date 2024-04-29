@@ -14,13 +14,13 @@ To build a connection on Airflow, create testers to test sql data quality and tr
 10. Then, we will see a new line with name "sqlite_conn" in the connection panel;
 11. After the Connection build is completed, click the VS Code editor on the left panel or dock; 
 12. According to the opened README.md file, we can extract the instructions on completing the DAG file;
-13. Switch to the DAG file 'SQL_Check.py' that is opened in VSCode, it defines the details of the dag, create a task "sql_data_quality" to define a sql database and insert several data for data quality check;
+13. Switch to the DAG file 'sql_data_quality.py' that is opened in VSCode, it defines the details of the dag, create a task "sql_data_quality" to define a sql database and insert several data for data quality check;
 14. With the sql database and given dataset, we'll now define a SQLColumnCheckOperator to check the details of each data by asset. Concretely, we'll first select data with bird_name not equal to Null,
 then we'll check whether "bird name" has no "Null", and the these datas have distinct names, "year of observation" is from year 2018 to 2023 and whether "bird happiness" are valid (min 1 and max 10) accordingly:
 ˋˋˋ
-# ... Keep the original ˋSQL_Checkˋ codes
+# ... Keep the original ˋsql_data_qualityˋ codes
 
-check_column = SQLColumnCheckOperator(
+column_checks = SQLColumnCheckOperator(
         task_id="column_checks",
         conn_id=_CONN_ID,
         table=_TABLE_NAME,
@@ -37,9 +37,9 @@ check_column = SQLColumnCheckOperator(
 ˋˋˋ
 15. We will now define  we'll now define a SQLTableCheckOperator to check the details of each data by the table. Concretely, we'll check whether the "average bird happiness" after 2018(excluded) are greater or equal to 8:
 ˋˋˋ
-# ... Keep the original ˋSQL_Checkˋ codes
+# ... Keep the original ˋsql_data_qualityˋ codes
 
-check_table = SQLTableCheckOperator(
+table_checks = SQLTableCheckOperator(
         task_id="table_checks",
         conn_id=_CONN_ID,
         table=_TABLE_NAME,
@@ -59,13 +59,13 @@ check_table = SQLTableCheckOperator(
 20. Click the triangle under the Action column on the far right of the row to trigger the dag; 
 21. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed";
 22. Click sql_data_quality in the Dag column to enter task details page of the dag;
-23. In the dag details page, click the rightmost box in the check_column task row under the histogram on the left side of the UI to enter the corresponding task instance;
+23. In the dag details page, click the rightmost box in the column_checks task row under the histogram on the left side of the UI to enter the corresponding task instance;
 24. Click logs in the details row on the right to enter the log page;
 25. Click Download above the log content box to download the log; 
-26. Under the histogram on the left side of the UI, click the rightmost box in the check_table task row to enter the corresponding task instance;
+26. Under the histogram on the left side of the UI, click the rightmost box in the table_checks task row to enter the corresponding task instance;
 27. Click logs in the details row on the right to enter the log page;
 28. Click Download above the log content box to download the log;
 29. Switch to the opened ‘/home/user/Downloads’ terminal,  type in the following command to get the file list:
 `ls` 
-30. Then, type in the following command  to rename the log files containing check_column and check_table in their file names to check_column and check_table respectively:
+30. Then, type in the following command  to rename the log files containing column_checks and table_checks in their file names to column_checks.log and table_checks.log respectively:
 `mv "old_name" "new_name"`

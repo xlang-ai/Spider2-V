@@ -5,8 +5,8 @@ exec 2>/dev/null
 
 cd /home/user/Downloads
 
-export TASK_ID_COLUMN=check_column
-export TASK_ID_TABLE=check_table
+export TASK_ID_COLUMN=column_checks
+export TASK_ID_TABLE=table_checks
 
 # Check if "{TASK_ID_COLUMN}.log" exists
 if [ -f "${TASK_ID_COLUMN}.log" ]; then
@@ -24,7 +24,7 @@ else
 fi
 
 # Extract "{TASK_ID_COLUMN}.log" and check if it contains "All tests have passed"
-if grep -q "All tests have passed" "${TASK_ID_COLUMN}.log"; then
+if cat ${TASK_ID_COLUMN}.log | grep -q "[('bird_name', 'null_check', 0), ('bird_name', 'distinct_check', 5), ('observation_year', 'min', 2018), ('observation_year', 'max', 2022), ('bird_happiness', 'min', 7), ('bird_happiness', 'max', 10)]" && cat ${TASK_ID_COLUMN}.log | grep -q "All tests have passed"; then
     echo "check ${TASK_ID_COLUMN} succeed"
 else
     echo "check ${TASK_ID_COLUMN} failed"
@@ -32,7 +32,7 @@ else
 fi
 
 # Extract "{TASK_ID_TABLE}.log" and check if it contains "All tests have passed"
-if grep -q "All tests have passed" "${TASK_ID_TABLE}.log"; then
+if cat ${TASK_ID_TABLE}.log | grep -q "[('average_happiness_check', 1)]" && cat ${TASK_ID_TABLE}.log | grep -q "All tests have passed"; then
     echo "check ${TASK_ID_TABLE} succeed"
 else
     echo "check ${TASK_ID_TABLE} failed"
