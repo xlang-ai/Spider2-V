@@ -484,6 +484,18 @@ def compare_csv(result: str, expected: str, **options) -> float:
     metric: bool = list(result_lines) == list(expected_lines)
     return float(metric)
 
+def compare_sql(result: str, expected: str, **options) -> float:
+    if result is None:
+        return 0.
+
+    with open(result, 'r') as f:
+        sql1 = f.read()
+    with open(expected) as f:
+        sql2 = f.read()
+
+    metric: bool = sql1 == sql2
+    return float(metric)
+
 
 def compare_conference_city_in_order(actual_city_list_path, expected_city):
     expected_city_list = expected_city["expected"]
