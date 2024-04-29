@@ -1,15 +1,15 @@
 {
-    "id": "7162732b-22d8-4e10-8565-3f95a5b1d16b",
+    "id": "3e8ddf14-a503-4ba1-83d0-32b2d91b33bb",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I would like to see the second page of my first DAG' project' Audit log when it is running.",
+    "instruction": "I am using Astronomer to deploy Airflow. I have finished my today'work on Airflow. For safety, please help me log out my account.",
     "source": [
-        "https://docs.astronomer.io/learn/get-started-with-airflow"
+        "authors"
     ],
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airflow/7162732b-22d8-4e10-8565-3f95a5b1d16b/init.sh",
+                "src": "evaluation_examples/examples/airflow/3e8ddf14-a503-4ba1-83d0-32b2d91b33bb/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -38,7 +38,7 @@
             }
         }
     ],
-    "action_number": 4,
+    "action_number": 2,
     "related_apps": [
         "airflow",
         "chromium"
@@ -51,7 +51,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/airflow/7162732b-22d8-4e10-8565-3f95a5b1d16b/eval.sh",
+            "src": "evaluation_examples/examples/airflow/3e8ddf14-a503-4ba1-83d0-32b2d91b33bb/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },
