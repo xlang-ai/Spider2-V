@@ -85,7 +85,7 @@ def human_agent():
         checking_list = [validate_example(args.example)]
     else:
         assert args.example_from_file, "Either --example or --example_from_file should be provided."
-        with open(args.example_from_file, 'r') as inf:
+        with open(args.example_from_file, 'r', encoding='utf-8', errors='ignore') as inf:
             checking_list = [validate_example(line.strip()) for line in inf if line.strip() != '']
 
     env = DesktopEnv(
@@ -95,7 +95,7 @@ def human_agent():
     )
     try:
         for example_path in checking_list:
-            with open(example_path, 'r') as inf:
+            with open(example_path, 'r', encoding='utf-8', errors='ignore') as inf:
                 example = json.load(inf)
 
             # reset the environment to certain snapshot (add proxy if needed)
@@ -110,7 +110,7 @@ def human_agent():
 
             verbose_instruction = os.path.join(os.path.dirname(example_path), 'verbose_instruction.txt')
             if os.path.exists(verbose_instruction):
-                with open(verbose_instruction, 'r') as inf:
+                with open(verbose_instruction, 'r', encoding='utf-8', errors='ignore') as inf:
                     verbose_instruction = inf.read().strip()
             else: verbose_instruction = None
 

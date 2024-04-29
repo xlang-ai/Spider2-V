@@ -467,9 +467,9 @@ def compare_csv(result: str, expected: str, **options) -> float:
     if result is None:
         return 0.
 
-    with open(result) as f:
+    with open(result, encoding='utf-8', errors='ignore') as f:
         result_lines: Iterable[str] = f.read().splitlines()
-    with open(expected) as f:
+    with open(expected, encoding='utf-8', errors='ignore') as f:
         expected_lines: Iterable[str] = f.read().splitlines()
     if not options.get("strict", True):
         result_lines = map(str.strip, result_lines)
