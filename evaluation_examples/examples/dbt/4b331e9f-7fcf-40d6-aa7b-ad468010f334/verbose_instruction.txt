@@ -1,5 +1,6 @@
-This task requires you to declare source for dbt snapshot reference.
-1. edit models/schema.yml, added source declaration for ``analytics.orders``.
+This task requires you to declare sources for dbt snapshot reference.
+1. Open "models/schema.yml" in the VSCode editor.
+2. Append the following codes into the YML file.
 ```yml
 sources:
   - name: analytics
@@ -7,5 +8,6 @@ sources:
     tables:
       - name: orders
 ```
-2. Run ``dbt seed`` to load the seeds.
-3. Run ``dbt run`` to execute the models.
+3. Switch to the terminal.
+4. Run ``dbt seed`` to load the seeds.
+5. Run ``dbt run`` to execute the models.

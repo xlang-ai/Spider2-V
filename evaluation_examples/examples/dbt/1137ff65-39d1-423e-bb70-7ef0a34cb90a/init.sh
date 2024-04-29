@@ -22,4 +22,4 @@ mv materialize_test/profiles.yml ~/.dbt/
 rm -f materialize_test.zip
 
 gnome-terminal --maximize --working-directory=/home/user/projects/materialize_test
-code /home/user/projects/materialize_test
+code /home/user/projects/materialize_test --disable-workspace-trust
