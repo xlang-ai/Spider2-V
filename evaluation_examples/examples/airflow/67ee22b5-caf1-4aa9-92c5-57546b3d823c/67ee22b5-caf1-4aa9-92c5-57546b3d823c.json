@@ -1,7 +1,7 @@
 {
     "id": "67ee22b5-caf1-4aa9-92c5-57546b3d823c",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow.  open the log page of the task 'processing' of my recent DAG 'workFlow_Echo' run in graph view for me to debug.",
+    "instruction": "I am using Astronomer to deploy Airflow. Open the log page of the task 'processing' of my recent DAG 'workFlow_Echo' run for me to debug.",
     "source": [
         "https://docs.astronomer.io/astro/view-logs"
     ],
