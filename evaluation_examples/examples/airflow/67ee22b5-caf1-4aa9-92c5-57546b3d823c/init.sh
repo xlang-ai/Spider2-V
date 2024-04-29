@@ -10,6 +10,7 @@ function to_ready_state(){
     rm -rf workFlow.zip 
     cd /home/user/projects/workFlow
     yes | astro dev init 2>&1 
+    sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
     astro dev start >/dev/null 2>&1 
     wait
 }
