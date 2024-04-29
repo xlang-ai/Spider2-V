@@ -1,0 +1,18 @@
+table EMPLOYEES:
+    - employee_id INTEGER
+    - first_name VARCHAR(50)
+    - last_name VARCHAR(50)
+    - department VARCHAR(50)
+    - salary FLOAT
+
+table DEPARTMENTS:
+    - department_id INTEGER
+    - department_name VARCHAR(50)
+
+Query Results Format:
+    - EMPLOYEE_ID
+    - FIRST_NAME
+    - LAST_NAME
+    - DEPARTMENT_NAME
+    - SALARY
+    

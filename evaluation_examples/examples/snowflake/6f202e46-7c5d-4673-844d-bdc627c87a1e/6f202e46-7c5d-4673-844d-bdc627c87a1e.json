@@ -1,0 +1,72 @@
+{
+    "id": "6f202e46-7c5d-4673-844d-bdc627c87a1e",
+    "snapshot": "snowflake",
+    "instruction": "Company information is stored in the snowflake database COMPANY. The employee information is stored in the table EMPLOYEES and the department information is stored in the table DEPARTMENTS. My task is to query the employees with the highest salary in each department. Please create a worksheet in the currently open snowsight interface and write the relevant code to complete the query. Finally, you need to download the result of the query and rename it to “highest_salary.csv”. The details of the database and requirements are in the .txt on desktop.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/data-load-web-ui"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/6f202e46-7c5d-4673-844d-bdc627c87a1e/details.txt",
+                "dest": "/home/user/Desktop/details.txt"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/6f202e46-7c5d-4673-844d-bdc627c87a1e/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/highest_salary.csv",
+            "dest": "highest_salary.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/6f202e46-7c5d-4673-844d-bdc627c87a1e/highest_salary_gold.csv",
+            "dest": "highest_salary_gold.csv"
+        }
+    }
+}
