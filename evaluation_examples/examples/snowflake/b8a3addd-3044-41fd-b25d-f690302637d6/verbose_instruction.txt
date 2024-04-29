@@ -5,14 +5,14 @@ To create the snowflake folder and the corresponding worksheets, please follow t
 4. Click the "Create Folder" button on the bottom right of the panel;
 5. Click the "+" button on the top right;
 6. Choose "SQL Worksheet" in the drop-down panel;
-7. Click the icon "⋮" on the worksheet tab on the top left;
+7. Move the curser on the corresponding worksheet tab amd click the emerged icon "⋮";
 8. Choose "Rename" in the drop-down panel;
 9. Type "Books products" in the input box and press Enter;
-10. Click the icon "✕" on the worksheet tab on the top left to close the worksheet;
+10. Click the icon "✕" on the worksheet tab to close the worksheet;
 11. Find the "Online shopping" folder in the project list and click it;
 12. Click the "+" button on the top right;
 13. Choose "SQL Worksheet" in the drop-down panel;
-14. Click the icon "⋮" on the worksheet tab on the top left;
+14. Move the curser on the corresponding worksheet tab amd click the emerged icon "⋮";
 15. Choose "Rename" in the drop-down panel;
 16. Type "Electronics products" in the input box and press Enter;
-17. Click the icon "✕" on the worksheet tab on the top left to close the worksheet.
+17. Click the icon "✕" on the worksheet tab to close the worksheet.

@@ -23,7 +23,7 @@
             }
         }
     ],
-    "action_number": 4,
+    "action_number": 7,
     "related_apps": [
         "dbt",
         "duckdb"

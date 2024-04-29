@@ -54,9 +54,15 @@
                 "listening_port": 9222,
                 "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
             }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/Desktop/dbt-user-creds.json"
+            }
         }
     ],
-    "action_number": 9,
+    "action_number": 19,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

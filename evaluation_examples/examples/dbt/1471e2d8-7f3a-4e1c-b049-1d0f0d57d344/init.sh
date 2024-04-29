@@ -26,4 +26,4 @@ mv email_address/profiles.yml ~/.dbt/
 rm -f email_address.zip
 
 gnome-terminal --maximize --working-directory=/home/user/projects/email_address
-code /home/user/projects/email_address
+code /home/user/projects/email_address --disable-workspace-trust

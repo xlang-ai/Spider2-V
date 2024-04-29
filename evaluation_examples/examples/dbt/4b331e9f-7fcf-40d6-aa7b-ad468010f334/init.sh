@@ -22,4 +22,4 @@ mv analytics/profiles.yml ~/.dbt/
 rm -f analytics.zip
 
 gnome-terminal --maximize --working-directory=/home/user/projects/analytics
-code /home/user/projects/analytics
+code /home/user/projects/analytics --disable-workspace-trust

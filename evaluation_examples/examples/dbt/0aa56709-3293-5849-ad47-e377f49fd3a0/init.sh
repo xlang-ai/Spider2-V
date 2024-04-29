@@ -22,4 +22,4 @@ mv jaffle_shop/profiles.yml ~/.dbt/
 rm -f jaffle_shop.zip
 
 gnome-terminal --maximize --working-directory=/home/user/projects/jaffle_shop
-code /home/user/projects/jaffle_shop
+code /home/user/projects/jaffle_shop --disable-workspace-trust
