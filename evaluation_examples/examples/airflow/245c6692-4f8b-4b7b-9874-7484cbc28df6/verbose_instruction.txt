@@ -5,7 +5,7 @@ To create document for task, we can follow the steps:
 3. Switch to the dag file ‘task_today.py’ that is opened in VSCode;
 4. We'll now define the document to be applied on the task:
 ˋˋˋ
-# ... Keep the original ˋtask_todayˋ codes
+# ... Keep the original ˋtask_todayˋ codes, the code should be written above class dag
 doc_md_doc = """
 
 ### Purpose of this task
@@ -28,7 +28,7 @@ I hate running
 But I can watch some anime when running: https://www.bilibili.com/
 """
 ˋˋˋ
-5. Then, we'll apply the doc defined in the @task filed of dag:
+5. Then, we'll apply the doc defined in the @dag filed of dag:
 ˋˋˋ
 @dag(
     start_date=datetime(2024,4,1),

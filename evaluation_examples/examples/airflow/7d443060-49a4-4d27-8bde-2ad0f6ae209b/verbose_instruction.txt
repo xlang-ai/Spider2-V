@@ -23,7 +23,10 @@ def test_task_workflow_order():
     expected_order = ['fetch_activity', 'log_activity', 'analyze_activity']
     assert task_ids == expected_order, f"Tasks are not in the expected order: {expected_order}"
 ˋˋˋ
-6. Save the file and click the Chromium on the left pannel to open the Airflow web page;
-7. Find "task_today" in the DAG list and click the slider to the left of the name to Unpause dag; 
-8. Click the triangle under the Action column on the far right of the row to trigger the dag; 
-9. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"
+6. Save the file content and switch to the opened ‘/home/user/projects/today_task’ terminal.
+7. In the terminal, type in the following command to restart the UI:
+`astro dev restart` 
+8. Save the file and click the Chromium on the left pannel to open the Airflow web page;
+9. Find "task_today" in the DAG list and click the slider to the left of the name to Unpause dag; 
+10. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+11. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"
