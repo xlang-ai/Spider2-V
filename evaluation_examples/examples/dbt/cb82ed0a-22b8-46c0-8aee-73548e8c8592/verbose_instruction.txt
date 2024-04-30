@@ -1,5 +1,6 @@
 This task requires you to define a specific source freshness.
-1. Edit ``models/schema.yml`` to complete the declaration of sources.
+1. Open the file ``models/schema.yml`` in the VSCode editor.
+2. Complete the declaration of sources. Your codes should be like this:
 ```yml
 sources:
   - name: analytics

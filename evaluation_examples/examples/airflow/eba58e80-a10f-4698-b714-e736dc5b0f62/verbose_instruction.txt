@@ -31,9 +31,9 @@ SELECT CASE
 END AS happiness_comparison
 FROM '{{ params.table_name }}' JOIN happiness_data;
 ˋˋˋ
-15. Save the file content, then swith to the "SQL_Check.py" that is opened in VSCode. We'll now define a SQLCheckOperator:
+15. Save the file content, then swith to the "sql_data_quality.py" that is opened in VSCode. We'll now define a SQLCheckOperator:
 ˋˋˋ
-# ... Keep the original ˋSQL_Checkˋ codes
+# ... Keep the original ˋsql_data_qualityˋ codes
 
 custom_happy_check = SQLCheckOperator(
     task_id="custom_happiness_check",
@@ -55,5 +55,5 @@ custom_happy_check = SQLCheckOperator(
 25. Click Download above the log content box to download the log; 
 26. Switch to the opened ‘/home/user/Downloads’ terminal, type in the following command to get the file list:
 `ls` 
-27. Then, type in the following command  to rename the log file containing custom_happy_check in their file names to custom_happy_check respectively:
+27. Then, type in the following command  to rename the log file containing custom_happy_check in their file names to custom_happy_check.log respectively:
 `mv "old_name" "new_name"`

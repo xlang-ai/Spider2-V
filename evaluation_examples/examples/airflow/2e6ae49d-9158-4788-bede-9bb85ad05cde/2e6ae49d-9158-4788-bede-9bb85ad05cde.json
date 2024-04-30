@@ -1,0 +1,71 @@
+{
+    "id": "2e6ae49d-9158-4788-bede-9bb85ad05cde",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. My leader want to know is there any user whose first name is Linda. Please show the user statistics with the first name Linda.",
+    "source": [
+        "authors"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/2e6ae49d-9158-4788-bede-9bb85ad05cde/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin", 
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 7,
+    "related_apps": [
+        "airflow",
+        "chromium"
+    ],
+    "tags": [
+        "abstract",
+        "gui",
+        "cli"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/2e6ae49d-9158-4788-bede-9bb85ad05cde/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

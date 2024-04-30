@@ -1,5 +1,8 @@
 This task requires you to connect dbt cloud to an Bigquery project.
-1. Choose "Bigquery", and click "Next".
-2. Click "Upload a Service Account JSON file", navigate to Desktop, and upload "dbt-user-creds.json".
-3. Click "Test connection" to confirm whether the connection is successfully established.
-4. Click "Next" to store the connection change.
+1. In the "Choose a connection" section, choose "BigQuery".
+2. Click the "Next" button.
+3. Now the "Configure your environment" section will expand. Click the "Upload a Service Account JSON file" button under "Settings" subtitle.
+4. Navigate to "Desktop" in the pop-up browser window.
+5. Double-click the file "dbt-user-creds.json" and upload it.
+6. Click the "Test connection" button to confirm whether the connection is successfully established.
+7. If the connection succeeds, click the "Next" button to save the changes.

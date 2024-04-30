@@ -42,7 +42,6 @@
     "action_number": 2,
     "related_apps": [
         "airflow",
-        "astro",
         "chromium"
     ],
     "tags": [

@@ -23,4 +23,4 @@ rm -f analytics.zip
 dbt build
 
 gnome-terminal --maximize --working-directory=/home/user/projects/analytics
-code /home/user/projects/analytics
+code /home/user/projects/analytics --disable-workspace-trust

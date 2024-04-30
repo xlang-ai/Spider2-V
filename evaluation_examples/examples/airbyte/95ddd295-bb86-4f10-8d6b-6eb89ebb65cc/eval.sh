@@ -2,8 +2,8 @@
 
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate airbyte
+# source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda activate airbyte
 
 # 1. check the connection from source Postgres to source Postgres
 # API docs: see https://airbyte-public-api-docs.s3.us-east-2.amazonaws.com/rapidoc-api-docs.html#overview
@@ -39,7 +39,7 @@ for workspaceid in ${workspaces}; do
         destination_id=${destination_ids[$i]}
         destination_config=$(curl -X POST http://localhost:8000/api/v1/destinations/get -H "Content-Type: application/json" -d "{\"destinationId\": \"${destination_id}\"}")
         destination_name=$(echo $destination_config | jq -rM ".destinationName")
-        destination_database=$(echo $source_config | jq -rM ".connectionConfiguration.database")
+        destination_database=$(echo $destination_config | jq -rM ".connectionConfiguration.database")
         destination_port=$(echo $destination_config | jq -rM '.connectionConfiguration.port')
         if [ "${destination_name}" = "Postgres" ] && [ "${destination_port}" = "3000" ] && [ "${destination_database}" = "postgres" ]; then
             echo "Airbyte Connection to destination Postgres, succeed"

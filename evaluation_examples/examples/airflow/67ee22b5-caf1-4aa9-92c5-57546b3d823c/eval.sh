@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate astro
+conda activate airflow
 cd /home/user/projects/workFlow
 
 export DAG_ID=workFlow_Echo

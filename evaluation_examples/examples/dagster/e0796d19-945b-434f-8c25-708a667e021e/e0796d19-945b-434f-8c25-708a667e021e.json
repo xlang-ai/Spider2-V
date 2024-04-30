@@ -13,7 +13,7 @@
         "cli+gui",
         "abstract"
     ],
-    "action_number": 2,
+    "action_number": 4,
     "config": [
         {
             "type": "script_and_execute",

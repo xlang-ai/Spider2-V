@@ -1,0 +1,6 @@
+I am using Astronomer to deploy Airflow
+To see the second page of the first DAG' project' Audit log when it is running, we can follow the steps:
+1. Click the first DAG project' name in the dag list;
+2. Then, click 'Trigger DAG' button in the upper right corner;
+3. Next, click the 'Audit Log' button in the middle;
+4. Click 'next' button in the buttom

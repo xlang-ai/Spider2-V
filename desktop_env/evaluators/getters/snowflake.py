@@ -10,7 +10,7 @@ logger = logging.getLogger("desktopenv.getters.snowflake")
 
 
 def write_data_into_csv(rows, csv_file, headers=[]):
-    with open(csv_file, 'w', newline='') as of:
+    with open(csv_file, 'w', newline='', encoding='utf-8', errors='ignore') as of:
         writer = csv.writer(of)
         if headers != []:
             writer.writerow(headers)

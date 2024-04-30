@@ -12,3 +12,5 @@ def test_potions_assets():
     cnt = result.output_for_node("count_advanced_difficulty_potions")
     assert cnt == 14
 ```
+3. Switch to the terminal. Go to the directory /home/user/$PROJECT_NAME/.
+4. Run the command "pytest harry_potter_potions_tests" to ensure that the tests are added correctly.

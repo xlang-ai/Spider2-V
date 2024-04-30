@@ -1,0 +1,74 @@
+{
+    "id": "b31539d0-734c-4af1-ab1e-9601df8f873f",
+    "snapshot": "snowflake",
+    "instruction": "I want to find the latest worksheet contains \"orders\". Please use the universal search provided by snowflake to help me find this worksheet and create a .sql file on the desktop to save the sql commands in this worksheet. The name of file should be result.sql.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-universal-search"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/b31539d0-734c-4af1-ab1e-9601df8f873f/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "snowflake_write_sqls_in_new_worksheet",
+            "parameters": {
+                "listening_port": 9222,
+                "sqls": [
+                    "SELECT region, SUM(quantity * unit_price) as total_sales FROM orders GROUP BY region ORDER BY total_sales DESC;"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_sql",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.sql",
+            "dest": "result.sql"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/b31539d0-734c-4af1-ab1e-9601df8f873f/result_gold.sql",
+            "dest": "result_gold.csv"
+        }
+    }
+}

@@ -119,6 +119,7 @@ from .slides import (
 from .table import (
     compare_table,
     compare_csv,
+    compare_sql,
     compare_conference_city_in_order
 )
 from .thunderbird import (

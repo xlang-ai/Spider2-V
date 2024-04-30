@@ -1,0 +1,70 @@
+{
+    "id": "7162732b-22d8-4e10-8565-3f95a5b1d16b",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to see the second page of my first DAG' project' Audit log when it is running.",
+    "source": [
+        "https://docs.astronomer.io/learn/get-started-with-airflow"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/7162732b-22d8-4e10-8565-3f95a5b1d16b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin", 
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 4,
+    "related_apps": [
+        "airflow",
+        "chromium"
+    ],
+    "tags": [
+        "abstract",
+        "gui"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/7162732b-22d8-4e10-8565-3f95a5b1d16b/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

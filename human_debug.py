@@ -54,8 +54,8 @@ def human_agent():
     """ Runs the Gym environment with human input.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', type=str, default="/Users/rhythmcao/Virtual Machines.localized/ubuntu.vmwarevm/ubuntu.vmx", help="Path to the virtual machine .vmx file.")
-    parser.add_argument('-s', '--snapshot', type=str, help="Snapshot to load.")
+    parser.add_argument('-p', '--path', type=str, default="/Users/happysix/Virtual Machines.localized/Ubuntu-22.04.vmwarevm/Ubuntu-22.04.vmx", help="Path to the virtual machine .vmx file.")
+    parser.add_argument('-s', '--snapshot', type=str, help="Snapshot to load.", required=True)
     parser.add_argument('-e', '--example', type=str, required=True)
     args = parser.parse_args(sys.argv[1:])
     with open(args.example, "r") as f:

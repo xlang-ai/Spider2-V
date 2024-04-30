@@ -22,7 +22,9 @@ class HTTPDocsLink(BaseOperatorLink):
     def get_link(self, operator, *, ti_key=None):
         return "https://developer.mozilla.org/en-US/docs/Web/HTTP"
 ˋˋˋ
-5. Save the file content and click the Chromium on the left panel to switch to the opened airflow web page;
+5. Save the file content and click the terminal on the left pannel, then type in the following command to restart the UI:
+`astro dev restart` 
+Chromium on the left panel to switch to the opened airflow web page;
 6. On the Airflow web page, find "weather_data_dag" in the DAG list and click the slider to the left of the name to Unpause dag; 
 7. Click the triangle under the Action column on the far right of the row to trigger the dag; 
 8. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"

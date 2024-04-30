@@ -1,0 +1,1 @@
+SELECT region, SUM(quantity * unit_price) as total_sales FROM orders GROUP BY region ORDER BY total_sales DESC;

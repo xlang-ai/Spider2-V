@@ -1,0 +1,85 @@
+{
+    "id": "d6d8fbd6-6f53-4c45-b86d-0781e1a2127e",
+    "snapshot": "airbyte",
+    "instruction": "I want to create an airbyte connection from Postgres to Postgres using octavia command. The configurations are given in the opened file on the desktop. Please help me to finish this task.",
+    "source": [
+        "https://airbyte.com/tutorials/version-control-airbyte-configurations"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "postgres"
+    ],
+    "tags": [
+        "cli"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number" : 10,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/d6d8fbd6-6f53-4c45-b86d-0781e1a2127e/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/d6d8fbd6-6f53-4c45-b86d-0781e1a2127e/config.json",
+                "dest": "/home/user/Desktop/config.json"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/config.json"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/d6d8fbd6-6f53-4c45-b86d-0781e1a2127e/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

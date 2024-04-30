@@ -1,5 +1,6 @@
-This task requires you to write sql to select a certain column.
-1. Edit models/dim_customers.sql, added an additional selection:
+This task requires you to write some sql codes to select a certain column.
+1. Open the file ``models/dim_customers.sql`` in the VSCode editor.
+2. Append the following SQL codes in the select block (there is a comment indicating the target location).
 ```sql
     coalesce (regexp_matches(
         customers.email, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
@@ -11,4 +12,5 @@ from customers
     left join accepted_email_domains
     on customers.email_top_level_domain = lower(accepted_email_domains.tld)
 ```
-2. Run ``dbt build`` to load the seeds and execute the models.
+3. Switch to the terminal.
+4. Run ``dbt build`` to load the seeds and execute the models.

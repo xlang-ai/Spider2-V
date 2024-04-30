@@ -15,12 +15,12 @@ function to_ready_state(){
     rm -rf /home/user/projects/SQL_Check/dags/exampledag.py
     sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
     code --user-data-dir=/home/user/projects/SQL_Check
-    astro dev start >/dev/null 2>&1
+    astro dev start --no-browser >/dev/null 2>&1
     wait
 }
 to_ready_state
 
 gnome-terminal --working-directory=/home/user/Downloads
 gnome-terminal --working-directory=/home/user/projects/SQL_Check
-code /home/user/projects/SQL_Check/dags/SQL_Check.py
+code /home/user/projects/SQL_Check/dags/sql_data_quality.py
 code /home/user/projects/SQL_Check/README.md
