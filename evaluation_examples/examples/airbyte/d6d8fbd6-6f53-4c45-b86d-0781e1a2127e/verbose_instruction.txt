@@ -1,0 +1,44 @@
+In this task, we want to use Octavia CLI to import, edit, and apply Airbyte application configurations to replicate data from Postgres to Postgres: 
+
+1. Switch to the terminal window;
+2. In the terminal, run the following commands to initiate octavia:
+```octavia init\
+octavia generate source decd338e-5647-4c0b-adf4-da0e75f5a750 postgres\
+nano sources/postgres/configuration.yaml```
+3. Edit the sources/postgres/configuration.yaml according to the config.json file to set up the source configurations and save the file;
+4. In the terminal, run the following commands to initiate octavia:
+```octavia apply```
+And you should see
+```
+...
+🎉 - Successfully created postgres on your Airbyte instance!\
+...
+```
+in the terimnal. Then you can check that the configuration is also available in the UI.
+5. After that, run in the terminal 
+```octavia generate destination 25c5221d-dce2-4163-ade9-739ef790f503 postgres\
+nano postgres destinations/postgres/configuration.yaml```
+6. Edit the destinations/postgres/configuration.yaml according to the config.json file to set up the destination configurations and save the file;
+7. In the terminal, run the following commands to initiate octavia:
+```octavia apply```
+And you should see
+```
+...
+🎉 - Successfully created postgres on your Airbyte instance!\
+...
+```
+in the terimnal. Then you can check that the configuration is also available in the UI;
+8. Then run 
+```octavia generate connection --source sources/postgres/configuration.yaml --destination destinations/postgres/configuration.yaml postgres-to-postgres\
+nano connections/postgres_to_postgres/configuration.yaml```
+in the terminal;
+9. Edit the connections/postgres_to_postgres/configuration.yaml according to the config.json file to set up the destination configurations and save the file;
+10. After that, run
+```octavia apply -f connections/postgres_to_postgres/configuration.yaml```
+You should see 
+```
+...
+🎉 - Successfully created postgres-to-bigquery on your Airbyte instance!
+...
+```
+in the terminal. Then you can check that the conncetion is created in the UI.

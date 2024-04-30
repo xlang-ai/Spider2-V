@@ -28,7 +28,7 @@ for workspaceid in ${workspaces}; do
         replication_slot=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.replication_slot")
         publication=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.publication")
         #username=$(echo $source_config | jq -rM ".connectionConfiguration.username")
-        if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ] && [ "${replication_slot}" = "airbyte_slot" ] && [ "${publication}" = "cdc_pub" ]; then
+        if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ]; then
             echo "Airbyte Connection from source Postgres, succeed"
         else
 #            echo "Airbyte Connection from source Postgres, failed."
@@ -44,20 +44,30 @@ for workspaceid in ${workspaces}; do
         if [ "${destination_name}" = "Postgres" ] && [ "${destination_port}" = "3000" ] && [ "${destination_database}" = "postgres" ]; then
             echo "Airbyte Connection to destination Postgres, succeed"
         else
-#            echo "Airbyte Connection to destination Postgres, failed."
+            # echo "Airbyte Connection to destination Postgres, failed."
             continue
         fi
 
         # check the connection config
         connection_config=$(echo $connections | jq -rM ".connections | .[${i}] | .")
-        incremental=$(echo $connection_config | grep "\"syncMode\": \"incremental\"")
-
-        if [ -n "$incremental" ]; then
-            echo "Airbyte CDC Connection config, succeed."
+        stream_length=$(echo $connection_config | jq ".syncCatalog.streams | length")
+        # check the configuration of all streams
+        all_streams_valid=true
+        for (( i=0; i<length; i++ )) do
+            sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.syncMode")
+            destination_sync_mode=$(echo $connection_config | jq -r ".syncCatalog.streams[${i}].config.destinationSyncMode")
+            echo ${sync_mode}
+            echo ${destination_sync_mode}
+            if [ "${sync_mode}" != "full_refresh" ] || [ "${destination_sync_mode}" != "overwrite" ]; then
+                all_streams_valid=false
+            fi
+        done
+        if [ "${all_streams_valid}" = true ]; then
+            echo "Full-refresh-overwrite Connection config, succeed."
             airbyte_connection=true
             break
-#        else
-#            echo "Airbyte CDC Connection config, failed."
+        #        else
+#            echo "Full-refresh-overwrite Connection config, failed."
         fi
     done
 done
