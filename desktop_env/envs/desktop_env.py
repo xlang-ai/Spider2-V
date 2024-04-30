@@ -237,7 +237,6 @@ class DesktopEnv(gym.Env):
         logger.info("Setting up environment...")
         if proxy: # using proxy to visit some webs, e.g., Google Cloud
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
-        self.setup_controller.check_network_connection()
         self.setup_controller.setup(self.config)
 
         time.sleep(5)

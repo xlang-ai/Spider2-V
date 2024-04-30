@@ -97,22 +97,6 @@ class SetupController:
         return
 
 
-    def check_network_connection(self) -> bool:
-        """ Check the connection status of the VM.
-        """
-        check_script_path = '/home/user/server/check_network_service.sh'
-        flag = self._execution_result(command=["bash", "-c", f'if [ -f "{check_script_path}" ]; then echo found; else echo not_found; fi'])['output'].strip()
-        if flag == 'not_found':
-            source_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'check_network_service.sh')
-            getattr(configs, 'copyfile_from_host_to_guest_setup')(self, src=source_file, dest=check_script_path)
-        results = self._execution_result(command=['bash', check_script_path])
-        if re.search(r'succeed', results['output'], flags=re.I):
-            logger.info('[INFO]: Network connection is available.')
-            return True
-        logger.error('[ERROR]: Network connection is not available.')
-        return False
-
-
     def setup(self, config: List[Dict[str, Any]]):
         """
         Args:
