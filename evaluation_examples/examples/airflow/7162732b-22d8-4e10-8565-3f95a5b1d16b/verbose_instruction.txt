@@ -1,6 +1,8 @@
 I am using Astronomer to deploy Airflow
-To see the second page of the first DAG' project' Audit log when it is running, we can follow the steps:
-1. Click the first DAG project' name in the dag list;
-2. Then, click 'Trigger DAG' button in the upper right corner;
-3. Next, click the 'Audit Log' button in the middle;
-4. Click 'next' button in the buttom
+To see the Audit log of deleting actions by the user whose ID is admin in ascending order of logical date, we can follow the steps:
+1. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;
+2. Click the Audit Logs in the dropdown menu;
+3. Click search;
+4. Add filter of event 'delete';
+5. Add filter of owner id 'admin';
+6. Click the Logical Date in the table header
