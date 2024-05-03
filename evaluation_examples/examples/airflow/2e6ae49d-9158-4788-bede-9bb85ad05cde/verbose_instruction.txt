@@ -1,5 +1,5 @@
 I am using Astronomer to deploy Airflow
-To show the user statistics with the first name Linda, we can follow the steps:
+To show the user statistics with the first name Linda in graph, we can follow the steps:
 1. Hover over the 'Security' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;
 2. Then, click the 'User's Stastics' in the dropdown menu;
 3. Click 'search';
