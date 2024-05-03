@@ -1,0 +1,31 @@
+I want to migrate a DAG from Airflow to Dagster. To do this:
+1. Open the file "README.md" from the navbar in VS Code.
+2. Check connection information to the MySQL server.
+3. Open "dagster_migration.py". Add the following code:
+```
+import os
+
+from airflow.models import Connection
+from dagster_airflow import (
+    make_dagster_definitions_from_airflow_dags_path,
+)
+
+migrated_airflow_definitions = make_dagster_definitions_from_airflow_dags_path(
+    os.path.abspath("./dags/"),
+    connections=[
+        Connection(conn_id="mysql_conn", conn_type="mysql", description="MySQL connection", host="localhost", login="user", password="password", port=3306)
+    ]
+)
+```
+4. Open the terminal. Make sure you are in the directory "~/wikipediaPageViews".
+5. Start the Dagster UI by the command "dagster dev -f dagster_migration.py".
+6. Go to Chromium. Enter address "localhost:3000" in the address bar.
+7. Click "Deployment" on the top.
+8. Click "dagster_migration.py" on the left of the table.
+9. Click "Schedules" in the middle.
+10. In the table, set the toggle button on under "Running" to start the schedule.
+11. To test the scheduel, click "wikipediaPageViews_schedule" in the table.
+12. Click "Test Schedule" on the top-right of the page.
+13. A pop-up window will show up. Click "Evaluate" on the bottom-right of the pop-up window.
+14. Click "Open in Launchpad" right of the table.
+15. Click "Launch run" on the bottom-right of the newly opened page. Wait for the run to complete. Try to debug if the run fails.
