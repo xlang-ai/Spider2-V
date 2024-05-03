@@ -1,7 +1,7 @@
 {
     "id": "2e6ae49d-9158-4788-bede-9bb85ad05cde",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. My leader want to know is there any user whose first name is Linda. Please show the user statistics with the first name Linda.",
+    "instruction": "I am using Astronomer to deploy Airflow. My leader want to know is there any user whose first name is Linda intuitively. Please show the user statistics with the first name Linda in graph.",
     "source": [
         "authors"
     ],
@@ -45,8 +45,7 @@
     ],
     "tags": [
         "abstract",
-        "gui",
-        "cli"
+        "gui"
     ],
     "evaluator": {
         "func": "check_include_exclude",
