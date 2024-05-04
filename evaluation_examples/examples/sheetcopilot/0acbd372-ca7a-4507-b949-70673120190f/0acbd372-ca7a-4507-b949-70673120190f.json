@@ -20,7 +20,7 @@
 	],
 	"action_number": 12,
 	"related_apps": [
-		"libreoffice_calc"
+		"excel"
 	],
 	"evaluator": {
 		"postconfig": [
