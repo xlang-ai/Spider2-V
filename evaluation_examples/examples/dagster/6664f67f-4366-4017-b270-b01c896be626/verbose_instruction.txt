@@ -1,0 +1,12 @@
+1. Open "external_code.py"
+2. Modify code 1
+3. Modify code 2
+4. Modify "assets.py"
+5. Go to Chromium
+6. Click "Reload". Wait for the reload to finish.
+7. Click "dagster_pipes_proj"
+8. Click "View lineage"
+9. Click "Materialize"
+10. Click on the asset "subprocess_asset"
+11. Click "View logs"
+12. In the table, find the event type "ASSET_CHECK_EVALUATION", click the link "no_empty_order_check" in the corresponding info "Check no_empty_order_check succeeded for materialization of subprocess_asset".

@@ -1,7 +1,7 @@
 {
 	"id": "8909d1cb-5877-44c7-a908-9f1875302441",
 	"snapshot": "libreoffice_calc",
-	"instruction": "Copy the \"Date\" and \"Revenue ($)\" values to a new sheet for the rows whose \"Sales Channel\" is \"E-mail Coupon\".",
+	"instruction": "Copy the \"Date\" and \"Revenue ($)\" values to a new sheet named \"Sheet2\" for the rows whose \"Sales Channel\" is \"E-mail Coupon\".",
 	"source": "SheetCopilot@177",
 	"config": [
 		{
@@ -24,7 +24,7 @@
 	],
 	"trajectory": "trajectories/8909d1cb-5877-44c7-a908-9f1875302441",
 	"related_apps": [
-		"libreoffice_calc"
+		"excel"
 	],
 	"evaluator": {
 		"postconfig": [
@@ -73,7 +73,7 @@
 			"rules": [
 				{
 					"type": "sheet_data",
-					"sheet_idx0": 0,
+					"sheet_idx0": "RNSheet2",
 					"sheet_idx1": "EI0"
 				}
 			]

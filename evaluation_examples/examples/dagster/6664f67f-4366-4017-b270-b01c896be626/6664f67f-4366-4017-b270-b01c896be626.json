@@ -1,9 +1,9 @@
 {
-    "id": "716f8398-cc62-4064-93c7-3748dbdb5e68",
+    "id": "6664f67f-4366-4017-b270-b01c896be626",
     "snapshot": "dagster",
-    "instruction": "I have defined some assets with pandas DataFrame as output. Now I want to store them in parquet file format for downstream assets to use. I know I should use an I/O manager but doesn't really know how to define the \"handle_output\" function to save the asset output to a \".pq\" file in \"base_path\" of \"ParquetIOManager\". Could you help me do it and add the I/O manager to the definitions in \"__init__.py\" with key \"parquet\"? After that, please show the configuration page of the \"parquet\" resource in the Dagster UI for me to check.",
+    "instruction": "<TODO>",
     "source": [
-        "https://docs.dagster.io/concepts/io-management/io-managers"
+        "https://docs.dagster.io/guides/dagster-pipes/subprocess"
     ],
     "related_apps": [
         "chromium",
@@ -17,14 +17,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/movies.zip",
-                "dest": "/home/user/movies.zip"
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/count-orders.zip",
+                "dest": "/home/user/count-orders.zip"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/init.sh",
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -57,14 +57,14 @@
             {
                 "type": "copyfile_from_host_to_guest",
                 "parameters": {
-                    "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/gold_hollywood_movies.pq",
+                    "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/gold_hollywood_movies.pq",
                     "dest": "/home/user/movies/gold_hollywood_movies.pq"
                 }
             },
             {
                 "type": "copyfile_from_host_to_guest",
                 "parameters": {
-                    "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/gold_imdb_movies.pq",
+                    "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/gold_imdb_movies.pq",
                     "dest": "/home/user/movies/gold_imdb_movies.pq"
                 }
             }
@@ -76,12 +76,12 @@
         "result": [
             {
                 "type": "vm_script_output",
-                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/eval.sh",
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/eval.sh",
                 "dest": "/home/user/eval.sh"
             },
             {
                 "type": "validate_correct_url",
-                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/eval_ui.sh",
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/eval_ui.sh",
                 "dest": "/home/user/eval_ui.sh",
                 "goto_prefix": "http://"
             }
