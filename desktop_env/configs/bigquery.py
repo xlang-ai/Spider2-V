@@ -142,6 +142,7 @@ def bigquery_login_setup(controller, **config):
         config_file(str): the path to the GCP keyfile, default is 'evaluation_examples/settings/google/gcp_config.json'
         project_name(str): the GCP name to search in the config file, if not provided, use project_index to get the project
         project_index(int): the index of the project in the config file, either this field or project_name must be provided
+        ws(str): the specific suffixes for some datasets
     """
     config_file = config.get('config_file', 'evaluation_examples/settings/google/gcp_config.json')
     if platform.system() == 'Windows':
@@ -159,8 +160,12 @@ def bigquery_login_setup(controller, **config):
         assert 'project_index' in config, "Must specify either project_name or project_index in config!"
         gcp_config = gcp_config[config['project_index']]
 
+    ws = config.get('ws', '')
     product, project_id = 'bigquery', gcp_config['project_id']
-    url = f'https://console.cloud.google.com/{product}?project={project_id}'
+    if ws == '':
+        url = f'https://console.cloud.google.com/{product}?project={project_id}'
+    else:
+        url = f'https://console.cloud.google.com/{product}?project={project_id}&ws={ws}'
     params = {"url": url, "actions": []}
     if 'settings_file' in config: params['settings_file'] = config['settings_file']
 
