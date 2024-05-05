@@ -24,7 +24,7 @@
 	],
 	"trajectory": "trajectories/cd3c4994-b9e2-426b-8157-f7978ff55501",
 	"related_apps": [
-		"libreoffice_calc"
+		"excel"
 	],
 	"evaluator": {
 		"postconfig": [

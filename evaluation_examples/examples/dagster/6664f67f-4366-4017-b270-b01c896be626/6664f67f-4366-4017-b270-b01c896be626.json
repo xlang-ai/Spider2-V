@@ -1,7 +1,7 @@
 {
     "id": "6664f67f-4366-4017-b270-b01c896be626",
     "snapshot": "dagster",
-    "instruction": "<TODO>",
+    "instruction": "There is some external code \"external.py\" incorporated into my dagster project \"orders\". I have defined a subprocess asset to execute the code using Dagster Pipes. However, I would like the external code to report its materialization by logging the total number of entries in the DataFrame \"orders_df\". Also, define an asset check called \"no_null_check\" to check all entries in the \"Item_ID\" columns are not null. Materialize the subprocess asset for me. After that, open the asset checks page for me to verify that \"no_null_check\" succeeds.",
     "source": [
         "https://docs.dagster.io/guides/dagster-pipes/subprocess"
     ],
@@ -17,8 +17,8 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/count-orders.zip",
-                "dest": "/home/user/count-orders.zip"
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/orders.zip",
+                "dest": "/home/user/orders.zip"
             }
         },
         {
@@ -34,7 +34,8 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.google.com",
+                    "http://localhost:3000"
                 ]
             }
         },
@@ -57,15 +58,8 @@
             {
                 "type": "copyfile_from_host_to_guest",
                 "parameters": {
-                    "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/gold_hollywood_movies.pq",
-                    "dest": "/home/user/movies/gold_hollywood_movies.pq"
-                }
-            },
-            {
-                "type": "copyfile_from_host_to_guest",
-                "parameters": {
-                    "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/gold_imdb_movies.pq",
-                    "dest": "/home/user/movies/gold_imdb_movies.pq"
+                    "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/orders_data_with_null.csv",
+                    "dest": "/home/user/orders/orders_data_with_null.csv"
                 }
             }
         ],

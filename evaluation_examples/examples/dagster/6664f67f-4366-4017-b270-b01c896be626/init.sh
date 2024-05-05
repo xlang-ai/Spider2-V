@@ -13,7 +13,7 @@ exec 2>/dev/null
 # create conda environment and install dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install pandas==2.0.3 pyarrow==16.0.0
+pip install pandas==2.0.3
 
 cd /home/user
 
@@ -21,7 +21,7 @@ mkdir -p ~/.dagster
 export DAGSTER_HOME=~/.dagster
 
 # create the target dagster project
-PROJECT_NAME=movies
+PROJECT_NAME=orders
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd $PROJECT_NAME
@@ -48,8 +48,8 @@ function start_dagster_server() {
 start_dagster_server
 
 code /home/user/$PROJECT_NAME
-code /home/user/$PROJECT_NAME/movies/__init__.py
-code /home/user/$PROJECT_NAME/movies/assets.py
-code /home/user/$PROJECT_NAME/movies/parquet_io_manager.py
+code /home/user/$PROJECT_NAME/orders/assets.py
+code /home/user/$PROJECT_NAME/orders/external.py
+
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
