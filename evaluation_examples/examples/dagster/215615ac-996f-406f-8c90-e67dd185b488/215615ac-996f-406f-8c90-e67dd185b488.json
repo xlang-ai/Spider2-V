@@ -1,0 +1,95 @@
+{
+    "id": "215615ac-996f-406f-8c90-e67dd185b488",
+    "snapshot": "dagster",
+    "instruction": "I have an Airflow DAG defined in \"~/wikipediaPageViews/dags/\". Please help me migrate it to Dagster. Note that the connection to my MySQL database is defined in \"README.md\". Set the DAG schedule to running. Test the schedule \"wikipediaPageViews_schedule\" and make sure the job succeeded.",
+    "source": [
+        "https://docs.dagster.io/integrations/airflow/migrating-to-dagster"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract"
+    ],
+    "action_number": 16,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/215615ac-996f-406f-8c90-e67dd185b488/wikipediaPageViews.zip",
+                "dest": "/home/user/wikipediaPageViews.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/215615ac-996f-406f-8c90-e67dd185b488/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/wikipediaPageViews/"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/215615ac-996f-406f-8c90-e67dd185b488/database_export.sql",
+                    "dest": "/home/user/wikipediaPageViews/database_export.sql"
+                }
+            },
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/215615ac-996f-406f-8c90-e67dd185b488/gold_pageviews.csv",
+                    "dest": "/home/user/wikipediaPageViews/gold_pageviews.csv"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/215615ac-996f-406f-8c90-e67dd185b488/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    }
+}

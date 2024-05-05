@@ -1,0 +1,10 @@
+The instruction is about data summary
+1. In the opened WeeklySales.xlsx, click D1
+2. In the input field under tool bar, type in "Week Sales COGS Summary"
+3. Click enter to confirm the change
+4. Click D2
+5. In the input field under tool bar, type in following content：
+=$A$1&": "&$A2&", "&$B$1&": "&$B2&", "&$C$1&": "&$C2
+6. Click enter to confirm the change
+7. Click the bottom right corner and drag until you reach D11
+8. Save the file

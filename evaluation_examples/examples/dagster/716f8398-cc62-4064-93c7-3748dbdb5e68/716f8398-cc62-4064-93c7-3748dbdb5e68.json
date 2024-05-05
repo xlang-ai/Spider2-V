@@ -1,0 +1,114 @@
+{
+    "id": "716f8398-cc62-4064-93c7-3748dbdb5e68",
+    "snapshot": "dagster",
+    "instruction": "I have defined some assets with pandas DataFrame as output. Now I want to store them in parquet file format for downstream assets to use. I know I should use an I/O manager but doesn't really know how to define the \"handle_output\" function to save the asset output to a \".pq\" file in \"base_path\" of \"ParquetIOManager\". Could you help me do it and add the I/O manager to the definitions in \"__init__.py\" with key \"parquet\"? After that, please show the configuration page of the \"parquet\" resource in the Dagster UI for me to check.",
+    "source": [
+        "https://docs.dagster.io/concepts/io-management/io-managers"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster"
+    ],
+    "tags": [
+        "cli+gui"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/movies.zip",
+                "dest": "/home/user/movies.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/gold_hollywood_movies.pq",
+                    "dest": "/home/user/movies/gold_hollywood_movies.pq"
+                }
+            },
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/gold_imdb_movies.pq",
+                    "dest": "/home/user/movies/gold_imdb_movies.pq"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude",
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "validate_correct_url",
+                "src": "evaluation_examples/examples/dagster/716f8398-cc62-4064-93c7-3748dbdb5e68/eval_ui.sh",
+                "dest": "/home/user/eval_ui.sh",
+                "goto_prefix": "http://"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    }
+}

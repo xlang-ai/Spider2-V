@@ -1,6 +1,6 @@
 {
     "id": "12382c62-0cd1-4bf2-bdc8-1d20bf9b2371",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Create a clustered column chart showing the Sales and COGS data for each week in a new sheet. Set the chart title as \"Sales & COGS\".",
     "source": "SheetCopilot@210",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/12382c62-0cd1-4bf2-bdc8-1d20bf9b2371",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -80,7 +80,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }

@@ -1,6 +1,6 @@
 {
     "id": "4172ea6e-6b77-4edb-a9cc-c0014bd1603b",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "I want to work out the maturity date for all the loans. Please do it for me in a new column with header \"Maturity Date\".",
     "source": "SheetCopilot@113",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/4172ea6e-6b77-4edb-a9cc-c0014bd1603b",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -76,7 +76,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }

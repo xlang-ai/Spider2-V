@@ -1,0 +1,86 @@
+{
+    "id": "fdeaf4b9-6d03-4090-8b53-9487f38e3a29",
+    "snapshot": "metabase",
+    "instruction": "I have logged in to Metabase. Please help me add a database according to the information provided in the \"db_info.json\" file.",
+    "source": [
+        "https://www.metabase.com/docs/latest/databases/connecting"
+    ],
+    "related_apps": [
+        "chromium",
+        "postgresql",
+        "metabase"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 5,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/fdeaf4b9-6d03-4090-8b53-9487f38e3a29/db_info.json",
+                "dest": "/home/user/db_info.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/fdeaf4b9-6d03-4090-8b53-9487f38e3a29/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/db_info.json"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/fdeaf4b9-6d03-4090-8b53-9487f38e3a29/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

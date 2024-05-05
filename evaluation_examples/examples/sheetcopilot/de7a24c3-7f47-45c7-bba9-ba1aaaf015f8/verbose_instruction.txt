@@ -1,0 +1,17 @@
+I would like to create a pivot table and a horizontal bar chart for my table. Please follow these steps:
+1. Click the "Append sheet" on the left of "Sheet1" on the bottom (its icon is a sheet of paper with a "+" on the bottom-right). A new sheet with name "Sheet2" will be created.
+2. Select cells A1:B1. Click "Merge Cells" on the toolbar.
+3. Input "Summer sales ($)" in the merged cell.
+4. Click "Sheet1" on the bottom to switch to "Sheet1".
+5. Click "Insert" on the top menu bar. Select "Pivot Table..." in the dropdown menu.
+6. Make sure the selection is "Current selection" and the entire sheet containing data is selected. Then click "OK" on the button-right of the pop-up window.
+7. Drag "Product" from the available fields on the right to "Row Fields:" on the bottom-left of the pop-up window.
+8. Drag "Revenue" from the available fields to "Data Fields:" in the middle.
+9. Click "Source and Destination" on the bottom to manually choose the destination.
+10. Under "Destination", choose "Selection" from the options, and click the "Shrink" button on the right.
+11. Click "Sheet2" on the bottom. Then select cell A2. You can see "$Sheet2.$A$2" in the textbox on the top.
+12. Click "Expand" right of the textbox to return to the pop-up window. Click "OK" on the bottom-right. A pivot table will be generated in "Sheet2".
+13. In "Sheet2", click "Insert" on the top menu bar. Select "Chart..." in the dropdown menu.
+14. Click "Bar" under "Choose a Chart Type". Click "Next >" on the bottom of the pop-up window.
+15. Input "Revenue of Each Product" in the textbox. Deselect "Display legend" on the right.
+16. Click "Finish" on the bottom-right of the pop-up window.

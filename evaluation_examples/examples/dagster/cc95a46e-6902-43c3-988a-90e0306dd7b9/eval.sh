@@ -27,7 +27,7 @@ else
     exit 0
 fi
 
-# Extract run IDs from the file
+# Extract run IDs
 run_ids=$(dagster run list | grep -oP 'Run: \K.*')
 
 declare -A partitions

@@ -1,7 +1,7 @@
 {
     "id": "7162732b-22d8-4e10-8565-3f95a5b1d16b",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I would like to see the second page of my first DAG' project' Audit log when it is running.",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to see the Audit log of deleting actions by the user whose ID is admin in ascending order of logical date.",
     "source": [
         "https://docs.astronomer.io/learn/get-started-with-airflow"
     ],
@@ -38,7 +38,7 @@
             }
         }
     ],
-    "action_number": 4,
+    "action_number": 6,
     "related_apps": [
         "airflow",
         "chromium"

@@ -1,0 +1,82 @@
+{
+    "id": "16a9da77-2f40-455f-977e-32696ea97180",
+    "snapshot": "bigquery",
+    "instruction": "Finish the query code about Bigquery-public-data. I want to get the names and areas of the top ten bike stations by floor area. Saving the result.csv in project1 folder. ",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1sbigquery-public-data!2saustin_bikeshare"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/16a9da77-2f40-455f-977e-32696ea97180/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/16a9da77-2f40-455f-977e-32696ea97180/query.py",
+                "dest": "/home/user/projects/bigquery/project1/query.py"
+            }
+        },
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/projects/bigquery/project1/credential.json"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/projects/bigquery/project1/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/16a9da77-2f40-455f-977e-32696ea97180/station_rank.csv",
+            "dest": "gold_output.csv"
+        }
+    }
+}

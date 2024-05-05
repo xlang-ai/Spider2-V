@@ -1,0 +1,108 @@
+{
+    "id": "6664f67f-4366-4017-b270-b01c896be626",
+    "snapshot": "dagster",
+    "instruction": "There is some external code \"external.py\" incorporated into my dagster project \"orders\". I have defined a subprocess asset to execute the code using Dagster Pipes. However, I would like the external code to report its materialization by logging the total number of entries in the DataFrame \"orders_df\". Also, define an asset check called \"no_null_check\" to check all entries in the \"Item_ID\" columns are not null. Materialize the subprocess asset for me. After that, open the asset checks page for me to verify that \"no_null_check\" succeeds.",
+    "source": [
+        "https://docs.dagster.io/guides/dagster-pipes/subprocess"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster"
+    ],
+    "tags": [
+        "cli+gui"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/orders.zip",
+                "dest": "/home/user/orders.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com",
+                    "http://localhost:3000"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/orders_data_with_null.csv",
+                    "dest": "/home/user/orders/orders_data_with_null.csv"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude",
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "validate_correct_url",
+                "src": "evaluation_examples/examples/dagster/6664f67f-4366-4017-b270-b01c896be626/eval_ui.sh",
+                "dest": "/home/user/eval_ui.sh",
+                "goto_prefix": "http://"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    }
+}

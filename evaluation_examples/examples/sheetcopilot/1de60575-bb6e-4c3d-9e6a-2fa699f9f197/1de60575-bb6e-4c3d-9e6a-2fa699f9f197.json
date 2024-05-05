@@ -1,6 +1,6 @@
 {
     "id": "1de60575-bb6e-4c3d-9e6a-2fa699f9f197",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Summarize the total revenue for each promotion type in a new sheet (Sheet2) with the promotion names as the column headers.",
     "source": "SheetCopilot@55",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/1de60575-bb6e-4c3d-9e6a-2fa699f9f197",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -82,7 +82,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }

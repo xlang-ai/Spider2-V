@@ -1,6 +1,6 @@
 {
     "id": "035f41ba-6653-43ab-aa63-c86d449d62e5",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Help me fill in the Gross profit column. Then under column A named \"Year_Profit\" in a new sheet, display the Year Column in Sheet 1 as text appended by a \"_\" with the corresponding Gross Profit value.",
     "source": "SheetCopilot@92",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/035f41ba-6653-43ab-aa63-c86d449d62e5",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -81,7 +81,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }
