@@ -56,9 +56,9 @@
 		],
 		"func": "compare_table",
 		"expected": {
-			"type": "cloud_file",
-			"path": "https://drive.google.com/uc?id=1_KlsYyVzWbp9r6ZAHxNPeHozk04Ksryv&export=download",
-			"dest": "2_SummerSales_gt1.xlsx"
+			"type": "local_file",
+			"path": "evaluation_examples/examples/sheetcopilot/8909d1cb-5877-44c7-a908-9f1875302441/gold_SummerSales.xlsx",
+			"dest": "gold_SummerSales.xlsx"
 		},
 		"result": {
 			"type": "vm_file",
