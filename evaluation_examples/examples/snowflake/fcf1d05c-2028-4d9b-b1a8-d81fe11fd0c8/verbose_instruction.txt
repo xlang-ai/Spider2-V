@@ -1,0 +1,8 @@
+This job is to create a new python worksheet on Snowflake and write python code to create a table with data in stage. In the opened Snowsight web page,
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "+" button on the right;
+3. In the drop-down menu, select "Python Worksheet".
+4. In the top of the worksheet, there is a button showing "No database selected", click this button.
+5. In the drop-down menu, select "COMPANY" for the database, "PUBLIC" for the schema, then click anywhere to turn off the menu.
+6. Copy the code in helper_gold.py which is in the current directory to the worksheet.
+7. Click the "Run" button on the right-top of the worksheet. There will be a warning on the Results field, no worry.
