@@ -5,7 +5,8 @@ exec 2>/dev/null
 PASSWORD='password'
 
 # 1. install JAVA, set JAVA_HOME
-echo $PASSWORD | sudo -S apt-get update && apt-get install -y default-jre default-jdk
+echo $PASSWORD | sudo -S apt-get update
+echo $PASSWORD | sudo -S apt-get install -y default-jre default-jdk
 JAVA_RUNTIME=$(readlink -f $(which java))
 JAVA_HOME=$(dirname $(dirname $JAVA_RUNTIME))
 export JAVA_HOME=$JAVA_HOME
@@ -13,7 +14,8 @@ echo "export JAVA_HOME=$JAVA_HOME" >> ~/.bashrc
 echo $PASSWORD | sudo -S bash -c "echo 'export JAVA_HOME=$JAVA_HOME' >> /etc/environment" # may need to restart the system
 
 # 2. install Metabase from jar package
-mkdir -p /home/user/projects/metabase && cd /home/user/projects/metabase
+mkdir -p /home/user/projects/metabase
+cd /home/user/projects/metabase
 wget -c https://downloads.metabase.com/v0.49.6/metabase.jar
 
 # 3. install postgres
