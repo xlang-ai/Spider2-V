@@ -16,15 +16,14 @@ conda activate dagster
 pip install pandas==2.0.3 pyarrow==16.0.0
 
 cd /home/user
-
 mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
 
 # create the target dagster project
 PROJECT_NAME=movies
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd $PROJECT_NAME
+code /home/user/$PROJECT_NAME
 
 # start dagster Web UI service
 function start_dagster_server() {
@@ -47,7 +46,6 @@ function start_dagster_server() {
 }
 start_dagster_server
 
-code /home/user/$PROJECT_NAME
 code /home/user/$PROJECT_NAME/movies/__init__.py
 code /home/user/$PROJECT_NAME/movies/assets.py
 code /home/user/$PROJECT_NAME/movies/parquet_io_manager.py
