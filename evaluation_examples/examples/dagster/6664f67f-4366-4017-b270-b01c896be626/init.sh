@@ -13,7 +13,6 @@ exec 2>/dev/null
 # create conda environment and install dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install pandas==2.0.3
 
 cd /home/user
 

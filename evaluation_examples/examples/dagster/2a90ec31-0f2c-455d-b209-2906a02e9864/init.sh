@@ -13,10 +13,7 @@ exec 2>/dev/null
 # create conda environment and install dagster
 cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda create -n dagster python=3.11 -y
 conda activate dagster
-# pip install dagster
-# Please uncomment the above two lines if you want to install dagster in a new conda environment.
 
 mkdir -p ~/.dagster
 mkdir -p ~/.dagster_cloud_cli

@@ -23,7 +23,6 @@ PROJECT_NAME=harry-potter-potions
 dagster project scaffold --name $PROJECT_NAME
 mkdir -p $PROJECT_NAME/data
 cd $PROJECT_NAME
-pip install -e ".[dev]"
 
 # start dagster Web UI service
 function start_dagster_server() {

@@ -12,14 +12,9 @@ exec 2>/dev/null
 
 PASSWORD=password
 
-echo $PASSWORD | sudo -S apt install pkg-config build-essential libmysqlclient-dev -y
-echo $PASSWORD | sudo -S apt install mysql-server=8.0.36-0ubuntu0.22.04.1 -y # Version may differ on other machines. Not tested.
-echo $PASSWORD | sudo -S systemctl start mysql.service
-
 # create conda environment and install dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install dagster-airflow==1.7.1 apache-airflow==2.9.0 apache-airflow-providers-mysql==5.5.4 mysqlclient==2.2.4
 
 cd /home/user
 

@@ -14,7 +14,6 @@ exec 2>/dev/null
 cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install dagster-duckdb dagster-duckdb-pandas
 
 mkdir -p ~/.dagster
 export DAGSTER_HOME=~/.dagster
