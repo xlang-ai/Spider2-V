@@ -1,5 +1,5 @@
 The instruction is about data summary
-1. In the opened NetIncome.xlsx, click D1
+1. In the opened WeeklySales.xlsx, click D1
 2. In the input field under tool bar, type in "Week Sales COGS Summary"
 3. Click enter to confirm the change
 4. Click D2
