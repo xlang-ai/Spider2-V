@@ -1,0 +1,6 @@
+In this task, we hope to backup the Metabase database file to a specific location. To achieve this goal:
+
+1. Navigate to Desktop directory where locates the Metabase JAR.
+2. Since the Metabase is running, you should first stop the Metabase process. You can either close the terminal or kill the process with CTRL-C. 
+3. Copy the application database file (called `metabase.db.mv.db`) and keep that copy to the target directory, which means, creat the directory `/home/user/Metabase`, cd into it, paste the database file there.
+4. Navigate back to Desktop directory. Restart Metabase: `java -jar metabase.jar`.

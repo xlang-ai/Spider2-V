@@ -1,0 +1,66 @@
+{
+    "id": "6aa7117d-2881-492a-995d-134a163efe23",
+    "snapshot": "metabase",
+    "instruction": "I am going to run the Metabase JAR file I previously downloaded on the Desktop. Could you please help me back up my database file at /home/user/Metabase?",
+    "source": [
+        "https://www.metabase.com/docs/latest/installation-and-operation/backing-up-metabase-application-data"
+    ],
+    "related_apps": [
+        "chromium",
+        "terminal",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui"
+    ],
+    "action_number": 4,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/6aa7117d-2881-492a-995d-134a163efe23/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import os; os.path.isfile('/home/user/Metabase/metabase.db.mv.db')"
+                    ]
+                }
+            }
+        ],
+        "func": "exact_match",
+        "result": {
+            "type": "vm_command_line",
+            "command": [
+                "ls",
+                "/home/user/Metabase"
+            ]
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": "metabase.db.mv.db\n"
+            }
+        }
+    }
+}

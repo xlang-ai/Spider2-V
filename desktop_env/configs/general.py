@@ -207,15 +207,15 @@ def script_and_execute_setup(controller, src: str, dest: str = '/home/user/init.
         controller._download_setup([{'url': src, 'path': dest}])
     else:
         if platform.system() == 'Windows':
-            src = src.replace('/', '\\')
+            src = src.replace('/', '\\')                
         copyfile_from_host_to_guest_setup(controller, src=src, dest=dest)
 
     # execute the script
     controller._execute_setup(command=["chmod", "a+x", dest])
+    controller._execute_setup(command=["dos2unix", dest] + options)
     controller._execute_setup(command=["/bin/bash", dest] + options)
     controller._execute_setup(command=["rm", "-f", dest])
     return
-
 
 def copyfile_from_guest_to_host_setup(controller, src: str, dest: str):
     """ Transfer a file from VM to host.
