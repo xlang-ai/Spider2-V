@@ -1,0 +1,10 @@
+Database: COMPANY
+
+Schema: PUBLIC
+
+table EMPLOYEES:
+    - employee_id INTEGER
+    - first_name VARCHAR(50)
+    - last_name VARCHAR(50)
+    - department VARCHAR(50)
+    - salary FLOAT
