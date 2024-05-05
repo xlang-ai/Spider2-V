@@ -1,6 +1,6 @@
 {
     "id": "535364ea-05bd-46ea-9937-9f55c68507e8",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Create two tables in a new sheet showing the total revenue for each product and sales channel.",
     "source": "SheetCopilot@180",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/535364ea-05bd-46ea-9937-9f55c68507e8",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -82,7 +82,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }

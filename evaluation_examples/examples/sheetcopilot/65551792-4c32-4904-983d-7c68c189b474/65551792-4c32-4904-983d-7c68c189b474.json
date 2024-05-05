@@ -1,78 +1,81 @@
 {
-	"id": "65551792-4c32-4904-983d-7c68c189b474",
-	"snapshot": "libreoffice_calc",
-	"instruction": "Copy the Year column to column A of a new sheet. Calculate the corresponding gross profits for the years in column B named \"Gross Profit\" of this new sheet.",
-	"source": "SheetCopilot@90",
-	"config": [
-		{
-			"type": "copyfile_from_host_to_guest",
-			"parameters": {
-				"src": "evaluation_examples/examples/sheetcopilot/65551792-4c32-4904-983d-7c68c189b474/IncomeStatement2.xlsx",
-				"dest": "/home/user/IncomeStatement2.xlsx"
-			}
-		},
-		{
-			"type": "open",
-			"parameters": {
-				"path": "/home/user/IncomeStatement2.xlsx"
-			}
-		}
-	],
-	"action_number": 9,
-	"related_apps": [
-		"libreoffice_calc"
-	],
-	"evaluator": {
-		"postconfig": [
-			{
-				"type": "activate_window",
-				"parameters": {
-					"window_name": "IncomeStatement2.xlsx - LibreOffice Calc",
-					"strict": true
-				}
-			},
-			{
-				"type": "sleep",
-				"parameters": {
-					"seconds": 0.5
-				}
-			},
-			{
-				"type": "execute",
-				"parameters": {
-					"command": [
-						"python",
-						"-c",
-						"import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
-					]
-				}
-			},
-			{
-				"type": "sleep",
-				"parameters": {
-					"seconds": 0.5
-				}
-			}
-		],
-		"func": "compare_table",
-		"expected": {
-			"type": "local_file",
-			"path": "evaluation_examples/examples/sheetcopilot/65551792-4c32-4904-983d-7c68c189b474/3_IncomeStatement2_gt1.xlsx",
-			"dest": "3_IncomeStatement2_gt1.xlsx"
-		},
-		"result": {
-			"type": "vm_file",
-			"path": "/home/user/IncomeStatement2.xlsx",
-			"dest": "IncomeStatement2.xlsx"
-		},
-		"options": {
-			"rules": [
-				{
-					"type": "sheet_data",
-					"sheet_idx0": "RI1",
-					"sheet_idx1": "EI1"
-				}
-			]
-		}
-	}
+    "id": "65551792-4c32-4904-983d-7c68c189b474",
+    "snapshot": "excel",
+    "instruction": "Copy the Year column to column A of a new sheet. Calculate the corresponding gross profits for the years in column B named \"Gross Profit\" of this new sheet.",
+    "source": "SheetCopilot@90",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/sheetcopilot/65551792-4c32-4904-983d-7c68c189b474/IncomeStatement2.xlsx",
+                "dest": "/home/user/IncomeStatement2.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/IncomeStatement2.xlsx"
+            }
+        }
+    ],
+    "action_number": 9,
+    "related_apps": [
+        "excel"
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "IncomeStatement2.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/sheetcopilot/65551792-4c32-4904-983d-7c68c189b474/3_IncomeStatement2_gt1.xlsx",
+            "dest": "3_IncomeStatement2_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/IncomeStatement2.xlsx",
+            "dest": "IncomeStatement2.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RI1",
+                    "sheet_idx1": "EI1"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "gui"
+    ]
 }

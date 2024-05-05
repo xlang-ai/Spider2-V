@@ -1,6 +1,6 @@
 {
     "id": "3a7c8185-25c1-4941-bd7b-96e823c9f21f",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Sort the data according to column A in an ascending order and then create a line chart with the \"Date Time\" column on the X-axis and quantity on the Y-axis.",
     "source": "SheetCopilot@5",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/3a7c8185-25c1-4941-bd7b-96e823c9f21f",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -84,7 +84,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }

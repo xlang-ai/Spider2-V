@@ -1,6 +1,6 @@
 {
     "id": "1e8df695-bd1b-45b3-b557-e7d599cf7597",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Add a new column named \"Profit\" and calculate the profit for each week by subtracting \"COGS\" from \"Sales\" in that column.",
     "source": "SheetCopilot@203",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/1e8df695-bd1b-45b3-b557-e7d599cf7597",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -76,7 +76,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }

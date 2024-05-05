@@ -1,6 +1,6 @@
 {
     "id": "51719eea-10bc-4246-a428-ac7c433dd4b3",
-    "snapshot": "libreoffice_calc",
+    "snapshot": "excel",
     "instruction": "Calculate revenue in a new column and generate a Pivot Table in a new sheet (Sheet2) that summarizes the revenue of each product.",
     "source": "SheetCopilot@7",
     "config": [
@@ -20,7 +20,7 @@
     ],
     "trajectory": "trajectories/51719eea-10bc-4246-a428-ac7c433dd4b3",
     "related_apps": [
-        "libreoffice_calc"
+        "excel"
     ],
     "evaluator": {
         "postconfig": [
@@ -82,7 +82,6 @@
         }
     },
     "tags": [
-        "abstract",
-        "cli"
+        "gui"
     ]
 }
