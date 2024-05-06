@@ -1,9 +1,9 @@
 {
-    "id": "d57298f3-8191-4cec-9e63-ce1a90b0a2a2",
+    "id": "d294bf44-fed3-4958-9740-3960010bcb78",
     "snapshot": "metabase",
-    "instruction": "I have logged in to Metabase and I want to clear my databases panel. Please help me delete the Metabase Sample Database.",
+    "instruction": "I have logged in to Metabase and I deleted the Sample Database by accident. Please help me restore the Metabase Sample Database.",
     "source": [
-        "https://www.metabase.com/docs/latest/databases/connecting#deleting-databases"
+        "https://www.metabase.com/docs/latest/databases/connecting#restoring-the-sample-database"
     ],
     "related_apps": [
         "chromium",
@@ -13,13 +13,13 @@
     "tags": [
         "gui"
     ],
-    "action_number": 7,
+    "action_number": 5,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/d57298f3-8191-4cec-9e63-ce1a90b0a2a2/init.sh",
+                "src": "evaluation_examples/examples/metabase/d294bf44-fed3-4958-9740-3960010bcb78/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -44,6 +44,18 @@
                     }
                 ]
             }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000/admin/databases/1",
+                "actions": [
+                    {
+                        "type": "delete_sample_database"
+                    }
+                ]
+            }
         }
     ],
     "trajectory": "trajectories/",
@@ -52,7 +64,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/metabase/d57298f3-8191-4cec-9e63-ce1a90b0a2a2/eval.sh",
+            "src": "evaluation_examples/examples/metabase/d294bf44-fed3-4958-9740-3960010bcb78/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

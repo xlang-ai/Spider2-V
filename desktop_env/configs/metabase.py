@@ -97,15 +97,67 @@ def metabase_webui_setup(page: Page, config: Dict[str, Any] = {}):
         return
     return page
 
+def delete_sample_database(page: Page):
+    """ Delete the sample database that comes pre-loaded with Metabase.
+    """
+    try:        
+        button = page.locator('button').filter(has_text="Remove this database")
+        expect(button).to_be_enabled()
+        button.click()
+
+        input_box = page.locator("input[placeholder='Are you completely sure?']")
+        expect(input_box).to_be_editable()
+        input_box.fill("Sample Database")
+
+        button = page.locator('button').filter(has_text="Delete")
+        expect(button).to_be_enabled()
+        button.click()
+        
+        logger.info('Sample database deleted successfully')
+    except Exception as e:
+        logger.error(f'[ERROR]: failed to delete sample database. {e}')
+        return
+
 
 METABASE_WEBUI_FUNCTIONS = {
     "login": metabase_webui_login,
-    "setup": metabase_webui_setup
+    "setup": metabase_webui_setup,
+    "delete_sample_database": delete_sample_database
 }
 
 
 def metabase_webui_init_setup(controller, **config):
     """ Log into the Metabase localhost webui and perform environment setup. Arguments for config dict:
+    @args:
+        listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
+        url(str): the url of the superset webui, default is localhost 'http://localhost:3000'
+    """
+    listening_port = config.get('listening_port', 9222)
+    remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
+
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return
+
+        context = browser.contexts[0]
+        url = config.get('url', 'http://localhost:3000')
+        page = find_page_by_url(context, url, matching_func=lambda x, y: x.startswith(y))
+
+        if page is None:
+            # logger.error(f'[ERROR]: failed to find the Metabase localhost webui page {url}. Nothing done.')
+            page = context.new_page()
+            metabase_webui_login(page, url)
+        
+        for action in config.get('actions', []):
+            action_type = action.pop('type')
+            init_func = METABASE_WEBUI_FUNCTIONS[action_type]
+            init_func(page, **action)
+    return
+
+def metabase_webui_init_delete_sample_database(controller, **config):
+    """ Arguments for config dict:
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
         url(str): the url of the superset webui, default is localhost 'http://localhost:3000'

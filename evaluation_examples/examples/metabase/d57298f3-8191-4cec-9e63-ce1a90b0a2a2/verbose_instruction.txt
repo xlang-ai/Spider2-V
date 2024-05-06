@@ -6,4 +6,4 @@ To delete the metabase sample database, please follow these steps:
 4. Click "Sample Database".
 5. Click "Remove this database".
 6. Type "Sample Database" in the box that appears on the screen.
-5. Click the "Delete" button on the bottom.
+7. Click the "Delete" button on the bottom.

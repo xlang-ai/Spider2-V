@@ -1,0 +1,7 @@
+To restore the metabase sample database, please follow these steps:
+
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click "Databases" button in the top of the page;
+4. Click "Bring the Sample Database back".
+5. Wait until the Sample Database is restored on the panel.
