@@ -31,6 +31,8 @@ echo $PASSWORD | sudo -S ls > /dev/null
 sudo -S mysql < database_init.sql
 rm -f database_init.sql
 
+touch /tmp/sqlserver_query.sql
+
 code /home/user/$PROJECT_NAME
 code /home/user/$PROJECT_NAME/dags/wikipediaPageViews.py
 code /home/user/$PROJECT_NAME/README.md
