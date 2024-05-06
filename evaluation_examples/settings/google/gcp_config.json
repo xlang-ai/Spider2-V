@@ -9,10 +9,10 @@
             "bigquery",
             "cloudapis"
         ],
-        "project_id": "apt-rite-415611",
-        "email": "xlang2024anonym@gmail.com",
-        "service_account": "service-account-236@apt-rite-415611.iam.gserviceaccount.com",
-        "keyfile_path": "evaluation_examples/settings/google/apt-rite-415611.json"
+        "project_id": "spider2-422506",
+        "email": "spider2-422506@gmail.com",
+        "service_account": "spider2@spider2-422506.iam.gserviceaccount.com",
+        "keyfile_path": "evaluation_examples/settings/google/spider2-422506.json"
     },
     {
         "project_name": "googleads-project",
