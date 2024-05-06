@@ -1,19 +1,28 @@
 {
     "id": "8a8b875d-1f10-40fa-b998-8fd8ebb3515b",
     "snapshot": "dagster",
-    "instruction": "In the open directory \"test-ops-and-jobs\", create a new python file \"file_sizes_job.py\" and define 4 dagster ops \"get_file_sizes\", \"get_total_file_size\", \"get_max_file_size\", and \"report_file_stats\" to get the sizes of files in the directory \"/home/user/test-ops-jobs/files\", calculate the total file size, compute the largest size of all files, and output the total and largest file sizes in the dagster log, respectively. Also define in \"file_sizes_job.py\" a job which reports the total and largest file sizes in the \"files\" directory. Visualize the job in the dagster UI on port 3000.",
+    "instruction": "In the current folder, help me write 4 dagster ops and 1 job in file `file_sizes_job.py`. See README.md for detailed requirements. Also, visualize the job in the dagster UI at port 3000.",
     "source": [
         "https://docs.dagster.io/guides/dagster/intro-to-ops-jobs/connecting-ops"
     ],
     "related_apps": [
         "chromium",
-        "dagster"
+        "dagster",
+        "vscode",
+        "terminal"
     ],
     "tags": [
         "cli+gui"
     ],
-    "action_number": 8,
+    "action_number": 12,
     "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/8a8b875d-1f10-40fa-b998-8fd8ebb3515b/README.md",
+                "dest": "/home/user/README.md"
+            }
+        },
         {
             "type": "script_and_execute",
             "parameters": {
@@ -37,7 +46,7 @@
                 "command": [
                     "gnome-terminal",
                     "--maximize",
-                    "--working-directory=/home/user/test-ops-and-jobs/"
+                    "--working-directory=/home/user/file-ops-and-jobs/"
                 ]
             }
         }
@@ -49,7 +58,7 @@
                 "type": "copyfile_from_host_to_guest",
                 "parameters": {
                     "src": "evaluation_examples/examples/dagster/8a8b875d-1f10-40fa-b998-8fd8ebb3515b/test_file_sizes_job.py",
-                    "dest": "/home/user/test-ops-and-jobs/test_file_sizes_job.py"
+                    "dest": "/home/user/file-ops-and-jobs/test_file_sizes_job.py"
                 }
             }
         ],

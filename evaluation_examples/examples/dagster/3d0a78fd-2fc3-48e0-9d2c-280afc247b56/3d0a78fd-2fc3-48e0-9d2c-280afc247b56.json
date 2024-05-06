@@ -1,19 +1,19 @@
 {
     "id": "3d0a78fd-2fc3-48e0-9d2c-280afc247b56",
     "snapshot": "dagster",
-    "instruction": "Help me test the sensor \"math_sensor\" with cursor value \"123\" in the opened dagster UI and run the requested job with the configuration of the run request.",
+    "instruction": "Help me test the sensor \"math_sensor\" with cursor value \"123\" in the opened dagster UI and launch the attached job to run.",
     "source": [
         "https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors#testing-sensors"
     ],
     "related_apps": [
         "chromium",
-        "dagster"
+        "dagster",
+        "vscode"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "gui"
     ],
-    "action_number": 5,
+    "action_number": 7,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -35,8 +35,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },

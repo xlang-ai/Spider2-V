@@ -1,19 +1,20 @@
 {
     "id": "e0796d19-945b-434f-8c25-708a667e021e",
     "snapshot": "dagster",
-    "instruction": "In the open project \"harry-potter-potions\", modify the code in \"harry_potter_potions_tests/test_assets.py\" by adding a test called \"test_potions_assets\" to test the assets \"all_potions\", and \"count_advanced_difficulty_potions\" are successfully materialized, and the number of potions with advanced difficulty is exactly 14.",
+    "instruction": "In the open dagster project, add one test function \"test_potions_assets\". It aims to ensure all assets are successfully materialized, and the number of potions with advanced difficulty is exactly 14.",
     "source": [
         "https://docs.dagster.io/guides/dagster/testing-assets"
     ],
     "related_apps": [
-        "chromium",
-        "dagster"
+        "dagster",
+        "vscode",
+        "terminal",
+        "chromium"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
-    "action_number": 4,
+    "action_number": 5,
     "config": [
         {
             "type": "script_and_execute",
@@ -42,8 +43,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },
@@ -56,16 +56,6 @@
                     {
                         "type": "close_popups"
                     }
-                ]
-            }
-        },
-        {
-            "type": "launch",
-            "parameters": {
-                "command": [
-                    "gnome-terminal",
-                    "--maximize",
-                    "--working-directory=/home/user/harry-potter-potions/"
                 ]
             }
         }

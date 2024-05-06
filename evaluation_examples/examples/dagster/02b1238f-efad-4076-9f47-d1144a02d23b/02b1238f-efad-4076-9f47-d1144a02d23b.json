@@ -1,18 +1,18 @@
 {
     "id": "02b1238f-efad-4076-9f47-d1144a02d23b",
     "snapshot": "dagster",
-    "instruction": "In the current dagster project, configure the notebook \"iris_classification/notebooks/iris-kmeans-notebook.ipynb\" as a dagster asset called \"iris_kmeans_notebook\" to fetch the dagster asset \"iris_data\" defined at \"iris_classification/assets/__init__.py\". Then materialize the notebook to conduct K-means classification on the Iris dataset.",
+    "instruction": "In the current dagster project, write an asset `iris_kmeans_notebook` to integrate the opened jupyter notebook. By the way, configure the data input of this notebook to be the existing asset \"iris_data\". Then, materialize all to conduct K-means classification on the Iris dataset.",
     "source": [
         "https://docs.dagster.io/integrations/dagstermill/using-notebooks-with-dagster"
     ],
     "related_apps": [
         "chromium",
         "dagster",
+        "vscode",
         "jupyter"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
     "action_number": 9,
     "config": [
@@ -29,8 +29,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },

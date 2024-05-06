@@ -1,6 +1,7 @@
 I want to create a partitioned dagster asset to retrieve information of the Astronomy Picture of the Day. Please follow these steps:
-1. Switch to VS Code and open the folder "apod_proj" in the left navbar and then the file "assets.py" in that folder.
-2. Define an asset in "asset.py" with the following code:
+1. Switch to VS Code application.
+2. Click the folder "apod_proj" in the left EXPLORER panel and open the file "assets.py" in that folder.
+3. Define an asset in "asset.py" with the following code:
 ```
 import os
 import urllib.request
@@ -27,11 +28,16 @@ def apod_asset(context: AssetExecutionContext) -> None:
     with open(f"data/apod_url_{partition_date_str}.txt", "w") as f:
         f.write(data["hdurl"])
 ```
-3. Go to Chromium and open the tab with the Dagster UI. Click "Reload" at the right of the page.
-4. Click the link to "apod_proj" in the table to open the project.
-5. Click "apod_asset" in the "default" table of the project page.
-6. You can now see the asset page of "apod_asset". Click "Materialize..." at the top-right.
-7. Under "Partition selection" in the pop-up window, drag the correct proportion of the bar until the text field shows "[2024-04-10...2024-04-13]".
-8. Click "Launch backfill" at the bottom-right of the pop-up window to launch the runs.
-9. A "Created backfill ..." pop-up will be shown on the top of the page. Click "View" after "Created backfill...".
-10. Wait for all the runs to finish. If there are any run errors, repeat steps 4-9 to launch the runs again.
+4. Save the asset file by pressing Ctrl+S.
+5. Go to Chromium and choose the tab with the Dagster UI.
+6. Click "Reload all" on the right part of the page.
+7. Click the link "apod_proj" in the table to open the project.
+8. If the asset `apod_asset` is not visible, click the row with text "default" to expand the asset list in the assets tab.
+9. Click "apod_asset" under the "default" table.
+10. You can now see the asset page of "apod_asset". Click "Materialize..." button at the top-right.
+11. Under "Partition selection" in the pop-up window, type in text "[2024-04-10...2024-04-13]" to overwrite the input box below.
+12. Click button "Launch backfill" at the bottom-right of the pop-up window to launch the runs.
+13. Navigate to Overview page via clicking button "Overview" on the top menu bar.
+14. Then, click button "Backfills" to explore the backfill table.
+15. Wait until the most recent entry in the table changes its "Backfill status" from "In progress" to "Completed".
+16. If there are any run errors, navigate to the "Deployment" page via clicking the button "Deployment" on the top menu bar, and then repeat steps 6-15 to launch the runs again.

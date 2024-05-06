@@ -14,10 +14,12 @@ def get_file_sizes():
 def file_sizes_job():
     file_sizes = get_file_sizes()
 ```
-3. Switch to the terminal, and make sure that you are in the directory "~/test-ops-and-jobs/".
+3. Switch to the terminal, and make sure that you are in the directory "~/file-ops-and-jobs/".
 4. Use the command "dagster dev -f file_sizes_job.py" to start the Dagster UI.
-5. Open Chromium and go to "localhost:3000", and here you can see the job "file_sizes_job" with "get_file_sizes" operation in the graph.
-6. Go back to VS Code and write more code to "file_sizes_job.py" to include more operations and modify the job:
+5. Switch to the application Chromium or Chrome browser.
+6. Navigate to "localhost:3000", and here you can see the job "file_sizes_job" with "get_file_sizes" operation in the graph.
+7. Go back to VS Code.
+8. In file `file_sizes_job.py`, we include more dagster operations and revise the job:
 ```
 import os
 from dagster import job, op, get_dagster_logger
@@ -51,5 +53,7 @@ def file_sizes_job():
         get_max_file_size(file_sizes)
     )
 ```
-7. Go to the Dagster UI in Chromium, click the reload button on the top after "__repository__file_sizes_job@file_sizes_job.py".
-8. Wait for the reload to finish. Make sure you see a diamond-shaped graph involving the four operations you just defined.
+9. Go to the Dagster UI page in Chromium or Chrome browser.
+10. Click the "Deployment" button on the menu bar.
+11. Click the "Reload" button in the same row of text "__repository__file_sizes_job@file_sizes_job.py".
+12. Wait for the reload to finish.

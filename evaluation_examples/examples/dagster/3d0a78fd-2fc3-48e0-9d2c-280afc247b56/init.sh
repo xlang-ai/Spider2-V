@@ -3,7 +3,7 @@
 ####################################################################################################
 # Please ensure that Chromium or Chrome, VSCode and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
@@ -23,7 +23,6 @@ PROJECT_NAME=math-proj
 unzip -q ${PROJECT_NAME}.zip
 rm -f ${PROJECT_NAME}.zip
 cd ${PROJECT_NAME}
-# pip install -e ".[dev]"
 
 # start dagster Web UI service
 function start_dagster_server() {

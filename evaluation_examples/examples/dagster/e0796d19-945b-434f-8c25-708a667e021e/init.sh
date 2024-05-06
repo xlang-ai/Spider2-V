@@ -3,7 +3,7 @@
 ####################################################################################################
 # Please ensure that Chromium or Chrome, VSCode and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
@@ -22,6 +22,7 @@ export DAGSTER_HOME=~/.dagster
 PROJECT_NAME=harry-potter-potions
 dagster project scaffold --name $PROJECT_NAME
 mkdir -p $PROJECT_NAME/data
+code /home/user/$PROJECT_NAME
 cd $PROJECT_NAME
 
 # start dagster Web UI service
@@ -45,7 +46,7 @@ function start_dagster_server() {
 }
 start_dagster_server
 
-code /home/user/$PROJECT_NAME
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
+gnome-terminal --maximize --working-directory=/home/user/$PROJECT_NAME
 code /home/user/$PROJECT_NAME/harry_potter_potions_tests/test_assets.py

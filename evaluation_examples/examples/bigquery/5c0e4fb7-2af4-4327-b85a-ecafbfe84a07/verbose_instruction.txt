@@ -1,0 +1,16 @@
+1. Find the entry with name `customer_orders` and click the icon on the right of this row with 3 vertically aligned dots;
+2. In the pop-up window, select the row "Create table" and click it.
+3. Create table from: Drive
+4. 
+Select Drive URI: https://docs.google.com/spreadsheets/d/1eqDu8oLJvT244r5AWPr4kPMnm7qDRpyItonPAbBwElE/edit#gid=0
+File format: Google Sheet
+Sheet range: population!A2:C11
+Table: population
+
+Schema:
+Field name: ZIP  type: String
+Field name: POPULATION type: Integer
+Field name: PCT_GROWTH type: Float
+
+5. Create table
+

@@ -1,7 +1,6 @@
-# dagster asset list -h iris_classification | grep iris_kmeans_notebook
-# check labels
-
 #!/bin/bash
+
+exec 2>/dev/null
 
 PROJECT_NAME=iris-classification
 
