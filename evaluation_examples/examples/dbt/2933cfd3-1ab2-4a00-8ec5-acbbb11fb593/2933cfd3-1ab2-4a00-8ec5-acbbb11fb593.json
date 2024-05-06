@@ -6,8 +6,9 @@
         "https://docs.getdbt.com/guides/bigquery?step=5"
     ],
     "related_apps": [
-        "chromium",
-        "dbt"
+        "dbt",
+        "bigquery",
+        "chromium"
     ],
     "tags": [
         "gui",

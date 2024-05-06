@@ -6,14 +6,15 @@
         "https://docs.getdbt.com/docs/collaborate/build-and-view-your-docs"
     ],
     "related-apps": [
-        "chromium",
-        "dbt"
+        "dbt",
+        "chromium"
     ],
     "tags": [
         "gui",
         "abstract",
         "account"
     ],
+    "action_number": 10,
     "config": [
         {
             "type": "google_chrome_browser",
@@ -51,7 +52,6 @@
             }
         }
     ],
-    "action_number": 10,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

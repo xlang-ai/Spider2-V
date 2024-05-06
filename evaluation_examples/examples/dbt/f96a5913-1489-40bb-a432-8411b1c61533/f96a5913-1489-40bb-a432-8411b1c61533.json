@@ -6,8 +6,8 @@
         "https://docs.getdbt.com/docs/dbt-cloud-environments"
     ],
     "related_apps": [
-        "chromium",
-        "dbt"
+        "dbt",
+        "chromium"
     ],
     "tags": [
         "gui",

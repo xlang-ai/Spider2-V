@@ -6,8 +6,8 @@
         "https://docs.getdbt.com/docs/deploy/source-freshness"
     ],
     "related_apps": [
-        "chromium",
-        "dbt"
+        "dbt",
+        "chromium"
     ],
     "tags": [
         "gui",
