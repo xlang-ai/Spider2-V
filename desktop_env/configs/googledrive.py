@@ -23,8 +23,8 @@ def googledrive_init_setup(controller, **config):
                     https://developers.google.com/drive/api/guides/search-files?hl=en about how to write query string.
                 trash(bool): whether to delete files permanently or move to trash. By default, trash=false, completely delete it.
             for upload:
-                path(str): remote url to download file
-                dest(List[str]): the path in the google drive to store the downloaded file
+                url(str): remote url to download file
+                path(List[str]): the path in the google drive to store the downloaded file
     """
     settings_file = config.get('settings_file', 'evaluation_examples/settings/googledrive/settings.yml')
     gauth = GoogleAuth(settings_file=settings_file)
