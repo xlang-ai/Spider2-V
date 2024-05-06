@@ -14,16 +14,13 @@ exec 2>/dev/null
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 
-cd /home/user
-
-mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
-
 # create the target dagster project
+cd /home/user
 PROJECT_NAME=orders
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd $PROJECT_NAME
+code /home/user/$PROJECT_NAME
 
 # start dagster Web UI service
 function start_dagster_server() {
@@ -46,7 +43,6 @@ function start_dagster_server() {
 }
 start_dagster_server
 
-code /home/user/$PROJECT_NAME
 code /home/user/$PROJECT_NAME/orders/assets.py
 code /home/user/$PROJECT_NAME/orders/external.py
 
