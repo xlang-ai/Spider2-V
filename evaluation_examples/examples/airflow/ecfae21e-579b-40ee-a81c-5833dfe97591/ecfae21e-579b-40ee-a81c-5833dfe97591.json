@@ -1,0 +1,71 @@
+{
+    "id": "ecfae21e-579b-40ee-a81c-5833dfe97591",
+    "snapshot": "airflow",
+    "instruction": "I have postgresql working in my local system. Please help me build a connection on the Astro web UI to this database with the following configuration:\nconnection id: postgres_conn\ndb type: postgresql\nhost ip: 172.17.0.1\nport: 5432\ndatabase\n\tdb_name: jaffle_shop\n\tusername: user\n\tpassword: password",
+    "source": [
+        "https://docs.astronomer.io/learn/connections/postgres"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/ecfae21e-579b-40ee-a81c-5833dfe97591/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "url": "http://localhost:8080",
+                "listening_port": 9222,
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "postgresql",
+        "airflow",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 9,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airflow/ecfae21e-579b-40ee-a81c-5833dfe97591/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
