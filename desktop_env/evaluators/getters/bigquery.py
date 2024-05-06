@@ -43,7 +43,7 @@ def get_bigquery_table_to_csv(env, config):
         assert 'project_index' in config, "Must specify either project_name or project_index in config!"
         gcp_config = gcp_config[config['project_index']]
     keyfile_path, project_id = gcp_config['keyfile_path'], gcp_config['project_id']
-    credentials = service_account.Credentials.from_service_account_file(keyfile_path)
+    credentials = service_account.Credentials.from_service_account_file(filename=keyfile_path, scopes=['https://www.googleapis.com/auth/cloud-platform',"https://www.googleapis.com/auth/drive","https://www.googleapis.com/auth/bigquery"])
     client = bigquery.Client(project=project_id, credentials=credentials)
 
     dataset_id, table_id = config['dataset_id'], config['table_id']
@@ -62,7 +62,6 @@ def get_bigquery_table_to_csv(env, config):
         logger.error(f'[ERROR]: Failed to get the table {table_ref} from bigquery!')
         client.close()
         return
-
     schema = ', '.join(config['schema'])
     query = f"SELECT {schema} FROM {project_id}.{dataset_id}.{table_id}"
     try:
@@ -117,5 +116,4 @@ def get_bigquery_datasets(env, config):
         logger.error(f'[ERROR]: Failed to get the {project_id} project from bigquery!')
         client.close()
         return
-
     return dataset_names
