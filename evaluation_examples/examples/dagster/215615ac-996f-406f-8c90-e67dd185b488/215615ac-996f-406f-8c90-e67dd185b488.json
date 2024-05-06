@@ -1,7 +1,7 @@
 {
     "id": "215615ac-996f-406f-8c90-e67dd185b488",
     "snapshot": "dagster",
-    "instruction": "I have an Airflow DAG defined in \"~/wikipediaPageViews/dags/\". Please help me migrate it to Dagster. Note that the connection to my MySQL database is defined in \"README.md\". Set the DAG schedule to running. Test the schedule \"wikipediaPageViews_schedule\" and make sure the job succeeded.",
+    "instruction": "I have an Airflow DAG defined in \"~/wikipediaPageViews/dags/\". Please help me migrate it to Dagster by writing the migration and connection details in \"dagster_migration.py\". Note that the connection to my MySQL database is defined in \"README.md\". Launch the Dagster webserver loading the file \"dagster_migration.py\" and set the DAG schedule to running. Test the schedule \"wikipediaPageViews_schedule\" and make sure the job succeeded.",
     "source": [
         "https://docs.dagster.io/integrations/airflow/migrating-to-dagster"
     ],
