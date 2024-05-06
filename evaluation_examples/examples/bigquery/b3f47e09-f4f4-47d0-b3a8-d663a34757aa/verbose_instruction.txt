@@ -1,0 +1,10 @@
+1. check austin_crime crime schema
+2. click '+'
+3. write SQL 
+select count(*) from `bigquery-public-data.austin_crime.crime` where clearance_status='Cleared by Arrest'
+4. run
+5. click 'save results'
+6. click 'bigquery table'
+7. Dataset: my_dataset
+   Table: arrest
+8. save
