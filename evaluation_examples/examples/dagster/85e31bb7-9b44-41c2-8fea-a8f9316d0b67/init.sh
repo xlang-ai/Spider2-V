@@ -15,14 +15,11 @@ cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 
-mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
 # create the target dagster project
 PROJECT_NAME=dbt-dagster-proj
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd /home/user/$PROJECT_NAME/jaffle_shop/jaffle_shop_dagster
-# pip install -e ".[dev]"
 
 # start dagster Web UI service
 function start_dagster_server() {

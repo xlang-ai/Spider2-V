@@ -1,19 +1,20 @@
 {
     "id": "215615ac-996f-406f-8c90-e67dd185b488",
     "snapshot": "dagster",
-    "instruction": "I have an Airflow DAG defined in \"~/wikipediaPageViews/dags/\". Please help me migrate it to Dagster. Note that the connection to my MySQL database is defined in \"README.md\". Set the DAG schedule to running. Test the schedule \"wikipediaPageViews_schedule\" and make sure the job succeeded.",
+    "instruction": "I have defined an Airflow DAG. Please help me migrate it to Dagster based on the requirements in \"README.md\". Remember to launch the Dagster webserver from \"dagster_migration.py\" and start the DAG schedule. Test the schedule on Dagster UI Launchpad and make sure the job can succeed.",
     "source": [
         "https://docs.dagster.io/integrations/airflow/migrating-to-dagster"
     ],
     "related_apps": [
         "chromium",
-        "dagster"
+        "dagster",
+        "vscode",
+        "terminal"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
-    "action_number": 16,
+    "action_number": 19,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

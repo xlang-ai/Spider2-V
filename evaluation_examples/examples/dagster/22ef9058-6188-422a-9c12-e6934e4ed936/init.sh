@@ -11,10 +11,8 @@ exec 1>/dev/null
 exec 2>/dev/null
 
 # create conda environment and install dagster
-export DAGSTER_HOME=/home/user/.dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
 
@@ -24,7 +22,6 @@ cd /home/user
 unzip -q ${PROJECT_NAME}.zip
 rm -f ${PROJECT_NAME}.zip
 cd ${PROJECT_NAME}
-pip install -e ".[dev]"
 
 # start dagster Web UI service
 function start_dagster_server() {

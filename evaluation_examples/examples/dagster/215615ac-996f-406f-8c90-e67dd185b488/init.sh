@@ -17,18 +17,17 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 
 cd /home/user
-
-mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
-
 # create the target dagster project
 PROJECT_NAME=wikipediaPageViews
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd $PROJECT_NAME
 
-echo $PASSWORD | sudo -S mysql < database_init.sql
+echo $PASSWORD | sudo -S ls > /dev/null
+sudo -S mysql < database_init.sql
 rm -f database_init.sql
+
+touch /tmp/sqlserver_query.sql
 
 code /home/user/$PROJECT_NAME
 code /home/user/$PROJECT_NAME/dags/wikipediaPageViews.py

@@ -6,13 +6,13 @@
         "https://docs.dagster.io/tutorial/writing-your-first-asset#step-2-materialize-your-asset"
     ],
     "related_apps": [
-        "dagster"
+        "dagster",
+        "chromium"
     ],
     "tags": [
-        "cli",
-        "abstract"
+        "gui"
     ],
-    "action_number": 2,
+    "action_number": 3,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -34,8 +34,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },

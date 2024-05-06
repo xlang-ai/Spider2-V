@@ -7,7 +7,7 @@ PASSWORD=password
 # install mysql for some examples
 echo $PASSWORD | sudo -S apt install pkg-config build-essential libmysqlclient-dev -y
 echo $PASSWORD | sudo -S apt install mysql-server=8.0.36-0ubuntu0.22.04.1 -y # Version may differ on other machines. Not tested.
-echo $PASSWORD | sudo -S systemctl start mysql.service
+echo $PASSWORD | sudo -S systemctl enable mysql
 
 # create conda env for dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh

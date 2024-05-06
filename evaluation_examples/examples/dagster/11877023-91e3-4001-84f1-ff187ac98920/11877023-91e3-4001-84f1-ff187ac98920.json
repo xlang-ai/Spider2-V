@@ -1,20 +1,20 @@
 {
     "id": "11877023-91e3-4001-84f1-ff187ac98920",
     "snapshot": "dagster",
-    "instruction": "I have a dagster asset \"iris_dataset\" defined in \"~/iris-analysis/iris_analysis/assets.py\". Please create another asset that creates a table in duckdb which creates a table called \"iris_virginica\" that extracts all entries with species \"Iris-virginica\".",
+    "instruction": "I have finished one dagster asset \"iris_dataset\". Please write another one that generates a duckdb table \"iris_virginica\". This table will extract all entries with species \"Iris-virginica\" from iris_dataset.",
     "source": [
         "https://docs.dagster.io/integrations/duckdb/using-duckdb-with-dagster"
     ],
     "related_apps": [
         "chromium",
         "dagster",
-        "duckdb"
+        "duckdb",
+        "vscode"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
-    "action_number": 4,
+    "action_number": 7,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -36,8 +36,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },

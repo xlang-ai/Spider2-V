@@ -6,11 +6,11 @@
         "https://docs.dagster.io/getting-started/create-new-project"
     ],
     "related_apps": [
-        "dagster"
+        "dagster",
+        "terminal"
     ],
     "tags": [
-        "cli",
-        "abstract"
+        "cli"
     ],
     "action_number": 2,
     "config": [

@@ -1,0 +1,23 @@
+1. Click the "create sheet" icon at the bottom of this opened file. The button should be on the left side of text panel "Sheet1";
+2. In the new sheet "Sheet2", click cell A1;
+3. Type in text "Month";
+4. Then switch to cell B1;
+5. Type in text "Total";
+6. Switch to "Sheet1";
+7. Click and choose area B1 to G1;
+8. Press hotkey "Ctrl+C" to copy these months;
+9. Switch to "Sheet2";
+10. Click cell A2;
+11. Right click and choose "Paste Special -> Transpose";
+12. Switch to "Sheet1";
+13. Click cell B12;
+14. Type in text "=SUM(B2:B11)" and press Enter to sum it up;
+15. Choose cell B12 and click the bottom right corner of this cell. We will see a cross symbol;
+16. Hold the mouse down and drag it to cell G12;
+17. Release the mouse and all totals will be calculated;
+18. Click and choose the area from B12 to G12;
+19. Press hotkey "Ctrl+X";
+20. Switch to "Sheet2";
+21. Click the cell B2;
+22. Right click and choose "Paste Special -> Transpose";
+23. Save the file via hotkey "Ctrl+S".

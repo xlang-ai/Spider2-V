@@ -15,8 +15,6 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 
 cd /home/user
-mkdir -p ~/.dagster
-
 # create the target dagster project
 PROJECT_NAME=movies
 unzip $PROJECT_NAME.zip
