@@ -1,0 +1,59 @@
+{
+    "id": "fc713066-100d-4317-8a6e-7c1ab902d64f",
+    "snapshot": "snowflake",
+    "instruction": "My work today is to load menu data from an Amazon S3 bucket into snowflake and get items whose menu_type is \"Ice Cream\". Neither the database nor the schema is created. You can create and name them whatever you want. You must write a python worksheet to complete this task and download the query result, rename it to result.csv. The url of Amazon S3 bucket is \"s3://sfquickstarts/tastybytes/\" and the file format is csv.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": {
+                    "type": "delete_database"
+                }
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/result.csv",
+            "dest": "result.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/fc713066-100d-4317-8a6e-7c1ab902d64f/result_gold.csv",
+            "dest": "result_gold.csv"
+        }
+    }
+}
