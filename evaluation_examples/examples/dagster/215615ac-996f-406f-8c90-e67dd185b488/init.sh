@@ -17,10 +17,6 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 
 cd /home/user
-
-mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
-
 # create the target dagster project
 PROJECT_NAME=wikipediaPageViews
 unzip $PROJECT_NAME.zip

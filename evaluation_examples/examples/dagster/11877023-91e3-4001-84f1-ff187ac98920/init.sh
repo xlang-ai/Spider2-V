@@ -3,7 +3,7 @@
 ####################################################################################################
 # Please ensure that Chromium or Chrome, VSCode and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
@@ -15,8 +15,6 @@ cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 
-mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
 # create the target dagster project
 PROJECT_NAME=iris-analysis
 unzip $PROJECT_NAME.zip
@@ -25,7 +23,7 @@ rm -f $PROJECT_NAME/iris_db.duckdb
 
 cd /home/user/$PROJECT_NAME
 python -c "import duckdb; conn = duckdb.connect('iris_db.duckdb'); conn.close();"
-# pip install -e ".[dev]"
+code /home/user/$PROJECT_NAME
 
 # start dagster Web UI service
 function start_dagster_server() {
@@ -48,7 +46,7 @@ function start_dagster_server() {
 }
 start_dagster_server
 
-code /home/user/$PROJECT_NAME
+code /home/user/$PROJECT_NAME/iris_analysis/assets.py
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
 echo "export DAGSTER_HOME=~/.dagster" >> ~/.bashrc

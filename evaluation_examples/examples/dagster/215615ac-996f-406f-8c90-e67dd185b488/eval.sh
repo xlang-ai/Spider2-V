@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec 2>/dev/null
+
 PROJECT_NAME=wikipediaPageViews
 PASSWORD=password
 
@@ -22,9 +24,3 @@ if dagster schedule list -f dagster_migration.py | grep -q RUNNING; then
 else
     echo "Check schedule running failed"
 fi
-
-# run_ids=$(dagster run list | grep -oP 'Run: \K.*')
-# for run_id in $run_ids
-# do
-    
-# done

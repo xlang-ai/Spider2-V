@@ -9,5 +9,8 @@ def iris_virginica(duckdb: DuckDBResource) -> None:
             "CREATE TABLE iris_virginica AS SELECT * FROM iris_dataset WHERE species = 'Iris-virginica'"
         )
 ```
-3. Change to Chromium. Click "Reload definitions" at the top-right of the page.
-4. After the asset "iris-virginica" is shown in the lineage graph, click "Materialize all" at the top-right of the graph. Wait for the materialization to finish.
+3. Save this file via pressing "Ctrl+S".
+4. Change to the opened Chromium or Chrome browser.
+5. Click "Reload definitions" at the top-right of the page.
+6. After the asset "iris-virginica" is shown in the lineage graph, click "Materialize all" at the top-right of the graph.
+7. Wait for the materialization to finish.
