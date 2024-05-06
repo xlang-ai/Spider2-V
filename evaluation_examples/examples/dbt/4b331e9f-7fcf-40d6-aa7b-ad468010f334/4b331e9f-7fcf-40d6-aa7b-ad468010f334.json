@@ -25,7 +25,9 @@
     "action_number": 5,
     "related_apps": [
         "dbt",
-        "duckdb"
+        "duckdb",
+        "vscode",
+        "terminal"
     ],
     "tags": [
         "abstract",

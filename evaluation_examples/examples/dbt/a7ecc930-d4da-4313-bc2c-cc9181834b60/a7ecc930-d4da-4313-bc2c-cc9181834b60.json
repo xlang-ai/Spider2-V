@@ -7,8 +7,8 @@
         "https://en.wikipedia.org/wiki/Base64"
     ],
     "related_apps": [
-        "chromium",
         "dbt",
+        "chromium",
         "snowflake"
     ],
     "tags": [
@@ -16,6 +16,7 @@
         "abstract",
         "account"
     ],
+    "action_number": 19,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -62,7 +63,6 @@
             }
         }
     ],
-    "action_number": 19,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
