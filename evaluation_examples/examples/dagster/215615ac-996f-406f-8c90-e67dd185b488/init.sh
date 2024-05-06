@@ -27,7 +27,8 @@ unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd $PROJECT_NAME
 
-echo $PASSWORD | sudo -S mysql < database_init.sql
+echo $PASSWORD | sudo -S ls > /dev/null
+sudo -S mysql < database_init.sql
 rm -f database_init.sql
 
 code /home/user/$PROJECT_NAME

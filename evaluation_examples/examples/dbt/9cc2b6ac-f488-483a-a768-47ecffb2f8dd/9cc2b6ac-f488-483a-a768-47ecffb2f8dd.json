@@ -7,14 +7,15 @@
         "https://www.geeksforgeeks.org/crontab-in-linux-with-examples/"
     ],
     "related_apps": [
-        "chromium",
-        "dbt"
+        "dbt",
+        "chromium"
     ],
     "tags": [
         "gui",
         "abstract",
         "account"
     ],
+    "action_number": 9,
     "config": [
         {
             "type": "google_chrome_browser",
@@ -52,7 +53,6 @@
             }
         }
     ],
-    "action_number": 9,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
