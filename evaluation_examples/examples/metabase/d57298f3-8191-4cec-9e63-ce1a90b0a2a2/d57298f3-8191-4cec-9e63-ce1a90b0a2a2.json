@@ -1,0 +1,70 @@
+{
+    "id": "d57298f3-8191-4cec-9e63-ce1a90b0a2a2",
+    "snapshot": "metabase",
+    "instruction": "I have logged in to Metabase and I want to clear my databases panel. Please help me delete the Metabase Sample Database.",
+    "source": [
+        "https://www.metabase.com/docs/latest/databases/connecting#deleting-databases"
+    ],
+    "related_apps": [
+        "chromium",
+        "postgresql",
+        "metabase"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 5,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/d57298f3-8191-4cec-9e63-ce1a90b0a2a2/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/d57298f3-8191-4cec-9e63-ce1a90b0a2a2/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import logging
 from typing import Dict
 import requests
+import platform
 
 logger = logging.getLogger("desktopenv.getters.general")
 
@@ -27,6 +28,8 @@ def get_vm_script_output(env, config: Dict[str, str]):
     else:
         env.setup_controller.setup([{"type": "copyfile_from_host_to_guest", "parameters": {"src": src, "dest": dest}}])
     env.setup_controller._execute_setup(command=["chmod", "a+x", dest])
+    if platform.system() == "Windows":
+        env.setup_controller._execute_setup(command=["dos2unix", dest])
 
     # execute the script to obtain the output
     script = ["/bin/bash", dest]
