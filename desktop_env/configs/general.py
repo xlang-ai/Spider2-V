@@ -207,7 +207,7 @@ def script_and_execute_setup(controller, src: str, dest: str = '/home/user/init.
         controller._download_setup([{'url': src, 'path': dest}])
     else:
         if platform.system() == 'Windows':
-            src = src.replace('/', '\\')                
+            src = src.replace('/', '\\')
         copyfile_from_host_to_guest_setup(controller, src=src, dest=dest)
 
     # execute the script
