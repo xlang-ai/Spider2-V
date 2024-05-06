@@ -18,8 +18,12 @@ I want to configure an I/O manager to save the asset output with pandas DataFram
 
         context.add_output_metadata({"row_count": row_count, "path": path})
 ```
-3. Change to the file "__init__.py" in VS Code. Modify the definitions to add the newly defined parquet I/O manager:
+3. Press hotkey "Ctrl+S" to save the codes for this file.
+4. Change to the file "__init__.py" in VS Code.
+5. Modify the original definitions (`defs`) to add the newly defined parquet I/O manager:
 ```
+from .parquet_io_manager import ParquetIOManager
+
 defs = Definitions(
     assets=all_assets,
     # Add the 3 lines below
@@ -28,8 +32,9 @@ defs = Definitions(
     }
 )
 ```
-4. Switch to Chromium. Make sure the Dagster UI page is opened.
-5. Click "Reload" on the right of the page.
-6. After the project is reloaded, click "movies" on the left of the table.
-7. Click the "Resources" tab under "Deployment / movies".
-8. Click "parquet" in the table of the opened page.
+6. Press "Ctrl+S" to save __init__.py file.
+7. Switch to Chromium. Make sure the Dagster UI page is opened.
+8. Click "Reload all" on the right of the page.
+9. After the project is reloaded, click "movies" on the left of the table.
+10. Click the "Resources" tab under "Deployment / movies".
+11. Click "parquet" in the table of the opened page.

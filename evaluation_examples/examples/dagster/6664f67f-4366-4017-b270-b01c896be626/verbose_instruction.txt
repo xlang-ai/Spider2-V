@@ -1,5 +1,5 @@
-1. Go to VS Code. Open the file "external_code.py" from the navbar.
-2. In "external_code.py", import necessary functions from dagster_pipes:
+1. Go to VS Code. Open the file "external.py" from the navbar.
+2. In "external.py", import necessary functions from dagster_pipes:
 ```
 import pandas as pd
 from dagster_pipes import PipesContext, open_dagster_pipes # Added
@@ -42,4 +42,4 @@ def subprocess_asset(
 7. Click "Materialize" on the top-right of the graph and wait for the materialization to succeed.
 8. Click on the asset "subprocess_asset" in the middle of the lineage graph.
 9. In the table under "Latest materialization", click the "View logs" button on the right.
-10. In the table, find the event type "ASSET_CHECK_EVALUATION", click the link "no_empty_order_check" in the corresponding info "Check no_empty_order_check succeeded for materialization of subprocess_asset".
+10. In the table, find the event type "ASSET_CHECK_EVALUATION", click the link "no_null_check" in the corresponding info "Check no_null_check succeeded for materialization of subprocess_asset".

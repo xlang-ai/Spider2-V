@@ -58,6 +58,16 @@
                     }
                 ]
             }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/harry-potter-potions/"
+                ]
+            }
         }
     ],
     "trajectory": "trajectories/",
