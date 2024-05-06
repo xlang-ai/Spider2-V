@@ -8,3 +8,5 @@ numpy
 lxml
 pygame
 dos2unix
+curl
+jq
