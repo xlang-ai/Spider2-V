@@ -1,0 +1,2 @@
+1. Click the "create sheet" button at the bottom (on the left side of sheet panel "Sheet1") to create a new sheet "Sheet2";
+2. 

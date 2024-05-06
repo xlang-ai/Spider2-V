@@ -1,0 +1,11 @@
+To finish this task:
+1. Click cell J2;
+2. Type in formula "=B2-C2-D2-F2-G2-H2" and press ENTER to calculate it;
+3. Drag, copy this formula and apply it other cells in column J;
+4. Click the "create sheet" button at the bottom (on the left side of text panel "Sheet1") to create a new sheet named "Sheet2";
+5. In the new sheet "Sheet2", click cell A1;
+6. Type in text "Year_Profit";
+7. Click cell A2;
+8. Type in formula "=CONCATENATE(Sheet1.A2, "_", Sheet1.J2)" to concatenate the cell values in A2 and J2 in Sheet1 as a string value;
+9. Drag, copy this formula and apply it to column cells from A2 to A10;
+10. Save the file via "Ctrl+S".
