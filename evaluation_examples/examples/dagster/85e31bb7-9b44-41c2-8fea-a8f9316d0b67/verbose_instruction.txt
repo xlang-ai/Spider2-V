@@ -1,6 +1,8 @@
 I have a dbt project "jaffle_shop". Please help me integrate this project into dagster and create a downstream asset. The steps are provided below.
-1. Switch to VS Code. Use the left navbar to open the folder "jaffle_shop/jaffle_shop_dagster/jaffle_shop_dagster".
-2. Open "assets.py" and modify some parts of the code to import necessary libraries for later use:
+1. Switch to VS Code.
+2. Use the "EXPLORER" to open the folder "jaffle_shop/jaffle_shop_dagster/jaffle_shop_dagster".
+3. Open "assets.py" file on the right panel.
+4. Modify some parts of the code file `assets.py` to import necessary libraries for later use:
 ```
 import os
 
@@ -17,7 +19,7 @@ duckdb_database_path = dbt_project_dir.joinpath("tutorial.duckdb") # modified
 def jaffle_shop_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
     yield from dbt.cli(["build"], context=context).stream()
 ```
-3. Add the following asset definition to the end of "assets.py":
+5. Add the following asset definition to the end of "assets.py":
 ```
 @asset(
     compute_kind="python",
@@ -102,7 +104,8 @@ def customers(context: AssetExecutionContext):
     context.add_output_metadata({"num_rows": customers.shape[0]})
     return customers
 ```
-4. Open "definitions.py" in the same folder and modify the definitions to include the "customers" asset:
+6. Save `assets.py` via pressing hotkey "Ctrl+S".
+7. Open "definitions.py" in the same folder and modify the definitions to include the "customers" asset:
 ```
 import os
 
@@ -121,5 +124,7 @@ defs = Definitions(
     },
 )
 ```
-5. Go to Chromium. Make sure you are in the "Assets" tab of the Dagster UI. Click "Reload definitions" on the top-right of the page.
-6. Click "Materialize" all under "Reload definitions" to materialize all assets, including the one you just created.
+8. Go to Chromium. Make sure you are in the "Assets" tab of the Dagster UI.
+9. Click "Reload definitions" on the top-right of the page.
+10. Click "Materialize" all under "Reload definitions" to materialize all assets, including the one you just created.
+11. Wait until materialization is finished.

@@ -6,13 +6,14 @@
         "https://docs.dagster.io/concepts/webserver/ui"
     ],
     "related_apps": [
-        "dagster"
+        "dagster",
+        "terminal",
+        "chromium"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
-    "action_number": 2,
+    "action_number": 5,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -22,20 +23,17 @@
             }
         },
         {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
             "type": "script_and_execute",
             "parameters": {
                 "src": "evaluation_examples/examples/dagster/0dff0011-afff-4ab8-ae07-83f5ab95d215/init.sh",
                 "dest": "/home/user/init.sh"
-            }
-        },
-        {
-            "type": "launch",
-            "parameters": {
-                "command": [
-                    "gnome-terminal",
-                    "--maximize",
-                    "--working-directory=/home/user/dagster-proj/"
-                ]
             }
         }
     ],

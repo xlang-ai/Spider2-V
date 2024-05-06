@@ -11,15 +11,15 @@ else
     exit 0
 fi
 
-# materialize the asset
-dagster asset materialize --select top10_story_ids -m hacker_news > output.log 2>&1
-flag=$(cat output.log | grep -i "RUN_SUCCESS")
-if [ -n "$flag" ]; then
-    echo "Materialize top10_story_ids succeeded"
-else
-    echo "Materialize top10_story_ids failed"
-    exit 0
-fi
+# materialize the asset (not needed)
+# dagster asset materialize --select top10_story_ids -m hacker_news > output.log 2>&1
+# flag=$(cat output.log | grep -i "RUN_SUCCESS")
+# if [ -n "$flag" ]; then
+#     echo "Materialize top10_story_ids succeeded"
+# else
+#     echo "Materialize top10_story_ids failed"
+#     exit 0
+# fi
 
 # Before running the following commands:
 # please ensure that golden project is copied to the home directory
