@@ -212,7 +212,9 @@ def script_and_execute_setup(controller, src: str, dest: str = '/home/user/init.
 
     # execute the script
     controller._execute_setup(command=["chmod", "a+x", dest])
-    controller._execute_setup(command=["dos2unix", dest] + options)
+    if platform.system() == 'Windows':
+        # check and convert the line endings to Unix format
+        controller._execute_setup(command=["dos2unix", dest] + options)
     controller._execute_setup(command=["/bin/bash", dest] + options)
     controller._execute_setup(command=["rm", "-f", dest])
     return
