@@ -1,4 +1,4 @@
-In the current dagster project, configure the notebook "iris_classification/notebooks/iris-kmeans-notebook.ipynb" as a dagster asset called "iris_kmeans_notebook" to fetch the dagster asset "iris_data" defined at "iris_classification/assets/__init__.py". Then materialize the notebook to conduct K-means classification on the Iris dataset. To achieve this:
+In the current dagster project, write an asset `iris_kmeans_notebook` to integrate the opened jupyter notebook. By the way, configure the data input of this notebook to be the existing asset \"iris_data\". Then, materialize all to conduct K-means classification on the Iris dataset. To achieve this:
 1. Switch to VS Code editor. Open the folder "iris_classification/assets" in the left navbar.
 2. Open the file "__init__.py". Add the following code to the end of the file:
 ```

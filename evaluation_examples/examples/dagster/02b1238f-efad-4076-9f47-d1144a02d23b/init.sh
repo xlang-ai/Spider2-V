@@ -3,7 +3,7 @@
 ####################################################################################################
 # Please ensure that Chromium or Chrome, VSCode and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
@@ -16,13 +16,10 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
 pip install notebook
 
-mkdir -p ~/.dagster
-export DAGSTER_HOME=~/.dagster
 # create the target dagster project
 PROJECT_NAME=iris-classification
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
-
 cd /home/user/$PROJECT_NAME
 pip install -e ".[dev]"
 

@@ -1,19 +1,19 @@
 {
     "id": "cc95a46e-6902-43c3-988a-90e0306dd7b9",
     "snapshot": "dagster",
-    "instruction": "Create a partitioned dagster asset to retrieve information of the Astronomy Picture of the Day starting from April 1, 2024 from the website \"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=YYYY-MM-DD\" and save url to the high quality image to \"data/apod_url_YYYY-MM-DD.txt\", where YYYY-MM-DD should be replaced with the actual date. Materialize the asset in the dagster UI from April 10, 2024 to April 13, 2024.",
+    "instruction": "Create a partitioned dagster asset to retrieve information of the Astronomy Picture of the Day starting from April 1, 2024. Concretely, it saves the url of the high quality image to \"data/apod_url_YYYY-MM-DD.txt\", where YYYY-MM-DD should be replaced with the actual date (for API key, use DEMO_KEY is enough). Materialize the asset in the dagster UI from April 10, 2024 to April 13, 2024.",
     "source": [
         "https://docs.dagster.io/concepts/partitions-schedules-sensors/partitioning-assets"
     ],
     "related_apps": [
         "chromium",
-        "dagster"
+        "dagster",
+        "vscode"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
-    "action_number": 10,
+    "action_number": 16,
     "config": [
         {
             "type": "script_and_execute",
@@ -28,8 +28,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },

@@ -1,11 +1,11 @@
 #!/bin/bash
+exec 2>/dev/null
 
-PROJECT_NAME=test-ops-and-jobs
+PROJECT_NAME=file-ops-and-jobs
 
 cd ~/$PROJECT_NAME
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install pytest > /dev/null
 
 rm -rf $PROJECT_NAME/files
 mkdir -p $PROJECT_NAME/files

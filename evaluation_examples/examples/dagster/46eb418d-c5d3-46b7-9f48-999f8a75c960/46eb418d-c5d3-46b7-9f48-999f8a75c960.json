@@ -7,13 +7,13 @@
     ],
     "related_apps": [
         "chromium",
-        "dagster"
+        "dagster",
+        "vscode"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
-    "action_number": 8,
+    "action_number": 13,
     "config": [
         {
             "type": "script_and_execute",
@@ -35,8 +35,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.google.com"
                 ]
             }
         },

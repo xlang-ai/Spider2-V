@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec 2>/dev/null
+
 PROJECT_NAME=apod-proj
 
 cd /home/user/$PROJECT_NAME
@@ -37,7 +39,7 @@ for run_id in $run_ids
 do
     dagster debug export $run_id run_log.gz
 
-    gunzip -f run_log.gz
+    gunzip -qf run_log.gz
 
     for partition in "${!partitions[@]}"
     do

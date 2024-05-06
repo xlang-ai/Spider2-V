@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec 2>/dev/null
+
 PROJECT_NAME=math-proj
 
 cd /home/user/$PROJECT_NAME
@@ -21,7 +23,7 @@ do
     dagster debug export $run_id run_log.gz
 
     # Extract the run_log.gz file
-    gunzip -f run_log.gz
+    gunzip -qf run_log.gz
 
     # Check if run_log contains "Validation passed"
     if grep -q "Validation passed" run_log; then

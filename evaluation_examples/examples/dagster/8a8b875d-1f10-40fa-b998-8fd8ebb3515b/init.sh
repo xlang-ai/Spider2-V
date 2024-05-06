@@ -16,14 +16,18 @@ conda activate dagster
 
 cd /home/user
 
-PROJECT_NAME=test-ops-and-jobs
+PROJECT_NAME=file-ops-and-jobs
 
 mkdir -p $PROJECT_NAME/files
-touch $PROJECT_NAME/file_sizes_job.py
+code /home/user/$PROJECT_NAME
 echo "Hello World!" > $PROJECT_NAME/files/helloworld.txt
 echo "Welcome to dagster!" > $PROJECT_NAME/files/welcome.txt
 echo "This is the test for ops and jobs." > $PROJECT_NAME/files/ops_and_jobs.txt
 
-code /home/user/$PROJECT_NAME
+mv /home/user/README.md /home/user/$PROJECT_NAME/
+code /home/user/$PROJECT_NAME/README.md
+touch $PROJECT_NAME/file_sizes_job.py
+code /home/user/$PROJECT_NAME/file_sizes_job.py
+
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate dagster" >> ~/.bashrc
