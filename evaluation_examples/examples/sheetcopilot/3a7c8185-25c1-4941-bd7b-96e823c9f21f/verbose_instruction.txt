@@ -1,0 +1,19 @@
+To achive this goal, we need to do as the following steps:
+
+1. Press `Ctrl` and select cells $A2:$F$36.
+2. Click on the button on top of the page `Data`.
+3. In the drop down panel, select `Sort...`.
+4. Click on the drop down panel under "Sort key 1".
+5. Choose "Column A".
+6. CLick "OK".
+7. Start making the chart. Press `Ctrl` and select the cells $A$1:$A$36, $E$1:$E$36.
+8. Click on the botton `Insert` from the top of the page.
+9. In the drop down selector, select `Chart...`.
+10. Click on `Line` under "Choose a chart type".
+11. Click on the graph `Lines Only` at the right side.
+12. Click `Next`.
+13. Click `Next`.
+14. Click on the `Title` input box.
+15. Type "Quantity".
+16. Uncheck the check box before "Display Legend".
+17. Click `Finish`.
