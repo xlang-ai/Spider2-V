@@ -1,0 +1,34 @@
+Please follow the steps below to calculate the statistics of new rows "Total" and "Growth", and draw two charts accordingly:
+1. Click cell A12;
+2. Type in text "Total";
+3. Click cell B12;
+4. Type in "=SUM(B2:B11)" and press ENTER to apply the `SUM` function;
+5. Click cell B12 and move the mouse to the bottom right corner of this cell. We should see a cross symbol;
+6. Press down the mouse and drag right until to column G;
+7. Release the mouse, and all contents from B12 to G12 will be automatically filled;
+8. Click the button "Insert -> Chart..." on the top menu bar.
+9. In the pop-up window "Chart Type", select "Bar" under prompts "Choose a Chart Type" in the middle panel.
+10. Click `Data Range` in the left panel;
+11. For input box `Data Range:` on the right panel, type in "$Sheet1.$B1:$G1,$Sheet1.$B12:$G12" to overwrite the original content.
+12. Ensure that two radio boxes `Data series in rows` and `First row as label` below (and only these two) are chosen.
+13. Then, click the `Chart Elements` on the left panel;
+14. Type in "Total" in the input box named "Title" on the right panel;
+15. Uncheck or disable the `Display legend` option on the right side.
+16. Click "Finish" button. Now, we have created a bar chart for the total sales of each month;
+17. Next, click cell A13;
+18. Type in text "Growth";
+19. Click cell C13;
+20. Type in formula "=(C12-B12)/B12" and press ENTER to make it work;
+21. Click cell C13 and move the mouse to the bottom right corner of this cell. We should see a cross symbol;
+22. Press down the mouse and drag right until to column G;
+23. Release the mouse, and all rates from C13 to G13 will be automatically calculated;
+24. Click the button "Insert -> Chart..." on the top menu bar.
+25. In the pop-up window "Chart Type", select "Line" under prompts "Choose a Chart Type" in the middle panel.
+26. Click `Data Range` in the left panel;
+27. For input box `Data Range:` on the right panel, type in "$Sheet1.$C1:$G1,$Sheet1.$C13:$G13" to overwrite the original content.
+28. Ensure that two radio boxes `Data series in rows` and `First row as label` below (and only these two) are chosen.
+29. Then, click the `Chart Elements` on the left panel;
+30. Type in "Growth" in the input box named "Title" on the right panel;
+31. Uncheck or disable the `Display legend` option on the right side.
+32. Click "Finish" button. Now, we have created another line chart for the growth percentage between each pair of months.
+33. Finally, save the file with Ctrl+S.
