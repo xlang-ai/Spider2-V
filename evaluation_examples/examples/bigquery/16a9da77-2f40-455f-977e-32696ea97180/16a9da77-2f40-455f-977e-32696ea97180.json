@@ -1,11 +1,11 @@
 {
     "id": "16a9da77-2f40-455f-977e-32696ea97180",
     "snapshot": "bigquery",
-    "instruction": "Finish the query code about Bigquery-public-data. I want to get the names and areas of the top ten bike stations by floor area. Saving the result.csv in project1 folder. ",
+    "instruction": "Finish the query code about Bigquery-public-data. I want to get the names and areas of the top ten bike stations by floor area. Saving the result.csv with headers `name` and `area` in project1 folder.",
     "source": [
         "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
     ],
-    "action_number": 8,
+    "action_number": 9,
     "config": [
         {
             "type": "google_chrome_browser",
