@@ -1,0 +1,13 @@
+To achive this goal, we need to do as below:
+
+1. Click `Add New Sheet` button at the bottom of the page.
+2. Click into the new sheet `Sheet2`.
+3. Select cells A1:C1.
+4. Click the button "Merge cells" from the tool panel on top of the page.
+5. Write in the header \"Investment Summary\". 
+6. Select cells A2:B2. 
+7. Click the button "Merge cells" from the tool panel on top of the page.
+8. Write in \"High Interest Rate\".
+9. Select cells C2:D2.
+10. Click the button "Merge cells" from the tool panel on top of the page.
+11. Write in \"Low Interest Rate\".",

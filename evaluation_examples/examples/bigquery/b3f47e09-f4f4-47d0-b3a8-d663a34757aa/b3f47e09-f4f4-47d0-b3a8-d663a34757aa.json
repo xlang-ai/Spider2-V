@@ -5,7 +5,7 @@
     "source": [
         "https://cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console"
     ],
-    "action_number": 9,
+    "action_number": 10,
     "config": [
         {
             "type": "bigquery_init",
