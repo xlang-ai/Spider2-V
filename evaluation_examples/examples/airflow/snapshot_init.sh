@@ -22,7 +22,8 @@ ASTRO_CLI_VERSION=1.25.0
 echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
 
 ASTRO_RUNTIME_VERSION=10.5.0
-POSTGRES_VERSION=16-alpine
+# it seems astro is stubbornly using this old postgres image version
+POSTGRES_VERSION=12.6
 
 declare -a image_list=(
     "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
@@ -36,3 +37,19 @@ for img in ${image_list[@]}; do
     fi
 done
 
+function install_postgres() {
+    echo $PASSWORD | sudo -S apt-get install postgresql postgresql-contrib -y >/dev/null 2>&1
+    cd /home
+    # allow connection from any IP (including docker container)
+    config_file=$(echo $PASSWORD | sudo -S -u postgres psql -tc "SHOW config_file" | awk 'NR==1 {print $1}')
+    echo $PASSWORD | sudo -S bash -c "echo \"listen_addresses = '*'\" >> ${config_file}"
+    # change the default authentication method to scram-sha-256
+    hba_file=$(echo $PASSWORD | sudo -S -u postgres psql -tc "SHOW hba_file" | awk 'NR==1 {print $1}')
+    echo $PASSWORD | sudo -S cp ${hba_file} ${hba_file}.bak
+    echo $PASSWORD | sudo -S bash -c "sudo sed -i 's/local[[:space:]]\+all[[:space:]]\+all[[:space:]]\+peer/local   all             all                                     scram-sha-256/' ${hba_file}"
+    echo $PASSWORD | sudo -S bash -c "sudo sed -i 's/local[[:space:]]\+replication[[:space:]]\+all[[:space:]]\+peer/local   replication     all                                     scram-sha-256/' ${hba_file}"
+    echo $PASSWORD | sudo -S bash -c "echo \"host    all             all             172.16.0.0/14           scram-sha-256\" >> ${hba_file}"
+    sudo systemctl restart postgresql
+    sudo systemctl enable postgresql
+}
+install_postgres

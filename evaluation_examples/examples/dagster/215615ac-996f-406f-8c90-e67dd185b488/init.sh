@@ -22,6 +22,7 @@ PROJECT_NAME=wikipediaPageViews
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd $PROJECT_NAME
+code /home/user/$PROJECT_NAME
 
 echo $PASSWORD | sudo -S ls > /dev/null
 sudo -S mysql < database_init.sql
@@ -29,7 +30,6 @@ rm -f database_init.sql
 
 touch /tmp/sqlserver_query.sql
 
-code /home/user/$PROJECT_NAME
 code /home/user/$PROJECT_NAME/dags/wikipediaPageViews.py
 code /home/user/$PROJECT_NAME/README.md
 code /home/user/$PROJECT_NAME/dagster_migration.py

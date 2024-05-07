@@ -30,6 +30,6 @@ migrated_airflow_definitions = make_dagster_definitions_from_airflow_dags_path(
 14. To test the schedule, click "wikipediaPageViews_schedule" in the table.
 15. Click "Test Schedule" on the top-right of the page.
 16. A pop-up window will show up. Click "Evaluate" on the bottom-right of the pop-up window.
-17. Click "Open in Launchpad" right of the table.
-18. Click "Launch run" on the bottom-right of the newly opened page.
-19. Wait for the run to complete. Try to debug if the run fails.
+17. Click "Open in Launchpad" on the right part of the table.
+18. Click "Launch Run" button on the bottom-right of the newly opened page.
+19. Wait for the run to complete. You should see "RUN SUCCESS | Finished execution of run for ..." under column "EVENT TYPE". Try to debug if the run fails.
