@@ -14,17 +14,17 @@ from .general import (
 logger = logging.getLogger("desktopenv.setup")
 
 
-def google_account_login_in(page, email, password):
+def google_account_login_in(page, email, password, timeout=60000):
     try:
         email_box = page.locator('input[type="email"]')
-        expect(email_box).to_be_editable()
+        expect(email_box).to_be_editable(timeout=timeout)
         email_box.fill(email)
         next_button = page.locator('#identifierNext > div > button')
         expect(next_button).to_be_enabled()
         next_button.click()
 
         password_box = page.locator('input[type="password"]')
-        expect(password_box).to_be_editable()
+        expect(password_box).to_be_editable(timeout=timeout)
         password_box.fill(password)
         next_button = page.locator('#passwordNext > div > button')
         expect(next_button).to_be_enabled()

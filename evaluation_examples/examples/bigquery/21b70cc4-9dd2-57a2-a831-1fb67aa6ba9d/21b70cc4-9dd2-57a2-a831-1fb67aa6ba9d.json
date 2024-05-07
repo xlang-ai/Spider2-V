@@ -5,7 +5,7 @@
     "source": [
         "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
     ],
-    "action_number": 11,
+    "action_number": 13,
     "config": [
         {
             "type": "bigquery_init",
@@ -16,6 +16,16 @@
                     {
                         "type": "empty"
                     }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/Desktop"
                 ]
             }
         },
@@ -43,24 +53,16 @@
                 "src": "evaluation_examples/examples/bigquery/21b70cc4-9dd2-57a2-a831-1fb67aa6ba9d/names.zip",
                 "dest": "/home/user/Desktop/names.zip"
             }
-        },
-        {
-            "type": "launch",
-            "parameters": {
-                "command": [
-                    "nautilus",
-                    "/home/user/Desktop"
-                ]
-            }
         }
     ],
     "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
-        "chromium"
+        "chromium",
+        "terminal"
     ],
     "tags": [
-        "gui",
+        "cli+gui",
         "account"
     ],
     "evaluator": {
