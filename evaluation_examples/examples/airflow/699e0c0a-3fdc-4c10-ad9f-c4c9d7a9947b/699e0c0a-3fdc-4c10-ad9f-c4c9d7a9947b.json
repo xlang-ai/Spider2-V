@@ -18,7 +18,8 @@
     "related_apps": [
         "airflow",
         "chromium",
-        "docker"
+        "docker",
+        "terminal"
     ],
     "tags": [
         "abstract",
