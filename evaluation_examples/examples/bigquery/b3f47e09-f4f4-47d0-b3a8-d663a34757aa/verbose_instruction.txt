@@ -1,10 +1,14 @@
-1. check austin_crime crime schema
-2. click '+'
-3. write SQL 
+In this task, we will use BigQuery WebUI to write SQL tocheck how many crime cases were solved and resulted in an arrest in the Austin crime database, and save answers in 'arrest' table in 'my_dataset' dataset. Concretely,
+1. Click austin_crime crime to understand the schema
+2. Click '+' button on top of the welcome prompt "Welcome to BigQuery Studio!". This will open a blank query panel.
+3. write the following SQL into the blank panel "Untitled query":
+```
 select count(*) from `bigquery-public-data.austin_crime.crime` where clearance_status='Cleared by Arrest'
-4. run
-5. click 'save results'
-6. click 'bigquery table'
-7. Dataset: my_dataset
-   Table: arrest
-8. save
+```
+4. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+5. Wait for a moment. The query results will show below.
+6. Click the "SAVE RESULTS" button above the execution results (on the right side of the same row as panel "Query results");
+7. And in the drop-down menu, further click the option "BigQuery table";
+8. A window will pop up on the right. For the `Dataset` field, select `my_dataset` dataset;
+9. For the `Table` field, type in a new table "arrest";
+10. Click button "SAVE" and wait for the job to finish. You can discover this new table in the Explorer panel on the left.
