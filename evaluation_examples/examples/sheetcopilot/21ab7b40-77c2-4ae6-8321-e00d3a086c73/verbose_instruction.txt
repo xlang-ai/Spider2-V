@@ -1,0 +1,22 @@
+To achive this goal, we need to do as below:
+
+1. Type the header "Period Rate (%)" in the cell $C$1.
+2. Click on the cell $C$2.
+3. Click on the input line on top of the Excel table.
+6. Type "=".
+7. Click $A$2.
+8. Type "/".
+9. Click $B$2. Press `Enter`.
+10. Move the cursor to the right-bottom corner of cell $C$2 to see the cursor turns into a cross. Then drag the cursor from $C$2 to $C$25. 
+11. Click the button "Format as Number" from the tool panel on top of the page. 
+12. Click on the botton `Format` from the top of the page.
+13. In the drop down selector, select `Conditional > Condition...`.
+14. Under "Condition 1", choose `formula is` in the first drop down panel.
+15. Type "=$C2=MAX($C$2:$C$25)" in the formula input box.
+16. In the `Apply Style` selector, choose `New Style...`.
+17. Click on `Font Effects`.
+18. Under `Font Color:`, choose `Custom Color...`.
+19. For `Green:` value, change "0" to "255". Press Enter.
+20. Press Enter.
+21. Press Enter.
+    Now we can see the value 14.72 in cell $C$20 is highlighted with Green.
