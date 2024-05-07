@@ -1,7 +1,7 @@
 {
     "id": "0326d92d-d218-48a8-9ca1-981cd6d064c7",
     "snapshot": "excel",
-    "instruction": "Calculate the total sales in an underneath row called \"Total\" and display the total of each month as bars. Then calculate the growth percentage between each pair of months in another row called \"Growth\" and show them in a line chart. Set the chart titles as the two row headers respectively.",
+    "instruction": "Calculate the total sales in an underneath row called \"Total\" and display the total of each month as bars. Then calculate the growth rate (use decimals) between each pair of months in another row called \"Growth\" and show them in a line chart. Set the chart titles as the two row headers respectively and remove legends.",
     "source": "SheetCopilot@151",
     "config": [
         {
@@ -22,6 +22,7 @@
     "related_apps": [
         "excel"
     ],
+    "action_number": 33,
     "evaluator": {
         "postconfig": [
             {
