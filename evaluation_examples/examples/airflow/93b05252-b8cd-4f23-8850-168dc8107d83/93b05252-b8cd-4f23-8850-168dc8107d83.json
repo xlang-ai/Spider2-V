@@ -50,6 +50,7 @@
         "airflow",
         "chromium",
         "docker",
+        "terminal",
         "vscode"
     ],
     "tags": [
