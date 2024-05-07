@@ -1,0 +1,36 @@
+To achieve this goal, we need to do as follows:
+
+1. Click `Add New Sheet` button at the bottom of the page.
+2. Click into the new sheet `Sheet2`.
+3. Type the four headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\" in the $A$1:$D$1 cells.
+4. Type "2015", "2016", "2017", "2018", "2019" in five cells $A$2:$A$6 respectively.
+5. Click on the cell $B$2.
+6. Type in the input line on top of the page "=(".
+7. Switch to the Sheet1, and click the cell $B$3.
+8. Type "-".
+9. In Sheet1 click the cell $B$2.
+10. Type ")/".
+11. In Sheet1 click the cell $B$2.
+12. Press `Enter`. In the former steps, we set the value of Sheet2$B$2 as (Sheet1$B$3-Sheet1$B$2)/Sheet1$B$2.
+13. Switch to Sheet2. Click on the cell $B$2 and click the button `%` in the tool set panel on top of the page.
+14. Move the cursor to the right-bottom corner of cell $B$2 to see the cursor turns into a cross. Then drag the cursor from $B$2 to $B$6. Now we complete the `CA change` column of the table.
+15. Click on the cell $C$2.
+16. Same as the former one, type in the input line on top of the page "=(".
+17. Switch to the Sheet1, and click the cell $C$3.
+18. Type "-".
+19. In Sheet1 click the cell $C$2.
+20. Type ")/".
+21. In Sheet1 click the cell $C$2.
+22. Press `Enter`.
+23. Switch to Sheet2. Click on the cell $C$2 and click the button `%` in the tool set panel on top of the page.
+24. Move the cursor to the right-bottom corner of cell $C$2 to see the cursor turns into a cross. Then drag the cursor from $C$2 to $C$6. Now we complete the `FA change` column of the table.
+25. Click on the cell $D$2.
+26. Type in the input line on top of the page "=(".
+27. Switch to the Sheet1, and click the cell $D$3.
+28. Type "-".
+29. In Sheet1 click the cell $D$2.
+30. Type ")/".
+31. In Sheet1 click the cell $D$2.
+32. Press `Enter`.
+33. Switch to Sheet2. Click on the cell $D$2 and click the button `%` in the tool set panel on top of the page.
+34. Move the cursor to the right-bottom corner of cell $D$2 to see the cursor turns into a cross. Then drag the cursor from $D$2 to $D$6. Now we complete all 3 column of the table.
