@@ -34,6 +34,7 @@ execution_config = ExecutionConfig(
 
 @dag(
     start_date=datetime(2024, 1, 1),
+    schedule='0 10 * * *',
     catchup=False
 )
 def jaffle_shop_dag():

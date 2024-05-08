@@ -59,9 +59,9 @@ else
 fi
 
 # check whether the interval is set correctly
-# interval_flag=$(docker exec -i $CONTAINER airflow dags details -o plain ${DAG_ID} | grep "schedule_interval" | grep "0 10 \* \* \*")
-# if [ -n "$interval_flag" ]; then
-#     echo "dag schedule_interval succeed"
-# else
-#     echo "dag schedule_interval failed"
-# fi
+interval_flag=$(docker exec -i $CONTAINER airflow dags details -o plain ${DAG_ID} | grep "schedule_interval" | grep "0 10 \* \* \*")
+if [ -n "$interval_flag" ]; then
+    echo "dag schedule_interval succeed"
+else
+    echo "dag schedule_interval failed"
+fi

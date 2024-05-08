@@ -1,7 +1,7 @@
 {
     "id": "a02a58d9-f52f-586e-b121-6f49f934b90e",
-    "snapshot": "astro",
-    "instruction": "I want to integrate an existing dbt project `dags/dbt/jaffle_shop` into an Airflow DBT task group. The connection to postgresql has been configured. Could you help me finish the other work? Name the target DAG as jaffle_shop_dag and activate it. Please implement it with Astro and Cosmos.",
+    "snapshot": "airflow",
+    "instruction": "I want to integrate an existing dbt project `dags/dbt/jaffle_shop` into an Airflow DBT task group. The connection to postgresql has been configured. Could you help me finish the other work? Name the target DAG as jaffle_shop_dag, schedule it to run at 10:00 a.m. everyday and activate it. Please implement it with Astro and Cosmos.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-dbt"
     ],
@@ -58,7 +58,7 @@
     "tags": [
         "cli+gui"
     ],
-    "action_number": 8,
+    "action_number": 9,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

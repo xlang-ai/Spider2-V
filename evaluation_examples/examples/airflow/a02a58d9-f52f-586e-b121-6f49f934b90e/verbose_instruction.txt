@@ -25,6 +25,7 @@ execution_config = ExecutionConfig(
 
 @dag(
     start_date=datetime(2024, 1, 1),
+    schedule='0 10 * * *',
     catchup=False
 )
 def jaffle_shop_dag():
@@ -43,6 +44,7 @@ jaffle_shop_dag()
 These codes will create an DbtTaskGroup dag called jaffle_shop_dag.
 4. Press Ctrl+S to save the code file.
 5. Now, we switch to the Astro Web UI page in Chromium/Google Chrome browser.
-6. The target DAG may not appear currently, we need to refresh the DAGs. Press hot key "Ctrl+R" to refresh the web page.
-7. Wait for the reload and we can see a new entry `jaffle_shop_dag` in the main table.
-8. Next, click the button in front of `jaffle_shop_dag` to enable the DAG. The DAG will start to work.
+6. The target DAG may not appear instantly, we need to refresh the DAGs. Click the refresh button on top of the main table (on the right side of the text `Auto-refresh`) in this Astro UI page.
+7. If the target DAG is still not visible on this parge, press hot key "Ctrl+R" to refresh the whole web page.
+8. Wait for the reload and we can see a new entry `jaffle_shop_dag` in the main table.
+9. Next, click the button in front of `jaffle_shop_dag` to enable the DAG. The DAG will start to work.
