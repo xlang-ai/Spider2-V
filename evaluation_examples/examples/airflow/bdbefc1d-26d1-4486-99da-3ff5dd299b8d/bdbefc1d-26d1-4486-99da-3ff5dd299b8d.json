@@ -1,0 +1,78 @@
+{
+    "id": "bdbefc1d-26d1-4486-99da-3ff5dd299b8d",
+    "snapshot": "airflow",
+    "instruction": "I have defined two DAGs to fetch and process data from TheCocktailDB. Currently, these two DAGs are configured to run at a fixed timestamp each day. However, since the consumer DAG is totally dependent on the output of the producer, I hope to change the schedule of the consumer DAG such that each time the resulting files of the producer are updated, the consumer DAG is triggered. Can you help me with this data-aware scheduling?",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-datasets"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/bdbefc1d-26d1-4486-99da-3ff5dd299b8d/cocktail.zip",
+                "dest": "/home/user/cocktail.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/bdbefc1d-26d1-4486-99da-3ff5dd299b8d/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "url": "http://localhost:8080",
+                "listening_port": 9222,
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "airflow",
+        "docker",
+        "vscode",
+        "chromium"
+    ],
+    "tags": [
+        "cli+gui"
+    ],
+    "action_number": 10,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airflow/bdbefc1d-26d1-4486-99da-3ff5dd299b8d/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
