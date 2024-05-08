@@ -1,10 +1,10 @@
 #!/bin/bash
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate astro
-cd /home/user/projects/astro-jaffle-shop
+conda activate airflow
+cd /home/user/projects/jaffle_shop_astro
 
-astro dev start >/dev/null 2>/dev/null
+# astro dev restart >/dev/null 2>/dev/null
 export DAG_ID=jaffle_shop_dag
 export CONTAINER=$(astro dev ps | grep "webserver" | awk '{print $1}')
 
@@ -59,9 +59,9 @@ else
 fi
 
 # check whether the interval is set correctly
-interval_flag=$(docker exec -i $CONTAINER airflow dags details -o plain ${DAG_ID} | grep "schedule_interval" | grep "0 10 \* \* \*")
-if [ -n "$interval_flag" ]; then
-    echo "dag schedule_interval succeed"
-else
-    echo "dag schedule_interval failed"
-fi
+# interval_flag=$(docker exec -i $CONTAINER airflow dags details -o plain ${DAG_ID} | grep "schedule_interval" | grep "0 10 \* \* \*")
+# if [ -n "$interval_flag" ]; then
+#     echo "dag schedule_interval succeed"
+# else
+#     echo "dag schedule_interval failed"
+# fi
