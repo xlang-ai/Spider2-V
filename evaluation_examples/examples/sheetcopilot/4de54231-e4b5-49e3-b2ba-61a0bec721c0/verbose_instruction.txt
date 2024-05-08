@@ -1,0 +1,16 @@
+In the task, we are going to repeat the formula from one cell to others and merge contents in multiple columns into a new column. To achieve it:
+1. Click cell B2.
+2. Move the cursor to the bottom right corner of B2. We will see the mouse becomes a cross.
+3. Press and drag down the mouse from cell B2 to cell B30.
+4. Click cell D2.
+5. Similarly, move the cursor to the bottom right corner of D2. The mouse should become a cross icon.
+6. Press and drag down the mouse from cell D2 to cell D30.
+7. Next, click cell E1. We will create a new column.
+8. Type in column header "Combined Data".
+9. Press Enter and locate to cell E2.
+10. Type in the following formula:
+=$A$1&": "&FIXED(A2,2)&", "&$B$1&": "&FIXED(B2,2)&", "&$C$1&": "&FIXED(C2,2)&", "&$D$1&": "&FIXED(D2,2)
+11. Press Enter to make it work.
+12. Choose cell E2 and move the cursor to the bottom right corner of this cell.
+13. Press and drag down the mouse from cell E2 to cell E30 to repeatively apply the same formula.
+14. Finally, press Ctrl+S to save the modifications.

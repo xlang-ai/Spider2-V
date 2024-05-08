@@ -1,9 +1,12 @@
-1. Click "query.py" to see the project code
-2. Change to Google Chrome.
-3. Click "bikeshare_stations" to understand the schema
-4. Click "preview" to see the sample data
-5. Change to VSCode, write code in "query.py"
-
+In this task, we will use VSCode to write code to query a public dataset `austin_bikeshare` and save the execution results into a local .csv file. Concretely,
+1. Click "query.py" in VS Code to see the project code. we can see the code is partially finished, and we need to know the detailed information of austin_bikeshare.
+2. Change to Google Chrome or Chromium, we can see one entry of `austin_bikeshare` database in the Explorer panel on the left side.
+3. Click the toggle node (a triangular icon) on the left of `austin_bikeshare` in the Explorer panel to expand the tables in this public database.
+4. Click row "bikeshare_stations" among the expanded entries, we can see the table schema on the right panel. Among these columns, we are interested in `name`, `footprint_length` and `footprint_width`. Note that, `footprint_length` multiplied by `footprint_width` can be used to calculate the total area.
+5. Click "PREVIEW" tab on the right panel, we can see sample data from `bikeshare_stations`.
+6. Change to application VSCode.
+7. Write the following code into file "query.py"
+```
 import os
 import pandas as pd
 from google.cloud import bigquery
@@ -32,6 +35,6 @@ def query_data():
 
 if __name__ == "__main__":
     query_data()
-
-6. Change to Terminal
-7. "python query.py"
+```
+8. Switch to the opened terminal.
+9. Type in "python query.py" to run the code. Results will be saved to file 'result.csv' in folder `project1`.

@@ -1,11 +1,11 @@
 {
     "id": "16a9da77-2f40-455f-977e-32696ea97180",
     "snapshot": "bigquery",
-    "instruction": "Finish the query code about Bigquery-public-data. I want to get the names and areas of the top ten bike stations by floor area. Saving the result.csv in project1 folder. ",
+    "instruction": "Finish the query code about Bigquery-public-data. I want to get the names and areas of the top ten bike stations by floor area. Saving the result.csv with headers `name` and `area` in project1 folder.",
     "source": [
         "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
     ],
-    "action_number": 8,
+    "action_number": 9,
     "config": [
         {
             "type": "google_chrome_browser",
@@ -37,7 +37,7 @@
             "type": "copyfile_from_host_to_guest",
             "parameters": {
                 "src": "evaluation_examples/examples/bigquery/16a9da77-2f40-455f-977e-32696ea97180/query.py",
-                "dest": "/home/user/projects/bigquery/project1/query.py"
+                "dest": "/home/user/projects/project1/query.py"
             }
         },
         {
@@ -51,7 +51,7 @@
                     },
                     {
                         "type": "copy_keyfile",
-                        "dest": "/home/user/projects/bigquery/project1/credential.json"
+                        "dest": "/home/user/projects/project1/credential.json"
                     }
                 ]
             }
@@ -70,7 +70,7 @@
         "func": "compare_csv",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/projects/bigquery/project1/result.csv",
+            "path": "/home/user/projects/project1/result.csv",
             "dest": "pred.csv"
         },
         "expected": {

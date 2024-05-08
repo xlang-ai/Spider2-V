@@ -1,11 +1,11 @@
 {
     "id": "b3f47e09-f4f4-47d0-b3a8-d663a34757aa",
     "snapshot": "bigquery",
-    "instruction": "Use Bigquery WebUI to check how many crime cases were solved and resulted in an arrest in the Austin crime database. Save answers in 'arrest' table  in my_dataset.",
+    "instruction": "Use Bigquery WebUI to check how many crime cases were solved and resulted in an arrest in the Austin crime database. Save answers in 'arrest' table in my_dataset.",
     "source": [
         "https://cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console"
     ],
-    "action_number": 9,
+    "action_number": 10,
     "config": [
         {
             "type": "bigquery_init",
@@ -34,7 +34,7 @@
                                 "type": "INTEGER"
                             }
                         ],
-                        "data_from_csv": "evaluation_examples/examples/bigquery/5c0e4fb7-2af4-4327-b85a-ecafbfe84a07/information.txt"
+                        "data_from_csv": "evaluation_examples/examples/bigquery/b3f47e09-f4f4-47d0-b3a8-d663a34757aa/information.txt"
                     }
                 ]
             }
