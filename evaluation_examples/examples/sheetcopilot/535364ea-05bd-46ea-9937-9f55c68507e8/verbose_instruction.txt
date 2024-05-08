@@ -1,0 +1,21 @@
+Today's task is to create two tables in a new sheet showing the total revenue for each product and sales channel. To finish it,
+1. Click the "Append sheet" button at the bottom of the sheet panel (on the left of `Sheet1` tab) to create a new sheet called "Sheet2".
+2. Switch back to Sheet1 via clicking the Sheet1 tab.
+3. Select columns A to G.
+4. Click the menu button "Insert -> Pivot Table...".
+5. In the pop-up window, click OK to confirm the selected area.
+6. Press and drag the `Product` entry from `Available Fields` box to `Row Fields` box.
+7. Press and drag the `Revenue ($)` entry from `Available Fields` box to `Data Fields` box.
+8. Click "Source and Destination" row to select the output position.
+9. Under `Destination` split, click the radio button `Selection`.
+10. In the input box coming after `Selection`, type in the position "$Sheet2.$A$1".
+11. Click button "OK" to close the pop-up window.
+12. Next, in the Sheet1, select columns from A to G again.
+13. Click the menu button "Insert -> Pivot Table...".
+14. In the pop-up window, click OK to confirm the selected area.
+15. Press and drag the `Sales Channel` entry from `Available Fields` box to `Row Fields` box.
+16. Press and drag the `Revenue ($)` entry from `Available Fields` box to `Data Fields` box.
+17. Under `Destination` split, click the radio button `Selection`.
+18. In the input box coming after `Selection`, type in the position "$Sheet2.$D$1".
+19. Click button "OK" to close the pop-up window.
+20. Press Ctrl+S to save the excel file.

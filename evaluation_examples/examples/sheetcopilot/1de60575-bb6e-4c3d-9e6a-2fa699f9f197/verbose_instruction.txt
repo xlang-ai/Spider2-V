@@ -1,0 +1,12 @@
+Summarize the total revenue for each promotion type in a new sheet (Sheet2) with the promotion names as the column headers. We can follow these steps:
+1. Press Ctrl+A to select all data.
+2. Click button "Insert -> Pivot Table..." in the top menu bar.
+3. Click OK to confirm the data selection.
+4. Press and drag `Promotion` from `Available Fields` to `Column Fields` (top middle box).
+5. Press and drag `Revenue` from `Available Fields` to `Data Fields` (bottom middle box).
+6. Click button OK to create the pivot table.
+7. Right click the new sheet `Pivot Table_Sheet1_1`.
+8. Choose "Rename Sheet..." in the pop-up sub-menu.
+9. Type text "Sheet2" in the `Name` field.
+10. Click button `OK` to apply the change.
+11. Press Ctrl+S hotkey to save the file.
