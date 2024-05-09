@@ -17,6 +17,20 @@
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "schema": "PUBLIC",
+                        "database": "USERS",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
+        {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
                 "src": "evaluation_examples/examples/snowflake/4aa4cebb-d9d6-429f-b9da-547887ac5ce1/users_information.json",
@@ -35,20 +49,6 @@
             "parameters": {
                 "debugging_port": 1337,
                 "listening_port": 9222
-            }
-        },
-        {
-            "type": "snowflake_init",
-            "parameters": {
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "actions": [
-                    {
-                        "type": "create_database",
-                        "schema": "PUBLIC",
-                        "database": "USERS",
-                        "delete_first": true
-                    }
-                ]
             }
         },
         {

@@ -7,22 +7,15 @@
     ],
     "related_apps": [
         "chromium",
-        "snowflake"
+        "snowflake",
+        "terminal"
     ],
     "tags": [
         "cli+gui",
-        "abstract",
         "account"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
-        {
-            "type": "google_chrome_browser",
-            "parameters": {
-                "debugging_port": 1337,
-                "listening_port": 9222
-            }
-        },
         {
             "type": "snowflake_init",
             "parameters": {
@@ -39,6 +32,13 @@
             }
         },
         {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
             "type": "snowflake_login",
             "parameters": {
                 "listening_port": 9222,
@@ -51,6 +51,7 @@
             "parameters": {
                 "listening_port": 9222,
                 "sqls": [
+                    "USE DATABASE SALES;",
                     "SELECT region, SUM(quantity * unit_price) as total_sales FROM orders GROUP BY region ORDER BY total_sales DESC;"
                 ]
             }

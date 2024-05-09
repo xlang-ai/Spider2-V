@@ -7,29 +7,15 @@
     ],
     "related_apps": [
         "chromium",
-        "snowflake"
+        "snowflake",
+        "terminal"
     ],
     "tags": [
         "cli+gui",
-        "abstract",
         "account"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/examples/snowflake/fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8/details.txt",
-                "dest": "/home/user/Desktop/details.txt"
-            }
-        },
-        {
-            "type": "google_chrome_browser",
-            "parameters": {
-                "debugging_port": 1337,
-                "listening_port": 9222
-            }
-        },
         {
             "type": "snowflake_init",
             "parameters": {
@@ -43,6 +29,20 @@
                         "sql_script": "evaluation_examples/examples/snowflake/fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8/snowflake_init.sql"
                     }
                 ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8/details.txt",
+                "dest": "/home/user/Desktop/details.txt"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
             }
         },
         {
