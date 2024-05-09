@@ -10,11 +10,9 @@
         "snowflake"
     ],
     "tags": [
-        "cli+gui",
-        "abstract",
+        "gui",
         "account"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -56,7 +54,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_sql",

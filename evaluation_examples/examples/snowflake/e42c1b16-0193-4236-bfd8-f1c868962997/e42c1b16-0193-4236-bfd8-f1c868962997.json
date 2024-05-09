@@ -11,10 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "abstract",
         "account"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -50,7 +48,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": [
