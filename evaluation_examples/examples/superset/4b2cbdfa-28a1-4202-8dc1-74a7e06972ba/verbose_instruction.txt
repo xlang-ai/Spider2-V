@@ -1,0 +1,10 @@
+To enable data upload functionality for the database MyDatabase, we can follow these steps:
+1. According to the opened .yaml file, we can extract the basic information about the postgres database. Now, switch to the opened web page.
+2. Click the "Settings" button on the top right of the web page;
+3. Select "Database connections" menu;
+4. In the new page, click the edit button on the right of the database "MyDatabase";
+5. In the pop-up window "Edit database", firstly click the "ADVANCED";
+6. Next, click the "Security";
+7. Scroll down until text "Allow file uploads to database" appears;
+8. Check the box in front of this text;
+9. Then, click "FINISH", and we will see a check mark in the CSV upload column of MyDatabase.
