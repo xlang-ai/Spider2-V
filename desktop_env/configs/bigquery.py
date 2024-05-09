@@ -6,6 +6,8 @@ from google.cloud.bigquery.dataset import DatasetListItem
 from .google_cloud import gcp_webgui_setup
 from .general import download_file_to_local, copyfile_from_host_to_guest_setup
 from typing import List, Tuple, Union
+from google.cloud import bigquery_connection_v1
+import os
 
 
 logger = logging.getLogger("desktopenv.setup")
@@ -23,6 +25,22 @@ def bigquery_empty_project(client: bigquery.Client, **config):
         for model in client.list_models(dataset):
             client.delete_model(model, not_found_ok=True)
         client.delete_dataset(dataset, delete_contents=True)
+    
+
+    """
+    Empty all connections
+    """
+    keyfile_path, project_id = config['keyfile_path'], config['project_id']
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = keyfile_path    
+    parent = f"projects/{project_id}/locations/us"
+    client = bigquery_connection_v1.ConnectionServiceClient()
+    request = bigquery_connection_v1.ListConnectionsRequest(parent=parent,page_size=10)
+    response = client.list_connections(request=request)
+    for connection in response:
+        connection_name = connection.name
+        request = bigquery_connection_v1.DeleteConnectionRequest(name=connection_name)
+        client.delete_connection(request=request)    
+    
     return
 
 
@@ -42,7 +60,6 @@ def bigquery_create_table(client: bigquery.Client, **config):
     dataset = bigquery.Dataset(dataset_ref)
     client.create_dataset(dataset, exists_ok=True) # if dataset exists, it is ok
     table_ref = f'{project_id}.{dataset_id}.{table_id}'
-
     if 'schema_from_json' in config:
         schema = [bigquery.SchemaField(
             s["name"], 
@@ -117,7 +134,6 @@ def bigquery_init_setup(controller, **config):
     keyfile_path, project_id = gcp_config['keyfile_path'], gcp_config['project_id']
     credentials = service_account.Credentials.from_service_account_file(keyfile_path)
     client = bigquery.Client(project=project_id, credentials=credentials)
-
     actions = config.get('actions', [])
     if len(actions) == 0:
         logger.error('[ERROR]: No action is specified in the `actions` field!')
