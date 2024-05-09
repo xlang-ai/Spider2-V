@@ -1,0 +1,25 @@
+In this task, we want to use Octavia CLI to import, edit, and apply Airbyte application configurations to replicate data from Postgres to Postgres: 
+
+1. Switch to the terminal window;
+2. In the terminal, run the following commands to initiate octavia:
+```docker compose build && \
+docker compose up airflow-init && \
+docker compose up```
+to finish the airflow setting up;
+
+3. After you see 
+```"GET /health HTTP/1.1" 200 141 "-" "curl/7.74.0"``` 
+in the terminal, close the terminal window and switch to the browser window and refresh the page localhost:8080, use the information in connfig.json to log in airflow;
+4. After logging into Airflow, click on 'Admin' → 'Connections' in the top right corner to enter the Connections interface;
+5. Then click on the + symbol in the upper left corner to create a new Airflow connection;
+6. Use the connection parameters saved in the config.json file to create a new connection;
+    (1) for "Host" you have to run `ip addr show docker0` in terminal to get your host adress;
+7. After that, click on the 'Save' button in the lower left corner, which should take you back to the Connections screen;
+8. Then click on the + symbol in the upper left corner again to create another new Airflow connection with Files;
+9. After that, click on the 'Save' button in the lower left corner to save the connection;
+10. Then open vscode and complete the example_dag.py file, updating the CONNECTION ID on line eight with the part between /connection/ and /status/ in the URL of the Airbyte Faker to Local JSON connection that you created (you need to check the airbyte connection page);
+11. Switch to the terminal window and Run ```python home/user/projects/airbyte/airflow/dags/example_dag.py``` in the terminal;
+12. Then, switch back to the Airflow browser interface, click on 'DAGs' at the top of the screen, and then click on the refresh button in the upper right corner. You can see the DAG that you have created;
+13. Click on the newly created DAG called "airbyte_example_airflow_dag" to see more information about the DAG;
+14. Run the DAG by clicking on the button in the top right corner, and choose "Trigger DAG";
+15. After triggering the DAG, you will see on screen that the DAG is executing. Each time the above DAG is executed, you should see an associated Sync in Airbyte’s Sync History UI.

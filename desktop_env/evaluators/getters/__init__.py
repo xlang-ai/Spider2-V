@@ -27,7 +27,7 @@ from .chrome import (
     get_find_installed_extension_name,
     get_info_from_website
 )
-from .file import get_cloud_file, get_vm_file, get_local_file, get_cache_file, get_content_from_vm_file
+from .file import get_cloud_file, get_vm_file, get_local_file, get_cache_file, get_content_from_vm_file, get_googlesheet_active_file
 from .general import (
     get_list,
     get_vm_command_line,

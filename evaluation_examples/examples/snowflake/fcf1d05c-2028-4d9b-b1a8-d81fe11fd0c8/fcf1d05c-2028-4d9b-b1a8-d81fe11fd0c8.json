@@ -14,7 +14,6 @@
         "cli+gui",
         "account"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "snowflake_init",
@@ -54,7 +53,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",
