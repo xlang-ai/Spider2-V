@@ -1,0 +1,98 @@
+{
+    "id": "e42c1b16-0193-4236-bfd8-f1c868962997",
+    "snapshot": "snowflake",
+    "instruction": "I need to count the average wind speed per year based on the data in .csv on the desktop and use the dashboard on snowsight to show the graphical results. You need to create database WIND_DB and upload data into table WIND on the current snowflake website. Then create a dashboard named wind_dashboard, write the code and move the sql worksheet to this dashboard. The result of the execution of the sql commands needs to be YEAR and AVG_WIND_SPEED. Finally, you need to download the query result and name it avg_wind_speed.csv. You also need to download the corresponding bar chart and name it avg_speed_chart.png. Note, return to the dashboard site after downloading as I need to use it later.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-dashboards"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "abstract",
+        "account"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/e42c1b16-0193-4236-bfd8-f1c868962997/wind_dataset.csv",
+                "dest": "/home/user/Desktop/wind_dataset.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "compare_csv",
+            "compare_image_list",
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_file",
+                "path": "/home/user/Downloads/avg_wind_speed.csv",
+                "dest": "avg_wind_speed.csv"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/Downloads/avg_speed_chart.png",
+                "dest": "avg_speed_chart.png"
+            },
+            {
+                "type": "active_url_from_accessTree",
+                "goto_prefix": "https://app.snowflake.com/"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/e42c1b16-0193-4236-bfd8-f1c868962997/avg_wind_speed_gold.csv",
+                "dest": "avg_wind_speed_gold.csv"
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/e42c1b16-0193-4236-bfd8-f1c868962997/avg_speed_chart_gold.png",
+                "dest": "avg_speed_chart_gold.png"
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "wind_dashboard"
+                    ]
+                }
+            }
+        ]
+    }
+}
