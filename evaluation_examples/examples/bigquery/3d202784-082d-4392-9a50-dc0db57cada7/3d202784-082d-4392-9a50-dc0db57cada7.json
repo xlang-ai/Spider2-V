@@ -1,0 +1,113 @@
+{
+    "id": "3d202784-082d-4392-9a50-dc0db57cada7",
+    "snapshot": "bigquery",
+    "instruction": "I provide you the code to build the Bigquery ML model. You need to modify the code and create an ML model named logistic_model in ml_project in your Bigquery UI and go to model",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/create-machine-learning-model"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "ml_project",
+                        "table_id": "information",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/3d202784-082d-4392-9a50-dc0db57cada7/information.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/3d202784-082d-4392-9a50-dc0db57cada7/ml.sql",
+                "dest": "/home/user/Desktop/ml.sql"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "nautilus",
+                    "/home/user/Desktop/ml.sql"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "active_url_from_accessTree",
+            "config": {
+                "goto_prefix": "https://console.cloud.google.com/bigquery"
+            }
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": ["logistic_model"]
+            }
+        }
+    }
+}
