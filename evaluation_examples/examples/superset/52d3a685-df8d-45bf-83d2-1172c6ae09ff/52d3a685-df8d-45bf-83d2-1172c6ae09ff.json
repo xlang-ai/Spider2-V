@@ -1,7 +1,7 @@
 {
     "id": "52d3a685-df8d-45bf-83d2-1172c6ae09ff",
     "snapshot": "superset",
-    "instruction": "Please create a table named 'tutorial_flights' in MyDatabase using Superset by uploading the tutorial_flights.csv in '/home/user' of my local computer and set column 'Travel Date' to be parsed as Dates.",
+    "instruction": "Please create a table named 'tutorial_flights' in database 'MyDatabase' using Superset by uploading the tutorial_flights.csv in '/home/user' of my local computer and set column 'Travel Date' to be parsed as Dates.",
     "source": [
         "https://superset.apache.org/docs/using-superset/exploring-data/#loading-csv-data"
     ],

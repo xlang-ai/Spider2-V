@@ -1,4 +1,4 @@
-To create a table named 'tutorial_flights' in MyDatabase using Superset by uploading the tutorial_flights.csv in '/home/user' of my local computer and set column 'Travel Date' to be parsed as Dates, we can follow these steps:
+To create a table named 'tutorial_flights' in database 'MyDatabase' by uploading the tutorial_flights.csv in '/home/user' of local computer and set column 'Travel Date' to be parsed as Dates, we can follow these steps:
 1. In the opened web page, click the add icon in the top right corner;
 2. Select "Data" menu;
 3. Click the "Upload CSV to database" in the extended menu;
