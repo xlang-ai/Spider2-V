@@ -1,0 +1,17 @@
+{
+    "airflow log in": {
+        "username": "airflow",
+        "password": "airflow"
+    },
+    "airflow airbyte connection": {
+        "Connection Id": "airflow-call-to-airbyte-example",
+        "Connection Type": "Airbyte",
+        "Login": "airbyte",
+        "password": "password",
+        "Port": 8000
+    },
+    "airflow files connection": {
+        "Connection Id": "airflow-file-connector",
+        "Connection Type": "File (path)"
+    }
+}
