@@ -1,0 +1,10 @@
+Alice Johnson,2023-03-15,150
+Bob Smith,2023-02-28,200
+Charlie Brown,2023-01-10,100
+David Garcia,2023-04-05,300
+Eva Martinez,2023-02-18,250
+Frank Wilson,2023-03-20,180
+Grace Taylor,2023-01-05,120
+Henry Lee,2023-04-02,220
+Isabella Lopez,2023-02-10,270
+Jake Anderson,2023-03-25,190
