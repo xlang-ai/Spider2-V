@@ -4,6 +4,8 @@ from typing import Optional, Any, Union
 from datetime import datetime
 import requests
 import pandas as pd
+import re
+from .chrome import get_active_url_from_accessTree
 
 logger = logging.getLogger("desktopenv.getters.file")
 
@@ -150,3 +152,17 @@ def get_cache_file(env, config: Dict[str, str]) -> str:
     _path = os.path.join(env.cache_dir, config["path"])
     assert os.path.exists(_path)
     return _path
+
+
+def get_googlesheet_active_file(env, config: Dict[str, Any]) -> Union[str, List[str]]:
+    """
+    Config:
+        dest (str|List[str])): file name of the downloaded file
+    """
+    
+    url_config = {"goto_prefix": "https://docs.google.com/spreadsheets"}
+    active_url = get_active_url_from_accessTree(env, url_config)
+    config["path"] = active_url
+    extracted_content = re.search('d/(.*?)/edit', active_url).group(1)
+    config["path"] = f"https://docs.google.com/spreadsheets/d/{extracted_content}/export?format=xlsx"
+    return get_cloud_file(env, config)
