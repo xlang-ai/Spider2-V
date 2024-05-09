@@ -29,7 +29,6 @@
         "terminal"
     ],
     "tags": [
-        "abstract",
         "cli"
     ],
    "evaluator": {
