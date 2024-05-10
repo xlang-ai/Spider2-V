@@ -1,0 +1,71 @@
+{
+    "id": "df2ed595-2627-47e8-be9a-920b8eaa64c8",
+    "snapshot": "bigquery",
+    "instruction": "Please set default column values for the 2012 table in the census dataset.YEAR: 2012, ABSOLUTE_CHANGE: 0, ANNUAL_RANK: 1",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "census",
+                        "table_id": "2012",
+                        "data_from_csv": "evaluation_examples/examples/bigquery/df2ed595-2627-47e8-be9a-920b8eaa64c8/2012.csv"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_sql_result_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "sql": "evaluation_examples/examples/bigquery/df2ed595-2627-47e8-be9a-920b8eaa64c8/1.sql",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/df2ed595-2627-47e8-be9a-920b8eaa64c8/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}

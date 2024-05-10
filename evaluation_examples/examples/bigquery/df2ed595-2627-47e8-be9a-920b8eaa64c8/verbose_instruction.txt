@@ -1,0 +1,10 @@
+We need to add a column to the 2012 table in the cencus dataset and name it RANK。
+1. First, you need to view the project first, click toggle node on the personal project name in Exporer
+2. Click the Toggle node of census dataset
+3. Click 2012 Dataset
+4. In the schema interface of the 2012 table, click the blue button of 'EDIT SCHEMA'
+5. Now we need to set the Default Value for the three columns, YEAR, ABSOLUTE_CHANGE, and ANNUAL_RANK. First, for the YEAR row (the first row), fill in '2012' in the Default Value
+6. For the ABSOLUTE_CHANGE line (the penultimate line), fill '0' into the Default Value.
+7. For the ANNUAL_RANK line (the first line from the bottom), fill '1' into the Default Value
+8. Enter RANK in Field name
+9. Click the blue button "SAVE" below
