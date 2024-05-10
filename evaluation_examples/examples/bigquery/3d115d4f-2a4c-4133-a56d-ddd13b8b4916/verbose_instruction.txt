@@ -1,0 +1,14 @@
+Now we want to upload google_ads data from xlang_gcs/google_ads/ google cloud storage. To do this:
+1. Click the "+ ADD" button next to the "Explorer" panel.
+2. Click the "Google Cloud Storage" panel on the pop-up window.
+3. In the input box "Google Cloud Storage", enter the 'xlang_gcs/google_ads/account_history_data.csv' in the second windows. This window is labeled 'Select file from GCS bucket or use a a URI pattern'.
+4. Destination Part, set Dataset to 'google_ads'
+5. In Destination Part, set Table to 'account_history_data'
+6. In Schema part, Mark the check mark in front of Auto detect.
+7. Click the "+ ADD" button next to the "Explorer" panel.
+8. Click the "Google Cloud Storage" panel on the pop-up window.
+9. In the input box "Google Cloud Storage", enter the 'xlang_gcs/google_ads/account_stats_data.csv' in the second windows. This window is labeled 'Select file from GCS bucket or use a a URI pattern'.
+10. Destination Part, set Dataset to 'google_ads'
+11. In Destination Part, set Table to 'account_stats_data'
+12. In Schema part, Mark the check mark in front of Auto detect.
+Eventually, we have completed this task.
