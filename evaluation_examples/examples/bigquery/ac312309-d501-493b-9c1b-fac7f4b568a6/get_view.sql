@@ -1,0 +1,4 @@
+SELECT
+  table_name
+FROM
+  `{}.census.INFORMATION_SCHEMA.VIEWS`
