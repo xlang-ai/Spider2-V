@@ -1,0 +1,123 @@
+{
+    "id": "360b165b-49d2-4b9b-b2fd-3def1b848312",
+    "snapshot": "bigquery",
+    "instruction": "Load the data from the Google drive Spider002 folder into Bigquery's 'data1' table of 'information' datasets",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 23,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "information",
+                        "table_id": "history",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/360b165b-49d2-4b9b-b2fd-3def1b848312/information.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        },
+        {
+            "type": "googledrive_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/googledrive/settings.yml",
+                "actions": [
+                    {   
+                        "type": "delete",
+                        "path": ["Spider002"],
+                        "trash": false
+                    },
+                    {
+                        "type": "mkdirs",
+                        "path": ["Spider002"],
+                        "exist_ok": true
+                    },
+                    {
+                        "type": "upload",
+                        "src": "evaluation_examples/examples/bigquery/360b165b-49d2-4b9b-b2fd-3def1b848312/data.jsonl",
+                        "path": ["Spider002","data.jsonl"]
+                    },
+                    {
+                        "type": "upload",
+                        "src": "evaluation_examples/examples/bigquery/360b165b-49d2-4b9b-b2fd-3def1b848312/schema.txt",
+                        "path": ["Spider002","schema.txt"]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "googledrive_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "information",
+            "table_id": "data1",
+            "schema": [
+                "*"
+            ],
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/360b165b-49d2-4b9b-b2fd-3def1b848312/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}
