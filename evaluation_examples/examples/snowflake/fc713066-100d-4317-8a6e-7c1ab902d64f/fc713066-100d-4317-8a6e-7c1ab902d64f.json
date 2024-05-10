@@ -25,9 +25,11 @@
             "type": "snowflake_init",
             "parameters": {
                 "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "actions": {
-                    "type": "delete_database"
-                }
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
             }
         },
         {
