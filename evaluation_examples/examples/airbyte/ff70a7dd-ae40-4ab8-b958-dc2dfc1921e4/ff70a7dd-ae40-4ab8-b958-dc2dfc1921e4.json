@@ -1,28 +1,36 @@
 {
     "id": "ff70a7dd-ae40-4ab8-b958-dc2dfc1921e4",
     "snapshot": "airbyte",
-    "instruction": "I have created an airbyte connection from Faker to Local JSON. After the current sync finishes, I want you to help me to create an Airflow DAG that triggers Airbyte synchronizations.",
+    "instruction": "I have created an airbyte connection from Faker to Local JSON. Could you help me use Airflow to trigger this synchronization and perform extra processing steps? Please name the target DAG as `faker_to_json_dag` and see the opened vscode project for detailed requirements.",
     "source": [
-        "https://airbyte.com/tutorials/validate-data-replication-postgres-snowflake"
+        "https://airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together"
     ],
     "related_apps": [
         "chromium",
         "airbyte",
         "docker",
-        "airflow"
+        "airflow",
+        "vscode",
+        "terminal"
     ],
     "tags": [
-        "cli+gui",
-        "account"
+        "cli+gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 15,
+    "action_number" : 20,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
                 "src": "evaluation_examples/examples/airbyte/ff70a7dd-ae40-4ab8-b958-dc2dfc1921e4/connection.json",
                 "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/ff70a7dd-ae40-4ab8-b958-dc2dfc1921e4/astro-airbyte-proj.zip",
+                "dest": "/home/user/astro-airbyte-proj.zip"
             }
         },
         {
@@ -43,6 +51,20 @@
             }
         },
         {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        },
+        {
             "type": "airbyte_webui_init",
             "parameters": {
                 "listening_port": 9222,
@@ -54,27 +76,6 @@
                         "company": "ANONYM"
                     }
                 ]
-            }
-        },
-        {
-            "type": "astro_webui_init",
-            "parameters": {
-                "listening_port": 9222,
-                "url": "http://localhost:8080",
-                "actions": [
-                    {
-                        "type": "login",
-                        "username": "airflow", 
-                        "password": "airflow"
-                    }
-                ]
-            }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/examples/airbyte/ff70a7dd-ae40-4ab8-b958-dc2dfc1921e4/example_dag.py",
-                "dest": "home/user/projects/airbyte/airflow/dags/example_dag.py"
             }
         }
     ],

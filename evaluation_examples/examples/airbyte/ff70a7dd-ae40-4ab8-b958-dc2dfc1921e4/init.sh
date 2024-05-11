@@ -5,23 +5,39 @@
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Some images should be pre-downloaded in VM snapshots to accelerate the process.
 # Please ensure the initial project is copied to the home directory.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
 exec 1>/dev/null
 exec 2>/dev/null
 
-# source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda activate airbyte
-# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-# echo "conda activate airbyte" >> ~/.bashrc
-mkdir -p /home/user/projects
+source /home/user/anaconda3/etc/profile.d/conda.sh
+conda activate airflow
+echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+echo "conda activate airflow" >> ~/.bashrc
+
+# mount docker volume oss_local_root to /tmp/airbyte_local
+docker volume ls | grep oss_local_root
+if [ $? -eq 0 ]; then
+    docker volume rm oss_local_root
+fi
+mkdir -p /tmp/airbyte_local
+cd /home/user/projects/airbyte
+# bind docker volume oss_local_root to /tmp/airbyte_local
+sed -i.bak '/local_root:$/a\
+    driver: local\
+    driver_opts:\
+      type: none\
+      device: \/tmp\/airbyte_local\
+      o: bind
+' docker-compose.yaml
 
 # start airbyte local server
 function start_airbyte_server() {
     cd /home/user/projects/airbyte
-    bash run-ab-platform.sh > start_server.log &
+    # may not need to wait, since airflow also needs to wait
+    bash run-ab-platform.sh > start_server.log 2> start_server.log &
     total_time=0
     while true; do
         sleep 3
@@ -61,8 +77,7 @@ curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: appli
 }
 "
 # 4. get source id and write into file
-curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
-read -r source_id < /home/user/srcid.txt
+source_id=$(curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId")
 # 5. get destination definition id
 destination_name="Local JSON"
 destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_definitions/list -H "Content-Type: application/json" | jq -rM ".destinationDefinitions | .[] | select(.name == \"${destination_name}\") | .destinationDefinitionId")
@@ -71,64 +86,33 @@ curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: 
 {
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
-        \"destination_path\":\"/json_from_faker\"
+        \"destination_path\":\"/json_data\"
     },
     \"destinationDefinitionId\": \"${destination_defid}\",
     \"name\": \"${destination_name}\", 
     \"destinationName\": \"${destination_name}\"
 }
 "
-rm /home/user/settings.json
 # 7. get destination id and write into file
-curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId" > /home/user/destid.txt
-read -r destination_id < /home/user/destid.txt
+destination_id=$(curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId")
 # 8. create connection
 connection=$(cat /home/user/connection.json | sed "s/\${source_id}/${source_id}/" | sed "s/\${destination_id}/${destination_id}/")
 curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: application/json" -d "${connection}"
-# 9. get connection id
-curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
 rm /home/user/connection.json
 
+# please ensure that the project astro-airbyte-proj is copied to the home directory
+function to_ready_state(){
+    mv /home/user/astro-airbyte-proj.zip /home/user/projects
+    cd /home/user/projects/
+    unzip -q astro-airbyte-proj.zip
+    rm -f astro-airbyte-proj.zip
+    code /home/user/projects/astro-airbyte-proj
+    cd astro-airbyte-proj
+    astro dev start --no-browser >start_server.log 2>start_server.log
+}
+to_ready_state
 
-# source /home/user/anaconda3/etc/profile.d/conda.sh  
-# conda create -n airflow python=3.11 -y >/dev/null 2>&1  
-# conda activate airflow
-
-# pip install apache-airflow==2.9.0
-# function to_ready_state(){
-#     echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-#     echo "conda activate airflow" >> ~/.bashrc
-#     cd /home/user/projects
-#     yes | astro dev init 2>&1 
-#     astro dev start >/dev/null 2>&1 
-#     wait
-# }
-# to_ready_state
-
-
-pip install apache-airflow==2.9.0
-pip install apache-airflow-providers-airbyte
-pip install 
-mkdir airflow 
-cd airflow
-curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.5.1/docker-compose.yaml'
-mkdir -p ./dags ./logs ./plugins
-echo -e "AIRFLOW_UID=$(id -u)" > .env
-# create Dockerfile
-echo "FROM \${AIRFLOW_IMAGE_NAME:-apache/airflow:2.5.1}" > Dockerfile
-echo "USER airflow" >> Dockerfile
-echo "RUN pip install apache-airflow-providers-airbyte[http] \\" >> Dockerfile
-echo "&& pip install apache-airflow-providers-airbyte" >> Dockerfile
-#edit ymal
-sed -i '/x-airflow-common/,/airflow-common-env/{s/# *build:/build:/}' /home/user/projects/airbyte/airflow/docker-compose.yaml
-LINE_NUMBER=$(awk "/x-airflow-common/,/volumes:/"'{if ($0 ~ /volumes:/) print NR}' /home/user/projects/airbyte/airflow/docker-compose.yaml)
-NEW_VOLUME='\ \ \ \ - /tmp/airbyte_local:/tmp/airbyte_local'
-sed -i "${LINE_NUMBER}a $NEW_VOLUME" /home/user/projects/airbyte/airflow/docker-compose.yaml
 # docker compose build
-gnome-terminal --maximize --working-directory=/home/user/projects/airbyte/airflow/
-
-# docker compose build > build.log 2>&1
-# docker compose up -d airflow-init
-# docker compose logs -f airflow-init | tee airflow-init.log
-# docker compose up -d
-
+gnome-terminal --maximize --working-directory=/home/user/projects/astro-airbyte-proj
+code /home/user/projects/astro-airbyte-proj/dags/faker_to_json_dag.py
+code /home/user/projects/astro-airbyte-proj/README.md

@@ -12,23 +12,28 @@ def waiting_for_airbyte_server(context: BrowserContext, url: str = "http://local
     for _ in range(max_trials):
         try:
             page.goto(url, wait_until='load')
-            break
+            return page
         except:
             time.sleep(3)
             continue
-    for _ in range(max_trials):
-        try:
-            page.goto(url + '/setup', wait_until='load')
-            input_box = page.locator('input[name="email"]')
-            expect(input_box).to_be_editable()
-        except:
-            time.sleep(3)
-            continue
-        return page
+    # using `start_server` function in init.sh
+    # for _ in range(max_trials):
+    #     try:
+    #         page.goto(url + '/setup', wait_until='load')
+    #         input_box = page.locator('input[name="email"]')
+    #         expect(input_box).to_be_editable()
+    #     except:
+    #         time.sleep(3)
+    #         continue
+    #     return page
     return
 
 
 def airbyte_webui_login(page: Page, email: str = "anonym@gmail.com", company: str = "ANONYM"):
+    try: # maybe already used, not need to fill in the forms
+        homepage = page.locator('a[aria-label="Homepage"]')
+        expect(homepage).to_be_visible()
+    except: pass
     try:
         email_input = page.locator('input[name="email"]')
         expect(email_input).to_be_editable()
