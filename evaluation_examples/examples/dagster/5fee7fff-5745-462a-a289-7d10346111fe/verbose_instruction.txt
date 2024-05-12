@@ -56,5 +56,5 @@ def top5_mfw() -> None:
 5. Next, save the file content and switch to the web browser;
 6. Click "Reload definitions" on the top right to update all assets;
 7. Click the "Assets" panel on the top menu. We can see that the other two new assets have never been materialized;
-8. Switch to the graph view by click "View global asset lineage" on the left side of "Reload definitions";
+8. Switch to the graph view by clicking "View global asset lineage" on the left side of "Reload definitions";
 9. Finally, click the magic button "Materialize all" and waiting for all assets to be materialized.
