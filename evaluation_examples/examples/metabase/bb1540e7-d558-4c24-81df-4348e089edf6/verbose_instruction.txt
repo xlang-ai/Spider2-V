@@ -1,0 +1,14 @@
+To complete the visualization, please follow these steps:
+1. Click the "New" button on the top right;
+2. Choose "SQL query" in the drop-down panel;
+3. Copy the SQL query from the opened "query.sql" file and paste it into the blank worksheet;
+4. Click the "Run query" button on the right side;
+5. Click the "Visualization" button on the bottom left;
+6. Choose the "Bar" visualization type;
+7. Click the gear icon on the top right of the "Bar" button;
+8. Select PRODUCT_ID for the X-axis;
+9. Select AVG(TAX) for the Y-axis;
+10. Click the "Download full results" button (cloud icon) on the bottom right;
+11. Choose ".png" in the panel;
+12. Open the local path "/home/user/Downloads";
+13. Rename the visualization file as "visualization.png".
