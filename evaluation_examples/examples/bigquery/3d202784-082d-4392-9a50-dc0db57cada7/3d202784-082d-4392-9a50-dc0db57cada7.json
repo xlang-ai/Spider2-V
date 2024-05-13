@@ -1,7 +1,7 @@
 {
     "id": "3d202784-082d-4392-9a50-dc0db57cada7",
     "snapshot": "bigquery",
-    "instruction": "I provide you the code to build the Bigquery ML model. You need to modify the code and create an ML model named logistic_model in ml_project in your Bigquery UI and go to model",
+    "instruction": "I provide you the code to build the Bigquery ML model. You need to modify the code and create an ML model named `logistic_model` in ml_project in your Bigquery UI and go to this model for me to check it.",
     "source": [
         "https://cloud.google.com/bigquery/docs/create-machine-learning-model"
     ],

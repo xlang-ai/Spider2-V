@@ -14,9 +14,9 @@ exec 2>/dev/null
 PASSWORD=password
 
 # ignore all output and error
-DB_USER=user
-DB_NAME=metabase
-DB_PASSWORD=password
+DB_USER=Tom
+DB_NAME=TomDB
+DB_PASSWORD=Tom123456
 function postgresql_configure() {
     cd /home
     echo $PASSWORD | sudo -S -u postgres createuser --superuser $DB_USER

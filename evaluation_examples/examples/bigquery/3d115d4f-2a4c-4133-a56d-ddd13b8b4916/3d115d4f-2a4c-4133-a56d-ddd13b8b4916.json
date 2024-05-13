@@ -1,7 +1,7 @@
 {
     "id": "3d115d4f-2a4c-4133-a56d-ddd13b8b4916",
     "snapshot": "bigquery",
-    "instruction": "Load account_history_data.csv and account_stats_data.csv from 'xlang_gcs/google_ads/' in Google Cloud Storage to google_ads dataset.",
+    "instruction": "Load account_history_data.csv and account_stats_data.csv from 'xlang_gcs/google_ads/' in Google Cloud Storage to my_google_ads dataset.",
     "source": [
         "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
     ],
@@ -18,7 +18,7 @@
                     },
                     {
                         "type": "create_table",
-                        "dataset_id": "google_ads",
+                        "dataset_id": "my_google_ads",
                         "table_id": "ad_stats_data",
                         "schema_from_json": [
                             {
@@ -77,7 +77,7 @@
                 "type": "bigquery_table_to_csv",
                 "config_file": "evaluation_examples/settings/google/gcp_config.json",
                 "project_name": "bigquery-project",
-                "dataset_id": "google_ads",
+                "dataset_id": "my_google_ads",
                 "table_id": "account_history_data",
                 "schema": [
                     "*"
@@ -88,7 +88,7 @@
                 "type": "bigquery_table_to_csv",
                 "config_file": "evaluation_examples/settings/google/gcp_config.json",
                 "project_name": "bigquery-project",
-                "dataset_id": "google_ads",
+                "dataset_id": "my_google_ads",
                 "table_id": "account_stats_data",
                 "schema": [
                     "*"

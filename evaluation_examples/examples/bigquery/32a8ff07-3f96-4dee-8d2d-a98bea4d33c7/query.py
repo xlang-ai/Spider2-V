@@ -16,6 +16,8 @@ WHERE
     AND EXTRACT(YEAR FROM timestamp) BETWEEN 2017 AND 2021
 GROUP BY
     city, latitude, longitude
+ORDER BY
+    AVG(value) DESC
     """
     query_job = client.query(query)
 

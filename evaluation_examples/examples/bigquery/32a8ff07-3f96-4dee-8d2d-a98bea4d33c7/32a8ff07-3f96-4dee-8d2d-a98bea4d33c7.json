@@ -22,7 +22,7 @@
                 "actions": [
                     {
                         "type": "copy_keyfile",
-                        "dest": "/home/user/Desktop/credential.json"
+                        "dest": "/home/user/Desktop/bigquery_credential.json"
                     }
                 ]
             }
