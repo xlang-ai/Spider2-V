@@ -88,7 +88,8 @@
         {
             "type": "googledrive_login",
             "parameters": {
-                "settings_file": "evaluation_examples/settings/google/settings.json"
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "need_login": false
             }
         }
     ],

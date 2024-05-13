@@ -7,5 +7,5 @@ Our goal is to create an ML model named logistic_model in ml_project in Bigquery
 6. Change the SQL to meet task requirements, change
 `bqml_tutorial.sample_model` to `ml_project.logistic_model`
 7. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
-8. You need to wait for one minute and 30 seconds without performing any operation.
+8. You need to wait for roughly one minute without performing any operation.
 9. After waiting, we found that the code ran successfully and the model was created successfully. Click 'GO TO MODEL'.
