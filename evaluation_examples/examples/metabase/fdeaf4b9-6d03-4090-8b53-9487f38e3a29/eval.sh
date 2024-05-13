@@ -25,7 +25,7 @@ for (( i=0; i<$count; i++)); do
     db_user=$(echo $db_info | jq -rM ".details.user")
     db_engine=$(echo $db_info | jq -rM ".engine")
     is_sample=$(echo $db_info | jq -rM ".is_sample")
-    if [ "$name" = "PostgresData" ] && [ "$db_name" = "metabase" ] && [ "$db_port" = "5432" ] && [ "$db_host" = "localhost" ] && [ "$db_user" = "user" ] && [ "$db_engine" = "postgres" ] && [ "$is_sample" = "false" ]; then
+    if [ "$name" = "PostgresTomDB" ] && [ "$db_name" = "TomDB" ] && [ "$db_port" = "5432" ] && [ "$db_host" = "localhost" ] && [ "$db_user" = "Tom" ] && [ "$db_engine" = "postgres" ] && [ "$is_sample" = "false" ]; then
         echo "Adding data into metabase succeeds."
         exit 0
     fi

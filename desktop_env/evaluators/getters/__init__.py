@@ -62,6 +62,9 @@ from .astro import (
     get_validate_correct_url,
     get_html_check
 )
+from .metabase import (
+    get_metabase_question_sql
+)
 from .snowflake import (
     get_snowflake_user_info,
     get_snowflake_table_to_csv,
