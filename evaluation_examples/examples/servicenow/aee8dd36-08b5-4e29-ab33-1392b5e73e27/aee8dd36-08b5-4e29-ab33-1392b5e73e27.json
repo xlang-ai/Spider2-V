@@ -1,0 +1,44 @@
+{
+    "id": "aee8dd36-08b5-4e29-ab33-1392b5e73e27",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@SortHardwareListTask"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Sort the \"hardware\" list by the following fields:\n - Display name (descending)\n - Cost center (ascending)\n - Stockroom (ascending)",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "SortHardwareListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+            "listening_port": 9222
+        },
+        "expected": null,
+        "options": {}
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "id": "56663e79-7939-48a7-80fa-bcc30046d233",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@FilterChangeRequestListTask"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Create a filter for the list to extract all entries where \"Short description\" is \"Upgrade OWA-SD-01 to MS Windows Server 2016\" and \"Assigned to\" is \"David Loo\" and \"Risk\" is \"High\" and \"State\" is \"Assess\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "FilterChangeRequestListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+            "listening_port": 9222
+        },
+        "expected": null,
+        "options": {}
+    }
+}

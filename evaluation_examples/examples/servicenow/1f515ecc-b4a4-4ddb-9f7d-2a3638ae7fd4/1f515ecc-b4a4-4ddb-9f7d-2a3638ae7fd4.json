@@ -1,0 +1,44 @@
+{
+    "id": "1f515ecc-b4a4-4ddb-9f7d-2a3638ae7fd4",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@SortChangeRequestListTask"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Sort the \"change requests\" list by the following fields:\n - Closed by (descending)\n - Planned start date (ascending)\n - Phase state (descending)",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "SortChangeRequestListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+            "listening_port": 9222
+        },
+        "expected": null,
+        "options": {}
+    }
+}

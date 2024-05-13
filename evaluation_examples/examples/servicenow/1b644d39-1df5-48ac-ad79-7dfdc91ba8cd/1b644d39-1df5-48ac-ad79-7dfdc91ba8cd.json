@@ -1,0 +1,44 @@
+{
+    "id": "1b644d39-1df5-48ac-ad79-7dfdc91ba8cd",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@ImpersonationTask"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Impersonate the user Lacy Belmont.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "ImpersonationTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+            "listening_port": 9222
+        },
+        "expected": null,
+        "options": {}
+    }
+}

@@ -1,25 +1,24 @@
 {
-    "id": "d294bf44-fed3-4958-9740-3960010bcb78",
+    "id": "b76642ac-e77f-4f7c-b9be-1559ac47bcec",
     "snapshot": "metabase",
-    "instruction": "I have logged in to Metabase and I deleted the Sample Database by accident. Please help me restore the Metabase Sample Database.",
+    "instruction": "I want to count the percentage of orders with taxes greater than $5 for each user. Please create a Metabase question to achieve this (name the percentage column as \"tax percentage\"). Note that you don't need to save it.",
     "source": [
-        "https://www.metabase.com/docs/latest/databases/connecting#restoring-the-sample-database"
+        "https://www.metabase.com/docs/latest/questions/query-builder/expressions"
     ],
     "related_apps": [
         "chromium",
-        "postgresql",
         "metabase"
     ],
     "tags": [
         "gui"
     ],
-    "action_number": 5,
+    "action_number": 10,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/d294bf44-fed3-4958-9740-3960010bcb78/init.sh",
+                "src": "evaluation_examples/examples/metabase/b76642ac-e77f-4f7c-b9be-1559ac47bcec/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -41,11 +40,6 @@
                 "actions": [
                     {
                         "type": "setup"
-                    },
-                    {
-                        "type": "delete_database",
-                        "database_url": "http://localhost:3000/admin/databases/1",
-                        "database_name": "Sample Database"
                     }
                 ]
             }
@@ -54,21 +48,14 @@
     "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "check_include_exclude",
+        "func": "exact_match",
         "result": {
-            "type": "vm_script_output",
-            "src": "evaluation_examples/examples/metabase/d294bf44-fed3-4958-9740-3960010bcb78/eval.sh",
-            "dest": "/home/user/eval.sh"
+            "type": "metabase_question_sql"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": [
-                    "succeed"
-                ],
-                "exclude": [
-                    "failed"
-                ]
+                "expected": "select \"public\".\"orders\".\"user_id\" as \"user_id\", sum( case when \"public\".\"orders\".\"tax\" > 5 then 1 else 0.0 end ) / count(*) as \"tax percentage\" from \"public\".\"orders\" group by \"public\".\"orders\".\"user_id\" order by \"public\".\"orders\".\"user_id\" asc"
             }
         }
     }

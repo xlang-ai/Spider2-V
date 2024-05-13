@@ -1,0 +1,44 @@
+{
+    "id": "f5ef218a-dbe6-462e-b635-a2053548a3c2",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@CreateUserTask"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Create a new user with a value of \"-1258981617277380249\" for field \"User ID\" and a value of \"Christophel\" for field \"Last name\" and a value of \"Robyn\" for field \"First name\" and a value of \"robyn.christophel@example.com\" for field \"Email\" and a value of \"(514) 703-5913\" for field \"Mobile phone\" and a value of \"dd-MM-yyyy\" for field \"Date format\" and a value of \"(514) 386-6086\" for field \"Business phone\" and a value of \"false\" for field \"Locked out\" and a value of \"surquidry tassie Physostegia snootiness heterotopous\" for field \"Title\" and a value of \"GMT\" for field \"Time zone\" and a value of \"Outlook\" for field \"Calendar integration\" and a value of \"English\" for field \"Language\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "CreateUserTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+            "listening_port": 9222
+        },
+        "expected": null,
+        "options": {}
+    }
+}

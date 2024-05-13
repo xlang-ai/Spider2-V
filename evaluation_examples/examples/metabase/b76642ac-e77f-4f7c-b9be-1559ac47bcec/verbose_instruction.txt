@@ -1,0 +1,11 @@
+To create the Metabase question, please follow these steps:
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose "Orders" in the "Sample Database" drop-down panel;
+4. Click "Pick the metric you want to see";
+5. Choose "Custom Expression" in the panel;
+6. Type "Share([Tax] > 5)" in the EXPRESSION input box;
+7. Type "tax percentage" in the NAME input box;
+8. Click the "Done" button;
+9. Click "Pick a column to group by";
+10. Choose "User ID" in the panel.

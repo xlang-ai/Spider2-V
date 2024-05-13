@@ -1,0 +1,44 @@
+{
+    "id": "5af077c3-24d4-4708-a58b-970ea9c2f111",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@CreateChangeRequestTask"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Create a new change request with a value of \"\" for field \"Service offering\" and a value of \"CHG0000002\" for field \"Number\" and a value of \"nonproportional reassurance inchoateness pericementum wandoo\" for field \"Backout plan\" and a value of \"unbigged didelphoid gigantology unimprovableness fistula\" for field \"Justification\" and a value of \"strette cupriferous polylinguist unambitious Ganodonta\" for field \"Test plan\" and a value of \"Switch Sales over to the new 555 prefix\" for field \"Short description\" and a value of \"unfrocked pedunculus tensive pharmacodynamic immunology\" for field \"Implementation plan\" and a value of \"High\" for field \"Risk\" and a value of \"\" for field \"Service\" and a value of \"Sales has their own private dialing prefix now so they'll            always have an open outside line even if the PBX is full.\" for field \"Description\" and a value of \"Telecom\" for field \"Category\" and a value of \"3 - Low\" for field \"Impact\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "CreateChangeRequestTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+            "listening_port": 9222
+        },
+        "expected": null,
+        "options": {}
+    }
+}
