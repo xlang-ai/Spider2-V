@@ -1,0 +1,62 @@
+{
+    "id": "b76642ac-e77f-4f7c-b9be-1559ac47bcec",
+    "snapshot": "metabase",
+    "instruction": "I want to count the percentage of orders with taxes greater than $5 for each user. Please create a Metabase question to achieve this (name the percentage column as \"tax percentage\"). Note that you don't need to save it.",
+    "source": [
+        "https://www.metabase.com/docs/latest/questions/query-builder/expressions"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 10,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/b76642ac-e77f-4f7c-b9be-1559ac47bcec/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "exact_match",
+        "result": {
+            "type": "metabase_question_sql"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": "select \"public\".\"orders\".\"user_id\" as \"user_id\", sum( case when \"public\".\"orders\".\"tax\" > 5 then 1 else 0.0 end ) / count(*) as \"tax percentage\" from \"public\".\"orders\" group by \"public\".\"orders\".\"user_id\" order by \"public\".\"orders\".\"user_id\" asc"
+            }
+        }
+    }
+}
