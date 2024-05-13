@@ -38,7 +38,18 @@
             "settings_file": "evaluation_examples/settings/servicenow/settings.json",
             "listening_port": 9222
         },
-        "expected": null,
-        "options": {}
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
     }
 }
