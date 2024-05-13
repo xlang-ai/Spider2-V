@@ -1,0 +1,85 @@
+{
+    "id": "88df855a-eab8-4732-bb63-9c907b806cf1",
+    "snapshot": "metabase",
+    "instruction": "I want to build my first dashboard in the Metabase application and put a question into it. Help me set up a question with the SQL query in the opened 'question1.sql'. Create a new dashboard and add this question to it, named 'New Dashboard' and 'question1' respectively. Good luck!",
+    "source": [
+        "https://www.metabase.com/learn/getting-started/sharing-work#creating-a-dashboard"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 10,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/88df855a-eab8-4732-bb63-9c907b806cf1/question1.sql",
+                "dest": "/home/user/question1.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/88df855a-eab8-4732-bb63-9c907b806cf1/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/question1.sql"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/88df855a-eab8-4732-bb63-9c907b806cf1/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
