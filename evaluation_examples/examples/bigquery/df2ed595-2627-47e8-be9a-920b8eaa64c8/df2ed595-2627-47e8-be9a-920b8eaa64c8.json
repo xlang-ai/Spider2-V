@@ -1,11 +1,11 @@
 {
     "id": "df2ed595-2627-47e8-be9a-920b8eaa64c8",
     "snapshot": "bigquery",
-    "instruction": "Please set default column values for the 2012 table in the census dataset.YEAR: 2012, ABSOLUTE_CHANGE: 0, ANNUAL_RANK: 1",
+    "instruction": "Please set default column values for the 2012 table in the census dataset. YEAR: 2012, ABSOLUTE_CHANGE: 0, ANNUAL_RANK: 1",
     "source": [
         "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
     ],
-    "action_number": 9,
+    "action_number": 8,
     "config": [
         {
             "type": "bigquery_init",
