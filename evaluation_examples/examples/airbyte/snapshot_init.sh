@@ -2,18 +2,21 @@
 
 exec 2>/dev/null
 
+PASSWORD=password
+
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda create -n airbyte python=3.11 -y
 conda activate airbyte
 pip install dbt-snowflake==1.7.3 pytest==8.1.1 # for case 95ddd295-bb86-4f10-8d6b-6eb89ebb65cc
 pip install data-diff # for case 0fa19e8e-efba-42a6-8649-67ff203dbe87
 pip install "pydantic>=1.10.12,<2.0.0"
-echo password | sudo -S apt-get install -y libpq-dev
+echo $PASSWORD | sudo -S apt-get install -y libpq-dev
 pip install 'data-diff[postgresql]'
 pip install 'data-diff[snowflake]'
 
 VERSION=0.55.2 # $(awk -F'=' '/^VERSION=/ {print $2; exit}' run-ab-platform.sh)
-POSTGRES_VERSION=16-alpine
+POSTGRES_VERSION=12.6
+ASTRO_RUNTIME_VERSION=10.5.0
 MYSQL_VERSION=8
 declare -a image_list=(
     "alpine/socat:1.8.0.0"
@@ -28,8 +31,9 @@ declare -a image_list=(
     "airbyte/airbyte-api-server:${VERSION}"
     "airbyte/connector-builder-server:${VERSION}"
     "airbyte/proxy:${VERSION}"
-    "debezium/postgres:${POSTGRES_VERSION}"
+    "postgres:${POSTGRES_VERSION}"
     "mysql:${MYSQL_VERSION}"
+    "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
 )
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
 for img in ${image_list[@]}; do
@@ -52,3 +56,10 @@ BASIC_AUTH_USERNAME=""
 sed -i '/^BASIC_AUTH_PASSWORD=/c\
 BASIC_AUTH_PASSWORD=""
 ' .env
+
+# airflow related tool astro-cli install
+ASTRO_CLI_VERSION=1.25.0
+astro version | grep "1\.25\.0"
+if [ $? -ne 0 ]; then
+    echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
+fi

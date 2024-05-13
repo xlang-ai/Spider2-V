@@ -1,0 +1,75 @@
+{
+    "id": "45b77bfb-9cc5-4da7-a97c-9a7f428eeac3",
+    "snapshot": "bigquery",
+    "instruction": "Please add an empty column named RANK to the 2012 schema in the census dataset.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "census",
+                        "table_id": "2012",
+                        "data_from_csv": "evaluation_examples/examples/bigquery/45b77bfb-9cc5-4da7-a97c-9a7f428eeac3/2012.csv"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "census",
+            "table_id": "2012",
+            "schema": [
+                "*"
+            ],
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/45b77bfb-9cc5-4da7-a97c-9a7f428eeac3/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}

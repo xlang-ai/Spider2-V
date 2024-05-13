@@ -1,0 +1,95 @@
+{
+    "id": "ac312309-d501-493b-9c1b-fac7f4b568a6",
+    "snapshot": "bigquery",
+    "instruction": "For the census data in 2012, select the top 5 records with the highest ANNUAL_RANK and build a View named 2012_best",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "census",
+                        "table_id": "2012",
+                        "data_from_csv": "evaluation_examples/examples/bigquery/ac312309-d501-493b-9c1b-fac7f4b568a6/2012.csv"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": [
+            "compare_csv",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "bigquery_sql_result_to_csv",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "sql": "evaluation_examples/examples/bigquery/ac312309-d501-493b-9c1b-fac7f4b568a6/get_view.sql",
+                "dest": "pred_view.csv"
+            },
+            {
+                "type": "bigquery_table_to_csv",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "dataset_id": "census",
+                "table_id": "2012_best",
+                "schema": [
+                    "*"
+                ],
+                "dest": "pred_answer.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/bigquery/ac312309-d501-493b-9c1b-fac7f4b568a6/gold_view.csv",
+                "dest": "gold_view.csv"
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/bigquery/ac312309-d501-493b-9c1b-fac7f4b568a6/gold_answer.csv",
+                "dest": "gold_answer.csv"
+            }
+        ],
+        "conj": "and"
+    }
+}

@@ -311,10 +311,32 @@ def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
         sqls(List[str]): the list of SQLs to be written in the new worksheet, default is empty list
+        close(bool): whether to close the worksheet after writing the SQLs, default is True
     """
     listening_port = config.get('listening_port', 9222)
     remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
     sqls = config.get('sqls', [])
+    close = config.get('close', True)
+
+    def skip_worksheet_tips(page: Page):
+        try:
+            popup = page.locator('div[role="dialog"][aria-label="tutorial"] div[role="button"][aria-label="close"]')
+            expect(popup).to_be_enabled()
+            popup.click()
+            gotit = page.locator('//div/span[text()="Got it!"][count(*)=0]/parent::div')
+            expect(gotit).to_be_enabled()
+            gotit.click()
+        except:
+            pass
+        return
+
+    def wait_for_sql_run(page: Page, timeout: int = 10000):
+        try:
+            query_results = page.locator('//span[text()="Query results"][count(*)=0]')
+            expect(query_results).to_be_visible(timeout=timeout)
+        except: # wait for the execution for at most {timeout} seconds
+            pass
+        return
 
     with sync_playwright() as p:
         browser = get_browser(p, remote_debugging_url)
@@ -337,17 +359,27 @@ def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
             sql_worksheet.click()
             worksheet_content = page.locator('div[aria-label="worksheet"]')
             run = page.locator('div[role="button"][aria-label="Run"]')
+            skip_worksheet_tips(page)
             for sql in sqls:
                 expect(worksheet_content).to_be_editable(timeout=60000)
                 worksheet_content.fill(sql)
                 expect(run).to_be_enabled(timeout=60000)
                 run.click()
-                time.sleep(10)
+                wait_for_sql_run(page, 10000)
         except Exception as e:
             logger.error(f'[ERROR]: failed to write SQLs in the new worksheet! {e}')
             return
 
+        if close: # directly click the Projects button to return
+            try:
+                back = page.locator('a[role="link"][aria-label="Projects"]')
+                expect(back).to_be_enabled()
+                back.click()
+            except:
+                logger.error(f'[ERROR]: failed to click back to the main Homepage of Snowflake!')
+
         logger.info('[INFO]: successfully wrote SQLs in the new worksheet!')
+        return
 
 
 def snowflake_delete_folder_setup(controller, **config):

@@ -2,6 +2,9 @@
 
 cd /home/user/projects/today_task
 
+source /home/user/anaconda3/etc/profile.d/conda.sh
+conda activate airflow 
+
 pip install pytest > /dev/null 2>&1
 
 airflow db migrate > /dev/null 2>&1

@@ -14,8 +14,8 @@ def metabase_webui_login(page: Page, url: str = 'http://localhost:3000', config:
         try:
             page.goto(url)
             page.wait_for_load_state('load')
-            button = page.locator('button > div').filter(has_text="Let's get started")
-            expect(button).to_be_enabled(timeout=10000)
+            start_button = page.locator('button > div').filter(has_text="Let's get started")
+            expect(start_button).to_be_enabled(timeout=10000)
             return page
         except:
             time.sleep(3)

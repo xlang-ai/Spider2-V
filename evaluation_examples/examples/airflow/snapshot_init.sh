@@ -16,7 +16,7 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda create -n airflow python=3.11 -y >/dev/null 2>&1  
 conda activate airflow
 
-pip install apache-airflow==2.9.0
+pip install apache-airflow==2.9.1 apache-airflow-providers-airbyte==3.8.0 # airbyte for case ff70a7dd-ae40-4ab8-b958-dc2dfc1921e4
 
 ASTRO_CLI_VERSION=1.25.0
 echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"

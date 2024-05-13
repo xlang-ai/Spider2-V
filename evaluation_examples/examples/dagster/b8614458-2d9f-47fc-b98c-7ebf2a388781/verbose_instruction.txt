@@ -1,0 +1,38 @@
+I would like to complete a Linear Regression pipeline using dagster. To do this:
+1. Switch to VS Code application.
+2. Check the opened file README.md for requirements on each asset.
+3. Switch the file "assets.py" from the tabs on the top.
+4. Find the definition of "linear_regression_model" and replace that part with the following:
+```
+# Keep the code above
+
+@asset
+def linear_regression_model(transformed_training_data):
+    transformed_X_train, transformed_y_train = transformed_training_data
+    # Train Linear Regression model
+    model = LinearRegression()
+    model.fit(transformed_X_train, transformed_y_train)
+    return model
+```
+5. Replace the next two functions, "model_test_set_score" and "latest_story_comment_predictions", by
+```
+# Keep the code above
+
+@asset
+def model_test_set_score(transformed_test_data, linear_regression_model):
+    transformed_X_test, transformed_y_test = transformed_test_data
+    # Use the test set data to get a score of the Linear Regression model
+    score = linear_regression_model.score(transformed_X_test, transformed_y_test)
+    return score
+
+
+@asset
+def latest_story_comment_predictions(linear_regression_model, latest_story_data):
+    return linear_regression_model.predict(latest_story_data)
+```
+6. Press Ctrl+S to save the file.
+7. Change to Chromium to view the Dagster web UI.
+8. Click the "Assets" tab on the top of the page.
+9. Reload the project through the "Reload definitions" button in the Assets page.
+10. Click the link "View global asset lineage" on the left of "Reload definitions". You will see the dependency graph of the assets created in this project.
+11. Click the magic button "Materialize all" on the top right. Wait a few seconds for the run to finish.

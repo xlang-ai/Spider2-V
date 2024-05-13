@@ -1,0 +1,7 @@
+We need to connect to the external resource Vertex AI.
+1. Click "+Add" in explorer to add a new connection.
+2. At this time we found that a new window popped up on the right side of the screen, click 'Connections to external data sources'。
+3. In the Connection type list, select Vertex AI remote models, remote functions and BigLake (Cloud Resource)
+4. Set Connection ID to 'text_generation'
+5. Click the blue button below 'CREATE CONNECTION'.
+Connection established

@@ -86,7 +86,7 @@ curl -X POST http://localhost:8000/api/v1/connections/sync -H "Content-Type: app
 total_time=0
 while true; do
     sleep 5
-    total_time=$(expr $total_time + 3)
+    total_time=$(expr $total_time + 5)
     # get the last sync job and wait for succeed status
     status=$(curl -X POST http://localhost:8000/api/v1/jobs/get_last_replication_job -H "Content-Type: application/json" -d "{\"connectionId\": \"${connid}\"}" | jq -rM ".job.status")
     if [ "${status}" = "succeeded" ]; then

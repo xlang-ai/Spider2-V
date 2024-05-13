@@ -27,7 +27,7 @@ from .chrome import (
     get_find_installed_extension_name,
     get_info_from_website
 )
-from .file import get_cloud_file, get_vm_file, get_local_file, get_cache_file, get_content_from_vm_file
+from .file import get_cloud_file, get_vm_file, get_local_file, get_cache_file, get_content_from_vm_file, get_googlesheet_active_file
 from .general import (
     get_list,
     get_vm_command_line,
@@ -52,7 +52,8 @@ from .dbt import (
 from .bigquery import (
     get_bigquery_table_to_csv,
     get_bigquery_database_to_zip,
-    get_bigquery_datasets
+    get_bigquery_datasets,
+    get_bigquery_connections
 )
 from .airbyte import (
     get_airbyte_localhost_page
@@ -60,6 +61,9 @@ from .airbyte import (
 from .astro import (
     get_validate_correct_url,
     get_html_check
+)
+from .metabase import (
+    get_metabase_question_sql
 )
 from .snowflake import (
     get_snowflake_user_info,

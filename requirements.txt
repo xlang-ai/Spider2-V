@@ -11,7 +11,7 @@ matplotlib~=3.7.4
 pynput~=1.7.6
 pyautogui~=0.9.54
 psutil~=5.9.6
-tqdm~=4.65.0
+tqdm
 pandas~=2.0.3
 flask~=3.0.0
 requests-toolbelt~=1.0.0
@@ -58,3 +58,5 @@ duckdb
 google-cloud-bigquery
 dbt-cloud-cli
 nbformat
+browsergym-workarena
+google-cloud-bigquery-connection

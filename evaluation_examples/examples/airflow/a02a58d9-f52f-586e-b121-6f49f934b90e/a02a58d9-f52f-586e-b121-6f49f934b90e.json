@@ -1,7 +1,7 @@
 {
     "id": "a02a58d9-f52f-586e-b121-6f49f934b90e",
-    "snapshot": "astro",
-    "instruction": "I want to integrate the provided project `jaffle_shop` into an Airflow DBT task group. Name the target DAG as jaffle_shop_dag, and schedule it to run at 10:00 a.m. every day. Implement it with Astro and Cosmos in the current working directory.",
+    "snapshot": "airflow",
+    "instruction": "I want to integrate an existing dbt project `dags/dbt/jaffle_shop` into an Airflow DBT task group. The connection to postgresql has been configured. Could you help me finish the other work? Name the target DAG as jaffle_shop_dag, schedule it to run at 10:00 a.m. everyday and activate it. Please implement it with Astro and Cosmos.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-dbt"
     ],
@@ -9,8 +9,15 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/jaffle_shop.zip",
-                "dest": "/home/user/jaffle_shop.zip"
+                "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/jaffle_shop_astro.zip",
+                "dest": "/home/user/jaffle_shop_astro.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/init.sh",
+                "dest": "/home/user/init.sh"
             }
         },
         {
@@ -24,10 +31,17 @@
             }
         },
         {
-            "type": "script_and_execute",
+            "type": "astro_webui_init",
             "parameters": {
-                "src": "evaluation_examples/examples/airflow/a02a58d9-f52f-586e-b121-6f49f934b90e/init.sh",
-                "dest": "/home/user/init.sh"
+                "url": "http://localhost:8080",
+                "listening_port": 9222,
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
             }
         }
     ],
@@ -36,13 +50,15 @@
         "dbt",
         "postgresql",
         "airflow",
-        "astro",
-        "cosmos"
+        "docker",
+        "vscode",
+        "chromium",
+        "terminal"
     ],
     "tags": [
-        "abstract",
         "cli+gui"
     ],
+    "action_number": 9,
     "evaluator": {
         "func": "check_include_exclude",
         "result": {

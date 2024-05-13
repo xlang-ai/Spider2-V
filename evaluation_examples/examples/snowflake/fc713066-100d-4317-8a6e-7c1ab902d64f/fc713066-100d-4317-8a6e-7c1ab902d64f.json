@@ -11,10 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "abstract",
         "account"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -27,9 +25,11 @@
             "type": "snowflake_init",
             "parameters": {
                 "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "actions": {
-                    "type": "delete_database"
-                }
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
             }
         },
         {
@@ -41,7 +41,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",

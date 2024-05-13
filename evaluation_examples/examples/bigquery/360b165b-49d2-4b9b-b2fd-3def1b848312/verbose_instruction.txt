@@ -1,0 +1,27 @@
+We need to load the json in Google Drive into the BigQuery, and Google Drive provides the schema.
+1. First, we double click "Spider002" to see which files in this folder need us to operate.
+2. We see that there are two files, data.jsonl and schema.txt. We can know that they represent the data and the schema of the data respectively. So we check the data and click "schema.txt" to preview.
+3. Switch the page to Bigquery WebUI
+4. Find the information dataset in the Explorer window and click on the three dots to the right of the text
+5. You will find a list of options, click "Create table".
+6. You will see the "Create table" panel, set "Create table from" to "Drive"
+7. Switch the chrome window to google drive. Click on the three rightmost dots of data.jsonl
+8. Move the mouse to Share and click the "Share"
+9. Click "Restricted"
+10. Click "Anyone with the link" in the drop-down menu that opens.
+11. Click "Copy link"
+12. Click "Done".
+13. Switch the chrome window to the Bigquery WebUI.
+14. Paste what you just copied in "Select Drive URI".
+15. We see that this format does not meet the standards and needs to be changed. Change https://drive.google.com/file/d/[file id]/view?usp=drive_link to https://drive.google.com/open?id=[file id]'
+16. Change the Format to jsonl
+17. In "Destination" Part, Set Dataset as "information"
+18. In "Destination" Part, Set Table as "data1"
+19. Click "Edit as text" to set the schema information
+20. Switch the chrome window to google drive.
+21. Double click the file "schema.txt" to preview the schema.
+22. Copy the entire "schema.txt" information via Ctrl+C (you may need to select all content in this file firstly by clicking Ctrl+A).
+23. Switch the chrome window to the Bigquery WebUI.
+24. Paste the content (via Ctrl+V) into the text box with title `Press Alt+F1 for Accessibility Options` under the `Edit as text` button.
+25. Then, click the button "CREATE TABLE" at the bottom.
+Eventually, we have completed this task.

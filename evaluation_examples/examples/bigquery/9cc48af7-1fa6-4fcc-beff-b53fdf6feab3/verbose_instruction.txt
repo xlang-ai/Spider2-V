@@ -1,0 +1,4 @@
+You need to open the ninth recently opened data set.
+1. Swipe right in "Recently Opened" in "Welcome to Bigquery Studio!" to find which is the eighth recently opened table
+2. We found that "data00" is the eighth table, click "Open".
+Now we have successfully opened the eighth recently opened form

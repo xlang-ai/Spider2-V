@@ -1,0 +1,42 @@
+This task covers the whole process of uploading data, querying, and displaying the query results using dashboard on snowsight, which is complex and has many steps.
+- Create database and upload data
+1. Click "Data >> Database" on the left menu panel.
+2. Click "+ Databse" button on the right;
+3. In the Name field of pop-up window, type in the database name "WIND_DB"; 
+4. Click "Create" button;
+5. In the middle panel, choose entry "WIND_DB >> PUBLIC" to select this default schema; If there is not a "WIND_DB" entry, click "..." on the top-right of this panel and click "refresh" on the drop-down menu. 
+6. In the right panel, click the "Create >> Table >> From File" sequentially.
+7. In the pop-up window, click "Browse" and select the "wind_dataset.csv" file on Desktop.
+8. Scroll down to the input field with name "Name", type in the table name "WIND".
+9. Click the button "Load" at the bottom right in this window to load all data.
+10. After waiting for a few seconds, we will see the system message "Successfully Loaded Data". Click "Done" button.
+
+- Query
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "+" button on the right;
+3. In the drop-down menu, select "SQL Worksheet".
+4. In the top of the worksheet, there is a button showing "No database selected", click this button.
+5. In the drop-down menu, select "WIND_DB" for the database, "PUBLIC" for the schema, then click anywhere to turn off the menu.
+6. Copy the code below to the worksheet:
+
+SELECT SUBSTR(DATE, 1, 4) AS year, AVG(WIND) AS avg_wind_speed
+FROM WIND
+GROUP BY year
+
+7. Click "Run" button on the top-right.
+
+- Display results using dashboard
+1. In the left panel, find your new created worksheet. Click "..." on the right.
+2. In the drop-down menu, select "Move >> + New Dashboard" sequentially.
+3. In the pop-up window, type in the dashboard name "wind_dashboard" to the input field with name "Dashboard name".
+4. Click "Create Dashboard".
+5. In the top-right of the dashboard, click "...".
+6. In the drop-down menu, select "View Table".
+7. Click "Download results" on the top-right.
+8. In the drop-down menu, select "Download as .csv".
+9. In the middle of the panel, Click "Chart".
+10. In the right of the panel, Select "Bar" for the Chart type.
+11. Click "Download chart" on the top-right.
+12. Click "Return to wind_dashboard" on the top-left.
+13. In your virtual machine, navigate to the /home/user/Download directory and rename the downloaded .csv file to "avg_wind_speed.csv". Also, rename the downloaded .png file to "avg_speed_chart.png".
+14. Return to the chromium.

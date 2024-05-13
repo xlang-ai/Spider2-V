@@ -10,12 +10,24 @@
         "snowflake"
     ],
     "tags": [
-        "cli+gui",
-        "abstract",
+        "gui",
         "account"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "schema": "PUBLIC",
+                        "database": "USERS",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
@@ -38,20 +50,6 @@
             }
         },
         {
-            "type": "snowflake_init",
-            "parameters": {
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "actions": [
-                    {
-                        "type": "create_database",
-                        "schema": "PUBLIC",
-                        "database": "USERS",
-                        "delete_first": true
-                    }
-                ]
-            }
-        },
-        {
             "type": "snowflake_login",
             "parameters": {
                 "listening_port": 9222,
@@ -60,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",

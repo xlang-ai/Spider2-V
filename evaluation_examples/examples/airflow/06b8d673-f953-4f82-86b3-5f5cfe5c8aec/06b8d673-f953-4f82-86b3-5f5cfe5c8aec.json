@@ -1,7 +1,7 @@
 {
     "id": "06b8d673-f953-4f82-86b3-5f5cfe5c8aec",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I would like to connect to sqlite and check the data quality of a SQL using SQLCheckOperator, details of which can be found in README.md. Please create connection, finish the DAG file sql_data_quality, restart, trigger the dag, click download in the detail screen of corresponding task instance of your run on astronomer web-ui to download the log file of Checker task you have finished and rename them accordingly by the task_id for me to check the quality of the data.",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to connect to sqlite and check the data quality of SQL using SQLCheckOperator, details of which can be found in README.md. Please create connection, finish the DAG file sql_data_quality, restart, trigger the dag, click download in the detail screen of corresponding task instance of your run on astronomer web-ui to download the log file of Checker task you have finished and rename them accordingly by the task_id for me to check the quality of the data.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-sql-data-quality"
     ],

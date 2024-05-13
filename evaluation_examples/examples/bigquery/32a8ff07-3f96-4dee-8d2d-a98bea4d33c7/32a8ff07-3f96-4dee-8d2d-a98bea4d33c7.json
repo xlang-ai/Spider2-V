@@ -1,0 +1,78 @@
+{
+    "id": "32a8ff07-3f96-4dee-8d2d-a98bea4d33c7",
+    "snapshot": "bigquery",
+    "instruction": "View the most recent job in project history, execute its SQL again in BigQuery WebUI, and save the result to ~/Downloads/result.csv",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 12,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/32a8ff07-3f96-4dee-8d2d-a98bea4d33c7/query.py",
+                "dest": "/home/user/Desktop/query.py"
+            }
+        },
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/Desktop/bigquery_credential.json"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/32a8ff07-3f96-4dee-8d2d-a98bea4d33c7/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/result.csv",
+            "dest": "result.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/32a8ff07-3f96-4dee-8d2d-a98bea4d33c7/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}

@@ -1,7 +1,7 @@
 {
     "id": "7d443060-49a4-4d27-8bde-2ad0f6ae209b",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I would like to implement several test functions on dags and tasks in airflow. The details of these functions are in README.md. Finish these functions in test_dag.py file， restart and trigger the dag for me.",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to implement several test functions on dags and tasks in airflow. The details of these functions are in README.md. Finish these functions in test_dag.py file, restart and trigger the dag for me.",
     "source": [
         "https://docs.astronomer.io/learn/testing-airflow#debug-interactively-with-dagtest"
     ],
