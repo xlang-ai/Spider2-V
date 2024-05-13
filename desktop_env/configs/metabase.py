@@ -14,6 +14,8 @@ def metabase_webui_login(page: Page, url: str = 'http://localhost:3000', config:
         try:
             page.goto(url)
             page.wait_for_load_state('load')
+            button = page.locator('button > div').filter(has_text="Let's get started")
+            expect(button).to_be_enabled(timeout=10000)
             return page
         except:
             time.sleep(3)
@@ -112,6 +114,7 @@ def delete_sample_database(page: Page):
         button = page.locator('button').filter(has_text="Delete")
         expect(button).to_be_enabled()
         button.click()
+        page.close()
         
         logger.info('Sample database deleted successfully')
     except Exception as e:
