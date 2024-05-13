@@ -53,7 +53,8 @@ from .bigquery import (
     get_bigquery_table_to_csv,
     get_bigquery_database_to_zip,
     get_bigquery_datasets,
-    get_bigquery_connections
+    get_bigquery_connections,
+    get_bigquery_sql_result_to_csv
 )
 from .airbyte import (
     get_airbyte_localhost_page

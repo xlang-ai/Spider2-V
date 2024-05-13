@@ -114,6 +114,7 @@ def delete_sample_database(page: Page):
         button = page.locator('button').filter(has_text="Delete")
         expect(button).to_be_enabled()
         button.click()
+        page.close()
         
         logger.info('Sample database deleted successfully')
     except Exception as e:

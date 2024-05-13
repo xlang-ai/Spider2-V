@@ -1,0 +1,64 @@
+{
+    "id": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426",
+    "snapshot": "superset",
+    "instruction": "I would like to create a table visualization to show the cost per department for the 'tutorial_flights' table. Please save this visualization chart named 'Mychart'.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 14,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

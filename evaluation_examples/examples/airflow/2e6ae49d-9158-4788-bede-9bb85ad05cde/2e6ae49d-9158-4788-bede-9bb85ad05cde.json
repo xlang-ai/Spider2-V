@@ -44,7 +44,6 @@
         "chromium"
     ],
     "tags": [
-        "abstract",
         "gui"
     ],
     "evaluator": {
