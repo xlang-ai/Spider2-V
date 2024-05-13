@@ -1,0 +1,64 @@
+{
+    "id": "a3290ae7-d53e-43fb-8b7f-35845b1b4c95",
+    "snapshot": "superset",
+    "instruction": "I want to creare a new public annotation table in MyDatabase using Superset. Please help me register the new table and set the start_dttm colmn as default datetime.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#registering-a-new-table"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 15,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/a3290ae7-d53e-43fb-8b7f-35845b1b4c95/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/a3290ae7-d53e-43fb-8b7f-35845b1b4c95/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
