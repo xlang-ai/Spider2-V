@@ -10,13 +10,14 @@
 ####################################################################################################
 
 # ignore all output and error
-exec 1>/dev/null
-exec 2>/dev/null
+# exec 1>/dev/null
+# exec 2>/dev/null
 
 # source /home/user/anaconda3/etc/profile.d/conda.sh
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
+PASSWORD=password
 
 # configure the MySQL Database and load init data
 MYSQL_HOST=127.0.0.1
@@ -24,11 +25,16 @@ MYSQL_PORT=3306
 MYSQL_USER=root
 MYSQL_PASSWORD=password
 MYSQL_VERSION=8
+# ensure that localhost mysql is stopped or the port is not occupied
+port_in_use=$(echo $PASSWORD | sudo -S lsof -i :3306)
+if [ -n "${port_in_use}" ]; then
+    echo $PASSWORD | sudo -S service mysql stop
+fi
 docker run -p ${MYSQL_HOST}:${MYSQL_PORT}:${MYSQL_PORT} --name airbyte-mysql -e MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} -d mysql:${MYSQL_VERSION}
 
 function start_airbyte_server() {
     cd /home/user/projects/airbyte
-    bash run-ab-platform.sh > start_server.log &
+    bash run-ab-platform.sh > start_server.log 2> start_server.log &
     total_time=0
     while true; do
         sleep 3
