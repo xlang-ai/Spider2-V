@@ -11,26 +11,26 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-PASSWORD=password
+# PASSWORD=password
 
-# ignore all output and error
-DB_USER=user
-DB_NAME=metabase
-DB_PASSWORD=password
-function postgresql_configure() {
-    cd /home
-    echo $PASSWORD | sudo -S -u postgres createuser --superuser $DB_USER
-    echo $PASSWORD | sudo -S -u postgres createdb $DB_NAME
-    echo $PASSWORD | sudo -S -u postgres psql -c "ALTER USER \"${DB_USER}\" WITH PASSWORD '$DB_PASSWORD';"
-}
-postgresql_configure
+# # ignore all output and error
+# DB_USER=user
+# DB_NAME=metabase
+# DB_PASSWORD=password
+# function postgresql_configure() {
+#     cd /home
+#     echo $PASSWORD | sudo -S -u postgres createuser --superuser $DB_USER
+#     echo $PASSWORD | sudo -S -u postgres createdb $DB_NAME
+#     echo $PASSWORD | sudo -S -u postgres psql -c "ALTER USER \"${DB_USER}\" WITH PASSWORD '$DB_PASSWORD';"
+# }
+# postgresql_configure
 
-export MB_DB_TYPE=postgres
-export MB_DB_DBNAME=$DB_NAME
-export MB_DB_PORT=5432
-export MB_DB_USER=$DB_USER
-export MB_DB_PASS=$DB_PASSWORD
-export MB_DB_HOST=localhost
+# export MB_DB_TYPE=postgres
+# export MB_DB_DBNAME=$DB_NAME
+# export MB_DB_PORT=5432
+# export MB_DB_USER=$DB_USER
+# export MB_DB_PASS=$DB_PASSWORD
+# export MB_DB_HOST=localhost
 
 function start_metabase_server() {
     cd /home/user/projects/metabase
