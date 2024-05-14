@@ -359,7 +359,7 @@ def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
             sql_worksheet.click()
             worksheet_content = page.locator('div[aria-label="worksheet"]')
             run = page.locator('div[role="button"][aria-label="Run"]')
-            skip_worksheet_tips(page)
+
             for sql in sqls:
                 expect(worksheet_content).to_be_editable(timeout=60000)
                 worksheet_content.fill(sql)
@@ -369,6 +369,8 @@ def snowflake_write_sqls_in_new_worksheet_setup(controller, **config):
         except Exception as e:
             logger.error(f'[ERROR]: failed to write SQLs in the new worksheet! {e}')
             return
+
+        skip_worksheet_tips(page) # move it here
 
         if close: # directly click the Projects button to return
             try:
