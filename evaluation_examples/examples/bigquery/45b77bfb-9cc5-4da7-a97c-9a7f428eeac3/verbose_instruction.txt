@@ -1,5 +1,5 @@
 We need to add a column to the 2012 table in the cencus dataset and name it RANK。
-1. First, you need to view the project first, click toggle node on the personal project name in Explorer
+1. First, you need to view the project first, click toggle node on the personal project name in Exporer
 2. Click the Toggle node of census dataset
 3. Click 2012 Dataset
 4. In the schema interface of the 2012 table, click the blue button of EDIT SCHEMA

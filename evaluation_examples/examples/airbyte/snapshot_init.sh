@@ -14,6 +14,7 @@ echo $PASSWORD | sudo -S apt-get install -y libpq-dev
 pip install 'data-diff[postgresql]'
 pip install 'data-diff[snowflake]'
 
+
 VERSION=0.55.2 # $(awk -F'=' '/^VERSION=/ {print $2; exit}' run-ab-platform.sh)
 POSTGRES_VERSION=12.6
 ASTRO_RUNTIME_VERSION=10.5.0
@@ -63,3 +64,60 @@ astro version | grep "1\.25\.0"
 if [ $? -ne 0 ]; then
     echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v${ASTRO_CLI_VERSION} >/dev/null 2>&1"
 fi
+
+# for 52f71f15-b156-4ad7-b342-97a8a5926e25
+source /home/user/anaconda3/etc/profile.d/conda.sh
+conda create -n superset python=3.11 -y
+conda activate superset
+
+function install_superset() {
+    mkdir -p /home/user/projects && cd /home/user/projects
+    git clone https://github.com/apache/superset.git
+    cd superset
+    # disable CSRF protection, secure cookie, and Talisman, to support easier evaluation
+    touch docker/pythonpath_dev/superset_config_docker.py
+    cat >> docker/pythonpath_dev/superset_config_docker.py <<EOF
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = False
+WTF_CSRF_ENABLED = False
+TALISMAN_ENABLED = False
+EOF
+    # fix the version of the pre-downloaded docker images
+    TAG=3.1.1
+    REDIS_VERSION=7
+    POSTGRES_VERSION=16-alpine
+    echo "TAG=3.1.1" >> .env
+    sed -i "s/image: redis:.*$/image: redis:${REDIS_VERSION}/" docker-compose-image-tag.yml
+    sed -i "s/image: postgres:.*$/image: postgres:${POSTGRES_VERSION}/" docker-compose-image-tag.yml
+    declare -a image_list=(
+        "redis:${REDIS_VERSION}"
+        "postgres:${POSTGRES_VERSION}"
+        "apachesuperset.docker.scarf.sh/apache/superset:${TAG}"
+    )
+    images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
+    for img in ${image_list[@]}; do
+        echo ${images} | grep -Fiq -- "$img"
+        if [ $? -ne 0 ]; then
+            docker pull ${img}
+        fi
+    done
+}
+install_superset
+
+# for 85a356d4-448c-4894-8151-856428886e65
+PASSWORD='password'
+
+# 1. install JAVA, set JAVA_HOME
+echo $PASSWORD | sudo -S apt-get update
+echo $PASSWORD | sudo -S apt-get install -y default-jre default-jdk
+JAVA_RUNTIME=$(readlink -f $(which java))
+JAVA_HOME=$(dirname $(dirname $JAVA_RUNTIME))
+export JAVA_HOME=$JAVA_HOME
+echo "export JAVA_HOME=$JAVA_HOME" >> ~/.bashrc
+echo $PASSWORD | sudo -S bash -c "echo 'export JAVA_HOME=$JAVA_HOME' >> /etc/environment" # may need to restart the system
+
+# 2. set up metabase
+mkdir -p /home/user/projects/metabase
+cd /home/user/projects/metabase
+wget -c https://downloads.metabase.com/v0.49.6/metabase.jar
