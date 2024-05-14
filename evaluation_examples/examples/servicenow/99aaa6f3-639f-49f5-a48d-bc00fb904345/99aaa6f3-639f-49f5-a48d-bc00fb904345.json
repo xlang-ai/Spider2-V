@@ -5,7 +5,8 @@
         "WorkArena@CreateHardwareAssetTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",

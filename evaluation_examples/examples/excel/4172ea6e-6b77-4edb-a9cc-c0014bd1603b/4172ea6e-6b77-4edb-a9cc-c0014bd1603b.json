@@ -1,0 +1,82 @@
+{
+    "id": "4172ea6e-6b77-4edb-a9cc-c0014bd1603b",
+    "snapshot": "excel",
+    "instruction": "I want to work out the maturity date for all the loans. Please do it for me in a new column with header \"Maturity Date\".",
+    "source": "SheetCopilot@113",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/4172ea6e-6b77-4edb-a9cc-c0014bd1603b/MaturityDate.xlsx",
+                "dest": "/home/user/MaturityDate.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/MaturityDate.xlsx"
+            }
+        }
+    ],
+    "trajectory": "trajectories/4172ea6e-6b77-4edb-a9cc-c0014bd1603b",
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 7,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "MaturityDate.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/4172ea6e-6b77-4edb-a9cc-c0014bd1603b/1_MaturityDate_gt1.xlsx",
+            "dest": "1_MaturityDate_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/MaturityDate.xlsx",
+            "dest": "MaturityDate.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "gui"
+    ]
+}

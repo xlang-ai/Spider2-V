@@ -1,0 +1,82 @@
+{
+    "id": "8909d1cb-5877-44c7-a908-9f1875302441",
+    "snapshot": "excel",
+    "instruction": "Copy the \"Date\" and \"Revenue ($)\" values to a new sheet named \"Sheet2\" for the rows whose \"Sales Channel\" is \"E-mail Coupon\".",
+    "source": "SheetCopilot@177",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/8909d1cb-5877-44c7-a908-9f1875302441/SummerSales.xlsx",
+                "dest": "/home/user/SummerSales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/SummerSales.xlsx"
+            }
+        }
+    ],
+    "trajectory": "trajectories/8909d1cb-5877-44c7-a908-9f1875302441",
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 19,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "SummerSales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/8909d1cb-5877-44c7-a908-9f1875302441/gold_SummerSales.xlsx",
+            "dest": "gold_SummerSales.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/SummerSales.xlsx",
+            "dest": "SummerSales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "EI0"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "gui"
+    ]
+}

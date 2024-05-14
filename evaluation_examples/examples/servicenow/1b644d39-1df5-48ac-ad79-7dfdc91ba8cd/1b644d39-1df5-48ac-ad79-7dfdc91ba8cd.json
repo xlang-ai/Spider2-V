@@ -5,7 +5,8 @@
         "WorkArena@ImpersonationTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
