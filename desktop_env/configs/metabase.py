@@ -78,6 +78,25 @@ def metabase_webui_setup(page: Page, config: Dict[str, Any] = {}):
             button = page.locator('button').filter(has_text="I'll add my data later")
             expect(button).to_be_enabled()
             button.click()
+        elif data['type'] == 'PostgreSQL':
+            button = page.locator('li[role="option"]').filter(has_text='PostgreSQL')
+            expect(button).to_be_enabled()
+            button.click()
+            input_dict = {
+                'input[name="name"]': data['display_name'],
+                'input[name="details.host"]': data['host'],
+                'input[name="details.port"]': data['port'],
+                'input[name="details.dbname"]': data['db_name'],
+                'input[name="details.user"]': data['db_user'],
+                'input[name="details.password"]': data['db_password']
+            }
+            for input_selector in input_dict:
+                input_box = page.locator(input_selector)
+                expect(input_box).to_be_editable()
+                input_box.fill(input_dict[input_selector])
+            button = page.locator('button[title="Connect database"]')
+            expect(button).to_be_enabled()
+            button.click()
         # 6. disable data collection
         selector = page.locator('input[type="checkbox"][role="switch"][aria-labelledby="anonymous-usage-events-label"]')
         expect(selector).to_be_visible()
