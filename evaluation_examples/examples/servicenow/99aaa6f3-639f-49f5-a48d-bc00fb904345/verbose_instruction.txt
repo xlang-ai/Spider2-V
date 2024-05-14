@@ -1,0 +1,16 @@
+We will fill in the opened Hardware asset form in this task.
+1. Firstly, in the opened text file `serial_number.txt`, it should looks like "Serial number: {id-numbers}". Copy the {id-number}, we will use it later.
+2. Now, switch to the Chrome/Chromium web page.
+3. For the field "Model Category" which must be filled, we type in text "Computer"
+4. For the field "Model" under "Model Category" which is also a request field, input text value "Apple MacBook Pro 17"". (Note that, the suffix should be 17" instead of 17)
+5. Next, we switch to the panel in the lower part. In the first "General" panel, click the input box of field "Assigned to" and input text "Kira Papen".
+6. In the first field "Asset tag" on the left of this panel, click it and type in text "P1000811"
+7. For the "Serial number" field on the right of "Asset tag", paste the {id-numbers} we previously copied.
+8. For the "Location" field, which is the third input box on the right column, click it and input value "2-10-1 Yurakucho, Chiyoda-ku, Tokyo"
+9. For the "Department" field under "Location", click and input text "Customer Support"
+10. For the large input box with field name "Comments" at the bottom of this panel, we type in text "misarray overwelt Echinoderidae Heikum upset"
+11. Now, we click the button "Financial" on this button to change to another form.
+12. Click the input box with name "Vendor", this is also a must-filled field (with a red star in front). Type in text "Apple".
+13. Also in this panel, click the input box with name "Acquisition method", which is on the right of field "Vendor", select the last entry "Loan" in the drop-down menu.
+14. Finally, click the "Submit" button on the top-right of this page to make the request.
+(Attention that, after the refresh of the page, our filled contents will be flushed. But do not worry, if there is no error message, it means our new record has been submitted.)

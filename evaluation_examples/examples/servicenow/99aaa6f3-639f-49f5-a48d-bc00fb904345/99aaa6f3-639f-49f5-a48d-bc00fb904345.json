@@ -11,7 +11,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 14,
     "instruction": "Create a new hardware with a value of \"Computer\" for field \"Model category\" and a value of \"Apple MacBook Pro 17\"\" for field \"Model\" and a value of \"Apple\" for field \"Vendor\" and a value of \"\" for field \"Owned by\" and a value of \"2-10-1 Yurakucho, Chiyoda-ku, Tokyo\" for field \"Location\" and a value of \"Kira Papen\" for field \"Assigned to\" and a value of \"\" for field \"Request line\" and a value of \"Customer Support\" for field \"Department\" and a value of \"Loan\" for field \"Acquisition method\" and a value of \"misarray overwelt Echinoderidae Heikum upset\" for field \"Comments\" and a value of \"P1000811\" for field \"Asset tag\" and a value of \"\" for field \"Beneficiary\". The unique value for \"Serial number\" can be found in the opened text file.",
     "config": [
         {

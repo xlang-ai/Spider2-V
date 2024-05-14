@@ -200,7 +200,6 @@ document.addEventListener("visibilitychange", () => {
         task_seed = self.np_random.integers(np.iinfo(np.int32).max + 1)
         self.task = self.task_entrypoint(**self.task_kwargs)
         goal, info = self.task.setup(seed=task_seed, page=self.page)
-        print(f"Task seed: {task_seed}\nGoal: {goal}")
 
         # initialize the chat
         self.chat.add_message(
