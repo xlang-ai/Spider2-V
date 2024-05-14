@@ -22,7 +22,7 @@
     "related_apps": [
         "excel"
     ],
-    "action_verbose": 11,
+    "action_number": 11,
     "evaluator": {
         "postconfig": [
             {
