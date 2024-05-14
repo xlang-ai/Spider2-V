@@ -4,8 +4,7 @@ import gymnasium as gym
 import logging
 import numpy as np
 import playwright.sync_api
-import time
-
+from playwright.sync_api import expect
 from abc import ABC
 from pathlib import Path
 from typing import Optional, Literal, Union
@@ -25,9 +24,10 @@ from browsergym.core.observation import (
 from browsergym.core.action.base import execute_python_code
 from browsergym.core.action.highlevel import HighLevelActionSet
 from browsergym.core.action.base import execute_python_code
-from browsergym.core import _get_global_playwright, _set_global_playwright
+from browsergym.core import _get_global_playwright
 from desktop_env.configs.general import get_browser
 from browsergym.workarena import ALL_WORKARENA_TASKS
+
 
 logger = logging.getLogger("desktopenv.setup")
 
@@ -145,20 +145,17 @@ class ServiceNowEnv(gym.Env, ABC):
         # we need the following line to seed self.np_random
         super().reset(seed=seed, *args, **kwargs)
 
-        if self.task:
-            self.close()
-        else:
-            pw: playwright.sync_api.Playwright = _get_global_playwright()
-            # important: change playwright's test id attribute from "data-testid" to "bid"
-            pw.selectors.set_test_id_attribute(BROWSERGYM_ID_ATTRIBUTE)
-            self.browser = get_browser(pw, self.cdp_url)
+        pw: playwright.sync_api.Playwright = _get_global_playwright()
+        # important: change playwright's test id attribute from "data-testid" to "bid"
+        pw.selectors.set_test_id_attribute(BROWSERGYM_ID_ATTRIBUTE)
+        self.browser = get_browser(pw, self.cdp_url)
 
         # create a new browser context for pages
         self.context = self.browser.contexts[0]
         # create the chat at the same time to make sure videos are synced
         self.chat = Chat(
             headless=True, # do not visualize the chat window
-            chat_size=(500, max(self.viewport["height"], 800))
+            chat_size=(500, 800)
         )
 
         # set default timeout
@@ -203,6 +200,7 @@ document.addEventListener("visibilitychange", () => {
         task_seed = self.np_random.integers(np.iinfo(np.int32).max + 1)
         self.task = self.task_entrypoint(**self.task_kwargs)
         goal, info = self.task.setup(seed=task_seed, page=self.page)
+        print(f"Task seed: {task_seed}\nGoal: {goal}")
 
         # initialize the chat
         self.chat.add_message(
@@ -421,7 +419,13 @@ document.addEventListener("visibilitychange", () => {
     #     return obs
 
 
-WORKARENA_ENV: ServiceNowEnv = None
+WORKARENA_ENV: Optional[ServiceNowEnv] = None
+
+
+def get_global_workarena():
+    global WORKARENA_ENV
+    return WORKARENA_ENV
+
 
 def workarena_task_init_setup(controller, **config):
     """ Initialize the WorkArena task environment.
@@ -446,4 +450,33 @@ def workarena_task_init_setup(controller, **config):
     instance = ServiceNowEnv(config['task_name'], cdp_url=remote_debugging_url, **config.get('task_kwargs', {}))
     instance.reset(seed=999) # random seed is fixed for selecting examples, donot modify this line
     WORKARENA_ENV = instance
+
+    # remove the "Enable Analytics" dialog if it appears
+    try:
+        page = instance.page
+        button = page.locator('div[role="document"][class="now-modal-dialog"] div[class="now-modal-footer"] button').filter(has_text="No")
+        expect(button).to_be_enabled()
+        button.click()
+    except Exception as e:
+        pass
+    return
+
+
+def workarena_unique_fields_setup(controller, **config):
+    """ For Form tasks in workarena, CreateHardwareAssetTask and CreateUserTask both have unique fields that are randomly generated each time (serial_number and user_name, respectively). We write these fields into a file (with the format `field: value`), such that we only need to mention it without concrete values in the instruction.
+    @config:
+        field_mappings(Dict[str, str]): the field name(s) and value(s) to retrieve from task.template_record, and write the value into file
+        path(str): output path in VM to save the config
+    """
+    field_mappings = config.get('field_mappings', {})
+    if field_mappings == []: return
+    instance = get_global_workarena()
+    command = []
+    path = config.get('path', '/home/user/Desktop/unique_fields.txt')
+    for field in field_mappings:
+        value = instance.task.template_record[field]
+        mapping_field = field_mappings[field]
+        command.append(f'echo "{mapping_field}: {value}" >> {path}')
+    command = ' ; '.join(command)
+    controller._execute_setup(command=["/bin/bash", "-c", command])
     return

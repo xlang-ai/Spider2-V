@@ -35,8 +35,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

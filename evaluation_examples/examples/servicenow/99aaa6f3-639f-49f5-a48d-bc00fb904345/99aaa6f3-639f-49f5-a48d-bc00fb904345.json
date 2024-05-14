@@ -12,7 +12,7 @@
         "servicenow"
     ],
     "action_number": 0,
-    "instruction": "Create a new hardware with a value of \"Computer\" for field \"Model category\" and a value of \"Apple MacBook Pro 17\"\" for field \"Model\" and a value of \"Apple\" for field \"Vendor\" and a value of \"SN-0b8136d2-d189-462b-934c-fbd1c2881c9a\" for field \"Serial number\" and a value of \"\" for field \"Owned by\" and a value of \"2-10-1 Yurakucho, Chiyoda-ku, Tokyo\" for field \"Location\" and a value of \"Kira Papen\" for field \"Assigned to\" and a value of \"\" for field \"Request line\" and a value of \"Customer Support\" for field \"Department\" and a value of \"Loan\" for field \"Acquisition method\" and a value of \"misarray overwelt Echinoderidae Heikum upset\" for field \"Comments\" and a value of \"P1000811\" for field \"Asset tag\" and a value of \"\" for field \"Beneficiary\".",
+    "instruction": "Create a new hardware with a value of \"Computer\" for field \"Model category\" and a value of \"Apple MacBook Pro 17\"\" for field \"Model\" and a value of \"Apple\" for field \"Vendor\" and a value of \"\" for field \"Owned by\" and a value of \"2-10-1 Yurakucho, Chiyoda-ku, Tokyo\" for field \"Location\" and a value of \"Kira Papen\" for field \"Assigned to\" and a value of \"\" for field \"Request line\" and a value of \"Customer Support\" for field \"Department\" and a value of \"Loan\" for field \"Acquisition method\" and a value of \"misarray overwelt Echinoderidae Heikum upset\" for field \"Comments\" and a value of \"P1000811\" for field \"Asset tag\" and a value of \"\" for field \"Beneficiary\". The unique value for \"Serial number\" can be found in the opened text file.",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -29,14 +29,31 @@
                 "task_name": "CreateHardwareAssetTask",
                 "task_kwargs": {}
             }
+        },
+        {
+            "type": "workarena_unique_fields",
+            "parameters": {
+                "field_mappings": {
+                    "serial_number": "Serial number"
+                },
+                "path": "/home/user/Desktop/serial_number.txt"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/serial_number.txt"
+                ]
+            }
         }
     ],
     "evaluator": {
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",
