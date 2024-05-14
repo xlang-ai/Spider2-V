@@ -1,0 +1,46 @@
+{
+    "name": "Postgres → Postgres",
+    "namespaceDefinition": "destination",
+    "prefix": "",
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "syncCatalog": {
+        "streams": [
+            {
+                "stream": {
+                    "name": "cities",
+                    "jsonSchema": {
+                        "type": "object",
+                        "properties": {
+                            "city": {
+                                "type": "string"
+                            },
+                            "city_code": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "supportedSyncModes": [
+                        "full_refresh",
+                        "incremental"
+                    ],
+                    "defaultCursorField": [],
+                    "sourceDefinedPrimaryKey": [],
+                    "namespace": "public"
+                },
+                "config": {
+                    "syncMode": "full_refresh",
+                    "cursorField": [],
+                    "destinationSyncMode": "overwrite",
+                    "primaryKey": [],
+                    "aliasName": "cities",
+                    "selected": true,
+                    "fieldSelectionEnabled": false
+                }
+            }
+        ]
+    },
+    "scheduleType": "manual",
+    "status": "active",
+    "geography": "auto"
+}

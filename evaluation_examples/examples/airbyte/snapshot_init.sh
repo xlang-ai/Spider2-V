@@ -107,7 +107,6 @@ install_superset
 
 # for 85a356d4-448c-4894-8151-856428886e65
 PASSWORD='password'
-
 # 1. install JAVA, set JAVA_HOME
 echo $PASSWORD | sudo -S apt-get update
 echo $PASSWORD | sudo -S apt-get install -y default-jre default-jdk
