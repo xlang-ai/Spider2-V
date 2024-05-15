@@ -4,9 +4,8 @@
 # Please ensure that Chromium or Chrome, VSCode, docker and anaconda3 is installed on your system before running this script.
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Some images should be pre-downloaded in VM snapshots to accelerate the process.
-# Please ensure the snowflake settings.json and connection.json is copied to the home directory.
-# BTW, a database named COVID19 should be created in Snowflake.
-# This script is tested on Ubuntu 22.04 LTS.
+# Please ensure the initial project is copied to the home directory.
+# This script is tested on Ubuntu 20.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
@@ -17,11 +16,13 @@ exec 2>/dev/null
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
+mkdir -p /home/user/projects
 
+# configure Postgres
 POSTGRES_VERSION=16-alpine
-# Start a source Postgres container running at port 5432 on localhost
-docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:${POSTGRES_VERSION}
-
+# Start a source Postgres container running at port 2000 on localhost
+docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
+docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres:${POSTGRES_VERSION}
 # start airbyte local server
 function start_airbyte_server() {
     cd /home/user/projects/airbyte
@@ -30,7 +31,7 @@ function start_airbyte_server() {
     while true; do
         sleep 3
         total_time=$(expr ${total_time} + 3)
-        cat start_server.log | grep -i "Startup completed" | grep "airbyte-worker"
+        msg=$(cat start_server.log | grep -i "Startup completed" | grep "airbyte-worker")
         if [ $? -eq 0 ]; then # the server has been launched
             break
         fi
@@ -42,13 +43,39 @@ function start_airbyte_server() {
 }
 start_airbyte_server
 
-# create database, schemas and tables
-docker exec -i airbyte-source psql -U postgres -c "CREATE DATABASE development;"
-docker exec -i airbyte-source psql -U postgres -d development -c "CREATE SCHEMA customers";
-docker exec -i airbyte-source psql -U postgres -d development -c "CREATE TABLE customers.users(id SERIAL PRIMARY KEY, col1 VARCHAR(200));"
-docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record1');"
-docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record2');"
-docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record3');"
+# create table
+
+docker exec -i airbyte-source psql -U postgres <<EOF
+CREATE TABLE table_one(
+  id integer PRIMARY KEY,
+  name VARCHAR(200),
+  updated_at timestamp DEFAULT NOW() NOT NULL
+);
+EOF
+docker exec -i airbyte-source psql -U postgres <<EOF
+CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS \$$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+\$$ LANGUAGE plpgsql;
+EOF
+docker exec -i airbyte-source psql -U postgres <<EOF
+CREATE TRIGGER set_timestamp_on_table_one
+  BEFORE UPDATE ON table_one
+  FOR EACH ROW
+  EXECUTE PROCEDURE trigger_set_timestamp();
+EOF
+docker exec -i airbyte-source psql -U postgres <<EOF
+INSERT INTO table_one(id, name) VALUES(1, 'Eg1 IncApp');
+INSERT INTO table_one(id, name) VALUES(2, 'Eg2 IncApp');
+EOF
+docker exec -i airbyte-source psql -U postgres -c "SELECT * FROM table_one;"
+docker exec -i airbyte-source psql -U postgres <<EOF
+UPDATE table_one SET name='Eg2a IncAp' WHERE id=2;
+SELECT * FROM table_one;
+EOF
 
 # create source and destination
 # 1. get workspace id
@@ -62,14 +89,20 @@ curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: appli
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
         \"host\": \"localhost\",
-        \"port\": 5432,
-        \"schemas\": [\"customers\"],
-        \"database\": \"development\",
+        \"port\": 2000,
+        \"schemas\": [\"public\"],
+        \"database\": \"postgres\",
         \"password\": \"password\",
-        \"ssl_mode\": {\"mode\": \"disable\"},
+        \"ssl_mode\": {
+            \"mode\": \"disable\"
+        },
         \"username\": \"postgres\",
-        \"tunnel_method\": {\"tunnel_method\": \"NO_TUNNEL\"},
-        \"replication_method\": {\"method\": \"Standard\"}
+        \"tunnel_method\": {
+            \"tunnel_method\": \"NO_TUNNEL\"
+        },
+        \"replication_method\": {
+            \"method\": \"Standard\"
+        }
     },
     \"sourceDefinitionId\": \"${source_defid}\",
     \"name\": \"${source_name}\", 
@@ -80,26 +113,27 @@ curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: appli
 curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
 read -r source_id < /home/user/srcid.txt
 # 5. get destination definition id
-destination_name="Snowflake"
+destination_name="Postgres"
 destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_definitions/list -H "Content-Type: application/json" | jq -rM ".destinationDefinitions | .[] | select(.name == \"${destination_name}\") | .destinationDefinitionId")
 # 6. create destination, the connectionConfiguration field is destination-specific
-SNOWFLAKE_ACCOUNT=$(cat /home/user/settings.json | jq -rM ".account")
-SNOWFLAKE_USER=$(cat /home/user/settings.json | jq -rM ".user")
-SNOWFLAKE_PASSWORD=$(cat /home/user/settings.json | jq -rM ".password")
 curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: application/json" -d "
 {
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
-        \"host\": \"${SNOWFLAKE_ACCOUNT}\",
-        \"role\": \"ACCOUNTADMIN\",
-        \"schema\": \"customers\",
-        \"database\": \"development\",
-        \"username\": \"${SNOWFLAKE_USER}\",
-        \"warehouse\": \"COMPUTE_WH\",
-        \"credentials\": {
-            \"password\": \"${SNOWFLAKE_PASSWORD}\",
-            \"auth_type\": \"Username and Password\"
-        }
+       \"ssl\": false,
+       \"host\": \"localhost\",
+       \"port\": 3000,
+       \"schema\": \"public\",
+       \"database\": \"postgres\",
+       \"password\": \"password\",
+       \"ssl_mode\":{
+            \"mode\": \"disable\"
+        },
+        \"username\": \"postgres\",
+        \"tunnel_method\":{
+            \"tunnel_method\": \"NO_TUNNEL\"
+        },
+        \"disable_type_dedupe\": false
     },
     \"destinationDefinitionId\": \"${destination_defid}\",
     \"name\": \"${destination_name}\", 
@@ -117,16 +151,9 @@ curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: a
 curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
 rm /home/user/connection.json
 
-# #configure data-diff
+gnome-terminal --maximize --working-directory=/home/user/
 
-gnome-terminal --maximize --working-directory=/home/user/projects/
 
-# waiting for the first sync
-
-#add data into source database
-# docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record4');"
-# docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record5');"
-
-# "snowflake://XLANG:Spider2.0@zd89187.us-central1.gcp/development/CUSTOMERS?warehouse=COMPUTE_WH&role=ACCOUNTADMIN" USER
-# "postgresql://postgres:password@localhost:5432/development" customers.user
-# data-diff "snowflake://XLANG:Spider2.0@zd89187.us-central1.gcp/development/CUSTOMERS?warehouse=COMPUTE_WH&role=ACCOUNTADMIN" USERS "postgresql://postgres:password@localhost:5432/development" customers.users >> diff_test.csv
+# docker exec -i airbyte-source psql -U postgres <<EOF
+# UPDATE table_one SET name='Eg2b IncAp' WHERE id=2;
+# EOF
