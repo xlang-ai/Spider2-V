@@ -16,10 +16,6 @@ exec 2>/dev/null
 # conda activate superset
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate superset" >> ~/.bashrc
-cd /home/user
-wget https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv
-
-
 
 function start_superset_server() {
     cd /home/user/projects/superset
@@ -51,14 +47,11 @@ function create_database() {
             "provider": "db"
         }' | jq -rM ".access_token")
 
-    echo $(curl -X POST "http://localhost:8088/api/v1/database/" \
-        -H "Content-Type: application/json" \
-        -H "Authorization: Bearer ${token}" \
-        -d '{
-                "database_name":"MyDatabase",
-                "sqlalchemy_uri": "postgresql://superset:superset@db:5432/superset"
-        }'
-    )
+    curl -X POST "http://localhost:8088/api/v1/database/import/" \
+    -H "Authorization: Bearer ${access_token}" \
+    -H "Content-Type: multipart/form-data" \
+    -F "formData=@/home/user/database_flight.zip" \
+    -F "overwrite=true" -F "passwords={\"databases/MyDatabase.yaml\": \"superset\"}"
 }
 
 create_database

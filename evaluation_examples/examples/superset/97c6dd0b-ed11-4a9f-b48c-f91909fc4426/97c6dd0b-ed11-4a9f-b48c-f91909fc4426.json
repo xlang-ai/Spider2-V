@@ -1,7 +1,7 @@
 {
     "id": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426",
     "snapshot": "superset",
-    "instruction": "I would like to create a table visualization to show the cost per department for the 'tutorial_flights' table. Please save this visualization chart named 'Mychart'.",
+    "instruction": "I would like to create a table visualization to show the cost per department for the 'flights' table. Please save this visualization chart named 'Mychart'.",
     "source": [
         "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
     ],
@@ -15,6 +15,13 @@
     "action_number": 14,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/database_flight",
+                "dest": "/home/user/Desktop/database_flight"
+            }
+        },
         {
             "type": "google_chrome_browser",
             "parameters": {
