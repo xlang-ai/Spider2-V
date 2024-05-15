@@ -1,7 +1,7 @@
 {
     "id": "a3290ae7-d53e-43fb-8b7f-35845b1b4c95",
     "snapshot": "superset",
-    "instruction": "I want to creare a new public annotation table in MyDatabase using Superset. Please help me register the new table and set the start_dttm colmn as default datetime.",
+    "instruction": "I want to creare a new public annotation table in database 'PublicData' using Superset. Please help me register the new table and set the start_dttm colmn as default datetime.",
     "source": [
         "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#registering-a-new-table"
     ],

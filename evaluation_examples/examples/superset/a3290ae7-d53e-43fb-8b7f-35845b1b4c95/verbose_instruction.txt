@@ -1,9 +1,9 @@
-To register a new public annotation table in MyDatabase and set the start_dttm colmn as default datetime, we can follow these steps:
+To register a new public annotation table in PublicData and set the start_dttm colmn as default datetime, we can follow these steps:
 1. In the opened web page, click the add icon in the top right corner;
 2. Select "Data" menu;
 3. Click the "Create Dataset" in the extended menu;
 4. In the pop-up window "New Dataset", firstly click the "DATABASE" box;
-5. Click "MyDatabase" in extended menu;
+5. Click "PublicData" in extended menu;
 6. Then click "SCHEMA" box;
 7. Click "Public" in extended menu;
 8. Then click "TABLE" box;
