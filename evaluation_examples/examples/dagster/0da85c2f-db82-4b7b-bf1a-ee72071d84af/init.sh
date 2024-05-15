@@ -14,7 +14,7 @@ exec 2>/dev/null
 cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install scikit-learn==1.4.2 # Uncomment this if you have not installed scikit-learn in your snapshot
+# pip install scikit-learn==1.4.2 # Uncomment this if you have not installed scikit-learn in your snapshot
 
 cd /home/user
 # create the target dagster project

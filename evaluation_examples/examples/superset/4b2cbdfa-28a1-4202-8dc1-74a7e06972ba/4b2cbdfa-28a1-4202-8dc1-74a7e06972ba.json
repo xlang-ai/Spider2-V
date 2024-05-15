@@ -1,7 +1,7 @@
 {
     "id": "4b2cbdfa-28a1-4202-8dc1-74a7e06972ba",
     "snapshot": "superset",
-    "instruction": "I am using Superset for data analysis. I want to upload a CSV file to my database named MyDatabase later. Please help me enable data upload functionality for this database.",
+    "instruction": "I am using Superset for data analysis. I want to upload a CSV file to my database named SpiderDatabase later. Please help me enable data upload functionality for this database.",
     "source": [
         "https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard#connecting-to-a-new-database"
     ],

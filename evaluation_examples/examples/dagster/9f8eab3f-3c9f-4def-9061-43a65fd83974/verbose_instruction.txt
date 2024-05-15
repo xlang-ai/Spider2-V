@@ -1,6 +1,6 @@
 In this task, we will create our first Dagster asset `top10_story_ids` in the opened project, which will download the top 10 story ids from Hacker News. Specifically,
 1. Switch to the VS Code editor and open the python file `hacker_news/assets.py`;
-2. Type in the following codes into this empty file:
+2. Type in the following code into this empty file:
 ```
 import json
 import os

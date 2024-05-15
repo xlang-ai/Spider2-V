@@ -51,7 +51,7 @@ function create_database() {
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer ${token}" \
         -d '{
-                "database_name":"MyDatabase",
+                "database_name":"SpiderDatabase",
                 "sqlalchemy_uri": "postgresql://superset:superset@db:5432/superset"
         }'
     )
