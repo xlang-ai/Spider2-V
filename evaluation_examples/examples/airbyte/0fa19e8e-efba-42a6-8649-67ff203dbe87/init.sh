@@ -119,7 +119,7 @@ rm /home/user/connection.json
 
 # #configure data-diff
 
-gnome-terminal --maximize --working-directory=home/user/projects/
+gnome-terminal --maximize --working-directory=/home/user/projects/
 
 # waiting for the first sync
 

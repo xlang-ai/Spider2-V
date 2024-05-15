@@ -1,0 +1,55 @@
+{
+    "id": "a0687e83-5815-45f9-b736-7fb83b6033da",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@CreateProblemTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 4,
+    "instruction": "Create a new problem with a value of \"Issue in connecting to internet using modem.\" for field \"Problem statement\" and a value of \"3 - Low\" for field \"Impact\" and a value of \"\" for field \"Service offering\" and a value of \"\" for field \"Assignment group\" and a value of \"3 - Low\" for field \"Urgency\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "CreateProblemTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

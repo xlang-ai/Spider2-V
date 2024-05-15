@@ -1,0 +1,86 @@
+{
+    "id": "336663dd-6fa8-44b9-8e12-6877bb5a120e",
+    "snapshot": "airbyte",
+    "instruction": "I have created one airbyte connection from Slack to Postgres and one airbyte connection from GitHub to Postgres. Can you help me to finish the connection-id settings in slack_github_analytics.py file to orchestrate the airbyte data ingestion pipeline with Dagster, as well as use dagit to excecute it? After that, please check the local Dagit instance in the browser at port 3000.",
+    "source": [
+        "https://airbyte.com/tutorials/orchestrate-data-ingestion-and-transformation-pipelines"
+    ],
+    "related_apps": [
+        "chromium",
+        "docker",
+        "airbyte",
+        "dagster",
+        "terminal",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui"
+    ],
+    "action_number": 15,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/336663dd-6fa8-44b9-8e12-6877bb5a120e/connection_slack.json",
+                "dest": "/home/user/connection_slack.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/336663dd-6fa8-44b9-8e12-6877bb5a120e/connection_github.json",
+                "dest": "/home/user/connection_github.json"
+            }
+        },
+
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/336663dd-6fa8-44b9-8e12-6877bb5a120e/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/336663dd-6fa8-44b9-8e12-6877bb5a120e/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "id": "018a12a9-faeb-4427-a758-a40a58dc29f5",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderIpadProTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Go to the hardware store and order 1 \"iPad pro\" with configuration {'Choose the colour': 'Silver', 'Choose the storage': '512'}",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderIpadProTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

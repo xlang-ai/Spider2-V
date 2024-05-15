@@ -1,0 +1,83 @@
+{
+    "id": "52f71f15-b156-4ad7-b342-97a8a5926e25",
+    "snapshot": "airbyte",
+    "instruction": "There is already an Airbyte connection from Slack to Postgres. Can you help me set up the corresponding Postgres Database with the name of slack-db, import the users data, and build a Big Number chart with the name of 'Slack Members' to count the 'users' in Superset?",
+    "source": [
+        "https://airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset"
+    ],
+    "related_apps": [
+        "chromium",
+        "docker",
+        "airbyte",
+        "superset"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 19,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/52f71f15-b156-4ad7-b342-97a8a5926e25/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/52f71f15-b156-4ad7-b342-97a8a5926e25/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/52f71f15-b156-4ad7-b342-97a8a5926e25/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

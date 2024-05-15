@@ -1,0 +1,55 @@
+{
+    "id": "d67180b5-d45c-4425-b222-236743fd6f88",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@FilterAssetListTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 10,
+    "instruction": "Create and run a filter for the list to extract all entries where \"Asset function\" is \"Secondary\" and \"Serial number\" is \"\" and \"Class\" is \"Consumable\" and \"Location\" is \"30 Katharinenstr, Hamburg\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "FilterAssetListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

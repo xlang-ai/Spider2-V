@@ -1,0 +1,22 @@
+In this task, we are required to create a filter in the current asset table. To do this:
+1. Find and locate the funnel icon at the top part (the middle one of 3 icons on the left of text "Assets View: ITAM Workspace"). Click it.
+2. Find the input box "-- choose field --", click it.
+3. In the drop-down menu, click and choose "Asset function". You can also type the text "Asset function" into the input box to quickly filter the results.
+4. Next, we choose the operator for this option, click and choose "is" value
+5. And in the input box "-- None --" on the right, we choose the value "Secondary" in the drop-down menu
+6. Click the button "AND" on the right to add another condition.
+7. Again, we repeat the previous steps 2-5, to add another filter condition:
+Choose option: Serial number
+Choose operator: is
+Input value:
+(leave the input box empty)
+8. Click the button "AND" again to add another condition:
+Choose option: Class
+Choose operator: is
+Input value: Consumable
+9. Click the button "AND" again to add the last condition:
+Choose option: Location
+Choose operator: is
+Input value: 30 Katharinenstr, Hamburg
+10. Finally, click the button "Run" to filter the results. You may need to wait for a few seconds for the filter engine to work.
+Till now, we have completed this task.

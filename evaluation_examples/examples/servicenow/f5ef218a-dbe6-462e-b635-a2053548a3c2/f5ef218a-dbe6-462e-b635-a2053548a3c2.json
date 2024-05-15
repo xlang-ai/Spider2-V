@@ -1,0 +1,73 @@
+{
+    "id": "f5ef218a-dbe6-462e-b635-a2053548a3c2",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@CreateUserTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 13,
+    "instruction": "Create a new user with a value of \"Christophel\" for field \"Last name\" and a value of \"Robyn\" for field \"First name\" and a value of \"robyn.christophel@example.com\" for field \"Email\" and a value of \"(514) 703-5913\" for field \"Mobile phone\" and a value of \"dd-MM-yyyy\" for field \"Date format\" and a value of \"(514) 386-6086\" for field \"Business phone\" and a value of \"false\" for field \"Locked out\" and a value of \"surquidry tassie Physostegia snootiness heterotopous\" for field \"Title\" and a value of \"GMT\" for field \"Time zone\" and a value of \"Outlook\" for field \"Calendar integration\" and a value of \"English\" for field \"Language\". The unique field \"User ID\" is provided in the opened file.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "CreateUserTask",
+                "task_kwargs": {}
+            }
+        },
+        {
+            "type": "workarena_unique_fields",
+            "parameters": {
+                "field_mappings": {
+                    "user_name": "User ID"
+                },
+                "path": "/home/user/Desktop/user_id.txt"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/user_id.txt"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

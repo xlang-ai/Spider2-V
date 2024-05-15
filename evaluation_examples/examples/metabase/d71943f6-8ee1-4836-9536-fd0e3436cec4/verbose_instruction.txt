@@ -1,0 +1,10 @@
+To turn off JSON unfolding, please follow these steps:
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click the "Databases" tab on the top bar;
+4. Click the "PostgresData" database;
+5. Click "Show advanced options" on the bottom;
+6. Toggle "Allow unfolding of JSON columns" to turn off it;
+7. Click the "Save changes" button on the bottom;
+8. Click the "Sync database schema now" button on the right side;
+9. Click the "Re-scan field values now" button on the right side.

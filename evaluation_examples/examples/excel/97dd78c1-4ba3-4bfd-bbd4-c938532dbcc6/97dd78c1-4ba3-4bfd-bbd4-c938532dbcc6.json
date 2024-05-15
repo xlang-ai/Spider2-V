@@ -1,0 +1,94 @@
+{
+    "id": "97dd78c1-4ba3-4bfd-bbd4-c938532dbcc6",
+    "snapshot": "excel",
+    "instruction": "Calculate the total sales for each employee in a new column named \"Total\" and the total for each month in a new row named \"Total\". Then highlight the employee with the largest total sales with blue fill while the lowest with red fill.",
+    "source": "SheetCopilot@150",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/97dd78c1-4ba3-4bfd-bbd4-c938532dbcc6/SalesRep.xlsx",
+                "dest": "/home/user/SalesRep.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/SalesRep.xlsx"
+            }
+        }
+    ],
+    "action_number": 15,
+    "related_apps": [
+        "excel"
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "SalesRep.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/97dd78c1-4ba3-4bfd-bbd4-c938532dbcc6/1_SalesRep_gt1.xlsx",
+            "dest": "1_SalesRep_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/SalesRep.xlsx",
+            "dest": "SalesRep.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                },
+                {
+                    "type": "style",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0",
+                    "props": [
+                        "font_bold",
+                        "font_color",
+                        "bgcolor",
+                        "font_name",
+                        "font_italic",
+                        "font_underline"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "gui"
+    ]
+}

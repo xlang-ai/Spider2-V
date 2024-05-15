@@ -198,6 +198,7 @@ def googledrive_login_setup(controller, **config):
         settings_file(str): path to the settings file, by default, 'evaluation_examples/settings/google/settings.json'
         listening_port(int): the port to listen to the remote debugging, by default, 9222
         url(str): the url to login, by default, 'https://drive.google.com/drive/my-drive'
+        need_login(bool): default to True, whether need to login in to Google Account
     """
     host = controller.vm_ip
     port = config.get('listening_port', 9222)
@@ -217,9 +218,9 @@ def googledrive_login_setup(controller, **config):
 
         try:
             page.goto(url)
-            google_account_login_in(page, email, password, timeout=60000) # wait for one minute to consider delay
-            target = page.locator('head title').filter(has_text="Home - Google Drive")
-            expect(target).to_be_visible(timeout=60000)
+            if config.get('need_login', True):
+                google_account_login_in(page, email, password, timeout=60000) # wait for one minute to consider delay
+            
         except Exception as e:
             logger.info('[ERROR]: unexpected error occurred when trying to login to the google drive!')
             return

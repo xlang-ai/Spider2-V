@@ -1,0 +1,16 @@
+In this task, we aim to complete the given slack_github_analytics.py file with our airbyte connection ids, use dagit to excecute it in terminal, and then check the local dagit we created in browser.
+1) Click on 'show applications' at the bottom left of the screen toolbar;
+2) Find and open Visual Studio Code;
+3) Click on 'File' -> 'Open Folder' in the top left corner, then choose and open the folder located at Home/projects/airbyte/airbyte_demo;
+4) In the airbyte_demo directory, find and open the file named slack_github_analytics.py;
+5) Switch to the Chromium browser, and on the Airbyte connections page, click on the GitHub->Postgres connection;
+6) Read the URL of the GitHub->Postgres connection and record the connection id found between 'connections/' and '/status';
+7) Switch back to Visual Studio Code and replace the <YOUR AIRBYTE CONNECTION ID> in the sync_github variable with the GitHub->Postgres connection id;
+8) Switch back to the Chromium browser, and on the Airbyte connections page, click on the Slack->Postgres connection;
+9) Read the URL of the Slack->Postgres connection and record the connection id found between 'connections/' and '/status';
+10) Switch back to Visual Studio Code and replace the <YOUR AIRBYTE CONNECTION ID> in the sync_slack variable with the Slack->Postgres connection id;
+11) Save the edited slack_github_analytics.py and close Visual Studio Code;
+12) Switch to the already opened terminal;
+13) In the terminal, execute: dagit -f airbyte_demo/slack_github_analytics.py;
+14) Once you see the message 'dagit - INFO - Serving dagster-webserver on http://127.0.0.1:3000' in the terminal, switch to the browser;
+15) Click the '+' to open a new tab and type localhost:3000 in the URL bar, then wait for the page to load completely;

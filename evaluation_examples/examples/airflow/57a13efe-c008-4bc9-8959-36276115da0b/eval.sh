@@ -17,6 +17,13 @@ else
     exit 0
 fi
 
+# check whether the DAG is triggered
+triggered=$(astro dev run dags list-runs -o plain --dag-id ${DAG_ID} --no-backfill | grep "${DAG_ID}" | grep -m 1 "manual")
+if [ -z "$triggered" ]; then
+    echo "dag triggered failed"
+    exit 0
+fi
+
 # check whether the DAG run successfully
 astro run ${DAG_ID} >/dev/null 2>/dev/null # manually run it
 flag_start=$(docker exec -i $CONTAINER airflow dags list-runs -o plain --dag-id ${DAG_ID} --no-backfill | grep "${DAG_id}" | grep -m 1 "manual" | awk '{print $3}')

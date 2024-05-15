@@ -1,0 +1,55 @@
+{
+    "id": "19f425aa-8595-47bd-84ac-08052d46c4b3",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderDeveloperLaptopTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Go to the hardware store and order 3 \"Developer Laptop (Mac)\" with configuration {'Additional software requirements': 'Salesforce, QuickBooks, Zoom, Microsoft Office 365, Asana, Adobe Creative Cloud', 'Adobe Acrobat': False, 'Adobe Photoshop': True, 'Eclipse IDE': False}",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderDeveloperLaptopTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

@@ -1,0 +1,71 @@
+I want to modify my Dagster machine learning pipeline by adding a few features and a schedule. Please follow these steps:
+1. Go to VS Code application. Select the file "sklearn_ops.py" from the tabs on the top.
+2. Find the function "get_features". Add two features "Age" and "Fare" by changing the definition of "cols":
+```
+@op(description="Get features columns from dataframe")
+def get_features(context, df: pd.DataFrame) -> pd.DataFrame:
+    cols = ["Parch", "Embarked", "Sex", "Name", "Age", "Fare"]
+
+    return df[cols]
+```
+3. You can see the function "encode_features" before "get_features". Add a SimpleImputer and apply it to the features "Age" and "Fare" to fill in the missing values by the mean of the column.
+```
+@op(description="Define required encoding and return column transformer")
+def encode_features(context):
+    imp_constant = SimpleImputer(strategy="constant", fill_value="missing")
+    ohe = OneHotEncoder()
+
+    imp_ohe = make_pipeline(imp_constant, ohe)
+    vect = CountVectorizer()
+    imp = SimpleImputer()
+
+    ct = make_column_transformer(
+        (imp_ohe, ["Embarked", "Sex"]),
+        (vect, "Name"),
+        (imp, ["Age", "Fare"]),
+        remainder="passthrough",
+    )
+
+    return ct
+```
+4. Press Ctrl+S to save the file "sklearn_ops.py".
+5. Switch to the file "sklearn_schedule.py" from the tabs on the top.
+6. Add the schedule definition "every_weekday_hour" below to run the job "sklearn_job" every hour on weekdays:
+```
+from dagster import schedule
+
+
+@schedule(
+    cron_schedule="0 * * * 1-5",
+    job_name='sklearn_job',
+)
+def every_weekday_hour():
+    return {}
+```
+7. Don't forget to press Ctrl+S to save the file.
+8. Head to the file "sklearn_repository.py". Add the schedule "every_weekday_hour" to the repository:
+```
+from dagster import repository
+from jobs.sklearn_job import sklearn_job
+from schedules.sklearn_schedule import every_weekday_hour
+
+
+@repository
+def sklearn_repo():
+    return {
+        "jobs": {
+            "sklearn_job": lambda: sklearn_job 
+        },
+        "schedules": {
+            "every_weekday_hour": lambda: every_weekday_hour
+        }
+    }
+```
+9. Save the file by Ctrl+S.
+10. Go to Chromium.
+11. Click the reload button on the right of "Job in sklearn_repo@sklearn_repository.py" at the top of the page.
+12. Select "Launchpad" under the title "sklearn_job".
+13. Click the button "Launch Run" on the bottom right corner of the page. Wait for the job to finish. Make sure it succeeds.
+14. Select "Overview" on the top.
+15. Click "Schedules" under the title "Overview". You will see the schedule "every_weekday_hour" in the table.
+16. Toggle the switch on the middle of the page under "Running" to set the schedule to the running state.

@@ -1,0 +1,55 @@
+{
+    "id": "17ccf8bb-a172-42cf-a3c9-9d91fb8e6998",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@FilterHardwareListTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 10,
+    "instruction": "Create a filter for the list and run it to extract all entries where \"Serial number\" is \"\" and \"Model category\" is \"Computer\" and \"Asset function\" is \"Shared\" and \"Display name\" is \"Apple MacBook Pro 15\"\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "FilterHardwareListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

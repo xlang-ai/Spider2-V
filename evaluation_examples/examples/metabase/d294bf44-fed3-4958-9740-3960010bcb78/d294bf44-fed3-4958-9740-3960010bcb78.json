@@ -41,18 +41,11 @@
                 "actions": [
                     {
                         "type": "setup"
-                    }
-                ]
-            }
-        },
-        {
-            "type": "metabase_webui_init",
-            "parameters": {
-                "listening_port": 9222,
-                "url": "http://localhost:3000/admin/databases/1",
-                "actions": [
+                    },
                     {
-                        "type": "delete_sample_database"
+                        "type": "delete_database",
+                        "database_url": "http://localhost:3000/admin/databases/1",
+                        "database_name": "Sample Database"
                     }
                 ]
             }

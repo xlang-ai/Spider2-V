@@ -1,0 +1,82 @@
+{
+    "id": "26a8440e-c166-4c50-aef4-bfb77314b46b",
+    "snapshot": "excel",
+    "instruction": "Create a table with two headers (\"Month\" and \"Total\") in a new sheet to show the total sales for all months.",
+    "source": "SheetCopilot@152",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/26a8440e-c166-4c50-aef4-bfb77314b46b/SalesRep.xlsx",
+                "dest": "/home/user/SalesRep.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/SalesRep.xlsx"
+            }
+        }
+    ],
+    "trajectory": "trajectories/26a8440e-c166-4c50-aef4-bfb77314b46b",
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 23,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "SalesRep.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/26a8440e-c166-4c50-aef4-bfb77314b46b/3_SalesRep_gt1.xlsx",
+            "dest": "3_SalesRep_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/SalesRep.xlsx",
+            "dest": "SalesRep.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "ENSheet2"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "gui"
+    ]
+}

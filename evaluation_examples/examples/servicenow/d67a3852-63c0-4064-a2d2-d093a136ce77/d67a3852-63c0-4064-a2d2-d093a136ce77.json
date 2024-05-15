@@ -1,0 +1,55 @@
+{
+    "id": "d67a3852-63c0-4064-a2d2-d093a136ce77",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderStandardLaptopTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 0,
+    "instruction": "Go to the hardware store and order 3 \"Standard Laptop\" with configuration {'Additional software requirements': 'Slack, Salesforce, QuickBooks, Google Workspace, Asana, Adobe Creative Cloud', 'Adobe Acrobat': True, 'Adobe Photoshop': True}",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderStandardLaptopTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}

@@ -1,0 +1,55 @@
+{
+    "id": "82f70410-8366-437d-bdf7-d83ff2d5a3d7",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@FilterUserListTask"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 12,
+    "instruction": "Create a filter for the list and execute it to extract all entries where \"Employee number\" is \"\" and \"Company\" is \"ACME Japan\" and \"Default perspective\" is \"\" and \"State / Province\" is \"\" and \"Enable Multifactor Authentication\" is \"false\".",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "FilterUserListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    }
+}
