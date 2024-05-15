@@ -12,8 +12,8 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Create a filter for the list to extract all entries where \"Employee number\" is \"\" and \"Company\" is \"ACME Japan\" and \"Default perspective\" is \"\" and \"State / Province\" is \"\" and \"Enable Multifactor Authentication\" is \"false\".",
+    "action_number": 12,
+    "instruction": "Create a filter for the list and execute it to extract all entries where \"Employee number\" is \"\" and \"Company\" is \"ACME Japan\" and \"Default perspective\" is \"\" and \"State / Province\" is \"\" and \"Enable Multifactor Authentication\" is \"false\".",
     "config": [
         {
             "type": "google_chrome_browser",

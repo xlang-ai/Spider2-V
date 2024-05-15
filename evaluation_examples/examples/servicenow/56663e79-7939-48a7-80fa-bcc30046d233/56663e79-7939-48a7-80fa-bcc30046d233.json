@@ -12,8 +12,8 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Create a filter for the list to extract all entries where \"Short description\" is \"Upgrade OWA-SD-01 to MS Windows Server 2016\" and \"Assigned to\" is \"David Loo\" and \"Risk\" is \"High\" and \"State\" is \"Assess\".",
+    "action_number": 10,
+    "instruction": "Create a filter for the list and run it to extract all entries where \"Short description\" is \"Upgrade OWA-SD-01 to MS Windows Server 2016\" and \"Assigned to\" is \"David Loo\" and \"Risk\" is \"High\" and \"State\" is \"Assess\".",
     "config": [
         {
             "type": "google_chrome_browser",

@@ -12,8 +12,8 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Create a filter for the list to extract all entries where \"Serial number\" is \"\" and \"Model category\" is \"Computer\" and \"Asset function\" is \"Shared\" and \"Display name\" is \"Apple MacBook Pro 15\"\".",
+    "action_number": 10,
+    "instruction": "Create a filter for the list and run it to extract all entries where \"Serial number\" is \"\" and \"Model category\" is \"Computer\" and \"Asset function\" is \"Shared\" and \"Display name\" is \"Apple MacBook Pro 15\"\".",
     "config": [
         {
             "type": "google_chrome_browser",

@@ -12,8 +12,8 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Create a filter for the list to extract all entries where \"Assigned to\" is \"\" and \"Configuration item\" is \"\" and \"Priority\" is \"-- None --\" and \"Number\" is \"INC0011939\".",
+    "action_number": 11,
+    "instruction": "Create a filter for the list and execute it to extract all entries where \"Assigned to\" is \"\" and \"Configuration item\" is \"\" and \"Priority\" is \"-- None --\" and \"Number\" is \"INC0011939\".",
     "config": [
         {
             "type": "google_chrome_browser",

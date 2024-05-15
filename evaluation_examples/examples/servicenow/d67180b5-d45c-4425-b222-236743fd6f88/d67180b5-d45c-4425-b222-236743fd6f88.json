@@ -12,8 +12,8 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Create a filter for the list to extract all entries where \"Asset function\" is \"Secondary\" and \"Serial number\" is \"\" and \"Class\" is \"Consumable\" and \"Location\" is \"30 Katharinenstr, Hamburg\".",
+    "action_number": 10,
+    "instruction": "Create and run a filter for the list to extract all entries where \"Asset function\" is \"Secondary\" and \"Serial number\" is \"\" and \"Class\" is \"Consumable\" and \"Location\" is \"30 Katharinenstr, Hamburg\".",
     "config": [
         {
             "type": "google_chrome_browser",

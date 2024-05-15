@@ -1,0 +1,11 @@
+In this task, we need to answer the question "Which firm is in charge of office event catering?" and write the firm name into the opened text file. To do this:
+1. Focus on the Chrome/Chromium browser, which should stay in the servicenow page
+2. Locate the search bar next to category "All" on the menu bar
+3. Type in text "\"catering service provider for office events\"" and press Enter to search the result
+4. After searching, click the link of the fist Article
+5. Press Ctrl+F hotkey to invoke the page search function
+6. In the search box, type in "catering service provider". An you will the matched text highlighted in the web page
+7. Dive into the content, "The catering service provider for office events is Gourmet Caterers.". We can figure out that the firm is "Gourmet Caterers".
+8. Now, switch to the opened .txt file named `answer.txt`
+9. Input the answer "Gourmet Caterers" into into
+10. Press Ctrl+S to save the file. We have completed this task.

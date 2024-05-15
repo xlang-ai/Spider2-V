@@ -21,7 +21,6 @@ from browsergym.core.observation import (
     extract_merged_axtree,
     extract_focused_element_bid,
 )
-from browsergym.core.action.base import execute_python_code
 from browsergym.core.action.highlevel import HighLevelActionSet
 from browsergym.core.action.base import execute_python_code
 from browsergym.core import _get_global_playwright
