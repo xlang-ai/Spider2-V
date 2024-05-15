@@ -3,7 +3,7 @@ In this task, we want to extend the original single Dagster asset into a 3-step 
 2. In the opened `assets.py` file, it defines one asset `top10_story_ids` to download the top 10 story ids into filepath `data/story_ids.json`;
 3. Using the top 10 Hacker News story IDs, we'll now look up each story by its ID, ingest that data, and make a DataFrame out of it. Besides, we will connect the current asset `top10_story_ids` with this new asset `top10_stories` to establish dependencies. Concretely, we modify the `assets.py` to add the pandas import and a new asset called `top10_stories`:
 ```
-# ... Keep the original `top10_story_ids` codes
+# ... Keep the original `top10_story_ids` code
 
 @asset(deps=[top10_story_ids])  # this asset is dependent on top10_story_ids
 def top10_stories() -> None:
@@ -17,7 +17,7 @@ def top10_stories() -> None:
         ).json()
         results.append(item)
 
-        if len(results) % 20 == 0:
+        if len(results) % 5 == 0:
             print(f"Got {len(results)} items so far.")
 
     json.dump(results, open('data/stories.json', 'w'), indent=4, ensure_ascii=False)

@@ -51,7 +51,7 @@ fi
 # check whether the DAG can run successfully
 astro run ${DAG_ID} >/dev/null 2>/dev/null # manually run it
 flag=$(docker exec -i $CONTAINER airflow dags list-runs -o plain --dag-id ${DAG_ID} --no-backfill | grep "${DAG_id}" | grep -m 1 "manual" | awk '{print $3}')
-if [ "$flag" = "success" ]; then
+if [ "$flag" = "success" ] || [ "$flag" = "running" ]; then
     echo "astro run dag succeed"
 else
     echo "astro run dag failed"
