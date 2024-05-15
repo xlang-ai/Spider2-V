@@ -50,10 +50,10 @@ class DesktopEnv(gym.Env):
             snapshot_name: str = "init_state",
             action_space: str = "computer_13",
             cache_dir: str = "cache",
-            screen_size: Tuple[int] = (1920, 1080),
             headless: bool = False,
             require_a11y_tree: bool = True,
             require_terminal: bool = False,
+            proxy: Dict[str, Any] = {}
     ):
         """
         Args:
@@ -66,6 +66,10 @@ class DesktopEnv(gym.Env):
             headless (bool): whether to run the VM in headless mode
             require_a11y_tree (bool): whether to require accessibility tree
             require_terminal (bool): whether to require terminal output
+            proxy (Dict[str, Any]): proxy configuration dict, which includes the following keys:
+                host: host ip address in the eye of VM instance, namely the LAN ip address of the host
+                port: proxy port, usually the port number defined in 127.0.0.1:{port}
+                types: connection types, by default, ['http', 'https'] is enough
         """
 
         # Initialize environment variables
@@ -94,6 +98,13 @@ class DesktopEnv(gym.Env):
         self._traj_no: int = -1
         self._step_no: int = 0
         self.action_history: List[Dict[str, any]] = []
+
+        # proxy initialization
+        self.proxy = proxy
+        if self.proxy: # set the proxy address for the host machine
+            for tp in self.proxy.get("types", ['http', 'https']):
+                os.environ[f'{tp}_proxy'] = f'http://127.0.0.1:{proxy["port"]}'
+            os.environ['no_proxy'] = f'localhost,127.0.0.1,{self.vm_ip}' # add the VM IP to the no_proxy list
 
     @property
     def vm_platform(self):
@@ -213,7 +224,7 @@ class DesktopEnv(gym.Env):
                 or (len(self.metric) == len(self.result_getter) == len(self.expected_getter) == len(
                     self.metric_options)))
 
-    def reset(self, task_config: Optional[Dict[str, Any]] = None, proxy: Dict[str, Any] = {}, seed=None, options=None) -> Dict[str, Any]:
+    def reset(self, task_config: Optional[Dict[str, Any]] = None, proxy: Dict[str, Any] = {}) -> Dict[str, Any]:
         logger.info("Resetting environment...")
 
         logger.info("Switching task...")
@@ -235,9 +246,14 @@ class DesktopEnv(gym.Env):
         logger.info("Emulator started.")
 
         logger.info("Setting up environment...")
-        if proxy: # using proxy to visit some webs, e.g., Google Cloud
+        if self.proxy or proxy: # using proxy to visit some webs, e.g., Google Cloud, Snowflake
+            proxy = proxy if proxy else self.proxy
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
         self.setup_controller.setup(self.config)
+        screen_size = self.vm_screen_size
+        screen_center = (screen_size['width'] / 2, screen_size['height'] / 2)
+        self.controller.execute_action({'action_type': 'MOVE_TO', 'x': screen_center[0], 'y': screen_center[1]})
+        logger.info(f"Move mouse to screen center: {screen_center}")
 
         time.sleep(5)
         logger.info("Environment setup complete.")
@@ -254,7 +270,8 @@ class DesktopEnv(gym.Env):
         info = {}
 
         # handle the special actions
-        if action in ['WAIT', 'FAIL', 'DONE']:
+        if action in ['WAIT', 'FAIL', 'DONE'] or (type(action) == dict and action['action_type'] in ['WAIT', 'FAIL', 'DONE']):
+            if type(action) == dict: action = action['action_type']
             if action == 'WAIT':
                 time.sleep(pause)
             elif action == 'FAIL':
@@ -263,14 +280,11 @@ class DesktopEnv(gym.Env):
             elif action == 'DONE':
                 done = True
                 info = {"done": True}
-
-        if self.action_space == "computer_13":
-            # the set of all possible actions defined in the action representation
-            self.controller.execute_action(action)
-        elif self.action_space == "pyautogui":
-            if action in ['WAIT', 'FAIL', 'DONE']:
+        else:
+            if self.action_space == "computer_13":
+                # the set of all possible actions defined in the action representation
                 self.controller.execute_action(action)
-            else:
+            elif self.action_space == "pyautogui":
                 # the set of all possible python commands insides `pyautogui`
                 self.controller.execute_python_command(action)
 

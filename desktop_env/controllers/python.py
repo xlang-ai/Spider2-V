@@ -85,7 +85,7 @@ class PythonController:
             return
 
         action_type = action["action_type"]
-        parameters = action["parameters"] if "parameters" in action else {}
+        parameters = action["parameters"] if "parameters" in action else action
         move_mode = random.choice(
             ["pyautogui.easeInQuad", "pyautogui.easeOutQuad", "pyautogui.easeInOutQuad", "pyautogui.easeInBounce",
              "pyautogui.easeInElastic"])
@@ -179,17 +179,9 @@ class PythonController:
 
         elif action_type == "SCROLL":
             # todo: check if it is related to the operating system, as https://github.com/TheDuckAI/DuckTrack/blob/main/ducktrack/playback.py pointed out
-            if "dx" in parameters and "dy" in parameters:
-                dx = parameters["dx"]
-                dy = parameters["dy"]
-                self.execute_python_command(f"pyautogui.hscroll({dx})")
-                self.execute_python_command(f"pyautogui.vscroll({dy})")
-            elif "dx" in parameters and "dy" not in parameters:
-                dx = parameters["dx"]
-                self.execute_python_command(f"pyautogui.hscroll({dx})")
-            elif "dx" not in parameters and "dy" in parameters:
-                dy = parameters["dy"]
-                self.execute_python_command(f"pyautogui.vscroll({dy})")
+            if "clicks" in parameters:
+                self.execute_python_command(
+                    f"pyautogui.scroll({parameters['clicks']})")
             else:
                 raise Exception(f"Unknown parameters: {parameters}")
 
