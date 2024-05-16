@@ -38,7 +38,7 @@
                 "actions": [
                     {
                         "type": "login",
-                        "username": "admin", 
+                        "username": "admin",
                         "password": "admin"
                     }
                 ]
@@ -54,7 +54,6 @@
         "vscode"
     ],
     "tags": [
-        "abstract",
         "cli+gui"
     ],
     "evaluator": {

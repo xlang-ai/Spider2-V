@@ -22,7 +22,6 @@
         "terminal"
     ],
     "tags": [
-        "abstract",
         "cli+gui"
     ],
     "evaluator": {

@@ -38,7 +38,7 @@
                 "actions": [
                     {
                         "type": "login",
-                        "username": "admin", 
+                        "username": "admin",
                         "password": "admin"
                     }
                 ]
@@ -53,8 +53,7 @@
         },
         {
             "type": "astro_refresh_page",
-            "parameters":{              
-            }
+            "parameters": {}
         }
     ],
     "action_number": 3,
@@ -64,7 +63,6 @@
         "docker"
     ],
     "tags": [
-        "abstract",
         "gui"
     ],
     "evaluator": {

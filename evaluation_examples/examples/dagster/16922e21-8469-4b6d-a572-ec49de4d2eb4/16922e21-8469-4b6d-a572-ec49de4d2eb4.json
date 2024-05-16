@@ -9,8 +9,7 @@
         "dagster"
     ],
     "tags": [
-        "cli+gui",
-        "abstract"
+        "cli+gui"
     ],
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
