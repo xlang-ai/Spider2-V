@@ -85,7 +85,7 @@ class PythonController:
             return
 
         action_type = action["action_type"]
-        parameters = action["parameters"] if "parameters" in action else action
+        parameters = action["parameters"] if "parameters" in action else {param: action['parameters'] for param in action if param != 'action_type'}
         move_mode = random.choice(
             ["pyautogui.easeInQuad", "pyautogui.easeOutQuad", "pyautogui.easeInOutQuad", "pyautogui.easeInBounce",
              "pyautogui.easeInElastic"])
