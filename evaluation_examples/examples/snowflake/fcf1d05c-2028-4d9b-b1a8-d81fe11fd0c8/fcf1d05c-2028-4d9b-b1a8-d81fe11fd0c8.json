@@ -3,7 +3,7 @@
     "snapshot": "snowflake",
     "instruction": "Help me write a python worksheet in snowsight to read the contents of a CSV-formatted file containing employee data, data.csv.gz from the company.public.stage named stage and writes the contents to a table called employees. The details of the database and requirements are in the .txt on desktop.",
     "source": [
-        "https://docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets"
+        "https://docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets#label-snowsight-py-worksheet-ex-read-stage"
     ],
     "related_apps": [
         "chromium",
