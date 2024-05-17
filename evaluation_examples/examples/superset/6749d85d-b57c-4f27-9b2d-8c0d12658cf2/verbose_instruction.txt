@@ -1,0 +1,6 @@
+To  show the 'Statistics' dashboard with both the top navigation and title hidden, also without the filter bar, we can follow these steps:
+1. In the opened web page, select "Dashboard" in the top menu;
+2. Click 'Statistics' name in the list;
+3. In the new window, clear the string behind the "/" in the URL bar of Chrome;
+4. Type "?standalone=2&show_filters=0" after the "/" in the URL bar of the Chrome;
+5. Type "ENTER" in the keyboard, and you can see the 'Statistics' dashboard with both the top navigation and title hidden, also without the filter bar.;
