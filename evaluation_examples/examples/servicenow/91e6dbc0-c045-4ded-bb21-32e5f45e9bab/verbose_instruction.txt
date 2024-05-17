@@ -1,0 +1,9 @@
+In this task, we want to sort the users list by 2 fields:
+1. Click the funnel icon on the top menu bar (which is the middle icon under page title "servicenow"). The filter will show up after loading.
+2. Click the "Add Sort" button in the row under the funnel icon.
+3. Find the selection bar under prompt "Order results by the following fields", click it and type text "Enable Multifactor Authentication" in the search bar. Press enter to confirm the choice.
+4. As for the sorting method, click and choose "z to a".
+5. Next, we click the button "Add Sort" again to add another condition.
+6. In the second field box, we click and type in "Prefix" to filter options. Choose this entry.
+7. About the sort method, we click and choose "z to a", that is descending order.
+8. Finally, we click the "Run" button to execute the list sorting. Wait for a few seconds, the results will be prepared.

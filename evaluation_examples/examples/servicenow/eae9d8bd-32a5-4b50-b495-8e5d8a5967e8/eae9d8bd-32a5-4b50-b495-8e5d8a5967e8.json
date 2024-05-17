@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 5,
     "instruction": "Sort the \"incidents\" list by the following fields:\n - Caller (ascending)",
     "config": [
         {

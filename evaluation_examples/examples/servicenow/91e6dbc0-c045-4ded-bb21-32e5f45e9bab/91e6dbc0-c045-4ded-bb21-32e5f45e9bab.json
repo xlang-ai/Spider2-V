@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 8,
     "instruction": "Sort the \"users\" list by the following fields:\n - Enable Multifactor Authentication (descending)\n - Prefix (descending)",
     "config": [
         {
