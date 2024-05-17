@@ -40,7 +40,8 @@ if [ $flag = false ]; then
 fi
 
 
-infos=$(curl -X GET "http://localhost:8088/api/v1/chart/${table_id}" \
+
+infos=$(curl -X GET "http://localhost:8088/api/v1/chart/${chart_id}" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer ${token}")
     

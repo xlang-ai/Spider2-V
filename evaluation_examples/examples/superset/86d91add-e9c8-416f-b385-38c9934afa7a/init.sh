@@ -17,7 +17,8 @@ exec 2>/dev/null
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate superset" >> ~/.bashrc
 cd /home/user
-wget https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv
+wget https://raw.githubusercontent.com/apache-superset/examples-data/lowercase_columns_examples/datasets/examples/video_game_sales.csv
+
 
 
 
@@ -55,7 +56,7 @@ function create_database() {
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer ${token}" \
         -d '{
-                "database_name":"MyDatabase",
+                "database_name":"Games",
                 "sqlalchemy_uri": "postgresql://superset:superset@db:5432/superset",
                 "allow_file_upload": true
         }'
