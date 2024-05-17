@@ -1,0 +1,7 @@
+Our goal is to impersonate the user Lacy Belmont. To finish this job:
+1. Click the user profile icon on the top-right of the entire web page.
+2. Then, in the drop-down menu, find and click the entry "Impersonate user".
+3. There will be a pop-up window showing up with title "Impersonate user". In the search box with prompt "Search for a user", type in text "Lacy Belmont".
+4. There will be exactly one matched user. Click this entry.
+5. The button "Impersonate user" on the bottom right of this window will be enabled. Click it!
+After page loading, we will come to the Home web page and finish the task.
