@@ -1,0 +1,5 @@
+In this task, we are asked to navigate through the servicenow page and find the "Contracts > Leases" module of the "Contract" application. To achieve this:
+1. Find and locate the "All" button in the top menu bar on the left. Click it!
+2. In the "Filter" box, type in the text "Leases".
+3. Then, in the drop-down menu, we will see the entry "Leases" which is under the parent entry "Contracts". Click this entry, the website will navigate to a new page.
+4. Wait for the web loading after which we just finish the task.

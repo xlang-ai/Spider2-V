@@ -1,0 +1,11 @@
+This task asks us to sort the assets results according to residual value (descending) and display name (ascending). To finish it:
+1. Click the funnel icon on the top menu bar (which is the middle icon under page title "servicenow"). The filter will show up after loading.
+2. Click the "Add Sort" button in the row under the funnel icon.
+3. Find the selection bar under prompt "Order results by the following fields", click it to choose option.
+4. Type in "Residual value" and select the filtered entry.
+5. Since we want to sort the results in descending order, we click and select the option "z to a" in the box next to "Residual value".
+6. Next, we click the button "Add Sort" again to add another condition.
+7. In the second field box, we click and type in "Display name".
+8. Press Enter to confirm this choice.
+9. About the sort method, we click and choose "a to z", that is acending order.
+10. Finally, we click the button "Run" under the funnel icon. And wait for the engine to complete it.

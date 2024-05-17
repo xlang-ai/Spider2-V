@@ -1,0 +1,13 @@
+In this task, we want to sort the hardware list by 3 fields:
+1. Click the funnel icon on the top menu bar (which is the middle icon under page title "servicenow"). The filter will show up after loading.
+2. Click the "Add Sort" button in the row under the funnel icon.
+3. Find the selection bar under prompt "Order results by the following fields", click it to choose option.
+4. Type in "Display name" and select the filtered entry.
+5. Since we want to sort the results in descending order, we click and select the option "z to a" in the box next to "Display name".
+6. Next, we click the button "Add Sort" again to add another condition.
+7. In the second field box, we click and type in "Cost center". Choose this entry.
+9. About the sort method, we click and choose "a to z", that is acending order.
+10. Lastly, we add the 3rd sorting method via clicking button "Add Sort".
+11. Click and type in "Stockroom" into the third sorting field. Enter the filtered entry.
+12. Click and select the sorting method to "a to z".
+13. Click the "Run" button and wait for page reloading.

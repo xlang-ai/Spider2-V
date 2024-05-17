@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 10,
     "instruction": "Sort the \"assets\" list by the following fields:\n - Residual value (descending)\n - Display name (ascending)",
     "config": [
         {

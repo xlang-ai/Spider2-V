@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 6,
     "instruction": "Sort the \"change requests\" list by the following fields:\n - Closed by (descending)\n - Planned start date (ascending)\n - Phase state (descending)",
     "config": [
         {

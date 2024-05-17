@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 13,
     "instruction": "Sort the \"hardware\" list by the following fields:\n - Display name (descending)\n - Cost center (ascending)\n - Stockroom (ascending)",
     "config": [
         {

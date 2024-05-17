@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 11,
     "instruction": "Sort the \"catalog items\" list by the following fields:\n - Created by (descending)\n - Flow (descending)\n - Classic Mobile Picture Type (descending)",
     "config": [
         {

@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 4,
     "instruction": "Navigate to the \"Contracts > Leases\" module of the \"Contract\" application.",
     "config": [
         {
