@@ -1,25 +1,24 @@
 {
-    "id": "d71943f6-8ee1-4836-9536-fd0e3436cec4",
+    "id": "cc22cc89-58c8-4bd6-a319-691f023f6cd7",
     "snapshot": "metabase",
-    "instruction": "Please turn off JSON unfolding for the database named PostgresData.",
+    "instruction": "Recently I want to change my most frequently used email account. Please update the email to \"johnwilson@outlook.com\" for my Metabase account.",
     "source": [
-        "https://www.metabase.com/docs/latest/data-modeling/json-unfolding"
+        "https://www.metabase.com/docs/latest/people-and-groups/managing"
     ],
     "related_apps": [
         "chromium",
-        "postgresql",
         "metabase"
     ],
     "tags": [
         "gui"
     ],
-    "action_number": 9,
+    "action_number": 7,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/d71943f6-8ee1-4836-9536-fd0e3436cec4/init.sh",
+                "src": "evaluation_examples/examples/metabase/cc22cc89-58c8-4bd6-a319-691f023f6cd7/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -40,18 +39,7 @@
                 "url": "http://localhost:3000",
                 "actions": [
                     {
-                        "type": "setup",
-                        "config": {
-                            "add_data": {
-                                "type": "PostgreSQL",
-                                "display_name": "PostgresData",
-                                "host": "localhost",
-                                "port": "5432",
-                                "db_name": "metabase",
-                                "db_user": "user",
-                                "db_password": "password"
-                            }
-                        }
+                        "type": "setup"
                     }
                 ]
             }
@@ -63,7 +51,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/metabase/d71943f6-8ee1-4836-9536-fd0e3436cec4/eval.sh",
+            "src": "evaluation_examples/examples/metabase/cc22cc89-58c8-4bd6-a319-691f023f6cd7/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {
