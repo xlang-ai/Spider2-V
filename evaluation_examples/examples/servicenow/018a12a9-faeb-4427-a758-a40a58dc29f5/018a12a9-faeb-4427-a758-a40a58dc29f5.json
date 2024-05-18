@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 7,
     "instruction": "Go to the hardware store and order 1 \"iPad pro\" with configuration {'Choose the colour': 'Silver', 'Choose the storage': '512'}",
     "config": [
         {

@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 6,
     "instruction": "Go to the hardware store and order 8 \"iPad mini\" with configuration {'Choose the colour': 'Purple', 'Choose the storage': '256'}",
     "config": [
         {

@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 7,
     "instruction": "Go to the hardware store and order 3 \"Sales Laptop\" with configuration {'Additional software requirements': 'Salesforce, Zoom, Microsoft Office 365', 'Adobe Acrobat': False, 'Adobe Photoshop': True, 'Microsoft Powerpoint': True, 'Siebel Client': True}",
     "config": [
         {

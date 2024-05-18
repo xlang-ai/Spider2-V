@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 7,
     "instruction": "Go to the hardware store and order 3 \"Standard Laptop\" with configuration {'Additional software requirements': 'Slack, Salesforce, QuickBooks, Google Workspace, Asana, Adobe Creative Cloud', 'Adobe Acrobat': True, 'Adobe Photoshop': True}",
     "config": [
         {

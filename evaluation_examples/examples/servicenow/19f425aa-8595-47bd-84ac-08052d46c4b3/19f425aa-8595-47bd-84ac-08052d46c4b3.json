@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 8,
     "instruction": "Go to the hardware store and order 3 \"Developer Laptop (Mac)\" with configuration {'Additional software requirements': 'Salesforce, QuickBooks, Zoom, Microsoft Office 365, Asana, Adobe Creative Cloud', 'Adobe Acrobat': False, 'Adobe Photoshop': True, 'Eclipse IDE': False}",
     "config": [
         {

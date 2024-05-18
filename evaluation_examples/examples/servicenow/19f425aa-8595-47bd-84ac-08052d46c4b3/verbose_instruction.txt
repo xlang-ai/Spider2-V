@@ -1,0 +1,9 @@
+To order "Developer Laptop (Mac)" in the hardware store, we need to:
+1. Click the "Hardware" panel and wait for page loading.
+2. Click the first item panel "Developer Laptop (Mac)" and navigate to the new web page.
+3. For the three Optional Software, we check the option "Adobe Photoshop" (with a checkmark in the box in front of it).
+4. While for the other two options ("Adobe Acrobat" and "Eclipse IDE"), we uncheck them. That is, leave the boxes in front of them empty.
+5. Then, we locate the wide input text box under "Additional software requirements". Type in text "Salesforce, QuickBooks, Zoom, Microsoft Office 365, Asana, Adobe Creative Cloud".
+6. In the "Quantity" selection bar on the right panel, we click it to expand the option list.
+7. Select the entry "3". We want to buy 3 Macbook Pro laptops.
+8. Finally, we click the button with text "Order Now" in this panel.
