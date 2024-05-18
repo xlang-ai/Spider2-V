@@ -1,10 +1,15 @@
-Database: COMPANY
+Database: STUDENTS
 
 Schema: PUBLIC
 
-table EMPLOYEES:
-    - employee_id INTEGER
+table SCORES:
+    - id INTEGER
     - first_name VARCHAR(50)
     - last_name VARCHAR(50)
-    - department VARCHAR(50)
-    - salary FLOAT
+    - email VARCHAR(50)
+    - absence_days INTEGER
+    - weekly_self_study_hours INTEGER
+    - math_score INTEGER
+    - history_score INTEGER
+    - physics_score INTEGER
+    - chemistry_score INTEGER
