@@ -12,7 +12,7 @@
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 7,
     "instruction": "Go to the hardware store and order 9 \"Loaner Laptop\" with configuration {'How long do you need it for ?': '1 day', 'When do you need it ?': 'By the end of the month'}",
     "config": [
         {

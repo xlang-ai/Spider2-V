@@ -1,18 +1,21 @@
 {
     "id": "fc713066-100d-4317-8a6e-7c1ab902d64f",
     "snapshot": "snowflake",
-    "instruction": "My work today is to load menu data from an Amazon S3 bucket into snowflake and get items whose menu_type is \"Ice Cream\". Neither the database nor the schema is created. You can create and name them whatever you want. You must write a python worksheet to complete this task and download the query result, rename it to result.csv. The url of Amazon S3 bucket is \"s3://sfquickstarts/tastybytes/\" and the file format is csv.",
+    "instruction": "My work today is to load country data from an Amazon S3 bucket into snowflake and get items whose country_name is \"France\". Neither the database nor the schema is created. You can create and name them whatever you want. You must write a python worksheet to complete this task and download the query result, rename it to result.csv. You also need to create a python file code.py on the desktop and copy your python worksheet code to this file. The url of Amazon S3 bucket is \" s3://sfquickstarts/tastybytes/raw_pos/country/\" and the file format is csv. This csv file does not contain a header. The schema for the table is in the schema.txt file on the desktop.",
     "source": [
         "https://docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load"
     ],
     "related_apps": [
         "chromium",
-        "snowflake"
+        "snowflake",
+        "terminal",
+        "vscode"
     ],
     "tags": [
         "cli+gui",
         "account"
     ],
+    "action_number": 13,
     "config": [
         {
             "type": "google_chrome_browser",
@@ -33,6 +36,13 @@
             }
         },
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/fc713066-100d-4317-8a6e-7c1ab902d64f/schema.txt",
+                "dest": "/home/user/Desktop/schema.txt"
+            }
+        },
+        {
             "type": "snowflake_login",
             "parameters": {
                 "listening_port": 9222,
@@ -43,16 +53,28 @@
     ],
     "evaluator": {
         "postconfig": [],
-        "func": "compare_csv",
-        "result": {
-            "type": "vm_file",
-            "path": "/home/user/Downloads/result.csv",
-            "dest": "result.csv"
-        },
-        "expected": {
-            "type": "local_file",
-            "path": "evaluation_examples/examples/snowflake/fc713066-100d-4317-8a6e-7c1ab902d64f/result_gold.csv",
-            "dest": "result_gold.csv"
-        }
+        "func": [
+            "compare_csv",
+            "check_file_existence"
+        ],
+        "result": [
+            {
+                "type": "vm_file",
+                "path": "/home/user/Downloads/result.csv",
+                "dest": "result.csv"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/Desktop/code.py",
+                "dest": "code.py"
+            }],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/fc713066-100d-4317-8a6e-7c1ab902d64f/result_gold.csv",
+                "dest": "result_gold.csv"
+            },
+            {}
+        ]
     }
 }

@@ -1,0 +1,8 @@
+We want to order 9 "Loaner Laptop" in the hardware store. To do this:
+1. Click the "Hardware" panel and wait for page loading.
+2. In the search bar on the top-right (with text "Search catalog"), click it and type in "Loaner Laptop".
+3. Press Enter to filter the items. We will see the desired item panel. Click it.
+4. Let's fill the detailed configuration. For the input box under "When do you need it ?", type in the text value "By the end of the month".
+5. For the selection option "How long do you need it for ?", click and choose "1 day".
+6. Come to the right panel, click and choose the "Quantity" with value "9".
+7. Click the button "Order Now". Wait a few seconds, the request has been made.

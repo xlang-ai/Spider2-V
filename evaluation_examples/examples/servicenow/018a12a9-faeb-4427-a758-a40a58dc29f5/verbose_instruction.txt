@@ -1,0 +1,8 @@
+Let's buy one iPad pro in the hardware store.
+1. Click the "Hardware" panel and wait for page loading.
+2. In the search bar on the top-right (with text "Search catalog"), click it and type in "iPad Pro".
+3. Press Enter to filter the items. We will see the desired item panel. Click it.
+4. In the order configuration page, for the option "Choose the colour", we click the radio box with text "Silver".
+5. As for the storage choice, we click the radio box starting with text "512 GB".
+6. Then, we come to the panel "Order this item" on the right, click and choose the "Quantity" selection bar with value "1".
+7. Finally, click the button "Order Now" in this panel and wait to web page response.

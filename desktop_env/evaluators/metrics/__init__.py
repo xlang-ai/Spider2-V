@@ -57,6 +57,7 @@ from .docs import (
 )
 from .general import (
     check_csv,
+    check_file_existence,
     check_accessibility_tree,
     run_sqlite3,
     check_json,
