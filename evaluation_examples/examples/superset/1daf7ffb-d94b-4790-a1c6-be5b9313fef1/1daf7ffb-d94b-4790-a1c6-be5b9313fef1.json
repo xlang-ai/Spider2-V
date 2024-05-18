@@ -1,0 +1,71 @@
+{
+    "id": "1daf7ffb-d94b-4790-a1c6-be5b9313fef1",
+    "snapshot": "superset",
+    "instruction": "My boss told me to create a pivot table for the dataset 'flight' to see the sum of cost in each mouth from 2011-1-1:00:00:00 to 2011-6-30:00:00:00. He said there should be 3 level of column: department, travel class and mouth. Please help me to build these table and name it 'TravelPrivot'.",
+    "source": [
+        "My boss told me to create a pivot table for the dataset  'flight' to see the sum of cost in each mouth from 2011.1.1 to 2011.6.30. He said there should be 3 level of column: department, travel class and mouth. Please help me to build these table and name it 'TravelPrivot'."
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 24,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/1daf7ffb-d94b-4790-a1c6-be5b9313fef1/database_export_20240515T105454.zip",
+                "dest": "/home/user/Desktop/database_export_20240515T105454.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/1daf7ffb-d94b-4790-a1c6-be5b9313fef1/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/1daf7ffb-d94b-4790-a1c6-be5b9313fef1/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
