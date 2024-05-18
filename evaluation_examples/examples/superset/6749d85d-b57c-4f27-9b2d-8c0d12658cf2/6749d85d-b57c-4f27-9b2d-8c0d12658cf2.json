@@ -1,9 +1,9 @@
 {
-    "id": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426",
+    "id": "6749d85d-b57c-4f27-9b2d-8c0d12658cf2",
     "snapshot": "superset",
-    "instruction": "I would like to create a table visualization to show the cost per department for the 'flights' table. Please save this visualization chart named 'Mychart'.",
+    "instruction": "I would like to view my 'Statistics' dashboard with both the top navigation and title hidden. Additionally, please render the dashboard without the filter bar. Show me it!",
     "source": [
-        "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#customizing-dashboard"
     ],
     "related_apps": [
         "chromium",
@@ -12,14 +12,14 @@
     "tags": [
         "gui"
     ],
-    "action_number": 14,
+    "action_number": 5,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/database_export_20240515T105454.zip",
-                "dest": "/home/user/Desktop/database_export_20240515T105454.zip"
+                "src": "evaluation_examples/examples/superset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/dashboard_export_20240517T153219.zip",
+                "dest": "/home/user/Desktop/dashboard_export_20240517T153219.zip"
             }
         },
         {
@@ -35,7 +35,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/init.sh",
+                "src": "evaluation_examples/examples/superset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -49,12 +49,12 @@
     ],
     "trajectory": "trajectories/",
     "evaluator": {
-        "postconfig": [],
         "func": "check_include_exclude",
         "result": {
-            "type": "vm_script_output",
-            "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/eval.sh",
-            "dest": "/home/user/eval.sh"
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/suprset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
         },
         "expected": {
             "type": "rule",

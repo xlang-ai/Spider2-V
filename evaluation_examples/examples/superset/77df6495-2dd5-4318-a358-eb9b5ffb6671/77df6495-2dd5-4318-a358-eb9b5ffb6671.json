@@ -1,9 +1,9 @@
 {
-    "id": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426",
+    "id": "77df6495-2dd5-4318-a358-eb9b5ffb6671",
     "snapshot": "superset",
-    "instruction": "I would like to create a table visualization to show the cost per department for the 'flights' table. Please save this visualization chart named 'Mychart'.",
+    "instruction": "Could you please help me add a new virtual metric named SumCost to calculate the sum of Cost for the table flights and add one virtual calculated column named IntCost to cast cost as Integer.",
     "source": [
-        "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#superset-semantic-layer"
     ],
     "related_apps": [
         "chromium",
@@ -12,13 +12,13 @@
     "tags": [
         "gui"
     ],
-    "action_number": 14,
+    "action_number": 12,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/database_export_20240515T105454.zip",
+                "src": "evaluation_examples/examples/superset/77df6495-2dd5-4318-a358-eb9b5ffb6671/database_export_20240515T105454.zip",
                 "dest": "/home/user/Desktop/database_export_20240515T105454.zip"
             }
         },
@@ -35,7 +35,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/init.sh",
+                "src": "evaluation_examples/examples/superset/77df6495-2dd5-4318-a358-eb9b5ffb6671/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -53,7 +53,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/eval.sh",
+            "src": "evaluation_examples/examples/superset/77df6495-2dd5-4318-a358-eb9b5ffb6671/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {
