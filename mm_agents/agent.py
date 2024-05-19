@@ -30,15 +30,15 @@ def encode_image(image_content):
     return base64.b64encode(image_content).decode('utf-8')
 
 
-def linearize_accessibility_tree(accessibility_tree, platform="ubuntu"):
-    if accessibility_tree is None: return None
+def linearize_accessibility_tree(filtered_nodes: List[ET.Element], add_index: bool = False) -> str:
     # leaf_nodes = find_leaf_nodes(accessibility_tree)
-    filtered_nodes = filter_nodes(ET.fromstring(accessibility_tree), platform)
-    # put text at the last
-    linearized_accessibility_tree = ["tag\tname\tposition (top-left x&y)\tsize (w&h)\ttext"]
+    # first line is headers
+    if add_index:
+        linearized_accessibility_tree = ["TAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
+    else:
+        linearized_accessibility_tree = ["INDEX\tTAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
     # Linearize the accessibility tree nodes into a table format
-
-    for node in filtered_nodes:
+    for idx, node in enumerate(filtered_nodes):
         # linearized_accessibility_tree += node.tag + "\t"
         # linearized_accessibility_tree += node.attrib.get('name') + "\t"
         if node.text:
@@ -58,24 +58,16 @@ def linearize_accessibility_tree(accessibility_tree, platform="ubuntu"):
         # linearized_accessibility_tree += node.attrib.get(
         # , "") + "\t"
         # linearized_accessibility_tree += node.attrib.get('{uri:deskat:component.at-spi.gnome.org}size', "") + "\n"
-        linearized_accessibility_tree.append(
-            "{:}\t{:}\t{:}\t{:}\t{:}".format(
+        entry = f"{idx + 1}\t" if add_index else "" # index starting from 1, see draw_bounding_boxes()
+        entry += "{:}\t{:}\t{:}\t{:}\t{:}".format(
                 node.tag, node.get("name", "")
                 , node.get('{uri:deskat:component.at-spi.gnome.org}screencoord', "")
                 , node.get('{uri:deskat:component.at-spi.gnome.org}size', "")
                 , text
             )
-        )
+        linearized_accessibility_tree.append(entry)
 
     return "\n".join(linearized_accessibility_tree)
-
-
-def tag_screenshot(screenshot, accessibility_tree, platform="ubuntu"):
-    nodes = filter_nodes(ET.fromstring(accessibility_tree), platform=platform, check_image=True)
-    # Make tag screenshot
-    marks, drew_nodes, element_list, tagged_screenshot = draw_bounding_boxes(nodes, screenshot)
-
-    return marks, drew_nodes, tagged_screenshot, element_list
 
 
 def parse_actions_from_string(input_string):
@@ -152,7 +144,7 @@ def parse_code_from_som_string(input_string, masks):
     tag_vars = ""
     for i, mask in enumerate(masks):
         x, y, w, h = mask
-        tag_vars += "tag_" + str(i + 1) + "=" + "({}, {})".format(int(x + w // 2), int(y + h // 2))
+        tag_vars += "index_" + str(i + 1) + " = ({}, {})".format(int(x + w // 2), int(y + h // 2))
         tag_vars += "\n"
 
     actions = parse_code_from_string(input_string)
@@ -205,7 +197,8 @@ class PromptAgent:
         self.actions = []
         self.observations = []
 
-        action_prompt = ACTION_SPACE_PROMPTS[self.action_space]
+        action_key = self.action_space if 'som' not in self.observation_space else self.action_space + '_som'
+        action_prompt = ACTION_SPACE_PROMPTS[action_key]
         observation_prompt = OBSERVATION_SPACE_PROMPTS[self.observation_space]
         self.system_message = SYSTEM_PROMPT.format(action_prompt=action_prompt, observation_prompt=observation_prompt,
                                                    screen_width=screen_size['width'], screen_height=screen_size['height'])
@@ -280,7 +273,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the text of accessibility tree and image of screenshot tagged with labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
+                            "text": "Given the text of accessibility tree and image of screenshot with index labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
                         },
                         {
                             "type": "image_url",
@@ -299,7 +292,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the image of screenshot as below. What's the next step that you will do to help with the task?"
+                            "text": "Given the image of screenshot as below, what's the next step that you will do to help with the task?"
                         },
                         {
                             "type": "image_url",
@@ -318,7 +311,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the text info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
+                            "text": "Given the text of accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
                         }
                     ]
                 })
@@ -338,15 +331,15 @@ class PromptAgent:
         # {{{1
         if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:
             base64_image = encode_image(obs["screenshot"])
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"],
-                                                                         platform=self.platform) if self.observation_space == "screenshot_a11y_tree" else None
-
-            if linearized_accessibility_tree:
-                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
-                                                                        self.a11y_tree_max_tokens)
-            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
             if self.observation_space == "screenshot_a11y_tree":
+                filtered_nodes = filter_nodes(ET.fromstring(obs["accessibility_tree"]), self.platform, check_image=True)
+                linearized_accessibility_tree = linearize_accessibility_tree(filtered_nodes, add_index=False)
+                if linearized_accessibility_tree:
+                    linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
+                                                                        self.a11y_tree_max_tokens)
+                logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+
                 self.observations.append({
                     "screenshot": base64_image,
                     "accessibility_tree": linearized_accessibility_tree
@@ -362,9 +355,9 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the image of screenshot as below. What's the next step that you will do to help with the task?"
+                        "text": "Given the image of screenshot as below, what's the next step that you will do to help with the task?"
                         if self.observation_space == "screenshot"
-                        else "Given the text info from accessibility tree and image of screenshot as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
+                        else "Given the text of accessibility tree and image of screenshot as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     },
                     {
                         "type": "image_url",
@@ -376,7 +369,8 @@ class PromptAgent:
                 ]
             })
         elif self.observation_space == "a11y_tree":
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"], platform=self.platform)
+            filtered_nodes = filter_nodes(ET.fromstring(obs["accessibility_tree"]), self.platform, check_image=True)
+            linearized_accessibility_tree = linearize_accessibility_tree(filtered_nodes, add_index=False)
 
             if linearized_accessibility_tree:
                 linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree, self.a11y_tree_max_tokens)
@@ -392,15 +386,16 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the text info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
+                        "text": "Given the text of accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     }
                 ]
             })
         elif self.observation_space == "som":
             # Add som to the screenshot
-            masks, drew_nodes, tagged_screenshot, linearized_accessibility_tree = tag_screenshot(obs["screenshot"], obs["accessibility_tree"], self.platform)
+            filtered_nodes = filter_nodes(ET.fromstring(obs["accessibility_tree"]), self.platform, check_image=True)
+            masks, drawn_nodes, tagged_screenshot = draw_bounding_boxes(filtered_nodes, obs['screenshot'])
             base64_image = encode_image(tagged_screenshot)
-
+            linearized_accessibility_tree = linearize_accessibility_tree(drawn_nodes, add_index=True)
             if linearized_accessibility_tree:
                 linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree, self.a11y_tree_max_tokens)
             logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
@@ -415,7 +410,7 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the text info from accessibility tree and image of screenshot with tagged labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
+                        "text": "Given the text of accessibility tree and image of screenshot with index labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     },
                     {
                         "type": "image_url",
