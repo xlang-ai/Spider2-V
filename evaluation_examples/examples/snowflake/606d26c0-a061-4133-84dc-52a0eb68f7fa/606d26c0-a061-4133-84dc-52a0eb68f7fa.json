@@ -1,7 +1,7 @@
 {
     "id": "606d26c0-a061-4133-84dc-52a0eb68f7fa",
     "snapshot": "snowflake",
-    "instruction": "",
+    "instruction": "Today my work is to do some research on American Community Survey, 2016. Help me get data from snowflake marketplace. The database name should be the default one. I only care about the table acs-2016-5-e-industry_01_TABLEKEY.",
     "source": [
         "https://quickstarts.snowflake.com/guide/getting_started_with_snowflake/index.html#6"
     ],
