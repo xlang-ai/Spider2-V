@@ -17,7 +17,6 @@
         "cli+gui"
     ],
     "action_number": 15,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -33,7 +32,6 @@
                 "dest": "/home/user/connection_github.json"
             }
         },
-
         {
             "type": "script_and_execute",
             "parameters": {

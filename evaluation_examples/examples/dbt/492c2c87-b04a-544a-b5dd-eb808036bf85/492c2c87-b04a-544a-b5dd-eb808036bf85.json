@@ -53,8 +53,12 @@
             {
                 "type": "rule",
                 "rules": {
-                    "include": ["succeed"],
-                    "exclude": ["failed"]
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
                 }
             },
             {

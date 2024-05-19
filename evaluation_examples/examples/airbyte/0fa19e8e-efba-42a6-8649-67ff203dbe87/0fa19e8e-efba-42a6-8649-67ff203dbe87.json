@@ -1,7 +1,7 @@
 {
     "id": "0fa19e8e-efba-42a6-8649-67ff203dbe87",
     "snapshot": "airbyte",
-    "instruction": "I have created a connection from postgres to snowflake. After the current sync finishes, can you help me add 2 rows to the source database  with values specified in the new_value.txt file on the desktop, then compare the difference of replicated data with data-diff cli and save the results into a csv file (diff_test.csv)? Pay attention to the case of the database name.The Snowflake password is already provided in the desktop's config file. ",
+    "instruction": "I have created a connection from Postgres to Snowflake. After the current sync finishes, can you help me add 2 entries to the source database with values in the opened .txt file? Then, compare the difference of replicated data with data-diff and save the results into `diff_test.csv` on Desktop? The passwords for Postgres and Snowflake are stored in environment variables POSTGRES_PASSWORD and SNOWFLAKE_PASSWORD, respectively.",
     "source": [
         "https://airbyte.com/tutorials/validate-data-replication-postgres-snowflake"
     ],
@@ -17,8 +17,7 @@
         "cli+gui",
         "account"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 4,
+    "action_number": 4,
     "config": [
         {
             "type": "snowflake_init",
@@ -28,6 +27,7 @@
                     {
                         "type": "create_database",
                         "database": "development",
+                        "schema": "customers",
                         "delete_first": true
                     }
                 ]
@@ -81,22 +81,6 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/config.json",
-                "dest": "/home/user/Desktop/config.json"
-            }
-        },
-        {
-            "type": "launch",
-            "parameters": {
-                "command": [
-                    "gedit",
-                    "/home/user/Desktop/config.json"
-                ]
-            }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
                 "src": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/new_value.txt",
                 "dest": "/home/user/Desktop/new_value.txt"
             }
@@ -110,7 +94,6 @@
                 ]
             }
         }
-
     ],
     "trajectory": "trajectories/",
     "evaluator": {

@@ -31,7 +31,7 @@
     "tags": [
         "cli"
     ],
-   "evaluator": {
+    "evaluator": {
         "func": "check_local_database",
         "result": {
             "type": "vm_file",
@@ -45,8 +45,12 @@
         },
         "options": {
             "db_type": "duckdb",
-            "check_type": ["table-schema-content"],
-            "table_targets": ["dim_customers"],
+            "check_type": [
+                "table-schema-content"
+            ],
+            "table_targets": [
+                "dim_customers"
+            ],
             "schema_name": "email_address"
         }
     }

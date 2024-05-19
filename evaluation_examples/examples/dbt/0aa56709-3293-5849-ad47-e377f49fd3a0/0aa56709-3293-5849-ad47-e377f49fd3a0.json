@@ -54,13 +54,110 @@
             {
                 "type": "rule",
                 "rules": [
-                    ["not_null", ["models", ["name", "customers"], "description"], ""],
-                    ["not_null", ["models", ["name", "stg_customers"], "description"], ""],
-                    ["not_null", ["models", ["name", "stg_orders"], "description"], ""],
-                    ["contain", ["models", ["name", "customers"], "columns", ["name", "customer_id"], "description"], "Primary key"],
-                    ["contain", ["models", ["name", "stg_customers"], "columns", ["name", "customer_id"], "description"], "Primary key"],
-                    ["contain", ["models", ["name", "stg_orders"], "columns", ["name", "order_id"], "description"], "Primary key"],
-                    ["contain", ["models", ["name", "customers"], "columns", ["name", "first_order_date"], "description"], "NULL when a customer has not yet placed an order"]
+                    [
+                        "not_null",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "customers"
+                            ],
+                            "description"
+                        ],
+                        ""
+                    ],
+                    [
+                        "not_null",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_customers"
+                            ],
+                            "description"
+                        ],
+                        ""
+                    ],
+                    [
+                        "not_null",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_orders"
+                            ],
+                            "description"
+                        ],
+                        ""
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "customers"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "customer_id"
+                            ],
+                            "description"
+                        ],
+                        "Primary key"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_customers"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "customer_id"
+                            ],
+                            "description"
+                        ],
+                        "Primary key"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_orders"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "order_id"
+                            ],
+                            "description"
+                        ],
+                        "Primary key"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "customers"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "first_order_date"
+                            ],
+                            "description"
+                        ],
+                        "NULL when a customer has not yet placed an order"
+                    ]
                 ]
             },
             {

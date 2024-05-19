@@ -14,7 +14,6 @@
         "account"
     ],
     "action_number": 7,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -55,7 +54,7 @@
             "settings_file": "evaluation_examples/settings/snowflake/settings.json",
             "database": "WORLDWIDE_ADDRESSES",
             "schema": "ADDRESS",
-            "include_type": true, 
+            "include_type": true,
             "dest": "schema.csv"
         },
         "expected": {

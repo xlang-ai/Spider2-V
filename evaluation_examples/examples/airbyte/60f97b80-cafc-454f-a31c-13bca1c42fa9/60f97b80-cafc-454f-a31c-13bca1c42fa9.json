@@ -10,13 +10,12 @@
         "terminal",
         "airbyte",
         "docker",
-        "postgres"
+        "postgresql"
     ],
     "tags": [
         "cli+gui"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 4,
+    "action_number": 4,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -31,7 +30,7 @@
                 "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
                 "dest": "/home/user/Desktop/cities_gold.csv"
             }
-        },       
+        },
         {
             "type": "script_and_execute",
             "parameters": {

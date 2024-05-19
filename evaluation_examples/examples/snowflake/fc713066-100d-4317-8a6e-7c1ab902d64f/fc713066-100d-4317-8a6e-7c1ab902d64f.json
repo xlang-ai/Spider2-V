@@ -67,7 +67,8 @@
                 "type": "vm_file",
                 "path": "/home/user/Desktop/code.py",
                 "dest": "code.py"
-            }],
+            }
+        ],
         "expected": [
             {
                 "type": "local_file",

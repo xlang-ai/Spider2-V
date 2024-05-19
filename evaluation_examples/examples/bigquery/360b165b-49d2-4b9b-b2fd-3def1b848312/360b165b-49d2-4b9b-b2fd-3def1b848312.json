@@ -62,25 +62,35 @@
             "parameters": {
                 "settings_file": "evaluation_examples/settings/googledrive/settings.yml",
                 "actions": [
-                    {   
+                    {
                         "type": "delete",
-                        "path": ["Spider002"],
+                        "path": [
+                            "Spider002"
+                        ],
                         "trash": false
                     },
                     {
                         "type": "mkdirs",
-                        "path": ["Spider002"],
+                        "path": [
+                            "Spider002"
+                        ],
                         "exist_ok": true
                     },
                     {
                         "type": "upload",
                         "src": "evaluation_examples/examples/bigquery/360b165b-49d2-4b9b-b2fd-3def1b848312/data.jsonl",
-                        "path": ["Spider002","data.jsonl"]
+                        "path": [
+                            "Spider002",
+                            "data.jsonl"
+                        ]
                     },
                     {
                         "type": "upload",
                         "src": "evaluation_examples/examples/bigquery/360b165b-49d2-4b9b-b2fd-3def1b848312/schema.txt",
-                        "path": ["Spider002","schema.txt"]
+                        "path": [
+                            "Spider002",
+                            "schema.txt"
+                        ]
                     }
                 ]
             }

@@ -16,8 +16,7 @@
     "tags": [
         "cli+gui"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 20,
+    "action_number": 20,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

@@ -15,7 +15,6 @@
         "gui"
     ],
     "action_number": 19,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

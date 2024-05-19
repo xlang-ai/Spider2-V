@@ -14,7 +14,7 @@
         "account"
     ],
     "config": [
-         {
+        {
             "type": "google_chrome_browser",
             "parameters": {
                 "debugging_port": 1337,
@@ -56,14 +56,24 @@
         "result": {
             "type": "dbt_job_info",
             "name": "check_source",
-            "fields": ["run_generate_sources", "time_type", "time_interval"],
+            "fields": [
+                "run_generate_sources",
+                "time_type",
+                "time_interval"
+            ],
             "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["True", "every_hour", "1"],
-                "exclude": ["None"]
+                "include": [
+                    "True",
+                    "every_hour",
+                    "1"
+                ],
+                "exclude": [
+                    "None"
+                ]
             }
         }
     }
