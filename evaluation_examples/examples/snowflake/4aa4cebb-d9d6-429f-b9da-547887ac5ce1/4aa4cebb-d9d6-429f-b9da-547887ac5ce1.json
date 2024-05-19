@@ -13,6 +13,7 @@
         "gui",
         "account"
     ],
+    "action_number": 10,
     "config": [
         {
             "type": "snowflake_init",

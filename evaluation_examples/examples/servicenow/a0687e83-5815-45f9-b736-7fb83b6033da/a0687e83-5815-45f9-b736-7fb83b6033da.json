@@ -5,13 +5,14 @@
         "WorkArena@CreateProblemTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 4,
     "instruction": "Create a new problem with a value of \"Issue in connecting to internet using modem.\" for field \"Problem statement\" and a value of \"3 - Low\" for field \"Impact\" and a value of \"\" for field \"Service offering\" and a value of \"\" for field \"Assignment group\" and a value of \"3 - Low\" for field \"Urgency\".",
     "config": [
         {
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

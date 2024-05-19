@@ -5,14 +5,15 @@
         "WorkArena@FilterServiceCatalogItemListTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Create a filter for the list to extract all entries where \"Short description\" is \"Request to setup web conferencing\" or \"Type\" is \"Task\" or \"Active\" is \"false\" or \"Category\" is \"Services\" or \"Name\" is \"Web Conferencing\".",
+    "action_number": 10,
+    "instruction": "Create a filter for the list and execute it to extract all entries where \"Short description\" is \"Request to setup web conferencing\" or \"Type\" is \"Task\" or \"Active\" is \"false\" or \"Category\" is \"Services\" or \"Name\" is \"Web Conferencing\".",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

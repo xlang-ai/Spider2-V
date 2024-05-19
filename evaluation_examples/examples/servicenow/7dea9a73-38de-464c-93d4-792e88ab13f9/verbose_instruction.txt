@@ -1,0 +1,12 @@
+We will add 3 sorting methods for the Catalog Items.
+1. Click the funnel icon on the top menu bar (which is the middle icon under page title "servicenow"). The filter will show up after loading.
+2. Click the "Add Sort" button in the row under the funnel icon.
+3. Find the selection bar under prompt "Order results by the following fields", click it and type "Created by". Confirm our choice.
+4. Choose the sorting method "z to a".
+5. Click the "Add Sort" button again.
+6. In the new selection bar, click and type in "Flow". Confirm it.
+7. For sorting option, choose "z to a".
+8. Click the "Add Sort" button again.
+9. In the new selection bar, click and type in "Classic Mobile Picture Type". Confirm it.
+10. For sorting option, choose "z to a".
+11. Finally, click the "Run" button and wait for the results.

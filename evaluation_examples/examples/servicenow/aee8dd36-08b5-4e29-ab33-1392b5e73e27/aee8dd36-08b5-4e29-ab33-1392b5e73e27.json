@@ -5,13 +5,14 @@
         "WorkArena@SortHardwareListTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 13,
     "instruction": "Sort the \"hardware\" list by the following fields:\n - Display name (descending)\n - Cost center (ascending)\n - Stockroom (ascending)",
     "config": [
         {
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

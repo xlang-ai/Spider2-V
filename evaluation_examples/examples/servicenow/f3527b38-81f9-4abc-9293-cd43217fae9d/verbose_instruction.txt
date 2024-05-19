@@ -1,0 +1,8 @@
+We want to order 3 "Sales Laptop" in the hardware store. To do this:
+1. Click the "Hardware" panel and wait for page loading.
+2. In the search bar on the top-right (with text "Search catalog"), click it and type in "Sales Laptop".
+3. Press Enter to filter the items. We will see the desired item panel. Click it.
+4. Let's fill the detailed configuration. For "Optional Software", click all radio boxes except "Adobe Acrobat". In other words, only leave the checkbox unchecked for software "Adobe Acrobat".
+5. For "Additional software requirements", in the wide input box, type in "Salesforce, Zoom, Microsoft Office 365".
+6. Come to the right panel, click and choose the "Quantity" with value "3".
+7. Click the button "Order Now". Wait a few seconds, the request has been made.

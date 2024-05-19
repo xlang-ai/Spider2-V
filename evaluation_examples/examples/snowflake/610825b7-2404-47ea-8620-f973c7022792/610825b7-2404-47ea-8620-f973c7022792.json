@@ -39,7 +39,8 @@
                     "SELECT * FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER",
                     "SELECT S_SUPPKEY, S_NAME, S_ACCTBAL FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER WHERE S_ACCTBAL > 5000",
                     "SELECT S_SUPPKEY, S_NAME, S_ACCTBAL FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER WHERE S_ACCTBAL < 5000 ORDER BY S_ACCTBAL DESC LIMIT 10"
-                ]
+                ],
+                "close": false
             }
         }
     ],

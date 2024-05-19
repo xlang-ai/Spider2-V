@@ -120,12 +120,7 @@ ACTION_SPACE = [
         "action_type": "SCROLL",
         "note": "scroll the mouse wheel up or down",
         "parameters": {
-            "dx": {
-                "type": int,
-                "range": None,
-                "optional": False,
-            },
-            "dy": {
+            "clicks": {
                 "type": int,
                 "range": None,
                 "optional": False,

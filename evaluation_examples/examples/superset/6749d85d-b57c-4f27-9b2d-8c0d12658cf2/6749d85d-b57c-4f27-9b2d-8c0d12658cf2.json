@@ -1,0 +1,71 @@
+{
+    "id": "6749d85d-b57c-4f27-9b2d-8c0d12658cf2",
+    "snapshot": "superset",
+    "instruction": "I would like to view my 'Statistics' dashboard with both the top navigation and title hidden. Additionally, please render the dashboard without the filter bar. Show me it!",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#customizing-dashboard"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 5,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/dashboard_export_20240517T153219.zip",
+                "dest": "/home/user/Desktop/dashboard_export_20240517T153219.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/suprset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "name": "incremental-sync-demo",
+    "namespaceDefinition": "source",
+    "prefix": "",
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "syncCatalog": {
+        "streams": [
+            {
+                "stream": {
+                    "name": "table_one",
+                    "jsonSchema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "airbyte_type": "timestamp_without_timezone"
+                            }
+                        }
+                    },
+                    "supportedSyncModes": [
+                        "full_refresh",
+                        "incremental"
+                    ],
+                    "defaultCursorField": [],
+                    "sourceDefinedPrimaryKey": [
+                        [
+                            "id"
+                        ]
+                    ],
+                    "namespace": "public"
+                },
+                "config": {
+                    "syncMode": "incremental",
+                    "cursorField": [
+                        "updated_at"
+                    ],
+                    "destinationSyncMode": "append",
+                    "primaryKey": [
+                        [
+                            "id"
+                        ]
+                    ],
+                    "aliasName": "table_one",
+                    "selected": true,
+                    "fieldSelectionEnabled": false
+                }
+            }
+        ]
+    },
+    "scheduleType": "basic",
+    "scheduleData": {
+        "basicSchedule": {
+            "timeUnit": "hours",
+            "units": 24
+        }
+    },
+    "status": "active",
+    "geography": "auto"
+}

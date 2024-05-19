@@ -19,10 +19,8 @@ from PIL import Image
 from google.api_core.exceptions import InvalidArgument
 
 from mm_agents.accessibility_tree_wrap.heuristic_retrieve import filter_nodes, draw_bounding_boxes
-from mm_agents.prompts import SYS_PROMPT_IN_SCREENSHOT_OUT_CODE, SYS_PROMPT_IN_SCREENSHOT_OUT_ACTION, \
-    SYS_PROMPT_IN_A11Y_OUT_CODE, SYS_PROMPT_IN_A11Y_OUT_ACTION, \
-    SYS_PROMPT_IN_BOTH_OUT_CODE, SYS_PROMPT_IN_BOTH_OUT_ACTION, \
-    SYS_PROMPT_IN_SOM_OUT_TAG
+# from mm_agents.prompts import *
+from mm_agents.prompt_templates import ACTION_SPACE_PROMPTS, OBSERVATION_SPACE_PROMPTS, SYSTEM_PROMPT
 
 logger = logging.getLogger("desktopenv.agent")
 
@@ -33,35 +31,39 @@ def encode_image(image_content):
 
 
 def linearize_accessibility_tree(accessibility_tree, platform="ubuntu"):
+    if accessibility_tree is None: return None
     # leaf_nodes = find_leaf_nodes(accessibility_tree)
     filtered_nodes = filter_nodes(ET.fromstring(accessibility_tree), platform)
-
-    linearized_accessibility_tree = ["tag\tname\ttext\tposition (top-left x&y)\tsize (w&h)"]
+    # put text at the last
+    linearized_accessibility_tree = ["tag\tname\tposition (top-left x&y)\tsize (w&h)\ttext"]
     # Linearize the accessibility tree nodes into a table format
 
     for node in filtered_nodes:
         # linearized_accessibility_tree += node.tag + "\t"
         # linearized_accessibility_tree += node.attrib.get('name') + "\t"
         if node.text:
-            text = (node.text if '"' not in node.text \
-                        else '"{:}"'.format(node.text.replace('"', '""'))
-                    )
+            text = node.text.strip()
+            # text = (node.text if '"' not in node.text \
+                        # else '"{:}"'.format(node.text.replace('"', '""'))
+                    # )
         elif node.get("{uri:deskat:uia.windows.microsoft.org}class", "").endswith("EditWrapper") \
                 and node.get("{uri:deskat:value.at-spi.gnome.org}value"):
-            text: str = node.get("{uri:deskat:value.at-spi.gnome.org}value")
-            text = (text if '"' not in text \
-                        else '"{:}"'.format(text.replace('"', '""'))
-                    )
+            text: str = node.get("{uri:deskat:value.at-spi.gnome.org}value").strip()
+            # text = (text if '"' not in text \
+                        # else '"{:}"'.format(text.replace('"', '""'))
+                    # )
         else:
-            text = '""'
+            text = ""
+        text = "{:}".format(repr(text))
         # linearized_accessibility_tree += node.attrib.get(
         # , "") + "\t"
         # linearized_accessibility_tree += node.attrib.get('{uri:deskat:component.at-spi.gnome.org}size', "") + "\n"
         linearized_accessibility_tree.append(
             "{:}\t{:}\t{:}\t{:}\t{:}".format(
-                node.tag, node.get("name", ""), text
+                node.tag, node.get("name", "")
                 , node.get('{uri:deskat:component.at-spi.gnome.org}screencoord', "")
                 , node.get('{uri:deskat:component.at-spi.gnome.org}size', "")
+                , text
             )
         )
 
@@ -183,8 +185,9 @@ class PromptAgent:
             top_p=0.9,
             temperature=0.5,
             action_space="computer_13",
-            observation_type="screenshot_a11y_tree",
-            # observation_type can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som"]
+            observation_space="screenshot_a11y_tree",
+            # observation_space can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som"]
+            screen_size={'width': 1920, "height": 1080},
             max_trajectory_length=3,
             a11y_tree_max_tokens=10000
     ):
@@ -194,7 +197,7 @@ class PromptAgent:
         self.top_p = top_p
         self.temperature = temperature
         self.action_space = action_space
-        self.observation_type = observation_type
+        self.observation_space = observation_space
         self.max_trajectory_length = max_trajectory_length
         self.a11y_tree_max_tokens = a11y_tree_max_tokens
 
@@ -202,36 +205,11 @@ class PromptAgent:
         self.actions = []
         self.observations = []
 
-        if observation_type == "screenshot":
-            if action_space == "computer_13":
-                self.system_message = SYS_PROMPT_IN_SCREENSHOT_OUT_ACTION
-            elif action_space == "pyautogui":
-                self.system_message = SYS_PROMPT_IN_SCREENSHOT_OUT_CODE
-            else:
-                raise ValueError("Invalid action space: " + action_space)
-        elif observation_type == "a11y_tree":
-            if action_space == "computer_13":
-                self.system_message = SYS_PROMPT_IN_A11Y_OUT_ACTION
-            elif action_space == "pyautogui":
-                self.system_message = SYS_PROMPT_IN_A11Y_OUT_CODE
-            else:
-                raise ValueError("Invalid action space: " + action_space)
-        elif observation_type == "screenshot_a11y_tree":
-            if action_space == "computer_13":
-                self.system_message = SYS_PROMPT_IN_BOTH_OUT_ACTION
-            elif action_space == "pyautogui":
-                self.system_message = SYS_PROMPT_IN_BOTH_OUT_CODE
-            else:
-                raise ValueError("Invalid action space: " + action_space)
-        elif observation_type == "som":
-            if action_space == "computer_13":
-                raise ValueError("Invalid action space: " + action_space)
-            elif action_space == "pyautogui":
-                self.system_message = SYS_PROMPT_IN_SOM_OUT_TAG
-            else:
-                raise ValueError("Invalid action space: " + action_space)
-        else:
-            raise ValueError("Invalid experiment type: " + observation_type)
+        action_prompt = ACTION_SPACE_PROMPTS[self.action_space]
+        observation_prompt = OBSERVATION_SPACE_PROMPTS[self.observation_space]
+        self.system_message = SYSTEM_PROMPT.format(action_prompt=action_prompt, observation_prompt=observation_prompt,
+                                                   screen_width=screen_size['width'], screen_height=screen_size['height'])
+
 
     def predict(self, instruction: str, obs: Dict) -> List:
         """
@@ -274,7 +252,7 @@ class PromptAgent:
         for previous_obs, previous_action, previous_thought in zip(_observations, _actions, _thoughts):
 
             # {{{1
-            if self.observation_type == "screenshot_a11y_tree":
+            if self.observation_space == "screenshot_a11y_tree":
                 _screenshot = previous_obs["screenshot"]
                 _linearized_accessibility_tree = previous_obs["accessibility_tree"]
 
@@ -283,8 +261,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the screenshot and info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(
-                                _linearized_accessibility_tree)
+                            "text": "Given the text of accessibility tree and image of screenshot as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
                         },
                         {
                             "type": "image_url",
@@ -295,7 +272,26 @@ class PromptAgent:
                         }
                     ]
                 })
-            elif self.observation_type in ["som"]:
+            elif self.observation_space in ["som"]:
+                _screenshot = previous_obs["screenshot"]
+                _linearized_accessibility_tree = previous_obs["accessibility_tree"]
+                messages.append({
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "Given the text of accessibility tree and image of screenshot tagged with labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/png;base64,{_screenshot}",
+                                "detail": "high"
+                            }
+                        }
+                    ]
+                })
+            elif self.observation_space == "screenshot":
                 _screenshot = previous_obs["screenshot"]
 
                 messages.append({
@@ -303,7 +299,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the tagged screenshot as below. What's the next step that you will do to help with the task?"
+                            "text": "Given the image of screenshot as below. What's the next step that you will do to help with the task?"
                         },
                         {
                             "type": "image_url",
@@ -314,26 +310,7 @@ class PromptAgent:
                         }
                     ]
                 })
-            elif self.observation_type == "screenshot":
-                _screenshot = previous_obs["screenshot"]
-
-                messages.append({
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": "Given the screenshot as below. What's the next step that you will do to help with the task?"
-                        },
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": f"data:image/png;base64,{_screenshot}",
-                                "detail": "high"
-                            }
-                        }
-                    ]
-                })
-            elif self.observation_type == "a11y_tree":
+            elif self.observation_space == "a11y_tree":
                 _linearized_accessibility_tree = previous_obs["accessibility_tree"]
 
                 messages.append({
@@ -341,13 +318,12 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(
-                                _linearized_accessibility_tree)
+                            "text": "Given the text info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
                         }
                     ]
                 })
             else:
-                raise ValueError("Invalid observation_type type: " + self.observation_type)  # 1}}}
+                raise ValueError("Invalid observation_space type: " + self.observation_space)  # 1}}}
 
             messages.append({
                 "role": "assistant",
@@ -360,17 +336,17 @@ class PromptAgent:
             })
 
         # {{{1
-        if self.observation_type in ["screenshot", "screenshot_a11y_tree"]:
+        if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:
             base64_image = encode_image(obs["screenshot"])
             linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"],
-                                                                         platform=self.platform) if self.observation_type == "screenshot_a11y_tree" else None
-            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+                                                                         platform=self.platform) if self.observation_space == "screenshot_a11y_tree" else None
 
             if linearized_accessibility_tree:
                 linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
                                                                         self.a11y_tree_max_tokens)
+            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
-            if self.observation_type == "screenshot_a11y_tree":
+            if self.observation_space == "screenshot_a11y_tree":
                 self.observations.append({
                     "screenshot": base64_image,
                     "accessibility_tree": linearized_accessibility_tree
@@ -386,10 +362,9 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the screenshot as below. What's the next step that you will do to help with the task?"
-                        if self.observation_type == "screenshot"
-                        else "Given the screenshot and info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(
-                            linearized_accessibility_tree)
+                        "text": "Given the image of screenshot as below. What's the next step that you will do to help with the task?"
+                        if self.observation_space == "screenshot"
+                        else "Given the text info from accessibility tree and image of screenshot as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     },
                     {
                         "type": "image_url",
@@ -400,14 +375,12 @@ class PromptAgent:
                     }
                 ]
             })
-        elif self.observation_type == "a11y_tree":
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"],
-                                                                         platform=self.platform)
-            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+        elif self.observation_space == "a11y_tree":
+            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"], platform=self.platform)
 
             if linearized_accessibility_tree:
-                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
-                                                                        self.a11y_tree_max_tokens)
+                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree, self.a11y_tree_max_tokens)
+            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
             self.observations.append({
                 "screenshot": None,
@@ -419,21 +392,18 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(
-                            linearized_accessibility_tree)
+                        "text": "Given the text info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     }
                 ]
             })
-        elif self.observation_type == "som":
+        elif self.observation_space == "som":
             # Add som to the screenshot
-            masks, drew_nodes, tagged_screenshot, linearized_accessibility_tree = tag_screenshot(obs["screenshot"], obs[
-                "accessibility_tree"], self.platform)
+            masks, drew_nodes, tagged_screenshot, linearized_accessibility_tree = tag_screenshot(obs["screenshot"], obs["accessibility_tree"], self.platform)
             base64_image = encode_image(tagged_screenshot)
-            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
             if linearized_accessibility_tree:
-                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
-                                                                        self.a11y_tree_max_tokens)
+                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree, self.a11y_tree_max_tokens)
+            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
             self.observations.append({
                 "screenshot": base64_image,
@@ -445,8 +415,7 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the tagged screenshot and info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(
-                            linearized_accessibility_tree)
+                        "text": "Given the text info from accessibility tree and image of screenshot with tagged labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     },
                     {
                         "type": "image_url",
@@ -458,7 +427,7 @@ class PromptAgent:
                 ]
             })
         else:
-            raise ValueError("Invalid observation_type type: " + self.observation_type)  # 1}}}
+            raise ValueError("Invalid observation_space type: " + self.observation_space)  # 1}}}
 
         # with open("messages.json", "w") as f:
         #     f.write(json.dumps(messages, indent=4))
@@ -479,7 +448,7 @@ class PromptAgent:
             actions = self.parse_actions(response, masks)
             self.thoughts.append(response)
         except ValueError as e:
-            print("Failed to parse action from response", e)
+            logger.error(f"[ERROR]: Failed to parse action from response {response}\nERROR_MSG: {e}")
             actions = None
             self.thoughts.append("")
 
@@ -821,7 +790,7 @@ class PromptAgent:
 
     def parse_actions(self, response: str, masks=None):
 
-        if self.observation_type in ["screenshot", "a11y_tree", "screenshot_a11y_tree"]:
+        if self.observation_space in ["screenshot", "a11y_tree", "screenshot_a11y_tree"]:
             # parse from the response
             if self.action_space == "computer_13":
                 actions = parse_actions_from_string(response)
@@ -833,7 +802,7 @@ class PromptAgent:
             self.actions.append(actions)
 
             return actions
-        elif self.observation_type in ["som"]:
+        elif self.observation_space in ["som"]:
             # parse from the response
             if self.action_space == "computer_13":
                 raise ValueError("Invalid action space: " + self.action_space)

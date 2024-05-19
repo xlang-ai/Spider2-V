@@ -12,7 +12,7 @@ token=$(curl -X POST "http://localhost:8088/api/v1/security/login" \
     }' | jq -rM ".access_token")
 
 
-name=MyDatabase
+name=SpiderDatabase
 username=superset
 password=superset
 host=db

@@ -1,0 +1,79 @@
+{
+    "id": "60f97b80-cafc-454f-a31c-13bca1c42fa9",
+    "snapshot": "airbyte",
+    "instruction": "I need you to sync the given airbyte connection , which transfers data from one PostgreSQL database to another and then use command line interface to retrieve and save the output from the 'cities' stream of it. Please extract the first two columns and save them in a CSV file named 'cities.csv'. Could you complete this task? Remember to add edit permissions for the CSV file.",
+    "source": [
+        "https://airbyte.com/tutorials/postgres-replication"
+    ],
+    "related_apps": [
+        "chromium",
+        "terminal",
+        "airbyte",
+        "docker",
+        "postgres"
+    ],
+    "tags": [
+        "cli+gui"
+    ],
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "action_number" : 4,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
+                "dest": "/home/user/Desktop/cities_gold.csv"
+            }
+        },       
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/cities.csv",
+            "dest": "cities.csv"
+        },
+        "expected": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/cities_gold.csv",
+            "dest": "cities_gold.csv"
+        }
+    }
+}

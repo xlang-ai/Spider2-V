@@ -5,13 +5,14 @@
         "WorkArena@SortIncidentListTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 5,
     "instruction": "Sort the \"incidents\" list by the following fields:\n - Caller (ascending)",
     "config": [
         {
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

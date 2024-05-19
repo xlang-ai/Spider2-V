@@ -5,13 +5,14 @@
         "WorkArena@CreateIncidentTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 7,
     "instruction": "Create a new incident with a value of \"Issue with a web page on wiki\" for field \"Short description\" and a value of \"Fred Luddy\" for field \"Caller\" and a value of \"\" for field \"Service\" and a value of \"3 - Low\" for field \"Impact\" and a value of \"\" for field \"Caused by Change\" and a value of \"\" for field \"Parent Incident\" and a value of \"\" for field \"Change Request\" and a value of \"3 - Low\" for field \"Urgency\" and a value of \"\" for field \"Problem\".",
     "config": [
         {
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

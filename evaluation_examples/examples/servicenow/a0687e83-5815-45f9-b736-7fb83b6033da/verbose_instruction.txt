@@ -1,0 +1,6 @@
+Our task is to create new problem record in the opened web page. To do this:
+1. Click the input box after field "Problem statement", type in the text value "Issue in connecting to internet using modem.".
+2. Find the selection box called "Impact" on the right column of this page. Ensure that it has value "3 - Low", otherwise, click and select the entry "3 - Low" in the drop-down menu.
+3. Similarly, find the selection box called "Urgency" which is the third one on the right column of this page. Ensure that it has value "3 - Low", otherwise, click and select the entry "3 - Low" in the drop-down menu.
+4. Leave all other fields not modified, and click the "Submit" button at the top-right of this page.
+(Attention that, although the refresh of the page will clear our work after submission, do not worry, it means our new record has been submitted if there is no error message popping up)

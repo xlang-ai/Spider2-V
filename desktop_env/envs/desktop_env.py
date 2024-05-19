@@ -8,7 +8,7 @@ from typing import Callable, Any, Optional, Tuple
 from typing import List, Dict, Union
 
 import gymnasium as gym
-
+from functools import cached_property
 from desktop_env.controllers.python import PythonController
 from desktop_env.controllers.setup import SetupController
 from desktop_env.evaluators import metrics, getters
@@ -50,10 +50,10 @@ class DesktopEnv(gym.Env):
             snapshot_name: str = "init_state",
             action_space: str = "computer_13",
             cache_dir: str = "cache",
-            screen_size: Tuple[int] = (1920, 1080),
             headless: bool = False,
             require_a11y_tree: bool = True,
             require_terminal: bool = False,
+            proxy: Dict[str, Any] = {}
     ):
         """
         Args:
@@ -66,6 +66,10 @@ class DesktopEnv(gym.Env):
             headless (bool): whether to run the VM in headless mode
             require_a11y_tree (bool): whether to require accessibility tree
             require_terminal (bool): whether to require terminal output
+            proxy (Dict[str, Any]): proxy configuration dict, which includes the following keys:
+                host: host ip address in the eye of VM instance, namely the LAN ip address of the host
+                port: proxy port, usually the port number defined in 127.0.0.1:{port}
+                types: connection types, by default, ['http', 'https'] is enough
         """
 
         # Initialize environment variables
@@ -78,8 +82,11 @@ class DesktopEnv(gym.Env):
         self.require_terminal = require_terminal
 
         # Initialize emulator and controller
-        logger.info("Initializing...")
         self._start_emulator()
+        if self.snapshot_name is not None:
+            self._revert_to_snapshot()
+        self._start_emulator()
+
         self.vm_ip = self._get_vm_ip()
         self.controller = PythonController(vm_ip=self.vm_ip)
         self.setup_controller = SetupController(vm_ip=self.vm_ip, cache_dir=self.cache_dir_base)
@@ -95,11 +102,18 @@ class DesktopEnv(gym.Env):
         self._step_no: int = 0
         self.action_history: List[Dict[str, any]] = []
 
-    @property
+        # proxy initialization
+        self.proxy = proxy
+        if self.proxy: # set the proxy address for the host machine
+            for tp in self.proxy.get("types", ['http', 'https']):
+                os.environ[f'{tp}_proxy'] = f'http://127.0.0.1:{proxy["port"]}'
+            os.environ['no_proxy'] = f'localhost,127.0.0.1,{self.vm_ip}' # add the VM IP to the no_proxy list
+
+    @cached_property
     def vm_platform(self):
         return self.controller.get_vm_platform()
 
-    @property
+    @cached_property
     def vm_screen_size(self):
         return self.controller.get_vm_screen_size()
 
@@ -111,15 +125,24 @@ class DesktopEnv(gym.Env):
                 output: List[str] = output.splitlines()
                 # if self.path_to_vm.lstrip("~/") in output:
                 if self.path_to_vm in output:
-                    logger.info("VM is running.")
+                    logger.info(f"VM of path {self.path_to_vm} is already running ...")
                     break
                 else:
-                    logger.info("Starting VM...")
+                    logger.info(f"Starting VM of path {self.path_to_vm} ...")
                     _execute_command(["vmrun", "-T", "ws", "start", self.path_to_vm]) if not self.headless \
                         else _execute_command(["vmrun", "-T", "ws", "start", self.path_to_vm, "nogui"])
                     time.sleep(3)
             except subprocess.CalledProcessError as e:
                 logger.error(f"Error executing command: {e.output.decode().strip()}")
+
+
+    def _revert_to_snapshot(self, snapshot_name: Optional[str] = None):
+        if snapshot_name is None:
+            snapshot_name = self.snapshot_name
+        logger.info("Reverting to snapshot {} ...".format(snapshot_name))
+        _execute_command(["vmrun", "-T", "ws", "revertToSnapshot", self.path_to_vm, snapshot_name])
+        time.sleep(5)
+
 
     def _get_vm_ip(self):
         max_retries = 20
@@ -213,29 +236,22 @@ class DesktopEnv(gym.Env):
                 or (len(self.metric) == len(self.result_getter) == len(self.expected_getter) == len(
                     self.metric_options)))
 
-    def reset(self, task_config: Optional[Dict[str, Any]] = None, proxy: Dict[str, Any] = {}, seed=None, options=None) -> Dict[str, Any]:
-        logger.info("Resetting environment...")
-
-        logger.info("Switching task...")
-        if task_config is not None:
-            self._set_task_info(task_config)
-            self.setup_controller.reset_cache_dir(self.cache_dir)
-
-        logger.info("Setting counters...")
+    def reset(self, task_config: Optional[Dict[str, Any]] = None, proxy: Dict[str, Any] = {}) -> Dict[str, Any]:
+        logger.info(f"Resetting environment ...")
         self._traj_no += 1
         self._step_no = 0
         self.action_history.clear()
 
-        logger.info("Reverting to snapshot to {}...".format(self.snapshot_name))
-        _execute_command(["vmrun", "-T", "ws", "revertToSnapshot", self.path_to_vm, self.snapshot_name])
-        time.sleep(5)
+        if task_config is not None:
+            self._set_task_info(task_config)
+            self.setup_controller.reset_cache_dir(self.cache_dir)
 
-        logger.info("Starting emulator...")
+        self._revert_to_snapshot()
         self._start_emulator()
-        logger.info("Emulator started.")
 
-        logger.info("Setting up environment...")
-        if proxy: # using proxy to visit some webs, e.g., Google Cloud
+        logger.info("Setting up environment ...")
+        if self.proxy or proxy: # using proxy to visit some webs, e.g., Google Cloud, Snowflake
+            proxy = proxy if proxy else self.proxy
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
         self.setup_controller.setup(self.config)
 
@@ -254,7 +270,8 @@ class DesktopEnv(gym.Env):
         info = {}
 
         # handle the special actions
-        if action in ['WAIT', 'FAIL', 'DONE']:
+        if action in ['WAIT', 'FAIL', 'DONE'] or (type(action) == dict and action['action_type'] in ['WAIT', 'FAIL', 'DONE']):
+            if type(action) == dict: action = action['action_type']
             if action == 'WAIT':
                 time.sleep(pause)
             elif action == 'FAIL':
@@ -263,14 +280,11 @@ class DesktopEnv(gym.Env):
             elif action == 'DONE':
                 done = True
                 info = {"done": True}
-
-        if self.action_space == "computer_13":
-            # the set of all possible actions defined in the action representation
-            self.controller.execute_action(action)
-        elif self.action_space == "pyautogui":
-            if action in ['WAIT', 'FAIL', 'DONE']:
+        else:
+            if self.action_space == "computer_13":
+                # the set of all possible actions defined in the action representation
                 self.controller.execute_action(action)
-            else:
+            elif self.action_space == "pyautogui":
                 # the set of all possible python commands insides `pyautogui`
                 self.controller.execute_python_command(action)
 

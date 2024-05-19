@@ -1,0 +1,6 @@
+We want to sort the incidents list by Caller in ascending order:
+1. Click the funnel icon on the top menu bar (which is the middle icon under page title "servicenow"). The filter will show up after loading.
+2. Click the "Add Sort" button in the row under the funnel icon.
+3. Find the selection bar under prompt "Order results by the following fields", click it to choose option. Type in "Caller" and choose this option.
+4. For the sorting method, click and choose "a to z".
+5. Finally, click the button "Run" and waiting for the execution to finish.

@@ -1,0 +1,8 @@
+To update the email, please follow these steps:
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click the "People" tab on the top bar;
+4. Click the three dots (...) on the right of the John Wilson account;
+5. Choose "Edit user" in the drop-down panel;
+6. Update the Email input box with "johnwilson@outlook.com";
+7. Click the "Update" button on the bottom right.

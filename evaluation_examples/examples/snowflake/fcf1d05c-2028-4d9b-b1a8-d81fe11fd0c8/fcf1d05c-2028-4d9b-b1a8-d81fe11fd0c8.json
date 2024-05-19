@@ -1,19 +1,21 @@
 {
     "id": "fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8",
     "snapshot": "snowflake",
-    "instruction": "Help me write a python worksheet in snowsight to read the contents of a CSV-formatted file containing employee data, data.csv.gz from the company.public.stage named stage and writes the contents to a table called employees. The details of the database and requirements are in the .txt on desktop.",
+    "instruction": "Help me write a python worksheet in snowsight to read the contents of a CSV-formatted file containing student scores data from the students.public.stage named stage and writes the contents to a table called scores. The details of the database and requirements are in the .txt on desktop. You need to create a python file code.py on the desktop and copy your python worksheet code to this file.",
     "source": [
-        "https://docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets"
+        "https://docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets#label-snowsight-py-worksheet-ex-read-stage"
     ],
     "related_apps": [
         "chromium",
         "snowflake",
-        "terminal"
+        "terminal",
+        "vscode"
     ],
     "tags": [
         "cli+gui",
         "account"
     ],
+    "action_number": 11,
     "config": [
         {
             "type": "snowflake_init",
@@ -55,20 +57,33 @@
     ],
     "evaluator": {
         "postconfig": [],
-        "func": "compare_csv",
-        "result": {
-            "type": "snowflake_table_to_csv",
-            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-            "database": "COMPANY",
-            "schema": "PUBLIC",
-            "table": "employees",
-            "include_header": false,
-            "dest": "data.csv"
-        },
-        "expected": {
-            "type": "local_file",
-            "path": "evaluation_examples/examples/snowflake/fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8/data_gold.csv",
-            "dest": "data_gold.csv"
-        }
+        "func": [
+            "compare_csv",
+            "check_file_existence"
+         ],
+        "result": [
+            {
+                "type": "snowflake_table_to_csv",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "STUDENTS",
+                "schema": "PUBLIC",
+                "table": "scores",
+                "include_header": false,
+                "dest": "data.csv"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/Desktop/code.py",
+                "dest": "code.py"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8/data_gold.csv",
+                "dest": "data_gold.csv"
+            },
+            {}
+        ]
     }
 }

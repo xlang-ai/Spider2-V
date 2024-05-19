@@ -38,7 +38,7 @@
                 "actions": [
                     {
                         "type": "login",
-                        "username": "admin", 
+                        "username": "admin",
                         "password": "admin"
                     }
                 ]
@@ -51,7 +51,6 @@
         "chromium"
     ],
     "tags": [
-        "abstract",
         "cli+gui"
     ],
     "evaluator": {
@@ -61,8 +60,7 @@
             "src": "evaluation_examples/examples/airflow/73ef8c87-168d-4c55-b3d6-9a864ef27cb1/eval.sh",
             "dest": "/home/user/eval.sh"
         },
-        "expected": 
-        {
+        "expected": {
             "type": "rule",
             "rules": {
                 "include": [

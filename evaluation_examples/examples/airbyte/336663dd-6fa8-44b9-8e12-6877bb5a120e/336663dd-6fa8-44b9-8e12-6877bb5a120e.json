@@ -10,10 +10,11 @@
         "docker",
         "airbyte",
         "dagster",
-        "terminal"
+        "terminal",
+        "vscode"
     ],
     "tags": [
-        "gui"
+        "cli+gui"
     ],
     "action_number": 15,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",

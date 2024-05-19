@@ -5,13 +5,14 @@
         "WorkArena@OrderDevelopmentLaptopPCTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 7,
     "instruction": "Go to the hardware store and order 10 \"Development Laptop (PC)\" with configuration {'Please specify an operating system': 'Ubuntu', 'What size solid state drive do you want?': '250'}",
     "config": [
         {
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

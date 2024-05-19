@@ -5,13 +5,14 @@
         "WorkArena@OrderDeveloperLaptopTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
+    "action_number": 8,
     "instruction": "Go to the hardware store and order 3 \"Developer Laptop (Mac)\" with configuration {'Additional software requirements': 'Salesforce, QuickBooks, Zoom, Microsoft Office 365, Asana, Adobe Creative Cloud', 'Adobe Acrobat': False, 'Adobe Photoshop': True, 'Eclipse IDE': False}",
     "config": [
         {
@@ -35,8 +36,7 @@
         "postconfig": [],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",

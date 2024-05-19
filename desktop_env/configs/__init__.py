@@ -57,4 +57,7 @@ from .googledrive import (
     googledrive_login_setup
 )
 
-from .servicenow import workarena_task_init_setup
+from .servicenow import (
+    workarena_task_init_setup,
+    workarena_unique_fields_setup
+)

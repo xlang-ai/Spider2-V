@@ -31,7 +31,7 @@
                 "actions": [
                     {
                         "type": "login",
-                        "username": "admin", 
+                        "username": "admin",
                         "password": "admin"
                     }
                 ]
@@ -44,7 +44,6 @@
         "chromium"
     ],
     "tags": [
-        "abstract",
         "gui"
     ],
     "evaluator": {

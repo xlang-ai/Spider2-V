@@ -1,11 +1,7 @@
 #!/bin/bash
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate astro
-cd /home/user/projects/astro_Project
-
 # Navigate to the project directory
-cd ~/projects/astro_Project
+cd /home/user/projects/astro_Project
 
 if [ $? -ne 0 ]; then
     echo "Project directory navigation failed."

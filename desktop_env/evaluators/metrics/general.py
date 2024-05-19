@@ -494,7 +494,20 @@ def compare_python_pure_text(py_file_path, gold_file_path):
         return 1
     else:
         return 0
+    
 
+def check_file_existence(result: str) -> float:
+    if result is None:
+        return 0.
+    
+    # Check if the file exists
+    export_file_exists = os.path.isfile(result)
+    if not export_file_exists:
+        return 0.
+    else:
+        return 1.
+
+    
 if __name__ == '__main__':
     print(check_direct_json_object([], rules={
                 "relativeTime": {

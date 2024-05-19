@@ -56,7 +56,8 @@ function create_database() {
         -H "Authorization: Bearer ${token}" \
         -d '{
                 "database_name":"MyDatabase",
-                "sqlalchemy_uri": "postgresql://superset:superset@db:5432/superset"
+                "sqlalchemy_uri": "postgresql://superset:superset@db:5432/superset",
+                "allow_file_upload": true
         }'
     )
 }

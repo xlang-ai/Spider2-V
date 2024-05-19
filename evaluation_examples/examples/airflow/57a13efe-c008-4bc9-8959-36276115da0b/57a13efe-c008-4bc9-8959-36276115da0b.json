@@ -38,7 +38,7 @@
                 "actions": [
                     {
                         "type": "login",
-                        "username": "admin", 
+                        "username": "admin",
                         "password": "admin"
                     }
                 ]
@@ -52,7 +52,6 @@
         "docker"
     ],
     "tags": [
-        "abstract",
         "cli+gui"
     ],
     "evaluator": {

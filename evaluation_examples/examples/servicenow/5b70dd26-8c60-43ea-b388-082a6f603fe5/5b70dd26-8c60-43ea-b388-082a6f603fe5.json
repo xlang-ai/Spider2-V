@@ -5,14 +5,15 @@
         "WorkArena@KnowledgeBaseSearchTask"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "account"
     ],
     "related_apps": [
         "chromium",
         "servicenow"
     ],
-    "action_number": 0,
-    "instruction": "Answer the following question using the knowledge base: \"Which firm is in charge of office event catering? State the name of the catering firm.\"",
+    "action_number": 10,
+    "instruction": "Answer the following question using the knowledge base: \"Which firm is in charge of office event catering?\". Find the name of the catering firm and write this answer into the opened .txt file.",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -29,14 +30,62 @@
                 "task_name": "KnowledgeBaseSearchTask",
                 "task_kwargs": {}
             }
+        },
+        {
+            "type": "execute",
+            "parameters": {
+                "command": [
+                    "touch",
+                    "/home/user/Desktop/answer.txt"
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/answer.txt"
+                ]
+            }
         }
     ],
     "evaluator": {
-        "postconfig": [],
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "gedit"
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
         "result": {
             "type": "workarena_task_result",
-            "settings_file": "evaluation_examples/settings/servicenow/settings.json",
-            "listening_port": 9222
+            "path": "/home/user/Desktop/answer.txt",
+            "dest": "answer.txt",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
         },
         "expected": {
             "type": "rule",
