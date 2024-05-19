@@ -17,7 +17,7 @@
         "cli+gui",
         "account"
     ],
-    "action_number": 10,
+    "action_number": 23,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
