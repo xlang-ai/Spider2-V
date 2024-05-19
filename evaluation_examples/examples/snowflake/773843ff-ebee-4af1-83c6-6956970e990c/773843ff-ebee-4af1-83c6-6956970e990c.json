@@ -1,0 +1,82 @@
+{
+    "id": "773843ff-ebee-4af1-83c6-6956970e990c",
+    "snapshot": "snowflake",
+    "instruction": "Help me use Hasura Cloud to connect to my Snowflake database and query data using GraphQL. You need to launch the current project console and connect to snowflake database VIDEOS. The information about JDBC string is in the information.txt file on the desktop. Then, write GraphQL query to find items' customer_id and created_date whose WAS_SUBSCRIPTION_PAID is \"Yes\". The offset of this query is 50 and the limit is 100. Finally, you need to create a result.txt file on the Desktop and copy the query results to this file.",
+    "source": [
+        "https://quickstarts.snowflake.com/guide/accelerate_your_graphql_development_on_snowflake_with_hasura/index.html",
+        "https://docs.snowflake.com/developer-guide/jdbc/jdbc-configure#jdbc-driver-connection-string",
+        "https://docs.snowflake.com/user-guide/admin-account-identifier"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake",
+        "hasura",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "account"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/773843ff-ebee-4af1-83c6-6956970e990c/information.txt",
+                "dest": "/home/user/Desktop/information.txt"
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/773843ff-ebee-4af1-83c6-6956970e990c/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "hasura_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://cloud.hasura.io/signup/email",
+                "settings_file": "evaluation_examples/settings/hasura_cloud/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_text_file",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.txt",
+            "dest": "result.txt"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/773843ff-ebee-4af1-83c6-6956970e990c/result_gold.txt",
+            "dest": "result_gold.csv"
+        }
+    }
+}
