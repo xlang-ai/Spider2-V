@@ -17,6 +17,8 @@ exec 2>/dev/null
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
+PASSWORD=password
+echo $PASSWORD | sudo -S systemctl stop postgresql
 
 POSTGRES_VERSION=16-alpine
 # Start a source Postgres container running at port 5432 on localhost

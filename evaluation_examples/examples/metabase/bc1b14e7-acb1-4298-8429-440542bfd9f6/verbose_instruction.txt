@@ -1,0 +1,10 @@
+To finish this task, please follow these steps:
+
+1. Click the "Browse Data" button on the left-side panel;
+2. Click into Sample Database;
+3. Click People.
+4. Click Summarize on the top right corner.
+5. At "Pick a column to group by", choose "State".
+6. Click Done.
+7. On the Region Map generated on the left, find the result for number of people who live in Iowa, Montana and Texas, which are 104, 108, 194 respectively.
+8. Fill them in the excel file.

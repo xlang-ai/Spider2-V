@@ -12,10 +12,11 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate airbyte
-echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate airbyte" >> ~/.bashrc
+# source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda activate airbyte
+# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+# echo "conda activate airbyte" >> ~/.bashrc
+
 cd /home/user/projects
 mv /home/user/ecommerce_analytics.zip .
 unzip -q ecommerce_analytics.zip

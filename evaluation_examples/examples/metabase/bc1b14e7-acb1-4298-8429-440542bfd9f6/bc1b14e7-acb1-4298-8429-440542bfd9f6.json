@@ -1,9 +1,9 @@
 {
-    "id": "e98bc40b-68c1-4699-a660-79c9948e1e13",
+    "id": "bc1b14e7-acb1-4298-8429-440542bfd9f6",
     "snapshot": "metabase",
-    "instruction": "I need to make a pivot table of the Orders table in Sample Database. Please help me create one with the metric \"Sum of Subtotal\", and choose colomns \"Create At: Year\", \"Product -> Category\" and \"User -> State\" to group by. Save the results as a .xlsx file named \"query_result.xlsx\" in /home/user and sort the data ascendingly by \"Sum of Subtotal\".",
+    "instruction": "I am doing some data analysis on People table in Sample Database in Metabase and my data is saved to the file people_state.xlsx in /home/user. There are three blanks in the file, corresponding to the number of entries whose State is Iowa, Montana, Texas, respectively. Please fill in the blanks with the correct numbers.",
     "source": [
-        "https://www.metabase.com/learn/visualization/how-to-create-pivot-tables"
+        "https://www.metabase.com/learn/visualization/maps"
     ],
     "related_apps": [
         "chromium",
@@ -13,12 +13,20 @@
     "tags": [
         "gui"
     ],
-    "action_number": 16,
+    "action_number": 8,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/bc1b14e7-acb1-4298-8429-440542bfd9f6/people_state.xlsx",
+                "dest": "/home/user/people_state.xlsx"
+            }
+        },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/e98bc40b-68c1-4699-a660-79c9948e1e13/init.sh",
+                "src": "evaluation_examples/examples/metabase/bc1b14e7-acb1-4298-8429-440542bfd9f6/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -43,6 +51,12 @@
                     }
                 ]
             }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/people_state.xlsx"
+            }
         }
     ],
     "trajectory": "trajectories/",
@@ -51,7 +65,7 @@
             {
                 "type": "activate_window",
                 "parameters": {
-                    "window_name": "query_result.xlsx - LibreOffice Calc",
+                    "window_name": "people_state.xlsx - LibreOffice Calc",
                     "strict": true
                 }
             },
@@ -81,13 +95,13 @@
         "func": "compare_table",
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/metabase/e98bc40b-68c1-4699-a660-79c9948e1e13/query_result_gold.xlsx",
-            "dest": "query_result_gold.xlsx"
+            "path": "evaluation_examples/examples/metabase/bc1b14e7-acb1-4298-8429-440542bfd9f6/people_state_gold.xlsx",
+            "dest": "people_state_gold.xlsx"
         },
         "result": {
             "type": "vm_file",
-            "path": "/home/user/query_result.xlsx",
-            "dest": "query_result.xlsx"
+            "path": "/home/user/people_state.xlsx",
+            "dest": "people_state.xlsx"
         },
         "options": {
             "rules": [

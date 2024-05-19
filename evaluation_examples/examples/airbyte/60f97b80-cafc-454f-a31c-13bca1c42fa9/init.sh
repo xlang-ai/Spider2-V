@@ -16,16 +16,13 @@ exec 2>/dev/null
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
-mkdir -p /home/user/projects
+# mkdir -p /home/user/projects
 
+PASSWORD=password
+echo $PASSWORD | sudo -S systemctl stop postgresql
 # configure Postgres
 POSTGRES_VERSION=16-alpine
-# Start a source Postgres container running at port 2000 on localhost
 docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
-# Start a destination Postgres container running at port 3000 on localhost
-# docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres:${POSTGRES_VERSION}
-# docker exec $CONTAINER_NAME mkdir -p /data
-# docker run -v /home/user/Desktop:/data --name airbyte-destination -e POSTGRES_PASSWORD=password -d postgres:${POSTGRES_VERSION}
 docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -v /home/user/Desktop:/data -d postgres:${POSTGRES_VERSION}
 # start airbyte local server
 function start_airbyte_server() {

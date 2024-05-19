@@ -17,8 +17,10 @@
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
-PASSWORD=password
 
+
+PASSWORD=password
+echo $PASSWORD | sudo -S systemctl stop mysql
 # configure the MySQL Database and load init data
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3306
