@@ -9,6 +9,7 @@
         "chromium",
         "airbyte",
         "docker",
+        "postgresql",
         "terminal",
         "snowflake"
     ],

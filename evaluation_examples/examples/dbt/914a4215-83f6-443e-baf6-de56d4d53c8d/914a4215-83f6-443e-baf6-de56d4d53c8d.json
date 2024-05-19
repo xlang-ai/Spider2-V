@@ -5,7 +5,7 @@
     "source": [
         "https://docs.getdbt.com/docs/collaborate/build-and-view-your-docs"
     ],
-    "related-apps": [
+    "related_apps": [
         "dbt",
         "chromium"
     ],

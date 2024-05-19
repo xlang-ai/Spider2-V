@@ -43,7 +43,7 @@
     "related_apps": [
         "airflow",
         "chromium",
-        "MinIO"
+        "minio"
     ],
     "tags": [
         "cli+gui"

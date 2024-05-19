@@ -17,10 +17,12 @@ exec 2>/dev/null
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
+PASSWORD=password
+echo $PASSWORD | sudo -S systemctl stop postgresql
 
 POSTGRES_VERSION=16-alpine
 # Start a source Postgres container running at port 5432 on localhost
-docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password123 -p 5432:5432 -d postgres:${POSTGRES_VERSION}
+docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password123 -p 5432:5432 -d postgres:${POSTGRES_VERSION}
 
 
 # start airbyte local server
@@ -144,11 +146,7 @@ rm /home/user/connection_github.json
 rm /home/user/connection_github_new.json
 
 # set up dagster
-git clone https://github.com/OwenKephart/airbyte_demo.git
-cd airbyte_demo
-# change python file EventMetaData 
-sed -i 's/EventMetadata/MetadataValue/g' /home/user/projects/airbyte/airbyte_demo/airbyte_demo/slack_github_analytics.py
-pip install -e .
+
 
 gnome-terminal --maximize --working-directory=/home/user/projects/airbyte/airbyte_demo
 

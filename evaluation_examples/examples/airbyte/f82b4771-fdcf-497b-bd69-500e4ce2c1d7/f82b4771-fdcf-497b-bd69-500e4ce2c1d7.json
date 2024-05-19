@@ -9,7 +9,7 @@
         "chromium",
         "airbyte",
         "docker",
-        "postgres"
+        "postgresql"
     ],
     "tags": [
         "gui"
