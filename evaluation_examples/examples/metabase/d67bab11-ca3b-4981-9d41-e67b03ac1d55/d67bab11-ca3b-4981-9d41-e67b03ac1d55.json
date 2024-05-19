@@ -1,0 +1,79 @@
+{
+    "id": "d67bab11-ca3b-4981-9d41-e67b03ac1d55",
+    "snapshot": "metabase",
+    "instruction": "Please help me set up a data model with the SQL query in the opened 'model_query.sql'. Then download the Metadata modeling results as \"model.json\" on the Desktop.",
+    "source": [
+        "https://www.metabase.com/learn/data-modeling/models#a-model-example"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 10,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/d67bab11-ca3b-4981-9d41-e67b03ac1d55/model_query.sql",
+                "dest": "/home/user/model_query.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/d67bab11-ca3b-4981-9d41-e67b03ac1d55/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/model_query.sql"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_json_file",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/model.json",
+            "dest": "model.json"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/d67bab11-ca3b-4981-9d41-e67b03ac1d55/model_gold.json",
+            "dest": "model_gold.json"
+        }
+    }
+}

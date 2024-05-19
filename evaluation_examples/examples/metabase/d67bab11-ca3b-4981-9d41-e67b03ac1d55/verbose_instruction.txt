@@ -1,0 +1,13 @@
+To finish this task, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Model" in the drop-down panel;
+3. Click on the "Use a native query" card.
+4. Copy the SQL query in 'model_query.sql' file and paste it in input panel.
+5. Click the "Run query" button on the right side, and check the output data.
+6. Click on "Save" button on the top right corner;
+7. Type in "model1" under "name", and click "Save".
+8. Click on the button to the right bottom corner "Download full results".
+9. Click on ".json".
+10. Switch to "/home/user/Downloads" folder, and rename the json file as "model.json".
+11. Copy and Paste it to the Desktop.
