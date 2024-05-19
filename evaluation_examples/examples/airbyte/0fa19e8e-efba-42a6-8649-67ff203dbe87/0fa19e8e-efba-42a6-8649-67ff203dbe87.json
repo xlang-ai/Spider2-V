@@ -17,7 +17,7 @@
         "cli+gui",
         "account"
     ],
-    "action_number": 4,
+    "action_number": 14,
     "config": [
         {
             "type": "snowflake_init",
