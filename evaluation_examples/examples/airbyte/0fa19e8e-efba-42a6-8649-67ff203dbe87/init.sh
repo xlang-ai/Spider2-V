@@ -98,8 +98,8 @@ curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: 
     \"connectionConfiguration\": {
         \"host\": \"${SNOWFLAKE_ACCOUNT}\",
         \"role\": \"ACCOUNTADMIN\",
-        \"schema\": \"customers\",
-        \"database\": \"development\",
+        \"schema\": \"CUSTOMERS\",
+        \"database\": \"DEVELOPMENT\",
         \"username\": \"${SNOWFLAKE_USER}\",
         \"warehouse\": \"COMPUTE_WH\",
         \"credentials\": {

@@ -1,4 +1,4 @@
-In this task, we want to add 2 rows with specific values to the source database and use data-diff in terminal to check the difference of replicated data in the connection from Postgres to Snowflake: 
+In this task, we want to add 2 rows with specific values to the source database and use `data-diff [Snowflake] [Postgres]` in terminal to check the difference of replicated data in the connection from Postgres to Snowflake: 
 1. Switch to the browser window;
 2. Wait for the syn to finish. Then click this connection row.
 3. We need to figure out the source database name. In the connection configuration page, click the "Postgres" icon (with the Postgres elephant on the left) to enter the source settings.
@@ -33,4 +33,5 @@ Remember to replace ${container_id} with concrete container id discovered in pre
 ```data-diff DB1_URI TABLE1_NAME DB2_URI TABLE2_NAME > diff_test.csv```
     (1) "DB1_URI" is in the form of "snowflake://[username]:[password]@[account]/[DATABASE]/[SCHEMA]?warehouse=[WAREHOUSE]&role=[ROLE]". Remember to replace "[xxx]" with concrete values we recorded earlier.
     (2) "DB2_URI" is in the format of "postgresql://[username]:[password]@localhost:5432/[database]". Remember to replace "[xxx]" with concrete values we recorded earlier.
-    (3) Note that [DATABASE], [SCHEMA], [WAREHOUSE], [ROLE], and TABLE1_NAME for DB1 should be in uppercase, and TABLE2_NAME for DB2 should also include the schema.
+    (3) Note that, [DATABASE], [SCHEMA], [WAREHOUSE], [ROLE], and TABLE1_NAME for DB1 Snowflake should be in uppercase;
+    (4) Note that, TABLE2_NAME for DB2 Postgres should also include the schema.

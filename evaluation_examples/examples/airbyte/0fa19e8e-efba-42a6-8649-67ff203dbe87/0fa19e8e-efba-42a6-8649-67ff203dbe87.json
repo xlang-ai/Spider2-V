@@ -1,7 +1,7 @@
 {
     "id": "0fa19e8e-efba-42a6-8649-67ff203dbe87",
     "snapshot": "airbyte",
-    "instruction": "I have created a connection from Postgres to Snowflake. After the current sync finishes, can you help me add 2 entries to the source database with values in the opened .txt file? Then, compare the difference of replicated data with data-diff and save the results into `diff_test.csv` on Desktop? The passwords for Postgres and Snowflake are stored in environment variables POSTGRES_PASSWORD and SNOWFLAKE_PASSWORD, respectively.",
+    "instruction": "I have created a connection from Postgres to Snowflake. After the current sync finishes, can you help me add 2 entries to the source database with values in the opened .txt file? Then, compare the difference of replicated data with `data-diff [Snowflake] [Postgres]` and save the results into `diff_test.csv` on Desktop? The passwords for Postgres and Snowflake are stored in environment variables POSTGRES_PASSWORD and SNOWFLAKE_PASSWORD, respectively.",
     "source": [
         "https://airbyte.com/tutorials/validate-data-replication-postgres-snowflake"
     ],
