@@ -235,9 +235,12 @@ class DesktopEnv(gym.Env):
         self._start_emulator()
 
         logger.info("Setting up environment ...")
+        if not self.setup_controller._network_setup(self.vm_platform):
+            logger.error("Network is not available!")
         if self.proxy or proxy: # using proxy to visit some webs, e.g., Google Cloud, Snowflake
             proxy = proxy if proxy else self.proxy
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
+            logger.info(f"Set http(s) proxy to: {proxy['host']}:{proxy['port']}")
         if task_config is not None:
             self.setup_controller.setup(self.config)
 

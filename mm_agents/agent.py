@@ -166,10 +166,15 @@ def parse_code_from_string(input_string):
 def parse_code_from_som_string(input_string, masks):
     # parse the output string by masks
     tag_vars = ""
-    for i, mask in enumerate(masks):
-        x, y, w, h = mask
-        tag_vars += "index_" + str(i + 1) + " = ({}, {})".format(int(x + w // 2), int(y + h // 2))
-        tag_vars += "\n"
+    indexes = re.findall(r"index_(\d+)", input_string)
+    for index in indexes:
+        try:
+            x = int(index) - 1
+            if 0 <= x < len(masks):
+                x, y, w, h = masks[x]
+                tag_vars += "index_" + index + " = ({}, {})".format(int(x + w // 2), int(y + h // 2))
+                tag_vars += "\n"
+        except: pass
 
     actions = parse_code_from_string(input_string)
 
@@ -366,11 +371,13 @@ class PromptAgent:
 
                 self.observations.append({
                     "screenshot": base64_image,
+                    "raw_screenshot": obs["screenshot"],
                     "accessibility_tree": linearized_accessibility_tree
                 })
             else:
                 self.observations.append({
                     "screenshot": base64_image,
+                    "raw_screenshot": obs["screenshot"],
                     "accessibility_tree": None
                 })
 
@@ -426,6 +433,7 @@ class PromptAgent:
 
             self.observations.append({
                 "screenshot": base64_image,
+                "raw_screenshot": tagged_screenshot,
                 "accessibility_tree": linearized_accessibility_tree
             })
 

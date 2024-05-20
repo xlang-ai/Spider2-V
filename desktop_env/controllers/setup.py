@@ -70,6 +70,23 @@ class SetupController:
         return results
 
 
+    def _network_setup(self, vm_platform: str = "Linux"):
+        """ Check the network status of the VM. If failed to connect to the internet, try restarting the network service. If still faied, return False. Otherwise, return True.
+        """
+        old_level = logger.getEffectiveLevel()
+        logger.setLevel(logging.ERROR)
+        if vm_platform == "Linux":
+            network_script = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'network.sh')
+            self._upload_file_setup(files=[{"local_path": network_script, "path": "/home/user/network.sh"}])
+            results = self._execution_result(command=["/bin/bash", "/home/user/network.sh"])['output']
+            self._execute_setup(command=["rm", "-rf", "/home/user/network.sh"])
+        else:
+            results = 'succeed'
+            logger.warning(f"Network check for {vm_platform} is not implemented.")
+        logger.setLevel(old_level)
+        return 'succeed' in results
+
+
     def _proxy_setup(self, proxy: Dict[str, Any], controller: PythonController = None):
         """ Setup the system-level proxy for VM during env.reset(). Please ensure that:
         1. the proxy is running on the host and ALLOW connections from a local LAN, or the listening address is 0.0.0.0 instead of 127.0.0.1
@@ -83,9 +100,9 @@ class SetupController:
                 conn_types(List[str]): connection types, chosen from http, https, ftp, socks5. By default, using http and https is enough.
         """
         host, port, types = proxy['host'], proxy['port'], proxy.get('types', ['http', 'https'])
-        vm_platform = controller.get_vm_platform()
         old_level = logger.getEffectiveLevel()
         logger.setLevel(logging.ERROR)
+        vm_platform = controller.get_vm_platform()
         if vm_platform == 'Linux':
             self._execute_setup(command=['gsettings', 'set', 'org.gnome.system.proxy', 'mode', 'manual'], shell=False)
             for conn_type in types:
