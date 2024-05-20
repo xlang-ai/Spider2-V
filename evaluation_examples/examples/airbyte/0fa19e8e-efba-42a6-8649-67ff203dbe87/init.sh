@@ -5,7 +5,6 @@
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Some images should be pre-downloaded in VM snapshots to accelerate the process.
 # Please ensure the snowflake settings.json and connection.json is copied to the home directory.
-# BTW, a database named COVID19 should be created in Snowflake.
 # This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 

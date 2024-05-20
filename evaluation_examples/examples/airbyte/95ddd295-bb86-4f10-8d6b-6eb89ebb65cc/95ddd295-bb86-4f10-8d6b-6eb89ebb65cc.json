@@ -14,7 +14,7 @@
     "tags": [
         "gui"
     ],
-    "action_number": 19,
+    "action_number": 20,
     "config": [
         {
             "type": "script_and_execute",

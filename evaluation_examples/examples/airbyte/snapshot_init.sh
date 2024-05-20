@@ -35,6 +35,19 @@ declare -a image_list=(
     "postgres:${POSTGRES_VERSION}"
     "mysql:${MYSQL_VERSION}"
     "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
+    "airbyte/source-postgres:3.3.18"
+    "airbyte/source-faker:6.0.3"
+    "airbyte/source-bigquery:0.4.2"
+    "airbyte/source-slack:0.4.0"
+    "airbyte/source-github:1.7.0"
+    "airbyte/source-mysql:3.3.13"
+    "airbyte/source-file:0.5.0"
+    "airbyte/source-snowflake:0.3.1"
+    "airbyte/destination-csv:1.0.0"
+    "airbyte/destination-sqlite:0.1.0"
+    "airbyte/destination-local-json:0.2.11"
+    "airbyte/destination-postgres:2.0.4"
+    "airbyte/destination-snowflake:3.6.4"
 )
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
 for img in ${image_list[@]}; do
