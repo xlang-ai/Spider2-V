@@ -9,7 +9,7 @@ conda create -n airbyte python=3.11 -y
 conda activate airbyte
 pip install dbt-snowflake==1.7.3 pytest==8.1.1 # for case 95ddd295-bb86-4f10-8d6b-6eb89ebb65cc
 pip install data-diff==0.2.0 # for case 0fa19e8e-efba-42a6-8649-67ff203dbe87
-pip install pydantic>=1.10.15
+pip install "pydantic>=1.10.15"
 echo $PASSWORD | sudo -S apt-get install -y libpq-dev=9.0.0
 pip install 'data-diff[postgresql]'
 pip install 'data-diff[snowflake]'
