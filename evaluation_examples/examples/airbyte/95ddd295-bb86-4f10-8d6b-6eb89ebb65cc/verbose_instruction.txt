@@ -9,12 +9,13 @@ In this task, we want to create a connection from Postgres to Postgres with CDC 
 8. Then, in the search bar on the right, type in "Postgres" and you should see a panel with the name "Postgres" below;
 9. Click this panel;
 10. Based on the "destination Postgres" details in the desktop config.json file, enter the configuration parameters in the appropriate fields;
-11. Click the "Set up destination" button to create the destination connector;
-12. Once "all tests passed" is displayed, click the "Connections" link on the left panel;
-13. Then, click the "Create your first connection" button on the right;
-14. In the "Define source" step, choose "select an existing source";
-15. Click on the "Postgres" source link below;
-16. After that, in the "Define destination" step, choose "select an existing destination";
-17. Click on the "Postgres" destination link below;
-18. In the "Connection configuration" step, enter the parameters in the appropriate fields based on the "connection" details in the config.json file;
-19. Click the "Set up connection" button at the bottom right of the page to complete the connection setup.
+11. Note that, for private field "Password" whose input box may not be visible, you need to click the toggle link with text "Optional fields" in order to expand the hidden fields.
+12. After finishing all content, click the "Set up destination" button to create the destination connector;
+13. Once "all tests passed" is displayed, click the "Connections" link on the left panel;
+14. Then, click the "Create your first connection" button on the right;
+15. In the "Define source" step, choose "select an existing source";
+16. Click on the "Postgres" source link below;
+17. After that, in the "Define destination" step, choose "select an existing destination";
+18. Click on the "Postgres" destination link below. You may need to wait for some time;
+19. In the "Connection configuration" step, enter the parameters in the appropriate fields based on the "connection" details in the config.json file;
+20. Click the "Set up connection" button at the bottom right of the page to complete the connection setup.

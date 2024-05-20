@@ -14,7 +14,6 @@
         "account"
     ],
     "action_number": 4,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",

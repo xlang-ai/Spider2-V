@@ -16,7 +16,6 @@
         "account"
     ],
     "action_number": 17,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "snowflake_init",

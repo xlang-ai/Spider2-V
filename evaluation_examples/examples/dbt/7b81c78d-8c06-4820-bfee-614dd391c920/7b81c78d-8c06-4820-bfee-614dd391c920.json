@@ -52,8 +52,12 @@
         },
         "options": {
             "db_type": "duckdb",
-            "check_type": ["table-schema-content"],
-            "table_targets": ["orders_snapshot"],
+            "check_type": [
+                "table-schema-content"
+            ],
+            "table_targets": [
+                "orders_snapshot"
+            ],
             "schema_name": "snapshots"
         }
     }

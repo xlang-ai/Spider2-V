@@ -106,7 +106,9 @@
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["logistic_model"]
+                "include": [
+                    "logistic_model"
+                ]
             }
         }
     }

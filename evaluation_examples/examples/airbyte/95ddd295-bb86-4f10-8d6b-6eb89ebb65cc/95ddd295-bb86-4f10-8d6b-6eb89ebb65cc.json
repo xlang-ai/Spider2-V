@@ -9,13 +9,12 @@
         "chromium",
         "airbyte",
         "docker",
-        "postgres"
+        "postgresql"
     ],
     "tags": [
         "gui"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 19,
+    "action_number": 20,
     "config": [
         {
             "type": "script_and_execute",
@@ -61,7 +60,6 @@
                 ]
             }
         }
-
     ],
     "trajectory": "trajectories/",
     "evaluator": {

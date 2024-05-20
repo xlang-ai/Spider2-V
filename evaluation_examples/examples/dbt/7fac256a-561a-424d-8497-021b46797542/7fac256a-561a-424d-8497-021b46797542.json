@@ -62,14 +62,24 @@
             "type": "dbt_job_info",
             "name": "Sales_Summary",
             "prev_name": "Sales_Process",
-            "fields": ["job_completion_trigger_condition"],
+            "fields": [
+                "job_completion_trigger_condition"
+            ],
             "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["matched", "10"],
-                "exclude": ["mismatched", "20", "30", "None"]
+                "include": [
+                    "matched",
+                    "10"
+                ],
+                "exclude": [
+                    "mismatched",
+                    "20",
+                    "30",
+                    "None"
+                ]
             }
         }
     }

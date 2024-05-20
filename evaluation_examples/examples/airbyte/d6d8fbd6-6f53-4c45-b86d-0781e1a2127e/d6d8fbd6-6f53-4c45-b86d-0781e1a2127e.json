@@ -9,13 +9,12 @@
         "chromium",
         "airbyte",
         "docker",
-        "postgres"
+        "postgresql"
     ],
     "tags": [
         "cli"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 10,
+    "action_number": 10,
     "config": [
         {
             "type": "script_and_execute",

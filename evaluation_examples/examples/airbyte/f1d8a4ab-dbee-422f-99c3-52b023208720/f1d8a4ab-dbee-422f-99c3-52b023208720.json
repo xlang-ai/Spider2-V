@@ -10,13 +10,12 @@
         "terminal",
         "airbyte",
         "docker",
-        "postgres"
+        "postgresql"
     ],
     "tags": [
         "cli+gui"
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
-    "action_number" : 4,
+    "action_number": 4,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -24,7 +23,7 @@
                 "src": "evaluation_examples/examples/airbyte/f1d8a4ab-dbee-422f-99c3-52b023208720/connection.json",
                 "dest": "/home/user/connection.json"
             }
-        },      
+        },
         {
             "type": "script_and_execute",
             "parameters": {

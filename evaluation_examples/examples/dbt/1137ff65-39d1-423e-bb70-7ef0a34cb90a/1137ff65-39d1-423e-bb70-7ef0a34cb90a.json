@@ -53,8 +53,12 @@
             {
                 "type": "rule",
                 "rules": {
-                    "include": ["succeed"],
-                    "exclude": ["failed"]
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
                 }
             },
             {
@@ -67,7 +71,9 @@
             {},
             {
                 "db_type": "duckdb",
-                "check_type": ["table-schema-content"]
+                "check_type": [
+                    "table-schema-content"
+                ]
             }
         ]
     }

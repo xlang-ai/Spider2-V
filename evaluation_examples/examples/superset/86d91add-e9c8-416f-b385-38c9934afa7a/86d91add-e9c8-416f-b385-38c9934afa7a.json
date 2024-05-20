@@ -13,7 +13,6 @@
         "gui"
     ],
     "action_number": 22,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",

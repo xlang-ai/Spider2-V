@@ -60,7 +60,7 @@
         "func": [
             "compare_csv",
             "check_file_existence"
-         ],
+        ],
         "result": [
             {
                 "type": "snowflake_table_to_csv",

@@ -14,7 +14,6 @@
         "gui"
     ],
     "action_number": 9,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "script_and_execute",

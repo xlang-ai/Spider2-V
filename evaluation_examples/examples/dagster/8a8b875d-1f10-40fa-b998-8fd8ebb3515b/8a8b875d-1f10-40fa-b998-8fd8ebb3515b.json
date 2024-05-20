@@ -77,7 +77,8 @@
                 "type": "rule",
                 "rules": {
                     "include": [
-                        "1 passed", "succeeded"
+                        "1 passed",
+                        "succeeded"
                     ],
                     "exclude": [
                         "failed"
