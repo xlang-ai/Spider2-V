@@ -1,7 +1,7 @@
 {
-    "id": "606d26c0-a061-4133-84dc-52a0eb68f7fa",
+    "id": "c4783393-8f9a-47d2-a280-7d7820eeb006",
     "snapshot": "snowflake",
-    "instruction": "Today my work is to do some research on American Community Survey, 2016. Help me get data from snowflake marketplace. The database name should be the default one. I only care about the table acs-2016-5-e-industry_01_TABLEKEY.",
+    "instruction": "For some reason, my table CUSTOMERS in snowflake with database as MALL, schema as PUBLIC has been dropped. Please help me to recover this table.",
     "source": [
         "https://quickstarts.snowflake.com/guide/getting_started_with_snowflake/index.html#6"
     ],
@@ -10,10 +10,10 @@
         "snowflake"
     ],
     "tags": [
-        "gui",
+        "cli+gui",
         "account"
     ],
-    "action_number": 7,
+    "action_number": 5,
     "config": [
         {
             "type": "snowflake_init",
@@ -22,6 +22,10 @@
                 "actions": [
                     {
                         "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/c4783393-8f9a-47d2-a280-7d7820eeb006/snowflake_init.sql"
                     }
                 ]
             }
@@ -48,16 +52,16 @@
         "result": {
                 "type": "snowflake_table_to_csv",
                 "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "database": "AMERICAN_COMMUNITY_SURVEY_2016",
+                "database": "MALL",
                 "schema": "PUBLIC",
-                "table": "acs-2016-5-e-industry_01_TABLEKEY",
-                "include_header": true,
+                "table": "CUSTOMERS",
+                "include_header": false,
                 "dest": "result.csv"
             },
         "expected": {
                 "type": "local_file",
-                "path": "evaluation_examples/examples/snowflake/606d26c0-a061-4133-84dc-52a0eb68f7fa/result_gold.csv",
-                "dest": "result_gold.csv"
+                "path": "evaluation_examples/examples/snowflake/c4783393-8f9a-47d2-a280-7d7820eeb006/old_gold.csv",
+                "dest": "old_gold.csv"
             }
     }
 }
