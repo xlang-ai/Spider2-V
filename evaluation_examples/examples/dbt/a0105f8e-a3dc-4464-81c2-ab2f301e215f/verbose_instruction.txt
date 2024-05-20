@@ -1,0 +1,11 @@
+This task requires you to install dbt-cloud-cli from GitHub and extract it into the local project.
+1. On the opened page, click the button written "Linux".
+2. Now you will see the detailed instruction on how to install dbt-cloud-cli for Linux.
+3. Right-click the blue hyperlink "GitHub".
+4. Click "Open link in new window" option. The GitHub release for dbt-cloud-cli will be opened in a new window.
+5. Select a distribution for linux_amd64 architecture. Click it, the download process will begin automatically.
+6. Wait until the download completes, click the cross button in the top right corner to close the window.
+7. Switch to the terminal. Assume the name of the binary file is "dbt_0.37.13_linux_amd64.tar.gz" (your version may differ).
+8. Type in the command "mv Downloads/dbt_0.37.13_linux_amd64.tar.gz projects/analytics" (your version may differ) and execute it.
+9. Execute the command "cd projects/analytics" to navigate into the project folder.
+10. Execute the command "tar -xf dbt_0.37.13_linux_amd64.tar.gz" to extract the binary file (your version may differ).
