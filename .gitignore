@@ -1,9 +1,12 @@
 # Model checkpoints
 *.pth
 *.pt
+*.ipynb
 
 # Credential files
-evaluation_examples/settings/googledrive/credentials.json
+#uncomment the line below after making it public
+#evaluation_examples/settings/*/*.json
+#!evaluation_examples/settings/thuderbird/settings.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -182,6 +185,3 @@ at_processing
 
 test.xlsx
 test2.xlsx
-
-#evaluation_examples/settings/*/*.json
-!evaluation_examples/settings/*/settings.json

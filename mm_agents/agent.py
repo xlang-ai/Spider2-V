@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import re
+import tempfile
 import time
 import xml.etree.ElementTree as ET
 from http import HTTPStatus
@@ -13,10 +14,12 @@ import backoff
 import dashscope
 import google.generativeai as genai
 import openai
+from groq import Groq
+
 import requests
 import tiktoken
 from PIL import Image
-from google.api_core.exceptions import InvalidArgument
+from google.api_core.exceptions import InvalidArgument, ResourceExhausted, InternalServerError, BadRequest
 
 from mm_agents.accessibility_tree_wrap.heuristic_retrieve import filter_nodes, draw_bounding_boxes
 # from mm_agents.prompts import *
@@ -24,10 +27,31 @@ from mm_agents.prompt_templates import ACTION_SPACE_PROMPTS, OBSERVATION_SPACE_P
 
 logger = logging.getLogger("desktopenv.agent")
 
+pure_text_settings = ['a11y_tree']
+
 
 # Function to encode the image
 def encode_image(image_content):
     return base64.b64encode(image_content).decode('utf-8')
+
+
+def encoded_img_to_pil_img(data_str):
+    base64_str = data_str.replace("data:image/png;base64,", "")
+    image_data = base64.b64decode(base64_str)
+    image = Image.open(BytesIO(image_data))
+
+    return image
+
+
+def save_to_tmp_img_file(data_str):
+    base64_str = data_str.replace("data:image/png;base64,", "")
+    image_data = base64.b64decode(base64_str)
+    image = Image.open(BytesIO(image_data))
+
+    tmp_img_path = os.path.join(tempfile.mkdtemp(), "tmp_img.png")
+    image.save(tmp_img_path)
+
+    return tmp_img_path
 
 
 def linearize_accessibility_tree(filtered_nodes: List[ET.Element], add_index: bool = False) -> str:
@@ -105,7 +129,7 @@ def parse_actions_from_string(input_string):
 
 
 def parse_code_from_string(input_string):
-    input_string = input_string.replace(";", "\n")
+    input_string = "\n".join([line.strip() for line in input_string.split(';') if line.strip()])
     if input_string.strip() in ['WAIT', 'DONE', 'FAIL']:
         return [input_string.strip()]
 
@@ -429,13 +453,17 @@ class PromptAgent:
 
         # logger.info("PROMPT: %s", messages)
 
-        response = self.call_llm({
-            "model": self.model,
-            "messages": messages,
-            "max_tokens": self.max_tokens,
-            "top_p": self.top_p,
-            "temperature": self.temperature
-        })
+        try:
+            response = self.call_llm({
+                "model": self.model,
+                "messages": messages,
+                "max_tokens": self.max_tokens,
+                "top_p": self.top_p,
+                "temperature": self.temperature
+            })
+        except Exception as e:
+            logger.error("Failed to call" + self.model + ", Error: " + str(e))
+            response = ""
 
         logger.info("RESPONSE: %s", response)
 
@@ -450,15 +478,27 @@ class PromptAgent:
         return response, actions
 
     @backoff.on_exception(
-        backoff.expo,
+        backoff.constant,
         # here you should add more model exceptions as you want,
         # but you are forbidden to add "Exception", that is, a common type of exception
         # because we want to catch this kind of Exception in the outside to ensure each example won't exceed the time limit
-        (openai.RateLimitError,
-         openai.BadRequestError,
-         openai.InternalServerError,
-         InvalidArgument),
-        max_tries=5
+        (
+                # OpenAI exceptions
+                openai.RateLimitError,
+                openai.BadRequestError,
+                openai.InternalServerError,
+
+                # Google exceptions
+                InvalidArgument,
+                ResourceExhausted,
+                InternalServerError,
+                BadRequest,
+
+                # Groq exceptions
+                # todo: check
+        ),
+        interval=30,
+        max_tries=10
     )
     def call_llm(self, payload):
 
@@ -564,6 +604,8 @@ class PromptAgent:
             top_p = payload["top_p"]
             temperature = payload["temperature"]
 
+            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
+
             mistral_messages = []
 
             for i, message in enumerate(messages):
@@ -582,12 +624,13 @@ class PromptAgent:
             client = OpenAI(api_key=os.environ["TOGETHER_API_KEY"],
                             base_url='https://api.together.xyz',
                             )
-            logger.info("Generating content with Mistral model: %s", self.model)
 
             flag = 0
             while True:
                 try:
-                    if flag > 20: break
+                    if flag > 20:
+                        break
+                    logger.info("Generating content with model: %s", self.model)
                     response = client.chat.completions.create(
                         messages=mistral_messages,
                         model=self.model,
@@ -659,18 +702,14 @@ class PromptAgent:
                 print("Failed to call LLM: ", response.status_code)
                 return ""
 
-        elif self.model.startswith("gemini"):
-            def encoded_img_to_pil_img(data_str):
-                base64_str = data_str.replace("data:image/png;base64,", "")
-                image_data = base64.b64decode(base64_str)
-                image = Image.open(BytesIO(image_data))
-
-                return image
-
+        elif self.model in ["gemini-pro", "gemini-pro-vision"]:
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
             temperature = payload["temperature"]
+
+            if self.model == "gemini-pro":
+                assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
 
             gemini_messages = []
             for i, message in enumerate(messages):
@@ -696,7 +735,7 @@ class PromptAgent:
 
                 gemini_messages.append(gemini_message)
 
-            # the mistral not support system message in our endpoint, so we concatenate it at the first user message
+            # the gemini not support system message in our endpoint, so we concatenate it at the first user message
             if gemini_messages[0]['role'] == "system":
                 gemini_messages[1]['parts'][0] = gemini_messages[0]['parts'][0] + "\n" + gemini_messages[1]['parts'][0]
                 gemini_messages.pop(0)
@@ -716,35 +755,159 @@ class PromptAgent:
             logger.info("Generating content with Gemini model: %s", self.model)
             request_options = {"timeout": 120}
             gemini_model = genai.GenerativeModel(self.model)
+
+            response = gemini_model.generate_content(
+                gemini_messages,
+                generation_config={
+                    "candidate_count": 1,
+                    # "max_output_tokens": max_tokens,
+                    "top_p": top_p,
+                    "temperature": temperature
+                },
+                safety_settings={
+                    "harassment": "block_none",
+                    "hate": "block_none",
+                    "sex": "block_none",
+                    "danger": "block_none"
+                },
+                request_options=request_options
+            )
+            return response.text
+
+        elif self.model == "gemini-1.5-pro-latest":
+            messages = payload["messages"]
+            max_tokens = payload["max_tokens"]
+            top_p = payload["top_p"]
+            temperature = payload["temperature"]
+
+            gemini_messages = []
+            for i, message in enumerate(messages):
+                role_mapping = {
+                    "assistant": "model",
+                    "user": "user",
+                    "system": "system"
+                }
+                assert len(message["content"]) in [1, 2], "One text, or one text with one image"
+                gemini_message = {
+                    "role": role_mapping[message["role"]],
+                    "parts": []
+                }
+
+                # The gemini only support the last image as single image input
+                for part in message["content"]:
+
+                    if part['type'] == "image_url":
+                        # Put the image at the beginning of the message
+                        gemini_message['parts'].insert(0, encoded_img_to_pil_img(part['image_url']['url']))
+                    elif part['type'] == "text":
+                        gemini_message['parts'].append(part['text'])
+                    else:
+                        raise ValueError("Invalid content type: " + part['type'])
+
+                gemini_messages.append(gemini_message)
+
+            # the system message of gemini-1.5-pro-latest need to be inputted through model initialization parameter
+            system_instruction = None
+            if gemini_messages[0]['role'] == "system":
+                system_instruction = gemini_messages[0]['parts'][0]
+                gemini_messages.pop(0)
+
+            api_key = os.environ.get("GENAI_API_KEY")
+            assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
+            genai.configure(api_key=api_key)
+            logger.info("Generating content with Gemini model: %s", self.model)
+            request_options = {"timeout": 120}
+            gemini_model = genai.GenerativeModel(
+                self.model,
+                system_instruction=system_instruction
+            )
+
+            with open("response.json", "w") as f:
+                messages_to_save = []
+                for message in gemini_messages:
+                    messages_to_save.append({
+                        "role": message["role"],
+                        "content": [part if isinstance(part, str) else "image" for part in message["parts"]]
+                    })
+                json.dump(messages_to_save, f, indent=4)
+
+            response = gemini_model.generate_content(
+                gemini_messages,
+                generation_config={
+                    "candidate_count": 1,
+                    # "max_output_tokens": max_tokens,
+                    "top_p": top_p,
+                    "temperature": temperature
+                },
+                safety_settings={
+                    "harassment": "block_none",
+                    "hate": "block_none",
+                    "sex": "block_none",
+                    "danger": "block_none"
+                },
+                request_options=request_options
+            )
+
+            return response.text
+
+        elif self.model == "llama3-70b":
+            messages = payload["messages"]
+            max_tokens = payload["max_tokens"]
+            top_p = payload["top_p"]
+            temperature = payload["temperature"]
+
+            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
+
+            groq_messages = []
+
+            for i, message in enumerate(messages):
+                groq_message = {
+                    "role": message["role"],
+                    "content": ""
+                }
+
+                for part in message["content"]:
+                    groq_message['content'] = part['text'] if part['type'] == "text" else ""
+
+                groq_messages.append(groq_message)
+
+            # The implementation based on Groq API
+            client = Groq(
+                api_key=os.environ.get("GROQ_API_KEY"),
+            )
+
+            flag = 0
+            while True:
+                try:
+                    if flag > 20:
+                        break
+                    logger.info("Generating content with model: %s", self.model)
+                    response = client.chat.completions.create(
+                        messages=groq_messages,
+                        model="llama3-70b-8192",
+                        max_tokens=max_tokens,
+                        top_p=top_p,
+                        temperature=temperature
+                    )
+                    break
+                except:
+                    if flag == 0:
+                        groq_messages = [groq_messages[0]] + groq_messages[-1:]
+                    else:
+                        groq_messages[-1]["content"] = ' '.join(groq_messages[-1]["content"].split()[:-500])
+                    flag = flag + 1
+
             try:
-                response = gemini_model.generate_content(
-                    gemini_messages,
-                    generation_config={
-                        "candidate_count": 1,
-                        "max_output_tokens": max_tokens,
-                        "top_p": top_p,
-                        "temperature": temperature
-                    },
-                    safety_settings={
-                        "harassment": "block_none",
-                        "hate": "block_none",
-                        "sex": "block_none",
-                        "danger": "block_none"
-                    },
-                    request_options=request_options
-                )
-                return response.text
+                return response.choices[0].message.content
             except Exception as e:
-                logger.error("Meet exception when calling Gemini API, " + str(e.__class__.__name__) + str(e))
-                logger.error(f"count_tokens: {gemini_model.count_tokens(gemini_messages)}")
-                logger.error(f"generation_config: {max_tokens}, {top_p}, {temperature}")
+                print("Failed to call LLM: " + str(e))
                 return ""
+
         elif self.model.startswith("qwen"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
-            if payload["temperature"]:
-                logger.warning("Qwen model does not support temperature parameter, it will be ignored.")
+            temperature = payload["temperature"]
 
             qwen_messages = []
 
@@ -761,23 +924,42 @@ class PromptAgent:
 
                 qwen_messages.append(qwen_message)
 
-            response = dashscope.MultiModalConversation.call(
-                model='qwen-vl-plus',
-                messages=messages,
-                max_length=max_tokens,
-                top_p=top_p,
-            )
-            # The response status_code is HTTPStatus.OK indicate success,
-            # otherwise indicate request is failed, you can get error code
-            # and message from code and message.
-            if response.status_code == HTTPStatus.OK:
+            flag = 0
+            while True:
                 try:
-                    return response.json()['output']['choices'][0]['message']['content']
-                except Exception:
-                    return ""
-            else:
-                print(response.code)  # The error code.
-                print(response.message)  # The error message.
+                    if flag > 20:
+                        break
+                    logger.info("Generating content with model: %s", self.model)
+                    response = dashscope.Generation.call(
+                        model=self.model,
+                        messages=qwen_messages,
+                        result_format="message",
+                        max_length=max_tokens,
+                        top_p=top_p,
+                        temperature=temperature
+                    )
+
+                    if response.status_code == HTTPStatus.OK:
+                        break
+                    else:
+                        logger.error('Request id: %s, Status code: %s, error code: %s, error message: %s' % (
+                            response.request_id, response.status_code,
+                            response.code, response.message
+                        ))
+                        raise Exception("Failed to call LLM: " + response.message)
+                except:
+                    if flag == 0:
+                        qwen_messages = [qwen_messages[0]] + qwen_messages[-1:]
+                    else:
+                        for i in range(len(qwen_messages[-1]["content"])):
+                            if "text" in qwen_messages[-1]["content"][i]:
+                                qwen_messages[-1]["content"][i]["text"] = ' '.join(qwen_messages[-1]["content"][i]["text"].split()[:-500])
+                    flag = flag + 1
+
+            try:
+                return response['output']['choices'][0]['message']['content']
+            except Exception as e:
+                print("Failed to call LLM: " + str(e))
                 return ""
 
         else:
