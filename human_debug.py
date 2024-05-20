@@ -54,9 +54,12 @@ def human_agent():
     """ Runs the Gym environment with human input.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', type=str, default="/Users/happysix/Virtual Machines.localized/Ubuntu-22.04.vmwarevm/Ubuntu-22.04.vmx", help="Path to the virtual machine .vmx file.")
+    parser.add_argument('-p', '--path', type=str, default="/Users/rhythmcao/Virtual Machines.localized/ubuntu.vmwarevm/ubuntu.vmx", help="Path to the virtual machine .vmx file.")
     parser.add_argument('-s', '--snapshot', type=str, help="Snapshot to load.", required=True)
     parser.add_argument('-e', '--example', type=str, required=True)
+    parser.add_argument('--proxy', action='store_true', help="Whether use network proxy in the VM.")
+    parser.add_argument('--host', type=str, default='172.16.12.1', help="Proxy host")
+    parser.add_argument('--port', type=int, default=58591, help="Proxy port")
     args = parser.parse_args(sys.argv[1:])
     with open(args.example, "r") as f:
         example = json.load(f)
@@ -68,11 +71,14 @@ def human_agent():
     )
 
     # reset the environment to certain snapshot (add proxy if needed)
-    # observation = env.reset(task_config=example, proxy={'host': "172.16.12.1", "port": 58591})
-    observation = env.reset(task_config=example)
+    if args.proxy:
+        observation = env.reset(task_config=example, proxy={'host': args.host, "port": args.port})
+    else:
+        observation = env.reset(task_config=example)
     done = False
 
     logger.info(instruction)
+    logger.info(f"\x1b[32m[Task instruction]: {example['instruction']}\x1b[0m")
 
     while True:
         try:
@@ -93,7 +99,7 @@ def human_agent():
                 action = json.loads(action_str)
                 logger.info("Take Action: %s", json.dumps(action, ensure_ascii=False))
             except:
-                logger.error(f'[ERROR]: Failed to parser action string, please check the format: {action_str}')
+                logger.error(f'[ERROR]: Failed to parse action string, please check the format: {action_str}')
                 continue
 
             observation, reward, done, info = env.step(action, pause=1)
