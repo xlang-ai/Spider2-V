@@ -264,6 +264,7 @@ pyautogui.rightClick()
 4. When predicting multiple lines of code, make some small delay like `time.sleep(0.5)` interval, such that the machine can response correctly. And it is STRONGLY RECOMMENDED that, for one action which may influence the environment significantly (e.g., click the button of one application to open it, or click a web link which navigates to a new page), it is better to predict this action without follow-ups in order to observe the changes in environment states first;
 5. Each time when you predict codes, neither variables nor function is shared acrossed different code blocks. In other words, each code block will be executed in isolation;
 6. For coordinates (x, y), please speculate or calculate by yourself based on the observation of previous interaction turn. BE CAREFUL to ensure the coordinates are feasible.
+7. Attention that, codes wrapped by 3 backticks ``` will be recognized as an action in the action space. Therefore, when you output non-action codes, please use other symbols like ''' instead.
 """.strip()
 
 

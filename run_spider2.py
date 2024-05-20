@@ -102,6 +102,8 @@ def config() -> argparse.Namespace:
     parser.add_argument("--from_scratch", action="store_true", help="Run from scratch, ignore existing results")
     args = parser.parse_args()
 
+    if args.observation_space == 'som':
+        assert args.action_space == 'pyautogui', "SOM only supports pyautogui action space"
     return args
 
 
