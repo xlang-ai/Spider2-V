@@ -1,0 +1,67 @@
+{
+    "id": "8259543a-9c3f-4cb4-8b9c-2f44f876869c",
+    "snapshot": "jupyter",
+    "instruction": "I have finished editting this JupyterLab. Please help me save this opened file as submission.ipynb on the Desktop.",
+    "source": [
+        "https://docs.jupyter.org/en/latest/running.html#how-do-i-start-the-notebook-using-a-custom-ip-or-port"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/sports.zip",
+                "dest": "/home/user/sports.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/sports-products.ipynb"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_ipynb_files",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/submission.ipynb",
+            "dest": "submission.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/submission_gold.ipynb",
+            "dest": "submission_gold.ipynb"
+        }
+    }
+}
