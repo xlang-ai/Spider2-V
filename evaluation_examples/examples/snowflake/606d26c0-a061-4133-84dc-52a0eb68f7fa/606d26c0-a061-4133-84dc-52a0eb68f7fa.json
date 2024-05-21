@@ -44,20 +44,20 @@
     ],
     "evaluator": {
         "postconfig": [],
-        "func": "compare_csv", 
+        "func": "compare_csv",
         "result": {
-                "type": "snowflake_table_to_csv",
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "database": "AMERICAN_COMMUNITY_SURVEY_2016",
-                "schema": "PUBLIC",
-                "table": "acs-2016-5-e-industry_01_TABLEKEY",
-                "include_header": true,
-                "dest": "result.csv"
-            },
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "AMERICAN_COMMUNITY_SURVEY_2016",
+            "schema": "PUBLIC",
+            "table": "acs-2016-5-e-industry_01_TABLEKEY",
+            "include_header": true,
+            "dest": "result.csv"
+        },
         "expected": {
-                "type": "local_file",
-                "path": "evaluation_examples/examples/snowflake/606d26c0-a061-4133-84dc-52a0eb68f7fa/result_gold.csv",
-                "dest": "result_gold.csv"
-            }
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/606d26c0-a061-4133-84dc-52a0eb68f7fa/result_gold.csv",
+            "dest": "result_gold.csv"
+        }
     }
 }

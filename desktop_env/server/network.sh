@@ -8,7 +8,7 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "password" | sudo -S systemctl restart NetworkManager
-sleep 3
+sleep 5
 
 ping -c1 www.bing.com
 if [ $? -eq 0 ]; then
@@ -16,4 +16,4 @@ if [ $? -eq 0 ]; then
     exit 0
 fi
 
-echo "failed to connect to the internet"
+echo "failed to connect to the internet even after restarting network"
