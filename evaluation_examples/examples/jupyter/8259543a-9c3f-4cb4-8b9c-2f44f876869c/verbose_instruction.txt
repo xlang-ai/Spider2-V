@@ -1,0 +1,7 @@
+To finish this task, follow the steps below:
+
+1. In the opened web page, on the left side panel right click on the opened file sports-products.ipynb.
+2. Click Download.
+3. Switch to /home/user/Downloads in file manager.
+4. Rename the downloaded file as submission.ipynb.
+5. Cut and paste it to Desktop.

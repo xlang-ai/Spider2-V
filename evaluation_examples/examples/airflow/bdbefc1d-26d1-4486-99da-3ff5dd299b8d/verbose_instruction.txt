@@ -11,7 +11,7 @@ INSTRUCTIONS = Dataset("file://localhost/airflow/include/cocktail_instructions.t
 INFO = Dataset("file://localhost/airflow/include/cocktail_info.txt")
 
 API = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-... other codes ...
+... other code ...
 ```
 4. Next, add the `outlets` parameter for each write task in `cocktail_producer_dag`:
 ```
@@ -30,7 +30,7 @@ def cocktail_producer_dag():
 ```
 5. Save this file via hotkey Ctrl+S.
 6. Open the consumer DAG file `dags/cocktail_consumer_dag.py`.
-7. Revise the codes by integrating two datasets into the schedule:
+7. Revise the code by integrating two datasets into the schedule:
 ```
 ... previous import statements ...
 
@@ -50,5 +50,5 @@ def cocktail_consumer_dag():
 ```
 8. Save this file too.
 9. Switch to the web browser.
-10. Refresh the web page via pressing "Ctrl+R". We can see that the value under the column "Schedule" for DAG `cocktail_consumer_dag` has changed to "Dataset". This means that each time the defined two datasets are updated (namely the two output files of the producer DAG), the consumer DAG will be automatically triggered.
+10. Refresh the web page via "Ctrl+R". We can see that the value under the column "Schedule" for DAG `cocktail_consumer_dag` has changed to "Dataset". This means that each time the defined two datasets are updated (namely the two output files of the producer DAG), the consumer DAG will be automatically triggered.
 (There may exist some time delay in step 10, we can refresh the web page multiple times and wait for the changes to work.)
