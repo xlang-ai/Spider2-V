@@ -56,6 +56,7 @@ def validate_example(example: str) -> str:
     ex_id = folders[-1][:-5]
     # search for the tool name
     for tool_name in os.listdir(os.path.join('evaluation_examples', 'examples')):
+        if tool_name == 'libreoffice_calc': continue
         subdir = os.path.join('evaluation_examples', 'examples', tool_name)
         if not os.path.isdir(subdir): continue
         files = os.listdir(subdir)
@@ -73,11 +74,14 @@ def human_agent():
         ...
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', type=str, default="/Users/happysix/Virtual Machines.localized/Ubuntu-22.04.vmwarevm/Ubuntu-22.04.vmx", help="Path to the virtual machine .vmx file.")
-    parser.add_argument('-s', '--snapshot', type=str, default="dbt", help="Snapshot to load.")
+    parser.add_argument('-p', '--path', type=str, default="/Users/rhythmcao/Virtual Machines.localized/ubuntu.vmwarevm/ubuntu.vmx", help="Path to the virtual machine .vmx file.")
+    parser.add_argument('-s', '--snapshot', type=str, required=True, help="Snapshot to load.")
     parser.add_argument('-e', '--example', type=str, help='.json file path to a specific example to validate')
-    parser.add_argument('--example_from_file', type=str, default="dbt.txt", help='Path to the file, each line containing an example id to validate.')
+    parser.add_argument('--example_from_file', type=str, help='Path to the file, each line containing an example id to validate.')
     parser.add_argument('-r', '--recording', type=str, default='recordings', help='recording directory')
+    parser.add_argument('--proxy', action='store_true', help='Use network proxy for VMWare network')
+    parser.add_argument('--host', type=str, default='172.16.12.1', help='Network proxy host ip address')
+    parser.add_argument('--port', type=int, default=58591, help='Network proxy port')
     args = parser.parse_args(sys.argv[1:])
     os.makedirs(args.recording, exist_ok=True)
 
@@ -99,8 +103,10 @@ def human_agent():
                 example = json.load(inf)
 
             # reset the environment to certain snapshot (add proxy if needed)
-            # env.reset(task_config=example, proxy={'host': "172.16.12.1", "port": 58591})
-            env.reset(task_config=example)
+            if args.proxy:
+                env.reset(task_config=example, proxy={'host': args.host, "port": args.port})
+            else:
+                env.reset(task_config=example)
             logger.info(f'\x1b[32m[Task instruction for example {example["id"]}]:\x1b \n{example["instruction"]}\x1b[0m')
             
             # recoding the human trajectory
@@ -131,8 +137,10 @@ def human_agent():
                     score = env.evaluate()
                     logger.info(f"Evaluation score: {score}")
                 elif action.strip() in ['5', 'reset']: # reset the environment
-                    # env.reset(task_config=example, proxy={'host': "172.16.12.1", "port": 58591})
-                    env.reset(task_config=example)
+                    if args.proxy:
+                        env.reset(task_config=example, proxy={'host': args.host, "port": args.port})
+                    else:
+                        env.reset(task_config=example)
                     logger.info(f'\x1b[32m[Task instruction for example {example["id"]}]:\x1b \n{example["instruction"]}\x1b[0m')
                 elif action.strip() in ['6', 'verbose']:
                     logger.info(f'Verbose instruciton is: {verbose_instruction if verbose_instruction else "Not found."}')
@@ -145,9 +153,9 @@ def human_agent():
     except KeyboardInterrupt:
         logger.info('Keyboard interruption detected. Exiting...')
         exit(0)
-    except Exception as e:
-        logger.error(f'[ERROR]: Unexpected error occurred. {e}')
-        exit(1)
+    # except Exception as e:
+    #     logger.error(f'[ERROR]: Unexpected error occurred. {e}')
+    #     exit(1)
 
     # env.close()
     logger.info(f"Validation for {len(checking_list)} examples completed.")

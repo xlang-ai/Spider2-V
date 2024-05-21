@@ -45,7 +45,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
+                    "https://www.bing.com/",
                     "https://docs.google.com/spreadsheets/d/1eqDu8oLJvT244r5AWPr4kPMnm7qDRpyItonPAbBwElE/edit#gid=0"
                 ]
             }

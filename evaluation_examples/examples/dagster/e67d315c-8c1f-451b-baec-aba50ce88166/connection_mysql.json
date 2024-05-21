@@ -1,0 +1,72 @@
+{
+    "name": "MySQL \u2192 Local JSON",
+    "namespaceDefinition": "destination",
+    "prefix": "",
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "operationIds": [],
+    "syncCatalog": {
+        "streams": [
+            {
+                "stream": {
+                    "name": "pageview_counts",
+                    "jsonSchema": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "views": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            },
+                            "datetime": {
+                                "type": "string"
+                            },
+                            "_ab_cdc_cursor": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            },
+                            "_ab_cdc_log_pos": {
+                                "type": "number"
+                            },
+                            "_ab_cdc_log_file": {
+                                "type": "string"
+                            },
+                            "_ab_cdc_deleted_at": {
+                                "type": "string"
+                            },
+                            "_ab_cdc_updated_at": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "supportedSyncModes": [
+                        "full_refresh"
+                    ],
+                    "defaultCursorField": [],
+                    "sourceDefinedPrimaryKey": [],
+                    "namespace": "master"
+                },
+                "config": {
+                    "syncMode": "full_refresh",
+                    "cursorField": [],
+                    "destinationSyncMode": "append",
+                    "primaryKey": [],
+                    "aliasName": "pageview_counts",
+                    "selected": true,
+                    "fieldSelectionEnabled": false
+                }
+            }
+        ]
+    },
+    "scheduleType": "basic",
+    "scheduleData": {
+        "basicSchedule": {
+            "timeUnit": "hours",
+            "units": 12
+        }
+    },
+    "status": "active",
+    "geography": "auto"
+}

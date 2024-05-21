@@ -3,7 +3,7 @@
 ASTRO_RUNTIME_VERSION=10.5.0
 
 mkdir -p ~/minio/data
-
+MINIO_VERSION="RELEASE.2024-05-10T01-41-38Z"
 docker run \
    -p 9000:9000 \
    -p 9001:9001 \
@@ -11,7 +11,7 @@ docker run \
    -v ~/minio/data:/data \
    -e "MINIO_ROOT_USER=ROOTNAME" \
    -e "MINIO_ROOT_PASSWORD=CHANGEME123" \
-   quay.io/minio/minio server /data --console-address ":9001"
+   quay.io/minio/minio:${MINIO_VERSION} server /data --console-address ":9001"
 
 
 function to_ready_state(){

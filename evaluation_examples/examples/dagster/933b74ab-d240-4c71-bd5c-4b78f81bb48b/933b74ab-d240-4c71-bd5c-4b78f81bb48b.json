@@ -35,8 +35,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com",
-                    "http://localhost:3000"
+                    "https://www.bing.com/"
                 ]
             }
         },

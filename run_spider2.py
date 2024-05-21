@@ -26,6 +26,7 @@ sdebug_handler.setLevel(logging.DEBUG)
 
 formatter = logging.Formatter(
     fmt="\x1b[1;33m[%(asctime)s \x1b[31m%(levelname)s \x1b[32m%(module)s/%(lineno)d-%(processName)s\x1b[1;33m] \x1b[0m%(message)s")
+pure_formatter = logging.Formatter(fmt="[%(asctime)s %(levelname)s %(module)s/%(lineno)d]: %(message)s")
 file_handler.setFormatter(formatter)
 debug_handler.setFormatter(formatter)
 stdout_handler.setFormatter(formatter)
@@ -102,6 +103,8 @@ def config() -> argparse.Namespace:
     parser.add_argument("--from_scratch", action="store_true", help="Run from scratch, ignore existing results")
     args = parser.parse_args()
 
+    if args.observation_space == 'som':
+        assert args.action_space == 'pyautogui', "SOM only supports pyautogui action space"
     return args
 
 
@@ -145,6 +148,13 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
 
         if args.verbose_instruction: example['instruction'] = get_verbose_instruction(config_file)
 
+        root_logger = logging.getLogger()
+        example_handler = logging.FileHandler(os.path.join(result_dir, "result-{:}.log".format(datetime_str)), encoding="utf-8")
+        example_handler.setLevel(logging.INFO)
+        example_handler.setFormatter(pure_formatter)
+        example_handler.addFilter(logging.Filter("desktopenv"))
+        root_logger.addHandler(example_handler)
+
         logger.info(f"[Domain]: {domain}")
         logger.info(f"[Example id]: {eid}")
         logger.info(f"[Config file]: {config_file}")
@@ -165,6 +175,9 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
                     "Error": f"Error msg in {domain}/{eid}: {e}"
                 }))
                 f.write("\n")
+
+        root_logger.removeHandler(example_handler)
+        example_handler.close()
 
     env.close()
     return scores

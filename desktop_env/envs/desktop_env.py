@@ -161,24 +161,9 @@ class DesktopEnv(gym.Env):
     def _save_state(self):
         _execute_command(["vmrun", "-T", "ws" "snapshot", self.path_to_vm, self.snapshot_name])
 
-    def _get_screenshot(self):
-        screenshot = None
-        # Get the screenshot and save to the image_path
-        max_retries = 20
-        for _ in range(max_retries):
-            screenshot = self.controller.get_screenshot()
-            if screenshot is not None:
-                break
-            time.sleep(1)
-
-        if screenshot is None:
-            logger.error("Failed to get screenshot!")
-
-        return screenshot
-
     def _get_obs(self):
         return {
-            "screenshot": self._get_screenshot(),
+            "screenshot": self.controller.get_screenshot(),
             "accessibility_tree": self.controller.get_accessibility_tree() if self.require_a11y_tree else None,
             "terminal": self.controller.get_terminal_output() if self.require_terminal else None,
             "instruction": self.instruction
@@ -250,10 +235,14 @@ class DesktopEnv(gym.Env):
         self._start_emulator()
 
         logger.info("Setting up environment ...")
+        if not self.setup_controller._network_setup(self.vm_platform):
+            logger.error("Network is not available!")
         if self.proxy or proxy: # using proxy to visit some webs, e.g., Google Cloud, Snowflake
             proxy = proxy if proxy else self.proxy
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
-        self.setup_controller.setup(self.config)
+            logger.info(f"Set http(s) proxy to: {proxy['host']}:{proxy['port']}")
+        if task_config is not None:
+            self.setup_controller.setup(self.config)
 
         time.sleep(5)
         logger.info("Environment setup complete.")
@@ -351,7 +340,7 @@ class DesktopEnv(gym.Env):
 
     def render(self, mode='rgb_array'):
         if mode == 'rgb_array':
-            return self._get_screenshot()
+            return self.controller.get_screenshot()
         else:
             raise ValueError('Unsupported render mode: {}'.format(mode))
 

@@ -48,20 +48,20 @@
     ],
     "evaluator": {
         "postconfig": [],
-        "func": "compare_csv", 
+        "func": "compare_csv",
         "result": {
-                "type": "snowflake_table_to_csv",
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "database": "MALL",
-                "schema": "PUBLIC",
-                "table": "CUSTOMERS",
-                "include_header": false,
-                "dest": "result.csv"
-            },
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "MALL",
+            "schema": "PUBLIC",
+            "table": "CUSTOMERS",
+            "include_header": false,
+            "dest": "result.csv"
+        },
         "expected": {
-                "type": "local_file",
-                "path": "evaluation_examples/examples/snowflake/c4783393-8f9a-47d2-a280-7d7820eeb006/old_gold.csv",
-                "dest": "old_gold.csv"
-            }
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/c4783393-8f9a-47d2-a280-7d7820eeb006/old_gold.csv",
+            "dest": "old_gold.csv"
+        }
     }
 }

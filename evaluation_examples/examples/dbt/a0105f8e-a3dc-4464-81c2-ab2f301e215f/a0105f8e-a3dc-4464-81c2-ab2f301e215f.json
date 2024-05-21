@@ -1,0 +1,69 @@
+{
+    "id": "a0105f8e-a3dc-4464-81c2-ab2f301e215f",
+    "snapshot": "dbt",
+    "instruction": "Install dbt-cloud-cli from GitHub and extract the binary to the same folder as the dbt project \"analytics\". Follow the instruction \"Step 1: Install\" specified in the opened account profile page.",
+    "source": [
+        "https://docs.getdbt.com/docs/cloud/configure-cloud-cli"
+    ],
+    "related_apps": [
+        "dbt",
+        "chromium",
+        "terminal"
+    ],
+    "tags": [
+        "gui+cli",
+        "account"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/a0105f8e-a3dc-4464-81c2-ab2f301e215f/analytics.zip",
+                "dest": "/home/user/analytics.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/a0105f8e-a3dc-4464-81c2-ab2f301e215f/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "goto_page": "cli_setup"
+            }
+        }
+    ],
+    "action_number": 10,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/dbt/a0105f8e-a3dc-4464-81c2-ab2f301e215f/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

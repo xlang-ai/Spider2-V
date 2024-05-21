@@ -60,3 +60,4 @@ dbt-cloud-cli
 nbformat
 browsergym-workarena
 google-cloud-bigquery-connection
+groq

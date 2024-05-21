@@ -1,0 +1,5 @@
+{
+    "SNOW_INSTANCE_URL": "https://{your_instance_id}.service-now.com/",
+    "SNOW_INSTANCE_UNAME": "admin",
+    "SNOW_INSTANCE_PWD": "your_instance_password"
+}

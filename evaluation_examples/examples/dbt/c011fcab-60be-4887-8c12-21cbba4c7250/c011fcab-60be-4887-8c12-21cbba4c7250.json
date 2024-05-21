@@ -1,0 +1,76 @@
+{
+    "id": "c011fcab-60be-4887-8c12-21cbba4c7250",
+    "snapshot": "dbt",
+    "instruction": "Help me create a staging environment named \"Continuous_Integration\" that will only run on a custom branch named \"main\".",
+    "source": [
+        "https://docs.getdbt.com/docs/dbt-cloud-environments"
+    ],
+    "related_apps": [
+        "dbt",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "environment_test"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "action_number": 7,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_environment_info",
+            "name": "Continuous_Integration",
+            "fields": [
+                "deployment_type",
+                "use_custom_branch",
+                "custom_branch"
+            ],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "staging",
+                    "True",
+                    "main"
+                ],
+                "exclude": [
+                    "None"
+                ]
+            }
+        }
+    }
+}
