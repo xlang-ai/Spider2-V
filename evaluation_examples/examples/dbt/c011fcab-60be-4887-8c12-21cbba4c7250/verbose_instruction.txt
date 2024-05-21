@@ -1,0 +1,8 @@
+This task requires you to create a staging continuous integration environment.
+1. Click the big green "Create Environment" button at bottom.
+2. Click the "Environment name" text bar, change the value to "Continuous_Integration".
+3. In the "Set deployment type" section, click "Staging" as the deployment environment type.
+4. Click the checkbox "Only run on a custom branch", you will see "custom branch" text bar appeared below.
+5. Click the "custom branch" text bar.
+6. Input "main" in the text bar as the custom branch name.
+7. Click "Save" button on the top right of the page.

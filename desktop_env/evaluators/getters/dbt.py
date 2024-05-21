@@ -107,7 +107,7 @@ def get_dbt_environment_info(env, config: Dict[str, str]):
         if env['name'] == name:
             found = True
             for field in fields:
-                result += env[field]
+                result += str(env[field])
                 result += " "
 
     if not found:
