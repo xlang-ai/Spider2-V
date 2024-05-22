@@ -23,7 +23,7 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
     oracle_steps = example.get("action_number", 10)
     max_steps = min(oracle_steps * 3, 50)
     while not done and step_idx < max_steps:
-        response, actions = agent.predict(example['instruction'], obs)
+        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], obs)
 
         for action in actions:
             # Capture the timestamp before executing the action

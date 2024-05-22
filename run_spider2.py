@@ -146,7 +146,8 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
         with open(config_file, "r", encoding="utf-8") as f:
             example = json.load(f)
 
-        if args.verbose_instruction: example['instruction'] = get_verbose_instruction(config_file)
+        if args.verbose_instruction: example['verbose_instruction'] = get_verbose_instruction(config_file)
+        else: example['verbose_instruction'] = None
 
         root_logger = logging.getLogger()
         example_handler = logging.FileHandler(os.path.join(result_dir, "result-{:}.log".format(datetime_str)), encoding="utf-8")

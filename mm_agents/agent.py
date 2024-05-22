@@ -233,7 +233,7 @@ class PromptAgent:
                                                    screen_width=screen_size['width'], screen_height=screen_size['height'])
 
 
-    def predict(self, instruction: str, obs: Dict) -> List:
+    def predict(self, instruction: str, verbose_instruction: str, obs: Dict) -> List:
         """
         Predict the next action(s) based on the current observation.
         """
@@ -252,6 +252,18 @@ class PromptAgent:
                 },
             ]
         })
+
+        if verbose_instruction is not None: # add step-by-step plan
+            step_by_step_message = "Here is a step-by-step tutorial from expert instructing you how to complete it: {}\nYou can exactly follow the detailed plan above or proactively tackle the task by yourself.".format(verbose_instruction)
+            messages.append({
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": step_by_step_message
+                    },
+                ]
+            })
 
         # Append trajectory
         assert len(self.observations) == len(self.actions) and len(self.actions) == len(self.thoughts) \
