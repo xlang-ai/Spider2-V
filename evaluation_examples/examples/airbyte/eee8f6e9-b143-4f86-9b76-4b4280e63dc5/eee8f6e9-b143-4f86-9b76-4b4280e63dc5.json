@@ -3,7 +3,7 @@
     "snapshot": "airbyte",
     "instruction": "Please help me to create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. The target file path is /local/json_destination. Remember to choose manual sync mode.",
     "source": [
-        "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
+        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections"
     ],
     "related_apps": [
         "chromium",

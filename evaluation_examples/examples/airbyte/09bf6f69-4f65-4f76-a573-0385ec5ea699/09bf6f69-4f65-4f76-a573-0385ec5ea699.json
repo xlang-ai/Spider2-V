@@ -3,7 +3,7 @@
     "snapshot": "airbyte",
     "instruction": "My leader asked me to download the sync log of the existing Airbyte connection and save it as airbyte_log.txt on the Desktop. Could you help me with this task?",
     "source": [
-        "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
+        "https://docs.airbyte.com/operator-guides/browsing-output-logs"
     ],
     "related_apps": [
         "chromium",

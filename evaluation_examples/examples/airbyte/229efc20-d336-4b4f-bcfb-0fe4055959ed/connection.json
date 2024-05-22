@@ -1,0 +1,89 @@
+{
+    "name": "BigQuery → Local JSON",
+    "namespaceDefinition": "destination",
+    "prefix": "",
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "syncCatalog": {
+        "streams": [
+            {
+                "stream": {
+                    "name": "obesity_risk_prediction",
+                    "jsonSchema": {
+                        "type": "object",
+                        "properties": {
+                            "SCC": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            },
+                            "NCP_z": {
+                                "type": "number"
+                            },
+                            "TUE_z": {
+                                "type": "number"
+                            },
+                            "CALC_z": {
+                                "type": "number"
+                            },
+                            "FAVC_z": {
+                                "type": "number"
+                            },
+                            "Height": {
+                                "type": "number"
+                            },
+                            "Weight": {
+                                "type": "number"
+                            },
+                            "FAF_minmax": {
+                                "type": "number"
+                            },
+                            "NObeyesdad": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            },
+                            "CAEC_minmax": {
+                                "type": "number"
+                            },
+                            "CH2O_minmax": {
+                                "type": "number"
+                            },
+                            "FCVC_minmax": {
+                                "type": "number"
+                            },
+                            "Age_bin_minmax": {
+                                "type": "number"
+                            },
+                            "MTRANS_Walking": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            },
+                            "family_history_with_overweight": {
+                                "type": "number",
+                                "airbyte_type": "integer"
+                            }
+                        }
+                    },
+                    "supportedSyncModes": [
+                        "full_refresh",
+                        "incremental"
+                    ],
+                    "defaultCursorField": [],
+                    "sourceDefinedPrimaryKey": [],
+                    "namespace": "obesity"
+                },
+                "config": {
+                    "syncMode": "full_refresh",
+                    "cursorField": [],
+                    "destinationSyncMode": "overwrite",
+                    "primaryKey": [],
+                    "aliasName": "obesity_risk_prediction",
+                    "selected": true,
+                    "fieldSelectionEnabled": false
+                }
+            }
+        ]
+    },
+    "scheduleType": "manual",
+    "status": "inactive",
+    "geography": "auto"
+}
