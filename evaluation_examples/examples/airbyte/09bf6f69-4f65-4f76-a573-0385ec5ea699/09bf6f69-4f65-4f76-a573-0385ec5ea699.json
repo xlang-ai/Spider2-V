@@ -1,7 +1,7 @@
 {
-    "id": "aef836e9-1d84-4a49-9dd7-359c0dbc6ade",
+    "id": "09bf6f69-4f65-4f76-a573-0385ec5ea699",
     "snapshot": "airbyte",
-    "instruction": "I am asked to modify the enabled streams of the current Airbyte connection from Faker to Snowflake, activating only the 'products' and 'purchases' stream. Could you help me with this task?",
+    "instruction": "My leader asked me to download the sync log of the existing Airbyte connection and save it as airbyte_log.txt on the Desktop. Could you help me with this task?",
     "source": [
         "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
     ],
@@ -16,37 +16,16 @@
     "action_number": 20,
     "config": [
         {
-            "type": "snowflake_init",
-            "parameters": {
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "actions": [
-                    {
-                        "type": "create_database",
-                        "database": "faker",
-                        "schema": "public",
-                        "delete_first": true
-                    }
-                ]
-            }
-        },
-        {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/connection.json",
+                "src": "evaluation_examples/examples/airbyte/09bf6f69-4f65-4f76-a573-0385ec5ea699/connection.json",
                 "dest": "/home/user/connection.json"
-            }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/settings/snowflake/settings.json",
-                "dest": "/home/user/settings.json"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/init.sh",
+                "src": "evaluation_examples/examples/airbyte/09bf6f69-4f65-4f76-a573-0385ec5ea699/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -80,7 +59,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/eval.sh",
+            "src": "evaluation_examples/examples/airbyte/09bf6f69-4f65-4f76-a573-0385ec5ea699/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {
