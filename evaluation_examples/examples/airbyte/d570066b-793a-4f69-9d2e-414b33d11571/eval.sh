@@ -23,7 +23,7 @@ for workspaceid in ${workspaces}; do
         source_config=$(curl -X POST http://localhost:8000/api/v1/sources/get -H "Content-Type: application/json" -d "{\"sourceId\": \"${source_id}\"}")
         source_name=$(echo $source_config | jq -rM ".sourceName")
         if [ "${source_name}" = "Sample Data (Faker)" ] ; then
-            echo "Airbyte Connection from MySQL, succeed"
+            echo "Airbyte Connection from Faker, succeed"
         else
             continue
         fi
