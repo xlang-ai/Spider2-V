@@ -101,7 +101,7 @@ class VirtualMachineManager:
             vm_names = os.listdir(vms_dir)
             for vm_name in vm_names:
                 # skip the downloaded .zip file
-                if vm_name == DOWNLOADED_FILE_NAME:
+                if vm_name.endswith('.zip'):
                     continue
                 # Skip the .DS_Store file on macOS
                 if vm_name == ".DS_Store":
