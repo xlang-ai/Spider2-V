@@ -53,3 +53,30 @@ def compare_ipynb_files(result: str, expected: str, **options) -> float:
     except Exception as e:
         print(e)
         return 0.0
+    
+
+def compare_notebook_cells(result: str, expected: str) -> float:
+    """ Compare two Jupyter notebook cells.
+    @args:
+        result: str - the path to the Jupyter notebook file.
+        expected: str - the path to the expected Jupyter notebook file.
+        options: Dict[str, Any] - the options.
+    """
+    with open(result, 'r', encoding='utf-8') as result_file:
+        result_nb = nbformat.read(result_file, as_version=4)
+    with open(expected, 'r', encoding='utf-8') as expected_file:
+        expected_nb = nbformat.read(expected_file, as_version=4)
+    
+    result_cells = result_nb['cells']
+    expected_cells = expected_nb['cells']
+    
+    if len(result_cells) != len(expected_cells):
+        return 0.0
+    
+    for result_cell, expected_cell in zip(result_cells, expected_cells):
+        if result_cell['cell_type'] != expected_cell['cell_type']:
+            return 0.0
+        if result_cell['source'] != expected_cell['source']:
+            return 0.0
+    
+    return 1.0
