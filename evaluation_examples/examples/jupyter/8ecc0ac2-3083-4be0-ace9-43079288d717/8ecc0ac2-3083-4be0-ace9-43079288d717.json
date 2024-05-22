@@ -3,7 +3,7 @@
     "snapshot": "jupyter",
     "instruction": "Help me run all cells in this jupyter notebook. I hope to check the results.",
     "source": [
-        "https://docs.jupyter.org/en/latest/running.html#how-do-i-start-the-notebook-using-a-custom-ip-or-port"
+        "https://jupyterlab.readthedocs.io/en/latest/user/code_console.html"
     ],
     "related_apps": [
         "chromium",
