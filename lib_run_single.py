@@ -20,8 +20,9 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
     env.controller.start_recording()
     screenshots = os.path.join(result_dir, "screenshots")
     a11y_tree = os.path.join(result_dir, "a11y_trees")
-
-    while not done and step_idx < args.max_steps:
+    oracle_steps = example.get("action_number", 10)
+    max_steps = min(oracle_steps * 3, 50)
+    while not done and step_idx < max_steps:
         response, actions = agent.predict(example['instruction'], obs)
 
         for action in actions:

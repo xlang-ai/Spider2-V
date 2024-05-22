@@ -80,6 +80,8 @@ class SetupController:
         if vm_platform == "Linux":
             network_script = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'network.sh')
             self._upload_file_setup(files=[{"local_path": network_script, "path": "/home/user/network.sh"}])
+            if platform.system() == 'Windows':
+                self._execute_setup(command=["dos2unix", "/home/user/network.sh"])
             results = self._execution_result(command=["/bin/bash", "/home/user/network.sh"])['output']
             self._execute_setup(command=["rm", "-rf", "/home/user/network.sh"])
         else:
