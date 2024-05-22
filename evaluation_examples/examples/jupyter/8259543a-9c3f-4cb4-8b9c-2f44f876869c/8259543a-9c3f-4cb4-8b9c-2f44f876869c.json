@@ -3,7 +3,7 @@
     "snapshot": "jupyter",
     "instruction": "I have finished editting this JupyterLab. Please help me save this opened file as submission.ipynb on the Desktop.",
     "source": [
-        "https://docs.jupyter.org/en/latest/running.html#how-do-i-start-the-notebook-using-a-custom-ip-or-port"
+        "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#uploading-and-downloading"
     ],
     "related_apps": [
         "chromium",
