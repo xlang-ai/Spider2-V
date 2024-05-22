@@ -1,0 +1,281 @@
+{ 
+    "name": "Sample Data (Faker) → Snowflake", 
+    "namespaceDefinition": "destination", 
+    "prefix": "", 
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "operationIds": [], 
+    "syncCatalog": { 
+        "streams": [ 
+            { 
+                "stream": { 
+                    "name": "products", 
+                    "jsonSchema": { 
+                        "type": "object", 
+                        "$schema": "http://json-schema.org/draft-07/schema#", 
+                        "properties": { 
+                            "id": { 
+                                "type": "integer" 
+                            }, 
+                            "make": { 
+                                "type": "string" 
+                            }, 
+                            "year": { 
+                                "type": "integer" 
+                            }, 
+                            "model": { 
+                                "type": "string" 
+                            }, 
+                            "price": { 
+                                "type": "number" 
+                            }, 
+                            "created_at": { 
+                                "type": "string", 
+                                "format": "date-time", 
+                                "airbyte_type": "timestamp_with_timezone" 
+                            }, 
+                            "updated_at": { 
+                                "type": "string", 
+                                "format": "date-time", 
+                                "airbyte_type": "timestamp_with_timezone" 
+                            } 
+                        } 
+                    },
+                    "supportedSyncModes": [ 
+                        "full_refresh", 
+                        "incremental" 
+                    ], 
+                    "sourceDefinedCursor": true, 
+                    "defaultCursorField": [ 
+                        "updated_at" 
+                    ], 
+                    "sourceDefinedPrimaryKey": [ 
+                        [ 
+                            "id" 
+                        ] 
+                    ] 
+                }, 
+                "config": { 
+                    "syncMode": "incremental", 
+                    "cursorField": [ 
+                        "updated_at" 
+                    ], 
+                    "destinationSyncMode": "append_dedup", 
+                    "primaryKey": [ 
+                        [ 
+                            "id" 
+                        ] 
+                    ], 
+                    "aliasName": "products", 
+                    "selected": true, 
+                    "fieldSelectionEnabled": false 
+                } 
+            }, 
+            { 
+                "stream": { 
+                    "name": "users", 
+                    "jsonSchema": { 
+                        "type": "object", 
+                        "$schema": "http://json-schema.org/draft-07/schema#", 
+                        "properties": { 
+                            "id": { 
+                                "type": "integer" 
+                            }, 
+                            "age": { 
+                                "type": "integer" 
+                            },
+                            "name": { 
+                                "type": "string" 
+                            },
+                            "email": { 
+                                "type": "string" 
+                            }, 
+                            "title": { 
+                                "type": "string" 
+                            }, 
+                            "gender": {
+                                "type": "string" 
+                            }, 
+                            "height": { 
+                                "type": "string" 
+                            }, 
+                            "weight": { 
+                                "type": "integer" 
+                            }, 
+                            "address": { 
+                                "type": "object", 
+                                "properties": { 
+                                    "city": { 
+                                        "type": "string" 
+                                    }, 
+                                    "state": { 
+                                        "type": "string" 
+                                    }, 
+                                    "province": { 
+                                        "type": "string" 
+                                    }, 
+                                    "postal_code": { 
+                                        "type": "string" 
+                                    }, 
+                                    "street_name": { 
+                                        "type": "string" 
+                                    }, 
+                                    "country_code": { 
+                                        "type": "string" 
+                                    }, 
+                                    "street_number": { 
+                                        "type": "string" 
+                                    } 
+                                } 
+                            }, 
+                            "language": { 
+                                "type": "string" 
+                            }, 
+                            "telephone": { 
+                                "type": "string" 
+                            }, 
+                            "blood_type": { 
+                                "type": "string" 
+                            }, 
+                            "created_at": { 
+                                "type": "string", 
+                                "format": "date-time", 
+                                "airbyte_type": "timestamp_with_timezone" 
+                            }, 
+                            "occupation": { 
+                                "type": "string" 
+                            }, 
+                            "updated_at": { 
+                                "type": "string", 
+                                "format": "date-time", 
+                                "airbyte_type": "timestamp_with_timezone" 
+                            }, 
+                            "nationality": { 
+                                "type": "string" 
+                            }, 
+                            "academic_degree": { 
+                                "type": "string" 
+                            } 
+                        } 
+                    }, 
+                    "supportedSyncModes": [ 
+                        "full_refresh", 
+                        "incremental" 
+                    ], 
+                    "sourceDefinedCursor": true, 
+                    "defaultCursorField": [ 
+                        "updated_at" 
+                    ],
+                    "sourceDefinedPrimaryKey": [ 
+                        [ 
+                            "id" 
+                        ] 
+                    ] 
+                }, 
+                "config": { 
+                    "syncMode": "incremental", 
+                    "cursorField": [ 
+                        "updated_at" 
+                    ], 
+                    "destinationSyncMode": "append_dedup", 
+                    "primaryKey": [ 
+                        [ 
+                            "id" 
+                        ] 
+                    ], 
+                    "aliasName": "users", 
+                    "selected": true, 
+                    "fieldSelectionEnabled": false 
+                }
+            },
+            {
+                "stream": {
+                    "name": "purchases",
+                    "jsonSchema": {
+                        "type": "object",
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "user_id": {
+                                "type": "integer"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "airbyte_type": "timestamp_with_timezone"
+                            },
+                            "product_id": {
+                                "type": "integer"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "airbyte_type": "timestamp_with_timezone"
+                            },
+                            "returned_at": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ],
+                                "format": "date-time",
+                                "airbyte_type": "timestamp_with_timezone"
+                            },
+                            "purchased_at": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ],
+                                "format": "date-time",
+                                "airbyte_type": "timestamp_with_timezone"
+                            },
+                            "added_to_cart_at": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ],
+                                "format": "date-time",
+                                "airbyte_type": "timestamp_with_timezone"
+                            }
+                        }
+                    },
+                    "supportedSyncModes": [
+                        "full_refresh",
+                        "incremental"
+                    ],
+                    "sourceDefinedCursor": true,
+                    "defaultCursorField": [
+                        "updated_at"
+                    ],
+                    "sourceDefinedPrimaryKey": [
+                        [
+                            "id"
+                        ]
+                    ]
+                },
+                "config": {
+                    "syncMode": "incremental",
+                    "cursorField": [
+                        "updated_at"
+                    ],
+                    "destinationSyncMode": "append_dedup",
+                    "primaryKey": [
+                        [
+                            "id"
+                        ]
+                    ],
+                    "selected": true
+                }
+            }
+        ]
+    }, 
+    "scheduleType": "basic",
+    "scheduleData": {
+        "basicSchedule": {
+            "timeUnit": "hours",
+            "units": 24
+        }
+    },
+    "status": "active"
+}
