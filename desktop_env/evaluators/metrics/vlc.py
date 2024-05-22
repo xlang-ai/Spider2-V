@@ -110,7 +110,9 @@ def compare_images(image1_path, image2_path):
     # Calculate SSIM between two images
     similarity_index = ssim(image1_array, image2_array)
 
-    return similarity_index
+    if similarity_index > 0.98: # Account for slight image modifications due to website update
+        return 1
+    return 0
 
 
 def compare_audios(audio_path_1, audio_path_2):

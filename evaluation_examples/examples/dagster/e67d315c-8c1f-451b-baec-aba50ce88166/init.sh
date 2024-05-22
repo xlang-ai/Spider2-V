@@ -12,26 +12,8 @@ exec 2>/dev/null
 
 PASSWORD=password
 
-# install mysql for some examples
-echo $PASSWORD | sudo -S apt install pkg-config build-essential libmysqlclient-dev -y
-echo $PASSWORD | sudo -S apt install mysql-server=8.0.36-0ubuntu0.22.04.1 -y # Version may differ on other machines. Not tested.
-echo $PASSWORD | sudo -S systemctl enable mysql
-
-# The commands above should be executed only in a snapshot where MySQL is not installed (like airbyte).
-
-# some ENV for dagster
-mkdir -p /home/user/.dagster
-touch /home/user/.dagster/dagster.yaml
-echo "export DAGSTER_HOME=/home/user/.dagster" >> /home/user/.bashrc
-
-# The commands above should be executed only in a snapshot where dagster environment is not installed (like airbyte).
-
-# create conda environment and install dagster
 source /home/user/anaconda3/etc/profile.d/conda.sh
-conda create -n dagster python=3.11 -y # Comment this line if you have dagster conda environment configured.
 conda activate dagster
-pip install dagster==1.7.2 dagster-webserver==1.7.2 dagster-airbyte==0.23.2
-
 
 cd /home/user
 # create the target dagster project

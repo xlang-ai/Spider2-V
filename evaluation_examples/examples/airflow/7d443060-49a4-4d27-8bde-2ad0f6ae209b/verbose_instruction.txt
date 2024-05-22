@@ -5,7 +5,7 @@ To create testers to test the settings of the dag file and run the dag, we can f
 3. Switch to the DAG file ‘test_dag.py’ that is opened in VSCode, it suppress unnecessary log, ensures the correctness of the file and extract the information of dags in a variable for further use;
 4. We'll now define "test_file_imports" and "test_dag_schedule_interval" to test the import and schedule correctness of dags. To be concrete, we check whether "import_error" occurs and whether dag schedule is set to "daily":
 ˋˋˋ
-# ... Keep the original ˋtest_dagˋ codes
+# ... Keep the original ˋtest_dagˋ code
 
 def test_file_imports(rel_path, rv):
     if rel_path and rv:
@@ -26,7 +26,7 @@ def test_task_workflow_order():
 6. Save the file content and switch to the opened ‘/home/user/projects/today_task’ terminal.
 7. In the terminal, type in the following command to restart the UI:
 `astro dev restart` 
-8. Save the file and click the Chromium on the left pannel to open the Airflow web page;
+8. Click Chromium on the left pannel to open the Airflow web page;
 9. Find "task_today" in the DAG list and click the slider to the left of the name to Unpause dag; 
 10. Click the triangle under the Action column on the far right of the row to trigger the dag; 
 11. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"
