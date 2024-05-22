@@ -8,7 +8,8 @@
     "related_apps": [
         "chromium",
         "airbyte",
-        "docker"
+        "docker",
+        "bigquery"
     ],
     "tags": [
         "gui"
@@ -55,7 +56,10 @@
             "type": "google_chrome_browser",
             "parameters": {
                 "debugging_port": 1337,
-                "listening_port": 9222
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
             }
         },
         {
