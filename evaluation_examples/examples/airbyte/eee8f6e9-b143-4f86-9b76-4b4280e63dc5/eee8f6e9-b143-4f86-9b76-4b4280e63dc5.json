@@ -1,0 +1,67 @@
+{
+    "id": "eee8f6e9-b143-4f86-9b76-4b4280e63dc5",
+    "snapshot": "airbyte",
+    "instruction": "Please help me to create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. The target file path is /local/json_destination. Remember to choose manual sync mode.",
+    "source": [
+        "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 20,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/eee8f6e9-b143-4f86-9b76-4b4280e63dc5/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/eee8f6e9-b143-4f86-9b76-4b4280e63dc5/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}
