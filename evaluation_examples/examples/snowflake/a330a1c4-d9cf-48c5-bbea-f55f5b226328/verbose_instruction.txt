@@ -1,4 +1,4 @@
-To create the event table store log, please follow these steps:
+To create the event table and store logs, please follow these steps:
 1. Click the "+" button on the top right;
 2. Choose "SQL Worksheet" in the drop-down panel;
 3. In the opened blank worksheet, type in command:
@@ -27,4 +27,4 @@ def run():
   return "SUCCESS"
 $$;
 ```
-4. In the upper-right corner of the worksheet, select "Run All" to execute the command.
+4. In the upper-right corner of the worksheet, click the down button on the right of the run button "►" and then select "Run All" from the drop-down menu to execute the command.

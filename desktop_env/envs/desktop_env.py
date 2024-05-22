@@ -83,10 +83,6 @@ class DesktopEnv(gym.Env):
 
         # Initialize emulator and controller
         self._start_emulator()
-        if self.snapshot_name is not None:
-            self._revert_to_snapshot()
-        self._start_emulator()
-
         self.vm_ip = self._get_vm_ip()
         self.controller = PythonController(vm_ip=self.vm_ip)
         self.setup_controller = SetupController(vm_ip=self.vm_ip, cache_dir=self.cache_dir_base)
@@ -227,12 +223,12 @@ class DesktopEnv(gym.Env):
         self._step_no = 0
         self.action_history.clear()
 
+        self._revert_to_snapshot()
+        self._start_emulator()
+
         if task_config is not None:
             self._set_task_info(task_config)
             self.setup_controller.reset_cache_dir(self.cache_dir)
-
-        self._revert_to_snapshot()
-        self._start_emulator()
 
         logger.info("Setting up environment ...")
         if not self.setup_controller._network_setup(self.vm_platform):
@@ -240,10 +236,10 @@ class DesktopEnv(gym.Env):
         if self.proxy or proxy: # using proxy to visit some webs, e.g., Google Cloud, Snowflake
             proxy = proxy if proxy else self.proxy
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
-            logger.info(f"Set http(s) proxy to: {proxy['host']}:{proxy['port']}")
+            logger.info(f"Set http(s) proxy to: {proxy['host']}:{proxy['port']} for VM.")
+
         if task_config is not None:
             self.setup_controller.setup(self.config)
-
         time.sleep(5)
         logger.info("Environment setup complete.")
 
