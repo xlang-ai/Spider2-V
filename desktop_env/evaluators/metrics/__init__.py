@@ -168,7 +168,8 @@ from .snowflake import (
 )
 
 from .jupyterlab import (
-    is_jupyter_cell_executed
+    is_jupyter_cell_executed,
+    compare_ipynb_files
 )
 
 def infeasible():
