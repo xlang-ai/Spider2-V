@@ -3,7 +3,7 @@
 # 1. Chromium/Google Chrome is installed and can be started via chromium-browser or google-chrome command in the terminal.
 # 2. Docker is installed and the current user is in the docker group. It is also configured to start on boot.
 # 3. Anaconda3 is installed in the directory /home/user/anaconda3/ and has file path /home/user/anaconda3/etc/profile.d/conda.sh.
-# 4. Visual Studio Code is installed and can be launched via code command in the terminal.
+# 4. Visual Studio Code is installed and can be launched via code command in the terminal. Disable auto-update and auto-indent functions.
 # 5. Chromium, gnome-terminal, VS Code and Libreoffice Calc have been added to the application menu bar.
 
 exec 2>/dev/null
@@ -89,7 +89,7 @@ function install_postgresql() {
     sudo systemctl restart postgresql
     sudo systemctl enable postgresql
 }
-install_postgres
+install_postgresql
 function install_mysql() {
     echo $PASSWORD | sudo -S apt-get install -y pkg-config build-essential libmysqlclient-dev
     echo $PASSWORD | sudo -S apt-get install -y mysql-server=8.0.36-0ubuntu0.22.04.1
@@ -177,6 +177,11 @@ function setup_jupyter() {
     conda create -n jupyter python=3.11 -y
     conda activate jupyter
     pip install jupyter==1.0.0 jupyterlab==4.1.6 ipykernel==6.29.4 numpy==1.26.4 pandas==2.2.2 matplotlib==3.8.4 seaborn==0.13.2 scipy==1.13.0
+    jupyter notebook --generate-config
+    jupyter lab --generate-config
+    browser=$(which chromium-browser) # $(which google-chrome)
+    echo "c.ServerApp.browser = '$browser'" >> /home/user/.jupyter/jupyter_notebook_config.py
+    echo "c.ServerApp.browser = '$browser'" >> /home/user/.jupyter/jupyter_lab_config.py
     conda deactivate
 }
 setup_jupyter
@@ -200,7 +205,7 @@ function setup_snowflake() {
 }
 setup_snowflake
 
-# 8. Superset
+# 9. Superset
 function setup_superset() {
     mkdir -p /home/user/projects && cd /home/user/projects
     # download the github repo to local folder

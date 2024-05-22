@@ -15,6 +15,8 @@ from tqdm import tqdm
 __version__ = "0.1.12"
 
 MAX_RETRY_TIMES = 10
+LOCAL_ARM_FILE_PATH = ""
+LOCAL_X86_FILE_PATH = ""
 UBUNTU_ARM_URL = "https://huggingface.co/datasets/xlangai/ubuntu_arm/resolve/main/Ubuntu.zip"
 UBUNTU_X86_URL = "https://huggingface.co/datasets/xlangai/ubuntu_x86/resolve/main/Ubuntu.zip"
 DOWNLOADED_FILE_NAME = "Ubuntu.zip"
@@ -184,7 +186,7 @@ def _update_vm(vmx_path, target_vm_name):
 
         vmx_file_base_name = os.path.splitext(vmx_file)[0]
 
-        assert vmx_file == "Ubuntu.vmx", "The VMX file should be named 'Ubuntu.vmx'."
+        # assert vmx_file == "Ubuntu.vmx", "The VMX file should be named 'Ubuntu.vmx'."
         files_to_rename = ['vmx', 'nvram', 'vmsd', 'vmxf']
 
         for ext in files_to_rename:
@@ -202,7 +204,7 @@ def _update_vm(vmx_path, target_vm_name):
         print("VM files renamed successfully.")
 
 
-def _install_virtual_machine(vm_name, vms_dir, downloaded_file_name, original_vm_name="Ubuntu"):
+def _install_virtual_machine(vm_name, vms_dir, downloaded_file_name):
     os.makedirs(vms_dir, exist_ok=True)
 
     def __download_and_unzip_vm():
@@ -217,46 +219,52 @@ def _install_virtual_machine(vm_name, vms_dir, downloaded_file_name, original_vm
         else:
             raise Exception("Unsupported platform or architecture")
 
-        # Download the virtual machine image
-        print("Downloading the virtual machine image...")
-        downloaded_size = 0
+        if not os.path.exists(downloaded_file_name):
+            # Download the virtual machine image
+            print("Downloading the virtual machine image...")
+            downloaded_size = 0
 
-        while True:
-            downloaded_file_path = os.path.join(vms_dir, downloaded_file_name)
-            headers = {}
-            if os.path.exists(downloaded_file_path):
-                downloaded_size = os.path.getsize(downloaded_file_path)
-                headers["Range"] = f"bytes={downloaded_size}-"
+            while True:
+                downloaded_file_path = os.path.join(vms_dir, downloaded_file_name)
+                headers = {}
+                if os.path.exists(downloaded_file_path):
+                    downloaded_size = os.path.getsize(downloaded_file_path)
+                    headers["Range"] = f"bytes={downloaded_size}-"
 
-            with requests.get(url, headers=headers, stream=True) as response:
-                if response.status_code == 416:
-                    # This means the range was not satisfiable, possibly the file was fully downloaded
-                    print("Fully downloaded or the file sized changed.")
-                    break
+                with requests.get(url, headers=headers, stream=True) as response:
+                    if response.status_code == 416:
+                        # This means the range was not satisfiable, possibly the file was fully downloaded
+                        print("Fully downloaded or the file sized changed.")
+                        break
 
-                response.raise_for_status()
-                total_size = int(response.headers.get('content-length', 0))
+                    response.raise_for_status()
+                    total_size = int(response.headers.get('content-length', 0))
 
-                with open(downloaded_file_path, "ab") as file, tqdm(
-                        desc="Progress",
-                        total=total_size,
-                        unit='iB',
-                        unit_scale=True,
-                        unit_divisor=1024,
-                        initial=downloaded_size,
-                        ascii=True
-                ) as progress_bar:
-                    try:
-                        for data in response.iter_content(chunk_size=1024):
-                            size = file.write(data)
-                            progress_bar.update(size)
-                    except (requests.exceptions.RequestException, IOError) as e:
-                        print(f"Download error: {e}")
-                        sleep(1)  # Wait for 1 second before retrying
-                        print("Retrying...")
-                    else:
-                        print("Download succeeds.")
-                        break  # Download completed successfully
+                    with open(downloaded_file_path, "ab") as file, tqdm(
+                            desc="Progress",
+                            total=total_size,
+                            unit='iB',
+                            unit_scale=True,
+                            unit_divisor=1024,
+                            initial=downloaded_size,
+                            ascii=True
+                    ) as progress_bar:
+                        try:
+                            for data in response.iter_content(chunk_size=1024):
+                                size = file.write(data)
+                                progress_bar.update(size)
+                        except (requests.exceptions.RequestException, IOError) as e:
+                            print(f"Download error: {e}")
+                            sleep(1)  # Wait for 1 second before retrying
+                            print("Retrying...")
+                        else:
+                            print("Download succeeds.")
+                            break  # Download completed successfully
+        else:
+            downloaded_file_path = os.path.join(vms_dir, os.path.basename(downloaded_file_name))
+            if downloaded_file_path != downloaded_file_name:
+                shutil.move(downloaded_file_name, downloaded_file_path)
+                print(f'Move .zip file from original path {downloaded_file_name} to the target path {downloaded_file_path}.')
 
         # Unzip the downloaded file
         print("Unzipping the downloaded file...☕️")
@@ -269,7 +277,12 @@ def _install_virtual_machine(vm_name, vms_dir, downloaded_file_name, original_vm
     # Execute the function to download and unzip the VM, and update the vm metadata
     if not os.path.exists(vm_path):
         __download_and_unzip_vm()
-        _update_vm(os.path.join(vms_dir, vm_name, original_vm_name, original_vm_name + ".vmx"), vm_name)
+        # auto-detect original_vm_name, and add exception handling for MacOS suffix .vmwarevm
+        original_vm_name = os.listdir(os.path.join(vms_dir, vm_name))[0]
+        original_raw_vm_name = original_vm_name
+        if original_vm_name.endswith('.vmwarevm'):
+            original_raw_vm_name = original_vm_name[:-len('.vmwarevm')]
+        _update_vm(os.path.join(vms_dir, vm_name, original_vm_name, original_raw_vm_name + ".vmx"), vm_name)
     else:
         print(f"Virtual machine exists: {vm_path}")
 
@@ -376,7 +389,9 @@ def _get_vm_path():
         # No free virtual machine available, generate a new one
         print("No free virtual machine available. Generating a new one, which would take a while...☕")
         new_vm_name = vm_manager.generate_new_vm_name(vms_dir=VMS_DIR)
-        new_vm_path = _install_virtual_machine(new_vm_name, vms_dir=VMS_DIR, downloaded_file_name=DOWNLOADED_FILE_NAME)
+        local_file = LOCAL_ARM_FILE_PATH if platform.system() == 'Darwin' else LOCAL_X86_FILE_PATH
+        downloaded_file_name = local_file if os.path.exists(local_file) else DOWNLOADED_FILE_NAME
+        new_vm_path = _install_virtual_machine(new_vm_name, vms_dir=VMS_DIR, downloaded_file_name=downloaded_file_name)
         vm_manager.add_vm(new_vm_path)
         vm_manager.occupy_vm(new_vm_path, os.getpid())
         return new_vm_path
