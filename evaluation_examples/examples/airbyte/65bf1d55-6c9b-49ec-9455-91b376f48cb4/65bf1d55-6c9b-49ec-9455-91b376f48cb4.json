@@ -16,7 +16,6 @@
         "account"
     ],
     "action_number": 17,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "snowflake_init",
@@ -58,7 +57,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },

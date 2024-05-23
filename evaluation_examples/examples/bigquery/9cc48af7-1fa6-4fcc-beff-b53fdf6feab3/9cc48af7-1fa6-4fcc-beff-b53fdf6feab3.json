@@ -185,7 +185,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },
@@ -200,137 +200,137 @@
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata00"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata00"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata00"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata00"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata01"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata01"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata01"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata01"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata02"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata02"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata02"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata02"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata03"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata03"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata03"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata03"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata04"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata04"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata04"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata04"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata05"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata05"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata05"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata05"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata06"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata06"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata06"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata06"
+                ]
             }
         },
         {
             "type": "chrome_open_tabs",
             "parameters": {
-              "urls_to_open": [
-                "https://www.google.com",
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata07"
-              ]
+                "urls_to_open": [
+                    "https://www.google.com",
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata07"
+                ]
             }
         },
         {
             "type": "chrome_close_tabs",
             "parameters": {
-              "urls_to_close": [
-                "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata07"
-              ]
+                "urls_to_close": [
+                    "https://console.cloud.google.com/bigquery?project=spider2-422506&ws=!1m5!1m4!4m3!1sspider2-422506!2sspider01!3sdata07"
+                ]
             }
         },
         {
@@ -362,7 +362,9 @@
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["data00"]
+                "include": [
+                    "data00"
+                ]
             }
         }
     }

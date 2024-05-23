@@ -57,14 +57,20 @@
         "result": {
             "type": "dbt_job_info",
             "name": "Thanksgiving_Day",
-            "fields": ["cron_humanized"],
+            "fields": [
+                "cron_humanized"
+            ],
             "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["At 12:00 PM, between day 22 and 28 of the month, only on Thursday, only in November"],
-                "exclude": ["None"]
+                "include": [
+                    "At 12:00 PM, between day 22 and 28 of the month, only on Thursday, only in November"
+                ],
+                "exclude": [
+                    "None"
+                ]
             }
         }
     }

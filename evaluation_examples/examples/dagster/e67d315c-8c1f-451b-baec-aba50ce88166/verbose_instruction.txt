@@ -1,0 +1,29 @@
+Due to the requirements of my team, I want you to help me migrate an Airbyte connection to Dagster. The steps are as follows:
+1. Open Chromium. You can see the connections page in the Airbyte UI.
+2. Click "MySQL → Local JSON" from the connections list, and the details of the connection will be shown.
+3. The address of the website is updated to "http://localhost:8000/workspaces/{workspace_id}/connections/{connection_id}/status". Select the connection UUID between "connections" and "status" in the address bar on the top. Press Ctrl+C to copy.
+4. Switch to VS Code. The file "dagster_migration.py" is opened for you.
+5. Add the following code to "dagster_migration.py", and remember to replace "{airbyte_connection_id}" with the connection UUID you just copied:
+```
+from dagster import job
+from dagster_airbyte import airbyte_resource, airbyte_sync_op
+
+my_airbyte_resource = airbyte_resource.configured(
+    {
+        "host": "localhost",
+        "port": "8000",
+    }
+)
+mysql_to_json = airbyte_sync_op.configured({"connection_id": "{airbyte_connection_id}"}, name="mysql_to_json")
+
+@job(resource_defs={"airbyte": my_airbyte_resource})
+def airbyte_job():
+    mysql_to_json()
+```
+6. Press Ctrl+S to save the file.
+7. Open the terminal. Make sure the current folder is "~/airflow-mysql-to-json".
+8. Use the command "dagster dev -f dagster_migration.py" to start Dagster UI.
+9. Wait a few seconds, and you will see the info "Serving dagster-webserver on http://127.0.0.1:3000 in process ...". Right click on the link "http://127.0.0.1:3000".
+10. In the opened right click menu, select "Open Link". A new tab will open on Chromium.
+11. Select "Launchpad" under the title "airbyte_job" on the top.
+12. Click "Launch Run" on the bottom right. Wait for the run to succeed.

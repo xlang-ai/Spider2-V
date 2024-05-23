@@ -57,7 +57,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },
@@ -106,7 +106,9 @@
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["logistic_model"]
+                "include": [
+                    "logistic_model"
+                ]
             }
         }
     }

@@ -5,7 +5,7 @@
     "source": [
         "https://docs.getdbt.com/docs/collaborate/build-and-view-your-docs"
     ],
-    "related-apps": [
+    "related_apps": [
         "dbt",
         "chromium"
     ],
@@ -56,14 +56,22 @@
         "result": {
             "type": "dbt_job_info",
             "name": "init",
-            "fields": ["generate_docs", "execute_steps"],
+            "fields": [
+                "generate_docs",
+                "execute_steps"
+            ],
             "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["True", "'dbt seed', 'dbt test', 'dbt run'"],
-                "exclude": ["None"]
+                "include": [
+                    "True",
+                    "'dbt seed', 'dbt test', 'dbt run'"
+                ],
+                "exclude": [
+                    "None"
+                ]
             }
         }
     }

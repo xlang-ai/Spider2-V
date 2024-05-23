@@ -13,7 +13,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },
@@ -22,20 +22,27 @@
             "parameters": {
                 "settings_file": "evaluation_examples/settings/googledrive/settings.yml",
                 "actions": [
-                    {   
+                    {
                         "type": "delete",
-                        "path": ["Spider001"],
+                        "path": [
+                            "Spider001"
+                        ],
                         "trash": false
                     },
                     {
                         "type": "mkdirs",
-                        "path": ["Spider001"],
+                        "path": [
+                            "Spider001"
+                        ],
                         "exist_ok": true
                     },
                     {
                         "type": "upload",
                         "src": "evaluation_examples/examples/bigquery/64f19902-b612-4c9d-ac1a-48e486b565a2/a2012.xlsx",
-                        "path": ["Spider001","a2012.xlsx"]
+                        "path": [
+                            "Spider001",
+                            "a2012.xlsx"
+                        ]
                     }
                 ]
             }

@@ -5,7 +5,6 @@
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Some images should be pre-downloaded in VM snapshots to accelerate the process.
 # Please ensure the snowflake settings.json and connection.json is copied to the home directory.
-# BTW, a database named COVID19 should be created in Snowflake.
 # This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
@@ -17,19 +16,16 @@
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
-PASSWORD=password
 
+
+PASSWORD=password
+echo $PASSWORD | sudo -S systemctl stop mysql
 # configure the MySQL Database and load init data
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3306
 MYSQL_USER=root
 MYSQL_PASSWORD=password
 MYSQL_VERSION=8
-# ensure that localhost mysql is stopped or the port is not occupied
-port_in_use=$(echo $PASSWORD | sudo -S lsof -i :3306)
-if [ -n "${port_in_use}" ]; then
-    echo $PASSWORD | sudo -S service mysql stop
-fi
 docker run -p ${MYSQL_HOST}:${MYSQL_PORT}:${MYSQL_PORT} --name airbyte-mysql -e MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD} -d mysql:${MYSQL_VERSION}
 
 function start_airbyte_server() {

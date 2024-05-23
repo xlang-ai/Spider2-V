@@ -35,7 +35,9 @@ from .snowflake import (
     snowflake_login_setup,
     snowflake_init_setup,
     snowflake_write_sqls_in_new_worksheet_setup,
-    snowflake_delete_folder_setup
+    snowflake_delete_folder_setup,
+    hasura_login_setup,
+    snowflake_delete_filter_setup
 )
 
 from .google_cloud import (

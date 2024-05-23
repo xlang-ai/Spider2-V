@@ -1,0 +1,100 @@
+{
+    "id": "229efc20-d336-4b4f-bcfb-0fe4055959ed",
+    "snapshot": "airbyte",
+    "instruction": "I have constructed an airbyte connection from BigQuery to Local JSON but it's disabled. Could you help me to enable it?",
+    "source": [
+        "https://docs.airbyte.com/using-airbyte/core-concepts/sync-schedules"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "bigquery"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 20,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "obesity",
+                        "table_id": "obesity_risk_prediction",
+                        "data_from_csv": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/estimation_of_obesity_levels_based_on_eating_habits_and_physical_condition.csv"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/keyfile.json"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

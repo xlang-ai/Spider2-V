@@ -14,7 +14,6 @@
         "gui"
     ],
     "action_number": 9,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "script_and_execute",
@@ -29,7 +28,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },

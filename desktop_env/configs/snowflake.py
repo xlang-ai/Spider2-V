@@ -257,7 +257,7 @@ def snowflake_login_setup(controller, **config):
     """ Log into the snowflake website. Arguments for config dict:
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
-        url(str): the url of the dagster webui, default is 'https://app.snowflake.com'
+        url(str): the url of the snowflake webui, default is 'https://app.snowflake.com'
         settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/snowflake/settings.json'
     """
     listening_port = config.get('listening_port', 9222)
@@ -432,3 +432,114 @@ def snowflake_delete_folder_setup(controller, **config):
             return
 
         logger.info(f'[INFO]: successfully deleted folder {config["folder_name"]} in snowflake!')
+
+
+def hasura_login_setup(controller, **config):
+    """ Log into the hasura website. Arguments for config dict:
+    @args:
+        listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
+        url(str): the url of the hasura webui, default is 'https://cloud.hasura.io/signup/email'
+        settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/hasura_cloud/settings.json'
+    """
+    listening_port = config.get('listening_port', 9222)
+    remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
+    url = config.get('url', 'https://cloud.hasura.io/signup/email')
+    settings_file = config.get('settings_file', 'evaluation_examples/settings/hasura_cloud/settings.json')
+    settings = json.load(open(settings_file, 'r'))
+
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return
+        
+        context = browser.contexts[0]
+        page = find_page_by_url(context, url, matching_func=lambda x, y: x.startswith(y))
+        if page is None:
+            page = context.new_page()
+            page.goto(url, wait_until='load', timeout=60000)
+
+        try:
+            email = page.locator('form >> [type = "email"]')
+            expect(email).to_be_editable(timeout=60000)
+            email.fill(settings['email'])
+            password = page.locator('form >> [type = "password"]')
+            expect(password).to_be_editable()
+            password.fill(settings['password'])
+            button = page.get_by_role("button", name="Continue")
+            expect(button).to_be_enabled()
+            button.click()
+        except Exception as e:
+            logger.error(f'[ERROR]: failed to login to the hasura website! {e}')
+            return
+
+        logger.info('[INFO]: successfully logged into the hasura website!')
+    return
+
+
+def snowflake_delete_filter_setup(controller, **config):
+    """ Delete specific filter if exists. Arguments for config dict:
+    @args:
+        listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
+        filter_name(str): the SQL keyword of the filter which needs to be deleted, default is ':title_keyword'
+    """
+    listening_port = config.get('listening_port', 9222)
+    filter_name = config.get('filter_name', ':title_keyword')
+    remote_debugging_url = f"http://{controller.vm_ip}:{listening_port}"
+
+    with sync_playwright() as p:
+        browser = get_browser(p, remote_debugging_url)
+        if browser is None:
+            logger.error('[ERROR]: failed to connect to Google Chrome browser in the running VM!')
+            return
+
+        context = browser.contexts[0]
+        page = find_page_by_url(context, 'https://app.snowflake.com', matching_func=lambda x, y: x.startswith(y))
+        if page is None:
+            logger.error('[ERROR]: failed to find the snowflake website page!')
+            return
+
+        try:
+            create_button = page.locator('div[role="button"][data-testid="new-button"]')
+            create_button.click()
+            sql_worksheet = page.locator('div[role="option"]', has_text='SQL Worksheet')
+            sql_worksheet.click()
+            close_tips = page.locator('div[role="button"][aria-label="close"]')
+            close_tips.click()
+            got_it = page.locator('div[role="button"]', has_text='Got it!')
+            got_it.click()
+            filter_button = page.locator('div[role="button"][aria-label="show or hide filter"]')
+            filter_button.click()
+            manage_button = page.locator('div[role="button"]', has_text='Manage Filters')
+            manage_button.click()
+        except Exception as e:
+            logger.error(f'[ERROR]: failed to delete filter {config["filter_name"]} in snowflake! {e}')
+            return
+        
+        try:
+            title_keyword = page.locator('div[role="cell"]', has_text=filter_name)
+            title_keyword.hover()
+        except Exception as e:
+            try:
+                done_button = page.locator('div[role="button"]', has_text='Done')
+                done_button.click()
+            except Exception as exception:
+                logger.error(f'[ERROR]: failed to delete filter {config["filter_name"]} in snowflake! {exception}')
+                return
+            logger.info(f'[INFO]: successfully deleted filter {config["filter_name"]} in snowflake!')
+            return
+
+        try:
+            edit_button =  page.locator('div[role="cell"]', has_text="Edit")
+            edit_button.click()
+            delete_button = page.locator('div[role="button"]', has_text='Delete')
+            delete_button.click()
+            confirm_button = page.locator('div[role="button"]', has_text='Delete')
+            confirm_button.click()
+            done_button = page.locator('div[role="button"]', has_text='Done')
+            done_button.click()
+        except Exception as e:
+            logger.error(f'[ERROR]: failed to delete filter {config["filter_name"]} in snowflake! {e}')
+            return
+
+        logger.info(f'[INFO]: successfully deleted filter {config["filter_name"]} in snowflake!')

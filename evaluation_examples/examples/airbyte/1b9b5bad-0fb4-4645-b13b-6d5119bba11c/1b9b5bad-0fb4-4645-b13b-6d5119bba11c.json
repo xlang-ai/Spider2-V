@@ -1,0 +1,78 @@
+{
+    "id": "1b9b5bad-0fb4-4645-b13b-6d5119bba11c",
+    "snapshot": "airbyte",
+    "instruction": "Could you help me export the detailed configuration of the current connection into file connection.json for me? I want to check the details and transfer it to my colleague.",
+    "source": [
+        "https://airbyte.com/tutorials/create-and-monitor-a-data-pipeline-using-the-airbyte-api"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "postgresql"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 20,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/1b9b5bad-0fb4-4645-b13b-6d5119bba11c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/1b9b5bad-0fb4-4645-b13b-6d5119bba11c/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

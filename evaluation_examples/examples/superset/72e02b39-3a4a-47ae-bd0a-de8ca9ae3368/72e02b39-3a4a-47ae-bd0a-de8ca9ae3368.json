@@ -14,7 +14,6 @@
         "gui"
     ],
     "action_number": 8,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -29,7 +28,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },

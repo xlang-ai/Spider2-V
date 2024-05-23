@@ -1,0 +1,94 @@
+{
+    "id": "1ef6464f-82fc-4aee-9f1e-ab3c99536e38",
+    "snapshot": "snowflake",
+    "instruction": "I want to get the average salary of Data Analyst from table SALARY in database DB and schema PUBLIC. Since I may subsequently query the average salary of other jobs, I would like to create a custom filter and use that filter to query the average salary of the corresponding job. Please help me to create the required filter. Then create a new SQL worksheet, copy the query statement containing the filter from query.txt on the desktop to the worksheet, and use the filter to query the average salary for the job title Data Analyst. Finally, you need to download the results of the query and rename it to result.csv. Specific details about the filter are given below:\n- Display Name: Title_Keyword\n- SQL Keyword: :title_keyword\n- Role: ACCOUNTADMIN\n- Warehouse: COMPUTE_WH\n- Options via: Query",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-filters",
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-filters#label-snowsight-filter-options-query"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account"
+    ],
+    "action_number": 23,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/1ef6464f-82fc-4aee-9f1e-ab3c99536e38/query.txt",
+                "dest": "/home/user/Desktop/query.txt"
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/1ef6464f-82fc-4aee-9f1e-ab3c99536e38/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "snowflake_delete_filter",
+            "parameters": {
+                "listening_port": 9222,
+                "filter_name": ":title_keyword"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "compare_csv",
+            "exact_match"
+        ],
+        "result": [
+            {
+                "type": "vm_file",
+                "path": "/home/user/Downloads/result.csv",
+                "dest": "result.csv"
+            },
+            {
+                "type": "snowflake_worksheet_sql"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/1ef6464f-82fc-4aee-9f1e-ab3c99536e38/result_gold.csv",
+                "dest": "result_gold.csv"
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "expected": "SELECT avg(salary) as average_salary FROM salary where job_title = :title_keyword;"
+                }
+            }
+        ]
+    }
+}

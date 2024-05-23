@@ -1,7 +1,7 @@
 {
     "id": "a330a1c4-d9cf-48c5-bbea-f55f5b226328",
     "snapshot": "snowflake",
-    "instruction": "Help me create an event table store log.\n1. You need to open a new SQL worksheet and then create a new database and a new warehouse.\n- database name: log_trace_db\n- warehouse name: log_trace_wh\n- warehouse type: STANDARD\n- warehouse size: XSMALL\n2. Please create an event table.\n- event table name: event_table\n3. Please create a user-defined function.\n- function name: log_trace_data\n- language: Python\n- runtime version: 3.8\n- handler: run\n- logger name: logger\n- logger severity level: INFO\n- log message: \"Logging from Python function.\"\n- return value: \"SUCCESS\"",
+    "instruction": "Help me create an event table and store logs in Snowflake.\n1. In a new SQL worksheet, create a new database named \"log_trace_db\".\n2. Create an event table called \"event_table\".\n3. Create a user-defined logging function in Python 3.8:\n- function name: log_trace_data\n- handler: run\n- logger name: logger\n- logger severity level: INFO\n- log message: \"Logging from Python function.\"\n- return value: \"SUCCESS\"",
     "source": [
         "https://docs.snowflake.com/en/developer-guide/logging-tracing/tutorials/logging-tracing-getting-started"
     ],
@@ -14,7 +14,6 @@
         "account"
     ],
     "action_number": 4,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -30,9 +29,6 @@
                 "actions": [
                     {
                         "type": "delete_database"
-                    },
-                    {
-                        "type": "delete_warehouse"
                     }
                 ]
             }

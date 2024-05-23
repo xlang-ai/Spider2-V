@@ -24,9 +24,10 @@ echo $PASSWORD | sudo -S bash -c "curl -sSL install.astronomer.io | bash -s -- v
 ASTRO_RUNTIME_VERSION=10.5.0
 # it seems astro is stubbornly using this old postgres image version
 POSTGRES_VERSION=12.6
-
+MINIO_VERSION="RELEASE.2024-05-10T01-41-38Z"
 declare -a image_list=(
     "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
+    "quay.io/minio/minio:${MINIO_VERSION}"
     "postgres:${POSTGRES_VERSION}"
 )
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')

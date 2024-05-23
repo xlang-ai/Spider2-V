@@ -3,7 +3,6 @@ import datetime, json, logging, os, sys, argparse
 from typing import List, Optional, Union, Dict, Tuple
 from desktop_env.envs.desktop_env import DesktopEnv
 from mm_agents.agent import PromptAgent
-from lxml import etree
 from wrapt_timeout_decorator import *
 
 
@@ -18,30 +17,30 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
     done, step_idx = False, 0
     agent.reset()
     obs = env.reset(task_config=example)
+    infos = []
     env.controller.start_recording()
     screenshots = os.path.join(result_dir, "screenshots")
     a11y_tree = os.path.join(result_dir, "a11y_trees")
 
     while not done and step_idx < args.max_steps:
-        response, actions = agent.predict(example['instruction'], obs)
-
+        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], obs)
+        infos = []
         for action in actions:
             # Capture the timestamp before executing the action
             action_timestamp = datetime.datetime.now().strftime("%Y%m%d@%H%M%S")
             logger.info("[Action]: Step %d: %s", step_idx + 1, action)
 
             obs, reward, done, info = env.step(action, args.sleep_after_execution)
-            logger.info("[Status]: Done: %s", done)
+            infos.append(info) # add action execution result to the observation
 
             # Save screenshot and trajectory information
             if args.observation_space != 'a11y_tree':
                 with open(os.path.join(screenshots, f"step_{step_idx + 1}_{action_timestamp}.png"), "wb") as _f:
-                    _f.write(obs['screenshot'])
+                    _f.write(agent.observations[-1]["raw_screenshot"])
             if args.observation_space != 'screenshot':
-                with open(os.path.join(a11y_tree, f"step_{step_idx + 1}_{action_timestamp}.xml"), "w", encoding='utf-8') as _f:
-                    root = etree.fromstring(obs['accessibility_tree'])
-                    formatted_xml = etree.tostring(root, pretty_print=True, encoding='unicode')
-                    _f.write(formatted_xml)
+                with open(os.path.join(a11y_tree, f"step_{step_idx + 1}_{action_timestamp}.txt"), "w", encoding='utf-8') as _f:
+                    _f.write(agent.observations[-1]["accessibility_tree"])
+            # write trajectory information (can replay the trajectory later)
             with open(os.path.join(result_dir, "trajectory.jsonl"), "a") as f:
                 f.write(json.dumps({
                     "step_num": step_idx + 1,
@@ -54,10 +53,13 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
             if done:
                 logger.info("[INFO]: The episode is done. Congratulations!")
                 break
+        if done: break
+        obs['infos'] = infos
         step_idx += 1
     else:
         logger.warning("[WARNING]: Exceeded the maximum number of steps. Forced to stop the episode.")
 
+    agent.get_current_cost()
     try: # for safety reason, wrap the evaluation in a try-except block
         result = env.evaluate()
     except Exception as e:

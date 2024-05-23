@@ -14,14 +14,12 @@ exec 2>/dev/null
 cd /home/user
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dagster
-pip install notebook
 
 # create the target dagster project
 PROJECT_NAME=iris-classification
 unzip $PROJECT_NAME.zip
 rm -f $PROJECT_NAME.zip
 cd /home/user/$PROJECT_NAME
-pip install -e ".[dev]"
 
 # start dagster Web UI service and jupyter notebook
 function start_dagster_server() {

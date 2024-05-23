@@ -5,7 +5,6 @@
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Some images should be pre-downloaded in VM snapshots to accelerate the process.
 # Please ensure the snowflake settings.json and connection.json is copied to the home directory.
-# BTW, a database named COVID19 should be created in Snowflake.
 # This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
@@ -17,15 +16,18 @@ exec 2>/dev/null
 # conda activate airbyte
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate airbyte" >> ~/.bashrc
+PASSWORD=password
+echo $PASSWORD | sudo -S systemctl stop postgresql
 
 POSTGRES_VERSION=16-alpine
 # Start a source Postgres container running at port 5432 on localhost
 docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:${POSTGRES_VERSION}
+echo "export POSTGRES_PASSWORD=password" >> ~/.bashrc
 
 # start airbyte local server
 function start_airbyte_server() {
     cd /home/user/projects/airbyte
-    bash run-ab-platform.sh > start_server.log &
+    bash run-ab-platform.sh > start_server.log 2>start_server.log &
     total_time=0
     while true; do
         sleep 3
@@ -77,8 +79,7 @@ curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: appli
 }
 "
 # 4. get source id and write into file
-curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
-read -r source_id < /home/user/srcid.txt
+source_id=$(curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId")
 # 5. get destination definition id
 destination_name="Snowflake"
 destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_definitions/list -H "Content-Type: application/json" | jq -rM ".destinationDefinitions | .[] | select(.name == \"${destination_name}\") | .destinationDefinitionId")
@@ -86,14 +87,18 @@ destination_defid=$(curl -X POST http://localhost:8000/api/v1/destination_defini
 SNOWFLAKE_ACCOUNT=$(cat /home/user/settings.json | jq -rM ".account")
 SNOWFLAKE_USER=$(cat /home/user/settings.json | jq -rM ".user")
 SNOWFLAKE_PASSWORD=$(cat /home/user/settings.json | jq -rM ".password")
+# write account info into bashrc (environment variables)
+echo "export SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}" >> ~/.bashrc
+echo "export SNOWFLAKE_USER=${SNOWFLAKE_USER}" >> ~/.bashrc
+echo "export SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}" >> ~/.bashrc
 curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: application/json" -d "
 {
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
         \"host\": \"${SNOWFLAKE_ACCOUNT}\",
         \"role\": \"ACCOUNTADMIN\",
-        \"schema\": \"customers\",
-        \"database\": \"development\",
+        \"schema\": \"CUSTOMERS\",
+        \"database\": \"DEVELOPMENT\",
         \"username\": \"${SNOWFLAKE_USER}\",
         \"warehouse\": \"COMPUTE_WH\",
         \"credentials\": {
@@ -108,25 +113,26 @@ curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: 
 "
 rm /home/user/settings.json
 # 7. get destination id and write into file
-curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId" > /home/user/destid.txt
-read -r destination_id < /home/user/destid.txt
+destination_id=$(curl -X POST http://localhost:8000/api/v1/destinations/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".destinations | .[] | select(.destinationName == \"${destination_name}\") | .destinationId")
 # 8. create connection
 connection=$(cat /home/user/connection.json | sed "s/\${source_id}/${source_id}/" | sed "s/\${destination_id}/${destination_id}/")
-curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: application/json" -d "${connection}"
-# 9. get connection id
-curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
+connid=$(curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: application/json" -d "${connection}" | jq -rM ".connectionId")
 rm /home/user/connection.json
+# 9. sync connection
+curl -X POST http://localhost:8000/api/v1/connections/sync -H "Content-Type: application/json" -d "{\"connectionId\": \"${connid}\"}"
+total_time=0
+while true; do
+    sleep 5
+    total_time=$(expr $total_time + 5)
+    # get the last sync job and wait for succeed status
+    status=$(curl -X POST http://localhost:8000/api/v1/jobs/get_last_replication_job -H "Content-Type: application/json" -d "{\"connectionId\": \"${connid}\"}" | jq -rM ".job.status")
+    if [ "${status}" = "succeeded" ]; then
+        break
+    fi
+    if [ ${total_time} -gt 120 ]; then
+        echo "Exceeding maximum waiting time 120s for sync connection!"
+        break
+    fi
+done
 
-# #configure data-diff
-
-gnome-terminal --maximize --working-directory=/home/user/projects/
-
-# waiting for the first sync
-
-#add data into source database
-# docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record4');"
-# docker exec -i airbyte-source psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record5');"
-
-# "snowflake://XLANG:Spider2.0@zd89187.us-central1.gcp/development/CUSTOMERS?warehouse=COMPUTE_WH&role=ACCOUNTADMIN" USER
-# "postgresql://postgres:password@localhost:5432/development" customers.user
-# data-diff "snowflake://XLANG:Spider2.0@zd89187.us-central1.gcp/development/CUSTOMERS?warehouse=COMPUTE_WH&role=ACCOUNTADMIN" USERS "postgresql://postgres:password@localhost:5432/development" customers.users >> diff_test.csv
+gnome-terminal --maximize --working-directory=/home/user/Desktop/

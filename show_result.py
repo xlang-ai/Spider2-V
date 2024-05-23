@@ -1,5 +1,5 @@
 import os
-
+from typing import List, Dict
 
 def get_result(action_space, use_model, observation_type, result_dir):
     target_dir = os.path.join(result_dir, action_space, observation_type, use_model)
@@ -65,6 +65,34 @@ def get_result(action_space, use_model, observation_type, result_dir):
     else:
         print("Runned:", len(all_result), "Current Success Rate:", sum(all_result) / len(all_result) * 100, "%")
         return all_result
+
+
+def get_result_dict_from_dir(result_dir: str) -> Dict[str, Dict[str, float]]:
+    """ Given the result directory, return all results under this directory.
+    @return:
+        {
+            "dbt": {
+                "8aa9e870-b0c9-5417-be80-03154e83c7a3": 1.0,
+                "8ff98608-8e0e-526e-9413-d744554ba708": 0.0
+            }
+        }
+    """
+    result_dict = {}
+    for tool in os.listdir(result_dir):
+        tool_result_dir = os.path.join(result_dir, tool)
+        if tool not in result_dict: result_dict[tool] = dict()
+        for eid in os.listdir(tool_result_dir):
+            example_result_file = os.path.join(tool_result_dir, eid, 'result.txt')
+            if os.path.exists(example_result_file) and os.path.isfile(example_result_file):
+                with open(example_result_file, 'r') as inf:
+                    score = inf.read().strip()
+                    try:
+                        score = float(score)
+                    except:
+                        print(f'[ERROR]: when trying to convert result into score for {example_result_file}')
+                        continue
+                result_dict[tool][eid] = score
+    return result_dict
 
 
 if __name__ == '__main__':

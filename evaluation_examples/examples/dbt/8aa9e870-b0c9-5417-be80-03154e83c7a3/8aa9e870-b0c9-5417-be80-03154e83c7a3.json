@@ -34,7 +34,7 @@
         "cli"
     ],
     "evaluator": {
-      "func": [
+        "func": [
             "check_yaml_file",
             "check_include_exclude",
             "check_local_database"
@@ -65,10 +65,46 @@
             {
                 "type": "rule",
                 "rules": [
-                    ["match", ["jaffle_shop", "outputs", "dev", "type"], "duckdb"],
-                    ["match", ["jaffle_shop", "outputs", "prod", "type"], "duckdb"],
-                    ["contain", ["jaffle_shop", "outputs", "dev", "path"], "jaffle_shop.duckdb"],
-                    ["contain", ["jaffle_shop", "outputs", "prod", "path"], "jaffle_shop.duckdb"]
+                    [
+                        "match",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "dev",
+                            "type"
+                        ],
+                        "duckdb"
+                    ],
+                    [
+                        "match",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "prod",
+                            "type"
+                        ],
+                        "duckdb"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "dev",
+                            "path"
+                        ],
+                        "jaffle_shop.duckdb"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "prod",
+                            "path"
+                        ],
+                        "jaffle_shop.duckdb"
+                    ]
                 ]
             },
             {

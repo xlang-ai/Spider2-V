@@ -150,7 +150,10 @@ def get_snowflake_table_to_csv(env, config: Dict[str, Any]) -> str:
     try:
         client: SnowflakeConnection = connector.connect(**settings)
         cursor = client.cursor()
-        cursor.execute(f'SELECT * FROM {table};')
+        if '-' in table:
+            cursor.execute(f'SELECT * FROM "{table}";')
+        else:
+            cursor.execute(f'SELECT * FROM {table};')
         if include_header:
             headers = [col.name for col in cursor.description]
         rows = cursor.fetchall()

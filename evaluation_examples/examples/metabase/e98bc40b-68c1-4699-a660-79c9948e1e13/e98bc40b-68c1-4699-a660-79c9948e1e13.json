@@ -1,0 +1,102 @@
+{
+    "id": "e98bc40b-68c1-4699-a660-79c9948e1e13",
+    "snapshot": "metabase",
+    "instruction": "I need to make a pivot table of the Orders table in Sample Database. Please help me create one with the metric \"Sum of Subtotal\", and choose colomns \"Create At: Year\", \"Product -> Category\" and \"User -> State\" to group by. Save the results as a .xlsx file named \"query_result.xlsx\" in /home/user and sort the data ascendingly by \"Sum of Subtotal\".",
+    "source": [
+        "https://www.metabase.com/learn/visualization/how-to-create-pivot-tables"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase",
+        "excel"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 16,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/e98bc40b-68c1-4699-a660-79c9948e1e13/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "query_result.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/e98bc40b-68c1-4699-a660-79c9948e1e13/query_result_gold.xlsx",
+            "dest": "query_result_gold.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/query_result.xlsx",
+            "dest": "query_result.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                }
+            ]
+        }
+    }
+}

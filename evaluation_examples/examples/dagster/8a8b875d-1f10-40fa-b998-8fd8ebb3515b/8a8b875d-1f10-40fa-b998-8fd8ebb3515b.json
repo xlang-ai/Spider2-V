@@ -36,7 +36,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },
@@ -77,7 +77,8 @@
                 "type": "rule",
                 "rules": {
                     "include": [
-                        "1 passed", "succeeded"
+                        "1 passed",
+                        "succeeded"
                     ],
                     "exclude": [
                         "failed"

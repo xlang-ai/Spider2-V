@@ -3,20 +3,23 @@ import json
 import logging
 import os
 import re
+import tempfile
 import time
 import xml.etree.ElementTree as ET
 from http import HTTPStatus
 from io import BytesIO
-from typing import Dict, List
+from typing import Dict, List, Tuple, Union
 
 import backoff
 import dashscope
 import google.generativeai as genai
 import openai
+from groq import Groq
+
 import requests
 import tiktoken
 from PIL import Image
-from google.api_core.exceptions import InvalidArgument
+from google.api_core.exceptions import InvalidArgument, ResourceExhausted, InternalServerError, BadRequest
 
 from mm_agents.accessibility_tree_wrap.heuristic_retrieve import filter_nodes, draw_bounding_boxes
 # from mm_agents.prompts import *
@@ -24,21 +27,65 @@ from mm_agents.prompt_templates import ACTION_SPACE_PROMPTS, OBSERVATION_SPACE_P
 
 logger = logging.getLogger("desktopenv.agent")
 
+pure_text_settings = ['a11y_tree']
+
 
 # Function to encode the image
 def encode_image(image_content):
     return base64.b64encode(image_content).decode('utf-8')
 
 
-def linearize_accessibility_tree(accessibility_tree, platform="ubuntu"):
-    if accessibility_tree is None: return None
-    # leaf_nodes = find_leaf_nodes(accessibility_tree)
-    filtered_nodes = filter_nodes(ET.fromstring(accessibility_tree), platform)
-    # put text at the last
-    linearized_accessibility_tree = ["tag\tname\tposition (top-left x&y)\tsize (w&h)\ttext"]
-    # Linearize the accessibility tree nodes into a table format
+def encoded_img_to_pil_img(data_str):
+    base64_str = data_str.replace("data:image/png;base64,", "")
+    image_data = base64.b64decode(base64_str)
+    image = Image.open(BytesIO(image_data))
 
-    for node in filtered_nodes:
+    return image
+
+
+def save_to_tmp_img_file(data_str):
+    base64_str = data_str.replace("data:image/png;base64,", "")
+    image_data = base64.b64decode(base64_str)
+    image = Image.open(BytesIO(image_data))
+
+    tmp_img_path = os.path.join(tempfile.mkdtemp(), "tmp_img.png")
+    image.save(tmp_img_path)
+
+    return tmp_img_path
+
+
+def get_model_pricing(model_name: str) -> Tuple[float, float]:
+    pricing = {
+        'gpt-4-turbo': {
+            'prompt': 10e-6,
+            'completion': 30e-6
+        },
+        'gpt-4-32k': {
+            'prompt': 60e-6,
+            'completion': 120e-6
+        },
+        'gpt-4o': {
+            'prompt': 5e-6,
+            'completion': 15e-6
+        }
+    }
+    if model_name.startswith('gpt-4o'): model_name = 'gpt-4o'
+    if model_name.startswith('gpt-4-turbo'): model_name = 'gpt-4-turbo'
+    if model_name in pricing:
+        return pricing[model_name]['prompt'], pricing[model_name]['completion']
+    logger.warning(f"Model {model_name} is not in the pricing list.")
+    return 0.0, 0.0
+
+
+def linearize_accessibility_tree(filtered_nodes: List[ET.Element], add_index: bool = False) -> str:
+    # leaf_nodes = find_leaf_nodes(accessibility_tree)
+    # first line is headers
+    if add_index:
+        linearized_accessibility_tree = ["TAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
+    else:
+        linearized_accessibility_tree = ["INDEX\tTAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
+    # Linearize the accessibility tree nodes into a table format
+    for idx, node in enumerate(filtered_nodes):
         # linearized_accessibility_tree += node.tag + "\t"
         # linearized_accessibility_tree += node.attrib.get('name') + "\t"
         if node.text:
@@ -58,24 +105,16 @@ def linearize_accessibility_tree(accessibility_tree, platform="ubuntu"):
         # linearized_accessibility_tree += node.attrib.get(
         # , "") + "\t"
         # linearized_accessibility_tree += node.attrib.get('{uri:deskat:component.at-spi.gnome.org}size', "") + "\n"
-        linearized_accessibility_tree.append(
-            "{:}\t{:}\t{:}\t{:}\t{:}".format(
+        entry = f"{idx + 1}\t" if add_index else "" # index starting from 1, see draw_bounding_boxes()
+        entry += "{:}\t{:}\t{:}\t{:}\t{:}".format(
                 node.tag, node.get("name", "")
                 , node.get('{uri:deskat:component.at-spi.gnome.org}screencoord', "")
                 , node.get('{uri:deskat:component.at-spi.gnome.org}size', "")
                 , text
             )
-        )
+        linearized_accessibility_tree.append(entry)
 
     return "\n".join(linearized_accessibility_tree)
-
-
-def tag_screenshot(screenshot, accessibility_tree, platform="ubuntu"):
-    nodes = filter_nodes(ET.fromstring(accessibility_tree), platform=platform, check_image=True)
-    # Make tag screenshot
-    marks, drew_nodes, element_list, tagged_screenshot = draw_bounding_boxes(nodes, screenshot)
-
-    return marks, drew_nodes, tagged_screenshot, element_list
 
 
 def parse_actions_from_string(input_string):
@@ -113,7 +152,7 @@ def parse_actions_from_string(input_string):
 
 
 def parse_code_from_string(input_string):
-    input_string = input_string.replace(";", "\n")
+    input_string = "\n".join([line.strip() for line in input_string.split(';') if line.strip()])
     if input_string.strip() in ['WAIT', 'DONE', 'FAIL']:
         return [input_string.strip()]
 
@@ -150,10 +189,15 @@ def parse_code_from_string(input_string):
 def parse_code_from_som_string(input_string, masks):
     # parse the output string by masks
     tag_vars = ""
-    for i, mask in enumerate(masks):
-        x, y, w, h = mask
-        tag_vars += "tag_" + str(i + 1) + "=" + "({}, {})".format(int(x + w // 2), int(y + h // 2))
-        tag_vars += "\n"
+    indexes = re.findall(r"index_(\d+)", input_string)
+    for index in indexes:
+        try:
+            x = int(index) - 1
+            if 0 <= x < len(masks):
+                x, y, w, h = masks[x]
+                tag_vars += "index_" + index + " = ({}, {})".format(int(x + w // 2), int(y + h // 2))
+                tag_vars += "\n"
+        except: pass
 
     actions = parse_code_from_string(input_string)
 
@@ -204,14 +248,54 @@ class PromptAgent:
         self.thoughts = []
         self.actions = []
         self.observations = []
+        self.usages = {"prompt_tokens": 0, "completion_tokens": 0}
 
-        action_prompt = ACTION_SPACE_PROMPTS[self.action_space]
+        action_key = self.action_space if 'som' not in self.observation_space else self.action_space + '_som'
+        action_prompt = ACTION_SPACE_PROMPTS[action_key]
         observation_prompt = OBSERVATION_SPACE_PROMPTS[self.observation_space]
-        self.system_message = SYSTEM_PROMPT.format(action_prompt=action_prompt, observation_prompt=observation_prompt,
-                                                   screen_width=screen_size['width'], screen_height=screen_size['height'])
+        self.system_message = SYSTEM_PROMPT.format(action_prompt=action_prompt, observation_prompt=observation_prompt, screen_width=screen_size['width'], screen_height=screen_size['height'])
 
 
-    def predict(self, instruction: str, obs: Dict) -> List:
+    def get_current_cost(self) -> str:
+        pc, cc = get_model_pricing(self.model)
+        total_cost = pc * self.usages["prompt_tokens"] + cc * self.usages["completion_tokens"]
+        logger.info(f'[INFO]: Current usage: {self.usages["prompt_tokens"] * 1e-6:.2f}M prompt tokens, {self.usages["completion_tokens"] * 1e-6:.2f}M completion tokens, cost ${total_cost:.2f} .')
+        return
+
+
+    def add_action_infos(self, messages, action_list: List[Union[str, Dict]], infos: List[Dict]) -> Dict:
+        if not infos: return messages
+        prefix_msg = 'Here are the parsed action list from your last response and the execution flag of each action from the desktop environment:\n'
+        content_msg = ''
+        assert len(action_list) == len(infos), "The number of actions and infos should be the same."
+
+        def _execution_msg(info):
+            if info['status'] == 'error':
+                return f"Failed with error message -> {info['message'].strip()}"
+            elif info['error'].strip() != "":
+                return f"Succeed with error message -> {info['error'].strip()}"
+            else:
+                return "Succeed without error."
+
+        if len(action_list) == 0:
+            for action, info in zip(action_list, infos):
+                if self.action_space == 'computer_13':
+                    content_msg += f"\nParsed action: {json.dumps(action, ensure_ascii=False)}\n"
+                    content_msg += f"Execution flag: {_execution_msg(info)}\n"
+                elif self.action_space == 'pyautogui':
+                    content_msg += f"\nParsed action:\n```\n{action}\n```\n"
+                    content_msg += f"Execution flag: {_execution_msg(info)}\n"
+                else:
+                    raise ValueError("Unrecognised action_space type: " + self.action_space)
+        else:
+            content_msg = "\nNo valid action detected from your previous response.\n"
+        suffix_msg = '\nIf there are any omissions or additions of actions, please meticulously check the specification of the action space; if the execution status of any action is incorrect or unexpected, try to resolve it based on the following latest observations.'
+        msg = {"role": "user", "content": [{"type": "text", "text": prefix_msg + content_msg + suffix_msg}]}
+        messages.append(msg)
+        return messages
+
+
+    def predict(self, instruction: str, verbose_instruction: str, obs: Dict) -> List:
         """
         Predict the next action(s) based on the current observation.
         """
@@ -230,6 +314,18 @@ class PromptAgent:
                 },
             ]
         })
+
+        if verbose_instruction is not None: # add step-by-step plan
+            step_by_step_message = "Here is a step-by-step tutorial from an expert instructing you how to complete it: {}\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.".format(verbose_instruction)
+            messages.append({
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": step_by_step_message
+                    },
+                ]
+            })
 
         # Append trajectory
         assert len(self.observations) == len(self.actions) and len(self.actions) == len(self.thoughts) \
@@ -280,7 +376,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the text of accessibility tree and image of screenshot tagged with labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
+                            "text": "Given the text of accessibility tree and image of screenshot with index labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
                         },
                         {
                             "type": "image_url",
@@ -299,7 +395,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the image of screenshot as below. What's the next step that you will do to help with the task?"
+                            "text": "Given the image of screenshot as below, what's the next step that you will do to help with the task?"
                         },
                         {
                             "type": "image_url",
@@ -318,7 +414,7 @@ class PromptAgent:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Given the text info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
+                            "text": "Given the text of accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(_linearized_accessibility_tree)
                         }
                     ]
                 })
@@ -335,25 +431,32 @@ class PromptAgent:
                 ]
             })
 
-        # {{{1
+        # action execution result of previous turn
+        if len(self.actions) > 0: # if has previous action list
+            infos = obs.get('infos', [])
+            self.add_action_infos(messages, self.actions[-1], infos)
+
+        # tackle the current observation
         if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:
             base64_image = encode_image(obs["screenshot"])
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"],
-                                                                         platform=self.platform) if self.observation_space == "screenshot_a11y_tree" else None
-
-            if linearized_accessibility_tree:
-                linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
-                                                                        self.a11y_tree_max_tokens)
-            logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
             if self.observation_space == "screenshot_a11y_tree":
+                filtered_nodes = filter_nodes(ET.fromstring(obs["accessibility_tree"]), self.platform, check_image=True)
+                linearized_accessibility_tree = linearize_accessibility_tree(filtered_nodes, add_index=False)
+                if linearized_accessibility_tree:
+                    linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree,
+                                                                        self.a11y_tree_max_tokens)
+                logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
+
                 self.observations.append({
                     "screenshot": base64_image,
+                    "raw_screenshot": obs["screenshot"],
                     "accessibility_tree": linearized_accessibility_tree
                 })
             else:
                 self.observations.append({
                     "screenshot": base64_image,
+                    "raw_screenshot": obs["screenshot"],
                     "accessibility_tree": None
                 })
 
@@ -362,9 +465,9 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the image of screenshot as below. What's the next step that you will do to help with the task?"
+                        "text": "Given the image of screenshot as below, what's the next step that you will do to help with the task?"
                         if self.observation_space == "screenshot"
-                        else "Given the text info from accessibility tree and image of screenshot as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
+                        else "Given the text of accessibility tree and image of screenshot as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     },
                     {
                         "type": "image_url",
@@ -376,7 +479,8 @@ class PromptAgent:
                 ]
             })
         elif self.observation_space == "a11y_tree":
-            linearized_accessibility_tree = linearize_accessibility_tree(accessibility_tree=obs["accessibility_tree"], platform=self.platform)
+            filtered_nodes = filter_nodes(ET.fromstring(obs["accessibility_tree"]), self.platform, check_image=True)
+            linearized_accessibility_tree = linearize_accessibility_tree(filtered_nodes, add_index=False)
 
             if linearized_accessibility_tree:
                 linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree, self.a11y_tree_max_tokens)
@@ -392,21 +496,23 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the text info from accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
+                        "text": "Given the text of accessibility tree as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     }
                 ]
             })
         elif self.observation_space == "som":
             # Add som to the screenshot
-            masks, drew_nodes, tagged_screenshot, linearized_accessibility_tree = tag_screenshot(obs["screenshot"], obs["accessibility_tree"], self.platform)
+            filtered_nodes = filter_nodes(ET.fromstring(obs["accessibility_tree"]), self.platform, check_image=True)
+            masks, drawn_nodes, tagged_screenshot = draw_bounding_boxes(filtered_nodes, obs['screenshot'])
             base64_image = encode_image(tagged_screenshot)
-
+            linearized_accessibility_tree = linearize_accessibility_tree(drawn_nodes, add_index=True)
             if linearized_accessibility_tree:
                 linearized_accessibility_tree = trim_accessibility_tree(linearized_accessibility_tree, self.a11y_tree_max_tokens)
             logger.debug("LINEAR AT: %s", linearized_accessibility_tree)
 
             self.observations.append({
                 "screenshot": base64_image,
+                "raw_screenshot": tagged_screenshot,
                 "accessibility_tree": linearized_accessibility_tree
             })
 
@@ -415,7 +521,7 @@ class PromptAgent:
                 "content": [
                     {
                         "type": "text",
-                        "text": "Given the text info from accessibility tree and image of screenshot with tagged labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
+                        "text": "Given the text of accessibility tree and image of screenshot with index labels as below:\n{}\nWhat's the next step that you will do to help with the task?".format(linearized_accessibility_tree)
                     },
                     {
                         "type": "image_url",
@@ -434,13 +540,17 @@ class PromptAgent:
 
         # logger.info("PROMPT: %s", messages)
 
-        response = self.call_llm({
-            "model": self.model,
-            "messages": messages,
-            "max_tokens": self.max_tokens,
-            "top_p": self.top_p,
-            "temperature": self.temperature
-        })
+        try:
+            response = self.call_llm({
+                "model": self.model,
+                "messages": messages,
+                "max_tokens": self.max_tokens,
+                "top_p": self.top_p,
+                "temperature": self.temperature
+            })
+        except Exception as e:
+            logger.error("Failed to call" + self.model + ", Error: " + str(e))
+            response = ""
 
         logger.info("RESPONSE: %s", response)
 
@@ -449,21 +559,33 @@ class PromptAgent:
             self.thoughts.append(response)
         except ValueError as e:
             logger.error(f"[ERROR]: Failed to parse action from response {response}\nERROR_MSG: {e}")
-            actions = None
+            actions = []
             self.thoughts.append("")
 
         return response, actions
 
     @backoff.on_exception(
-        backoff.expo,
+        backoff.constant,
         # here you should add more model exceptions as you want,
         # but you are forbidden to add "Exception", that is, a common type of exception
         # because we want to catch this kind of Exception in the outside to ensure each example won't exceed the time limit
-        (openai.RateLimitError,
-         openai.BadRequestError,
-         openai.InternalServerError,
-         InvalidArgument),
-        max_tries=5
+        (
+                # OpenAI exceptions
+                openai.RateLimitError,
+                openai.BadRequestError,
+                openai.InternalServerError,
+
+                # Google exceptions
+                InvalidArgument,
+                ResourceExhausted,
+                InternalServerError,
+                BadRequest,
+
+                # Groq exceptions
+                # todo: check
+        ),
+        interval=30,
+        max_tries=10
     )
     def call_llm(self, payload):
 
@@ -497,6 +619,9 @@ class PromptAgent:
                 time.sleep(5)
                 return ""
             else:
+                usage = response.json()["usage"]
+                self.usages["prompt_tokens"] += usage["prompt_tokens"]
+                self.usages["completion_tokens"] += usage["completion_tokens"]
                 return response.json()['choices'][0]['message']['content']
 
         elif self.model.startswith("claude"):
@@ -569,6 +694,8 @@ class PromptAgent:
             top_p = payload["top_p"]
             temperature = payload["temperature"]
 
+            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
+
             mistral_messages = []
 
             for i, message in enumerate(messages):
@@ -587,12 +714,13 @@ class PromptAgent:
             client = OpenAI(api_key=os.environ["TOGETHER_API_KEY"],
                             base_url='https://api.together.xyz',
                             )
-            logger.info("Generating content with Mistral model: %s", self.model)
 
             flag = 0
             while True:
                 try:
-                    if flag > 20: break
+                    if flag > 20:
+                        break
+                    logger.info("Generating content with model: %s", self.model)
                     response = client.chat.completions.create(
                         messages=mistral_messages,
                         model=self.model,
@@ -664,18 +792,14 @@ class PromptAgent:
                 print("Failed to call LLM: ", response.status_code)
                 return ""
 
-        elif self.model.startswith("gemini"):
-            def encoded_img_to_pil_img(data_str):
-                base64_str = data_str.replace("data:image/png;base64,", "")
-                image_data = base64.b64decode(base64_str)
-                image = Image.open(BytesIO(image_data))
-
-                return image
-
+        elif self.model in ["gemini-pro", "gemini-pro-vision"]:
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
             temperature = payload["temperature"]
+
+            if self.model == "gemini-pro":
+                assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
 
             gemini_messages = []
             for i, message in enumerate(messages):
@@ -701,7 +825,7 @@ class PromptAgent:
 
                 gemini_messages.append(gemini_message)
 
-            # the mistral not support system message in our endpoint, so we concatenate it at the first user message
+            # the gemini not support system message in our endpoint, so we concatenate it at the first user message
             if gemini_messages[0]['role'] == "system":
                 gemini_messages[1]['parts'][0] = gemini_messages[0]['parts'][0] + "\n" + gemini_messages[1]['parts'][0]
                 gemini_messages.pop(0)
@@ -721,35 +845,159 @@ class PromptAgent:
             logger.info("Generating content with Gemini model: %s", self.model)
             request_options = {"timeout": 120}
             gemini_model = genai.GenerativeModel(self.model)
+
+            response = gemini_model.generate_content(
+                gemini_messages,
+                generation_config={
+                    "candidate_count": 1,
+                    # "max_output_tokens": max_tokens,
+                    "top_p": top_p,
+                    "temperature": temperature
+                },
+                safety_settings={
+                    "harassment": "block_none",
+                    "hate": "block_none",
+                    "sex": "block_none",
+                    "danger": "block_none"
+                },
+                request_options=request_options
+            )
+            return response.text
+
+        elif self.model == "gemini-1.5-pro-latest":
+            messages = payload["messages"]
+            max_tokens = payload["max_tokens"]
+            top_p = payload["top_p"]
+            temperature = payload["temperature"]
+
+            gemini_messages = []
+            for i, message in enumerate(messages):
+                role_mapping = {
+                    "assistant": "model",
+                    "user": "user",
+                    "system": "system"
+                }
+                assert len(message["content"]) in [1, 2], "One text, or one text with one image"
+                gemini_message = {
+                    "role": role_mapping[message["role"]],
+                    "parts": []
+                }
+
+                # The gemini only support the last image as single image input
+                for part in message["content"]:
+
+                    if part['type'] == "image_url":
+                        # Put the image at the beginning of the message
+                        gemini_message['parts'].insert(0, encoded_img_to_pil_img(part['image_url']['url']))
+                    elif part['type'] == "text":
+                        gemini_message['parts'].append(part['text'])
+                    else:
+                        raise ValueError("Invalid content type: " + part['type'])
+
+                gemini_messages.append(gemini_message)
+
+            # the system message of gemini-1.5-pro-latest need to be inputted through model initialization parameter
+            system_instruction = None
+            if gemini_messages[0]['role'] == "system":
+                system_instruction = gemini_messages[0]['parts'][0]
+                gemini_messages.pop(0)
+
+            api_key = os.environ.get("GENAI_API_KEY")
+            assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
+            genai.configure(api_key=api_key)
+            logger.info("Generating content with Gemini model: %s", self.model)
+            request_options = {"timeout": 120}
+            gemini_model = genai.GenerativeModel(
+                self.model,
+                system_instruction=system_instruction
+            )
+
+            with open("response.json", "w") as f:
+                messages_to_save = []
+                for message in gemini_messages:
+                    messages_to_save.append({
+                        "role": message["role"],
+                        "content": [part if isinstance(part, str) else "image" for part in message["parts"]]
+                    })
+                json.dump(messages_to_save, f, indent=4)
+
+            response = gemini_model.generate_content(
+                gemini_messages,
+                generation_config={
+                    "candidate_count": 1,
+                    # "max_output_tokens": max_tokens,
+                    "top_p": top_p,
+                    "temperature": temperature
+                },
+                safety_settings={
+                    "harassment": "block_none",
+                    "hate": "block_none",
+                    "sex": "block_none",
+                    "danger": "block_none"
+                },
+                request_options=request_options
+            )
+
+            return response.text
+
+        elif self.model == "llama3-70b":
+            messages = payload["messages"]
+            max_tokens = payload["max_tokens"]
+            top_p = payload["top_p"]
+            temperature = payload["temperature"]
+
+            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
+
+            groq_messages = []
+
+            for i, message in enumerate(messages):
+                groq_message = {
+                    "role": message["role"],
+                    "content": ""
+                }
+
+                for part in message["content"]:
+                    groq_message['content'] = part['text'] if part['type'] == "text" else ""
+
+                groq_messages.append(groq_message)
+
+            # The implementation based on Groq API
+            client = Groq(
+                api_key=os.environ.get("GROQ_API_KEY"),
+            )
+
+            flag = 0
+            while True:
+                try:
+                    if flag > 20:
+                        break
+                    logger.info("Generating content with model: %s", self.model)
+                    response = client.chat.completions.create(
+                        messages=groq_messages,
+                        model="llama3-70b-8192",
+                        max_tokens=max_tokens,
+                        top_p=top_p,
+                        temperature=temperature
+                    )
+                    break
+                except:
+                    if flag == 0:
+                        groq_messages = [groq_messages[0]] + groq_messages[-1:]
+                    else:
+                        groq_messages[-1]["content"] = ' '.join(groq_messages[-1]["content"].split()[:-500])
+                    flag = flag + 1
+
             try:
-                response = gemini_model.generate_content(
-                    gemini_messages,
-                    generation_config={
-                        "candidate_count": 1,
-                        "max_output_tokens": max_tokens,
-                        "top_p": top_p,
-                        "temperature": temperature
-                    },
-                    safety_settings={
-                        "harassment": "block_none",
-                        "hate": "block_none",
-                        "sex": "block_none",
-                        "danger": "block_none"
-                    },
-                    request_options=request_options
-                )
-                return response.text
+                return response.choices[0].message.content
             except Exception as e:
-                logger.error("Meet exception when calling Gemini API, " + str(e.__class__.__name__) + str(e))
-                logger.error(f"count_tokens: {gemini_model.count_tokens(gemini_messages)}")
-                logger.error(f"generation_config: {max_tokens}, {top_p}, {temperature}")
+                print("Failed to call LLM: " + str(e))
                 return ""
+
         elif self.model.startswith("qwen"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
-            if payload["temperature"]:
-                logger.warning("Qwen model does not support temperature parameter, it will be ignored.")
+            temperature = payload["temperature"]
 
             qwen_messages = []
 
@@ -766,23 +1014,42 @@ class PromptAgent:
 
                 qwen_messages.append(qwen_message)
 
-            response = dashscope.MultiModalConversation.call(
-                model='qwen-vl-plus',
-                messages=messages,
-                max_length=max_tokens,
-                top_p=top_p,
-            )
-            # The response status_code is HTTPStatus.OK indicate success,
-            # otherwise indicate request is failed, you can get error code
-            # and message from code and message.
-            if response.status_code == HTTPStatus.OK:
+            flag = 0
+            while True:
                 try:
-                    return response.json()['output']['choices'][0]['message']['content']
-                except Exception:
-                    return ""
-            else:
-                print(response.code)  # The error code.
-                print(response.message)  # The error message.
+                    if flag > 20:
+                        break
+                    logger.info("Generating content with model: %s", self.model)
+                    response = dashscope.Generation.call(
+                        model=self.model,
+                        messages=qwen_messages,
+                        result_format="message",
+                        max_length=max_tokens,
+                        top_p=top_p,
+                        temperature=temperature
+                    )
+
+                    if response.status_code == HTTPStatus.OK:
+                        break
+                    else:
+                        logger.error('Request id: %s, Status code: %s, error code: %s, error message: %s' % (
+                            response.request_id, response.status_code,
+                            response.code, response.message
+                        ))
+                        raise Exception("Failed to call LLM: " + response.message)
+                except:
+                    if flag == 0:
+                        qwen_messages = [qwen_messages[0]] + qwen_messages[-1:]
+                    else:
+                        for i in range(len(qwen_messages[-1]["content"])):
+                            if "text" in qwen_messages[-1]["content"][i]:
+                                qwen_messages[-1]["content"][i]["text"] = ' '.join(qwen_messages[-1]["content"][i]["text"].split()[:-500])
+                    flag = flag + 1
+
+            try:
+                return response['output']['choices'][0]['message']['content']
+            except Exception as e:
+                print("Failed to call LLM: " + str(e))
                 return ""
 
         else:

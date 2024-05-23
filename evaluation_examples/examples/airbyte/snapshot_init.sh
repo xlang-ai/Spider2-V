@@ -8,9 +8,9 @@ source /home/user/anaconda3/etc/profile.d/conda.sh
 conda create -n airbyte python=3.11 -y
 conda activate airbyte
 pip install dbt-snowflake==1.7.3 pytest==8.1.1 # for case 95ddd295-bb86-4f10-8d6b-6eb89ebb65cc
-pip install data-diff # for case 0fa19e8e-efba-42a6-8649-67ff203dbe87
-pip install "pydantic>=1.10.12,<2.0.0"
-echo $PASSWORD | sudo -S apt-get install -y libpq-dev
+pip install data-diff==0.2.0 # for case 0fa19e8e-efba-42a6-8649-67ff203dbe87
+pip install "pydantic>=1.10.15"
+echo $PASSWORD | sudo -S apt-get install -y libpq-dev=9.0.0
 pip install 'data-diff[postgresql]'
 pip install 'data-diff[snowflake]'
 
@@ -35,6 +35,19 @@ declare -a image_list=(
     "postgres:${POSTGRES_VERSION}"
     "mysql:${MYSQL_VERSION}"
     "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
+    "airbyte/source-postgres:3.3.18"
+    "airbyte/source-faker:6.0.3"
+    "airbyte/source-bigquery:0.4.2"
+    "airbyte/source-slack:0.4.0"
+    "airbyte/source-github:1.7.0"
+    "airbyte/source-mysql:3.3.13"
+    "airbyte/source-file:0.5.0"
+    "airbyte/source-snowflake:0.3.1"
+    "airbyte/destination-csv:1.0.0"
+    "airbyte/destination-sqlite:0.1.0"
+    "airbyte/destination-local-json:0.2.11"
+    "airbyte/destination-postgres:2.0.4"
+    "airbyte/destination-snowflake:3.6.4"
 )
 images=$(docker images | awk 'NR > 1 {if ($2 == "latest") print $1; else print $1 ":" $2}')
 for img in ${image_list[@]}; do
@@ -106,7 +119,6 @@ EOF
 install_superset
 
 # for 85a356d4-448c-4894-8151-856428886e65
-PASSWORD='password'
 # 1. install JAVA, set JAVA_HOME
 echo $PASSWORD | sudo -S apt-get update
 echo $PASSWORD | sudo -S apt-get install -y default-jre default-jdk
@@ -120,3 +132,11 @@ echo $PASSWORD | sudo -S bash -c "echo 'export JAVA_HOME=$JAVA_HOME' >> /etc/env
 mkdir -p /home/user/projects/metabase
 cd /home/user/projects/metabase
 wget -c https://downloads.metabase.com/v0.49.6/metabase.jar
+
+# 336663dd-6fa8-44b9-8e12-6877bb5a120e
+cd /home/user/projects
+git clone https://github.com/OwenKephart/airbyte_demo.git
+cd airbyte_demo
+# change python file EventMetaData 
+sed -i 's/EventMetadata/MetadataValue/g' /home/user/projects/airbyte/airbyte_demo/airbyte_demo/slack_github_analytics.py
+pip install -e .

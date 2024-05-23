@@ -10,6 +10,7 @@
 mkdir -p ~/.dbt
 mkdir -p ~/projects
 
+source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate dbt
 
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc

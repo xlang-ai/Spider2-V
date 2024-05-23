@@ -1,0 +1,52 @@
+{
+    "id": "8e4f7588-0aac-477e-9cc9-f63148024e45",
+    "snapshot": "bigquery",
+    "instruction": "Using Bigquery WebUI, check the covid19_open_data, calculate the total number of confirmed COVID-19 cases in the world on April 15, 2020. Save the answer in ~/Downloads/result.csv ",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1sbigquery-public-data!2scovid19_open_data"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/8e4f7588-0aac-477e-9cc9-f63148024e45/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}

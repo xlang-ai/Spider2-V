@@ -18,7 +18,6 @@
         "account"
     ],
     "action_number": 6,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "bigquery_init",
@@ -62,7 +61,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },

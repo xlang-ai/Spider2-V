@@ -20,7 +20,7 @@ count=0
 triggered=false
 maximum_wait_time=10
 while [ $count -lt $maximum_wait_time ]; do
-    consumer_record=$(docker exec ${CONTAINER} airflow dags list-runs -o plain --dag-id ${CONSUMER} --start-date ${producer_time} | grep "${CONSUMER}" | grep -m 1 "trigger" | grep "success")
+    consumer_record=$(docker exec ${CONTAINER} airflow dags list-runs -o plain --dag-id ${CONSUMER} --start-date ${producer_time} | grep "${CONSUMER}" | grep "success")
     if [ -n "$consumer_record" ]; then
         triggered=true
         break

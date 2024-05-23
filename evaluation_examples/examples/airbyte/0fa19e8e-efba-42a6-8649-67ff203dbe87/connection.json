@@ -45,14 +45,8 @@
                 } 
             } 
         ] 
-    }, 
-    "scheduleType": "basic", 
-    "scheduleData": { 
-        "basicSchedule": { 
-            "timeUnit": "hours", 
-            "units": 24 
-        } 
-    }, 
-    "status": "active", 
+    },
+    "scheduleType": "manual",
+    "status": "active",
     "geography": "auto"
 }

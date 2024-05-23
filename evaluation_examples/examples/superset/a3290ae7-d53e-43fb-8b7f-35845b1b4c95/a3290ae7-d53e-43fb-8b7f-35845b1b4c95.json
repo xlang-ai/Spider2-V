@@ -13,7 +13,6 @@
         "gui"
     ],
     "action_number": 15,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "google_chrome_browser",
@@ -21,7 +20,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },

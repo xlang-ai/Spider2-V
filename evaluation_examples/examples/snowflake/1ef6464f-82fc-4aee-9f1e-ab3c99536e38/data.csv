@@ -1,0 +1,1694 @@
+﻿Age,Gender,Education Level,Job Title,Years of Experience,Salary
+32,Male,Bachelor's,Software Engineer,5,90000
+28,Female,Master's,Data Analyst,3,65000
+45,Male,PhD,Senior Manager,15,150000
+36,Female,Bachelor's,Sales Associate,7,60000
+52,Male,Master's,Director,20,200000
+29,Male,Bachelor's,Marketing Analyst,2,55000
+42,Female,Master's,Product Manager,12,120000
+31,Male,Bachelor's,Sales Manager,4,80000
+26,Female,Bachelor's,Marketing Coordinator,1,45000
+38,Male,PhD,Senior Scientist,10,110000
+29,Male,Master's,Software Developer,3,75000
+48,Female,Bachelor's,HR Manager,18,140000
+35,Male,Bachelor's,Financial Analyst,6,65000
+40,Female,Master's,Project Manager,14,130000
+27,Male,Bachelor's,Customer Service Rep,2,40000
+44,Male,Bachelor's,Operations Manager,16,125000
+33,Female,Master's,Marketing Manager,7,90000
+39,Male,PhD,Senior Engineer,12,115000
+25,Female,Bachelor's,Data Entry Clerk,0,35000
+51,Male,Bachelor's,Sales Director,22,180000
+34,Female,Master's,Business Analyst,5,80000
+47,Male,Master's,VP of Operations,19,190000
+30,Male,Bachelor's,IT Support,2,50000
+36,Female,Bachelor's,Recruiter,9,60000
+41,Male,Master's,Financial Manager,13,140000
+28,Female,Bachelor's,Social Media Specialist,3,45000
+37,Female,Master's,Software Manager,11,110000
+24,Male,Bachelor's,Junior Developer,1,40000
+43,Female,PhD,Senior Consultant,15,140000
+33,Male,Master's,Product Designer,6,90000
+50,Male,Bachelor's,CEO,25,250000
+31,Female,Bachelor's,Accountant,4,55000
+29,Male,Master's,Data Scientist,3,75000
+39,Female,Bachelor's,Marketing Specialist,10,65000
+46,Male,PhD,Senior Manager,20,170000
+27,Male,Bachelor's,Technical Writer,2,45000
+35,Female,Bachelor's,HR Generalist,7,60000
+42,Male,Master's,Project Engineer,14,115000
+26,Female,Bachelor's,Customer Success Rep,1,40000
+49,Male,Bachelor's,Sales Executive,21,160000
+34,Female,Master's,UX Designer,5,80000
+48,Male,Master's,Operations Director,18,190000
+30,Male,Bachelor's,Network Engineer,3,60000
+36,Female,Bachelor's,Administrative Assistant,8,45000
+41,Male,Master's,Strategy Consultant,13,130000
+28,Female,Bachelor's,Copywriter,2,40000
+32,Male,Bachelor's,Account Manager,5,75000
+45,Female,Master's,Director of Marketing,16,180000
+38,Male,PhD,Senior Scientist,11,120000
+25,Male,Bachelor's,Help Desk Analyst,0,35000
+51,Female,Bachelor's,Customer Service Manager,22,130000
+33,Male,Master's,Business Intelligence Analyst,7,85000
+40,Female,Bachelor's,Event Coordinator,12,60000
+47,Male,Master's,VP of Finance,19,200000
+29,Female,Bachelor's,Graphic Designer,3,50000
+36,Male,Bachelor's,Sales Manager,9,95000
+27,Female,Master's,UX Researcher,2,65000
+43,Male,PhD,Senior Engineer,17,140000
+30,Female,Bachelor's,Social Media Manager,4,55000
+35,Male,Master's,Product Manager,7,105000
+51,Female,Master's,Director of Operations,23,170000
+29,Male,Bachelor's,Marketing Analyst,3,50000
+40,Female,Bachelor's,HR Manager,12,80000
+47,Male,PhD,Senior Data Scientist,21,180000
+26,Male,Bachelor's,Junior Accountant,1,35000
+38,Female,Master's,Digital Marketing Manager,10,90000
+46,Male,Bachelor's,IT Manager,19,120000
+31,Female,Bachelor's,Customer Service Representative,5,45000
+34,Male,Master's,Business Development Manager,8,90000
+49,Female,Master's,Senior Financial Analyst,18,150000
+33,Male,Bachelor's,Web Developer,6,65000
+39,Female,Bachelor's,Recruiter,11,70000
+45,Male,PhD,Research Director,16,190000
+28,Male,Bachelor's,Technical Support Specialist,2,40000
+42,Female,Master's,Creative Director,14,120000
+37,Male,Bachelor's,Project Manager,10,95000
+50,Female,Bachelor's,Operations Manager,22,160000
+32,Male,Master's,Senior Software Engineer,6,100000
+48,Female,Master's,Human Resources Director,20,180000
+30,Female,Bachelor's,Content Marketing Manager,3,55000
+36,Male,Bachelor's,Technical Recruiter,8,70000
+41,Female,Master's,Data Analyst,13,80000
+25,Male,Bachelor's,Sales Representative,0,30000
+52,Male,PhD,Chief Technology Officer,24,250000
+29,Female,Bachelor's,Junior Designer,2,40000
+34,Female,Master's,Financial Advisor,10,95000
+27,Male,Bachelor's,Junior Account Manager,2,45000
+40,Female,Bachelor's,HR Generalist,15,80000
+46,Male,Master's,Senior Project Manager,21,135000
+31,Female,Bachelor's,Marketing Coordinator,6,55000
+36,Male,PhD,Principal Scientist,11,120000
+29,Female,Bachelor's,Sales Associate,3,40000
+43,Male,Bachelor's,Supply Chain Manager,18,105000
+52,Female,Master's,Senior Marketing Manager,25,170000
+33,Male,Bachelor's,Business Analyst,7,75000
+39,Female,Bachelor's,Training Specialist,12,65000
+47,Male,PhD,Research Scientist,22,160000
+26,Male,Bachelor's,Junior Software Developer,1,35000
+38,Female,Master's,Public Relations Manager,10,90000
+45,Male,Bachelor's,Operations Analyst,20,110000
+31,Female,Bachelor's,Event Coordinator,5,45000
+35,Male,Master's,Product Marketing Manager,8,95000
+49,Female,Master's,Senior HR Manager,19,150000
+33,Male,Bachelor's,Junior Web Developer,5,50000
+39,Female,Master's,Senior Project Coordinator,13,80000
+44,Male,PhD,Chief Data Officer,16,220000
+30,Female,Bachelor's,Digital Content Producer,3,50000
+36,Male,Bachelor's,IT Support Specialist,7,60000
+41,Female,Master's,Senior Marketing Analyst,14,100000
+28,Male,Bachelor's,Customer Success Manager,2,40000
+42,Female,Master's,Senior Graphic Designer,15,110000
+37,Male,Bachelor's,Software Project Manager,9,95000
+50,Female,Bachelor's,Supply Chain Analyst,22,130000
+32,Male,Master's,Senior Business Analyst,6,90000
+23,Female,Bachelor's,Junior Marketing Analyst,0.5,35000
+31,Male,Master's,Senior Financial Analyst,6,95000
+40,Female,Bachelor's,Office Manager,15,65000
+48,Male,PhD,Principal Engineer,20,170000
+29,Female,Bachelor's,Junior HR Generalist,3,45000
+35,Male,Master's,Senior Product Manager,10,120000
+42,Female,Bachelor's,Sales Manager,17,100000
+53,Male,Master's,Director of Marketing,25,180000
+33,Female,Bachelor's,Junior Operations Analyst,5,50000
+38,Male,Bachelor's,Customer Service Manager,11,80000
+44,Female,PhD,Senior Scientist,16,140000
+26,Male,Bachelor's,Junior Accountant,2,40000
+37,Female,Master's,Senior HR Generalist,9,95000
+45,Male,Bachelor's,Sales Operations Manager,18,110000
+32,Female,Bachelor's,Marketing Coordinator,4,50000
+34,Male,Master's,Senior Software Developer,8,105000
+50,Female,Master's,Director of Operations,21,160000
+29,Male,Bachelor's,Junior Web Designer,3,45000
+40,Female,Master's,Senior Training Specialist,12,100000
+47,Male,PhD,Senior Research Scientist,22,160000
+27,Male,Bachelor's,Junior Sales Representative,1,35000
+39,Female,Bachelor's,Administrative Assistant,10,55000
+46,Male,Master's,Senior Project Manager,19,140000
+30,Female,Bachelor's,Junior Marketing Manager,4,50000
+36,Male,Bachelor's,Junior Data Analyst,7,60000
+43,Female,Master's,Senior Product Marketing Manager,14,120000
+28,Male,Bachelor's,Junior Business Analyst,2,40000
+41,Female,Master's,Senior Marketing Manager,13,110000
+33,Male,Bachelor's,Junior Software Developer,5,50000
+47,Male,Bachelor's,Senior Sales Manager,20,135000
+25,Female,Master's,Junior Marketing Specialist,1.5,40000
+34,Male,Bachelor's,Senior Business Analyst,8,90000
+42,Female,PhD,Senior Data Scientist,16,150000
+31,Male,Bachelor's,Junior Project Manager,4,60000
+38,Female,Bachelor's,Senior Accountant,10,80000
+45,Male,Master's,Director of Sales,19,175000
+29,Female,Bachelor's,Junior Recruiter,3,45000
+36,Male,Master's,Senior Business Development Manager,11,120000
+43,Female,PhD,Senior Product Designer,18,140000
+26,Male,Bachelor's,Junior Customer Support Specialist,2,35000
+37,Female,Master's,Senior Marketing Analyst,9,95000
+44,Male,Bachelor's,Senior IT Support Specialist,14,110000
+32,Female,Bachelor's,Junior Financial Analyst,5,50000
+33,Male,Master's,Senior Operations Manager,7,115000
+51,Female,PhD,Director of Human Resources,23,185000
+28,Male,Bachelor's,Junior Software Engineer,2,40000
+39,Female,Bachelor's,Senior Sales Representative,12,90000
+48,Male,Master's,Director of Product Management,21,175000
+30,Female,Bachelor's,Junior Copywriter,3,45000
+35,Male,Bachelor's,Senior Marketing Coordinator,7,80000
+41,Female,Master's,Senior Human Resources Manager,13,120000
+27,Male,Bachelor's,Junior Business Development Associate,1.5,35000
+40,Female,Bachelor's,Senior Account Manager,14,110000
+46,Male,PhD,Senior Researcher,18,150000
+31,Female,Bachelor's,Junior HR Coordinator,4,50000
+34,Male,Master's,Senior Software Engineer,9,105000
+50,Female,Master's,Director of Finance,20,180000
+29,Male,Bachelor's,Junior Marketing Coordinator,2,40000
+43,Male,Bachelor's,Senior Project Manager,16,140000
+26,Female,Master's,Junior Data Scientist,1.5,45000
+35,Male,Bachelor's,Senior Operations Analyst,7,85000
+42,Female,PhD,Senior Marketing Manager,18,140000
+31,Male,Bachelor's,Junior Accountant,4,50000
+38,Female,Bachelor's,Senior Human Resources Coordinator,10,80000
+46,Male,Master's,Director of Operations,20,170000
+29,Female,Bachelor's,Junior Sales Representative,2,40000
+37,Male,Master's,Senior Business Analyst,9,105000
+44,Female,PhD,Senior UX Designer,15,145000
+27,Male,Bachelor's,Junior Product Manager,2,40000
+36,Female,Bachelor's,Senior Marketing Specialist,8,85000
+43,Male,Bachelor's,Senior IT Project Manager,14,130000
+33,Female,Master's,Senior Financial Analyst,6,95000
+34,Male,Bachelor's,Senior Quality Assurance Analyst,9,100000
+50,Female,PhD,Director of Sales and Marketing,22,180000
+28,Male,Bachelor's,Junior Operations Analyst,1.5,35000
+39,Female,Bachelor's,Senior Account Executive,12,95000
+47,Male,Master's,Director of Business Development,19,170000
+30,Female,Bachelor's,Junior Social Media Manager,3,45000
+34,Male,Bachelor's,Senior Product Manager,7,95000
+40,Female,Master's,Senior Human Resources Specialist,13,120000
+28,Male,Bachelor's,Junior Business Analyst,2,40000
+41,Female,Bachelor's,Senior Marketing Coordinator,11,90000
+45,Male,PhD,Senior Data Analyst,17,155000
+32,Female,Bachelor's,Junior Account Manager,5,55000
+35,Male,Master's,Senior Software Developer,9,110000
+49,Female,Master's,Director of Human Capital,21,180000
+30,Male,Bachelor's,Junior Advertising Coordinator,3,45000
+44,Male,Bachelor's,Senior Sales Manager,16,130000
+27,Female,Master's,Junior UX Designer,1.5,45000
+36,Male,Bachelor's,Senior Accountant,7,90000
+41,Female,PhD,Senior Marketing Director,17,160000
+31,Male,Bachelor's,Junior HR Generalist,4,50000
+39,Female,Bachelor's,Senior Operations Manager,10,120000
+47,Male,Master's,Director of Finance,20,170000
+30,Female,Bachelor's,Junior Marketing Coordinator,2,40000
+38,Male,Master's,Senior IT Consultant,9,110000
+45,Female,PhD,Senior Product Designer,15,150000
+28,Male,Bachelor's,Junior Business Development Associate,2,40000
+35,Female,Bachelor's,Senior Marketing Analyst,8,85000
+44,Male,Bachelor's,Senior Software Engineer,14,130000
+34,Female,Master's,Senior Financial Advisor,6,100000
+35,Male,Bachelor's,Senior Project Coordinator,9,95000
+50,Female,PhD,Director of Operations,22,180000
+29,Male,Bachelor's,Junior Business Operations Analyst,1.5,35000
+40,Female,Bachelor's,Senior Sales Representative,12,100000
+48,Male,Master's,Director of Marketing,19,170000
+31,Female,Bachelor's,Junior Social Media Specialist,3,45000
+33,Male,Bachelor's,Senior Product Development Manager,7,100000
+42,Female,Master's,Senior Human Resources Manager,13,140000
+28,Male,Bachelor's,Junior Financial Analyst,2,40000
+40,Female,Bachelor's,Senior Marketing Manager,11,105000
+46,Male,PhD,Senior Data Scientist,18,160000
+33,Female,Bachelor's,Junior Operations Manager,5,70000
+37,Male,Master's,Senior Software Architect,9,120000
+51,Female,Master's,Director of Human Resources,21,190000
+30,Male,Bachelor's,Junior Marketing Specialist,3,45000
+43,Male,Bachelor's,Senior Project Manager,15,120000
+27,Female,Master's,Junior Research Scientist,1.5,50000
+35,Male,Bachelor's,Senior Operations Analyst,8,85000
+42,Female,PhD,Senior Marketing Manager,13,140000
+32,Male,Bachelor's,Junior Sales Representative,3,45000
+37,Female,Bachelor's,Senior Financial Analyst,9,100000
+45,Male,Master's,Senior Software Developer,16,140000
+33,Female,Bachelor's,Junior Operations Analyst,5,70000
+39,Male,Bachelor's,Senior Marketing Specialist,10,120000
+44,Female,PhD,Senior HR Manager,18,160000
+29,Male,Bachelor's,Junior Business Analyst,1.5,40000
+38,Female,Bachelor's,Senior Product Manager,10,120000
+46,Male,PhD,Senior Data Analyst,19,150000
+34,Female,Bachelor's,Junior Marketing Analyst,6,70000
+36,Male,Bachelor's,Senior Operations Manager,8,95000
+49,Female,Master's,Director of Marketing,21,180000
+31,Male,Bachelor's,Junior Financial Analyst,3,50000
+41,Female,Bachelor's,Senior Project Coordinator,11,95000
+47,Male,Master's,Director of Operations,20,170000
+30,Female,Bachelor's,Junior Marketing Coordinator,2,40000
+38,Male,Master's,Senior IT Consultant,9,110000
+45,Female,PhD,Senior Product Designer,15,150000
+28,Male,Bachelor's,Junior Business Development Associate,2,40000
+35,Female,Bachelor's,Senior Marketing Analyst,8,85000
+44,Male,Bachelor's,Senior Software Engineer,14,130000
+34,Female,Master's,Senior Financial Advisor,6,100000
+35,Male,Bachelor's,Senior Project Coordinator,9,95000
+50,Female,PhD,Director of Operations,22,180000
+29,Male,Bachelor's,Junior Business Operations Analyst,1.5,350
+37,Female,Bachelor's,Senior Financial Manager,10,120000
+46,Male,PhD,Senior Data Scientist,18,160000
+31,Female,Bachelor's,Junior Marketing Coordinator,3,50000
+42,Male,Bachelor's,Senior Operations Manager,12,110000
+29,Female,Bachelor's,Junior Sales Representative,1.5,40000
+36,Male,Bachelor's,Senior Marketing Specialist,8,95000
+44,Female,Master's,Senior HR Specialist,15,140000
+33,Male,Bachelor's,Junior Operations Manager,4,60000
+39,Female,Bachelor's,Senior Marketing Coordinator,9,110000
+45,Male,PhD,Senior Data Engineer,16,150000
+32,Female,Bachelor's,Junior Marketing Manager,4,60000
+37,Male,Bachelor's,Senior Financial Analyst,8,90000
+47,Female,Master's,Director of Marketing,20,180000
+30,Male,Bachelor's,Junior Business Analyst,2,40000
+38,Female,Bachelor's,Senior Project Manager,9,120000
+46,Male,PhD,Senior Data Analyst,17,160000
+34,Female,Bachelor's,Junior Financial Analyst,5,70000
+36,Male,Bachelor's,Senior Product Manager,8,95000
+49,Female,Master's,Director of Operations,21,180000
+31,Male,Bachelor's,Junior Operations Analyst,3,50000
+41,Female,Bachelor's,Senior Project Coordinator,11,95000
+47,Male,Master's,Director of Marketing,19,170000
+29,Female,Bachelor's,Junior Business Development Associate,1.5,35000
+35,Male,Bachelor's,Senior Financial Manager,9,100000
+44,Female,PhD,Senior Product Designer,15,150000
+33,Male,Bachelor's,Junior Business Analyst,4,60000
+35,Female,Bachelor's,Senior Marketing Analyst,8,85000
+44,Male,Bachelor's,Senior Software Engineer,13,130000
+32,Male,Bachelor's,Junior Product Manager,4,65000
+38,Female,Bachelor's,Senior Business Analyst,10,110000
+49,Male,PhD,Director of Operations,21,180000
+29,Female,Bachelor's,Junior Marketing Specialist,2,40000
+35,Male,Bachelor's,Senior Business Development Manager,7,90000
+45,Female,Master's,Senior HR Manager,14,140000
+33,Male,Bachelor's,Junior Financial Analyst,4,60000
+40,Female,Bachelor's,Senior Marketing Manager,12,130000
+44,Male,PhD,Senior Data Scientist,16,160000
+30,Female,Bachelor's,Junior Operations Coordinator,2,40000
+37,Male,Bachelor's,Senior Marketing Analyst,9,100000
+48,Female,Master's,Director of HR,20,180000
+31,Male,Bachelor's,Junior Project Manager,3,55000
+38,Female,Bachelor's,Senior Operations Coordinator,9,120000
+45,Male,PhD,Senior Data Engineer,16,150000
+33,Female,Bachelor's,Junior Marketing Manager,5,70000
+36,Male,Bachelor's,Senior Business Analyst,8,95000
+49,Female,Master's,Director of Marketing,21,180000
+31,Male,Bachelor's,Junior Operations Analyst,3,50000
+42,Female,Bachelor's,Senior Project Manager,12,120000
+47,Male,Master's,Director of Marketing,19,170000
+29,Female,Bachelor's,Junior Business Development Associate,1.5,35000
+35,Male,Bachelor's,Senior Financial Manager,9,100000
+44,Female,PhD,Senior Product Designer,15,150000
+33,Male,Bachelor's,Junior Business Analyst,4,60000
+35,Female,Bachelor's,Senior Marketing Analyst,8,85000
+44,Male,Bachelor's,Senior Software Engineer,13,130000
+34,Female,Master's,Senior Financial Advisor,6,80000
+36,Male,Bachelor's,Senior Marketing Specialist,8,95000
+30,Female,Bachelor's,Junior HR Coordinator,2,40000
+37,Male,Bachelor's,Senior Business Development Manager,10,120000
+45,Female,Master's,Senior Marketing Manager,16,160000
+32,Male,Bachelor's,Junior Financial Advisor,4,65000
+39,Female,Bachelor's,Senior Project Manager,12,130000
+47,Male,PhD,Director of Engineering,20,180000
+29,Female,Bachelor's,Junior Marketing Analyst,2,40000
+36,Male,Bachelor's,Senior Operations Manager,9,100000
+43,Female,PhD,Senior Data Scientist,15,150000
+32,Male,Bachelor's,Junior Marketing Coordinator,3,55000
+38,Female,Bachelor's,Senior Business Analyst,10,110000
+48,Male,Master's,Director of Marketing,21,180000
+31,Female,Bachelor's,Junior Business Development Associate,3,50000
+40,Male,Bachelor's,Senior Financial Analyst,12,130000
+45,Female,PhD,Senior UX Designer,16,160000
+33,Male,Bachelor's,Junior Product Manager,4,60000
+36,Female,Bachelor's,Senior Marketing Manager,8,95000
+47,Male,Master's,Director of Operations,19,170000
+29,Female,Bachelor's,Junior Project Manager,2,40000
+34,Male,Bachelor's,Senior Operations Coordinator,7,90000
+44,Female,PhD,Senior Business Analyst,15,150000
+33,Male,Bachelor's,Junior Marketing Specialist,5,70000
+35,Female,Bachelor's,Senior Financial Manager,8,90000
+43,Male,Master's,Director of Marketing,18,170000
+31,Female,Bachelor's,Junior Financial Analyst,3,50000
+41,Male,Bachelor's,Senior Product Manager,14,150000
+44,Female,PhD,Senior Data Engineer,16,160000
+33,Male,Bachelor's,Junior Business Analyst,4,60000
+35,Female,Bachelor's,Senior Marketing Analyst,8,85000
+45,Male,Master's,Director of Engineering,19,180000
+28,Female,Bachelor's,Junior Operations Manager,1,35000
+36,Male,Bachelor's,Senior Business Development Manager,8,110000
+44,Female,PhD,Senior Data Scientist,16,160000
+31,Male,Bachelor's,Junior Marketing Coordinator,3,55000
+38,Female,Bachelor's,Senior Business Analyst,10,110000
+48,Male,Master's,Director of Marketing,21,180000
+31,Female,Bachelor's,Junior Business Development Associate,3,50000
+40,Male,Bachelor's,Senior Financial Analyst,12,130000
+45,Female,PhD,Senior UX Designer,16,160000
+33,Male,Bachelor's,Junior Product Manager,4,60000
+36,Female,Bachelor's,Senior Marketing Manager,8,95000
+47,Male,Master's,Director of Operations,19,170000
+29,Female,Bachelor's,Junior Project Manager,2,40000
+34,Male,Bachelor's,Senior Operations Coordinator,7,90000
+44,Female,PhD,Senior Business Analyst,15,150000
+33,Male,Bachelor's,Junior Marketing Specialist,5,70000
+35,Female,Bachelor's,Senior Financial Manager,8,90000
+43,Male,Master's,Director of Marketing,18,170000
+31,Female,Bachelor's,Junior Financial Analyst,3,50000
+41,Male,Bachelor's,Senior Product Manager,14,150000
+44,Female,PhD,Senior Data Engineer,16,160000
+33,Male,Bachelor's,Junior Business Analyst,4,60000
+35,Female,Bachelor's,Senior Marketing Analyst,8,85000
+43,Male,Master's,Director of Operations,19,170000
+29,Female,Bachelor's,Junior Project Manager,2,40000
+34,Male,Bachelor's,Senior Operations Coordinator,7,90000
+44,Female,PhD,Senior Business Analyst,15,150000
+31,Male,Master's,Data Scientist,6,160000
+28,Female,Bachelor's,Software Engineer,3,125000
+26,Male,Master's,Product Manager,2,120000
+27,Female,Bachelor's,Data Analyst,2,110000
+30,Male,PhD,Data Scientist,5,180000
+29,Female,Bachelor's,Software Engineer,4,140000
+32,Male,Bachelor's,Product Manager,7,170000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+28,Male,Bachelor's,Software Engineer,3,125000
+26,Female,Master's,Product Manager,2,120000
+27,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,5,180000
+29,Male,Bachelor's,Software Engineer,4,140000
+32,Male,Bachelor's,Product Manager,7,170000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+28,Male,Bachelor's,Software Engineer,3,125000
+26,Female,Master's,Product Manager,2,120000
+27,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,5,180000
+29,Male,Bachelor's,Software Engineer,4,140000
+32,Male,Bachelor's,Product Manager,7,170000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+28,Male,Bachelor's,Software Engineer,3,125000
+26,Female,Master's,Product Manager,2,120000
+27,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,5,180000
+29,Male,Bachelor's,Software Engineer,4,140000
+32,Male,Bachelor's,Product Manager,7,170000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+28,Male,Bachelor's,Software Engineer,3,125000
+26,Female,Master's,Product Manager,2,120000
+27,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,5,180000
+29,Male,Bachelor's,Software Engineer,4,140000
+32,Male,Bachelor's,Product Manager,7,170000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+25,Female,Master's,Data Analyst,1,100000
+33,Male,PhD,Data Scientist,8,190000
+31,Female,Bachelor's,Software Engineer,6,155000
+28,Male,Master's,Product Manager,3,130000
+30,Female,Bachelor's,Data Analyst,5,145000
+27,Male,PhD,Data Scientist,2,115000
+29,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Bachelor's,Product Manager,9,185000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+27,Female,Bachelor's,Product Manager,4,150000
+24,Male,Bachelor's,Data Analyst,1,90000
+31,Female,Master's,Data Scientist,9,195000
+28,Male,Bachelor's,Software Engineer,5,160000
+33,Female,Master's,Product Manager,11,198000
+25,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+23,Male,Bachelor's,Data Analyst,1,95000
+32,Female,PhD,Data Scientist,10,193000
+29,Male,Bachelor's,Software Engineer,6,175000
+30,Female,Bachelor's,Product Manager,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+31,Female,Master's,Data Scientist,6,180000
+28,Male,Bachelor's,Software Engineer,5,160000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+25,Male,Bachelor's,Data Analyst,2,110000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+27,Female,Bachelor's,Product Manager,4,150000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+33,Male,Master's,Product Manager,11,198000
+26,Female,Bachelor's,Data Analyst,3,130000
+30,Male,PhD,Data Scientist,7,185000
+27,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Master's,Product Manager,12,196000
+25,Female,Bachelor's,Data Analyst,2,110000
+32,Male,Bachelor's,Software Engineer,8,190000
+29,Female,Master's,Data Scientist,6,180000
+30,Male,Bachelor's,Data Analyst,5,160000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+31,Female,PhD,Data Scientist,9,195000
+28,Male,Bachelor's,Software Engineer,5,160000
+27,Female,Bachelor's,Product Manager,4,150000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+25,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Male,Bachelor's,Data Analyst,2,125000
+28,Female,Master's,Data Scientist,6,175000
+30,Male,Bachelor's,Software Engineer,8,190000
+27,Female,Bachelor's,Product Manager,4,150000
+24,Male,Bachelor's,Data Analyst,1,95000
+31,Male,Master's,Data Scientist,9,195000
+28,Male,Bachelor's,Software Engineer,5,160000
+33,Female,Master's,Product Manager,11,198000
+26,Male,Bachelor's,Data Analyst,3,130000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+23,Male,Bachelor's,Data Analyst,1,90000
+32,Female,PhD,Data Scientist,10,193000
+29,Male,Bachelor's,Software Engineer,6,170000
+30,Female,Bachelor's,Product Manager,5,160000
+26,Male,Bachelor's,Data Analyst,3,135000
+31,Female,Master's,Data Scientist,6,180000
+28,Male,Bachelor's,Software Engineer,5,160000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+25,Male,Bachelor's,Data Analyst,2,115000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+27,Female,Bachelor's,Product Manager,4,150000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+33,Male,Master's,Product Manager,11,198000
+26,Female,Bachelor's,Data Analyst,3,130000
+30,Male,PhD,Data Scientist,7,185000
+27,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Master's,Product Manager,12,196000
+25,Female,Bachelor's,Data Analyst,2,110000
+32,Male,Bachelor's,Software Engineer,8,190000
+29,Female,Master's,Data Scientist,6,180000
+30,Male,Bachelor's,Data Analyst,5,160000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+31,Female,PhD,Data Scientist,9,195000
+28,Male,Bachelor's,Software Engineer,5,160000
+27,Female,Bachelor's,Product Manager,4,150000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+25,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+23,Male,Bachelor's,Data Analyst,1,90000
+27,Female,Master's,Data Scientist,4,150000
+32,Male,Bachelor's,Software Engineer,8,190000
+24,Female,Bachelor's,Product Manager,3,125000
+25,Male,Bachelor's,Data Analyst,2,110000
+31,Male,Master's,Data Scientist,7,180000
+28,Male,Bachelor's,Software Engineer,5,160000
+33,Female,Master's,Product Manager,10,195000
+26,Male,Bachelor's,Data Analyst,3,130000
+30,Female,PhD,Data Scientist,6,170000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,11,196000
+23,Male,Bachelor's,Data Analyst,1,92000
+32,Female,PhD,Data Scientist,9,195000
+29,Male,Bachelor's,Software Engineer,6,170000
+30,Female,Bachelor's,Product Manager,5,160000
+26,Male,Bachelor's,Data Analyst,3,135000
+31,Female,Master's,Data Scientist,6,180000
+28,Male,Bachelor's,Software Engineer,5,165000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,95000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+25,Male,Bachelor's,Data Analyst,2,115000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+27,Female,Bachelor's,Product Manager,4,150000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+33,Male,Master's,Product Manager,11,198000
+26,Female,Bachelor's,Data Analyst,3,130000
+30,Male,PhD,Data Scientist,7,185000
+27,Female,Bachelor's,Software Engineer,4,140000
+34,Male,Master's,Product Manager,12,196000
+25,Female,Bachelor's,Data Analyst,2,110000
+32,Male,Bachelor's,Software Engineer,8,190000
+29,Female,Master's,Data Scientist,6,180000
+30,Male,Bachelor's,Data Analyst,5,160000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+31,Female,PhD,Data Scientist,9,195000
+28,Male,Bachelor's,Software Engineer,5,160000
+27,Female,Bachelor's,Product Manager,4,150000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+25,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+25,Male,Bachelor's,Data Analyst,3,135000
+32,Male,Bachelor's,Software Engineer,8,190000
+29,Female,Master's,Data Scientist,6,180000
+30,Male,Bachelor's,Data Analyst,5,160000
+24,Male,Bachelor's,Data Analyst,1,95000
+33,Female,Master's,Product Manager,11,196000
+27,Male,Bachelor's,Software Engineer,4,140000
+26,Male,Bachelor's,Data Analyst,3,130000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Female,Bachelor's,Data Analyst,3,130000
+30,Male,PhD,Data Scientist,7,185000
+27,Female,Bachelor's,Product Manager,4,150000
+24,Male,Bachelor's,Data Analyst,1,90000
+33,Male,Master's,Product Manager,11,198000
+25,Male,Bachelor's,Data Analyst,2,115000
+28,Male,Bachelor's,Software Engineer,5,165000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+27,Male,Bachelor's,Software Engineer,4,140000
+31,Female,Master's,Data Scientist,6,180000
+30,Male,Bachelor's,Data Analyst,5,160000
+24,Male,Bachelor's,Data Analyst,1,92000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+25,Male,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+27,Male,Bachelor's,Software Engineer,4,140000
+34,Female,Master's,Product Manager,12,196000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+31,Male,Bachelor's,Data Analyst,9,195000
+28,Female,Bachelor's,Software Engineer,5,160000
+26,Male,Bachelor's,Data Analyst,3,130000
+29,Female,Master's,Data Scientist,6,180000
+32,Male,Bachelor's,Software Engineer,8,190000
+33,Female,Master's,Product Manager,11,198000
+24,Male,Bachelor's,Data Analyst,1,90000
+27,Male,Bachelor's,Software Engineer,4,140000
+25,Female,Bachelor's,Data Analyst,2,110000
+30,Female,PhD,Data Scientist,7,185000
+32,Male,Bachelor's Degree,Data Analyst,5,135000
+27,Female,Master's Degree,Data Scientist,3,180000
+40,Male,Bachelor's Degree,Software Engineer,12,195000
+35,Female,Bachelor's Degree,Product Manager,8,165000
+43,Male,Master's Degree,Data Scientist,15,198000
+29,Female,Bachelor's Degree,Software Engineer,4,150000
+36,Male,Bachelor's Degree,Data Analyst,9,162000
+31,Male,Master's Degree,Data Scientist,6,175000
+42,Female,Bachelor's Degree,Software Engineer,13,197000
+33,Male,Bachelor's Degree,Data Analyst,7,142000
+29,Female,Master's Degree,Data Scientist,4,182000
+41,Male,Bachelor's Degree,Software Engineer,11,185000
+35,Female,Bachelor's Degree,Product Manager,8,170000
+27,Male,Bachelor's,Software Engineer,4,160000
+32,Male,Bachelor's,Data Scientist,8,180000
+29,Female,Master's,Data Analyst,6,150000
+30,Male,Bachelor's,Data Analyst,5,140000
+24,Male,Bachelor's,Data Analyst,2,100000
+33,Female,Master's,Product Manager,11,190000
+27,Male,Bachelor's,Software Engineer,4,160000
+26,Male,Bachelor's,Data Analyst,3,120000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Female,Bachelor's,Data Analyst,3,120000
+30,Male,PhD,Data Scientist,7,170000
+27,Female,Bachelor's,Product Manager,4,130000
+24,Male,Bachelor's,Data Analyst,2,95000
+33,Male,Master's,Product Manager,11,195000
+25,Male,Bachelor's,Data Analyst,2,100000
+28,Male,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Data Scientist,8,180000
+33,Female,Master's,Product Manager,11,195000
+27,Male,Bachelor's,Software Engineer,4,160000
+31,Female,Master's,Data Scientist,6,170000
+30,Male,Bachelor's,Data Analyst,5,140000
+24,Male,Bachelor's,Data Analyst,2,95000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+25,Male,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+27,Male,Bachelor's,Software Engineer,4,160000
+34,Female,Master's,Product Manager,12,190000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+31,Male,Bachelor's,Data Analyst,9,190000
+28,Female,Bachelor's,Software Engineer,5,150000
+26,Male,Bachelor's,Data Analyst,3,120000
+29,Female,Master's,Data Scientist,6,150000
+32,Male,Bachelor's,Software Engineer,8,180000
+33,Female,Master's,Product Manager,11,195000
+24,Male,Bachelor's,Data Analyst,2,95000
+27,Male,Bachelor's,Software Engineer,4,160000
+25,Female,Bachelor's,Data Analyst,2,100000
+30,Female,PhD,Data Scientist,7,170000
+29,Male,Bachelor's,Software Engineer,7,180000
+27,Female,Bachelor's,Data Analyst,5,120000
+33,Male,Master's,Data Scientist,10,195000
+28,Male,Bachelor's,Software Engineer,4,160000
+26,Female,Bachelor's,Data Analyst,3,100000
+31,Male,Bachelor's,Product Manager,8,190000
+30,Male,Master's,Software Engineer,6,170000
+32,Female,Bachelor's,Data Scientist,9,185000
+29,Male,Bachelor's,Data Analyst,7,130000
+35,Female,Bachelor's,Product Manager,12,190000
+27,Male,Bachelor's,Software Engineer,5,150000
+28,Female,Master's,Data Scientist,6,150000
+37,Male,PhD,Product Manager,14,195000
+26,Male,Bachelor's,Data Analyst,3,110000
+30,Female,Bachelor's,Software Engineer,8,180000
+31,Male,Master's,Data Scientist,9,185000
+29,Female,Bachelor's,Data Analyst,7,130000
+32,Male,Bachelor's,Software Engineer,10,190000
+28,Female,Master's,Data Scientist,6,155000
+34,Male,Bachelor's,Software Engineer,12,195000
+25,Female,Bachelor's,Data Analyst,2,90000
+30,Male,Bachelor's,Product Manager,8,185000
+29,Female,Bachelor's,Data Analyst,6,120000
+31,Male,Bachelor's,Software Engineer,9,180000
+26,Female,Bachelor's,Data Analyst,3,100000
+33,Male,Master's,Data Scientist,10,195000
+28,Male,Bachelor's,Software Engineer,4,160000
+27,Female,Bachelor's,Data Analyst,5,125000
+30,Male,Master's,Software Engineer,6,170000
+32,Female,Bachelor's,Data Scientist,9,185000
+29,Male,Bachelor's,Data Analyst,7,130000
+35,Female,Bachelor's,Product Manager,12,190000
+27,Male,Bachelor's,Software Engineer,5,150000
+28,Female,Master's,Data Scientist,6,150000
+37,Male,PhD,Product Manager,14,195000
+26,Male,Bachelor's,Data Analyst,3,110000
+30,Female,Bachelor's,Software Engineer,8,180000
+31,Male,Master's,Data Scientist,9,185000
+29,Female,Bachelor's,Data Analyst,7,130000
+32,Male,Bachelor's,Software Engineer,10,190000
+28,Female,Master's,Data Scientist,6,155000
+34,Male,Bachelor's,Software Engineer,12,195000
+25,Female,Bachelor's,Data Analyst,2,90000
+30,Male,Bachelor's,Product Manager,8,185000
+29,Female,Bachelor's,Data Analyst,6,120000
+31,Male,Bachelor's,Software Engineer,9,180000
+26,Female,Bachelor's,Data Analyst,3,100000
+33,Male,Master's,Data Scientist,10,195000
+28,Male,Bachelor's,Software Engineer,4,160000
+27,Female,Bachelor's,Data Analyst,5,125000
+30,Male,Master's,Software Engineer,6,170000
+32,Female,Bachelor's,Data Scientist,9,185000
+29,Male,Bachelor's,Data Analyst,7,130000
+35,Female,Bachelor's,Product Manager,12,190000
+27,Male,Bachelor's,Software Engineer,5,150000
+28,Female,Master's,Data Scientist,6,150000
+37,Male,PhD,Product Manager,14,195000
+26,Male,Bachelor's,Data Analyst,3,110000
+30,Female,Bachelor's,Software Engineer,8,180000
+31,Male,Master's,Data Scientist,9,185000
+29,Female,Bachelor's,Data Analyst,7,130000
+32,Male,Bachelor's,Software Engineer,10,190000
+28,Female,Master's,Data Scientist,6,155000
+34,Male,Bachelor's,Software Engineer,12,195000
+25,Female,Bachelor's,Data Analyst,2,90000
+30,Male,Bachelor's,Product Manager,8,185000
+29,Female,Bachelor's,Data Analyst,6,120000
+31,Male,Bachelor's,Software Engineer,9,180000
+26,Female,Bachelor's,Data Analyst,3,100000
+33,Male,Master's,Data Scientist,10,195000
+28,Male,Bachelor's,Software Engineer,4,160000
+27,Female,Bachelor's,Data Analyst,5,125000
+30,Male,Master's,Software Engineer,6,170000
+32,Female,Bachelor's,Data Scientist,9,185000
+29,Male,Bachelor's,Data Analyst,7,130000
+35,Female,Bachelor's,Product Manager,12,190000
+27,Male,Bachelor's,Software Engineer,5,150000
+28,Female,Master's,Data Scientist,6,150000
+37,Male,PhD,Product Manager,14,195000
+26,Male,Bachelor's,Data Analyst,3,110000
+30,Female,Bachelor's,Software Engineer,8,180000
+31,Male,Master's,Data Scientist,9,185000
+29,Female,Bachelor's,Data Analyst,7,130000
+32,Male,Bachelor's,Software Engineer,10,190000
+28,Female,Master's,Data Scientist,6,155000
+34,Male,Bachelor's,Software Engineer,12,195000
+25,Female,Bachelor's,Data Analyst,2,90000
+30,Male,Bachelor's,Product Manager,8,185000
+29,Female,Bachelor's,Data Analyst,6,120000
+31,Male,Bachelor's,Software Engineer,9,180000
+26,Female,Bachelor's,Data Analyst,3,100000
+33,Male,Master's,Data Scientist,10,195000
+28,Male,Bachelor's,Software Engineer,4,160000
+27,Female,Bachelor's,Data Analyst,5,125000
+30,Male,Master's,Software Engineer,6,170000
+32,Female,Bachelor's,Data Scientist,9,185000
+29,Male,Bachelor's,Data Analyst,7,130000
+35,Female,Bachelor's,Product Manager,12,190000
+27,Male,Bachelor's,Software Engineer,5,150000
+28,Female,Master's,Data Scientist,6,150000
+37,Male,PhD,Product Manager,14,195000
+26,Male,Bachelor's,Data Analyst,3,110000
+30,Female,Bachelor's,Software Engineer,8,180000
+31,Male,Master's,Data Scientist,9,185000
+29,Female,Bachelor's,Data Analyst,7,130000
+32,Male,Bachelor's,Software Engineer,10,190000
+28,Female,Master's,Data Scientist,6,155000
+34,Male,Bachelor's,Software Engineer,12,195000
+25,Female,Bachelor's,Data Analyst,2,90000
+30,Male,Bachelor's,Product Manager,8,185000
+28,Male,Bachelor's Degree,Senior Software Engineer,7,175000
+44,Male,PhD,Software Engineer Manager,18,190000
+33,Female,Master's Degree,Back end Developer,5,110000
+50,Male,PhD,Senior Project Engineer,16,195000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+25,Male,Bachelor's Degree,Front end Developer,1,60000
+35,Male,Master's Degree,Senior Software Engineer,8,155000
+47,Female,PhD,Full Stack Engineer,12,175000
+46,Female,Master's Degree,Senior Project Engineer,13,180000
+32,Male,Bachelor's Degree,Back end Developer,4,95000
+61,Male,PhD,Software Engineer Manager,20,200000
+41,Male,Master's Degree,Senior Software Engineer,11,165000
+37,Male,Master's Degree,Senior Project Engineer,9,145000
+53,Male,PhD,Software Engineer Manager,19,195000
+30,Female,Bachelor's Degree,Front end Developer,2,75000
+26,Female,Master's Degree,Back end Developer,3,90000
+37,Female,Master's Degree,Senior Software Engineer,9,155000
+32,Male,Bachelor's Degree,Full Stack Engineer,5,115000
+44,Female,Master's Degree,Senior Software Engineer,12,170000
+50,Female,PhD,Software Engineer Manager,16,190000
+27,Male,Bachelor's Degree,Senior Project Engineer,4,115000
+42,Male,PhD,Full Stack Engineer,14,180000
+57,Male,PhD,Software Engineer Manager,18,195000
+35,Male,Master's Degree,Senior Software Engineer,7,140000
+62,Male,PhD,Software Engineer Manager,19,200000
+26,Female,Master's Degree,Back end Developer,2,70000
+42,Female,Master's Degree,Senior Project Engineer,11,170000
+41,Female,PhD,Software Engineer Manager,14,185000
+36,Female,Master's Degree,Full Stack Engineer,8,140000
+49,Male,PhD,Software Engineer Manager,15,185000
+49,Male,PhD,Senior Project Engineer,15,185000
+47,Male,PhD,Software Engineer Manager,15,180000
+47,Male,PhD,Senior Software Engineer,14,175000
+26,Male,Bachelor's Degree,Front end Developer,2,70000
+24,Female,Bachelor's Degree,Back end Developer,1,60000
+62,Male,PhD,Software Engineer Manager,20,200000
+42,Male,PhD,Senior Software Engineer,14,170000
+41,Female,Master's Degree,Senior Project Engineer,11,165000
+23,Male,Bachelor's Degree,Full Stack Engineer,1,55000
+55,Male,PhD,Software Engineer Manager,17,190000
+26,Female,Master's Degree,Back end Developer,3,90000
+33,Female,Bachelor's Degree,Front end Developer,5,105000
+31,Male,Master's Degree,Full Stack Engineer,6,130000
+50,Female,PhD,Software Engineer Manager,16,185000
+24,Female,Master's Degree,Back end Developer,1,60000
+56,Male,PhD,Software Engineer Manager,17,195000
+24,Male,Bachelor's Degree,Front end Developer,1,60000
+37,Male,Master's Degree,Senior Software Engineer,8,150000
+43,Female,PhD,Senior Project Engineer,13,180000
+44,Female,Master's Degree,Senior Software Engineer,12,170000
+34,Male,Master's Degree,Back end Developer,6,125000
+45,Male,PhD,Software Engineer Manager,15,185000
+29,Male,Bachelor's Degree,Full Stack Engineer,3,90000
+29,Male,Bachelor's Degree,Front end Developer,3,80000
+29,Female,Bachelor's Degree,Back end Developer,3,85000
+48,Male,PhD,Senior Project Engineer,16,190000
+43,Female,Master's Degree,Software Engineer Manager,11,160000
+62,Male,PhD,Software Engineer Manager,19,200000
+54,Male,PhD,Software Engineer Manager,17,195000
+60,Male,PhD,Software Engineer Manager,18,195000
+54,Female,PhD,Software Engineer Manager,14,190000
+27,Female,Master's Degree,Full Stack Engineer,3,95000
+23,Male,Bachelor's Degree,Back end Developer,1,55000
+45,Male,PhD,Senior Software Engineer,13,185000
+32,Female,Master's Degree,Full Stack Engineer,5,120000
+57,Male,PhD,Software Engineer Manager,16,195000
+47,Male,PhD,Software Engineer Manager,14,175000
+25,Female,Master's Degree,Back end Developer,2,75000
+58,Male,PhD,Software Engineer Manager,17,200000
+41,Female,Master's Degree,Senior Software Engineer,12,160000
+41,Male,PhD,Software Engineer Manager,12,175000
+26,Male,Bachelor's Degree,Front end Developer,2,70000
+47,Male,PhD,Senior Software Engineer,15,180000
+24,Female,Bachelor's Degree,Back end Developer,1,60000
+48,Male,PhD,Senior Project Engineer,16,190000
+32,Male,Bachelor's Degree,Full Stack Engineer,5,120000
+61,Male,PhD,Software Engineer Manager,20,200000
+45,Male,PhD,Senior Project Engineer,14,185000
+50,Female,PhD,Software Engineer Manager,16,190000
+53,Male,PhD,Software Engineer Manager,18,195000
+47,Female,PhD,Senior Software Engineer,14,170000
+23,Male,Bachelor's Degree,Front end Developer,1,55000
+33,Male,Master's Degree,Back end Developer,6,130000
+42,Male,PhD,Software Engineer Manager,14,180000
+45,Male,PhD,Senior Project Engineer,14,185000
+23,Male,Bachelor's Degree,Front end Developer,1,55000
+37,Male,Master's Degree,Senior Software Engineer,9,145000
+44,Female,Master's Degree,Senior Project Engineer,12,170000
+54,Male,PhD,Software Engineer Manager,17,195000
+38,Female,Master's Degree,Back end Developer,10,155000
+34,Male,Master's Degree,Full Stack Engineer,6,125000
+46,Female,PhD,Software Engineer Manager,14,180000
+30,Male,Bachelor's Degree,Back end Developer,4,95000
+44,Female,Master's Degree,Senior Software Engineer,11,170000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+42,Male,PhD,Senior Project Engineer,14,175000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+54,Male,PhD,Software Engineer Manager,18,195000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+28,Female,Master's Degree,Full Stack Engineer,4,110000
+30,Female,Master's Degree,Back end Developer,6,130000
+54,Male,PhD,Software Engineer Manager,16,190000
+62,Male,PhD,Software Engineer Manager,20,200000
+62,Male,PhD,Software Engineer Manager,19,200000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+31,Male,Master's Degree,Senior Software Engineer,7,140000
+58,Female,PhD,Software Engineer Manager,17,195000
+56,Male,PhD,Software Engineer Manager,17,195000
+23,Female,Bachelor's Degree,Back end Developer,1,55000
+49,Male,PhD,Software Engineer Manager,15,185000
+32,Female,Master's Degree,Full Stack Engineer,5,120000
+52,Female,PhD,Software Engineer Manager,16,190000
+32,Female,Master's Degree,Full Stack Engineer,6,130000
+50,Female,PhD,Software Engineer Manager,16,190000
+32,Male,Master's Degree,Back end Developer,6,130000
+34,Male,Master's Degree,Full Stack Engineer,7,140000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+55,Male,PhD,Software Engineer Manager,17,190000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+46,Male,PhD,Software Engineer Manager,14,180000
+27,Female,Master's Degree,Back end Developer,2,70000
+45,Male,PhD,Senior Project Engineer,14,185000
+23,Female,Bachelor's Degree,Front end Developer,1,55000
+36,Female,Master's Degree,Full Stack Engineer,8,140000
+47,Female,PhD,Senior Software Engineer,14,170000
+33,Male,Master's Degree,Back end Developer,6,130000
+43,Male,PhD,Software Engineer Manager,13,180000
+30,Male,Bachelor's Degree,Back end Developer,4,95000
+28,Female,Bachelor's Degree,Front end Developer,2,70000
+43,Male,Master's Degree,Senior Project Engineer,12,165000
+43,Male,PhD,Senior Project Engineer,13,185000
+36,Male,Master's Degree,Senior Software Engineer,7,140000
+24,Male,Bachelor's Degree,Front end Developer,1,60000
+28,Female,Bachelor's Degree,Front end Developer,3,80000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+41,Female,PhD,Software Engineer Manager,14,185000
+26,Male,Bachelor's Degree,Front end Developer,2,70000
+28,Female,Master's Degree,Back end Developer,3,90000
+43,Male,PhD,Senior Software Engineer,12,170000
+42,Male,PhD,Senior Software Engineer,14,170000
+48,Male,PhD,Senior Project Engineer,16,190000
+27,Female,Master's Degree,Back end Developer,2,70000
+49,Male,PhD,Software Engineer Manager,15,185000
+44,Male,PhD,Senior Project Engineer,12,170000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+37,Male,Master's Degree,Senior Software Engineer,10,155000
+44,Female,Master's Degree,Senior Project Engineer,12,170000
+56,Male,PhD,Software Engineer Manager,18,195000
+49,Male,PhD,Software Engineer Manager,15,185000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Full Stack Engineer,7,140000
+25,Male,Bachelor's Degree,Front end Developer,1,60000
+50,Male,PhD,Software Engineer Manager,16,190000
+46,Male,PhD,Software Engineer Manager,14,180000
+33,Male,Master's Degree,Full Stack Engineer,6,130000
+42,Male,PhD,Senior Software Engineer,14,170000
+41,Male,PhD,Senior Project Engineer,12,165000
+43,Male,PhD,Senior Project Engineer,13,185000
+32,Male,Master's Degree,Back end Developer,6,130000
+24,Male,Bachelor's Degree,Front end Developer,1,60000
+44,Female,Master's Degree,Senior Software Engineer,11,170000
+36,Male,Master's Degree,Senior Software Engineer,7,140000
+28,Female,Master's Degree,Full Stack Engineer,4,110000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+37,Male,Master's Degree,Senior Software Engineer,9,145000
+54,Male,PhD,Software Engineer Manager,16,190000
+58,Male,PhD,Software Engineer Manager,17,200000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+30,Male,Bachelor's Degree,Back end Developer,4,95000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+54,Male,PhD,Software Engineer Manager,17,195000
+49,Male,PhD,Software Engineer Manager,15,185000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+54,Male,PhD,Software Engineer Manager,18,195000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+56,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Software Engineer,7,140000
+42,Male,PhD,Senior Software Engineer,14,170000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+24,Female,Bachelor's Degree,Back end Developer,1,60000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+42,Male,PhD,Senior Software Engineer,14,170000
+24,Female,Bachelor's Degree,Front end Developer,1,55000
+28,Female,Bachelor's Degree,Front end Developer,3,80000
+43,Male,PhD,Senior Project Engineer,13,185000
+31,Male,Master's Degree,Full Stack Engineer,7,140000
+43,Male,PhD,Software Engineer Manager,13,180000
+27,Female,Master's Degree,Back end Developer,2,70000
+49,Male,PhD,Software Engineer Manager,15,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+30,Female,Master's Degree,Back end Developer,6,130000
+28,Female,Master's Degree,Full Stack Engineer,4,110000
+46,Male,PhD,Software Engineer Manager,14,180000
+37,Male,Master's Degree,Senior Software Engineer,9,145000
+42,Male,PhD,Senior Software Engineer,14,170000
+43,Male,PhD,Senior Project Engineer,12,165000
+31,Male,Master's Degree,Senior Software Engineer,7,140000
+56,Male,PhD,Software Engineer Manager,17,195000
+37,Male,Master's Degree,Senior Software Engineer,10,155000
+54,Male,PhD,Software Engineer Manager,16,190000
+58,Male,PhD,Software Engineer Manager,17,195000
+33,Male,Master's Degree,Back end Developer,6,130000
+29,Female,Bachelor's Degree,Front end Developer,3,85000
+52,Male,PhD,Software Engineer Manager,18,200000
+36,Male,Master's Degree,Full Stack Engineer,8,140000
+26,Male,Bachelor's Degree,Back end Developer,2,65000
+47,Male,PhD,Senior Project Engineer,16,190000
+32,Male,Master's Degree,Full Stack Engineer,6,120000
+29,Male,Bachelor's Degree,Front end Developer,3,80000
+28,Female,Master's Degree,Back end Developer,3,90000
+54,Male,PhD,Software Engineer Manager,16,190000
+57,Male,PhD,Software Engineer Manager,18,200000
+51,Male,PhD,Software Engineer Manager,16,190000
+28,Female,Master's Degree,Full Stack Engineer,4,110000
+46,Male,PhD,Software Engineer Manager,14,180000
+27,Female,Master's Degree,Back end Developer,2,65000
+45,Male,PhD,Senior Project Engineer,14,185000
+23,Female,Bachelor's Degree,Front end Developer,1,55000
+36,Male,Master's Degree,Full Stack Engineer,7,130000
+48,Male,PhD,Senior Project Engineer,16,190000
+33,Female,Master's Degree,Full Stack Engineer,5,120000
+38,Female,Master's Degree,Back end Developer,10,155000
+51,Male,PhD,Software Engineer Manager,16,190000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+44,Female,Master's Degree,Senior Project Engineer,12,170000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+54,Male,PhD,Software Engineer Manager,17,195000
+49,Male,PhD,Software Engineer Manager,15,185000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Full Stack Engineer,7,140000
+25,Male,Bachelor's Degree,Front end Developer,1,55000
+50,Male,PhD,Software Engineer Manager,16,190000
+46,Male,PhD,Software Engineer Manager,14,180000
+33,Male,Master's Degree,Full Stack Engineer,6,130000
+42,Male,PhD,Senior Software Engineer,14,170000
+41,Male,PhD,Senior Project Engineer,12,165000
+43,Male,PhD,Senior Project Engineer,13,185000
+32,Male,Master's Degree,Back end Developer,6,130000
+24,Male,Bachelor's Degree,Front end Developer,1,60000
+44,Female,Master's Degree,Senior Software Engineer,11,170000
+36,Male,Master's Degree,Senior Software Engineer,7,140000
+28,Female,Master's Degree,Full Stack Engineer,4,110000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+37,Male,Master's Degree,Senior Software Engineer,9,145000
+54,Male,PhD,Software Engineer Manager,16,190000
+58,Male,PhD,Software Engineer Manager,17,200000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+30,Male,Bachelor's Degree,Back end Developer,4,95000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+54,Male,PhD,Software Engineer Manager,17,195000
+49,Male,PhD,Software Engineer Manager,15,185000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+54,Male,PhD,Software Engineer Manager,18,195000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+56,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Software Engineer,7,140000
+42,Male,PhD,Senior Software Engineer,14,170000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+24,Female,Bachelor's Degree,Back end Developer,1,60000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+42,Male,PhD,Senior Software Engineer,14,170000
+24,Female,Bachelor's Degree,Front end Developer,1,55000
+28,Female,Bachelor's Degree,Front end Developer,3,80000
+43,Male,PhD,Senior Project Engineer,13,185000
+31,Male,Master's Degree,Full Stack Engineer,7,140000
+43,Male,PhD,Software Engineer Manager,13,180000
+27,Female,Master's Degree,Back end Developer,2,70000
+49,Male,PhD,Software Engineer Manager,15,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+40,Male,PhD,Senior Software Engineer,12,160000
+36,Male,Master's Degree,Senior Software Engineer,8,140000
+54,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+43,Male,PhD,Senior Project Engineer,13,185000
+54,Male,PhD,Software Engineer Manager,17,195000
+32,Male,Master's Degree,Back end Developer,6,130000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+49,Male,PhD,Software Engineer Manager,15,185000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Project Engineer,7,135000
+24,Male,Bachelor's Degree,Back end Developer,1,55000
+48,Male,PhD,Senior Project Engineer,16,190000
+27,Female,Master's Degree,Back end Developer,2,70000
+43,Male,PhD,Senior Project Engineer,13,185000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+56,Male,PhD,Software Engineer Manager,17,195000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+49,Male,PhD,Software Engineer Manager,15,185000
+27,Female,Master's Degree,Back end Developer,2,70000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+43,Male,PhD,Senior Project Engineer,13,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+54,Male,PhD,Software Engineer Manager,17,195000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+27,Female,Master's Degree,Back end Developer,2,70000
+49,Male,PhD,Software Engineer Manager,15,185000
+31,Male,Master's Degree,Senior Project Engineer,7,135000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+54,Male,PhD,Software Engineer Manager,17,195000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+43,Male,PhD,Senior Project Engineer,13,185000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+54,Male,PhD,Software Engineer Manager,17,195000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+27,Female,Master's Degree,Back end Developer,2,70000
+34,Male,Bachelor's Degree,Front end Developer,5,95000
+43,Female,Master's Degree,Senior Software Engineer,12,170000
+27,Male,Bachelor's Degree,Back end Developer,2,75000
+56,Female,PhD,Software Engineer Manager,18,210000
+32,Male,Master's Degree,Full Stack Engineer,7,135000
+40,Male,PhD,Senior Software Engineer,12,160000
+23,Male,Bachelor's Degree,Front end Developer,1,55000
+46,Male,PhD,Senior Project Engineer,16,190000
+41,Female,PhD,Senior Project Engineer,11,165000
+28,Female,Bachelor's Degree,Front end Developer,3,80000
+34,Male,Bachelor's Degree,Back end Developer,6,120000
+49,Male,PhD,Software Engineer Manager,15,185000
+43,Male,PhD,Senior Project Engineer,13,185000
+54,Male,PhD,Software Engineer Manager,16,190000
+36,Male,Master's Degree,Senior Software Engineer,8,140000
+33,Male,Master's Degree,Full Stack Engineer,6,130000
+27,Female,Master's Degree,Back end Developer,2,70000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Software Engineer,7,140000
+32,Male,Master's Degree,Back end Developer,6,130000
+38,Female,Master's Degree,Back end Developer,10,155000
+51,Male,PhD,Software Engineer Manager,16,190000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+43,Male,PhD,Senior Project Engineer,13,185000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+49,Male,PhD,Software Engineer Manager,15,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Senior Project Engineer,7,135000
+40,Female,PhD,Senior Software Engineer,12,160000
+24,Male,Bachelor's Degree,Front end Developer,1,55000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+42,Male,PhD,Senior Software Engineer,14,170000
+24,Female,Bachelor's Degree,Front end Developer,1,55000
+28,Female,Bachelor's Degree,Front end Developer,3,80000
+43,Male,PhD,Senior Project Engineer,13,185000
+31,Male,Master's Degree,Full Stack Engineer,7,140000
+43,Male,PhD,Software Engineer Manager,13,180000
+27,Female,Master's Degree,Back end Developer,2,70000
+49,Male,PhD,Software Engineer Manager,15,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+40,Male,PhD,Senior Software Engineer,12,160000
+36,Male,Master's Degree,Senior Software Engineer,8,140000
+54,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+43,Male,PhD,Senior Project Engineer,13,185000
+54,Male,PhD,Software Engineer Manager,17,195000
+32,Male,Master's Degree,Back end Developer,6,130000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+49,Male,PhD,Software Engineer Manager,15,185000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Project Engineer,7,135000
+24,Male,Bachelor's Degree,Back end Developer,1,55000
+48,Male,PhD,Senior Project Engineer,16,190000
+27,Female,Master's Degree,Back end Developer,2,70000
+43,Male,PhD,Senior Project Engineer,13,185000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+56,Male,PhD,Software Engineer Manager,17,195000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+49,Male,PhD,Software Engineer Manager,15,185000
+54,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+42,Male,PhD,Senior Software Engineer,14,170000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+43,Male,PhD,Senior Project Engineer,13,185000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+31,Male,Master's Degree,Full Stack Engineer,7,140000
+54,Male,PhD,Software Engineer Manager,17,195000
+36,Male,Master's Degree,Senior Software Engineer,8,140000
+27,Female,Master's Degree,Back end Developer,2,70000
+49,Male,PhD,Software Engineer Manager,15,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Senior Project Engineer,7,135000
+40,Female,PhD,Senior Software Engineer,12,160000
+24,Male,Bachelor's Degree,Front end Developer,1,55000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+43,Male,PhD,Senior Project Engineer,13,185000
+27,Female,Master's Degree,Full Stack Engineer,3,100000
+49,Male,PhD,Software Engineer Manager,15,185000
+48,Male,PhD,Senior Project Engineer,16,190000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+40,Male,PhD,Senior Software Engineer,12,160000
+36,Male,Master's Degree,Senior Software Engineer,8,140000
+54,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Front end Developer,2,70000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+43,Male,PhD,Senior Project Engineer,13,185000
+54,Male,PhD,Software Engineer Manager,17,195000
+32,Male,Master's Degree,Back end Developer,6,130000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+49,Male,PhD,Software Engineer Manager,15,185000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Project Engineer,7,135000
+24,Male,Bachelor's Degree,Back end Developer,1,55000
+48,Male,PhD,Senior Project Engineer,16,190000
+27,Female,Master's Degree,Back end Developer,2,70000
+43,Male,PhD,Senior Project Engineer,13,185000
+44,Male,Master's Degree,Senior Project Engineer,11,170000
+37,Male,Master's Degree,Senior Software Engineer,9,150000
+56,Male,PhD,Software Engineer Manager,17,195000
+28,Male,Bachelor's Degree,Front end Developer,2,70000
+54,Male,PhD,Software Engineer Manager,17,195000
+31,Male,Master's Degree,Senior Project Engineer,6,125000
+49,Male,PhD,Software Engineer Manager,15,185000
+54,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Front end Developer,3,80000
+42,Male,PhD,Senior Software Engineer,14,170000
+38,Male,Master's Degree,Senior Software Engineer,10,155000
+36,Male,Bachelor's Degree,Front end Developer,7,120000
+29,Female,Master's Degree,Back end Developer,3,90000
+41,Female,PhD,Software Engineer Manager,14,180000
+33,Male,Bachelor's Degree,Full Stack Engineer,7,130000
+42,Male,PhD,Senior Software Engineer,12,170000
+28,Male,Bachelor's Degree,Back end Developer,2,70000
+55,Male,PhD,Software Engineer Manager,18,210000
+26,Female,Master's Degree,Front end Developer,1,55000
+47,Male,PhD,Senior Project Engineer,16,190000
+44,Female,PhD,Software Engineer Manager,11,165000
+30,Male,Master's Degree,Full Stack Engineer,5,105000
+39,Female,Master's Degree,Senior Software Engineer,11,160000
+32,Male,Bachelor's Degree,Front end Developer,6,110000
+50,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Back end Developer,3,85000
+46,Male,PhD,Senior Project Engineer,14,180000
+25,Female,Bachelor's Degree,Front end Developer,1,55000
+43,Male,PhD,Senior Project Engineer,13,185000
+35,Male,Bachelor's Degree,Back end Developer,8,140000
+29,Female,Master's Degree,Back end Developer,3,90000
+40,Female,PhD,Senior Software Engineer,12,160000
+35,Male,Bachelor's Degree,Full Stack Engineer,8,145000
+41,Male,PhD,Senior Project Engineer,13,185000
+30,Male,Master's Degree,Full Stack Engineer,5,105000
+33,Male,Bachelor's Degree,Front end Developer,6,110000
+55,Male,PhD,Software Engineer Manager,18,210000
+26,Female,Master's Degree,Front end Developer,1,55000
+47,Male,PhD,Senior Project Engineer,16,190000
+44,Female,PhD,Software Engineer Manager,11,165000
+30,Male,Master's Degree,Full Stack Engineer,5,105000
+39,Female,Master's Degree,Senior Software Engineer,11,160000
+32,Male,Bachelor's Degree,Front end Developer,6,110000
+50,Male,PhD,Software Engineer Manager,17,195000
+27,Male,Bachelor's Degree,Back end Developer,3,85000
+46,Male,PhD,Senior Project Engineer,14,180000
+25,Female,Bachelor's Degree,Front end Developer,1,55000
+43,Male,PhD,Senior Project Engineer,13,185000
+35,Male,Bachelor's Degree,Back end Developer,8,140000
+29,Female,Master's Degree,Back end Developer,3,90000
+40,Female,PhD,Senior Software Engineer,12,160000
+35,Male,Bachelor's Degree,Full Stack Engineer,8,145000
+41,Male,PhD,Senior Project Engineer,13,185000
+30,Male,Master's Degree,Full Stack Engineer,5,105000
+33,Male,Bachelor's Degree,Front end Developer,6,110000
+55,Male,PhD,Software Engineer Manager,18,210000
+26,Female,Master's Degree,Front end Developer,1,55000

@@ -1,0 +1,18 @@
+To finish this task, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. At "Pick your starting data", choose Sample Databse -> Orders.
+4. Under "Summarize", at "Pick the metric you want to see", choose Sum of -> Subtotal.
+5. At "Pick a column to group by", choose "Created At -> Year".
+6. Click on the "+" button, and choose "Product -> Category". Then choose "User -> State".
+7. Click on "Visualize".
+8. Click on "Visualization -> Pivot Table".
+9. Click on the button to the right bottom corner "Download full results".
+10. Click on ".xlsx".
+11. Switch to "/home/user/Downloads" folder, and rename the json file as "query_result.xlsx".
+12. Copy and Paste it to /home/user.
+13. Open the file query_result.xlsx.
+14. Click on the button "Sort".
+15. Under "Sort Key1", choose "Sum of Subtotal".
+16. Click "OK".

@@ -58,7 +58,7 @@ def is_vlc_recordings_folder(actual_config_path: str, rule: Dict[str, str]) -> f
             if line.startswith('#') or not line.strip():
                 continue
             # Check if the line contains the recording path setting
-            if 'recorded_files_path' in line:
+            if 'input-record-path' in line:
                 # Extract the value of the recording path and remove surrounding whitespace
                 current_path = line.split('=')[-1].strip()
                 # Compare with the Desktop path
@@ -66,8 +66,8 @@ def is_vlc_recordings_folder(actual_config_path: str, rule: Dict[str, str]) -> f
                     return 1
                 else:
                     return 0
-            # The configuration key was not found in the file
-            return 0
+        # The configuration key was not found in the file
+        return 0
     except FileNotFoundError:
         logger.error("VLC configuration file not found.")
         return 0
@@ -110,7 +110,9 @@ def compare_images(image1_path, image2_path):
     # Calculate SSIM between two images
     similarity_index = ssim(image1_array, image2_array)
 
-    return similarity_index
+    if similarity_index > 0.98: # Account for slight image modifications due to website update
+        return 1
+    return 0
 
 
 def compare_audios(audio_path_1, audio_path_2):

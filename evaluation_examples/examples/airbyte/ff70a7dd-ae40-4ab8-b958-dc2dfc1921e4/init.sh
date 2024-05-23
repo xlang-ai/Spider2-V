@@ -12,10 +12,11 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate airflow
-echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate airflow" >> ~/.bashrc
+#source /home/user/anaconda3/etc/profile.d/conda.sh
+#conda activate airflow
+#echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+#echo "conda activate airflow" >> ~/.bashrc
+
 
 # mount docker volume oss_local_root to /tmp/airbyte_local
 docker volume ls | grep oss_local_root

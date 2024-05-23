@@ -45,7 +45,7 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.google.com"
+                    "https://www.bing.com/"
                 ]
             }
         },
@@ -70,7 +70,7 @@
     "evaluator": {
         "func": [
             "compare_csv",
-            "compare_csv"   
+            "compare_csv"
         ],
         "result": [
             {
@@ -108,6 +108,6 @@
                 "dest": "gold_account_stats_data.csv"
             }
         ],
-        "conj": "and"  
+        "conj": "and"
     }
 }

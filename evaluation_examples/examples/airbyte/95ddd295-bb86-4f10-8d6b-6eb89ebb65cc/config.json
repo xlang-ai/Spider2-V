@@ -3,7 +3,7 @@
         "name": "cdc-source",
         "host": "localhost",
         "port": 2000,
-        "database name": "postgres", 
+        "db name": "postgres", 
         "user": "postgres",
         "password": "password",
         "replication_slot": "airbyte_slot",

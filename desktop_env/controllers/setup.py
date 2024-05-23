@@ -15,6 +15,8 @@ from typing import Any, Union, Optional
 from typing import Dict, List, Tuple
 import shutil
 import requests
+from lxml import etree
+from lxml.etree import _Element
 from playwright.sync_api import sync_playwright, TimeoutError
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive, GoogleDriveFile, GoogleDriveFileList
@@ -70,6 +72,91 @@ class SetupController:
         return results
 
 
+    def _network_setup(self, vm_platform: str = "Linux") -> bool:
+        """ Check the network status of the VM. Sometimes, after saving the snapshot, the network becomes unavailable. If failed to connect to the internet, try restarting the network service. If still faied, return False. Otherwise, return True.
+        """
+        old_level = logger.getEffectiveLevel()
+        logger.setLevel(logging.ERROR)
+        if vm_platform == "Linux":
+            network_script = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'server', 'network.sh')
+            self._upload_file_setup(files=[{"local_path": network_script, "path": "/home/user/network.sh"}])
+            if platform.system() == 'Windows':
+                self._execute_setup(command=["dos2unix", "/home/user/network.sh"])
+            results = self._execution_result(command=["/bin/bash", "/home/user/network.sh"])['output']
+            self._execute_setup(command=["rm", "-rf", "/home/user/network.sh"])
+        else:
+            results = 'succeed'
+            logger.warning(f"Network check for {vm_platform} is not implemented.")
+        logger.setLevel(old_level)
+        return 'succeed' in results
+
+
+    def _manual_proxy_setup(self, controller: PythonController, host, port, types: List[str] = ['http', 'https']) -> bool:
+        """ Failed to set the proxy using gsettings. Will use pyautogui + gnome-control-center to set the proxy. Return True if the proxy is successfully set, otherwise, return False.
+        """
+        pylogger = logging.getLogger("desktopenv.pycontroller")
+        old_level = pylogger.getEffectiveLevel()
+        pylogger.setLevel(logging.ERROR)
+        # 1. lauch the gnome-control-center
+        self._launch_setup(command=['gnome-control-center', 'network'])
+
+        def get_position(element: _Element, x_ratio: float = 0.5, y_ratio: float = 0.5) -> Tuple[float, float]:
+            top_left = element.attrib.get('{uri:deskat:component.at-spi.gnome.org}screencoord')
+            x, y = re.search(r'\((\d+), (\d+)\)', top_left).groups()
+            size = element.attrib.get('{uri:deskat:component.at-spi.gnome.org}size')
+            w, h = re.search(r'\((\d+), (\d+)\)', size).groups()
+            return float(x) + float(w) * x_ratio, float(y) + float(h) * y_ratio
+
+        # 2. click the network proxy button
+        root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        button = root.xpath("//label[@name='Network Proxy']/following-sibling::push-button[1]")[0]
+        x, y = get_position(button)
+        controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+        time.sleep(0.5)
+        # 3. click the manual proxy configuration
+        root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        button: _Element = root.xpath("//radio-button[@name='Manual']")[0]
+        if not button.attrib.get('{uri:deskat:state.at-spi.gnome.org}checked'):
+            x, y = get_position(button)
+            controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+            time.sleep(0.5)
+            root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        # 4. set the proxy host and port
+        xpaths = {
+            "http": '//spin-button[@name="HTTP proxy port"]',
+            "https": '//spin-button[@name="HTTPS proxy port"]'
+        }
+        for conn_type in types:
+            port_path = xpaths[conn_type]
+            port_box: _Element = root.xpath(port_path)[0]
+            x, y = get_position(port_box, 0.25)
+            controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+            controller.execute_action({"action_type": "HOTKEY", "parameters": {'keys': ['ctrl', 'a']}})
+            controller.execute_action({"action_type": "TYPING", "parameters": {'text': str(port)}})
+
+            horizon = port_box.attrib.get('{uri:deskat:component.at-spi.gnome.org}screencoord').split(',')[1]
+            parent: _Element = port_box.getparent()
+            host_box: _Element = [child for child in parent.iterchildren() if child.tag == 'text' and child.attrib.get('{uri:deskat:component.at-spi.gnome.org}screencoord').split(',')[1] == horizon][0]
+            x, y = get_position(host_box)
+            controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+            controller.execute_action({"action_type": "HOTKEY", "parameters": {'keys': ['ctrl', 'a']}})
+            controller.execute_action({"action_type": "TYPING", "parameters": {'text': host}})
+        time.sleep(0.5)
+        # 5. close the dialog window
+        button = root.xpath("//dialog[@name='Network Proxy']//push-button[@name='Close']")[0]
+        x, y = get_position(button)
+        controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+        time.sleep(0.5)
+        # 6. close the gnome-control-center
+        root: _Element = etree.fromstring(controller.get_accessibility_tree())
+        button = root.xpath("//application[@name='gnome-control-center']//push-button[@name='Close']")[0]
+        x, y = get_position(button)
+        controller.execute_action({"action_type": "CLICK", "parameters": {'x': x, 'y': y}})
+        time.sleep(0.5)
+        pylogger.setLevel(old_level)
+        return 'manual' in self._execution_result(command=['gsettings', 'get', 'org.gnome.system.proxy', 'mode'])['output']
+
+
     def _proxy_setup(self, proxy: Dict[str, Any], controller: PythonController = None):
         """ Setup the system-level proxy for VM during env.reset(). Please ensure that:
         1. the proxy is running on the host and ALLOW connections from a local LAN, or the listening address is 0.0.0.0 instead of 127.0.0.1
@@ -83,14 +170,19 @@ class SetupController:
                 conn_types(List[str]): connection types, chosen from http, https, ftp, socks5. By default, using http and https is enough.
         """
         host, port, types = proxy['host'], proxy['port'], proxy.get('types', ['http', 'https'])
-        vm_platform = controller.get_vm_platform()
         old_level = logger.getEffectiveLevel()
         logger.setLevel(logging.ERROR)
+        vm_platform = controller.get_vm_platform()
         if vm_platform == 'Linux':
             self._execute_setup(command=['gsettings', 'set', 'org.gnome.system.proxy', 'mode', 'manual'], shell=False)
             for conn_type in types:
                 self._execute_setup(command=['gsettings', 'set', f'org.gnome.system.proxy.{conn_type}', 'host', f'"{host}"'], shell=False)
                 self._execute_setup(command=['gsettings', 'set', f'org.gnome.system.proxy.{conn_type}', 'port', f'{port}'], shell=False)
+            # ensure that the proxy is successfully set, otherwise, use pyautogui to set the proxy
+            if 'manual' not in self._execution_result(command=['gsettings', 'get', 'org.gnome.system.proxy', 'mode'])['output']:
+                logger.error("Failed to set the proxy using gsettings. Will use pyautogui + gnome-control-center to set the proxy.")
+                flag = self._manual_proxy_setup(controller, host, port, types)
+                if not flag: logger.error("Failed to set the proxy using pyautogui + gnome-control-center.")
         else:
             raise NotImplementedError(f"Proxy setup for {vm_platform} is not implemented.")
         logger.setLevel(old_level)
@@ -310,7 +402,7 @@ class SetupController:
             until: Optional[Dict[str, Any]] = None
     ):
         if not command:
-            raise Exception("Empty comman to launch.")
+            raise Exception("Empty command to launch.")
 
         until: Dict[str, Any] = until or {}
         terminates: bool = False

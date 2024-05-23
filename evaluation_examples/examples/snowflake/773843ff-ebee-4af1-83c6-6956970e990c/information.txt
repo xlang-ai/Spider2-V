@@ -1,0 +1,6 @@
+- JDBC format: jdbc:snowflake://{organization}-{account}.snowflakecomputing.com/?user=XLANG&password=Spider2.0&warehouse={warehouse_name}&db={db_name}&schema={schema_name}
+- organization: HTEVMCF
+- account: AZ36651
+- warehouse_name: COMPUTE_WH
+- db_name: VIDEOS
+- schema_name: PUBLIC

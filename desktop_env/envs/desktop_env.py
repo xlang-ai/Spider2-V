@@ -83,10 +83,6 @@ class DesktopEnv(gym.Env):
 
         # Initialize emulator and controller
         self._start_emulator()
-        if self.snapshot_name is not None:
-            self._revert_to_snapshot()
-        self._start_emulator()
-
         self.vm_ip = self._get_vm_ip()
         self.controller = PythonController(vm_ip=self.vm_ip)
         self.setup_controller = SetupController(vm_ip=self.vm_ip, cache_dir=self.cache_dir_base)
@@ -161,26 +157,12 @@ class DesktopEnv(gym.Env):
     def _save_state(self):
         _execute_command(["vmrun", "-T", "ws" "snapshot", self.path_to_vm, self.snapshot_name])
 
-    def _get_screenshot(self):
-        screenshot = None
-        # Get the screenshot and save to the image_path
-        max_retries = 20
-        for _ in range(max_retries):
-            screenshot = self.controller.get_screenshot()
-            if screenshot is not None:
-                break
-            time.sleep(1)
-
-        if screenshot is None:
-            logger.error("Failed to get screenshot!")
-
-        return screenshot
-
     def _get_obs(self):
         return {
-            "screenshot": self._get_screenshot(),
+            "screenshot": self.controller.get_screenshot(),
             "accessibility_tree": self.controller.get_accessibility_tree() if self.require_a11y_tree else None,
             "terminal": self.controller.get_terminal_output() if self.require_terminal else None,
+            "error": "",
             "instruction": self.instruction
         }
 
@@ -242,19 +224,23 @@ class DesktopEnv(gym.Env):
         self._step_no = 0
         self.action_history.clear()
 
+        self._revert_to_snapshot()
+        self._start_emulator()
+
         if task_config is not None:
             self._set_task_info(task_config)
             self.setup_controller.reset_cache_dir(self.cache_dir)
 
-        self._revert_to_snapshot()
-        self._start_emulator()
-
         logger.info("Setting up environment ...")
+        if not self.setup_controller._network_setup(self.vm_platform):
+            logger.error("Network is not available!")
         if self.proxy or proxy: # using proxy to visit some webs, e.g., Google Cloud, Snowflake
             proxy = proxy if proxy else self.proxy
             self.setup_controller._proxy_setup(proxy=proxy, controller=self.controller)
-        self.setup_controller.setup(self.config)
+            logger.info(f"Set http(s) proxy to: {proxy['host']}:{proxy['port']} for VM.")
 
+        if task_config is not None:
+            self.setup_controller.setup(self.config)
         time.sleep(5)
         logger.info("Environment setup complete.")
 
@@ -267,26 +253,27 @@ class DesktopEnv(gym.Env):
 
         reward = 0  # todo: Define reward calculation for each example
         done = False  # todo: Define episode termination condition for each example
-        info = {}
+        info = {} # info has two formats: {"status": "success", "output": "xxx", "error": "xxx"} or {"status": "error", "message": ""}, in compatible with /execute in server/main.py
 
         # handle the special actions
         if action in ['WAIT', 'FAIL', 'DONE'] or (type(action) == dict and action['action_type'] in ['WAIT', 'FAIL', 'DONE']):
             if type(action) == dict: action = action['action_type']
             if action == 'WAIT':
                 time.sleep(pause)
+                info ={"status": "success", "output": "", "error": ""}
             elif action == 'FAIL':
                 done = True
-                info = {"fail": True}
+                info ={"status": "success", "output": "", "error": ""}
             elif action == 'DONE':
                 done = True
-                info = {"done": True}
+                info ={"status": "success", "output": "", "error": ""}
         else:
             if self.action_space == "computer_13":
                 # the set of all possible actions defined in the action representation
-                self.controller.execute_action(action)
+                info = self.controller.execute_action(action)
             elif self.action_space == "pyautogui":
                 # the set of all possible python commands insides `pyautogui`
-                self.controller.execute_python_command(action)
+                info = self.controller.execute_python_command(action)
 
         observation = self._get_obs()
 
@@ -351,7 +338,7 @@ class DesktopEnv(gym.Env):
 
     def render(self, mode='rgb_array'):
         if mode == 'rgb_array':
-            return self._get_screenshot()
+            return self.controller.get_screenshot()
         else:
             raise ValueError('Unsupported render mode: {}'.format(mode))
 

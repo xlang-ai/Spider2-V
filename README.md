@@ -58,11 +58,12 @@ Alternatively, you can install the environment without any benchmark tasks:
 pip install desktop-env
 ```
 
-2. Install [VMware Workstation Pro](https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html) (for systems with Apple Chips, you should install [VMware Fusion](https://www.vmware.com/go/getfusion)) and configure the `vmrun` command. Verify the successful installation by running the following:
+2. Install [VMware Workstation Pro](https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html) (for systems with Apple Chips, you should install [VMware Fusion](https://www.vmware.com/go/getfusion)) and configure the `vmrun` command.  The installation process can refer to [How to install VMware Worksation Pro](./INSTALL_VMWARE.md). Verify the successful installation by running the following:
 ```bash
 vmrun -T ws list
 ```
 If the installation along with the environment variable set is successful, you will see the message showing the current running virtual machines.
+> **Note:** We will also support using [VirtualBox](https://www.virtualbox.org/) in the near future if you have issues with VMware Pro. However, features such as parallelism and macOS on Apple chips are not supported.
 
 All set! Our setup script will automatically download the necessary virtual machines and configure the environment for you.
 
@@ -135,6 +136,18 @@ Correctly implement the agent interface and import your customized version in th
 Afterward, you can execute a command similar to the one in the previous section to run the benchmark on your agent.
 
 ## ❓ FAQ
+### What is the username and password for the virtual machines?
+The username and password for the virtual machines are as follows:
+- **Ubuntu:** `user` / `password`
+
+### How to setup the account and credentials for Google and Google Drive?
+
+See [Account Guideline](ACCOUNT_GUIDELINE.md)
+
+### How can I configure a proxy for the VM if I'm behind a GFW?
+
+See [Proxy Guideline](PROXY_GUIDELINE.md).
+
 ### What are the running times and costs under different settings?
 | Setting                        | Expected Time* | Budget Cost (Full Test Set/Small Test Set) |
 | ------------------------------ | -------------- | ------------------------------------------ |
@@ -144,7 +157,6 @@ Afterward, you can execute a command similar to the one in the previous section 
 | GPT-4V (a11y tree, SoM, etc.)  | 30h            | $500 ($50)                                 |
 
 \*No environment parallelism. Calculated in April 2024.
-
 
 ## 📄 Citation
 If you find this environment useful, please consider citing our work:

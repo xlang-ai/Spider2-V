@@ -94,7 +94,6 @@ def draw_bounding_boxes(nodes, image_file_content, down_sampling_ratio=1.0):
     draw = ImageDraw.Draw(image)
     marks = []
     drew_nodes = []
-    text_informations: List[str] = ["index\ttag\tname\ttext"]
 
     try:
         # Adjust the path to the font file you have or use a default one
@@ -158,25 +157,6 @@ def draw_bounding_boxes(nodes, image_file_content, down_sampling_ratio=1.0):
                 marks.append([original_coords[0], original_coords[1], original_size[0], original_size[1]])
                 drew_nodes.append(_node)
 
-                if _node.text:
-                    node_text = (_node.text if '"' not in _node.text \
-                                     else '"{:}"'.format(_node.text.replace('"', '""'))
-                                 )
-                elif _node.get("{uri:deskat:uia.windows.microsoft.org}class", "").endswith("EditWrapper") \
-                        and _node.get("{uri:deskat:value.at-spi.gnome.org}value"):
-                    node_text: str = _node.get("{uri:deskat:value.at-spi.gnome.org}value")
-                    node_text = (node_text if '"' not in node_text \
-                                     else '"{:}"'.format(node_text.replace('"', '""'))
-                                 )
-                else:
-                    node_text = '""'
-                text_information: str = "{:d}\t{:}\t{:}\t{:}" \
-                    .format(index, _node.tag
-                            , _node.get("name", "")
-                            , node_text
-                            )
-                text_informations.append(text_information)
-
                 index += 1
 
             except ValueError:
@@ -186,7 +166,7 @@ def draw_bounding_boxes(nodes, image_file_content, down_sampling_ratio=1.0):
     image.save(output_image_stream, format='PNG')
     image_content = output_image_stream.getvalue()
 
-    return marks, drew_nodes, "\n".join(text_informations), image_content
+    return marks, drew_nodes, image_content
 
 
 def print_nodes_with_indent(nodes, indent=0):

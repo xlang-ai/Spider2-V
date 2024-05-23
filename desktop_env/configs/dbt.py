@@ -147,6 +147,8 @@ def dbt_cloud_webui_login_setup(controller, **config):
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
         settings_file(str): the path to the settings file, default is 'evaluation_examples/settings/dbt_cloud/settings.json'
+        goto_page(str): the page you want to go to after logged in, default is 'project_setup'
+                        available values: account_setup, cli_setup
     """
 
     listening_port = config.get('listening_port', 9222)
@@ -193,7 +195,9 @@ def dbt_cloud_webui_login_setup(controller, **config):
                                    shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, text=True,
                                    encoding="utf-8")
             project_list = json.loads(state.stdout)['data']
-            if len(project_list) > 0:
+
+            goto_page = config.get('goto_page', 'project_setup')
+            if goto_page == 'project_setup' and len(project_list) > 0:
                 project_id = project_list[0]["id"]
                 page.goto(f'{url}/{settings["account_id"]}/projects/{project_id}/setup',
                           wait_until='load')
@@ -212,6 +216,10 @@ def dbt_cloud_webui_login_setup(controller, **config):
                     # fixme: hard wait!!
                     page.wait_for_timeout(1500)
                     page.wait_for_load_state('load')
+            elif goto_page == 'account_setup':
+                page.goto(f'{url}/settings/accounts/{settings["account_id"]}/pages/account')
+            elif goto_page == 'cli_setup':
+                page.goto(f'{url}/settings/profile/cloud-cli')
 
         except Exception as e:
             logger.error(f'[ERROR]: failed to login to the dbt Cloud website! {e}')

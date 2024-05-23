@@ -52,14 +52,22 @@
         "result": {
             "type": "dbt_environment_info",
             "name": "dev env",
-            "fields": ["dbt_version", "type"],
+            "fields": [
+                "dbt_version",
+                "type"
+            ],
             "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
         },
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["1.5.0-latest", "development"],
-                "exclude": ["None"]
+                "include": [
+                    "1.5.0-latest",
+                    "development"
+                ],
+                "exclude": [
+                    "None"
+                ]
             }
         }
     }
