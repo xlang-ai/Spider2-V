@@ -53,6 +53,7 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
             if done:
                 logger.info("[INFO]: The episode is done. Congratulations!")
                 break
+        if done: break
         obs['infos'] = infos
         step_idx += 1
     else:
