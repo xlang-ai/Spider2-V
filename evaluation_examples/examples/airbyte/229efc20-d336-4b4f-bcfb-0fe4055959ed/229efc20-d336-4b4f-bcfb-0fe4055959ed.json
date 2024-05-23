@@ -14,7 +14,7 @@
     "tags": [
         "gui"
     ],
-    "action_number": 20,
+    "action_number": 2,
     "config": [
         {
             "type": "bigquery_init",
