@@ -8,7 +8,7 @@ import time
 import xml.etree.ElementTree as ET
 from http import HTTPStatus
 from io import BytesIO
-from typing import Dict, List
+from typing import Dict, List, Tuple, Union
 
 import backoff
 import dashscope
@@ -52,6 +52,29 @@ def save_to_tmp_img_file(data_str):
     image.save(tmp_img_path)
 
     return tmp_img_path
+
+
+def get_model_pricing(model_name: str) -> Tuple[float, float]:
+    pricing = {
+        'gpt-4-turbo': {
+            'prompt': 10e-6,
+            'completion': 30e-6
+        },
+        'gpt-4-32k': {
+            'prompt': 60e-6,
+            'completion': 120e-6
+        },
+        'gpt-4o': {
+            'prompt': 5e-6,
+            'completion': 15e-6
+        }
+    }
+    if model_name.startswith('gpt-4o'): model_name = 'gpt-4o'
+    if model_name.startswith('gpt-4-turbo'): model_name = 'gpt-4-turbo'
+    if model_name in pricing:
+        logger.warning(f"Model {model_name} is not in the pricing list.")
+        return pricing[model_name]['prompt'], pricing[model_name]['completion']
+    return 0.0, 0.0
 
 
 def linearize_accessibility_tree(filtered_nodes: List[ET.Element], add_index: bool = False) -> str:
@@ -225,12 +248,51 @@ class PromptAgent:
         self.thoughts = []
         self.actions = []
         self.observations = []
+        self.usages = {"prompt_tokens": 0, "completion_tokens": 0}
 
         action_key = self.action_space if 'som' not in self.observation_space else self.action_space + '_som'
         action_prompt = ACTION_SPACE_PROMPTS[action_key]
         observation_prompt = OBSERVATION_SPACE_PROMPTS[self.observation_space]
-        self.system_message = SYSTEM_PROMPT.format(action_prompt=action_prompt, observation_prompt=observation_prompt,
-                                                   screen_width=screen_size['width'], screen_height=screen_size['height'])
+        self.system_message = SYSTEM_PROMPT.format(action_prompt=action_prompt, observation_prompt=observation_prompt, screen_width=screen_size['width'], screen_height=screen_size['height'])
+
+
+    def get_current_cost(self) -> str:
+        pc, cc = get_model_pricing(self.model)
+        total_cost = pc * self.usages["prompt_tokens"] + cc * self.usages["completion_tokens"]
+        logger.info(f'[INFO]: Current usage: {self.usage["prompt_tokens"] * 1e-6}M prompt tokens, {self.usages["completion_tokens"] * 1e-6}M completion tokens, cost ${total_cost} .')
+        return
+
+
+    def add_action_infos(self, messages, action_list: List[Union[str, Dict]], infos: List[Dict]) -> Dict:
+        if not infos: return messages
+        prefix_msg = 'Here are the parsed action list from your last response and the execution flag of each action from the desktop environment:\n'
+        content_msg = ''
+        assert len(action_list) == len(infos), "The number of actions and infos should be the same."
+
+        def _execution_msg(info):
+            if info['status'] == 'error':
+                return f"Failed with error message -> {info['message'].strip()}"
+            elif info['error'].strip() != "":
+                return f"Succeed with error message -> {info['error'].strip()}"
+            else:
+                return "Succeed without error."
+
+        if len(action_list) == 0:
+            for action, info in zip(action_list, infos):
+                if self.action_space == 'computer_13':
+                    content_msg += f"\nParsed action: {json.dumps(action, ensure_ascii=False)}\n"
+                    content_msg += f"Execution flag: {_execution_msg(info)}\n"
+                elif self.action_space == 'pyautogui':
+                    content_msg += f"\nParsed action:\n```\n{action}\n```\n"
+                    content_msg += f"Execution flag: {_execution_msg(info)}\n"
+                else:
+                    raise ValueError("Unrecognised action_space type: " + self.action_space)
+        else:
+            content_msg = "\nNo valid action detected from your previous response.\n"
+        suffix_msg = '\nIf there are any omissions or additions of actions, please meticulously check the specification of the action space; if the execution status of any action is incorrect or unexpected, try to resolve it based on the following latest observations.'
+        msg = {"role": "user", "content": [{"type": "text", "text": prefix_msg + content_msg + suffix_msg}]}
+        messages.append(msg)
+        return messages
 
 
     def predict(self, instruction: str, verbose_instruction: str, obs: Dict) -> List:
@@ -254,7 +316,7 @@ class PromptAgent:
         })
 
         if verbose_instruction is not None: # add step-by-step plan
-            step_by_step_message = "Here is a step-by-step tutorial from expert instructing you how to complete it: {}\nYou can exactly follow the detailed plan above or proactively tackle the task by yourself.".format(verbose_instruction)
+            step_by_step_message = "Here is a step-by-step tutorial from an expert instructing you how to complete it: {}\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.".format(verbose_instruction)
             messages.append({
                 "role": "system",
                 "content": [
@@ -369,7 +431,12 @@ class PromptAgent:
                 ]
             })
 
-        # {{{1
+        # action execution result of previous turn
+        if len(self.actions) > 0: # if has previous action list
+            infos = obs.get('infos', [])
+            self.add_action_infos(messages, self.actions[-1], infos)
+
+        # tackle the current observation
         if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:
             base64_image = encode_image(obs["screenshot"])
 
@@ -492,7 +559,7 @@ class PromptAgent:
             self.thoughts.append(response)
         except ValueError as e:
             logger.error(f"[ERROR]: Failed to parse action from response {response}\nERROR_MSG: {e}")
-            actions = None
+            actions = []
             self.thoughts.append("")
 
         return response, actions
@@ -552,6 +619,9 @@ class PromptAgent:
                 time.sleep(5)
                 return ""
             else:
+                usage = response.json()["usage"]
+                self.usages["prompt_tokens"] += usage["prompt_tokens"]
+                self.usages["completion_tokens"] += usage["completion_tokens"]
                 return response.json()['choices'][0]['message']['content']
 
         elif self.model.startswith("claude"):

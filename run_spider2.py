@@ -51,7 +51,7 @@ def config() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run end-to-end evaluation on the benchmark")
 
     # environment config
-    parser.add_argument("--path_to_vm", type=str, default="/Users/rhythmcao/Virtual\ Machines.localized/ubuntu.vmwarevm/ubuntu.vmx")
+    parser.add_argument("--path_to_vm", type=str)
     parser.add_argument("--snapshot_name", type=str, default="spider2.0", help="Snapshot name to use (overwrite snapshot in each example config)")
     parser.add_argument("--headless", action="store_true", help="Run in headless machine")
     parser.add_argument(
@@ -75,7 +75,7 @@ def config() -> argparse.Namespace:
         help="Observation space to use for the environment",
     )
     parser.add_argument("--sleep_after_execution", type=float, default=0.5)
-    parser.add_argument("--max_steps", type=int, default=15, help="Maximum number of steps for each example, this can be altered dynamically according to field `action_number` in the example config")
+    parser.add_argument("--max_steps", type=int, default=20, help="Maximum number of steps for each example, this can be altered dynamically according to field `action_number` in the example config")
 
     # agent config
     parser.add_argument("--max_trajectory_length", type=int, default=5, help='maximum length of interaction history to provide to the agent')
