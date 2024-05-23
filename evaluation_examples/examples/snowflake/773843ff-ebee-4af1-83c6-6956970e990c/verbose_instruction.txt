@@ -1,4 +1,4 @@
-This job is to connect Hasura to the existing snowflake database and write GraphQL queries on Hasura. In the opened Snowsight web page,
+This job is to connect Hasura to the existing snowflake database and write GraphQL queries on Hasura. In the opened Hasura Cloud web page,
 1. Click the blue button on the middle of the panel named "New Project".
 2. On the right panel, scroll down and click the button "Create Free Project".
 3. Click "Launch Console" on the top-right of the window.
@@ -15,7 +15,7 @@ This job is to connect Hasura to the existing snowflake database and write Graph
 14. Select all checkboxes on the middle of the window.
 15. Click the yellow button "Track Selected".
 16. Click the "API" button on the top of the page.
-17. In the input field of "GraphQL", type in the following code in the input box with the "# Try out GraphQL queries here" prompt.
+17. In the input field of "GraphiQL", type in the following code in the input box with the "# Try out GraphQL queries here" prompt.
 ```
 query AllCustomers {
   SUBSCRIPTIONS(offset: 50, where: {WAS_SUBSCRIPTION_PAID: {_eq: "Yes"}}, limit: 100) {
