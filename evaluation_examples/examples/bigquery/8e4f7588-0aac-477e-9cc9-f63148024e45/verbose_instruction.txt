@@ -1,0 +1,19 @@
+In this task, we will use Bigquery Web UI to write code to query `covid19_open_data` public dataset and save the execution results into a local .csv file. Concretely,
+1. Click the triangle symbol to the left of covid19_open_data to open the datasets and see what tables the datasets have.
+2. Click `covid19_open_data` to see the table schema.
+3. Click '+' button at the top of the main panel to **Create SQL query**. This will open a blank query panel.
+4. Write the following code into the blank
+```
+SELECT
+  SUM(cumulative_confirmed) AS total_cases_worldwide
+FROM
+  `bigquery-public-data.covid19_open_data.covid19_open_data`
+WHERE
+  date = "2020-04-15"
+```
+5. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+6. Wait for a moment. The query results will show below.
+7. Click the "SAVE RESULTS" button above the execution results (on the right side of the same row as panel "Query results");
+8. And in the drop-down menu, further click the option "CSV (local file)";
+9. Open the terminal and move to the `~/Downloads` folder
+10. Change the name of the csv file to result.csv

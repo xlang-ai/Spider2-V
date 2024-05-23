@@ -1,0 +1,23 @@
+In this task, we will use BigQuery WebUI to write SQL and check the top 10 most populated ZIP codes in the USA based on the 2010 census data. The executed answers will be saved in 'census_2010' table in dataset 'census'. Concretely,
+1. Click the triangle symbol to the left of `bigquery-public-data.census_bureau_usa` to open the datasets and see what tables the datasets have.
+2. Click `population_by_zip_2010` to see the table schema.
+3. Click '+' button at the top of the main panel to **Create SQL query**. This will open a blank query panel.
+4. Write the following code into the blank
+```
+SELECT
+  zipcode,
+  population
+FROM
+  `bigquery-public-data.census_bureau_usa.population_by_zip_2010`
+ORDER BY
+  population DESC
+LIMIT
+  10
+```
+5. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+6. Wait for a moment. The query results will show below.
+7. Click the "SAVE RESULTS" button above the execution results (on the right side of the same row as panel "Query results");
+8. And in the drop-down menu, further click the option "BigQuery table";
+9. A window will pop up on the right. For the `Dataset` field, click and select `census` dataset;
+10. For the `Table` field, type in a new table "census_2010";
+11. Click button "SAVE" and wait for the job to finish. You can discover this new table in the Explorer panel on the left.
