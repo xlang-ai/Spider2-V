@@ -1,14 +1,15 @@
 {
-    "id": "aef836e9-1d84-4a49-9dd7-359c0dbc6ade",
+    "id": "1b9b5bad-0fb4-4645-b13b-6d5119bba11c",
     "snapshot": "airbyte",
-    "instruction": "I am asked to modify the enabled streams of the current Airbyte connection from Faker to Snowflake, activating only the 'products' and 'purchases' stream. Could you help me with this task?",
+    "instruction": "Could you help me export the detailed configuration of the current connection into file connection.json for me? I want to check the details and transfer it to my colleague.",
     "source": [
-        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/manage-connection-state"
+        "https://airbyte.com/tutorials/create-and-monitor-a-data-pipeline-using-the-airbyte-api"
     ],
     "related_apps": [
         "chromium",
         "airbyte",
-        "docker"
+        "docker",
+        "postgresql"
     ],
     "tags": [
         "gui"
@@ -16,37 +17,16 @@
     "action_number": 20,
     "config": [
         {
-            "type": "snowflake_init",
-            "parameters": {
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
-                "actions": [
-                    {
-                        "type": "create_database",
-                        "database": "faker",
-                        "schema": "public",
-                        "delete_first": true
-                    }
-                ]
-            }
-        },
-        {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/connection.json",
+                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/connection.json",
                 "dest": "/home/user/connection.json"
-            }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/settings/snowflake/settings.json",
-                "dest": "/home/user/settings.json"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/init.sh",
+                "src": "evaluation_examples/examples/airbyte/1b9b5bad-0fb4-4645-b13b-6d5119bba11c/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -80,7 +60,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/eval.sh",
+            "src": "evaluation_examples/examples/airbyte/1b9b5bad-0fb4-4645-b13b-6d5119bba11c/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

@@ -1,9 +1,9 @@
 {
-    "id": "eee8f6e9-b143-4f86-9b76-4b4280e63dc5",
+    "id": "7d9ad1cf-761d-4745-b68c-ff7bb2e661c7",
     "snapshot": "airbyte",
-    "instruction": "Please help me to create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. The target file path is /local/json_destination. Remember to choose manual sync mode.",
+    "instruction": "I want to construct an airbyte connection from Postgres to Snowflake in the Airbyte local UI with incremental append sync mode and choose 'id' of the stream as cursor. Could you help me finish this task?",
     "source": [
-        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections"
+        "https://docs.airbyte.com/using-airbyte/core-concepts/sync-modes/incremental-append"
     ],
     "related_apps": [
         "chromium",
@@ -18,7 +18,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/eee8f6e9-b143-4f86-9b76-4b4280e63dc5/init.sh",
+                "src": "evaluation_examples/examples/airbyte/7d9ad1cf-761d-4745-b68c-ff7bb2e661c7/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,7 +52,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/airbyte/eee8f6e9-b143-4f86-9b76-4b4280e63dc5/eval.sh",
+            "src": "evaluation_examples/examples/airbyte/7d9ad1cf-761d-4745-b68c-ff7bb2e661c7/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

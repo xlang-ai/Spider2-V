@@ -1,14 +1,15 @@
 {
-    "id": "aef836e9-1d84-4a49-9dd7-359c0dbc6ade",
+    "id": "229efc20-d336-4b4f-bcfb-0fe4055959ed",
     "snapshot": "airbyte",
-    "instruction": "I am asked to modify the enabled streams of the current Airbyte connection from Faker to Snowflake, activating only the 'products' and 'purchases' stream. Could you help me with this task?",
+    "instruction": "I have constructed an airbyte connection from BigQuery to Local JSON but it's disabled. Could you help me to enable it?",
     "source": [
-        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/manage-connection-state"
+        "https://docs.airbyte.com/using-airbyte/core-concepts/sync-schedules"
     ],
     "related_apps": [
         "chromium",
         "airbyte",
-        "docker"
+        "docker",
+        "bigquery"
     ],
     "tags": [
         "gui"
@@ -16,15 +17,23 @@
     "action_number": 20,
     "config": [
         {
-            "type": "snowflake_init",
+            "type": "bigquery_init",
             "parameters": {
-                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
                 "actions": [
                     {
-                        "type": "create_database",
-                        "database": "faker",
-                        "schema": "public",
-                        "delete_first": true
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "obesity",
+                        "table_id": "obesity_risk_prediction",
+                        "data_from_csv": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/estimation_of_obesity_levels_based_on_eating_habits_and_physical_condition.csv"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/keyfile.json"
                     }
                 ]
             }
@@ -32,21 +41,14 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/connection.json",
+                "src": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/connection.json",
                 "dest": "/home/user/connection.json"
-            }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/settings/snowflake/settings.json",
-                "dest": "/home/user/settings.json"
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/init.sh",
+                "src": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -80,7 +82,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/airbyte/aef836e9-1d84-4a49-9dd7-359c0dbc6ade/eval.sh",
+            "src": "evaluation_examples/examples/airbyte/229efc20-d336-4b4f-bcfb-0fe4055959ed/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {
