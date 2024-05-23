@@ -1,7 +1,7 @@
 {
     "id": "3e8ddf14-a503-4ba1-83d0-32b2d91b33bb",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I have finished my today'work on Airflow. For safety, please help me log out my account.",
+    "instruction": "I am using Astronomer to deploy Airflow. I have finished my work today on Airflow. For safety, please help me log out my account.",
     "source": [
         "authors"
     ],

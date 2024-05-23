@@ -17,21 +17,21 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
     done, step_idx = False, 0
     agent.reset()
     obs = env.reset(task_config=example)
+    infos = []
     env.controller.start_recording()
     screenshots = os.path.join(result_dir, "screenshots")
     a11y_tree = os.path.join(result_dir, "a11y_trees")
-    oracle_steps = example.get("action_number", 10)
-    max_steps = min(oracle_steps * 3, 50)
-    while not done and step_idx < max_steps:
-        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], obs)
 
+    while not done and step_idx < args.max_steps:
+        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], obs)
+        infos = []
         for action in actions:
             # Capture the timestamp before executing the action
             action_timestamp = datetime.datetime.now().strftime("%Y%m%d@%H%M%S")
             logger.info("[Action]: Step %d: %s", step_idx + 1, action)
 
             obs, reward, done, info = env.step(action, args.sleep_after_execution)
-            logger.info("[Status]: Done: %s", done)
+            infos.append(info) # add action execution result to the observation
 
             # Save screenshot and trajectory information
             if args.observation_space != 'a11y_tree':
@@ -53,10 +53,13 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
             if done:
                 logger.info("[INFO]: The episode is done. Congratulations!")
                 break
+        if done: break
+        obs['infos'] = infos
         step_idx += 1
     else:
         logger.warning("[WARNING]: Exceeded the maximum number of steps. Forced to stop the episode.")
 
+    agent.get_current_cost()
     try: # for safety reason, wrap the evaluation in a try-except block
         result = env.evaluate()
     except Exception as e:
