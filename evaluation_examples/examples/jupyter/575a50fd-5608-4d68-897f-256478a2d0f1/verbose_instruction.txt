@@ -1,0 +1,4 @@
+This task is to clear all outputs in the current jupyter notebook. On the opened web ui:
+1. Click the button "Edit" in the menu bar on the top.
+2. In the drop-down menu, select and click "Clear Outputs of All Cells".
+3. Wait for a short time and all outputs will be cleared.

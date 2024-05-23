@@ -112,3 +112,30 @@ def compare_notebook_outputs(result: str, expected: str) -> float:
                     return 0.0
     
     return 1.0
+
+
+def is_jupyter_outputs_cleared(result: str, expected: Dict[str, Any], **options) -> float:
+    """ Determine whether all outputs in a Jupyter notebook are cleared.
+    @args:
+        result: str - the path to the Jupyter notebook file.
+        expected: Dict[str, Any] - the expected result.
+            key: expected, value: List[int] - the expected unexecuted cell indices.
+        options: Dict[str, Any] - the options.
+    """
+    try:
+        with io.open(result, 'r', encoding='utf-8') as f:
+            nb = nbformat.read(f, as_version=options.get('version', 4))
+        cell_type = options.get('cell_type', 'code')
+        
+        outputs_idx = []
+        for idx, cell in enumerate(nb.cells):
+            if cell.cell_type == cell_type:
+                if cell.get('execution_count'):
+                    outputs_idx.append(idx)
+        print(outputs_idx)
+        if outputs_idx != expected['expected']:
+            return 0.0
+        return 1.0
+    except Exception as e:
+        print(e)
+        return 0.0
