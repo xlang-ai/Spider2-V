@@ -14,7 +14,7 @@
         "cli+gui",
         "account"
     ],
-    "action_number": 26,
+    "action_number": 23,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -52,20 +52,43 @@
                 "url": "https://app.snowflake.com",
                 "settings_file": "evaluation_examples/settings/snowflake/settings.json"
             }
+        },
+        {
+            "type": "snowflake_delete_filter",
+            "parameters": {
+                "listening_port": 9222,
+                "filter_name": ":title_keyword"
+            }
         }
     ],
     "evaluator": {
         "postconfig": [],
-        "func": "compare_csv",
-        "result": {
-            "type": "vm_file",
-            "path": "/home/user/Downloads/result.csv",
-            "dest": "result.csv"
-        },
-        "expected": {
-            "type": "local_file",
-            "path": "evaluation_examples/examples/snowflake/1ef6464f-82fc-4aee-9f1e-ab3c99536e38/result_gold.csv",
-            "dest": "result_gold.csv"
-        }
+        "func": [
+            "compare_csv",
+            "exact_match"
+        ],
+        "result": [
+            {
+                "type": "vm_file",
+                "path": "/home/user/Downloads/result.csv",
+                "dest": "result.csv"
+            },
+            {
+                "type": "snowflake_worksheet_sql"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/1ef6464f-82fc-4aee-9f1e-ab3c99536e38/result_gold.csv",
+                "dest": "result_gold.csv"
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "expected": "SELECT avg(salary) as average_salary FROM salary where job_title = :title_keyword;"
+                }
+            }
+        ]
     }
 }
