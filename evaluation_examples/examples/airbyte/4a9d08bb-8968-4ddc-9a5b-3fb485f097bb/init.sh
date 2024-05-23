@@ -17,5 +17,5 @@ exec 2>/dev/null
 # echo "conda activate airbyte" >> ~/.bashrc
 
 cd /home/user/projects
-rm -rf airbyte # remove the airbyte directory if it exists
+# rm -rf airbyte # remove the airbyte directory if it exists
 gnome-terminal --working-directory=/home/user/projects
