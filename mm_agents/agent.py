@@ -72,8 +72,8 @@ def get_model_pricing(model_name: str) -> Tuple[float, float]:
     if model_name.startswith('gpt-4o'): model_name = 'gpt-4o'
     if model_name.startswith('gpt-4-turbo'): model_name = 'gpt-4-turbo'
     if model_name in pricing:
-        logger.warning(f"Model {model_name} is not in the pricing list.")
         return pricing[model_name]['prompt'], pricing[model_name]['completion']
+    logger.warning(f"Model {model_name} is not in the pricing list.")
     return 0.0, 0.0
 
 
@@ -259,7 +259,7 @@ class PromptAgent:
     def get_current_cost(self) -> str:
         pc, cc = get_model_pricing(self.model)
         total_cost = pc * self.usages["prompt_tokens"] + cc * self.usages["completion_tokens"]
-        logger.info(f'[INFO]: Current usage: {self.usage["prompt_tokens"] * 1e-6}M prompt tokens, {self.usages["completion_tokens"] * 1e-6}M completion tokens, cost ${total_cost} .')
+        logger.info(f'[INFO]: Current usage: {self.usages["prompt_tokens"] * 1e-6:.2f}M prompt tokens, {self.usages["completion_tokens"] * 1e-6:.2f}M completion tokens, cost ${total_cost:.2f} .')
         return
 
 
