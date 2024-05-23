@@ -160,7 +160,10 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
         logger.info(f"[Example id]: {eid}")
         logger.info(f"[Config file]: {config_file}")
         logger.info(f"[Result dir]: {result_dir}")
-        logger.info(f"[{'Verbose ' if args.verbose_instruction else ''}Instruction]: {example['instruction']}")
+        if args.verbose_instruction:
+            logger.info(f"[Verbose instruction]: {example['verbose_instruction']}")
+        else:
+            logger.info(f"[Instruction]: {example['instruction']}")
         
         # example start running
         try:
