@@ -259,7 +259,7 @@ class PromptAgent:
     def get_current_cost(self) -> str:
         pc, cc = get_model_pricing(self.model)
         total_cost = pc * self.usages["prompt_tokens"] + cc * self.usages["completion_tokens"]
-        logger.info(f'[INFO]: Current usage: {self.usage["prompt_tokens"] * 1e-6}M prompt tokens, {self.usages["completion_tokens"] * 1e-6}M completion tokens, cost ${total_cost} .')
+        logger.info(f'[INFO]: Current usage: {self.usages["prompt_tokens"] * 1e-6}M prompt tokens, {self.usages["completion_tokens"] * 1e-6}M completion tokens, cost ${total_cost} .')
         return
 
 
