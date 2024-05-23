@@ -478,7 +478,7 @@ def hasura_login_setup(controller, **config):
 
 
 def snowflake_delete_filter_setup(controller, **config):
-    """ Delete specific filter. Arguments for config dict:
+    """ Delete specific filter if exists. Arguments for config dict:
     @args:
         listening_port(int): the port number that the opened google-chrome is listening on, default is 9222
         filter_name(str): the SQL keyword of the filter which needs to be deleted, default is ':title_keyword'
