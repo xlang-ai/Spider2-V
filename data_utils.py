@@ -111,14 +111,13 @@ class GoogleSheetAPI:
                 if len(row) >= 11: passed = row[10]
                 if done == "✅" and verbose == "✅" and passed == "✅":
                     if unfinished:
-                        print(len(row), column_index)
                         if len(row) <= column_index + 1: # not found yet
                             validated_uuids.append(row[0].strip())
                         elif str(row[column_index]).strip() == "": # no result yet
                             validated_uuids.append(row[0].strip())
                     else: validated_uuids.append(row[0].strip())
             result[tool] = validated_uuids
-        print(f'In total, found {sum([len(result[t]) for t in tools])} validated{" and unfinished" if unfinished else ""} uuids')
+        print(f'In total, found {sum([len(result[t]) for t in tools])} validated{" but not" if unfinished else ""} uuids')
         if output_file is not None:
             with open(output_file, 'w') as of:
                 json.dump(result, of, indent=4, ensure_ascii=False)
@@ -127,6 +126,7 @@ class GoogleSheetAPI:
 
 
     def get_result_dict_from_sheet(self, column_char: str):
+        print('Aggregated results from Google Sheet is:')
         column_char = column_char.upper()
         column_index = string.ascii_uppercase.index(column_char)
         result_dict = {}
@@ -172,6 +172,8 @@ class GoogleSheetAPI:
 
 
     def write_result_dict_into_sheet(self, result_dict, column_name: str, column_char: str = "", column_index: int = -1):
+        total = sum([len(result_dict[tool]) for tool in result_dict])
+        print(f'Start to write {total} result into Google Sheet ...')
         column_char = column_char.upper()
         if column_char != "":
             if column_index >= 0:
@@ -298,6 +300,7 @@ class LocalUtilsAPI():
         print(f'In total, {total} examples.')
         return action_numbers, cluster
 
+
     def get_result_dict_from_dir(self, experiment_name: str):
         """ Given the result directory, return all results under this directory.
         @return:
@@ -336,22 +339,21 @@ if __name__ == '__main__':
 
     # get annotated and validated number for each tool from google sheet
     result_dict = sheet.get_validated_number()
-    # print_result_dict(result_dict)
+    print_result_dict(result_dict)
 
     # get validated uuids for each tool from google sheet and write into json file (for experiment)
     sheet.get_validated_uuids(output_file='evaluation_examples/test_validated.json')
-    sheet.get_validated_uuids(unfinished=True, column_char='Q', output_file='evaluation_examples/test_unfinished_validated.json') # only find example uuids that have no result in column Q (result must 0 or 1)
+    sheet.get_validated_uuids(unfinished=True, column_char='Q', output_file='evaluation_examples/test_unfinished_validated.json') # only find example uuids that have no result in column Q
 
     # get aggregated result from local result directory, e.g., results/pyautogui_som_gpt-4o-2024-05-13
     result_dict = data.get_result_dict_from_dir(experiment_name='pyautogui_som_gpt-4o-2024-05-13')
-    # print_result_dict(result_dict)
 
     # write/update result from result_dict into google sheet, must specify the column name
     # if column name does not exist, it will be created
     # either `column_char` or `column_index` should be provided
     # if cell empty, write result into it; if already 1, not write 0; if already 0, update to 1
     ################### Please be careful when writing data into Google Sheet  ####################
-    # sheet.write_result_dict_into_sheet(result_dict, column_name='pyautogui-som-gpt4o', column_char='Q')
+    sheet.write_result_dict_into_sheet(result_dict, column_name='pyautogui-som-gpt4o', column_char='Q')
     ################### Please be careful when writing data into Google Sheet  ####################
 
     # get result from google sheet, this will print aggregated results for column Q on Google sheet
