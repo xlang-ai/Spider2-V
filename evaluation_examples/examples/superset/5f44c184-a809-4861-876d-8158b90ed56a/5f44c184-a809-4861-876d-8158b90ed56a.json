@@ -1,9 +1,9 @@
 {
-    "id": "b093ad68-7779-404f-99a4-9bf1ddc04418",
+    "id": "5f44c184-a809-4861-876d-8158b90ed56a",
     "snapshot": "superset",
-    "instruction": "I want to use the dataset game_sales to draw a line chart. This line chart should reflect the trend of the average global sales per year. This chart should be saved with name 'linechart'.",
+    "instruction": "Help me create a rolling mean line chart for table flights to see the trend of the average cost per day. The rolling period should be 7 and save the chart as the name 'rolling_mean'.",
     "source": [
-        "https://superset.apache.org/docs/using-superset/exploring-data/#line-chart"
+        "https://superset.apache.org/docs/using-superset/exploring-data/#rolling-mean"
     ],
     "related_apps": [
         "chromium",
@@ -12,14 +12,14 @@
     "tags": [
         "gui"
     ],
-    "action_number": 15,
+    "action_number": 22,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/b093ad68-7779-404f-99a4-9bf1ddc04418/database_export_20240523T204001.zip",
-                "dest": "/home/user/database_export_20240523T204001.zip"
+                "src": "evaluation_examples/examples/superset/5f44c184-a809-4861-876d-8158b90ed56a/database_export_20240515T105454.zip",
+                "dest": "/home/user/database_export_20240515T105454.zip"
             }
         },
         {
@@ -35,7 +35,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/b093ad68-7779-404f-99a4-9bf1ddc04418/init.sh",
+                "src": "evaluation_examples/examples/superset/5f44c184-a809-4861-876d-8158b90ed56a/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -53,7 +53,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/superset/b093ad68-7779-404f-99a4-9bf1ddc04418/eval.sh",
+            "src": "evaluation_examples/examples/superset/5f44c184-a809-4861-876d-8158b90ed56a/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

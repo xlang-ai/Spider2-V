@@ -8,7 +8,9 @@ To use the dataset game_sales to draw a line chart to reflect the trend of the a
 7. In the new window, drag the "year" title from left list to the "X-AXIS" box ;
 8. Drag the "global_sales" title from left list to the "METRICS" box ;
 9. Click AGGREGATE box;
-10. Click "CREATE CHART" in the bottom;
-11. Click "SAVE" in the top right corner;
-12. Type "linechart" in "CHART NAME" box;
-13. Click "SAVE", and you can see table "linechart" in the main panel.
+10. Select "AVG";
+11. Click "SAVE";
+12. Click "CREATE CHART" in the bottom;
+13. Click "SAVE" in the top right corner;
+14. Type "linechart" in "CHART NAME" box;
+15. Click "SAVE", and you can see table "linechart" in the main panel.
