@@ -263,9 +263,21 @@ class PromptAgent:
         return
 
 
-    def add_action_infos(self, messages, action_list: List[Union[str, Dict]], infos: List[Dict]) -> Dict:
+    def add_action_infos(self, messages, action_list: List[Union[str, Dict]], infos: List[Dict], failed_only: bool = True) -> Dict:
+        """ Add parsed actions (`action_list`) and action execution flags (`infos`) to the messages.
+        @args:
+            failed_only(bool): only add actions which are failed to the messages
+        @return:
+            messages: updated messages list
+        """
         if not infos: return messages
-        prefix_msg = 'Here are the parsed action list from your last response and the execution flag of each action from the desktop environment:\n'
+        if failed_only: # only add failed actions and flags into messages
+            for info in infos:
+                if info['status'] == 'error' or info['error'].strip() != "":
+                    break
+            else: return messages
+
+        prefix_msg = 'Here are the parsed action list from your last response and the execution flag of each action from the desktop environment:\n' if not failed_only else 'Here are the failed actions and their execution feedbacks of your last response:\n'
         content_msg = ''
         assert len(action_list) == len(infos), "The number of actions and infos should be the same."
 
@@ -279,6 +291,8 @@ class PromptAgent:
 
         if len(action_list) == 0:
             for action, info in zip(action_list, infos):
+                if failed_only and (info['status'] == 'success' and info['error'].strip() == ""):
+                    continue # action executed successfully, just skip
                 if self.action_space == 'computer_13':
                     content_msg += f"\nParsed action: {json.dumps(action, ensure_ascii=False)}\n"
                     content_msg += f"Execution flag: {_execution_msg(info)}\n"
@@ -289,7 +303,7 @@ class PromptAgent:
                     raise ValueError("Unrecognised action_space type: " + self.action_space)
         else:
             content_msg = "\nNo valid action detected from your previous response.\n"
-        suffix_msg = '\nIf there are any omissions or additions of actions, please meticulously check the specification of the action space; if the execution status of any action is incorrect or unexpected, try to resolve it based on the following latest observations.'
+        suffix_msg = '\nIf there are any omissions or additions of actions, please meticulously check the specification of the action space; if the execution status of any action is incorrect or unexpected, try to resolve it based on the following latest observations.' if not failed_only else 'Please meticulously check the error messages and the execution status of the failed actions, and try to resolve them based on the following latest observations.'
         msg = {"role": "user", "content": [{"type": "text", "text": prefix_msg + content_msg + suffix_msg}]}
         messages.append(msg)
         return messages
@@ -434,7 +448,7 @@ class PromptAgent:
         # action execution result of previous turn
         # if len(self.actions) > 0: # if has previous action list
             # infos = obs.get('infos', [])
-            # self.add_action_infos(messages, self.actions[-1], infos)
+            # self.add_action_infos(messages, self.actions[-1], infos, failed_only=True)
 
         # tackle the current observation
         if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:
