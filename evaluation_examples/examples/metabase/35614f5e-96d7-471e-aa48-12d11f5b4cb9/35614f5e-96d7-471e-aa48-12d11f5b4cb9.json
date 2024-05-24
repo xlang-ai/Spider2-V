@@ -48,7 +48,7 @@
     "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "compare_images",
+        "func": "compare_metabase_images",
         "result": {
             "type": "vm_file",
             "path": "/home/user/Downloads/funnel_chart.png",
