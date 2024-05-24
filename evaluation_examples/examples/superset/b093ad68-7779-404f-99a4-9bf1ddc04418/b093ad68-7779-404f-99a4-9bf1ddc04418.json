@@ -18,8 +18,8 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/b093ad68-7779-404f-99a4-9bf1ddc04418/database_export_20240515T105454.zip",
-                "dest": "/home/user/Desktop/database_export_20240515T105454.zip"
+                "src": "evaluation_examples/examples/superset/b093ad68-7779-404f-99a4-9bf1ddc04418/database_export_20240523T204001.zip",
+                "dest": "/home/user/Desktop/database_export_20240523T204001.zip"
             }
         },
         {
