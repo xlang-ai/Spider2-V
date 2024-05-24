@@ -303,7 +303,7 @@ class PromptAgent:
                     raise ValueError("Unrecognised action_space type: " + self.action_space)
         else:
             content_msg = "\nNo valid action detected from your previous response.\n"
-        suffix_msg = '\nIf there are any omissions or additions of actions, please meticulously check the specification of the action space; if the execution status of any action is incorrect or unexpected, try to resolve it based on the following latest observations.' if not failed_only else 'Please meticulously check the error messages and the execution status of the failed actions, and try to resolve them based on the following latest observations.'
+        suffix_msg = '\nIf there are any omissions or additions of actions, please meticulously check the specification of the action space; if the execution status of any action is incorrect or unexpected, try to resolve it based on the latest observations below.' if not failed_only else 'Please meticulously check the error messages and the execution status of the failed actions, and try to resolve them based on the latest observations below.'
         msg = {"role": "user", "content": [{"type": "text", "text": prefix_msg + content_msg + suffix_msg}]}
         messages.append(msg)
         return messages
