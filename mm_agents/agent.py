@@ -81,9 +81,9 @@ def linearize_accessibility_tree(filtered_nodes: List[ET.Element], add_index: bo
     # leaf_nodes = find_leaf_nodes(accessibility_tree)
     # first line is headers
     if add_index:
-        linearized_accessibility_tree = ["TAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
-    else:
         linearized_accessibility_tree = ["INDEX\tTAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
+    else:
+        linearized_accessibility_tree = ["TAG\tNAME\tPOSITION (top-left x & y)\tSIZE (width & height)\tTEXT"]
     # Linearize the accessibility tree nodes into a table format
     for idx, node in enumerate(filtered_nodes):
         # linearized_accessibility_tree += node.tag + "\t"
