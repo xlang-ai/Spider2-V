@@ -1,9 +1,9 @@
 {
-    "id": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426",
+    "id": "798fac35-b600-420b-9710-e11ac223f77b",
     "snapshot": "superset",
-    "instruction": "I would like to create a table visualization to show the average cost per department for the 'flights' table. Please save this visualization chart named 'Mychart'.",
+    "instruction": "I want to create a global annotation layer named Myannotation, help me do it!",
     "source": [
-        "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
+        "https://superset.apache.org/docs/using-superset/exploring-data/#annotations"
     ],
     "related_apps": [
         "chromium",
@@ -13,15 +13,8 @@
         "gui",
         "data_analysis_and_visualization"
     ],
-    "action_number": 12,
+    "action_number": 5,
     "config": [
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/database_export_20240515T105454.zip",
-                "dest": "/home/user/database_export_20240515T105454.zip"
-            }
-        },
         {
             "type": "google_chrome_browser",
             "parameters": {
@@ -35,7 +28,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/init.sh",
+                "src": "evaluation_examples/examples/superset/798fac35-b600-420b-9710-e11ac223f77b/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -53,7 +46,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/eval.sh",
+            "src": "evaluation_examples/examples/superset/798fac35-b600-420b-9710-e11ac223f77b/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

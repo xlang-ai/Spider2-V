@@ -6,7 +6,7 @@
         "https://docs.getdbt.com/guides/bigquery?step=5"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "bigquery",
         "chromium"
     ],

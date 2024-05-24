@@ -1,9 +1,9 @@
 {
-    "id": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426",
+    "id": "887abb68-b354-4759-aff8-04e1ca82bcbc",
     "snapshot": "superset",
-    "instruction": "I would like to create a table visualization to show the average cost per department for the 'flights' table. Please save this visualization chart named 'Mychart'.",
+    "instruction": "My boss want me to draw a chart for table flights with resampling so that we have weekly median trend of sum of cost data rather than having daily sum of cost data. Please create this chart and name it 'resampling'.",
     "source": [
-        "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
+        "https://superset.apache.org/docs/using-superset/exploring-data/#resampling-the-data"
     ],
     "related_apps": [
         "chromium",
@@ -13,12 +13,13 @@
         "gui",
         "data_analysis_and_visualization"
     ],
-    "action_number": 12,
+    "action_number": 22,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/database_export_20240515T105454.zip",
+                "src": "evaluation_examples/examples/superset/887abb68-b354-4759-aff8-04e1ca82bcbc/database_export_20240515T105454.zip",
                 "dest": "/home/user/database_export_20240515T105454.zip"
             }
         },
@@ -28,14 +29,14 @@
                 "debugging_port": 1337,
                 "listening_port": 9222,
                 "urls": [
-                    "https://www.bing.com/"
+                    "https://www.google.com"
                 ]
             }
         },
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/init.sh",
+                "src": "evaluation_examples/examples/superset/887abb68-b354-4759-aff8-04e1ca82bcbc/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -53,7 +54,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/eval.sh",
+            "src": "evaluation_examples/examples/superset/887abb68-b354-4759-aff8-04e1ca82bcbc/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {
