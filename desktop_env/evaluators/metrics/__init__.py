@@ -175,5 +175,9 @@ from .jupyterlab import (
     is_jupyter_outputs_cleared
 )
 
+from .metabase import (
+    compare_metabase_images
+)
+
 def infeasible():
     pass
