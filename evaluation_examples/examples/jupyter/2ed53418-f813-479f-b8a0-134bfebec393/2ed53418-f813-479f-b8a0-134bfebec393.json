@@ -6,7 +6,6 @@
         "https://stackoverflow.com/questions/42635310/remove-the-kernel-on-a-jupyter-notebook"
     ],
     "related_apps": [
-        "chromium",
         "jupyter",
         "terminal"
     ],
