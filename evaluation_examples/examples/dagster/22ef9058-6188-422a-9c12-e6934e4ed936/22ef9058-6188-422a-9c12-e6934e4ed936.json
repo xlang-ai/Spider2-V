@@ -10,7 +10,8 @@
         "chromium"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_orchestration"
     ],
     "action_number": 3,
     "config": [

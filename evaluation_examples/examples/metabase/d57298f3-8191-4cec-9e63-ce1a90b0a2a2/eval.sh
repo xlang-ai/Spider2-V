@@ -17,10 +17,10 @@ fi
 output=$(curl -X GET http://localhost:3000/api/database -H "X-Metabase-Session: ${session_id}" | jq -rM '.data')
 count=$(echo $output | jq -rM 'length')
 
-if [ "$count" = 0 ] ; then
+if [ $count -eq 0 ]; then
     echo "Deleting metabase sample database succeeds."
     exit 0
 fi
-done
+
 echo "Deleting metabase sample database failed."
 exit 1

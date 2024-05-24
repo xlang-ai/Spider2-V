@@ -11,7 +11,8 @@
         "metabase"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_analysis_and_visualization"
     ],
     "action_number": 11,
     "config": [

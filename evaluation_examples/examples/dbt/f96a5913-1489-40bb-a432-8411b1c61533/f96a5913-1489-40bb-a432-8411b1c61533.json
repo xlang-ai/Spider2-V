@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "account"
+        "account",
+        "data_transformation"
     ],
     "config": [
         {

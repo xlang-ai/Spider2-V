@@ -51,7 +51,8 @@
         "chromium"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_orchestration"
     ],
     "evaluator": {
         "func": "check_include_exclude",

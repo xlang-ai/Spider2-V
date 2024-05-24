@@ -1,0 +1,71 @@
+{
+    "id": "7d9ad1cf-761d-4745-b68c-ff7bb2e661c7",
+    "snapshot": "airbyte",
+    "instruction": "I want to construct an airbyte connection from Postgres to Snowflake in the Airbyte local UI with incremental append sync mode and choose 'id' of the stream as cursor. Could you help me finish this task?",
+    "source": [
+        "https://docs.airbyte.com/using-airbyte/core-concepts/sync-modes/incremental-append"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration"
+    ],
+    "action_number": 22,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/7d9ad1cf-761d-4745-b68c-ff7bb2e661c7/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/7d9ad1cf-761d-4745-b68c-ff7bb2e661c7/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

@@ -31,7 +31,8 @@
         "terminal"
     ],
     "tags": [
-        "cli"
+        "cli",
+        "data_transformation"
     ],
     "evaluator": {
         "func": [

@@ -1,0 +1,57 @@
+{
+    "id": "2ed53418-f813-479f-b8a0-134bfebec393",
+    "snapshot": "jupyter",
+    "instruction": "I want to delete the jupyter notebook kernel \"Python (jupyterlab)\", please help me.",
+    "source": [
+        "https://stackoverflow.com/questions/42635310/remove-the-kernel-on-a-jupyter-notebook"
+    ],
+    "related_apps": [
+        "jupyter",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "traditional_data_processing"
+    ],
+    "action_number": 2,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/2ed53418-f813-479f-b8a0-134bfebec393/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/jupyter/2ed53418-f813-479f-b8a0-134bfebec393/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "python3"
+                ],
+                "exclude": [
+                    "jupyterlab"
+                ]
+            }
+        }
+    }
+}

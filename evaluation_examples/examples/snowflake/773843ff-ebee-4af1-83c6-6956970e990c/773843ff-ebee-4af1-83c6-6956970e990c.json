@@ -1,7 +1,7 @@
 {
     "id": "773843ff-ebee-4af1-83c6-6956970e990c",
     "snapshot": "snowflake",
-    "instruction": "Help me use Hasura Cloud to connect to my Snowflake database and query data using GraphQL. You need to launch the current project console and connect to snowflake database VIDEOS. The information about JDBC string is in the information.txt file on the desktop. Then, write GraphQL query to find items' customer_id and created_date whose WAS_SUBSCRIPTION_PAID is \"Yes\". The offset of this query is 50 and the limit is 100. Finally, you need to create a result.txt file on the Desktop and copy the query results to this file.",
+    "instruction": "Help me use Hasura Cloud to connect to my Snowflake database and query data using GraphQL. You need to create a new free project in the current webpage with default options for all configurations and connect to snowflake database VIDEOS. The information about JDBC string is in the information.txt file on the desktop. Then, write GraphQL query to find items' customer_id and created_date whose WAS_SUBSCRIPTION_PAID is \"Yes\". The offset of this query is 50 and the limit is 100. Finally, you need to create a result.txt file on the Desktop and copy the query results to this file.",
     "source": [
         "https://quickstarts.snowflake.com/guide/accelerate_your_graphql_development_on_snowflake_with_hasura/index.html",
         "https://docs.snowflake.com/developer-guide/jdbc/jdbc-configure#jdbc-driver-connection-string",
@@ -15,9 +15,10 @@
     ],
     "tags": [
         "cli+gui",
-        "account"
+        "account",
+        "data_warehousing"
     ],
-    "action_number": 23,
+    "action_number": 22,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -76,7 +77,10 @@
         "expected": {
             "type": "local_file",
             "path": "evaluation_examples/examples/snowflake/773843ff-ebee-4af1-83c6-6956970e990c/result_gold.txt",
-            "dest": "result_gold.csv"
+            "dest": "result_gold.txt"
+        },
+        "options": {
+            "ignore_blanks": true
         }
     }
 }

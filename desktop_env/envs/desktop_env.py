@@ -162,6 +162,7 @@ class DesktopEnv(gym.Env):
             "screenshot": self.controller.get_screenshot(),
             "accessibility_tree": self.controller.get_accessibility_tree() if self.require_a11y_tree else None,
             "terminal": self.controller.get_terminal_output() if self.require_terminal else None,
+            "error": "",
             "instruction": self.instruction
         }
 
@@ -252,26 +253,27 @@ class DesktopEnv(gym.Env):
 
         reward = 0  # todo: Define reward calculation for each example
         done = False  # todo: Define episode termination condition for each example
-        info = {}
+        info = {} # info has two formats: {"status": "success", "output": "xxx", "error": "xxx"} or {"status": "error", "message": ""}, in compatible with /execute in server/main.py
 
         # handle the special actions
         if action in ['WAIT', 'FAIL', 'DONE'] or (type(action) == dict and action['action_type'] in ['WAIT', 'FAIL', 'DONE']):
             if type(action) == dict: action = action['action_type']
             if action == 'WAIT':
                 time.sleep(pause)
+                info ={"status": "success", "output": "", "error": ""}
             elif action == 'FAIL':
                 done = True
-                info = {"fail": True}
+                info ={"status": "success", "output": "", "error": ""}
             elif action == 'DONE':
                 done = True
-                info = {"done": True}
+                info ={"status": "success", "output": "", "error": ""}
         else:
             if self.action_space == "computer_13":
                 # the set of all possible actions defined in the action representation
-                self.controller.execute_action(action)
+                info = self.controller.execute_action(action)
             elif self.action_space == "pyautogui":
                 # the set of all possible python commands insides `pyautogui`
-                self.controller.execute_python_command(action)
+                info = self.controller.execute_python_command(action)
 
         observation = self._get_obs()
 

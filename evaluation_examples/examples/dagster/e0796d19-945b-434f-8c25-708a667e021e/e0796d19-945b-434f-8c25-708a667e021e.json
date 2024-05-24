@@ -12,7 +12,8 @@
         "chromium"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_orchestration"
     ],
     "action_number": 5,
     "config": [

@@ -93,7 +93,8 @@
     ],
     "tags": [
         "gui",
-        "account"
+        "account",
+        "data_warehousing"
     ],
     "evaluator": {
         "func": "check_include_exclude",

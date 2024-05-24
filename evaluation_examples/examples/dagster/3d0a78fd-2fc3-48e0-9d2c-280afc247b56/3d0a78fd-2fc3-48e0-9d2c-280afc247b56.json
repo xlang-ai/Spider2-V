@@ -11,7 +11,8 @@
         "vscode"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_orchestration"
     ],
     "action_number": 7,
     "config": [

@@ -1,15 +1,25 @@
 {
-    "id": "8e8e0abd-8ff7-4a6c-b3f4-7e37b3e22938",
-    "snapshot": "airflow",
-    "instruction": "I have started the MinIO Server in my computer with username ROOTNAME and password CHANGEME123 in port 9000. Please create a new bucket called custom-xcom-backend in the MinIO Server and create a connection to my Astro project. ",
+    "id": "eee8f6e9-b143-4f86-9b76-4b4280e63dc5",
+    "snapshot": "airbyte",
+    "instruction": "Please help me to create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. The target file path is /local/json_destination. Remember to choose manual sync mode.",
     "source": [
-        "https://docs.astronomer.io/learn/xcom-backend-tutorial"
+        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections"
     ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration"
+    ],
+    "action_number": 19,
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/airflow/8e8e0abd-8ff7-4a6c-b3f4-7e37b3e22938/init.sh",
+                "src": "evaluation_examples/examples/airbyte/eee8f6e9-b143-4f86-9b76-4b4280e63dc5/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -24,35 +34,26 @@
             }
         },
         {
-            "type": "astro_webui_init",
+            "type": "airbyte_webui_init",
             "parameters": {
                 "listening_port": 9222,
-                "url": "http://localhost:8080",
+                "url": "http://localhost:8000",
                 "actions": [
                     {
                         "type": "login",
-                        "username": "admin",
-                        "password": "admin"
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
                     }
                 ]
             }
         }
     ],
     "trajectory": "trajectories/",
-    "action_number": 10,
-    "related_apps": [
-        "airflow",
-        "chromium",
-        "minio"
-    ],
-    "tags": [
-        "cli+gui"
-    ],
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
             "type": "vm_script_output",
-            "src": "evaluation_examples/examples/airflow/8e8e0abd-8ff7-4a6c-b3f4-7e37b3e22938/eval.sh",
+            "src": "evaluation_examples/examples/airbyte/eee8f6e9-b143-4f86-9b76-4b4280e63dc5/eval.sh",
             "dest": "/home/user/eval.sh"
         },
         "expected": {

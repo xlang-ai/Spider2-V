@@ -11,7 +11,8 @@
         "jupyter"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "traditional_data_processing"
     ],
     "action_number": 4,
     "config": [

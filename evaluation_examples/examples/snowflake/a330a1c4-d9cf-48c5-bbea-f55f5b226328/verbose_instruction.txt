@@ -4,9 +4,6 @@ To create the event table and store logs, please follow these steps:
 3. In the opened blank worksheet, type in command:
 ```
 CREATE OR REPLACE DATABASE log_trace_db;
-CREATE OR REPLACE WAREHOUSE log_trace_wh
-  WAREHOUSE_TYPE = STANDARD
-  WAREHOUSE_SIZE = XSMALL;
 CREATE OR REPLACE EVENT TABLE event_table;
 CREATE OR REPLACE FUNCTION log_trace_data()
 RETURNS VARCHAR

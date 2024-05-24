@@ -1,0 +1,68 @@
+{
+    "id": "a2a9b12c-c428-4673-a9c2-38c24d1c7eef",
+    "snapshot": "jupyter",
+    "instruction": "Help me create a new jupyter notebook named tensor.ipynb on the current website and copy the code in the code.py file on the desktop to this notebook. Note that all code should in one cell and you don't need to run it.",
+    "source": [
+        "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#creating-files-and-activities"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "gui",
+        "traditional_data_processing"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a2a9b12c-c428-4673-a9c2-38c24d1c7eef/code.py",
+                "dest": "/home/user/Desktop/code.py"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_cells",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/tensor.ipynb",
+            "dest": "tensor.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/a2a9b12c-c428-4673-a9c2-38c24d1c7eef/tensor_gold.ipynb",
+            "dest": "tensor_gold.ipynb"
+        }
+    }
+}

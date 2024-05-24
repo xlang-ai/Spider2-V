@@ -1,0 +1,91 @@
+{
+    "id": "f200d50e-98e5-44d6-96e5-8a6a8d72c19b",
+    "snapshot": "bigquery",
+    "instruction": "Use Bigquery WebUI to get the top 10 most populated ZIP codes in the USA based on the 2010 census data. Show the zip_code and population. Save answers in 'census_2010' table in 'census' dataset.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "census",
+                        "table_id": "information",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/f200d50e-98e5-44d6-96e5-8a6a8d72c19b/information.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1sbigquery-public-data!2scensus_bureau_usa"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "census",
+            "table_id": "census_2010",
+            "schema": [
+                "*"
+            ],
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/f200d50e-98e5-44d6-96e5-8a6a8d72c19b/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}

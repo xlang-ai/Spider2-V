@@ -13,7 +13,8 @@
     ],
     "tags": [
         "gui",
-        "account"
+        "account",
+        "data_transformation"
     ],
     "action_number": 19,
     "config": [

@@ -51,7 +51,7 @@ def config() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run end-to-end evaluation on the benchmark")
 
     # environment config
-    parser.add_argument("--path_to_vm", type=str, default="/Users/rhythmcao/Virtual\ Machines.localized/ubuntu.vmwarevm/ubuntu.vmx")
+    parser.add_argument("--path_to_vm", type=str, help="path to the VM executable .vmx file, if None, automatically find the VM in vm_data/ folder")
     parser.add_argument("--snapshot_name", type=str, default="spider2.0", help="Snapshot name to use (overwrite snapshot in each example config)")
     parser.add_argument("--headless", action="store_true", help="Run in headless machine")
     parser.add_argument(
@@ -75,7 +75,7 @@ def config() -> argparse.Namespace:
         help="Observation space to use for the environment",
     )
     parser.add_argument("--sleep_after_execution", type=float, default=0.5)
-    parser.add_argument("--max_steps", type=int, default=15, help="Maximum number of steps for each example, this can be altered dynamically according to field `action_number` in the example config")
+    parser.add_argument("--max_steps", type=int, default=20, help="Maximum number of steps for each example, this can be altered dynamically according to field `action_number` in the example config")
 
     # agent config
     parser.add_argument("--max_trajectory_length", type=int, default=5, help='maximum length of interaction history to provide to the agent')
@@ -146,7 +146,8 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
         with open(config_file, "r", encoding="utf-8") as f:
             example = json.load(f)
 
-        if args.verbose_instruction: example['instruction'] = get_verbose_instruction(config_file)
+        if args.verbose_instruction: example['verbose_instruction'] = get_verbose_instruction(config_file)
+        else: example['verbose_instruction'] = None
 
         root_logger = logging.getLogger()
         example_handler = logging.FileHandler(os.path.join(result_dir, "result-{:}.log".format(datetime_str)), encoding="utf-8")
@@ -159,7 +160,10 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
         logger.info(f"[Example id]: {eid}")
         logger.info(f"[Config file]: {config_file}")
         logger.info(f"[Result dir]: {result_dir}")
-        logger.info(f"[{'Verbose ' if args.verbose_instruction else ''}Instruction]: {example['instruction']}")
+        if args.verbose_instruction:
+            logger.info(f"[Verbose instruction]: {example['verbose_instruction']}")
+        else:
+            logger.info(f"[Instruction]: {example['instruction']}")
         
         # example start running
         try:
@@ -200,12 +204,14 @@ def get_result_dir(args):
     return os.path.join(args.result_dir, result_dir)
 
 
-def get_examples(args, result_dir) -> List[Dict[str, str]]:
+def get_examples(args, result_dir, easy_first: bool = True, exclude_account: bool = True) -> List[Dict[str, str]]:
     """ Get [Filter] the list of example dict for the current experiment.
     # Filter method:
     - args.from_scratch (bool): if True, ignore existing results under the result directory, otherwise,
         only include examples that do not have `result.txt` file under the result directory
     - args.domains (List[str]): if not contain "all", only include examples under the specified domain/tool
+    - easy_first (bool): if True, include examples that are easy to run first (smaller action_number)
+    - exclude_account (bool): if True, exclude examples that are related to real accounts
     
     # The returned dict for each example in the List containing:
         - id: example id
@@ -235,6 +241,10 @@ def get_examples(args, result_dir) -> List[Dict[str, str]]:
                 example_result_dir = os.path.join(domain_result_dir, example_id)
                 result_file = os.path.join(example_result_dir, "result.txt")
                 if not args.from_scratch and os.path.exists(result_file) and file_not_empty(result_file): continue
+                data_config = os.path.join(example_dir, f"{example_id}.json")
+                data = json.load(open(data_config, 'r'))
+                if exclude_account and 'account' in data['tags']: continue
+
                 # remove the result directory if exists
                 shutil.rmtree(example_result_dir, ignore_errors=True)
                 os.makedirs(example_result_dir, exist_ok=True)
@@ -245,11 +255,13 @@ def get_examples(args, result_dir) -> List[Dict[str, str]]:
                 example = {
                     "id": example_id,
                     "domain": domain,
-                    "config": os.path.join(example_dir, f"{example_id}.json"),
-                    "result": example_result_dir
+                    "config": data_config,
+                    "result": example_result_dir,
+                    "action_number": data["action_number"]
                 }
                 examples_to_run.append(example)
     logger.info(f"Total examples to run: {len(examples_to_run)}")
+    if easy_first: sorted(examples_to_run, key=lambda x: x['action_number'])
     return examples_to_run
 
 

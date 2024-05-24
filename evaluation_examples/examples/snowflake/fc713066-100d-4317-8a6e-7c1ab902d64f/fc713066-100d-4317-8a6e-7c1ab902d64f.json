@@ -13,7 +13,8 @@
     ],
     "tags": [
         "cli+gui",
-        "account"
+        "account",
+        "data_warehousing"
     ],
     "action_number": 13,
     "config": [

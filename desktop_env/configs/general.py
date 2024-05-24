@@ -258,16 +258,16 @@ def copyfile_from_host_to_guest_setup(controller, src: str, dest: str, json_enco
         temp_src = temp_src.replace('/', '\\')
 
     if json_encode:
-        os.remove(temp_src)
-        shutil.copy(src, temp_src)
-        with open(temp_src, "r") as f:
+        cached_file = os.path.join(controller.cache_dir, os.path.basename(src))
+        shutil.copy(src, cached_file)
+        with open(cached_file, "r") as f:
             data = json.load(f)
         for key, value in data.items():
             encoded_value = base64.b64encode(str(value).encode()).decode()
             data[key] = encoded_value
-        with open(temp_src, "w") as f:
+        with open(cached_file, "w") as f:
             json.dump(data, f, indent=4)
-        src = temp_src
+        src = cached_file
 
     form = MultipartEncoder({
         "file_path": dest,

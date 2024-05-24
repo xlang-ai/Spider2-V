@@ -1,0 +1,72 @@
+{
+    "id": "5f44c184-a809-4861-876d-8158b90ed56a",
+    "snapshot": "superset",
+    "instruction": "Help me create a rolling mean line chart for table flights to see the trend of the average cost per day. The rolling period should be 7 and save the chart as the name 'rolling_mean'.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#rolling-mean"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization"
+    ],
+    "action_number": 22,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/5f44c184-a809-4861-876d-8158b90ed56a/database_export_20240515T105454.zip",
+                "dest": "/home/user/database_export_20240515T105454.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/5f44c184-a809-4861-876d-8158b90ed56a/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/5f44c184-a809-4861-876d-8158b90ed56a/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

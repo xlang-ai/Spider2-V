@@ -12,10 +12,10 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-source /home/user/anaconda3/etc/profile.d/conda.sh
-conda activate airbyte
-echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate airbyte" >> ~/.bashrc
+# source /home/user/anaconda3/etc/profile.d/conda.sh
+# conda activate airbyte
+# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+# echo "conda activate airbyte" >> ~/.bashrc
 PASSWORD=password
 echo $PASSWORD | sudo -S systemctl stop postgresql
 

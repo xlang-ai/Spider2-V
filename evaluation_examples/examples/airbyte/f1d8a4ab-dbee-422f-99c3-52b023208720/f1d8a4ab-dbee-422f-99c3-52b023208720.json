@@ -13,9 +13,10 @@
         "postgresql"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_ingestion_and_integration"
     ],
-    "action_number": 4,
+    "action_number": 3,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

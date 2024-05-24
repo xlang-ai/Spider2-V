@@ -1,0 +1,16 @@
+To use the dataset game_sales to draw a line chart to reflect the trend of the average global sales per year and saved with name 'linechart', we can follow these steps:
+1. In the opened web page, select "Charts" in the top menu;
+2. Click '+CHART' in the top right corner;
+3. In the pop-up window, click "Choose a dataset" box;
+4. Select "game_sales";
+5. In right box, click "Line Chart";
+6. Click "CREATE NEW CHART" in the bottom;
+7. In the new window, drag the "year" title from left list to the "X-AXIS" box ;
+8. Drag the "global_sales" title from left list to the "METRICS" box ;
+9. Click AGGREGATE box;
+10. Select "AVG";
+11. Click "SAVE";
+12. Click "CREATE CHART" in the bottom;
+13. Click "SAVE" in the top right corner;
+14. Type "linechart" in "CHART NAME" box;
+15. Click "SAVE", and you can see table "linechart" in the main panel.

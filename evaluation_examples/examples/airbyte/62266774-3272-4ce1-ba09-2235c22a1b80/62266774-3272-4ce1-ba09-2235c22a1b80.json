@@ -16,7 +16,8 @@
     ],
     "tags": [
         "cli+gui",
-        "account"
+        "account",
+        "data_ingestion_and_integration"
     ],
     "action_number": 31,
     "config": [

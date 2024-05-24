@@ -1,0 +1,53 @@
+{
+    "id": "510c96ab-92fc-4a57-955f-d75b2e7d8c24",
+    "snapshot": "bigquery",
+    "instruction": "The top ten countries with the largest number of patents, only the country code is shown. Save the answer in ~/Downloads/result.csv",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1spatents-public-data!2spatents"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/510c96ab-92fc-4a57-955f-d75b2e7d8c24/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}
