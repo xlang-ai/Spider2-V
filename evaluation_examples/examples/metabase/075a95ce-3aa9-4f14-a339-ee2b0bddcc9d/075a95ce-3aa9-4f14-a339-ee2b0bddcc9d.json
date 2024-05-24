@@ -47,7 +47,7 @@
     "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "compare_images",
+        "func": "compare_metabase_images",
         "result": {
             "type": "vm_file",
             "path": "/home/user/Desktop/line_chart.png",

@@ -172,5 +172,9 @@ from .jupyterlab import (
     compare_ipynb_files
 )
 
+from .metabase import (
+    compare_metabase_images
+)
+
 def infeasible():
     pass
