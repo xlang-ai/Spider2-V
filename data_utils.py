@@ -13,8 +13,8 @@ ALL_DOMAINS = ['excel', 'servicenow', 'jupyter', 'dbt', 'airflow', 'dagster', 'a
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "1gJNk_ndBTH4tib1gyzLUKRcmDT-z4s5o0CGR8rFsU-g"
 
-os.environ['http_proxy'] = 'http://127.0.0.1:58591'
-os.environ['https_proxy'] = 'http://127.0.0.1:58591'
+#os.environ['http_proxy'] = 'http://127.0.0.1:58591'
+#os.environ['https_proxy'] = 'http://127.0.0.1:58591'
 CLIENT_SECRETS = 'client_secrets.json'
 CREDENTIALS = 'credentials.json'
 
