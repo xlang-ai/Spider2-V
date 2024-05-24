@@ -12,8 +12,8 @@ token=$(curl -X POST "http://localhost:8088/api/v1/security/login" \
     }' | jq -rM ".access_token")
 
 
-slicename=linechart
-name=game_sales
+slicename=roling_mean
+name=flights
 username=superset
 password=superset
 host=db
@@ -39,7 +39,7 @@ for (( i=0; i<$count ; i++ )) ; do
 done
 
 if [ $flag = false ]; then
-    echo "Create linechart failed"
+    echo "Create rolling mean linechart failed"
     exit 0
 fi
 
@@ -59,10 +59,11 @@ type=$(echo $metrics | jq -rM ".[0] | .label ")
 x_name=$(echo $params | jq -rM .x_axis)
 y_name=$(echo $params | jq -rM ".metrics | .[0] | .column | .column_name")
 
-if [ "$x_name" = "year" ] && [ "$y_name" = "global_sales" ] && [ "$type" = "AVG(global_sales)" ]; then
-    echo "Create linechart succeed"
+rolling_type=$(echo $params | jq -rM .rolling_type)
+rolling_periods=$(echo $params | jq -rM .rolling_periods)
+
+if [ "$x_name" = "Travel Date" ] && [ "$y_name" = "Cost" ]&& [ "$rolling_type" = "mean" ] && [ "$rolling_periods" = "7" ] && [ "$type" = "AVG(Cost)" ]; then
+    echo "Create rolling mean linechart succeed"
 else
-    echo "Create linechart failed"
+    echo "Create rolling mean linechart failed"
 fi
-
-
