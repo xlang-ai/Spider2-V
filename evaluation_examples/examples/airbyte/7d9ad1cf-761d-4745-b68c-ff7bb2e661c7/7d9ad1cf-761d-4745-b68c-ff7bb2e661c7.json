@@ -13,7 +13,7 @@
     "tags": [
         "gui"
     ],
-    "action_number": 20,
+    "action_number": 22,
     "config": [
         {
             "type": "script_and_execute",
