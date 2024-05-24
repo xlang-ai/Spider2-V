@@ -1,0 +1,23 @@
+In this task, we want to create a connection from Postgres to Local SQLite with incremental | append sync mode with given configuration. To complete this: 
+1. Switch to the browser window;
+2. In the opened homepage of Airbyte, click the "Sources" link on the left panel;
+3. Then, in the search bar on the right, type in "Postgres" and you should see one panel with name "Postgres" below;
+4. Click this panel;
+5. After that, based on the "source Postgres" details in the desktop config.json file, enter the configuration parameters in the appropriate fields, and select Logical Replication (CDC). Enter the parameters that will be used for CDC replication, which are also provided in the config.json file;
+6. Then click on the "Set up source" button to create the source connector;
+7. Once "all tests passed" is displayed, click the "Destinations" link on the left panel;
+8. Then, in the search bar on the right, type in "Local SQLite" and you should see a panel with the name "Local SQLite" below;
+9. Click this panel;
+10. In the pop-up window, find the input box with name "Destination Path", and type in the target path "/local/obesity.sqlite"
+11. Click "Set up destination" button at the bottom and wait for the success signal;
+12. Once "all tests passed" is displayed, click the "Connections" link on the left panel;
+13. Then, click the "Create your first connection" button on the right;
+14. In the "Define source" step, choose "select an existing source";
+15. Click on the "Postgres" source link below;
+16. After that, in the "Define destination" step, choose "select an existing destination";
+17. Click on the "Local SQLite" destination link below. You may need to wait for some time;
+18. In the "Connection configuration" step, enter the parameters in the appropriate fields based on the "connection config" details in the config.json file;
+19. Click the "sync mode" column of the "connection_file" stream in the "streams" table;
+20. In the pop-up window, choose "incremental | append" and choose "id" as cursor;
+21. Close the pop-up window;
+22. Click the "Set up connection" button at the bottom right of the page to complete the connection setup.
