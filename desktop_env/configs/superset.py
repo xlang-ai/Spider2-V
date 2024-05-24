@@ -67,7 +67,7 @@ def superset_webui_init_setup(controller, **config):
             page = superset_webui_login(page, url)
         
         for action in config.get('actions', []):
-            action_type = action.pop('type')
+            action_type = action.pop('type', None)
             init_func = SUPERSET_WEBUI_FUNCTIONS[action_type]
             init_func(page, **action)
     return

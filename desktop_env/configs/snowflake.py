@@ -228,7 +228,7 @@ def snowflake_init_setup(controller, **config):
 
         # initialize the cloud workspace, e.g., users, databases, tables, etc.
         for action in config.get('actions', []):
-            action_type = action.pop('type')
+            action_type = action.pop('type', None)
             action['keyfile_path'], action['controller'] = settings_file, controller
             init_func = SNOWFLAKE_INIT_FUNCTIONS[action_type]
             init_func(client, **action)

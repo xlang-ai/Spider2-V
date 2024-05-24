@@ -2,7 +2,7 @@ I am using Astronomer to deploy Airflow
 To fix the dag according to given test log, we can follow the steps:
 1. Click the VS Code editor on the left panel or dock;
 2. According to the opened README.md file, we can extract the test log to alter the dag file accordingly;
-3. Switch to the dag file ‘task_today.py’ that is opened in VSCode;
+3. Switch to the dag file 'task_today.py' that is opened in VSCode;
 4. We'll now alter the dag file. Concretely, we will change the "schedule" in @dag field to "daily" and rearrange the tasks in order "activity >> logged_activity >>  analyzed_activity ":
 ˋˋˋ
 # ... Keep the original ˋtask_todayˋ codes
