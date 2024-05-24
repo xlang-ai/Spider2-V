@@ -1,6 +1,6 @@
 import os
 from typing import List, Dict
-
+from collections import defaultdict
 import os, string, json
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -23,10 +23,11 @@ def print_result_dict(result_dict):
     for tool in result_dict:
         print(f'For {tool}: ', end='')
         value = result_dict[tool]
-        if type(value) == list:
+        if type(value) in [tuple, list]:
             print(f'{len(value)} examples')
         elif type(value) == dict:
             print(', '.join([f'{k} = {v:.2f}' if type(v) == float else f'{k} = {v}' for k, v in value.items()]))
+        else: print(result_dict[tool])
     return
 
 
@@ -273,9 +274,10 @@ class LocalUtilsAPI():
         return
 
     def get_dataset_statistics(self):
-        action_numbers = {'easy': [], 'medium': [], 'hard': []}
         total = 0
-        cluster = {'cli': 0, 'gui': 0, 'cli+gui': 0, 'account': 0, 'total': 0}
+        tags = defaultdict(lambda: 0)
+        action_numbers = defaultdict(lambda: {'easy': [], 'medium': [], 'hard': []})
+        hardness = lambda x: 'easy' if x <= 5 else 'medium' if x <= 15 else 'hard'
         for tool in self.TOOLS:
             tool_dir = os.path.join(self.data_dir, tool)
             for eid in os.listdir(tool_dir):
@@ -285,21 +287,26 @@ class LocalUtilsAPI():
                 with open(fp, 'r') as inf:
                     data = json.load(inf)
                 total += 1
-                hardness = 'easy' if data['action_number'] <= 5 else 'medium' if data['action_number'] <= 15 else 'hard'
-                action_numbers[hardness].append(data['action_number'])
-                if 'cli' not in data['tags'] and 'gui' not in data['tags'] and 'cli+gui' not in data['tags']:
-                    print(f'[WARNING]: no cli/gui tag for {tool}/{eid}')
-                if len(set(data['tags']) & set(['cli', 'gui', 'cli+gui'])) >= 2:
-                    print(f'[WARNING]: multiple cli/gui tags for {tool}/{eid}')
-                for tag in data['tags']:
-                    if tag in cluster: cluster[tag] += 1
-                    else: print(f'[WARNING]: unknown tag {tag} for {eid}')
-        plt.hist(action_numbers['easy'] + action_numbers['medium'] + action_numbers['hard'], bins=list(range(0, 60, 5)), alpha=0.5)
-        plt.show()
-        for tag in cluster:
-            print(f'For tag {tag}, {cluster[tag]} examples')
-        print(f'In total, {total} examples.')
-        return action_numbers, cluster
+                for t in data['tags']: tags[t] += 1
+                level = hardness(data['action_number'])
+                action_numbers[tool][level].append(data['action_number'])
+
+        print_result_dict(tags)
+        for tool in action_numbers:
+            print(f'For {tool}: ', end='')
+            count = sum([len(action_numbers[tool][level]) for level in action_numbers[tool]])
+            for level in action_numbers[tool]:
+                print(f'{level}: {len(action_numbers[tool][level])}|{len(action_numbers[tool][level]) / count * 100: .2f}%, ', end='')
+            avg = sum([sum(action_numbers[tool][l]) for l in action_numbers[tool]]) / count
+            print(f'average_action_number = {avg:.2f}')
+        print('For all tools: ', end='')
+        for l in ['easy', 'medium', 'hard']:
+            count = sum([len(action_numbers[tool][l]) for tool in action_numbers])
+            print(f'{l}: {count}|{count / total * 100:.2f}%, ', end='')
+        avg = sum([sum(action_numbers[tool][l]) for l in ['easy', 'medium', 'hard'] for tool in action_numbers]) / total
+        print(f'average_action_number = {avg:.2f}')
+        print(f'Total number of examples: {total}')
+        return action_numbers
 
 
     def get_result_dict_from_dir(self, experiment_name: str):
@@ -398,3 +405,6 @@ if __name__ == '__main__':
 
     # add data category for each example
     data.update_data_recursively(add_data_category)
+
+    # calculate some statistics for the dataset
+    # data.get_dataset_statistics()
