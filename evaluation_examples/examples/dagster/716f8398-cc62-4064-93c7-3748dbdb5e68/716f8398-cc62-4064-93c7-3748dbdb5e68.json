@@ -1,7 +1,7 @@
 {
     "id": "716f8398-cc62-4064-93c7-3748dbdb5e68",
     "snapshot": "dagster",
-    "instruction": "I have defined some assets with pandas DataFrame as output. Now I want to store them in parquet file format for downstream assets to use. I know I should use an I/O manager but doesn't really know how to define the \"handle_output\" function to save the asset output to a \".pq\" file in \"base_path\" of \"ParquetIOManager\". Could you help me do it and add the I/O manager to the definitions in \"__init__.py\" with key \"parquet\"? After that, please show the configuration page of the \"parquet\" resource in the Dagster UI for me to check.",
+    "instruction": "I have defined some assets with pandas DataFrame as output. Now I want to store them in parquet file format for downstream assets to use. I know I should use an I/O manager but don't really know how to define the \"handle_output\" function to save the asset output to a \".pq\" file in \"base_path\" of \"ParquetIOManager\". Could you help me do it and add the I/O manager to the definitions in \"__init__.py\" with key \"parquet\"? After that, please show the configuration page of the \"parquet\" resource in the Dagster UI for me to check.",
     "source": [
         "https://docs.dagster.io/concepts/io-management/io-managers"
     ],

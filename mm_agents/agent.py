@@ -447,8 +447,8 @@ class PromptAgent:
 
         # action execution result of previous turn
         # if len(self.actions) > 0: # if has previous action list
-            # infos = obs.get('infos', [])
-            # self.add_action_infos(messages, self.actions[-1], infos, failed_only=True)
+        #     infos = obs.get('infos', [])
+        #     self.add_action_infos(messages, self.actions[-1], infos)
 
         # tackle the current observation
         if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:
