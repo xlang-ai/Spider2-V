@@ -204,7 +204,7 @@ def get_result_dir(args):
     return os.path.join(args.result_dir, result_dir)
 
 
-def get_examples(args, result_dir, easy_first: bool = True, exclude_account: bool = False) -> List[Dict[str, str]]:
+def get_examples(args, result_dir, easy_first: bool = True, exclude_account: bool = True) -> List[Dict[str, str]]:
     """ Get [Filter] the list of example dict for the current experiment.
     # Filter method:
     - args.from_scratch (bool): if True, ignore existing results under the result directory, otherwise,
