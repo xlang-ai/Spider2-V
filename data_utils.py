@@ -19,6 +19,17 @@ CLIENT_SECRETS = 'client_secrets.json'
 CREDENTIALS = 'credentials.json'
 
 
+def print_result_dict(result_dict):
+    for tool in result_dict:
+        print(f'For {tool}: ', end='')
+        value = result_dict[tool]
+        if type(value) == list:
+            print(f'{len(value)} examples')
+        elif type(value) == dict:
+            print(', '.join([f'{k} = {v:.2f}' if type(v) == float else f'{k} = {v}' for k, v in value.items()]))
+    return
+
+
 class GoogleSheetAPI:
 
     TOOLS = ['excel', 'servicenow', 'jupyter', 'dbt', 'airflow', 'dagster', 'airbyte', 'snowflake', 'bigquery', 'superset', 'metabase']
@@ -48,16 +59,6 @@ class GoogleSheetAPI:
 
     def __init__(self):
         self.sheet = self._get_sheet()
-
-    def print_result_dict(self, result_dict):
-        for tool in result_dict:
-            print(f'For {tool}: ', end='')
-            value = result_dict[tool]
-            if type(value) == list:
-                print(f'{len(value)} examples')
-            elif type(value) == dict:
-                print(', '.join([f'{k} = {v:.2f}' if type(v) == float else f'{k} = {v}' for k, v in value.items()]))
-        return
 
 
     def get_validated_number(self):
@@ -93,6 +94,7 @@ class GoogleSheetAPI:
         """
         tools, result = self.TOOLS, {}
         if unfinished:
+            assert column_char is not None, "Must specify column_char when extracting unfinished uuids"
             column_index = string.ascii_uppercase.index(column_char.upper())
 
         for tool in tools:
@@ -165,7 +167,7 @@ class GoogleSheetAPI:
         failed = sum([result_dict[tool]['failed'] for tool in result_dict])
         rate = success * 100.0 / (success + failed) if success + failed > 0 else 0.0
         result_dict['total'] = {'total': total, 'unfinished': unfinished, 'outliers': outliers, 'success': success, 'failed': failed, 'rate': rate}
-        self.print_result_dict(result_dict)
+        print_result_dict(result_dict)
         return result_dict
 
 
@@ -332,27 +334,28 @@ data = LocalUtilsAPI()
 
 if __name__ == '__main__':
 
-    # get validated number for each tool from google sheet
-    # sheet.get_validated_number()
+    # get annotated and validated number for each tool from google sheet
+    result_dict = sheet.get_validated_number()
+    # print_result_dict(result_dict)
 
     # get validated uuids for each tool from google sheet and write into json file (for experiment)
-    # sheet.get_validated_uuids(output_file='evaluation_examples/test_validated.json')
-    # sheet.get_validated_uuids(unfinished=True, column_char='Q', output_file='evaluation_examples/test_unfinished_validated.json') # only find example uuids that have no result in column Q (result must 0 or 1)
+    sheet.get_validated_uuids(output_file='evaluation_examples/test_validated.json')
+    sheet.get_validated_uuids(unfinished=True, column_char='Q', output_file='evaluation_examples/test_unfinished_validated.json') # only find example uuids that have no result in column Q (result must 0 or 1)
 
-    # get result from your local result directory
-    # result_dict = data.get_result_dict_from_dir(experiment_name='pyautogui_som_gpt-4o-2024-05-13')
+    # get aggregated result from local result directory, e.g., results/pyautogui_som_gpt-4o-2024-05-13
+    result_dict = data.get_result_dict_from_dir(experiment_name='pyautogui_som_gpt-4o-2024-05-13')
+    # print_result_dict(result_dict)
 
-    # write/update result from result_dict into google sheet, specify the column char
+    # write/update result from result_dict into google sheet, must specify the column name
     # if column name does not exist, it will be created
-    # `column_name` must be specified, either `column_char` or `column_index` should be provided
-    # if empty result, write result into the cell; if already 1, not write 0 into it; if already 0, update to 1
+    # either `column_char` or `column_index` should be provided
+    # if cell empty, write result into it; if already 1, not write 0; if already 0, update to 1
     ################### Please be careful when writing data into Google Sheet  ####################
     # sheet.write_result_dict_into_sheet(result_dict, column_name='pyautogui-som-gpt4o', column_char='Q')
     ################### Please be careful when writing data into Google Sheet  ####################
 
-    # get result from google sheet
-    # sheet.get_result_dict_from_sheet('Q')
-
+    # get result from google sheet, this will print aggregated results for column Q on Google sheet
+    sheet.get_result_dict_from_sheet('Q')
 
     def check_data_tool(data: dict) -> bool:
         tool = data['snapshot']
@@ -390,4 +393,5 @@ if __name__ == '__main__':
             raise ValueError(f'Unknown tool {tool}')
         return data
 
+    # add data category for each example
     data.update_data_recursively(add_data_category)
