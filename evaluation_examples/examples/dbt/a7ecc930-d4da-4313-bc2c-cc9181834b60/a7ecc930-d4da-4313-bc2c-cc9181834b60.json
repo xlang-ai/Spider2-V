@@ -7,7 +7,7 @@
         "https://en.wikipedia.org/wiki/Base64"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "chromium",
         "snowflake"
     ],
