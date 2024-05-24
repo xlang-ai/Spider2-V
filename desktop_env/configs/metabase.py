@@ -7,7 +7,7 @@ from .general import get_browser, copyfile_from_host_to_guest_setup, find_page_b
 logger = logging.getLogger("desktopenv.setup")
 
 
-def metabase_webui_login(page: Page, url: str = 'http://localhost:3000', config: Dict[str, str] = {}, retry: int = 10):
+def metabase_webui_login(page: Page, url: str = 'http://localhost:3000', config: Dict[str, str] = {}, retry: int = 100):
     """ Log into the metabase server started from metabase.jar. Allow server launch time and retry times.
     """
     for _ in range(retry):
@@ -15,7 +15,7 @@ def metabase_webui_login(page: Page, url: str = 'http://localhost:3000', config:
             page.goto(url)
             page.wait_for_load_state('load')
             start_button = page.locator('button > div').filter(has_text="Let's get started")
-            expect(start_button).to_be_enabled(timeout=10000)
+            expect(start_button).to_be_visible(timeout=10000)
             return page
         except:
             time.sleep(3)
