@@ -18,7 +18,7 @@
             "type": "copyfile_from_host_to_guest",
             "parameters": {
                 "src": "evaluation_examples/examples/superset/97c6dd0b-ed11-4a9f-b48c-f91909fc4426/database_export_20240515T105454.zip",
-                "dest": "/home/user/Desktop/database_export_20240515T105454.zip"
+                "dest": "/home/user/database_export_20240515T105454.zip"
             }
         },
         {
