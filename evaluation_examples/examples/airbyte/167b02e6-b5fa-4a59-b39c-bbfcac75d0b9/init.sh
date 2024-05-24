@@ -38,22 +38,30 @@ function start_airbyte_server() {
 start_airbyte_server
 
 # create source and destination
-# please ensure that the data obesity has been uploaded in BigQuery
 # please ensure that the keyfile.json is copied to the home directory
 # 1. get workspace id
 workspace=$(curl -X POST http://localhost:8000/api/v1/workspaces/list -H "Content-Type: application/json" -d {} | jq -rM ".workspaces | .[] | .workspaceId")
 # 2. get source definition id
-source_name="BigQuery"
+source_name="File (CSV, JSON, Excel, Feather, Parquet)"
 source_defid=$(curl -X POST http://localhost:8000/api/v1/source_definitions/list -H "Content-Type: application/json" | jq -rM ".sourceDefinitions | .[] | select(.name == \"${source_name}\") | .sourceDefinitionId")
-dataset_id="obesity"
-keyfile_path=/home/user/keyfile.json
-project_id=$(cat ${keyfile_path} | jq -rM ".project_id")
-credentials=$(cat ${keyfile_path})
 # 3. create source, the connectionConfiguration field is source-specific
-source_data=$(jq -nM --arg workspace "$workspace" --arg source_defid "$source_defid" --arg source_name "$source_name" \
-    --arg dataset_id "$dataset_id" --arg project_id "$project_id" --arg credentials "$credentials" \
-    '{workspaceId: $workspace, sourceDefinitionId: $source_defid, sourceName: $source_name, name: $source_name, connectionConfiguration: {dataset_id: $dataset_id, project_id: $project_id, credentials_json: $credentials}}')
-curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: application/json" -d "$source_data"
+curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: application/json" -d "
+{
+    \"workspaceId\": \"${workspace}\",
+    \"connectionConfiguration\": {
+        \"url\": \"https://storage.googleapis.com/covid19-open-data/v2/latest/epidemiology.csv\",
+        \"format\": \"csv\",
+        \"provider\": {
+            \"storage\": \"HTTPS\",
+            \"user_agent\": false
+        },
+        \"dataset_name\": \"epidemiology\"
+    },
+    \"sourceDefinitionId\": \"${source_defid}\",
+    \"name\": \"${source_name}\", 
+    \"sourceName\": \"${source_name}\"
+}
+"
 # 4. get source id and write into file
 curl -X POST http://localhost:8000/api/v1/sources/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".sources | .[] | select(.sourceName == \"${source_name}\") | .sourceId" > /home/user/srcid.txt
 read -r source_id < /home/user/srcid.txt
@@ -65,7 +73,7 @@ curl -X POST http://localhost:8000/api/v1/destinations/create -H "Content-Type: 
 {
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
-        \"destination_path\": \"/local/obesity.sqlite\"
+        \"destination_path\": \"/local/epidemiology.sqlite\"
     },
     \"destinationDefinitionId\": \"${destination_defid}\",
     \"name\": \"${destination_name}\", 

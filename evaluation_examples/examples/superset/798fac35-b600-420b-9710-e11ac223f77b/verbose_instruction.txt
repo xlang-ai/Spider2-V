@@ -1,0 +1,6 @@
+To create a global annotation layer named Myannotation, we can follow these steps:
+1. In the opened web page, click "Setting" in the top right corner;
+2. In the pop-up window, select "annotation layers";
+3. Click the "+ANNOTATION LAYER" in top right corner;
+4. In the new pop-up window, type "Myannotation" in ANNOTATION LAYER NAME box;
+5. Click "ADD" and return the main panel;

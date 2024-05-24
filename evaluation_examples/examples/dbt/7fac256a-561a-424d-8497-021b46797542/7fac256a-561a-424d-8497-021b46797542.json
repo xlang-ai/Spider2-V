@@ -6,7 +6,7 @@
         "https://docs.getdbt.com/guides/zapier-new-cloud-job?step=1"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "chromium"
     ],
     "tags": [
