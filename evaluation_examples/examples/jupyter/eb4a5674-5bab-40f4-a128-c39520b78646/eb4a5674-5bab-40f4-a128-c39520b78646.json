@@ -1,0 +1,70 @@
+{
+    "id": "eb4a5674-5bab-40f4-a128-c39520b78646",
+    "snapshot": "jupyter",
+    "instruction": "I want to get the history of commands executed by this opened ipynb file. Please run all cells, then create a new file named history.txt on the desktop and save the obtained history to that file. Note that since I don't care how to get the history, so you need to delete commands related to getting history in this .txt file.",
+    "source": [
+        "https://jorgepit-14189.medium.com/how-to-get-the-history-of-the-commands-and-their-outputs-in-jupyter-notebook-7cce32c710e4"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "gui"
+    ],
+    "action_number": 3,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/eb4a5674-5bab-40f4-a128-c39520b78646/numpy_problem.ipynb",
+                "dest": "/home/user/Desktop/numpy_problem.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/eb4a5674-5bab-40f4-a128-c39520b78646/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/numpy_problem.ipynb"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_text_file",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/history.txt",
+            "dest": "history.txt"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/eb4a5674-5bab-40f4-a128-c39520b78646/history_gold.txt",
+            "dest": "history_gold.txt"
+        },
+        "options": {
+            "ignore_blanks": true
+        }
+    }
+}

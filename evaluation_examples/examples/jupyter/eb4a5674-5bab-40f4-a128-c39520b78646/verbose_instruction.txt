@@ -1,0 +1,18 @@
+This task is to get the history of the commands. On the opened jupyter notebook:
+1. Scroll down to the bottom, hover your mouse over the blank space at the bottom.
+2. Click button "Click to add a cell."
+3. Copy the code below to this cell:
+```
+with open('history.txt', 'w') as file:
+    file.write('\n'.join(In))
+```
+4. Click the button "Run" in the menu bar on the top.
+5. In the drop-down menu, select and click "Run All Cells".
+6. Wait for about 10 seconds, there will be a history.txt on the left side panel.
+7. Double click "history.txt" on the left side panel.
+8. Scroll down to the bottom, delete history related commands. In this instruction, you need to delete:
+```
+with open('history.txt', 'w') as file:
+    file.write('\n'.join(In))
+```
+9. Save history.txt.
