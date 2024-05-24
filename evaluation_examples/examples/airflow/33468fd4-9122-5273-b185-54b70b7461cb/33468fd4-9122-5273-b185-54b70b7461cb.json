@@ -34,7 +34,8 @@
         "terminal"
     ],
     "tags": [
-        "cli"
+        "cli",
+        "data_orchestration"
     ],
     "evaluator": {
         "func": "check_include_exclude",

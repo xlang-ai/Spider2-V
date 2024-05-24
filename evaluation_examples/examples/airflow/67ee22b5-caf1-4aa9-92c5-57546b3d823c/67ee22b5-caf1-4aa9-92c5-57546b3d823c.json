@@ -63,7 +63,8 @@
         "docker"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_orchestration"
     ],
     "evaluator": {
         "func": "check_include_exclude",

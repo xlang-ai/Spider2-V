@@ -10,7 +10,8 @@
         "terminal"
     ],
     "tags": [
-        "cli"
+        "cli",
+        "data_orchestration"
     ],
     "action_number": 2,
     "config": [

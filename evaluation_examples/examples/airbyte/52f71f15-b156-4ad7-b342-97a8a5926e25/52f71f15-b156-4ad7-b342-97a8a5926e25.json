@@ -12,7 +12,8 @@
         "superset"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_ingestion_and_integration"
     ],
     "action_number": 19,
     "config": [

@@ -12,7 +12,8 @@
         "superset"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_analysis_and_visualization"
     ],
     "action_number": 6,
     "config": [

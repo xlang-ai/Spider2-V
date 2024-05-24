@@ -12,7 +12,8 @@
         "airbyte"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_ingestion_and_integration"
     ],
     "action_number": 6,
     "config": [

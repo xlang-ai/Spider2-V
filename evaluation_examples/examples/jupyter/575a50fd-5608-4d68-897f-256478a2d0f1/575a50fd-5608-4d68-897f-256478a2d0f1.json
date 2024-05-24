@@ -10,7 +10,8 @@
         "jupyter"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "traditional_data_processing"
     ],
     "action_number": 3,
     "config": [

@@ -10,7 +10,8 @@
         "superset"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_analysis_and_visualization"
     ],
     "action_number": 22,
     "counterpart": "xxxxxx-xxxxxx-xxxxxx",

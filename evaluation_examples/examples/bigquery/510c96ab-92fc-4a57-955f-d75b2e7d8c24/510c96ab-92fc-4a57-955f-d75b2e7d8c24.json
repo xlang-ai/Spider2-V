@@ -34,7 +34,8 @@
     ],
     "tags": [
         "gui",
-        "account"
+        "account",
+        "data_warehousing"
     ],
     "evaluator": {
         "func": "compare_csv",

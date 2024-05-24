@@ -11,11 +11,11 @@
         "docker"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_ingestion_and_integration"
     ],
     "action_number": 20,
     "config": [
-
         {
             "type": "script_and_execute",
             "parameters": {

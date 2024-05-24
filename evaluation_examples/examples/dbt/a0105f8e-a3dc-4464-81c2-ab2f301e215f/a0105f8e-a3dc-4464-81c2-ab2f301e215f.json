@@ -12,7 +12,8 @@
     ],
     "tags": [
         "gui+cli",
-        "account"
+        "account",
+        "data_transformation"
     ],
     "config": [
         {

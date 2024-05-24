@@ -10,7 +10,8 @@
         "terminal"
     ],
     "tags": [
-        "cli"
+        "cli",
+        "traditional_data_processing"
     ],
     "action_number": 2,
     "config": [
@@ -44,8 +45,12 @@
         "expected": {
             "type": "rule",
             "rules": {
-                "include": ["python3"],
-                "exclude": ["jupyterlab"]
+                "include": [
+                    "python3"
+                ],
+                "exclude": [
+                    "jupyterlab"
+                ]
             }
         }
     }

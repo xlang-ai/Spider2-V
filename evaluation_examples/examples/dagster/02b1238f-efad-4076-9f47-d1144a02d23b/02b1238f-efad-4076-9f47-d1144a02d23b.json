@@ -12,7 +12,8 @@
         "jupyter"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_orchestration"
     ],
     "action_number": 9,
     "config": [

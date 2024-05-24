@@ -11,7 +11,8 @@
         "airbyte"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_ingestion_and_integration"
     ],
     "action_number": 5,
     "config": [

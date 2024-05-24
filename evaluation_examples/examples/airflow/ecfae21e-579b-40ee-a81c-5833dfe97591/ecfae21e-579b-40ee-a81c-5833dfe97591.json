@@ -46,7 +46,8 @@
         "docker"
     ],
     "tags": [
-        "gui"
+        "gui",
+        "data_orchestration"
     ],
     "action_number": 9,
     "evaluator": {

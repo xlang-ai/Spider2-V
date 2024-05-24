@@ -12,7 +12,8 @@
         "postgresql"
     ],
     "tags": [
-        "cli"
+        "cli",
+        "data_ingestion_and_integration"
     ],
     "action_number": 10,
     "config": [

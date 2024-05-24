@@ -13,7 +13,8 @@
         "postgresql"
     ],
     "tags": [
-        "cli+gui"
+        "cli+gui",
+        "data_ingestion_and_integration"
     ],
     "action_number": 3,
     "config": [
