@@ -53,7 +53,7 @@ metrics=$(echo "$params" | jq -rM ".metrics")
 type=$(echo $metrics | jq -rM ".[0] | .label ")
 
 
-if [ "$groupby" = "Department" ] && [ "$type" = "SUM(Cost)" ]; then
+if [ "$groupby" = "Department" ] && [ "$type" = "AVG(Cost)" ]; then
     echo "Table Visualization succeed"
 else
     echo "Table Visualization failed"
