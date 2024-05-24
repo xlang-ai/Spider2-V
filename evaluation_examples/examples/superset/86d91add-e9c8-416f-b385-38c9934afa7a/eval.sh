@@ -60,7 +60,8 @@ flag=false
 
 for (( i=0; i<$count ; i++ )) ; do
     chart_name=$(echo $charts | jq -rM ".result | .[${i}] | .datasource_name_text")
-    if [ "$chart_name" = "$name" ]; then
+    slice_name=$(echo $charts | jq -rM ".result | .[${i}] | .slice_name")
+    if [ "$chart_name" = "$name" ] && [ "$slice_name" = "$name" ]; then
         flag=true
         chart_id=$(echo $charts | jq -rM ".result | .[${i}] | .id")
 	break
