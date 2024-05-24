@@ -3,14 +3,9 @@ To create testers to test the settings of the dag file and run the dag, we can f
 1. Click the VS Code editor on the left panel or dock;
 2. According to the opened README.md file, we can extract the basic information on completing the test_dag file; 
 3. Switch to the DAG file ‘test_dag.py’ that is opened in VSCode, it suppress unnecessary log, ensures the correctness of the file and extract the information of dags in a variable for further use;
-4. We'll now define "test_file_imports" and "test_dag_schedule_interval" to test the import and schedule correctness of dags. To be concrete, we check whether "import_error" occurs and whether dag schedule is set to "daily":
+4. We'll now define "test_dag_schedule_interval" to test the import and schedule correctness of dags. To be concrete, we check whether "import_error" occurs and whether dag schedule is set to "daily":
 ˋˋˋ
 # ... Keep the original ˋtest_dagˋ code
-
-def test_file_imports(rel_path, rv):
-    if rel_path and rv:
-        raise Exception(f"{rel_path} failed to import with message \n {rv}")
-
 def test_dag_schedule_interval():
     dag = dag_bag.get_dag('activity_suggestion_dag')
     assert dag.schedule_interval == '@daily', "DAG schedule interval is not set to daily."

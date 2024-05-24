@@ -1,11 +1,18 @@
 {
     "id": "0d3ffd3a-2034-47fb-b33f-1a849b641484",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. My boss told me to check all DAG with tag Astro, please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.",
+    "instruction": "I am using Astronomer to deploy Airflow. My boss told me to check all DAG with owner 'Astro', please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.",
     "source": [
         "https://docs.astronomer.io/learn/get-started-with-airflow"
     ],
     "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/0d3ffd3a-2034-47fb-b33f-1a849b641484/Dag_Explorer.zip",
+                "dest": "/home/user/Dag_Explorer.zip"
+            }
+        },
         {
             "type": "script_and_execute",
             "parameters": {

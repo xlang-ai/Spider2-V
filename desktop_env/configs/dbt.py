@@ -135,7 +135,7 @@ def dbt_cloud_init_setup(controller, **config):
     os.environ["DBT_CLOUD_HOST"] = settings["cloud_host"]
 
     for action in config.get('actions', []):
-        action_type = action.pop('type')
+        action_type = action.pop('type', None)
         init_func = DBT_CLOUD_FUNCTIONS[action_type]
         init_func(**action)
 
