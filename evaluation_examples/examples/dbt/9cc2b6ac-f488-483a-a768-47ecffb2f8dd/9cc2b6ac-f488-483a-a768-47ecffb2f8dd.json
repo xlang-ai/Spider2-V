@@ -7,7 +7,7 @@
         "https://www.geeksforgeeks.org/crontab-in-linux-with-examples/"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "chromium"
     ],
     "tags": [

@@ -6,7 +6,7 @@
         "https://docs.getdbt.com/docs/dbt-cloud-environments"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "chromium"
     ],
     "tags": [
