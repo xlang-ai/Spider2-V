@@ -1,0 +1,64 @@
+{
+    "id": "b96db2ae-552f-49fd-b9a9-9f7f66561e45",
+    "snapshot": "metabase",
+    "instruction": "I need to visualize the data in source column in Accounts table and summarize the data of Count of rows in each Source. Make the percentages display on the chart. Please help me download the visualization as a PNG file, and rename it to \"pie.png\".",
+    "source": [
+        "https://www.metabase.com/learn/visualization/bar-charts#stack"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "cli",
+        "data_analysis_and_visualization"
+    ],
+    "action_number": 15,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/b96db2ae-552f-49fd-b9a9-9f7f66561e45/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_metabase_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/pie.png",
+            "dest": "pie.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/b96db2ae-552f-49fd-b9a9-9f7f66561e45/pie_gold.png",
+            "dest": "pie_gold.png"
+        }
+    }
+}
