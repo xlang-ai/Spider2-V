@@ -1,8 +1,10 @@
 I am using Astronomer to deploy Airflow
-To see the Audit log of deleting actions by the user whose ID is admin in ascending order of logical date, we can follow the steps:
-1. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;
-2. Click the Audit Logs in the dropdown menu;
-3. Click search;
-4. Add filter of event 'delete';
-5. Add filter of owner id 'admin';
-6. Click the Logical Date in the table header
+To delete my first DAG project and see the Audit log of deleting actions by the user whose ID is admin in ascending order of logical date, we can follow the steps:
+1. In the action column of my first DAG project, click delete icon;
+2. In the pop-up window, click "OK";
+3. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;
+4. Click the Audit Logs in the dropdown menu;
+5. Click search;
+6. Add filter of event 'delete';
+7. Add filter of owner id 'admin';
+8. Click the Logical Date in the table header, and you can see the Audit log of deleting actions by the user whose ID is admin in ascending order of logical date.
