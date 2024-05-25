@@ -6,7 +6,7 @@
         "https://docs.getdbt.com/docs/deploy/source-freshness"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "chromium"
     ],
     "tags": [

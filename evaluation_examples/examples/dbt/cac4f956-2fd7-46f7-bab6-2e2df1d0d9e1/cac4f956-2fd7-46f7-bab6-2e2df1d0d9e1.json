@@ -6,7 +6,7 @@
         "https://docs.getdbt.com/docs/build/projects"
     ],
     "related_apps": [
-        "dbt",
+        "dbt-cloud",
         "chromium"
     ],
     "tags": [

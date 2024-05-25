@@ -1,5 +1,5 @@
 {
-    "name": "BigQuery → Local JSON",
+    "name": "File (CSV, JSON, Excel, Feather, Parquet) → Local JSON",
     "namespaceDefinition": "destination",
     "prefix": "",
     "sourceId": "${source_id}",
@@ -8,75 +8,85 @@
         "streams": [
             {
                 "stream": {
-                    "name": "obesity_risk_prediction",
-                    "jsonSchema": {
-                        "type": "object",
-                        "properties": {
-                            "SCC": {
-                                "type": "number",
-                                "airbyte_type": "integer"
-                            },
-                            "NCP_z": {
-                                "type": "number"
-                            },
-                            "TUE_z": {
-                                "type": "number"
-                            },
-                            "CALC_z": {
-                                "type": "number"
-                            },
-                            "FAVC_z": {
-                                "type": "number"
-                            },
-                            "Height": {
-                                "type": "number"
-                            },
-                            "Weight": {
-                                "type": "number"
-                            },
-                            "FAF_minmax": {
-                                "type": "number"
-                            },
-                            "NObeyesdad": {
-                                "type": "number",
-                                "airbyte_type": "integer"
-                            },
-                            "CAEC_minmax": {
-                                "type": "number"
-                            },
-                            "CH2O_minmax": {
-                                "type": "number"
-                            },
-                            "FCVC_minmax": {
-                                "type": "number"
-                            },
-                            "Age_bin_minmax": {
-                                "type": "number"
-                            },
-                            "MTRANS_Walking": {
-                                "type": "number",
-                                "airbyte_type": "integer"
-                            },
-                            "family_history_with_overweight": {
-                                "type": "number",
-                                "airbyte_type": "integer"
-                            }
+                "name": "epidemiology",
+                "jsonSchema": {
+                    "type": "object",
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "properties": {
+                        "key": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "date": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "new_tested": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "new_deceased": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_tested": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "new_confirmed": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "new_recovered": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_deceased": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_confirmed": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_recovered": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
                         }
-                    },
-                    "supportedSyncModes": [
-                        "full_refresh",
-                        "incremental"
-                    ],
-                    "defaultCursorField": [],
-                    "sourceDefinedPrimaryKey": [],
-                    "namespace": "obesity"
+                    }
+                },
+                "supportedSyncModes": [
+                    "full_refresh"
+                ],
+                "defaultCursorField": [],
+                "sourceDefinedPrimaryKey": []
                 },
                 "config": {
                     "syncMode": "full_refresh",
                     "cursorField": [],
                     "destinationSyncMode": "overwrite",
                     "primaryKey": [],
-                    "aliasName": "obesity_risk_prediction",
+                    "aliasName": "epidemiology",
                     "selected": true,
                     "fieldSelectionEnabled": false
                 }

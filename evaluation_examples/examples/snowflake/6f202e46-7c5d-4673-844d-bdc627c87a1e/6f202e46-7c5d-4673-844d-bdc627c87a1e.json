@@ -1,7 +1,7 @@
 {
     "id": "6f202e46-7c5d-4673-844d-bdc627c87a1e",
     "snapshot": "snowflake",
-    "instruction": "Company information is stored in the snowflake database COMPANY. The employee information is stored in the table EMPLOYEES and the department information is stored in the table DEPARTMENTS. My task is to query the employees with the highest salary in each department. Please create a worksheet in the currently open snowsight interface and write the relevant code to complete the query. Finally, you need to download the result of the query and rename it to “highest_salary.csv”. The details of the database and requirements are in the .txt on desktop.",
+    "instruction": "Company information is stored in the snowflake database COMPANY. The employee information is stored in the table EMPLOYEES and the department information is stored in the table DEPARTMENTS. My task is to query the employees with the highest salary in each department. Please create a worksheet in the currently open snowsight interface and write the relevant code to complete the query. Finally, you need to download the result of the query and rename it to \"highest_salary.csv\". The details of the database and requirements are in the .txt on desktop.",
     "source": [
         "https://docs.snowflake.com/en/user-guide/ui-snowsight-query"
     ],

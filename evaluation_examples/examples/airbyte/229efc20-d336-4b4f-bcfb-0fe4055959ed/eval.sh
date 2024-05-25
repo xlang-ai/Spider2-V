@@ -23,13 +23,8 @@ for workspaceid in ${workspaces}; do
         source_id=${source_ids[$i]}
         source_config=$(curl -X POST http://localhost:8000/api/v1/sources/get -H "Content-Type: application/json" -d "{\"sourceId\": \"${source_id}\"}")
         source_name=$(echo $source_config | jq -rM ".sourceName")
-        source_database=$(echo $source_config | jq -rM ".connectionConfiguration.database")
-        source_port=$(echo $source_config | jq -rM ".connectionConfiguration.port")
-        replication_slot=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.replication_slot")
-        publication=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.publication")
-        #username=$(echo $source_config | jq -rM ".connectionConfiguration.username")
-        if [ "${source_name}" = "BigQuery" ]; then
-            echo "Airbyte Connection from source BigQuery, succeed"
+        if [ "${source_name}" = "File (CSV, JSON, Excel, Feather, Parquet)" ]; then
+            echo "Airbyte Connection from source File (CSV, JSON, Excel, Feather, Parquet), succeed"
         else
             continue
         fi
@@ -49,13 +44,13 @@ for workspaceid in ${workspaces}; do
         status=$(echo "$connection_config" | jq -r '.status')
 
         if [ "${status}" = "active" ]; then
-            echo "Manual sync of the connection, succeed."
+            echo "Enable the connection, succeed."
             airbyte_connection=true
             break
         fi
     done
 done
 if [ ${airbyte_connection} = false ] ; then
-    echo "Manual sync of the connection, failed"
+    echo "Enable the connection, failed"
     exit 0
 fi

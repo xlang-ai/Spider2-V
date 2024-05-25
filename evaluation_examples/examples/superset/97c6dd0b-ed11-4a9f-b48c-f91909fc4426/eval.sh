@@ -26,7 +26,7 @@ count=$(echo $charts| jq -rM ".count")
 flag=false
 
 for (( i=0; i<$count ; i++ )) ; do
-    chart_name=$(echo $charts | jq -rM ".result | .[${i}] | .datasource_name_text")
+    chart_name=$(echo $charts | jq -rM ".result | .[${i}] | .slice_name")
     if [ "$chart_name" = "$name" ]; then
         flag=true
         chart_id=$(echo $charts | jq -rM ".result | .[${i}] | .id")
@@ -53,7 +53,7 @@ metrics=$(echo "$params" | jq -rM ".metrics")
 type=$(echo $metrics | jq -rM ".[0] | .label ")
 
 
-if [ "$groupby" = "Department" ] && [ "$type" = "SUM(Cost)" ]; then
+if [ "$groupby" = "Department" ] && [ "$type" = "AVG(Cost)" ]; then
     echo "Table Visualization succeed"
 else
     echo "Table Visualization failed"

@@ -1,0 +1,72 @@
+{
+    "id": "887abb68-b354-4759-aff8-04e1ca82bcbc",
+    "snapshot": "superset",
+    "instruction": "My boss want me to draw a chart for table flights with resampling so that we have weekly median trend of sum of cost data rather than having daily sum of cost data. Please create this chart and name it 'resampling'.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#resampling-the-data"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization"
+    ],
+    "action_number": 22,
+    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/887abb68-b354-4759-aff8-04e1ca82bcbc/database_export_20240515T105454.zip",
+                "dest": "/home/user/database_export_20240515T105454.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/887abb68-b354-4759-aff8-04e1ca82bcbc/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/887abb68-b354-4759-aff8-04e1ca82bcbc/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

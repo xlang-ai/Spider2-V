@@ -1,7 +1,7 @@
 {
     "id": "167b02e6-b5fa-4a59-b39c-bbfcac75d0b9",
     "snapshot": "airbyte",
-    "instruction": "I have transferred some data to a local sqlite DB using Airbyte. However, I have no idea where the transferred sqlite file is. Could you save the copy to obesity.sqlite on the Desktop?",
+    "instruction": "I have transferred some data to a local sqlite DB using Airbyte. However, I have no idea where the transferred sqlite file is. Could you save the copy to epidemiology.sqlite on the Desktop?",
     "source": [
         "https://docs.airbyte.com/integrations/destinations/sqlite?_gl=1*2lj3ym*_gcl_au*OTA2OTkxOTg4LjE3MTE0NDI5ODg."
     ],
@@ -10,38 +10,14 @@
         "terminal",
         "airbyte",
         "sqlite3",
-        "docker",
-        "bigquery"
+        "docker"
     ],
     "tags": [
         "cli+gui",
-        "account",
         "data_ingestion_and_integration"
     ],
     "action_number": 6,
     "config": [
-        {
-            "type": "bigquery_init",
-            "parameters": {
-                "config_file": "evaluation_examples/settings/google/gcp_config.json",
-                "project_name": "bigquery-project",
-                "actions": [
-                    {
-                        "type": "empty"
-                    },
-                    {
-                        "type": "create_table",
-                        "dataset_id": "obesity",
-                        "table_id": "obesity_risk_prediction",
-                        "data_from_csv": "evaluation_examples/examples/airbyte/167b02e6-b5fa-4a59-b39c-bbfcac75d0b9/estimation_of_obesity_levels_based_on_eating_habits_and_physical_condition.csv"
-                    },
-                    {
-                        "type": "copy_keyfile",
-                        "dest": "/home/user/keyfile.json"
-                    }
-                ]
-            }
-        },
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
@@ -87,21 +63,18 @@
         "func": "check_local_database",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/obesity.sqlite",
-            "dest": "obesity.sqlite"
+            "path": "/home/user/Desktop/epidemiology.sqlite",
+            "dest": "epidemiology.sqlite"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/airbyte/167b02e6-b5fa-4a59-b39c-bbfcac75d0b9/obesity.sqlite",
-            "dest": "obesity.gold.sqlite"
+            "path": "evaluation_examples/examples/airbyte/167b02e6-b5fa-4a59-b39c-bbfcac75d0b9/epidemiology.sqlite",
+            "dest": "epidemiology.gold.sqlite"
         },
         "options": {
             "db_type": "sqlite3",
             "check_type": [
                 "table-schema"
-            ],
-            "table_targets": [
-                "_airbyte_raw_obesity_risk_prediction"
             ]
         }
     }
