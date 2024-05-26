@@ -25,7 +25,7 @@ Role: ACCOUNTADMIN
 Default Schema: PUBLIC
 20) After that, click the button "Set up destination" in the Airbyte UI page;
 21) Regarding the connection configuration, we change the "Schedule type" to "Manual";
-22) Click the button "Set up destination" at the bottom of the page;
+22) Click the button "Set up connection" at the bottom of the page;
 23) In the `status` panel, click the button "Sync now" to manually trigger the data transfer;
 Now, we can switch to the VS Code to set up the connection for dbt.
 24) Click the `dbt_project` folder in the left panel of VS Code to unfold the directory tree;
