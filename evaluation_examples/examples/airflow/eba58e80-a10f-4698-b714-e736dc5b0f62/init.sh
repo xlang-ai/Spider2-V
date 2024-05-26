@@ -14,7 +14,7 @@ function to_ready_state(){
     echo -e "y\n" | astro dev init
     rm -rf /home/user/projects/SQL_Check/dags/exampledag.py
     sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
-    code --user-data-dir=/home/user/projects/SQL_Check
+    code /home/user/projects/SQL_Check
     astro dev start --no-browser >/dev/null 2>&1
     wait
 }

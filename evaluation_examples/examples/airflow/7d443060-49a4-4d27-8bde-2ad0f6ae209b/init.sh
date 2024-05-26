@@ -15,7 +15,7 @@ function to_ready_state(){
     rm -rf /home/user/projects/today_task/dags/exampledag.py
     rm -rf /home/user/projects/today_task/tests/dags/test_dag_example.py
     sed -i "s/astro-runtime:.*$/astro-runtime:${ASTRO_RUNTIME_VERSION}/" Dockerfile
-    code --user-data-dir=/home/user/projects/today_task
+    code home/user/projects/today_task
     astro dev start --no-browser >/dev/null 2>&1
     wait
 }
