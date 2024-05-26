@@ -1,9 +1,9 @@
 {
-    "id": "075a95ce-3aa9-4f14-a339-ee2b0bddcc9d",
+    "id": "b96db2ae-552f-49fd-b9a9-9f7f66561e45",
     "snapshot": "metabase",
-    "instruction": "Can you help me make a line chart out of Orders in Sample Database? Please summarize the data by \"Sum of Total\" and group by \"Created At -> by month\". Customize the line chart by adding a goal line with the value of 40,000 and a trend line. Download the visualization as a PNG file, and keep it as \"line_chart.png\" on the Desktop.",
+    "instruction": "I need to visualize the data in source column in Accounts table and summarize the data of Count of rows in each Source. Make the percentages display on the chart. Please help me download the visualization as a PNG file, and rename it to \"pie.png\".",
     "source": [
-        "https://www.metabase.com/learn/visualization/line-charts"
+        "https://www.metabase.com/learn/visualization/bar-charts#stack"
     ],
     "related_apps": [
         "chromium",
@@ -14,12 +14,12 @@
         "cli",
         "data_analysis_and_visualization"
     ],
-    "action_number": 21,
+    "action_number": 15,
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/init.sh",
+                "src": "evaluation_examples/examples/metabase/b96db2ae-552f-49fd-b9a9-9f7f66561e45/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,13 +52,13 @@
         "func": "compare_metabase_images",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/line_chart.png",
-            "dest": "line_chart.png"
+            "path": "/home/user/Downloads/pie.png",
+            "dest": "pie.png"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/line_chart_gold.png",
-            "dest": "line_chart_gold.png"
+            "path": "evaluation_examples/examples/metabase/b96db2ae-552f-49fd-b9a9-9f7f66561e45/pie_gold.png",
+            "dest": "pie_gold.png"
         }
     }
 }

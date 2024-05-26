@@ -1,0 +1,16 @@
+To complete the visualization, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose "Accounts" in the "Sample Database" drop-down panel;
+4. Under "Summarize" choose "Count of rows";
+5. After "by", choose "Source";
+6. Click on Visualize;
+7. Click on Visualization -> Pie;
+9. Click on Pie again to pull out the Bar Options panel;
+10. Under Display - Show percentages, choose "On the chart";
+11. Click Done;
+12. Click the "Download full results" button (cloud icon) on the bottom right;
+13. Choose ".png" in the panel;
+14. Open the local path "/home/user/Downloads";
+15. Rename the visualization file as "pie.png".

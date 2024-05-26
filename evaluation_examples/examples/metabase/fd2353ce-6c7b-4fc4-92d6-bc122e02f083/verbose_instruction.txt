@@ -1,0 +1,9 @@
+To create the API key, please follow these steps:
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click the "Authentication" tab on the left menu;
+4. Click the "Set up" button under the "API Keys" section;
+5. Click the "Create API Key" button in the center;
+6. Type "main" in the "Key name" input box;
+7. Choose "Administrators" in the "Select a group" drop-down box;
+8. Click the "Create" button on the bottom right of the panel.

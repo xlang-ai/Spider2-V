@@ -1,9 +1,9 @@
 {
-    "id": "075a95ce-3aa9-4f14-a339-ee2b0bddcc9d",
+    "id": "0e6c2695-c481-4115-a77f-fc3077de2cba",
     "snapshot": "metabase",
-    "instruction": "Can you help me make a line chart out of Orders in Sample Database? Please summarize the data by \"Sum of Total\" and group by \"Created At -> by month\". Customize the line chart by adding a goal line with the value of 40,000 and a trend line. Download the visualization as a PNG file, and keep it as \"line_chart.png\" on the Desktop.",
+    "instruction": "I want to have a stack bar chart out of Sample Database in metabase. Could you help me visualize the data of Products table and summarize the data of Sum of price by Product Category and Created At - Quarter. Then stack the visualized chart. Please help me download the visualization as a PNG file, and rename it to \"stack_chart.png\".",
     "source": [
-        "https://www.metabase.com/learn/visualization/line-charts"
+        "https://www.metabase.com/learn/visualization/bar-charts#stack"
     ],
     "related_apps": [
         "chromium",
@@ -14,12 +14,12 @@
         "cli",
         "data_analysis_and_visualization"
     ],
-    "action_number": 21,
+    "action_number": 15,
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/init.sh",
+                "src": "evaluation_examples/examples/metabase/0e6c2695-c481-4115-a77f-fc3077de2cba/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,13 +52,13 @@
         "func": "compare_metabase_images",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/line_chart.png",
-            "dest": "line_chart.png"
+            "path": "/home/user/Downloads/stack_chart.png",
+            "dest": "stack_chart.png"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/line_chart_gold.png",
-            "dest": "line_chart_gold.png"
+            "path": "evaluation_examples/examples/metabase/0e6c2695-c481-4115-a77f-fc3077de2cba/stack_chart_gold.png",
+            "dest": "stack_chart_gold.png"
         }
     }
 }

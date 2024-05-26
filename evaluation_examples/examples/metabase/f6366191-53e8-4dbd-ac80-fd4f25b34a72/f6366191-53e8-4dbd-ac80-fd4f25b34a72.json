@@ -1,25 +1,23 @@
 {
-    "id": "075a95ce-3aa9-4f14-a339-ee2b0bddcc9d",
+    "id": "f6366191-53e8-4dbd-ac80-fd4f25b34a72",
     "snapshot": "metabase",
-    "instruction": "Can you help me make a line chart out of Orders in Sample Database? Please summarize the data by \"Sum of Total\" and group by \"Created At -> by month\". Customize the line chart by adding a goal line with the value of 40,000 and a trend line. Download the visualization as a PNG file, and keep it as \"line_chart.png\" on the Desktop.",
+    "instruction": "Recently I intend to start a new project with Metabase. Please help me create a new group named \"Project Users\" and add John Wilson to it.",
     "source": [
-        "https://www.metabase.com/learn/visualization/line-charts"
+        "https://www.metabase.com/docs/latest/people-and-groups/managing"
     ],
     "related_apps": [
         "chromium",
         "metabase"
     ],
     "tags": [
-        "gui",
-        "cli",
-        "data_analysis_and_visualization"
+        "gui"
     ],
-    "action_number": 21,
+    "action_number": 11,
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/init.sh",
+                "src": "evaluation_examples/examples/metabase/f6366191-53e8-4dbd-ac80-fd4f25b34a72/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -49,16 +47,22 @@
     "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "compare_metabase_images",
+        "func": "check_include_exclude",
         "result": {
-            "type": "vm_file",
-            "path": "/home/user/Desktop/line_chart.png",
-            "dest": "line_chart.png"
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/f6366191-53e8-4dbd-ac80-fd4f25b34a72/eval.sh",
+            "dest": "/home/user/eval.sh"
         },
         "expected": {
-            "type": "local_file",
-            "path": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/line_chart_gold.png",
-            "dest": "line_chart_gold.png"
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
         }
     }
 }

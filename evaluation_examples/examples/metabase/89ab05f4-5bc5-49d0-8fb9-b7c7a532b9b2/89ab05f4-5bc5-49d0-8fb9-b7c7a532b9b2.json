@@ -1,9 +1,9 @@
 {
-    "id": "075a95ce-3aa9-4f14-a339-ee2b0bddcc9d",
+    "id": "89ab05f4-5bc5-49d0-8fb9-b7c7a532b9b2",
     "snapshot": "metabase",
-    "instruction": "Can you help me make a line chart out of Orders in Sample Database? Please summarize the data by \"Sum of Total\" and group by \"Created At -> by month\". Customize the line chart by adding a goal line with the value of 40,000 and a trend line. Download the visualization as a PNG file, and keep it as \"line_chart.png\" on the Desktop.",
+    "instruction": "Please help me follow along with Metabase's Sample Database to create the histogram detailed below. Visualize the data summarizing by Count and Group by Total. Adjust the `bin` options to make the range of y-axis around 1,400. Show value labels for all data points and make the formatting to be 'Compact'. Please download the visualization as a PNG file, and rename it to \"histogram.png\".",
     "source": [
-        "https://www.metabase.com/learn/visualization/line-charts"
+        "https://www.metabase.com/learn/visualization/histograms#create-a-histogram"
     ],
     "related_apps": [
         "chromium",
@@ -14,12 +14,12 @@
         "cli",
         "data_analysis_and_visualization"
     ],
-    "action_number": 21,
+    "action_number": 18,
     "config": [
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/init.sh",
+                "src": "evaluation_examples/examples/metabase/89ab05f4-5bc5-49d0-8fb9-b7c7a532b9b2/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,13 +52,13 @@
         "func": "compare_metabase_images",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/line_chart.png",
-            "dest": "line_chart.png"
+            "path": "/home/user/Downloads/histogram.png",
+            "dest": "histogram.png"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/metabase/075a95ce-3aa9-4f14-a339-ee2b0bddcc9d/line_chart_gold.png",
-            "dest": "line_chart_gold.png"
+            "path": "evaluation_examples/examples/metabase/89ab05f4-5bc5-49d0-8fb9-b7c7a532b9b2/histogram_gold.png",
+            "dest": "histogram_gold.png"
         }
     }
 }
