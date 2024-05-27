@@ -1,7 +1,7 @@
 {
     "id": "6eda498b-8085-4ebd-b965-1c7f6fecffef",
     "snapshot": "airflow",
-    "instruction": "I'm constructing a machine learning pipeline using Apache Airflow(deployed using astronomer) and MLflow to predict possum tail length. After making preparations, I want you to finish a dag that pulls the dataframe of last dag, parameterize it, train a machine learning model using scikit-learn RidgeCV model and register the model on mlflow. The py file is opened in vscode for you and with details of each function I would like to implement. Once you finished the dag 'train', please run dag 'feature_eng' on Astronomer web ui to activate the pipeline, please notice that the first run of the dag is designed to fail, please wait till it finish and run again.",
+    "instruction": "I'm constructing a machine learning pipeline using Apache Airflow(deployed using astronomer) and MLflow to predict possum tail length. After making preparations, I want you to finish a dag that pulls the dataframe of last dag, parameterize it, train a machine learning model using scikit-learn RidgeCV model and register the model on mlflow. The .py file is opened in vscode for you and with details of each function I would like to implement. Once you finished the dag 'train', please run dag 'feature_eng' on Astronomer web UI to activate the pipeline, please notice that the first run of the dag is designed to fail, please wait till it finish and run again.",
     "source": [
         "https://docs.astronomer.io/learn/use-case-airflow-mlflow"
     ],
