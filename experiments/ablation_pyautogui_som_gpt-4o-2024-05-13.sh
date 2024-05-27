@@ -3,6 +3,7 @@ python run_spider2.py --snapshot_name "spider2.0" \
     --action_space pyautogui \
     --model gpt-4o-2024-05-13 \
     --max_tokens 1500 \
+    --max_steps 15 \
     --max_trajectory_length 3 \
     --temperature 0.5 \
     --sleep_after_execution 1 \
