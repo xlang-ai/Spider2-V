@@ -62,24 +62,27 @@ def compare_notebook_cells(result: str, expected: str) -> float:
         expected: str - the path to the expected Jupyter notebook file.
         options: Dict[str, Any] - the options.
     """
-    with open(result, 'r', encoding='utf-8') as result_file:
-        result_nb = nbformat.read(result_file, as_version=4)
-    with open(expected, 'r', encoding='utf-8') as expected_file:
-        expected_nb = nbformat.read(expected_file, as_version=4)
-    
-    result_cells = result_nb['cells']
-    expected_cells = expected_nb['cells']
-    
-    if len(result_cells) != len(expected_cells):
+    try:
+        with open(result, 'r', encoding='utf-8') as result_file:
+            result_nb = nbformat.read(result_file, as_version=4)
+        with open(expected, 'r', encoding='utf-8') as expected_file:
+            expected_nb = nbformat.read(expected_file, as_version=4)
+        
+        result_cells = result_nb['cells']
+        expected_cells = expected_nb['cells']
+        
+        if len(result_cells) != len(expected_cells):
+            return 0.0
+        
+        for result_cell, expected_cell in zip(result_cells, expected_cells):
+            if result_cell['cell_type'] != expected_cell['cell_type']:
+                return 0.0
+            if result_cell['source'] != expected_cell['source']:
+                return 0.0
+        return 1.0
+    except Exception as e:
+        print(e)
         return 0.0
-    
-    for result_cell, expected_cell in zip(result_cells, expected_cells):
-        if result_cell['cell_type'] != expected_cell['cell_type']:
-            return 0.0
-        if result_cell['source'] != expected_cell['source']:
-            return 0.0
-    
-    return 1.0
 
 def compare_notebook_outputs(result: str, expected: str) -> float:
     """ Compare two Jupyter notebook outputs.
@@ -88,33 +91,36 @@ def compare_notebook_outputs(result: str, expected: str) -> float:
         expected: str - the path to the expected Jupyter notebook file.
         options: Dict[str, Any] - the options.
     """
-    with open(result, 'r', encoding='utf-8') as result_file:
-        result_nb = nbformat.read(result_file, as_version=4)
-    with open(expected, 'r', encoding='utf-8') as expected_file:
-        expected_nb = nbformat.read(expected_file, as_version=4)
-    
-    result_cells = result_nb['cells']
-    expected_cells = expected_nb['cells']
-    
-    if len(result_cells) != len(expected_cells):
-        print("Num of cells mismatch!")
-        return 0.0
-    
-    for result_cell, expected_cell in zip(result_cells, expected_cells):
-        if result_cell['cell_type'] != expected_cell['cell_type']:
-            print("Cell type mismatch!")
+    try:
+        with open(result, 'r', encoding='utf-8') as result_file:
+            result_nb = nbformat.read(result_file, as_version=4)
+        with open(expected, 'r', encoding='utf-8') as expected_file:
+            expected_nb = nbformat.read(expected_file, as_version=4)
+        
+        result_cells = result_nb['cells']
+        expected_cells = expected_nb['cells']
+        
+        if len(result_cells) != len(expected_cells):
+            print("Num of cells mismatch!")
             return 0.0
-        if result_cell['cell_type'] == "code":
-            for result_output, expected_output in zip(result_cell['outputs'], expected_cell['outputs']):
-                if result_output != expected_output:
-                    print(result_output)
-                    print(expected_output)
-                    return 0.0
-    
-    return 1.0
+        
+        for result_cell, expected_cell in zip(result_cells, expected_cells):
+            if result_cell['cell_type'] != expected_cell['cell_type']:
+                print("Cell type mismatch!")
+                return 0.0
+            if result_cell['cell_type'] == "code":
+                for result_output, expected_output in zip(result_cell['outputs'], expected_cell['outputs']):
+                    if result_output != expected_output:
+                        print(result_output)
+                        print(expected_output)
+                        return 0.0
+        return 1.0
+    except Exception as e:
+        print(e)
+        return 0.0
 
 
-def is_jupyter_outputs_cleared(result: str, expected: Dict[str, Any], **options) -> float:
+def are_jupyter_outputs_cleared(result: str, expected: Dict[str, Any], **options) -> float:
     """ Determine whether all outputs in a Jupyter notebook are cleared.
     @args:
         result: str - the path to the Jupyter notebook file.
