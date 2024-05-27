@@ -23,7 +23,7 @@ run_id = run.info.run_id
 '''
 6. We implement code to train model "model_trained" with following parameters: feature_df=fetched_feature_df, experiment_id=fetched_experiment_id, target_column=TARGET_COLUMN, model_class=RidgeCV, hyper_parameters={"alphas": np.logspace(-3, 1, num=30)}, run_name="RidgeCV"
 '''append code according to where corresponding annotation instructed
-train_model(
+model_trained = train_model(
     feature_df=fetched_feature_df,
     experiment_id=fetched_experiment_id,
     target_column=TARGET_COLUMN,
