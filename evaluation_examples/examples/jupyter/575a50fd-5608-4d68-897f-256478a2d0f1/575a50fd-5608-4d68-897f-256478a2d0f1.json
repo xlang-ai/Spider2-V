@@ -53,7 +53,7 @@
     "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "is_jupyter_outputs_cleared",
+        "func": "are_jupyter_outputs_cleared",
         "result": {
             "type": "vm_file",
             "path": "/home/user/Desktop/linear_regression.ipynb",

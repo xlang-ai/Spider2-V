@@ -1,7 +1,7 @@
 {
     "id": "a2a9b12c-c428-4673-a9c2-38c24d1c7eef",
     "snapshot": "jupyter",
-    "instruction": "Help me create a new jupyter notebook named tensor.ipynb on the current website and copy the code in the code.py file on the desktop to this notebook. Note that all code should in one cell and you don't need to run it.",
+    "instruction": "Help me create a new jupyter notebook named tensor.ipynb on the current website and copy the code in the code.py file on the desktop to this notebook. Note that all code should be in one cell and you don't need to run it.",
     "source": [
         "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#creating-files-and-activities"
     ],
