@@ -15,8 +15,8 @@ from tqdm import tqdm
 __version__ = "0.1.12"
 
 MAX_RETRY_TIMES = 10
-LOCAL_ARM_FILE_PATH = ""
-LOCAL_X86_FILE_PATH = ""
+LOCAL_ARM_FILE_PATH = "vm_data/ubuntu-arm.zip"
+LOCAL_X86_FILE_PATH = "vm_data/ubuntu-x86.zip"
 UBUNTU_ARM_URL = "https://huggingface.co/datasets/xlangai/ubuntu_arm/resolve/main/Ubuntu.zip"
 UBUNTU_X86_URL = "https://huggingface.co/datasets/xlangai/ubuntu_x86/resolve/main/Ubuntu.zip"
 DOWNLOADED_FILE_NAME = "Ubuntu.zip"
