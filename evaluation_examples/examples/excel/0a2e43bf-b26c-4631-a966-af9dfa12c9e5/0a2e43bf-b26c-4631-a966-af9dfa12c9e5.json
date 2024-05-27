@@ -2,7 +2,9 @@
     "id": "0a2e43bf-b26c-4631-a966-af9dfa12c9e5",
     "snapshot": "excel",
     "instruction": "Work out the monthly total sales in a new row called \"Total\" and then create a line chart to show the calculated results (x-axis be Months). I want a Lines Only chart, with 'Total' as the title. Do not display Legend, and leave other settings untouched.",
-    "source": "SheetCopilot@154",
+    "source": [
+        "SheetCopilot@154"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

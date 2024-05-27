@@ -2,7 +2,9 @@
     "id": "21ab7b40-77c2-4ae6-8321-e00d3a086c73",
     "snapshot": "excel",
     "instruction": "Please calculate the period rate for my data in a new column with header \"Period Rate (%)\", format the results as number, and highlight the highest result with green (#00ff00) font.",
-    "source": "SheetCopilot@124",
+    "source": [
+        "SheetCopilot@124"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

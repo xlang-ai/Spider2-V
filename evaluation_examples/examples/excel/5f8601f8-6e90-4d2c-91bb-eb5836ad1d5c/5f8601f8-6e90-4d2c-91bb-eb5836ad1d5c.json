@@ -2,7 +2,9 @@
     "id": "5f8601f8-6e90-4d2c-91bb-eb5836ad1d5c",
     "snapshot": "excel",
     "instruction": "Summarize the total subtotals for each Expense Account as a pivot table in a new sheet. Display the results in a bar chart.",
-    "source": "SheetCopilot@68",
+    "source": [
+        "SheetCopilot@68"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

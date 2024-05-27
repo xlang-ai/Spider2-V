@@ -2,7 +2,9 @@
     "id": "de7a24c3-7f47-45c7-bba9-ba1aaaf015f8",
     "snapshot": "excel",
     "instruction": "In a new sheet named \"Sheet2\", merge cells A1:B1 and write text \"Summer sales ($)\". Then create a pivot table in this new sheet for the Sheet 1 data to calculate the revenue sum for each product. Plot a horizontal bar chart illustrating the results. Set the chart title as \"Revenue of Each Product\" and remove the legend.",
-    "source": "SheetCopilot@50",
+    "source": [
+        "SheetCopilot@50"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

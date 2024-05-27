@@ -2,7 +2,9 @@
     "id": "852527e8-1b97-466c-a12f-b6b095df59bc",
     "snapshot": "excel",
     "instruction": "In a new column named \"Week Sales COGS Summary\", concatenate each cell value in Week, Sales, and COGS columns into the pattern \"Week: [Week Value], Sales: [Sales Value], COGS: [COGS Value]\". Do this for all rows.",
-    "source": "SheetCopilot@206",
+    "source": [
+        "SheetCopilot@206"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

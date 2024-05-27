@@ -2,7 +2,9 @@
     "id": "04d9aeaf-7bed-4024-bedb-e10e6f00eb7f",
     "snapshot": "excel",
     "instruction": "In a new sheet with 4 headers \"Year\", \"CA changes\", \"FA changes\", and \"OA changes\", calculate the annual changes for the Current Assets, Fixed Assets, and Other Assets columns. Set the results as percentage type.",
-    "source": "SheetCopilot@168",
+    "source": [
+        "SheetCopilot@168"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

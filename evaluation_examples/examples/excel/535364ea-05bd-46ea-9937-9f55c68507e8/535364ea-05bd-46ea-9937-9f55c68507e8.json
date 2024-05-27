@@ -2,7 +2,9 @@
     "id": "535364ea-05bd-46ea-9937-9f55c68507e8",
     "snapshot": "excel",
     "instruction": "Create two tables in a new sheet showing the total revenue for each product and sales channel.",
-    "source": "SheetCopilot@180",
+    "source": [
+        "SheetCopilot@180"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
