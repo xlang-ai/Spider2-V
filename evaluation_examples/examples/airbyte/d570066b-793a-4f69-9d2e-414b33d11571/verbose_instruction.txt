@@ -1,0 +1,21 @@
+In this task, we want to construct an Airbyte connection to transfer data from Faker to PostgreSQL in the Airbyte local UI according to the config.png file. To complete this: 
+1. Open the config.png file on the Desktop;
+2. Switch to the browser window;
+3. In the opened homepage of Airbyte, click the "Sources" link on the left panel;
+4. Then, in the search bar on the right, type in "Faker" and you should see one panel with name "Sample Data (Faker)" below;
+5. Click this panel;
+6. After that, click on the "Set up source" button to create the source;
+7. Once "all tests passed" is displayed, click the "Destinations" link on the left panel;
+8. Then, in the search bar on the right, type in "Postgres" and you should see a panel with the name "Postgres" below;
+10. Click this panel;
+11. Based on the "destination Postgres" details in the desktop config.png file, enter the configuration parameters in the appropriate fields;
+12. Note that, for private field "Password" whose input box may not be visible, you need to click the toggle link with text "Optional fields" in order to expand the hidden fields.
+13. After finishing all content, click the "Set up destination" button to create the destination connector;
+14. Once "all tests passed" is displayed, click the "Connections" link on the left panel;
+15. Then, click the "Create your first connection" button on the right;
+16. In the "Define source" step, choose "select an existing source";
+17. Click on the "Sample Data (Faker)" source link below;
+18. After that, in the "Define destination" step, choose "select an existing destination";
+19. Click on the "Postgres" destination link below. You may need to wait for some time;
+20. In the "Connection configuration" step, enter the parameters in the appropriate fields based on the "connection" details in the config.png file;
+21. Click the "Set up connection" button at the bottom right of the page to complete the connection setup.
