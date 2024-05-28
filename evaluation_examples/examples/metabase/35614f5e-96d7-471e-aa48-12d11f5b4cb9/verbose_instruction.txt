@@ -7,7 +7,7 @@ To complete the visualization, please follow these steps:
 5. Click the "Pick Data... -> Products";
 6. Choose Summarize "Count of rows" by "Product -> Category";
 7. Click "Sort -> Count";
-8. Click on the arrow beside the "Sort" to change the sorting order as descendingly;
+8. Click on the arrow beside the "Count" to change the sorting order as descendingly;
 9. Click on Visualize.
 10. Click on Visualization -> Funnel.
 11. Click Done.
