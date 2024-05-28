@@ -137,6 +137,7 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
         action_space=args.action_space,
         observation_space=args.observation_space,
         screen_size=env.vm_screen_size,
+        temperature=args.temperature,
         max_trajectory_length=args.max_trajectory_length,
     )
 
@@ -201,6 +202,8 @@ def get_result_dir(args):
     result_dir = f"{args.action_space}_{args.observation_space}_{args.model}"
     if args.verbose_instruction:
         result_dir = "verbose_" + result_dir
+    # result_dir += '_actioninfo'
+    result_dir += f"_temp{args.temperature}_traj{args.max_trajectory_length}"
     return os.path.join(args.result_dir, result_dir)
 
 
@@ -225,7 +228,7 @@ def get_examples(args, result_dir, easy_first: bool = True, exclude_account: boo
             content = f.read().strip()
             return len(content) > 0
 
-    examples_to_run = []
+    examples_to_run, excel_examples_to_run = [], []
     data_dir = os.path.join(args.test_config_base_dir, "examples")
     filtered_domain = ALL_DOMAINS if 'all' in args.domains else args.domains
     test_data = json.load(open(args.test_all_meta_path, 'r'))
@@ -259,10 +262,15 @@ def get_examples(args, result_dir, easy_first: bool = True, exclude_account: boo
                     "result": example_result_dir,
                     "action_number": data["action_number"]
                 }
-                examples_to_run.append(example)
-    logger.info(f"Total examples to run: {len(examples_to_run)}")
-    if easy_first: sorted(examples_to_run, key=lambda x: x['action_number'])
-    return examples_to_run
+                if domain == 'excel':
+                    excel_examples_to_run.append(example)
+                else:
+                    examples_to_run.append(example)
+    logger.info(f"Total examples to run: {len(examples_to_run) + len(excel_examples_to_run)}")
+    if easy_first:
+        sorted(examples_to_run, key=lambda x: x['action_number'])
+        sorted(excel_examples_to_run, key=lambda x: x['action_number'])
+    return examples_to_run + excel_examples_to_run
 
 
 def get_result(result_dir) -> str:
