@@ -1,7 +1,7 @@
 {
     "id": "aef836e9-1d84-4a49-9dd7-359c0dbc6ade",
     "snapshot": "airbyte",
-    "instruction": "I am asked to modify the enabled streams of the current Airbyte connection from Faker to Snowflake, activating only the 'products' and 'purchases' stream. Could you help me with this task?",
+    "instruction": "I am asked to modify the enabled streams of the current Airbyte connection from Faker to Snowflake, activating only the 'products' and 'purchases' streams. Could you help me with this task?",
     "source": [
         "https://docs.airbyte.com/cloud/managing-airbyte-cloud/manage-connection-state"
     ],
@@ -14,7 +14,7 @@
         "gui",
         "data_ingestion_and_integration"
     ],
-    "action_number": 20,
+    "action_number": 4,
     "config": [
         {
             "type": "snowflake_init",

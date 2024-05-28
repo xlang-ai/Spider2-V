@@ -1,0 +1,5 @@
+In this task, we want to modify an existing airbyte connection to set only 'products' and 'purchases' streams enabled. To complete this: 
+1. Click the connection row in the main panel;
+2. In the Airbyte connection page, click the "Replication" button and you can now see three enabled streams.
+3. Click the button on the left side of the "users" stream in the "streams" table to turn it off, and keep the purchases and products streams enabled;
+4. After that, Click the "Save changes" button at the bottom right of the page. After saving, you will see the message "Your changes were saved!" at the bottom of the page.

@@ -1,4 +1,4 @@
-In this task, create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. To complete this: 
+In this task, we want to create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. To complete this: 
 1. Switch to the browser window;
 2. In the opened homepage of Airbyte, click the "Sources" link on the left panel;
 3. Then, in the search bar on the right, type in "Faker" and you should see one panel with name "Sample Data (Faker)" below;
