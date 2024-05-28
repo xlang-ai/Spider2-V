@@ -16,6 +16,13 @@
     "action_number": 22,
     "config": [
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/86d91add-e9c8-416f-b385-38c9934afa7a/video_game_sales.csv",
+                "dest": "/home/user/video_game_sales.csv"
+            }
+        },
+        {
             "type": "google_chrome_browser",
             "parameters": {
                 "debugging_port": 1337,
