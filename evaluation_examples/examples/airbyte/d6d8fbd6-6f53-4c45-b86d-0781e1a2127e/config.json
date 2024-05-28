@@ -24,7 +24,13 @@
         "schema": "public",
         "database": "postgres",
         "password": "password",
+        "ssl_mode":{
+            "mode": "disable"
+        },
         "username": "postgres",
+        "tunnel_method":{
+            "tunnel_method": "NO_TUNNEL"
+        },
         "jdbc_url_params": "",
         "raw_data_schema": "",
         "disable_type_dedupe": false
