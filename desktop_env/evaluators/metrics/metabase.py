@@ -3,6 +3,7 @@ import logging
 import numpy as np
 from PIL import Image
 from skimage.metrics import structural_similarity as ssim
+import cv2
 
 logger = logging.getLogger("desktopenv.metrics.metabase")
 
@@ -21,18 +22,25 @@ def compare_metabase_images(image1_path, image2_path):
     # Resize images to the smaller one's size for comparison
     image1_size = image1.size
     image2_size = image2.size
-    new_size = min(image1_size, image2_size)
+    
+    image1 = cv2.imread(image1_path)
+    image2 = cv2.imread(image2_path)
 
-    image1 = image1.resize(new_size, Image.Resampling.LANCZOS)
-    image2 = image2.resize(new_size, Image.Resampling.LANCZOS)
+    if image1_size > image2_size:
+        image1 = cv2.resize(image1, (image2.shape[1], int(image1.shape[0] * image2.shape[1] / image1.shape[1])))
+    else:
+        image2 = cv2.resize(image2, (image1.shape[1], int(image2.shape[0] * image1.shape[1] / image2.shape[1])))
+        
+    # calculate the Histogram image of the two images
+    H1 = cv2.calcHist([image1], [1], None, [256], [0, 256])
+    H1 = cv2.normalize(H1, H1, 0, 1, cv2.NORM_MINMAX, -1)  # normalize the histogram
 
-    # Convert images to numpy arrays
-    image1_array = np.array(image1)
-    image2_array = np.array(image2)
+    H2 = cv2.calcHist([image2], [1], None, [256], [0, 256])
+    H2 = cv2.normalize(H2, H2, 0, 1, cv2.NORM_MINMAX, -1)
 
-    # Calculate SSIM between two images
-    similarity_index = ssim(image1_array, image2_array)
+    # compare the two histograms
+    similarity = cv2.compareHist(H1, H2, 0)
 
-    if similarity_index > 0.75: # Account for image differences due to size change
+    if similarity > 0.91: # Account for image differences due to size change
         return 1
     return 0
