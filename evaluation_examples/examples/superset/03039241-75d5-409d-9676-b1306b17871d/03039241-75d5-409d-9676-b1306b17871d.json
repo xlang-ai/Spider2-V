@@ -1,0 +1,71 @@
+{
+    "id": "03039241-75d5-409d-9676-b1306b17871d",
+    "snapshot": "superset",
+    "instruction": "My leader wants to see the action log of user 'Superset Admin' in ascending order of time, please show it to him.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#customizing-dashboard"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/03039241-75d5-409d-9676-b1306b17871d/dashboard_export_20240517T153219.zip",
+                "dest": "/home/user/dashboard_export_20240517T153219.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/03039241-75d5-409d-9676-b1306b17871d/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/suprset/03039241-75d5-409d-9676-b1306b17871d/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

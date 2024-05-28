@@ -2,7 +2,9 @@
     "id": "cd3c4994-b9e2-426b-8157-f7978ff55501",
     "snapshot": "excel",
     "instruction": "In a new sheet named \"Sheet2\", merge cells A1:B1 and write text \"Summer sales ($)\". Then create a pivot table in this new sheet for my data in Sheet 1 and summarize the monthly revenue for each sales channel with months as row labels and sales channels as column labels. Plot a stacked column chart illustrating the results. Set the chart titles as \"Revenue of Each Channel ($)\" and move the legends to the bottom.",
-    "source": "SheetCopilot@52",
+    "source": [
+        "SheetCopilot@52"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

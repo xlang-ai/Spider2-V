@@ -86,7 +86,7 @@ class SetupController:
             self._execute_setup(command=["rm", "-rf", "/home/user/network.sh"])
         else:
             results = 'succeed'
-            logger.warning(f"Network check for {vm_platform} is not implemented.")
+            logger.error(f"Network check for {vm_platform} is not implemented.")
         logger.setLevel(old_level)
         return 'succeed' in results
 

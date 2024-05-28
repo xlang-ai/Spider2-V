@@ -274,7 +274,7 @@ class DesktopEnv(gym.Env):
             elif self.action_space == "pyautogui":
                 # the set of all possible python commands insides `pyautogui`
                 info = self.controller.execute_python_command(action)
-
+        time.sleep(pause)
         observation = self._get_obs()
 
         return observation, reward, done, info

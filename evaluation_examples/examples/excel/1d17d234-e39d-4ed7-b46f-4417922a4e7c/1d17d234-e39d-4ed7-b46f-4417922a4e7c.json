@@ -2,7 +2,9 @@
     "id": "1d17d234-e39d-4ed7-b46f-4417922a4e7c",
     "snapshot": "excel",
     "instruction": "Create a new sheet named \"Sheet2\" and merge cells A1:C1 to write the header \"Investment Summary\". Beneath that, merge cells A2:B2 to write \"High Interest Rate\" and merge cells C2:D2 to form \"Low Interest Rate\".",
-    "source": "SheetCopilot@73",
+    "source": [
+        "SheetCopilot@73"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

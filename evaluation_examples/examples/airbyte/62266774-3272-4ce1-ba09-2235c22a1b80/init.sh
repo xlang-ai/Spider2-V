@@ -12,10 +12,10 @@
 exec 1>/dev/null
 exec 2>/dev/null
 
-# source /home/user/anaconda3/etc/profile.d/conda.sh
-# conda activate airbyte
-# echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
-# echo "conda activate airbyte" >> ~/.bashrc
+source /home/user/anaconda3/etc/profile.d/conda.sh
+conda activate airbyte
+echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
+echo "conda activate airbyte" >> ~/.bashrc
 
 cd /home/user/projects
 mv /home/user/ecommerce_analytics.zip .
@@ -26,8 +26,7 @@ cd ecommerce_analytics/
 code /home/user/projects/ecommerce_analytics
 
 function start_airbyte_server() {
-    mv /home/user/projects/airbyte /home/user/projects/ecommerce_analytics/
-    cd /home/user/projects/ecommerce_analytics/airbyte
+    cd /home/user/projects/airbyte
     bash run-ab-platform.sh > start_server.log &
     total_time=0
     while true; do

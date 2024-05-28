@@ -2,7 +2,9 @@
     "id": "fe29cdf3-d317-47b3-a657-d61f97f00b88",
     "snapshot": "excel",
     "instruction": "Calculate the total revenue for each month as a pivot table in a new sheet and draw a bar chart for the results.",
-    "source": "SheetCopilot@61",
+    "source": [
+        "SheetCopilot@61"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

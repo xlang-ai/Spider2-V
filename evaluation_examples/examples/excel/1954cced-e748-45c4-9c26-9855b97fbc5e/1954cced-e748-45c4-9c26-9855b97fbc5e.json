@@ -2,7 +2,9 @@
     "id": "1954cced-e748-45c4-9c26-9855b97fbc5e",
     "snapshot": "excel",
     "instruction": "Create a Pivot Table in a new sheet (Sheet2) to count how many times each \"Invoice No.\" appears.",
-    "source": "SheetCopilot@104",
+    "source": [
+        "SheetCopilot@104"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

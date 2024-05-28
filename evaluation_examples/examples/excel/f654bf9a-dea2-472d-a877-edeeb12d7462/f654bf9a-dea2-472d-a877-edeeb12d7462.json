@@ -2,7 +2,9 @@
     "id": "f654bf9a-dea2-472d-a877-edeeb12d7462",
     "snapshot": "excel",
     "instruction": "Summarize revenue by week as a pivot table in a new sheet and display it as a line chart in the new sheet.",
-    "source": "SheetCopilot@182",
+    "source": [
+        "SheetCopilot@182"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

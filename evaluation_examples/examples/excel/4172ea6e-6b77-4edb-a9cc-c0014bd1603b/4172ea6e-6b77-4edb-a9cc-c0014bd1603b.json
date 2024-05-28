@@ -2,7 +2,9 @@
     "id": "4172ea6e-6b77-4edb-a9cc-c0014bd1603b",
     "snapshot": "excel",
     "instruction": "I want to work out the maturity date for all the loans. Please do it for me in a new column with header \"Maturity Date\".",
-    "source": "SheetCopilot@113",
+    "source": [
+        "SheetCopilot@113"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

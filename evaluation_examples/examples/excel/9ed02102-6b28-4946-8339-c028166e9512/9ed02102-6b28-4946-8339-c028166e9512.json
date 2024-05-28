@@ -2,7 +2,9 @@
     "id": "9ed02102-6b28-4946-8339-c028166e9512",
     "snapshot": "excel",
     "instruction": "I want to calculate the revenue for each transaction in the sales table considering corresponding retail price and discount. Please help me do this in a new column with header \"Revenue\". Then create a pivot table in a new sheet named \"Sheet2\" to show the number of transactions on each website where boomerangs were sold. Finally, plot a bar chart in this new sheet for the pivot table with chart title \"Sales frequency by website\" and without legends.",
-    "source": "SheetCopilot@0",
+    "source": [
+        "SheetCopilot@0"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

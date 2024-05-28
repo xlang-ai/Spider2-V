@@ -2,7 +2,9 @@
     "id": "0acbd372-ca7a-4507-b949-70673120190f",
     "snapshot": "excel",
     "instruction": "Calculate Net Income in a new column with header \"Net Income\" and format all data as accounting number type.",
-    "source": "SheetCopilot@121",
+    "source": [
+        "SheetCopilot@121"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

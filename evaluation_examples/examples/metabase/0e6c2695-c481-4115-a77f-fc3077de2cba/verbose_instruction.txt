@@ -3,15 +3,19 @@ To complete the visualization, please follow these steps:
 1. Click the "New" button on the top right;
 2. Choose "Question" in the drop-down panel;
 3. Choose "Products" in the "Sample Database" drop-down panel;
-4. Under "Summarize" choose "Sum of Price";
-5. After "by", choose "Category";
-6. Click on the plus sign after the "Category" and choose "Created At - Quarter";
-7. Click on Visualize;
-8. Click on Visualization -> Bar;
-9. Click on Bar again to pull out the Bar Options panel;
-10. Under Display - Stacking, choose Stack;
-11. Click Done;
-12. Click the "Download full results" button (cloud icon) on the bottom right;
-13. Choose ".png" in the panel;
-14. Open the local path "/home/user/Downloads";
-15. Rename the visualization file as "stack_chart.png".
+4. Under "Summarize", click "Pick the metric you want to see";
+5. Choose "Sum of ..."
+6. Click "Pick a column to group by"
+7. Then Click "Price"
+8. After "by", Click "Pick a column to group by"
+9. Click "Category";
+10. Click on the plus sign after the "Category" and choose "Created At - Quarter";
+11. Click on Visualize;
+12. Click on Visualization -> Bar;
+13. Click on Bar again to pull out the Bar Options panel;
+14. Under Display - Stacking, choose Stack;
+15. Click Done;
+16. Click the "Download full results" button (cloud icon) on the bottom right;
+17. Choose ".png" in the panel;
+18. Open the local path "/home/user/Downloads";
+19. Rename the visualization file as "stack_chart.png".

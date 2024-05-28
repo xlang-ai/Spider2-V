@@ -2,7 +2,9 @@
     "id": "b6e9778c-11b3-455f-b720-655048787484",
     "snapshot": "excel",
     "instruction": "Summarize the revenue sum for each product in a new sheet as a pivot table and plot a pie chart that displays the summarized data. Show the products as the legend on the right.",
-    "source": "SheetCopilot@60",
+    "source": [
+        "SheetCopilot@60"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

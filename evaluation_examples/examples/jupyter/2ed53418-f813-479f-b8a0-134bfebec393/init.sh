@@ -14,6 +14,8 @@ exec 2>/dev/null
 
 source /home/user/anaconda3/etc/profile.d/conda.sh
 conda activate jupyter
+python -m ipykernel install --user --name jupyterlab --display-name "Python (jupyterlab)"
+
 echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate jupyter" >> ~/.bashrc
 

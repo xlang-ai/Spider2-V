@@ -2,7 +2,9 @@
     "id": "8909d1cb-5877-44c7-a908-9f1875302441",
     "snapshot": "excel",
     "instruction": "Copy the \"Date\" and \"Revenue ($)\" values to a new sheet named \"Sheet2\" for the rows whose \"Sales Channel\" is \"E-mail Coupon\".",
-    "source": "SheetCopilot@177",
+    "source": [
+        "SheetCopilot@177"
+    ],
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

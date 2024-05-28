@@ -227,7 +227,7 @@ Use case 2: the task has been completed, no action is needed
 ### Precautions
 
 REMEMBER THAT:
-1) The output action MUST BE CHOSEN and CAN ONLY BE CHOSEN from the action space (json dict) defined above, otherwise your action will be considered as invalid and you will get a penalty. For example, bash, sql, or python codes WILL NOT be executed;
+1) The output action MUST BE CHOSEN and CAN ONLY BE CHOSEN from the action space (json dict) defined above, otherwise your action will be considered as invalid and you will get a penalty. For example, bash, sql, or python code WILL NOT be executed;
 2) For each action dict, STRICTLY OBEY THE FORMAT, which must contain the `action_type` field and required parameters. Optional parameters will be set to default values if not provided. NEVER RETURN ME ANYTHING ELSE WHICH IS NOT DEFINED;
 3) For parameters of each action, pleae STRICTLY CONFORM TO the type and format, e.g., for float types, use float numbers `110` instead of math expression `100 + 20 / 2`;
 4) JSON keys and string-type values in the action dict MUST be wrapped with DOUBLE QUOTES \" instead of single quote \' to ensure successful json parsing;
@@ -255,16 +255,16 @@ REMEMBER THAT:
 0. We will import libraries `pyautogui` and `time` automatically for you, but if you use other python libraries, PLEASE IMPORT THEM FIRST ALTHOUGH THIS IS DISCOURAGED;
 1. DONOT use the `pyautogui.locateCenterOnScreen` function to locate the element you want to operate with, since we have no image of the element you want to operate with;
 2. DONOT use the `pyautogui.screenshot` function to make screenshot;
-3. For time efficiency, you can return one line or multiple lines of python codes to perform continuous actions in one response. For example, your response may contain the following code block:
+3. For time efficiency, you can return one line or multiple lines of python code to perform continuous actions in one response. For example, your response may contain the following code block:
 ```
 pyautogui.moveTo(100, 210)
 pyautogui.dragTo(500, 200, button='left', mouseDownUp=True)
 pyautogui.rightClick()
 ```
 4. When predicting multiple lines of code, make some small delay like `time.sleep(0.5)` interval, such that the machine can response correctly. And it is STRONGLY RECOMMENDED that, for one action which may influence the environment significantly (e.g., click the button of one application to open it, or click a web link which navigates to a new page), it is better to predict this action without follow-ups in order to observe the changes in environment states first;
-5. Each time when you predict codes, neither variables nor function is shared acrossed different code blocks. In other words, each code block will be executed in isolation;
+5. Each time when you predict code, neither variables nor function is shared acrossed different code blocks. In other words, each code block will be executed in isolation;
 6. For coordinates (x, y), please speculate or calculate by yourself based on the observation of previous interaction turn. BE CAREFUL to ensure the coordinates are feasible.
-7. Attention that, codes wrapped by 3 backticks ``` will be recognized as an action in the action space. Therefore, when you output non-action codes, please use other symbols like ''' instead.
+7. Please pay attention that, code wrapped by 3 backticks ``` will be recognized as an action in the action space. Therefore, when you output non-action code, please use other symbols like ''' instead.
 """.strip()
 
 
@@ -277,7 +277,7 @@ You are required to use `pyautogui` to perform the action grounded to the observ
 # you python code here, e.g.,
 pyautogui.hotkey('ctrl', 'c')
 ```
-Syntax sugar: you can use variable `index_{i}` to represent the CENTER position, namely tuple (x, y), of the i-th element marked in the previous observation space. We will resolve the concrete coordinates for you during execution. For example, the following codes represent clicking the center position of the element with index 1 in the labeled screenshot or textual accessibility tree:
+Syntax sugar: you can use variable `index_{i}` to represent the CENTER position, namely tuple (x, y), of the i-th element marked in the previous observation space. We will resolve the concrete coordinates for you during execution. For example, the following code represent clicking the center position of the element with index 1 in the labeled screenshot or textual accessibility tree:
 ```
 pyautogui.click(index_1)
 ```
@@ -291,14 +291,14 @@ REMEMBER THAT:
 0. We will import libraries `pyautogui` and `time` automatically for you, but if you use other python libraries, PLEASE IMPORT THEM FIRST ALTHOUGH THIS IS DISCOURAGED;
 1. DONOT use the `pyautogui.locateCenterOnScreen` function to locate the element you want to operate with, since we have no image of the element you want to operate with;
 2. DONOT use the `pyautogui.screenshot` function to make screenshot;
-3. For time efficiency, you can return one line or multiple lines of python codes to perform continuous actions in one response. For example, your response may contain the following code block:
+3. For time efficiency, you can return one line or multiple lines of python code to perform continuous actions in one response. For example, your response may contain the following code block:
 ```
 pyautogui.moveTo(100, 210)
 pyautogui.dragTo(index_2, button='left', mouseDownUp=True)
 pyautogui.rightClick()
 ```
 4. When predicting multiple lines of code, make some small delay like `time.sleep(0.5)` interval, such that the machine can response correctly. And it is STRONGLY RECOMMENDED that, for one action which may influence the environment significantly (e.g., click the button of one application to open it, or click a web link which navigates to a new page), it is better to predict this action without follow-ups in order to observe the changes in environment states first;
-5. Each time when you predict codes, neither variables nor function is shared acrossed different code blocks. In other words, each code block will be executed in isolation;
+5. Each time when you predict code, neither variables nor function is shared acrossed different code blocks. In other words, each code block will be executed in isolation;
 6. For coordinates (x, y), please speculate or calculate by yourself based on the observation of previous interaction turn. BE CAREFUL to ensure the coordinates are feasible. You can also take advantage of our provided syntax sugar `index_{i}` to avoid miscalculating the center position.
 """
 

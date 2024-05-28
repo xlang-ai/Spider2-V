@@ -3,7 +3,7 @@
     "snapshot": "airbyte",
     "instruction": "There is already an airbyte connection from Postgres to Postgres created. Please help me change the connection sync mode from full refresh | Overwrite to full refresh | append.",
     "source": [
-        "https://airbyte.com/tutorials/incremental-change-data-capture-cdc-replication"
+        "https://airbyte.com/tutorials/full-data-synchronization"
     ],
     "related_apps": [
         "chromium",
@@ -15,7 +15,7 @@
         "gui",
         "data_ingestion_and_integration"
     ],
-    "action_number": 4,
+    "action_number": 6,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
