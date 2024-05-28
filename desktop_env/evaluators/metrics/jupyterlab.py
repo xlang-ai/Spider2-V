@@ -109,6 +109,8 @@ def compare_notebook_outputs(result: str, expected: str) -> float:
                 print("Cell type mismatch!")
                 return 0.0
             if result_cell['cell_type'] == "code":
+                if len(result_cell['outputs']) != len(expected_cell['outputs']):
+                    return 0.0
                 for result_output, expected_output in zip(result_cell['outputs'], expected_cell['outputs']):
                     if result_output != expected_output:
                         print(result_output)
