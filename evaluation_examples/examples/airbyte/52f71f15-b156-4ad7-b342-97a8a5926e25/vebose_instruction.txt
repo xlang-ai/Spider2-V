@@ -1,19 +1,19 @@
-In this task, we aim to use superset to build a Slack user activity chart with given Slack Airbyte connector.
+In this task, we aim to use superset to build a user activity chart with given Airbyte connector.
 1) Switch to the chromium browser's "localhost:8088" page;
 2) Log in to superset using "username": "admin", "password": "admin";
 3) In the superset interface, click on "settings" in the upper right corner, then select "Database Connections" from the dropdown menu;
 4) In the Database Connections interface, click on the "+ Database" button in the upper right corner;
 5) Select and click on "PostgreSQL" to create a new PostgreSQL database;
 6) In the "Enter the required PostgreSQL credentials" popup, scroll down and click on "Connect this database with a SQLAlchemy URI string instead";
-7) Type "slack-db" in the "DISPLAY NAME" box, and "postgresql://postgres:password@172.17.0.1:2000/postgres" in the "SQLALCHEMY URI" box;
-8) Click "Connect," and you will return to the superset database interface where you can see the newly created slack-db database;
+7) Type "data-db" in the "DISPLAY NAME" box, and "postgresql://postgres:password@172.17.0.1:2000/postgres" in the "SQLALCHEMY URI" box;
+8) Click "Connect," and you will return to the superset database interface where you can see the newly created data-db database;
 9) Click "Datasets" in the upper left corner to enter the "Datasets" interface;
 10) Click the "+ DATASET" button to add datasets;
-11) Select "slack-db" in the "DATABASE" column, "public" in the "SCHEMA" column, and "users" in the "TABLE" column;
+11) Select "data-db" in the "DATABASE" column, "public" in the "SCHEMA" column, and "users" in the "TABLE" column;
 12) Afterwards, click on the bottom-right "CREATE DATASET AND CREATE CHART";
 13) Then on the "create a new chart" page, choose "Big Number" as the chart type;
 14) Click "CREATE NEW CHART" in the bottom right corner;
-15) In the Chart settings page, type "Slack Members" in the "Add the name of the chart" field;
+15) In the Chart settings page, type "USERS" in the "Add the name of the chart" field;
 16) In the "DATA" settings under the "METRIC" field, search and select "COUNT(*)" and click save;
 17) Click the "CREATE CHART" button below the "DATA" settings;
 18) After that, click the "Save" button next to the chart name setting;

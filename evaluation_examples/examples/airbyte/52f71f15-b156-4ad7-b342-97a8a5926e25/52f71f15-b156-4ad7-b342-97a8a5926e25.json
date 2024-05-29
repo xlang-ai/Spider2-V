@@ -1,7 +1,7 @@
 {
     "id": "52f71f15-b156-4ad7-b342-97a8a5926e25",
     "snapshot": "airbyte",
-    "instruction": "There is already an Airbyte connection from Slack to Postgres. Can you help me set up the corresponding Postgres Database with the name of slack-db, import the users data, and build a Big Number chart with the name of 'Slack Members' to count the 'users' in Superset?",
+    "instruction": "There is already an Airbyte connection from Faker to Postgres. Can you help me set up the corresponding Postgres Database with the name of data-db, import the users data, and build a Big Number chart with the name of 'Users' to count the 'users' in Superset?",
     "source": [
         "https://airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset"
     ],
