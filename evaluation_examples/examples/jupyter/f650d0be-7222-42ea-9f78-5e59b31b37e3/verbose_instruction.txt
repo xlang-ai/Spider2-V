@@ -1,4 +1,4 @@
-This task is to combine the content of all the code cells. On the opened jupyter notebook:
+This task is to find baby names that appear in all recorded years and sort them in descending order by their total occurrences. On the opened jupyter notebook:
 1. Double-click "result.csv" to see the predefined format
 2. Double-click "usa_baby_names.csv" to preview the us baby data.
 3. Double-click "notebook.ipynb" to see the partial finished code.
