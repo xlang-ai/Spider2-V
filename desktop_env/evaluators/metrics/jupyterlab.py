@@ -111,14 +111,19 @@ def compare_notebook_outputs(result: str, expected: str) -> float:
                 print("Cell type mismatch!")
                 return 0.0
             if result_cell['cell_type'] == "code":
-                result_cell_outputs = [output for output in result_cell['outputs'] if 'name' in output and output['name'] == 'stdout' and 'Requirement already satisfied:' not in output['text'] and 'Successfully installed' not in output['text']]
-                expected_cell_outputs = [output for output in expected_cell['outputs'] if 'name' in output and output['name'] == 'stdout']
+                result_cell_outputs = [output for output in result_cell['outputs'] if ('name' in output and output['name'] == 'stdout' and 'Requirement already satisfied:' not in output['text'] and 'Successfully installed' not in output['text']) or ('data' in output and 'text/plain' in output['data'])]
+                expected_cell_outputs = [output for output in expected_cell['outputs'] if ('name' in output and output['name'] == 'stdout') or ('data' in output and 'text/plain' in output['data'])]
                 if len(result_cell_outputs) != len(expected_cell_outputs):
                     print('Length of the following output mismatch:')
                     print(result_cell_outputs)
+                    print(expected_cell_outputs)
                     return 0.0
                 for result_output, expected_output in zip(result_cell_outputs, expected_cell_outputs):
-                    if result_output != expected_output:
+                    if 'name' in result_output and result_output != expected_output:
+                        print(result_output)
+                        print(expected_output)
+                        return 0.0
+                    if 'data' in result_output and result_output['data']['text/plain'] != expected_output['data']['text/plain']:
                         print(result_output)
                         print(expected_output)
                         return 0.0

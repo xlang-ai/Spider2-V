@@ -2,7 +2,6 @@ This task is to use jupyter notebook to finish a small ML task by implementing t
 1. For the 1st TODO, copy the code below to this cell:
 ```
 data = pd.read_csv(path, header=None, names=['Exam1', 'Exam2', 'Admitted'])
-data.head()
 ```
 2. For the 2nd TODO, copy the code below to replace "return None":
 ```

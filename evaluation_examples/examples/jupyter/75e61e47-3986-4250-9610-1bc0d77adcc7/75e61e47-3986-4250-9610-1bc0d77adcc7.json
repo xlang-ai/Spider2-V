@@ -1,7 +1,7 @@
 {
     "id": "75e61e47-3986-4250-9610-1bc0d77adcc7",
     "snapshot": "jupyter",
-    "instruction": "I want to use Logistic Regression to predict whether a student will be admitted to a college or not, and have now built the code framework in this open jupyter notebook. Please read the framework code and complete all the #TODO sections. Note that you can just add code to the current cells. Finally, you need to run the code and save it.",
+    "instruction": "I want to use Logistic Regression to predict whether a student will be admitted to a college or not, and have now built the code framework in this opened jupyter notebook. Please read the framework code and complete all the #TODO sections. Note that you can just add code to the current cells. Finally, you need to run the code and save it.",
     "source": [
         "https://towardsdatascience.com/logistic-regression-in-python-f66aeb15e83e"
     ],
