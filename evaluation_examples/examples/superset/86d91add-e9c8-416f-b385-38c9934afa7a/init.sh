@@ -16,7 +16,7 @@ exec 2>/dev/null
 # conda activate superset
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate superset" >> ~/.bashrc
-cd /home/user
+# cd /home/user
 # wget https://raw.githubusercontent.com/apache-superset/examples-data/lowercase_columns_examples/datasets/examples/video_game_sales.csv
 
 

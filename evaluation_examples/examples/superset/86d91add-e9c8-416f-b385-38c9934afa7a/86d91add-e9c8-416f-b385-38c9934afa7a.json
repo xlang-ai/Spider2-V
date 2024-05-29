@@ -13,7 +13,7 @@
         "gui",
         "data_analysis_and_visualization"
     ],
-    "action_number": 22,
+    "action_number": 21,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
