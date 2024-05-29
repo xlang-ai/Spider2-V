@@ -1,7 +1,7 @@
 {
     "id": "a6b5475f-23d9-4987-a839-4e6e3c6ccbfb",
     "snapshot": "jupyter",
-    "instruction": "Please help me get this code running smoothly.",
+    "instruction": "Please help me get the code in the opened Jupyter notebook running smoothly.",
     "source": [
         "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
     ],

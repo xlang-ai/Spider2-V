@@ -1,20 +1,9 @@
 You need to completed notebook_1, add the contents of notebook_2 on the desktop to the back of notebook_1 and run them all. In detail,
-1. In the left windows, double-click notebook_2, there are 7 cells need to be copied
-2. Click the 1st cell
-3. Click "Copy this cell"
-4. double-click notebook_1
-5. Click the final cell
-6. Click "Paste this cell from the clickboard"
-7. double-click notebook_2
-8. Click 2nd cell, and click "Copy this cell"
-9. double-click notebook_1, click "Paste this cell from the clickboard"
-10. double-click notebook_2, click 3rd cell, and click "Copy this cell"
-11. double-click notebook_1, click "Paste this cell from the clickboard"
-12. double-click notebook_2, click 4th cell, and click "Copy this cell"
-13. double-click notebook_1, click "Paste this cell from the clickboard"
-14. double-click notebook_2, click 5th cell, and click "Copy this cell"
-15. double-click notebook_1, click "Paste this cell from the clickboard"
-16. double-click notebook_2, click 6th cell, and click "Copy this cell"
-17. double-click notebook_1, click "Paste this cell from the clickboard"
-18. Click "Restart the kernel and run all cells" at the top of the box.
-19. In the pop-up window, click "Restart"
+1. In the left panel, double-click notebook_2, there are 6 cells need to be copied.
+2. Press the hotkey "Ctrl+A" to select all cells and "C" to copy.
+3. Click "notebook_1.ipynb" on the top to switch to the tab.
+4. Select the last cell of this notebook.
+5. Press "Esc" to enter command mode.
+6. Press "V" to paste.
+7. Click "Run > Run All Cells" at the top of the tab.
+8. Press "Ctrl+S" to save the file.

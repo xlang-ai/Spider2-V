@@ -1,7 +1,7 @@
 {
     "id": "35614f5e-96d7-471e-aa48-12d11f5b4cb9",
     "snapshot": "metabase",
-    "instruction": "I want to have a funnel chart out of Sample Database in metabase. Could you help me visualize the data of Orders and Products table on the colomn of Product ID. Summarize the data of Count of rows by Product Category and sort the data descendingly by number of counts. Please help me download the visualization chart as a PNG file, and rename it to \"funnel_chart.png\".",
+    "instruction": "I want to have a funnel chart out of Sample Database in metabase. Could you help me visualize the data of Orders and Products table on the column of Product ID. Summarize Count of rows of the data by Product Category and sort the data descendingly by the counts. Please help me download the visualization chart as a PNG file, and rename it to \"funnel_chart.png\".",
     "source": [
         "https://www.metabase.com/learn/visualization/funnel"
     ],
