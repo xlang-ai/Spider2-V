@@ -7,17 +7,16 @@ To upload the csv in 'home/user/video_game_sales.csv to the database 'Games' wit
 6. Find the file 'video_game_sales.csv' and click it;
 7. Click the "select" button and return to the "CSV to Database configuration" interface;
 8. Type "games" in the Table Name input box;
-9. Then click "File Settings";
-10. Then, click "Save", and we will see a dataset named "games" in the main panel,
-11. Click 'games' name in the list;
-12. In the pop-up window, drag the "genre" tile from left list to the "DIMENSIONS" box;
-13. Drag the "global_sales" tile from left list to the "METRICS" box;
-14. In the small pop-up window, Click "AGGREGATE" box;
-15. Then select "MAX" in the extended list;
-16. Click "CREATE CHART" in the buttom and you can see a chart in the right side;
-17. Click "SAVE" in the top right corner;
-18. Select "Save as...";
-19. Type chart name as "games";
-20. Type "MyDashboard" in "ADD TO DASHBOARD" box;
-21. Click "MyDashboard" in the extended pop-up windows;
-22. Click "Save&GO TO DASHBOARD" and you can see the created dashboard in the main panel.
+9. Then, click "Save", and we will see a dataset named "games" in the main panel,
+10. Click 'games' name in the list;
+11. In the pop-up window, drag the "genre" tile from left list to the "DIMENSIONS" box;
+12. Drag the "global_sales" tile from left list to the "METRICS" box;
+13. In the small pop-up window, Click "AGGREGATE" box;
+14. Then select "MAX" in the extended list;
+15. Click "CREATE CHART" in the buttom and you can see a chart in the right side;
+16. Click "SAVE" in the top right corner;
+17. Select "Save as...";
+18. Type chart name as "games";
+19. Type "MyDashboard" in "ADD TO DASHBOARD" box;
+20. Click "MyDashboard" in the extended pop-up windows;
+21. Click "Save&GO TO DASHBOARD" and you can see the created dashboard in the main panel.

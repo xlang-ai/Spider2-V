@@ -16,6 +16,13 @@
     "action_number": 11,
     "config": [
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/52d3a685-df8d-45bf-83d2-1172c6ae09ff/tutorial_flights.csv",
+                "dest": "/home/user/tutorial_flights.csv"
+            }
+        },
+        {
             "type": "google_chrome_browser",
             "parameters": {
                 "debugging_port": 1337,

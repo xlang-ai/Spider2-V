@@ -110,3 +110,4 @@ curl -X POST http://localhost:8000/api/v1/connections/create -H "Content-Type: a
 curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspace}\"}" | jq -rM ".connections | .[] | .connectionId" > /home/user/connid.txt
 rm /home/user/connection.json
 
+gnome-terminal --maximize --working-directory=/home/user/Desktop/

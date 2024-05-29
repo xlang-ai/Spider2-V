@@ -1,25 +1,25 @@
 {
-    "id": "8259543a-9c3f-4cb4-8b9c-2f44f876869c",
+    "id": "999e8736-5291-4acd-bff5-f02d3c5f38d5",
     "snapshot": "jupyter",
-    "instruction": "I have finished editing this JupyterLab. Please help me save this opened file as submission.ipynb on the Desktop.",
+    "instruction": "Help me build a linear SVM model and use it to classify over the famous cancer dataset. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.",
     "source": [
-        "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#uploading-and-downloading"
+        "https://www.datacamp.com/datalab/w/0d133cf9-e9c4-4ae9-8eb7-772a4b433589/edit"
     ],
     "related_apps": [
         "chromium",
         "jupyter"
     ],
     "tags": [
-        "gui",
+        "cli+gui",
         "traditional_data_processing"
     ],
-    "action_number": 5,
+    "action_number": 0,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/sports.zip",
-                "dest": "/home/user/sports.zip"
+                "src": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/SVM.ipynb",
+                "dest": "/home/user/Desktop/SVM.ipynb"
             }
         },
         {
@@ -35,7 +35,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/init.sh",
+                "src": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -45,24 +45,23 @@
                 "command": [
                     "bash",
                     "-c",
-                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/sports-products.ipynb"
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/SVM.ipynb"
                 ]
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "compare_ipynb_files",
+        "func": "compare_notebook_outputs",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/submission.ipynb",
-            "dest": "submission.ipynb"
+            "path": "/home/user/Desktop/SVM.ipynb",
+            "dest": "SVM.ipynb"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/submission_gold.ipynb",
-            "dest": "submission_gold.ipynb"
+            "path": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/SVM_gold.ipynb",
+            "dest": "SVM_gold.ipynb"
         }
     }
 }
