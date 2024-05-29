@@ -17,7 +17,7 @@ exec 2>/dev/null
 # echo "source /home/user/anaconda3/etc/profile.d/conda.sh" >> ~/.bashrc
 # echo "conda activate superset" >> ~/.bashrc
 cd /home/user
-wget https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv
+# wget https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv
 
 
 

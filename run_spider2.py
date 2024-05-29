@@ -120,7 +120,7 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
     scores = {}
 
     logger.info("Args: %s", args)
-
+    import pdb; pdb.set_trace()
     env = DesktopEnv(
         path_to_vm=args.path_to_vm,
         snapshot_name=args.snapshot_name,

@@ -11,3 +11,5 @@ To create a table visualization to show the cost per department for the 'flights
 10. Type colmn name "IntCost" in the <new colmn> box;
 11. Type "CAST("Cost" as INTEGER)" in the "SQL EXPRESSION" box;
 12.  Click "Save" and back to the main panel.
+
+
