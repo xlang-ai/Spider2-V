@@ -172,7 +172,8 @@ from .jupyterlab import (
     compare_ipynb_files,
     compare_notebook_cells,
     compare_notebook_outputs,
-    are_jupyter_outputs_cleared
+    are_jupyter_outputs_cleared,
+    compare_jupyterlab_images
 )
 
 from .metabase import (

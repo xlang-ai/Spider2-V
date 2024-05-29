@@ -1,0 +1,75 @@
+{
+    "id": "279a4290-d744-4cc1-a576-bc4f7b9fcee9",
+    "snapshot": "jupyter",
+    "instruction": "Refer to the existing figure and help me make a similar figure for the H/A/N column. The format must be the same. And save the result in 'result.png'.",
+    "source": [
+        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/Rohit_Sharma_Centuries.csv",
+                "dest": "/home/user/Desktop/Rohit_Sharma_Centuries.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/notebook.ipynb"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_jupyterlab_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.png",
+            "dest": "result.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/gold.png",
+            "dest": "gold.png"
+        }
+    }
+}
