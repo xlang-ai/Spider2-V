@@ -1,0 +1,93 @@
+{
+    "id": "214d5a3c-118c-44ce-b99b-01530b39c6bd",
+    "snapshot": "jupyter",
+    "instruction": "Analyze the average number of hours worked per week for different groups, based on their education level and income category. Complete the code and run all the codes",
+    "source": [
+        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/214d5a3c-118c-44ce-b99b-01530b39c6bd/adult.csv",
+                "dest": "/home/user/Desktop/adult.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/214d5a3c-118c-44ce-b99b-01530b39c6bd/Categorical-Data.ipynb",
+                "dest": "/home/user/Desktop/Categorical-Data.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/214d5a3c-118c-44ce-b99b-01530b39c6bd/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "compare_notebook_outputs",
+            "compare_notebook_outputs"
+        ],
+        "result": [
+            {
+                "type": "vm_file",
+                "path": "/home/user/Desktop/Categorical-Data.ipynb",
+                "dest": "Categorical-Data.ipynb"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/Desktop/Categorical-Data.ipynb",
+                "dest": "Categorical-Data.ipynb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/jupyter/214d5a3c-118c-44ce-b99b-01530b39c6bd/Categorical-Data_gold.ipynb",
+                "dest": "Categorical-Data_gold.ipynb"
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/jupyter/214d5a3c-118c-44ce-b99b-01530b39c6bd/Categorical-Data_gold1.ipynb",
+                "dest": "Categorical-Data_gold.ipynb"
+            }
+        ],
+        "conj": "or"
+    }
+}
