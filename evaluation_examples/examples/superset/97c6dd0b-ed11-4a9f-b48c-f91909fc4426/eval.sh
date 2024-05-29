@@ -27,8 +27,11 @@ flag=false
 
 for (( i=0; i<$count ; i++ )) ; do
     chart_name=$(echo $charts | jq -rM ".result | .[${i}] | .slice_name")
+    # echo $chart_name
+    # echo $name
     if [ "$chart_name" = "$name" ]; then
         flag=true
+        echo 1
         chart_id=$(echo $charts | jq -rM ".result | .[${i}] | .id")
 	break
     fi

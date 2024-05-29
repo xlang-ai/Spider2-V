@@ -16,8 +16,8 @@ To create a pivot table 'TravelPrivot' for the dataset 'flight' to see the sum o
 15. Select "custum";
 16. Click "START (INCLUSIVE)" box;
 17. select "Specific Date/Time";
-18. Type "2011-01-01:00:00:00" in the left time box and click "Ok";
-19. Type "2011-06-30:00:00:00" in the right time box and click "Ok";
+18. Select time "2011-01-01:00:00:00" in the left time box and click "Ok";
+19. Select time "2011-06-30:00:00:00" in the right time box and click "Ok";
 20. Click "APPLY";
 21. Click "CREATE CHART" in the bottom;
 22. Click "SAVE" in the top right corner;

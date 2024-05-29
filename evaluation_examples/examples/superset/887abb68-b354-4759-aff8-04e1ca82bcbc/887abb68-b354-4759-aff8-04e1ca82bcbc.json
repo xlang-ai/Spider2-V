@@ -24,6 +24,13 @@
             }
         },
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/all_databases.sql",
+                "dest": "/home/user/all_databases.sql"
+            }
+        },
+        {
             "type": "google_chrome_browser",
             "parameters": {
                 "debugging_port": 1337,
