@@ -1,0 +1,68 @@
+{
+    "id": "a6b5475f-23d9-4987-a839-4e6e3c6ccbfb",
+    "snapshot": "jupyter",
+    "instruction": "Please help me get this code running smoothly.",
+    "source": [
+        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing"
+    ],
+    "action_number": 15,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a6b5475f-23d9-4987-a839-4e6e3c6ccbfb/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a6b5475f-23d9-4987-a839-4e6e3c6ccbfb/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/notebook.ipynb"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/notebook.ipynb",
+            "dest": "notebook.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/a6b5475f-23d9-4987-a839-4e6e3c6ccbfb/notebook_gold.ipynb",
+            "dest": "notebook_gold.ipynb"
+        }
+    }
+}
