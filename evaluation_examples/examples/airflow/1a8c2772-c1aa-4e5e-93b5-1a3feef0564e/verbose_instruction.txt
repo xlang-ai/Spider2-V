@@ -91,14 +91,12 @@ with mlflow.start_run(experiment_id=experiment_id, run_name="Scaler") as run:
     mlflow.log_metrics(
         pd.DataFrame(scaler.mean_, index=X_encoded.columns)[0].to_dict()
     )
-
-X_encoded[target] = y
 '''
 13. At last, we define the workflow with tasks given in the file and defined above.
 '''append code according to where corresponding annotation instructed
 (
     start
-    >> create_buckets
+    >> create_buckets_if_not_exists
     >> prepare_mlflow_experiment()
     >> build_features(
         raw_df=extracted_df,

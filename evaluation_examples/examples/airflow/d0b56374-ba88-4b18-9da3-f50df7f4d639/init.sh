@@ -20,7 +20,6 @@ function to_ready_state(){
 }
 to_ready_state
 
-gnome-terminal --working-directory=/home/user/Downloads
 gnome-terminal --working-directory=/home/user/projects/mlflow
 code /home/user/projects/mlflow/dags/predict.py
 
