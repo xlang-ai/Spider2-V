@@ -1,0 +1,14 @@
+We need to analyze the average number of hours worked per week for different groups, based on their education level and income category. To achieve this:
+1. In the opened web page, first you need to double-click Categorical-Data.ipynb to open the code.
+2. Click "Run > Restart the kernel and run all cells" at the top of the tab.
+3. In the pop-up window, click "Restart".
+4. Read the output, understand the data, and keep scrolling down to the blank area.
+5. Click button "Click to add a cell."
+6. Copy the code below to this cell:
+```
+user_list = ['Education', 'Above/Below 50k']
+gb = adult.groupby(by=user_list)
+print(gb['Hours/Week'].mean())
+```
+7. Click the icon "▶" for "Run this cell and advance".
+8. Use the hotkey "Ctrl+S" to save the result.

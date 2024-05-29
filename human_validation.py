@@ -74,7 +74,7 @@ def human_agent():
         ...
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', type=str, default="/Users/rhythmcao/Virtual Machines.localized/ubuntu.vmwarevm/ubuntu.vmx", help="Path to the virtual machine .vmx file.")
+    parser.add_argument('-p', '--path', type=str, help="Path to the virtual machine .vmx file.")
     parser.add_argument('-s', '--snapshot', type=str, required=True, help="Snapshot to load.")
     parser.add_argument('-e', '--example', type=str, help='.json file path to a specific example to validate')
     parser.add_argument('--example_from_file', type=str, help='Path to the file, each line containing an example id to validate.')

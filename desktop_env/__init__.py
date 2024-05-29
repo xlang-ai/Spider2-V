@@ -1,1 +1,1 @@
-
+LOCAL_ARM_FILE_PATH = "/Users/leifangyu/workspace/Spider2.0-GUI/vm_data/ubuntu-arm.zip"

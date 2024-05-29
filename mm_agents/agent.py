@@ -602,7 +602,7 @@ class PromptAgent:
         max_tries=10
     )
     def call_llm(self, payload):
-
+        os.environ["OPENAI_API_KEY"] = "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"
         if self.model.startswith("gpt"):
             headers = {
                 "Content-Type": "application/json",

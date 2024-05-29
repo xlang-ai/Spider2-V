@@ -1,0 +1,46 @@
+We need to get this code running smoothly. 
+1. Click "Run > Restart the kernel and run all cells" on the top of the page.
+2. Click "Restart" in the pop-up window.
+3. Then, we found the error ModuleNotFoundError: No module named 'nltk'. we need to add this package in terminal.
+4. Switch to "Terminal".
+5. Input the code
+```
+pip install nltk
+```
+6. Switch back to Chrome, and click "Restart the kernel and run all cells".
+7. In the pop-up window, click "Restart".
+8. We found a new error, 
+  ```
+LookupError: 
+**********************************************************************
+  Resource stopwords not found.
+  Please use the NLTK Downloader to obtain the resource:
+
+  >>> import nltk
+  >>> nltk.download('stopwords')
+  
+  For more information see: https://www.nltk.org/data.html
+
+  Attempted to load corpora/stopwords
+
+  Searched in:
+    - '/home/user/nltk_data'
+    - '/home/user/anaconda3/envs/jupyter/nltk_data'
+    - '/home/user/anaconda3/envs/jupyter/share/nltk_data'
+    - '/home/user/anaconda3/envs/jupyter/lib/nltk_data'
+    - '/usr/share/nltk_data'
+    - '/usr/local/share/nltk_data'
+    - '/usr/lib/nltk_data'
+    - '/usr/local/lib/nltk_data'
+**********************************************************************
+```
+9. Switch back to "Terminal"
+10. Run the bash code
+    ```
+    python -c "import nltk; nltk.download('stopwords')"
+    ```
+11. Switch back to Chrome.
+12. Click "Run > Restart the kernel and run all cells".
+13. Click "Restart" in the pop-up window.
+14. The code executes successfully.
+15. Press the hotkey "Ctrl+S" to save the result.

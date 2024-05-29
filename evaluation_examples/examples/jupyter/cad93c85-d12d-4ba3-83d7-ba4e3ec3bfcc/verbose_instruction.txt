@@ -1,0 +1,22 @@
+Determine the total number of Games held for both the Summer and Winter Olympics, and record this information in "allGames.csv". In details,
+1. First, we need to check the predefined "allGames.csv", which displays the target format, double-click "allGames.csv".
+2. Double-click "Athletes_summer_games.csv", to preview the data.
+3. Double-click "Athletes_winter_games.csv", to preview the data.
+4. Double-click "notebook.ipynb".
+5. Keep scrolling down to the blank area.
+5. Click button "Click to add a cell."
+6. Copy the code to this cell:
+```
+df_winter = pd.read_csv('./Athletes_winter_games.csv')
+df_sum_win = pd.concat([df_summer, df_winter])
+total_games = pd.DataFrame(columns=['Total # of Games'])
+total_games.loc['Winter'] = len(df_winter['Games'].drop_duplicates())
+total_games.loc['Summer'] = len(df_summer['Games'].drop_duplicates())
+
+total_games = total_games.reset_index().rename(columns={'index':'Season'})
+total_games_path = './allGames.csv'
+total_games.to_csv(total_games_path, index=False)
+```
+7. Click "Run this cell and advance"
+8. If fails, click "Run > Restart the kernel and run all cells".
+9. Click "Restart" in the pop-up window.

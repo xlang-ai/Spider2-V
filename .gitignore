@@ -184,3 +184,9 @@ at_processing
 
 test.xlsx
 test2.xlsx
+
+# VM environment
+vm_data
+
+# Experiment result
+results

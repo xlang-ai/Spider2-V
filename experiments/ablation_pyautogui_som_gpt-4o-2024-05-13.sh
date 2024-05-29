@@ -8,7 +8,9 @@ python run_spider2.py --snapshot_name "spider2.0" \
     --temperature 0.5 \
     --sleep_after_execution 1 \
     --test_all_meta_path evaluation_examples/test_ablation.json \
-    --proxy # used in Chinese mainland
+    --proxy \
+    --host 10.11.7.109 \
+    --port 7890
     #--host 172.16.12.1 # used in Chinse mainland, set to the host ip in LAN with VM
     #--port 58591 # used in Chinse mainland, set to the proxy port in the host
     #--headless # run withou gui
