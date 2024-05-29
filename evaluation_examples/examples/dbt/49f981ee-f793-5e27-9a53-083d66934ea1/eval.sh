@@ -2,11 +2,9 @@
 
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate dbt
-cd ~/projects
 
-fileid=1dJwB_uk9iYVsYNWgE2PZBQasGjdd3DuZ
-filename=/home/user/projects/jaffle_shop_test.zip
-wget -c --quiet --no-check-certificate "https://drive.google.com/uc?export=download&id=${fileid}" -O ${filename}
+cd ~/projects
+mv /home/user/jaffle_shop_test.zip .
 unzip -q jaffle_shop_test.zip
 
 cd ~/projects/jaffle_shop
