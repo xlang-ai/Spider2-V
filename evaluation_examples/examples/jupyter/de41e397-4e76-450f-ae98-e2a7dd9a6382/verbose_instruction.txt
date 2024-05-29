@@ -1,0 +1,50 @@
+Display the number of films in each category, sorted in descending order. In details,
+1. Double-click "result.csv" to see the predefined format
+2. Double-click category.csv film_actor.csv film_category.csv film.csv to preview the us baby data.
+3. Double-click "notebook.ipynb" to see the partial finished code.
+4. Scroll down to the bottom, hover your mouse over the blank space at the bottom.
+5. Click button "Click to add a cell."
+6. Copy the code below to this cell:
+```
+
+film_actor = pd.read_csv('./film_actor.csv')
+film_category = pd.read_csv('./film_category.csv')
+film = pd.read_csv('./film.csv')
+category = pd.read_csv('./category.csv')
+
+connection = sqlite3.connect('database.db')
+
+film_actor.to_sql('film_actor', connection, if_exists='replace', index=False)
+film_category.to_sql('film_category', connection, if_exists='replace', index=False)
+film.to_sql('film', connection, if_exists='replace', index=False)
+category.to_sql('category', connection, if_exists='replace', index=False)
+
+```
+7. Click button "Click to add a cell."
+8. Copy the code below to this cell:
+
+```
+query = """
+SELECT
+    category.name,
+    COUNT(film_category.film_id) AS films_in_category
+FROM
+    category
+    LEFT JOIN film_category ON
+        category.category_id = film_category.category_id
+GROUP BY
+    category.category_id
+ORDER BY
+    films_in_category DESC;
+"""
+
+df = pd.read_sql_query(query, connection)
+df.to_csv('result.csv', index=False)
+
+```
+9. Click the button "Run" in the menu bar on the top.
+10. In the drop-down menu, select and click "Run All Cells".
+11. Wait for about 10 seconds, the data will be inserted in to "result.csv"
+
+
+
