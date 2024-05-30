@@ -3,7 +3,7 @@
     "snapshot": "jupyter",
     "instruction": "Determine the total number of Games held for both the Summer and Winter Olympics, and record this information in 'allGames.csv'.",
     "source": [
-        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+        "https://www.kaggle.com/datasets/nitishsharma01/olympics-124-years-datasettill-2020/code"
     ],
     "related_apps": [
         "chromium",
