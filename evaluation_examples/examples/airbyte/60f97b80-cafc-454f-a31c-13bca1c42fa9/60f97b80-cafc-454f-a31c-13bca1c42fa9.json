@@ -71,8 +71,8 @@
             "dest": "cities.csv"
         },
         "expected": {
-            "type": "vm_file",
-            "path": "/home/user/Desktop/cities_gold.csv",
+            "type": "local_file",
+            "path": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
             "dest": "cities_gold.csv"
         }
     }
