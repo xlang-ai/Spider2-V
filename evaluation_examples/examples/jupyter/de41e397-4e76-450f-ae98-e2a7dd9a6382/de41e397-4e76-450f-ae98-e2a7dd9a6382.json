@@ -1,0 +1,102 @@
+{
+    "id": "de41e397-4e76-450f-ae98-e2a7dd9a6382",
+    "snapshot": "jupyter",
+    "instruction": "Find baby names that appear in all recorded years and sort them in descending order by their total occurrences.",
+    "source": [
+        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/category.csv",
+                "dest": "/home/user/Desktop/category.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/film_actor.csv",
+                "dest": "/home/user/Desktop/film_actor.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/film_category.csv",
+                "dest": "/home/user/Desktop/film_category.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/film.csv",
+                "dest": "/home/user/Desktop/film.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/result.csv",
+                "dest": "/home/user/Desktop/result.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "trajectory": "trajectories/",
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/de41e397-4e76-450f-ae98-e2a7dd9a6382/gold.csv",
+            "dest": "gold.csv"
+        }
+    }
+}

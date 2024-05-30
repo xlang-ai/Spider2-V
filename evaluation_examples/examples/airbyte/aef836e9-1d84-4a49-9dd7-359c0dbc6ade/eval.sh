@@ -54,8 +54,8 @@ for workspaceid in ${workspaces}; do
         streams=$(echo ${sync_catalog} | jq -r ".streams | .[].stream.name")
         expected_streams="products"
 
-        if echo "$streams" | grep -qw "products" && echo "$streams" | grep -qw "users" && [ $(echo "$streams" | wc -w) -eq 2 ]; then
-            echo "Streams only contain products and users."
+        if echo "$streams" | grep -qw "products" && echo "$streams" | grep -qw "purchases" && [ $(echo "$streams" | wc -w) -eq 2 ]; then
+            echo "Streams only contain products and purchases."
             airbyte_connection=true
             break
         fi

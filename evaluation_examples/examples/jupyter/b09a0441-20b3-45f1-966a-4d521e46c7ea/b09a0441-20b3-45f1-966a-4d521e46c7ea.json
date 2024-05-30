@@ -1,7 +1,7 @@
 {
-    "id": "279a4290-d744-4cc1-a576-bc4f7b9fcee9",
+    "id": "b09a0441-20b3-45f1-966a-4d521e46c7ea",
     "snapshot": "jupyter",
-    "instruction": "Refer to the existing figure and help me make a similar figure for the H/A/N column. The format must be the same. And save the result in 'result.png'.",
+    "instruction": "Display the 10 actors whose films rented the most, sorted in descending order",
     "source": [
         "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
     ],
@@ -18,15 +18,22 @@
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/notebook.ipynb",
-                "dest": "/home/user/Desktop/notebook.ipynb"
+                "src": "evaluation_examples/examples/jupyter/b09a0441-20b3-45f1-966a-4d521e46c7ea/database.db",
+                "dest": "/home/user/Desktop/database.db"
             }
         },
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/Rohit_Sharma_Centuries.csv",
-                "dest": "/home/user/Desktop/Rohit_Sharma_Centuries.csv"
+                "src": "evaluation_examples/examples/jupyter/b09a0441-20b3-45f1-966a-4d521e46c7ea/result.csv",
+                "dest": "/home/user/Desktop/result.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/b09a0441-20b3-45f1-966a-4d521e46c7ea/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
             }
         },
         {
@@ -42,7 +49,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/init.sh",
+                "src": "evaluation_examples/examples/jupyter/b09a0441-20b3-45f1-966a-4d521e46c7ea/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -52,24 +59,23 @@
                 "command": [
                     "bash",
                     "-c",
-                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/notebook.ipynb"
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
                 ]
             }
         }
     ],
     "trajectory": "trajectories/",
     "evaluator": {
-        "postconfig": [],
-        "func": "compare_jupyterlab_images",
+        "func": "compare_csv",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/result.png",
-            "dest": "result.png"
+            "path": "/home/user/Desktop/result.csv",
+            "dest": "pred.csv"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/gold.png",
-            "dest": "gold.png"
+            "path": "evaluation_examples/examples/jupyter/b09a0441-20b3-45f1-966a-4d521e46c7ea/gold.csv",
+            "dest": "gold.csv"
         }
     }
 }

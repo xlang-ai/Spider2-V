@@ -1,0 +1,42 @@
+This task is to find baby names that appear in all recorded years and sort them in descending order by their total occurrences. On the opened jupyter notebook:
+1. Double-click "result.csv" to see the predefined format
+2. Double-click "usa_baby_names.csv" to preview the us baby data.
+3. Double-click "notebook.ipynb" to see the partial finished code.
+4. Scroll down to the bottom, hover your mouse over the blank space at the bottom.
+5. Click button "Click to add a cell."
+6. Copy the code below to this cell:
+```
+
+cursor.execute("""
+CREATE TABLE baby_names (
+  year INT,
+  first_name VARCHAR(64),
+  sex VARCHAR(64),
+  num INT
+);
+""")
+conn.commit()
+
+```
+7. Click button "Click to add a cell."
+8. Copy the code below to this cell:
+
+```
+df = pd.read_csv('usa_baby_names.csv')
+df.to_sql('baby_names', conn, if_exists='append', index=False)
+conn.commit()
+query = """
+SELECT first_name, SUM(num) as total_num
+FROM baby_names
+GROUP BY first_name
+HAVING COUNT(DISTINCT year) >= 101
+ORDER BY total_num DESC;
+"""
+result = pd.read_sql_query(query, conn)
+result.to_csv('result.csv', index=False)
+conn.close()
+
+```
+9. Click the button "Run" in the menu bar on the top.
+10. In the drop-down menu, select and click "Run All Cells".
+11. Wait for about 10 seconds, the data will be inserted in to "result.csv"

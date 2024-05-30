@@ -14,6 +14,13 @@
             }
         },
         {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/49f981ee-f793-5e27-9a53-083d66934ea1/jaffle_shop_test.zip",
+                "dest": "/home/user/jaffle_shop_test.zip"
+            }
+        },
+        {
             "type": "script_and_execute",
             "parameters": {
                 "src": "evaluation_examples/examples/dbt/49f981ee-f793-5e27-9a53-083d66934ea1/init.sh",

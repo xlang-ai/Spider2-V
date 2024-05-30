@@ -19,7 +19,7 @@ exec 2>/dev/null
 PASSWORD=password
 echo $PASSWORD | sudo -S systemctl stop postgresql
 POSTGRES_VERSION=16-alpine
-docker run --rm --name slack-db -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
+docker run --rm --name data-db -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
 
 
 
@@ -48,21 +48,18 @@ start_airbyte_server
 # 1. get workspace id
 workspace=$(curl -X POST http://localhost:8000/api/v1/workspaces/list -H "Content-Type: application/json" -d {} | jq -rM ".workspaces | .[] | .workspaceId")
 # 2. get source definition id
-source_name="Slack"
+source_name="Sample Data (Faker)"
 source_defid=$(curl -X POST http://localhost:8000/api/v1/source_definitions/list -H "Content-Type: application/json" | jq -rM ".sourceDefinitions | .[] | select(.name == \"${source_name}\") | .sourceDefinitionId")
 # 3. create source, the connectionConfiguration field is source-specific
 curl -X POST http://localhost:8000/api/v1/sources/create -H "Content-Type: application/json" -d "
 {
     \"workspaceId\": \"${workspace}\",
     \"connectionConfiguration\": {
-        \"start_date\": \"2020-01-01T00:00:00Z\",
-        \"credentials\": {
-            \"api_token\": \"xoxb-7126660183568-7126671285552-2vC6WXKDc7gw2yffKMA385D3\",
-            \"option_title\": \"API Token Credentials\"
-        },
-        \"join_channels\": true,
-        \"channel_filter\": [],
-        \"lookback_window\": 0
+        \"seed\": -1,
+        \"count\": 1000,
+        \"parallelism\": 4,
+        \"always_updated\": true, 
+        \"records_per_slice\": 1000
     },
     \"sourceDefinitionId\": \"${source_defid}\",
     \"name\": \"${source_name}\", 
