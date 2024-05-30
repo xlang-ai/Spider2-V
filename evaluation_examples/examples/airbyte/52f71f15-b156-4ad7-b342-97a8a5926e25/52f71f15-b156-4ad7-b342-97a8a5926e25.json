@@ -15,7 +15,7 @@
         "gui",
         "data_ingestion_and_integration"
     ],
-    "action_number": 19,
+    "action_number": 21,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
