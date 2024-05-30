@@ -16,7 +16,7 @@ for workspaceid in ${workspaces}; do
     if [ -f /home/user/projects/airbyte/airbyte-configuration/connections/postgres_to_postgres/state_${workspaceid}.yaml ]; then
         echo "state file found, succeed."
     else
-        echo "state file found, failed."
+        echo "state file not found, failed."
     fi
 
     # extract source/destination ids in the current workspace
