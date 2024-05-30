@@ -51,7 +51,7 @@ params=$(echo ${infos} | jq -rM ".result | .params")
 table_name=$(echo ${infos} | jq -rM ".result | .slice_name")
 viz_type=$(echo ${params} | jq -rM ".viz_type")
 metric=$(echo ${params} | jq -rM ".metric")
-if [ "${table_name}" = "USERS" ] && [ "${viz_type}" = "big_number_total" ] && [ "${metric}" = "count" ]; then
+if [ "${table_name}" = "Users" ] && [ "${viz_type}" = "big_number_total" ] && [ "${metric}" = "count" ]; then
     echo "Table Visualization succeed"
 else
     echo "Table Visualization failed"
