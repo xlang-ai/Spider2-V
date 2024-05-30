@@ -97,7 +97,7 @@ class LlamaIndexRetrieval:
                 )
                 print(f'total {len(nodes)} snippets in {website_doc_dir}')
                 storage_context.docstore.add_documents(nodes)
-                index = VectorStoreIndex(nodes, storage_context=storage_context)
+                index = VectorStoreIndex(nodes, storage_context=storage_context, show_progress=True)
                 index.set_index_id(app)
                 indices_dict[app] = index
                 cache_storage_for_new_index = True
@@ -141,8 +141,8 @@ class LlamaIndexRetrieval:
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--doc_directory', type=str, default='doc_txt')
-    parser.add_argument('--example_directory', type=str, default='examples/metabase')
+    parser.add_argument('--doc_directory', type=str, default='evaluation_examples/documents/doc_txt')
+    parser.add_argument('--example_directory', type=str, default='evaluation_examples/examples')
     parser.add_argument('--chunk_size', type=int, default=512)
     parser.add_argument('--chunk_overlap', type=int, default=20)
     parser.add_argument('--topk', type=int, default=4)
@@ -152,19 +152,12 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    # Sample usage: python llama_index_retrieval.py --example_directory examples/metabase --doc_directory doc_txt
+    # Sample usage: python llama_index_retrieval.py --example_directory evaluation_examples/examples/ --doc_directory evaluation_examples/documents/doc_txt/
 
     args = parse_args()
 
     retrieval = LlamaIndexRetrieval(args.doc_directory, args.chunk_size, args.chunk_overlap,
                                     args.embed_model_name_or_path)
-    # all_query_path = []
-    # for init_path in Path(args.example_directory).rglob('init.sh'):
-    #     if init_path.is_file():
-    #         parent_path = init_path.parent
-    #         query_file = parent_path / (parent_path.name + '.json')
-    #         if query_file.exists() and query_file.is_file():
-    #             all_query_path.append(query_file)
     all_examples_path = []
     for domain in ALL_DOMAINS:
         domain_dir = Path(args.example_directory) / domain
