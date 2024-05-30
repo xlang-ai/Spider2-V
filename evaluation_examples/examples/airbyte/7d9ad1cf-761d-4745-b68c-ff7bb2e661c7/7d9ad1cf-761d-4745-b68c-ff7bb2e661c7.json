@@ -46,7 +46,7 @@
                     }
                 ]
             }
-        },        
+        },
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
@@ -63,7 +63,6 @@
                 ]
             }
         }
-
     ],
     "trajectory": "trajectories/",
     "evaluator": {
