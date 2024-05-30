@@ -13,7 +13,7 @@
         "cli+gui",
         "traditional_data_processing"
     ],
-    "action_number": 0,
+    "action_number": 9,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

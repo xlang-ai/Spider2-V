@@ -1,9 +1,9 @@
 {
     "id": "a4773fa9-c715-4293-8774-e99caa9d8e7c",
     "snapshot": "jupyter",
-    "instruction": "Find baby names that appear in all recorded years and sort them in descending order by their total occurrences.",
+    "instruction": "I want to see 2019 products with an above average price, show results in result.csv",
     "source": [
-        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+        "https://www.kaggle.com/code/dillonmyrick/sql-beginner-to-advanced-with-practical-examples/notebook"
     ],
     "related_apps": [
         "chromium",

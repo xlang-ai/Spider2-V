@@ -1,9 +1,0 @@
-In this task, we want to change the data in the source database and sync the existing Airbyte connection to transport the new data to the destination. To complete this:
-1. Switch to the terminal window;
-2. Next, in the terminal, run the following command to retrieve the stream and save the file:
-```
-docker exec -i airbyte-source psql -U postgres <<EOF
-UPDATE table_one SET name='Eg2b IncAp' WHERE id=2;
-EOF
-```
-3. Switch to the Airbyte connection page, click the button "sync" on the right;

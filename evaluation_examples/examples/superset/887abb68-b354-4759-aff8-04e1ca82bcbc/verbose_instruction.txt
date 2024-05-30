@@ -8,16 +8,15 @@ To draw a chart for table flights with resampling so that we have weekly median 
 7. In the new window, drag the "Travel Date" title from left list to the "X-AXIS" box ;
 8. Drag the "Cost" title from left list to the "METRICS" box ;
 9. Click AGGREGATE box;
-10. Select "AVG";
+10. Select "SUM";
 11. Click "SAVE";
-12. Click "CREATE CHART" in the bottom;
-13. Scoll down until "Advanced analytics" appears;
-14. Click "Advanced analytics"
-15. Click "RULE" box;
-16. Select "7 calendar day frequency";
-17. Click "FILL METHOD" box;
-18. Select "Median value";
-19. Click "CREATE CHART" in the bottom;
-20. Click "SAVE" in the top right corner;
-21. Type "resampling" in "CHART NAME" box;
-22. Click "SAVE", and you can see table "resampling" in the main panel.
+12. Scoll down until "Advanced analytics" appears;
+13. Click "Advanced analytics"
+14. Click "RULE" box;
+15. Select "7 calendar day frequency";
+16. Click "FILL METHOD" box;
+17. Select "Median value";
+18. Click "CREATE CHART" in the bottom;
+19. Click "SAVE" in the top right corner;
+20. Type "resampling" in "CHART NAME" box;
+21. Click "SAVE", and you can see table "resampling" in the main panel.

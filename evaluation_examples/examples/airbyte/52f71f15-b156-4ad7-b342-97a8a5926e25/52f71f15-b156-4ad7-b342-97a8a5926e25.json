@@ -1,7 +1,7 @@
 {
     "id": "52f71f15-b156-4ad7-b342-97a8a5926e25",
     "snapshot": "airbyte",
-    "instruction": "There is already an Airbyte connection from Slack to Postgres. Can you help me set up the corresponding Postgres Database with the name of slack-db, import the users data, and build a Big Number chart with the name of 'Slack Members' to count the 'users' in Superset?",
+    "instruction": "There is already an Airbyte connection from Faker to Postgres. Can you help me set up the corresponding Postgres Database with SQLAlchemy URI postgresql://postgres:password@172.17.0.1:2000/postgres, import the users data, and build a Big Number chart with name 'Users' to count the number of 'users' in Superset?",
     "source": [
         "https://airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset"
     ],
@@ -15,7 +15,7 @@
         "gui",
         "data_ingestion_and_integration"
     ],
-    "action_number": 19,
+    "action_number": 21,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",

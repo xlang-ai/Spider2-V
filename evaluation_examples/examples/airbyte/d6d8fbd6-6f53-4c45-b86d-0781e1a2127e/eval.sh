@@ -13,6 +13,12 @@ airbyte_connection=false
 for workspaceid in ${workspaces}; do
     connections=$(curl -X POST http://localhost:8000/api/v1/connections/list -H "Content-Type: application/json" -d "{\"workspaceId\": \"${workspaceid}\"}")
 
+    if [ -f /home/user/projects/airbyte/airbyte-configuration/connections/postgres_to_postgres/state_${workspaceid}.yaml ]; then
+        echo "state file found, succeed."
+    else
+        echo "state file not found, failed."
+    fi
+
     # extract source/destination ids in the current workspace
     declare -a source_ids=($(echo ${connections} | jq -rM ".connections | .[] | .sourceId"))
     declare -a destination_ids=($(echo ${connections} | jq -rM ".connections | .[] | .destinationId"))
@@ -70,6 +76,8 @@ for workspaceid in ${workspaces}; do
 #            echo "Full-refresh-overwrite Connection config, failed."
         fi
     done
+
+
 done
 if [ ${airbyte_connection} = false ] ; then
     echo "Airbyte Connection from source Postgres to destination Postgres, failed"

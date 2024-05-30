@@ -1,9 +1,9 @@
 {
     "id": "de41e397-4e76-450f-ae98-e2a7dd9a6382",
     "snapshot": "jupyter",
-    "instruction": "Find baby names that appear in all recorded years and sort them in descending order by their total occurrences.",
+    "instruction": "Display the number of films in each category, sorted in descending order",
     "source": [
-        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+        "https://www.kaggle.com/code/kapturovalexander/sql-postgresql-for-data-science"
     ],
     "related_apps": [
         "chromium",

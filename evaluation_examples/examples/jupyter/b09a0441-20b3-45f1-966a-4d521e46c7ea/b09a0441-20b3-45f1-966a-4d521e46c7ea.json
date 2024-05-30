@@ -3,7 +3,7 @@
     "snapshot": "jupyter",
     "instruction": "Display the 10 actors whose films rented the most, sorted in descending order",
     "source": [
-        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+        "https://www.kaggle.com/code/kapturovalexander/sql-postgresql-for-data-science"
     ],
     "related_apps": [
         "chromium",

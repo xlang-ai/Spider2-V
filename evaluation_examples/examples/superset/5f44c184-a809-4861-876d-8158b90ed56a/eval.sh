@@ -12,7 +12,7 @@ token=$(curl -X POST "http://localhost:8088/api/v1/security/login" \
     }' | jq -rM ".access_token")
 
 
-slicename=roling_mean
+slicename=rolling_mean
 name=flights
 username=superset
 password=superset

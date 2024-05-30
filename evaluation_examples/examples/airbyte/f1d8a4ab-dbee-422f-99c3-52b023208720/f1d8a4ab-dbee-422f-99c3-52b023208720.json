@@ -16,7 +16,7 @@
         "cli+gui",
         "data_ingestion_and_integration"
     ],
-    "action_number": 3,
+    "action_number": 5,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
