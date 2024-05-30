@@ -52,7 +52,7 @@
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/suprset/03039241-75d5-409d-9676-b1306b17871d/eval.sh",
+            "src": "evaluation_examples/examples/superset/03039241-75d5-409d-9676-b1306b17871d/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },

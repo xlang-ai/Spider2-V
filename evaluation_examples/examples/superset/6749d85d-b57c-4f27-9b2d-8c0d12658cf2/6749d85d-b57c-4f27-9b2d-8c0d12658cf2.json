@@ -49,10 +49,11 @@
     ],
     "trajectory": "trajectories/",
     "evaluator": {
+        "postconfig": [],
         "func": "check_include_exclude",
         "result": {
             "type": "validate_correct_url",
-            "src": "evaluation_examples/examples/suprset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/eval.sh",
+            "src": "evaluation_examples/examples/superset/6749d85d-b57c-4f27-9b2d-8c0d12658cf2/eval.sh",
             "dest": "/home/user/eval.sh",
             "goto_prefix": "https://"
         },

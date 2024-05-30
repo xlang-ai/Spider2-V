@@ -75,28 +75,21 @@ def get_validate_correct_url(env, config: Dict[str, str]):
     @return: the result of the script execution
             
     """
-    print("using url")
     vm_ip = env.vm_ip
     port = 5000
     # download the testing script from remote url to VM
     src, dest = config["src"], config["dest"]
     if src.startswith('http'):
-        print("1-1")
         env.setup_controller._download_setup([{"url": src, "path": dest}])
     else:
-        print("1-2")
         env.setup_controller.setup([{"type": "copyfile_from_host_to_guest", "parameters": {"src": src, "dest": dest}}])
     env.setup_controller._execute_setup(command=["chmod", "a+x", dest])
-    print(2)
+
 
     # execute the script to obtain the output
     script = ["/bin/bash", dest]
     shell = config.get("shell", False)
-    print(3)
     response = requests.post(f"http://{vm_ip}:{port}/execute", json={"command": script, "shell": shell})
-    print("---")
-    print(response.json())
-    print("ok")
 
     if response.status_code == 200:
         result_json = response.json()
