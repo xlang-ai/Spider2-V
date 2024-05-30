@@ -5,7 +5,8 @@
         "port": 2000,
         "db name": "postgres", 
         "user": "postgres",
-        "password": "password"
+        "password": "password",
+        "update method": "Scan Changes with User Defined Cursor"
     },
     "destination Local SQLite": {
         "destination name": "Local SQLite",

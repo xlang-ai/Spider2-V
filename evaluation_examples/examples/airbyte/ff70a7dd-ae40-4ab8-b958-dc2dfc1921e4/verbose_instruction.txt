@@ -24,7 +24,7 @@ Just leave the field `Path` empty, since we will specify it in the dag file.
 11. Click the button "Save" to return. We can see that, there are two connection rows in the main table.
 12. Now, click the Visual Studio Code application icon on the left panel of the desktop.
 13. Select and open the file with path `dags/faker_to_json_dag.py`.
-14. Type in the following codes to overwrite the original snippets:
+14. Type in the following code to overwrite the original snippets:
 ```
 from airflow import DAG
 from airflow.operators.bash import BashOperator

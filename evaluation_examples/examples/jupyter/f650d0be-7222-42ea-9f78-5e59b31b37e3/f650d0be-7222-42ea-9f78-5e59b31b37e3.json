@@ -3,7 +3,7 @@
     "snapshot": "jupyter",
     "instruction": "Find baby names that appear in all recorded years and sort them in descending order by their total occurrences.",
     "source": [
-        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+        "https://www.kaggle.com/code/dillonmyrick/sql-beginner-to-advanced-with-practical-examples/notebook"
     ],
     "related_apps": [
         "chromium",

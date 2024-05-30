@@ -1,7 +1,7 @@
 {
     "id": "60f97b80-cafc-454f-a31c-13bca1c42fa9",
     "snapshot": "airbyte",
-    "instruction": "I need you to sync the given airbyte connection , which transfers data from one PostgreSQL database to another and then use command line interface to retrieve and save the output from the 'cities' stream of it. Please extract the first two columns and save them in a CSV file named 'cities.csv'. Could you complete this task? Remember to add edit permissions for the CSV file.",
+    "instruction": "I need you to sync the given airbyte connection, which transfers data from one PostgreSQL database to another and then retrieve and save the output from the 'cities' stream under the 'public' schema of it. Please extract the columns 'city', 'city_code' with CSV header and save them to a CSV file named 'cities.csv' on the Desktop. Could you complete this task?",
     "source": [
         "https://airbyte.com/tutorials/postgres-replication"
     ],
@@ -23,13 +23,6 @@
             "parameters": {
                 "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/connection.json",
                 "dest": "/home/user/connection.json"
-            }
-        },
-        {
-            "type": "copyfile_from_host_to_guest",
-            "parameters": {
-                "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
-                "dest": "/home/user/Desktop/cities_gold.csv"
             }
         },
         {
@@ -63,7 +56,15 @@
     ],
     "trajectory": "trajectories/",
     "evaluator": {
-        "postconfig": [],
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
+                    "dest": "/home/user/Desktop/cities_gold.csv"
+                }
+            }
+        ],
         "func": "compare_csv",
         "result": {
             "type": "vm_file",
@@ -71,8 +72,8 @@
             "dest": "cities.csv"
         },
         "expected": {
-            "type": "vm_file",
-            "path": "/home/user/Desktop/cities_gold.csv",
+            "type": "local_file",
+            "path": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
             "dest": "cities_gold.csv"
         }
     }

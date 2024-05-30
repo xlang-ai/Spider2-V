@@ -6,4 +6,5 @@ docker exec -i airbyte-source psql -U postgres <<EOF
 UPDATE table_one SET name='Eg2b IncAp' WHERE id=2;
 EOF
 ```
-3. Switch to the Airbyte connection page, click the button "sync" on the right;
+3. Switch to the Airbyte connections page, click the connection "incremental-sync-demo" under the title "Connections";
+4. Click the button "Sync now" on the right;

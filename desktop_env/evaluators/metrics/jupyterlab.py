@@ -195,6 +195,6 @@ def compare_jupyterlab_images(image1_path, image2_path):
     # compare the two histograms
     similarity = cv2.compareHist(H1, H2, 0)
     # import pdb; pdb.set_trace()
-    if similarity > 0.99999: # Account for image differences due to size change
+    if similarity == 1.0: # Account for image differences due to size change
         return 1
     return 0
