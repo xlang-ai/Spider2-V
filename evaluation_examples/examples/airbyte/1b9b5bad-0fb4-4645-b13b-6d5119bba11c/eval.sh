@@ -27,8 +27,8 @@ if [ "${all_fields_present}" = true ]; then
 fi
 
 if [ ${connection_config} = true ] ; then
-    echo "Airbyte connection config JSON file exportion, succeeded"
+    echo "Airbyte connection config JSON file export, succeeded"
 else
-    echo "Airbyte connection config JSON file exportion, failed"
+    echo "Airbyte connection config JSON file export, failed"
     exit 0
 fi
