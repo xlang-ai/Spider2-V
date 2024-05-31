@@ -565,7 +565,6 @@ class PromptAgent:
         #     f.write(json.dumps(messages, indent=4))
 
         # logger.info("PROMPT: %s", messages)
-
         try:
             response = self.call_llm({
                 "model": self.model,
@@ -720,8 +719,6 @@ class PromptAgent:
             top_p = payload["top_p"]
             temperature = payload["temperature"]
 
-            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
-
             mistral_messages = []
 
             for i, message in enumerate(messages):
@@ -760,59 +757,6 @@ class PromptAgent:
                         mistral_messages = [mistral_messages[0]] + mistral_messages[-1:]
                     else:
                         mistral_messages[-1]["content"] = ' '.join(mistral_messages[-1]["content"].split()[:-500])
-                    flag = flag + 1
-
-            try:
-                return response.choices[0].message.content
-            except Exception as e:
-                print("Failed to call LLM: " + str(e))
-                return ""
-            
-        elif self.model == "llama3-70b":
-            messages = payload["messages"]
-            max_tokens = payload["max_tokens"]
-            top_p = payload["top_p"]
-            temperature = payload["temperature"]
-
-            assert self.observation_type in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
-
-            groq_messages = []
-
-            for i, message in enumerate(messages):
-                groq_message = {
-                    "role": message["role"],
-                    "content": ""
-                }
-
-                for part in message["content"]:
-                    groq_message['content'] = part['text'] if part['type'] == "text" else ""
-
-                groq_messages.append(groq_message)
-
-            # The implementation based on Groq API
-            client = Groq(
-                api_key=os.environ.get("GROQ_API_KEY"),
-            )
-
-            flag = 0
-            while True:
-                try:
-                    if flag > 20:
-                        break
-                    logger.info("Generating content with model: %s", self.model)
-                    response = client.chat.completions.create(
-                        messages=groq_messages,
-                        model="llama3-70b-8192",
-                        max_tokens=max_tokens,
-                        top_p=top_p,
-                        temperature=temperature
-                    )
-                    break
-                except:
-                    if flag == 0:
-                        groq_messages = [groq_messages[0]] + groq_messages[-1:]
-                    else:
-                        groq_messages[-1]["content"] = ' '.join(groq_messages[-1]["content"].split()[:-500])
                     flag = flag + 1
 
             try:
@@ -1024,8 +968,6 @@ class PromptAgent:
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
             temperature = payload["temperature"]
-
-            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
 
             groq_messages = []
 
