@@ -73,7 +73,6 @@ class LlamaIndexRetrieval:
             )
 
         # Load vector index
-        cache_storage_for_new_index = False
         indices_dict = dict.fromkeys(APPS_TO_WEBSITES.keys())
 
         with open(f'{doc_directory}/webpage_title.json', 'r') as f:
@@ -100,10 +99,7 @@ class LlamaIndexRetrieval:
                 index = VectorStoreIndex(nodes, storage_context=storage_context, show_progress=True)
                 index.set_index_id(app)
                 indices_dict[app] = index
-                cache_storage_for_new_index = True
-
-        if cache_storage_for_new_index:
-            storage_context.persist(persist_dir=f'{doc_directory}/{storage_name}')
+                storage_context.persist(persist_dir=f'{doc_directory}/{storage_name}')
 
         self.indices_dict = indices_dict
         self.chunk_size = chunk_size
