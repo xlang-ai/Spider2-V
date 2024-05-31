@@ -1,0 +1,5 @@
+To delete the chart Mychart right now, we can follow these steps:
+1. In the opened web page, select "Charts" in the top menu;
+2. Click the action icon 'delete' for the chart "Mychart";
+3. In the new pop-up window, type "DELETE" in the typing box;
+4. Click "DELETE" buttom and back to the main panel;
