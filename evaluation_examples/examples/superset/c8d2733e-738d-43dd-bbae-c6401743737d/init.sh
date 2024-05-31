@@ -37,22 +37,3 @@ function start_superset_server() {
 }
 
 start_superset_server
-
-function create_databoard() {
-    cd /home/user/
-    token=$(curl -X POST "http://localhost:8088/api/v1/security/login" \
-        -H "Content-Type: application/json" \
-        -d '{
-            "username": "admin",
-            "password": "admin",
-            "provider": "db"
-        }' | jq -rM ".access_token")
-
-    curl -X POST "http://localhost:8088/api/v1/dashboard/import/" \
-    -H "Authorization: Bearer ${token}" \
-    -H "Content-Type: multipart/form-data" \
-    -F "formData=@/home/user/dashboard_export_20240517T153219.zip" \
-    -F "overwrite=true" -F "passwords={\"databases/Flights.yaml\": \"superset\", \"databases/Games.yaml\": \"superset\"}"
-}
-
-create_databoard
