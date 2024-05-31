@@ -309,7 +309,7 @@ class PromptAgent:
         return messages
 
 
-    def predict(self, instruction: str, verbose_instruction: str, obs: Dict) -> List:
+    def predict(self, instruction: str, verbose_instruction: str, context: str, obs: Dict) -> List:
         """
         Predict the next action(s) based on the current observation.
         """
@@ -337,6 +337,18 @@ class PromptAgent:
                     {
                         "type": "text",
                         "text": step_by_step_message
+                    },
+                ]
+            })
+
+        if context is not None:
+            context_message = "We also retrieve relevant documentation from the web to help you with the task:\n{}".format(context)
+            messages.append({
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": context_message
                     },
                 ]
             })
@@ -446,9 +458,9 @@ class PromptAgent:
             })
 
         # action execution result of previous turn
-        # if len(self.actions) > 0: # if has previous action list
-        #     infos = obs.get('infos', [])
-        #     self.add_action_infos(messages, self.actions[-1], infos)
+        if len(self.actions) > 0: # if has previous action list
+            infos = obs.get('infos', [])
+            self.add_action_infos(messages, self.actions[-1], infos)
 
         # tackle the current observation
         if self.observation_space in ["screenshot", "screenshot_a11y_tree"]:

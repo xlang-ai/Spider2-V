@@ -85,7 +85,7 @@ function install_postgresql() {
     echo $PASSWORD | sudo -S cp ${hba_file} ${hba_file}.bak
     echo $PASSWORD | sudo -S bash -c "sudo sed -i 's/local[[:space:]]\+all[[:space:]]\+all[[:space:]]\+peer/local   all             all                                     scram-sha-256/' ${hba_file}"
     echo $PASSWORD | sudo -S bash -c "sudo sed -i 's/local[[:space:]]\+replication[[:space:]]\+all[[:space:]]\+peer/local   replication     all                                     scram-sha-256/' ${hba_file}"
-    echo $PASSWORD | sudo -S bash -c "echo \"host    all             all             172.16.0.0/14           scram-sha-256\" >> ${hba_file}"
+    echo $PASSWORD | sudo -S bash -c "echo \"host    all             all             172.0.0.0/8             scram-sha-256\" >> ${hba_file}"
     sudo systemctl restart postgresql
     sudo systemctl enable postgresql
 }

@@ -88,6 +88,9 @@ def config() -> argparse.Namespace:
     parser.add_argument("--stop_token", type=str, default=None)
 
     # example config
+    parser.add_argument("--rag", action='store_true', help="Whether to use RAG for the agent")
+    parser.add_argument("--rag_topk", type=int, default=4, help="Top k to use for RAG")
+    parser.add_argument("--rag_filename", type=str, default="retrieved_chunk_size_512_chunk_overlap_20_topk_4_embed_bge-large-en-v1.5.txt", help="RAG retrieved context file name")
     parser.add_argument("--verbose_instruction", action="store_true", help="Whether to use verbose instruction")
     parser.add_argument("--domains", choices=ALL_DOMAINS + ['all'], nargs='+', default=["all"], help="Tool names list to filter examples")
     parser.add_argument("--test_all_meta_path", type=str, default=os.path.join('evaluation_examples', 'test_all.json'), help="JSON dict containing example ids to run")
@@ -116,11 +119,23 @@ def get_verbose_instruction(config_path: str) -> str:
     raise ValueError(f"Verbose instruction not found under {os.path.dirname(config_path)}")
 
 
+def get_retrieved_context(config_path: str, topk: int = 4, file_name: str = "retrieved_chunk_size_512_chunk_overlap_20_topk_4_embed_bge-large-en-v1.5.txt") -> str:
+    context_path = os.path.join(os.path.dirname(config_path), file_name)
+    if os.path.exists(context_path):
+        with open(context_path, "r", encoding="utf-8") as f:
+            context = f.read().strip()
+        splits = context.split("Documentation Source:")
+        if len(splits) > topk + 1: # the first is ""
+            return "Documentation Source:".join(splits[:topk + 1])
+        return context
+    raise ValueError(f"Retrieved context not found under {os.path.dirname(config_path)}")
+
+
 def test(args: argparse.Namespace, test_all_meta: dict) -> None:
     scores = {}
 
     logger.info("Args: %s", args)
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     env = DesktopEnv(
         path_to_vm=args.path_to_vm,
         snapshot_name=args.snapshot_name,
@@ -150,6 +165,9 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
         if args.verbose_instruction: example['verbose_instruction'] = get_verbose_instruction(config_file)
         else: example['verbose_instruction'] = None
 
+        if args.rag: example['context'] = get_retrieved_context(config_file, args.rag_topk, file_name=args.rag_filename)
+        else: example['context'] = None
+
         root_logger = logging.getLogger()
         example_handler = logging.FileHandler(os.path.join(result_dir, "result-{:}.log".format(datetime_str)), encoding="utf-8")
         example_handler.setLevel(logging.INFO)
@@ -165,7 +183,7 @@ def test(args: argparse.Namespace, test_all_meta: dict) -> None:
             logger.info(f"[Verbose instruction]: {example['verbose_instruction']}")
         else:
             logger.info(f"[Instruction]: {example['instruction']}")
-        
+
         # example start running
         try:
             score = lib_run_single.run_single_example(agent, env, example, result_dir, args)
@@ -203,7 +221,7 @@ def get_result_dir(args):
     if args.verbose_instruction:
         result_dir = "verbose_" + result_dir
     # result_dir += '_actioninfo'
-    result_dir += f"_temp{args.temperature}_traj{args.max_trajectory_length}"
+    # result_dir += f"_temp{args.temperature}_traj{args.max_trajectory_length}"
     return os.path.join(args.result_dir, result_dir)
 
 
@@ -215,7 +233,7 @@ def get_examples(args, result_dir, easy_first: bool = True, exclude_account: boo
     - args.domains (List[str]): if not contain "all", only include examples under the specified domain/tool
     - easy_first (bool): if True, include examples that are easy to run first (smaller action_number)
     - exclude_account (bool): if True, exclude examples that are related to real accounts
-    
+
     # The returned dict for each example in the List containing:
         - id: example id
         - domain: example domain, a.k.a., professional tool name
@@ -311,7 +329,7 @@ if __name__ == '__main__':
 
     result_dir = get_result_dir(args)
     examples = get_examples(args, result_dir)
-    
+
     logger.info(f"Old result before running:\n{get_result(result_dir)}")
 
     test(args, examples)

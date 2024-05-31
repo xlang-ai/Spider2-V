@@ -23,7 +23,7 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
     a11y_tree = os.path.join(result_dir, "a11y_trees")
 
     while not done and step_idx < args.max_steps:
-        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], obs)
+        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], example['context'], obs)
         infos = []
         for action in actions:
             # Capture the timestamp before executing the action
