@@ -62,3 +62,4 @@ browsergym-workarena
 google-cloud-bigquery-connection
 groq
 llama_index
+browsergym-workarena
