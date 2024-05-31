@@ -1,0 +1,276 @@
+Documentation Source:
+docs.astronomer.io/astro/first-dag-github-actions.txt
+
+Documentation Title:
+Run your first DAG with GitHub Actions | Astronomer Documentation
+
+Documentation Content:
+If you don't see the
+Deploy your first DAG
+option your Deployment page, click
+Deploy DAGs ?
+to open it.
+Step 2: Fork the example project repository
+​
+This repository contains an
+Astro project
+, which is a collection of files required for running Airflow on Astro. An Astro project includes folders for DAG files, plugins, dependencies, and more. Specifically, this Astro project includes an example DAG which, when you run it, retrieves a list of countries from an Astro S3 data store and filters the list through a data transform.
+Open
+the example project repository
+in a new tab or browser window.
+Choose an owner
+from your available options.
+Keep the selection to
+Copy the
+main
+branch only
+.
+Click
+Create fork
+.
+Step 3: Set up the GitHub Actions Workflow
+​
+This example repository also includes a pre-configured
+Astronomer deploy action
+, which you can use to set up a CI/CD deployment pipeline. In this step, you'll configure the GitHub action to deploy code from your forked repository to Astro and run the workflow.
+Open two browser windows: one with the
+Astro UI
+, and one with your forked GitHub repository.
+In the Astro UI, choose the Deployment where you want to deploy your Astro project.
+In GitHub, open your forked repository and click
+Actions
+.
+Click
+I understand my workflows, go ahead and enable them.
+The
+workflow
+is a script that uses API tokens to deploy DAGs from a GitHub repository to your Deployment, without requiring any local development.
+Choose the
+Astronomer CI - Deploy Code
+workflow.
+Click
+Run workflow
+. This opens a modal to enter information about your Astro Deployment.
+In the Astro UI, copy your
+Deployment ID
+from the Deployment information.
+In GitHub, paste your
+Deployment ID
+.
+In the Astro UI, click
+API Tokens
+.
+Click
++ API Token
+to create a new API token, and give the token a
+Name
+and an
+Expiration
+.
+Click
+Create API Token
+, then copy the token that appears.
+warning
+For security reasons, this is the only opportunity you have to copy your API token. After you exit the modal window, you cannot copy it again.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/run-first-dag.txt
+
+Documentation Title:
+Run your first DAG on Astro | Astronomer Documentation
+
+Documentation Content:
+Run your first DAG on Astro | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Get started
+Start a trial
+Run your first DAG
+With GitHub Actions
+With Astro CLI
+Log in to Astro
+Migrate to Astro
+Install from Azure Marketplace
+Develop
+Deploy code
+Manage Deployments
+Automation & CI/CD
+Observability
+Administration
+Release notes
+Best practices
+Reference
+Astro API
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Get started
+Run your first DAG
+On this page
+Run your first DAG on Astro
+Astro is the industry's leading managed service for Apache Airflow.
+You can quickly learn how Astro works by running an Apache Airflow DAG with either
+the Astro CLI
+or by using
+GitHub Actions
+. Either tutorial takes about 15 minutes. They each showcase different paths available for DAG development, CI/CD workflows, and code deployment options.
+You'll learn how to:
+Authenticate and log in to Astro.
+Create a Deployment.
+Deploy DAGs to Astro with either the Astro CLI or GitHub Actions.
+Trigger a run of an example DAG.
+Choose a tutorial
+​
+If you prefer to develop on your local machine and use command line tools, follow the steps in
+Run your first DAG with the Astro CLI
+.
+If you can't install additional tools on your current machine or you prefer a no-code workflow, follow the steps in
+Run your first DAG with GitHub Actions
+, where you can see an example of a CI/CD workflow.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Start a trial
+Next
+With GitHub Actions
+Choose a tutorial
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/first-dag-github-actions.txt
+
+Documentation Title:
+Run your first DAG with GitHub Actions | Astronomer Documentation
+
+Documentation Content:
+A
+GitHub account
+.
+info
+If you're on your organization's network and can't access Astro, make a request to allowlist the following domains on your network:
+https://cloud.astronomer.io/
+https://api.astronomer.io/
+https://images.astronomer.cloud/
+https://auth.astronomer.io/
+https://updates.astronomer.io/
+https://install.astronomer.io/
+https://install.astronomer.io/
+https://astro-<organization-short-name>.datakin.com/
+https://<organization-short-name>.astronomer.run/
+Step 1: Create a Deployment
+​
+An Astro
+Deployment
+is an instance of Apache Airflow that is powered by all core Airflow components, including a webserver, scheduler, and one or more workers. You deploy DAGs to a Deployment, and you can have one or more Deployments within your Workspace.
+Log in to the
+Astro UI
+.
+On the
+Deployments
+page, click
++ Deployment
+.
+In the
+Name
+field, enter a name for your Deployment. You can leave the other fields at their default values. This creates a basic Deployment on a standard Astronomer-hosted cluster. You can delete the Deployment after you finish testing your example DAG runs.
+Click
+Create Deployment
+.
+A confirmation message appears indicating that the Deployment status is
+Creating
+until all underlying components in the Deployment are healthy. During this time, the Airflow UI is unavailable and you can't deploy code or modify Deployment settings. When the Deployment is ready, the status changes to
+Healthy
+.
+For more information about possible Deployment health statuses, see
+Deployment health
+. Or, to learn more about how to customize your Deployment settings, see
+Deployment settings
+.
+tip
+Astro contains an in-product tutorial that guides you through Steps 2-4 of this document and includes shortcut buttons for some key Astro actions. If you prefer to finish the quickstart this way, open your
+Deployments
+page in the Astro UI and choose your Deployment. In the
+Deploy your first DAG
+section, click
+With GitHub Actions
+and follow the steps in the window that appears.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/managing-airflow-code.txt
+
+Documentation Title:
+Manage Airflow code | Astronomer Documentation
+
+Documentation Content:
+The ideal setup is to keep one directory and repository for each project. This means that you can use a version control tool such as Github or Bitbucket to package everything together.
+Astronomer uses the following project structure:
+.
+├── dags
+# Folder where all your DAGs go
+│   ├── example-dag.py
+│   └── redshift_transforms.py
+├── Dockerfile
+# For Astronomer's Docker image and runtime overrides
+├── include
+# For any scripts that your DAGs might need to access
+│   └── sql
+│       └── transforms.sql
+├── packages.txt
+# For OS-level packages
+├── plugins
+# For any custom or community Airflow plugins
+│   └── example-plugin.py
+└── requirements.txt
+# For any Python packages
+To create a project with this structure automatically, install the
+Astro CLI
+and initialize a project with
+astro dev init
+.
+If you are not running Airflow with Docker or have different requirements for your organization, your project structure might look different. Choose a structure that works for your organization and keep it consistent so that anyone working with Airflow can easily transition between projects without having to re-learn a new structure.
+When to separate projects
+​
+The most common setup for Airflow projects is to keep all code for a given deployment in the same repository. However, there are some circumstances where it makes sense to separate DAGs into multiple projects. In these scenarios, it's best practice to have a separate Airflow deployment for each project. You might implement this project structure for the following reasons:
+Access control: Role-based access control (RBAC) should be managed at the Airflow Deployment level and not at the DAG level. If Team A and Team B should only have access to their own team's DAGs, it would make sense to split them up into two projects and deployments.
+Infrastructure considerations: If you have a set of DAGs that are well suited to the Kubernetes executor and another set that are well suited to the Celery executor, you may want to separate them into two different projects that feed Airflow deployments with different infrastructure. See
+Configure Deployment resources
+.
+
+
+

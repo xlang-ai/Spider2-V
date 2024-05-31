@@ -1,0 +1,386 @@
+Documentation Source:
+www.metabase.com/learn/administration/metabase-api.txt
+
+Documentation Title:
+Working with the Metabase API
+
+Documentation Content:
+Add a data source
+You can add a new database using the
+POST /api/database/
+endpoint, and validate that database’s connection details using the
+/api/setup/validate
+endpoint. Once you’ve connected the database to your Metabase instance, you can rescan the database and update the schema metadata. You can even add our trusty
+Sample Database
+as a new database to your instance with
+POST /api/database/sample_database
+.
+Here’s an example database creation call for a
+Redshift
+database.
+curl
+-s
+-X
+POST
+\
+-H
+"Content-type: application/json"
+\
+-H
+'x-api-key: YOUR_API_KEY'
+\
+http://localhost:3000/api/database
+\
+-d
+'{
+        "engine": "redshift",
+        "name": "Redshift",
+        "details": {
+            "host": "redshift.aws.com",
+            "port": "5432",
+            "db": "dev",
+            "user": "root",
+            "password": "password"
+        }
+    }'
+Set up users, groups, and permissions
+You can use the
+/api/user
+endpoints to create, update, and disable users, or the
+/api/permissions
+endpoints to set up groups or
+add users to them
+. Here’s an example curl command to create a user:
+curl
+-s
+"http://localhost:3000/api/user"
+\
+-H
+'Content-Type: application/json'
+\
+-H
+'x-api-key: YOUR_API_KEY'
+\
+-d
+'{
+    "first_name":"Basic",
+    "last_name":"Person",
+    "email":"basic@somewhere.com",
+    "password":"Sup3rS3cure_:}"
+}'
+Generate reports
+In Metabase, “reports” are referred to as
+dashboards
+. You can interact with dashboards using the
+/api/dashboard
+endpoint. You can
+create a new dashboard
+with
+POST /api/dashboard/
+, and
+add a saved question to a dashboard
+with [
+POST/api/dashboard/:id/cards
+].
+Useful endpoints
+The links in the Endpoint column below will take you to you to the first action available for that endpoint, which alphabetically is usually the DELETE action.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.txt
+
+Documentation Title:
+Setting up Metabase
+
+Documentation Content:
+We won’t be able to connect to your database without it, but you’d like to deal with all of this later, that’s okay: just click
+I’ll add my data later
+. Metabase comes with a
+Sample Database
+that you can play around with to get a feel for how Metabase works.
+If you’re ready to connect, here’s what you’ll need:
+The
+hostname
+of the server where your database lives
+The
+port
+the database server uses
+The
+database name
+The
+username
+you use for the database
+The
+password
+you use for the database
+If you don’t have this information handy, the person responsible for administering the database should have it.
+Connect to your database
+Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click
+Next
+.
+For more on connecting to databases, see
+Adding and managing databases
+.
+Usage data preferences
+One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:
+Metabase never collects anything about your data or question results.
+All collection is completely anonymous.
+Collection can be turned off at any point in your admin settings.
+If you’re ready to start using Metabase, go ahead and click
+Next
+.
+Staying in touch
+At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!
+Once you’re done here simply follow the link to
+Take me to Metabase
+. And if you decided to skip the newsletter sign-up, it’s cool, we still like you :)
+Getting started with Metabase
+For a tutorial on getting up and running with questions and dashboards, head over to
+Learn Metabase
+.
+If you’d like more technical resources to set up your data stack with Metabase, connect with a
+Metabase Expert
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/serialization.txt
+
+Documentation Title:
+Serialization: preloading dashboards in a new Metabase instance
+
+Documentation Content:
+#!/bin/sh
+ADMIN_EMAIL
+=
+${
+MB_ADMIN_EMAIL
+:-
+admin
+@metabase.local
+}
+ADMIN_PASSWORD
+=
+${
+MB_ADMIN_PASSWORD
+:-
+Metapass123
+}
+METABASE_HOST
+=
+${
+MB_HOSTNAME
+}
+METABASE_PORT
+=
+${
+MB_PORT
+:-
+3000
+}
+echo
+"⌚︎ Waiting for Metabase to start"
+while
+(!
+curl
+-s
+-m
+5 http://
+${
+METABASE_HOST
+}
+:
+${
+METABASE_PORT
+}
+/api/session/properties
+-o
+/dev/null
+)
+;
+do
+sleep
+5
+;
+done
+echo
+"😎 Creating admin user"
+SETUP_TOKEN
+=
+$(
+curl
+-s
+-m
+5
+-X
+GET
+\
+-H
+"Content-Type: application/json"
+\
+http://
+${
+METABASE_HOST
+}
+:
+${
+METABASE_PORT
+}
+/api/session/properties
+\
+| jq
+-r
+'.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/serialization.txt
+
+Documentation Title:
+Serialization: preloading dashboards in a new Metabase instance
+
+Documentation Content:
+["setup-token"]'
+)
+MB_TOKEN
+=
+$(
+curl
+-s
+-X
+POST
+\
+-H
+"Content-type: application/json"
+\
+http://
+${
+METABASE_HOST
+}
+:
+${
+METABASE_PORT
+}
+/api/setup
+\
+-d
+'{
+    "token": "'
+${
+SETUP_TOKEN
+}
+'",
+    "user": {
+        "email": "'
+${
+ADMIN_EMAIL
+}
+'",
+        "first_name": "Metabase",
+        "last_name": "Admin",
+        "password": "'
+${
+ADMIN_PASSWORD
+}
+'"
+    },
+    "prefs": {
+        "allow_tracking": false,
+        "site_name": "Metawhat"
+    }
+}'
+| jq
+-r
+'.id'
+)
+echo
+-e
+"
+\n
+👥 Creating some basic users: "
+curl
+-s
+"http://
+${
+METABASE_HOST
+}
+:
+${
+METABASE_PORT
+}
+/api/user"
+\
+-H
+'Content-Type: application/json'
+\
+-H
+"X-Metabase-Session:
+${
+MB_TOKEN
+}
+"
+\
+-d
+'{"first_name":"Basic","last_name":"User","email":"basic@somewhere.com","login_attributes":{"region_filter":"WA"},"password":"'
+${
+ADMIN_PASSWORD
+}
+'"}'
+curl
+-s
+"http://
+${
+METABASE_HOST
+}
+:
+${
+METABASE_PORT
+}
+/api/user"
+\
+-H
+'Content-Type: application/json'
+\
+-H
+"X-Metabase-Session:
+${
+MB_TOKEN
+}
+"
+\
+-d
+'{"first_name":"Basic 2","last_name":"User","email":"basic2@somewhere.com","login_attributes":{"region_filter":"CA"},"password":"'
+${
+ADMIN_PASSWORD
+}
+'"}'
+echo
+-e
+"
+\n
+👥 Basic users created!"
+Save the above code as
+create_users.sh
+, and make it executable:
+chmod
++x create_users.sh
+Then run:
+MB_HOSTNAME
+=
+localhost
+MB_PORT
+=
+5001 ./create_users.sh
+With your metabase-source instance up, and your users created, open up
+http://localhost:5001
+and sign in as the admin user you created.
+
+
+

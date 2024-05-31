@@ -1,0 +1,558 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.txt
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+Click
+Overview > Sensors
+.
+Click the sensor you want to test.
+Click the
+Test Sensor
+button, located near the top right corner of the page.
+You'll be prompted to provide a cursor value. You can use the existing cursor for the sensor (which will be prepopulated) or enter a different value. If you're not using cursors, leave this field blank.
+Click
+Evaluate
+to fire the sensor. A window containing the result of the evaluation will display, whether it's run requests, a skip reason, or a Python error:
+If the run was successful, then for each produced run request, you can open the launchpad pre-scaffolded with the config produced by that run request. You'll also see a new computed cursor value from the evaluation, with the option to persist the value.
+Via the CLI
+#
+To quickly preview what an existing sensor will generate when evaluated, run the following::
+dagster sensor preview my_sensor_name
+Via Python
+#
+To unit test sensors, you can directly invoke the sensor's Python function. This will return all the run requests yielded by the sensor. The config obtained from the returned run requests can be validated using the
+validate_run_config
+function:
+from
+dagster
+import
+validate_run_config
+@sensor
+(
+job
+=
+log_file_job
+)
+def
+sensor_to_test
+(
+)
+:
+yield
+RunRequest
+(
+run_key
+=
+"foo"
+,
+run_config
+=
+{
+"ops"
+:
+{
+"process_file"
+:
+{
+"config"
+:
+{
+"filename"
+:
+"foo"
+}
+}
+}
+}
+,
+)
+def
+test_sensor
+(
+)
+:
+for
+run_request
+in
+sensor_to_test
+(
+)
+:
+assert
+validate_run_config
+(
+log_file_job
+,
+run_request
+.
+run_config
+)
+Notice that since the context argument wasn't used in the sensor, a context object doesn't have to be provided. However, if the context object
+is
+needed, it can be provided via
+build_sensor_context
+. Consider again the
+my_directory_sensor_cursor
+example:
+@sensor
+(
+job
+=
+log_file_job
+)
+def
+my_directory_sensor_cursor
+(
+context
+)
+:
+last_mtime
+=
+float
+(
+context
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.txt
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+from
+dagster
+import
+build_sensor_context
+,
+validate_run_config
+def
+test_process_new_users_sensor
+(
+)
+:
+class
+FakeUsersAPI
+:
+def
+fetch_users
+(
+self
+)
+-
+>
+List
+[
+str
+]
+:
+return
+[
+"1"
+,
+"2"
+,
+"3"
+]
+context
+=
+build_sensor_context
+(
+)
+run_requests
+=
+process_new_users_sensor
+(
+context
+,
+users_api
+=
+FakeUsersAPI
+(
+)
+)
+assert
+len
+(
+run_requests
+)
+==
+3
+Monitoring sensors in the Dagster UI
+#
+Using the UI, you can monitor and operate sensors. The UI provides multiple views that help with observing sensor evaluations, skip reasons, and errors.
+To view all sensors, navigate to
+Overview > Sensors
+. Here, you can start and stop sensors, and view their frequency, last tick, and last run:
+Click on any sensor to
+test the sensor
+, monitor all sensor evaluations on a timeline, and view a table of runs launched by the sensor.
+Run status sensors
+#
+If you want to act on the status of a job run, Dagster provides a way to create a sensor that reacts to run statuses. You can use
+run_status_sensor
+with a specified
+DagsterRunStatus
+to decorate a function that will run when the given status occurs. This can be used to launch runs of other jobs, send alerts to a monitoring service on run failure, or report a run success.
+Here is an example of a run status sensor that launches a run of
+status_reporting_job
+if a run is successful:
+@run_status_sensor
+(
+run_status
+=
+DagsterRunStatus
+.
+SUCCESS
+,
+request_job
+=
+status_reporting_job
+,
+)
+def
+report_status_sensor
+(
+context
+)
+:
+# this condition prevents the sensor from triggering status_reporting_job again after it succeeds
+if
+context
+.
+dagster_run
+.
+job_name
+!=
+status_reporting_job
+.
+name
+:
+run_config
+=
+{
+"ops"
+:
+{
+"status_report"
+:
+{
+"config"
+:
+{
+"job_name"
+:
+context
+.
+dagster_run
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.txt
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+join
+(
+MY_DIRECTORY
+,
+filename
+)
+if
+os
+.
+path
+.
+isfile
+(
+filepath
+)
+:
+yield
+RunRequest
+(
+run_key
+=
+filename
+,
+run_config
+=
+RunConfig
+(
+ops
+=
+{
+"process_file"
+:
+FileConfig
+(
+filename
+=
+filename
+)
+}
+)
+,
+)
+This sensor iterates through all the files in
+MY_DIRECTORY
+and yields a
+RunRequest
+for each file. Note that despite the
+yield
+syntax, the function will run to completion before any runs are submitted.
+To write a sensor that materializes assets, you can
+build a job that materializes assets
+:
+asset_job
+=
+define_asset_job
+(
+"asset_job"
+,
+"*"
+)
+@sensor
+(
+job
+=
+asset_job
+)
+def
+materializes_asset_sensor
+(
+)
+:
+yield
+RunRequest
+(
+.
+.
+.
+)
+Once a sensor is added to a
+Definitions
+object with the job it yields a
+RunRequest
+for, it can be started and will start creating runs. You can start or stop sensors in the Dagster UI, or by setting the default status to
+DefaultSensorStatus.RUNNING
+in code:
+@sensor
+(
+job
+=
+asset_job
+,
+default_status
+=
+DefaultSensorStatus
+.
+RUNNING
+)
+def
+my_running_sensor
+(
+)
+:
+.
+.
+.
+If you manually start or stop a sensor in the UI, that will override any default status that is set in code.
+Once your sensor is started, if you're running a
+Dagster daemon
+as part of your deployment, the sensor will begin executing immediately without needing to restart the dagster-daemon process.
+Idempotence and cursors
+#
+When instigating runs based on external events, you usually want to run exactly one job run for each event.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.txt
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+cursor
+)
+if
+context
+.
+cursor
+else
+0
+max_mtime
+=
+last_mtime
+for
+filename
+in
+os
+.
+listdir
+(
+MY_DIRECTORY
+)
+:
+filepath
+=
+os
+.
+path
+.
+join
+(
+MY_DIRECTORY
+,
+filename
+)
+if
+os
+.
+path
+.
+isfile
+(
+filepath
+)
+:
+fstats
+=
+os
+.
+stat
+(
+filepath
+)
+file_mtime
+=
+fstats
+.
+st_mtime
+if
+file_mtime
+<=
+last_mtime
+:
+continue
+# the run key should include mtime if we want to kick off new runs based on file modifications
+run_key
+=
+f"
+{
+filename
+}
+:
+{
+file_mtime
+}
+"
+run_config
+=
+{
+"ops"
+:
+{
+"process_file"
+:
+{
+"config"
+:
+{
+"filename"
+:
+filename
+}
+}
+}
+}
+yield
+RunRequest
+(
+run_key
+=
+run_key
+,
+run_config
+=
+run_config
+)
+max_mtime
+=
+max
+(
+max_mtime
+,
+file_mtime
+)
+context
+.
+update_cursor
+(
+str
+(
+max_mtime
+)
+)
+This sensor uses the
+context
+argument. To invoke it, we need to provide one:
+from
+dagster
+import
+build_sensor_context
+def
+test_my_directory_sensor_cursor
+(
+)
+:
+context
+=
+build_sensor_context
+(
+cursor
+=
+"0"
+)
+for
+run_request
+in
+my_directory_sensor_cursor
+(
+context
+)
+:
+assert
+validate_run_config
+(
+log_file_job
+,
+run_request
+.
+run_config
+)
+Testing sensors with resources
+#
+For sensors which utilize
+resources
+, you can provide the necessary resources when invoking the sensor function.
+Below is a test for the
+process_new_users_sensor
+that we defined in the
+Using resources in sensors
+section, which uses the
+users_api
+resource.
+
+
+

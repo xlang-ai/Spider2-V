@@ -1,0 +1,211 @@
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.txt
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+Next, summarize the count of rows and group by Product -> Category.
+Click
+Visualize
+, and Metabase will present the data as a bar chart:
+Bar chart settings
+To customize the chart, click on the
+gear
+icon at the bottom left of the chart to open the settings sidebar, within the settings, you’ll find the following tabs:
+Data
+Display
+Axes
+Data
+Here we can format and style our bar chart by clicking the
+...
+under Y-axis.
+To change bar colors, click the color swatch and choose from the palette.
+Customize your chart in the
+Formatting tab
+by adjusting numbers, separators, decimals, and scale. You can also add Prefix/Suffix as needed. In the
+Style tab
+, select colors, modify labels, choose a chart type (line, area, or bar), and position the Y-axis according to your chart preferences.
+Display settings
+In the Settings > Display section, you can customize your chart in several ways:
+Add a goal line
+This specifies where you want the values to be. Metabase can
+alert
+you when the values exceed (or drop below) that goal. For example, you can add a goal line at 5500 and name it ‘Arbitrary Sales Goal’.
+Show values
+Toggling on ‘Show values’ places the count values above each column.
+Add a trend line
+When your data is summarized and grouped by a datetime field, you can add a trend lie. The trend line shows the general direction that your data is heading in over time. To add a trend line, simply toggle on the ‘Trend line’ option.
+Stacking options
+When creating bar or area charts with multiple series, you can choose how the series are displayed with the stacking options. You can choose not to stack the series, stack them, or stack them at 100%.
+We can also set the display to a
+stacked bar chart
+, which we’ll get into in a bit.
+Axes
+Select
+Axes
+in the
+Settings sidebar
+.
+Here we can specify how we want our table organized.
+Label
+Here we can hide or customize axes labels.
+Show lines and marks
+With the
+Show lines and marks
+options we can change the way the categories and quantities are represented on each axis.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/line-charts.txt
+
+Documentation Title:
+Guide to line charts
+
+Documentation Content:
+How to create a line chart
+Let’s take a look at the
+Orders
+table in the
+Sample Database
+that ships with Metabase. From the main navigation bar, click on
++ New
+>
+Question
+, which will take you to Metabase’s query builder. Choose
+Raw Data
+>
+Sample Database
+, then pick the
+Orders
+table. Click
+Visualize
+, then click the
+Visualization button
+in the bottom right to bring up the
+Visualization sidebar
+.
+Let’s start with how
+not
+to create a line chart. If you select
+line chart
+, Metabase will present you with an empty line chart.
+Metabase can’t read minds (yet), so it doesn’t know which columns from the
+Orders
+table to use for the x and y axes. To create a line chart, you’ll need to pick a metric for Metabase to plot over time. For example, you could show order totals over time by setting the x axis to
+created_at
+and the y axis to
+total
+. Metabase will automatically plot the line chart:
+That’s technically a line chart, but it looks more like the cardiograph of a startled hummingbird, and that’s even after Metabase has truncated the results shown. (If you hover over the gray warning triangle in the upper right, you’ll see that Metabase has only plotted 2,000 rows.)
+To make the chart more legible, we can summarize the data, so each point on the line chart is an aggregate of rows—“buckets” of records. (It’s much more common to plot unaggregated rows in visualizations like
+pin maps
+, or a
+scatterplot
+, e.g., to show each product plotted by price and rating.)
+As an example of an aggregated metric, let’s plot the sum of order totals for each month. Click on the green
+Summarize button
+to pull up the
+Summarize sidebar
+. Metabase defaults to counting the records, but we’re not interested in the number of orders, so we’ll click on
+Count
+and change it to
+Sum of
+and select the
+Total
+column from
+Order
+.
+Next, we’ll want to group our order totals by month.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.txt
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/line-bar-and-area-charts.txt
+
+Documentation Title:
+Line, bar, and area charts
+
+Documentation Content:
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+

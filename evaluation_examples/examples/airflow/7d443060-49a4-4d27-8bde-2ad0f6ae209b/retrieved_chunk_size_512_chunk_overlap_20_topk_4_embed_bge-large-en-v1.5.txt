@@ -1,0 +1,382 @@
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.txt
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+For example, to run
+airflow dags test
+on the DAG
+my_dag
+for the execution date of
+2023-01-29
+run:
+astro dev run dags
+test
+my_dag
+'2023-01-29'
+The Astro CLI
+​
+The Astro CLI includes a suite of commands to help simplify common testing workflows. See
+Test your Astro project locally
+.
+Test DAGs in a CI/CD pipeline
+​
+You can use CI/CD tools to test and deploy your Airflow code. By installing the Astro CLI into your CI/CD process, you can test your DAGs before deploying them to a production environment. See
+set up CI/CD
+for example implementations.
+info
+Astronomer customers can use the Astro GitHub integration, which allows you to automatically deploy code from a GitHUb repository to an Astro deployment, viewing Git metadata in the Astro UI. See
+Deploy code with the Astro GitHub integration
+.
+Add test data or files for local testing
+​
+Use the
+include
+folder of your Astro project to store files for testing locally, such as test data or a dbt project file. The files in your
+include
+folder are included in your deploys to Astro, but they are not parsed by Airflow. Therefore, you don't need to specify them in
+.airflowignore
+to prevent parsing.
+If you're running Airflow locally, apply your changes by refreshing the Airflow UI.
+Debug interactively with dag.test()
+​
+The
+dag.test()
+method allows you to run all tasks in a DAG within a single serialized Python process, without running the Airflow scheduler. The
+dag.test()
+method lets you iterate faster and use IDE debugging tools when developing DAGs.
+This functionality replaces the deprecated DebugExecutor. Learn more in the
+Airflow documentation
+.
+Prerequisites
+​
+Ensure that your testing environment has:
+Airflow 2.5.0
+or later. You can check your version by running
+airflow version
+.
+All provider packages that your DAG uses.
+An initialized
+Airflow metadata database
+, if your DAG uses elements of the metadata database like XCom. The Airflow metadata database is created when Airflow is first run in an environment.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.txt
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+Test Airflow DAGs | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Get started
+Airflow concepts
+Basics
+DAGs
+Infrastructure
+Advanced
+Airflow logging
+Data quality
+Deferrable operators
+Dynamically generate DAGs
+Isolated Environments
+KubernetesPodOperator
+MLOps
+Plugins
+Pools
+Setup/ teardown tasks
+Sharing code between multiple projects
+Test DAGs
+Airflow tutorials
+Integrations & connections
+Use cases
+Airflow glossary
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Airflow concepts
+Advanced
+Test DAGs
+On this page
+Test Airflow DAGs
+Effectively testing DAGs requires an understanding of their structure and their relationship to other code and data in your environment. In this guide, you'll learn about various types of DAG validation testing, unit testing, and where to find further information on data quality checks.
+Other ways to learn
+There are multiple resources for learning about this topic. See also:
+Webinar:
+How to easily test your Airflow DAGs with the new dag.test() function
+.
+Assumed knowledge
+​
+To get the most out of this guide, you should have an understanding of:
+Python testing basics. See
+Getting Started with Testing in Python
+.
+At least one Python test runner. This guide mostly uses
+pytest
+, but you can use others including
+nose2
+and
+unittest
+.
+CI/CD for Python scripts. See
+Continuous Integration with Python: An Introduction
+.
+Basic Airflow and
+Astro CLI
+concepts. See
+Get started with Airflow
+.
+Write DAG validation tests
+​
+DAG validation tests ensure that your DAGs fulfill a list of criteria. Using validation tests can help you:
+Develop DAGs without access to a local Airflow environment.
+Ensure that custom DAG requirements are systematically checked and fulfilled.
+Test DAGs automatically in a CI/CD pipeline.
+Enable power users to test DAGs from the CLI.
+At a minimum, you should run DAG validation tests to check for
+import errors
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.txt
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+PyCharm
+.
+Tools like
+The Python Debugger
+and the built-in
+breakpoint()
+function. These allow you to run
+dag.test()
+from the command line by running
+python <path-to-dag-file>
+.
+Use
+dag.test()
+with the Astro CLI
+​
+If you use the Astro CLI exclusively and do not have the
+airflow
+package installed locally, you can still debug using
+dag.test()
+by running
+astro dev start
+, entering the scheduler container with
+astro dev bash -s
+, and executing
+python <path-to-dag-file>
+from within the Docker container. Unlike using the base
+airflow
+package, this testing method requires starting up a complete Airflow environment.
+Use variables and connections in dag.test()
+​
+To debug your DAGs in a more realistic environment, you can pass the following Airflow environment configurations to
+dag.test()
+:
+execution_date
+passed as a
+pendulum.datetime
+object.
+Airflow connections
+passed as a
+.yaml
+file.
+Airflow variables passed as a
+.yaml
+file.
+DAG configuration passed as a dictionary.
+This is useful for testing your DAG for different dates or with different connections and configurations. The following code snippet shows the syntax for passing various parameters to
+dag.test()
+:
+from
+pendulum
+import
+datetime
+if
+__name__
+==
+"__main__"
+:
+conn_path
+=
+"connections.yaml"
+variables_path
+=
+"variables.yaml"
+my_conf_var
+=
+23
+dag
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.txt
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+tags
+,
+f"
+{
+dag_id
+}
+in
+{
+fileloc
+}
+has no tags"
+if
+APPROVED_TAGS
+:
+assert
+not
+set
+(
+dag
+.
+tags
+)
+-
+APPROVED_TAGS
+tip
+You can view the attributes and methods available for the
+dag
+model in the
+Airflow documentation
+.
+You can also set requirements at the task level by accessing the
+tasks
+attribute within the
+dag
+model, which contains a list of all task objects of a DAG. The test below checks that all DAGs contain at least one task and all tasks use
+trigger_rule="all_success"
+.
+@pytest
+.
+mark
+.
+parametrize
+(
+"dag_id,dag,fileloc"
+,
+get_dags
+(
+)
+,
+ids
+=
+[
+x
+[
+2
+]
+for
+x
+in
+get_dags
+(
+)
+]
+)
+def
+test_dag_tags
+(
+dag_id
+,
+dag
+,
+fileloc
+)
+:
+"""
+test if all DAGs contain a task and all tasks use the trigger_rule all_success
+"""
+assert
+dag
+.
+tasks
+,
+f"
+{
+dag_id
+}
+in
+{
+fileloc
+}
+has no tasks"
+for
+task
+in
+dag
+.
+tasks
+:
+t_rule
+=
+task
+.
+trigger_rule
+assert
+(
+t_rule
+==
+"all_success"
+)
+,
+f"
+{
+task
+}
+in
+{
+dag_id
+}
+has the trigger rule
+{
+t_rule
+}
+"
+Implement DAG validation tests
+​
+Airflow offers different ways to run DAG validation tests using any Python test runner. This section gives an overview of the most common implementation methods. If you are new to testing Airflow DAGs, you can quickly get started by using Astro CLI commands.
+Airflow CLI
+​
+The Airflow CLI offers two commands related to local testing:
+airflow dags test
+: Given a DAG ID and execution date, this command writes the results of a single DAG run to the metadata database. This command is useful for testing full DAGs by creating manual DAG runs from the command line.
+airflow tasks test
+: This command tests one specific task instance without checking for dependencies or recording the outcome in the metadata database.
+With the Astro CLI, you can run all Airflow CLI commands using
+astro dev run
+.
+
+
+

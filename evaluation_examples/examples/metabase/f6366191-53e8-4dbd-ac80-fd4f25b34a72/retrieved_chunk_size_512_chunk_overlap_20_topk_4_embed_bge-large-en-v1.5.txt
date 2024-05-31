@@ -1,0 +1,444 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/api/user.txt
+
+Documentation Title:
+User
+
+Documentation Content:
+User
+Upcoming
+Metabase for advanced users
+Register Now
+×
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Self-service BI in 5 minutes
+Pro
+Advanced tools and controls
+Enterprise
+White-glove treatment
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Watch a 5-minute demo
+to see how to set up and publish a dashboard
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+New
+Metabase 49:
+New tools for dashboard creators, data sharers, and more
+Documentation
+Resources
+Learn
+Guides on working with data
+Blog
+News, updates, and ideas
+Events
+Join a live event or watch on demand
+Customers
+Real companies, real data, real stories
+Discussion
+Share and connect with other users
+Metabase Experts
+Find an expert partner
+Community Stories
+Practical advice from our community
+Startup Guide to Financial Modeling
+New
+Modeling financial data with Metabase
+Community Data Stack Report
+New
+See how others work with data
+Recent Blog Posts
+Set up a basic pipeline for log analysis
+Embed a Metabase dashboard in Zendesk
+Keeping tabs on embedded analytics
+Pricing
+Log in
+Get started
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Collections and verified items
+Keep things organized
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone,
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/sharing-work.txt
+
+Documentation Title:
+Sharing your work with others
+
+Documentation Content:
+Sharing your work with others
+Upcoming
+Metabase for advanced users
+Register Now
+×
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Self-service BI in 5 minutes
+Pro
+Advanced tools and controls
+Enterprise
+White-glove treatment
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Watch a 5-minute demo
+to see how to set up and publish a dashboard
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+New
+Metabase 49:
+New tools for dashboard creators, data sharers, and more
+Documentation
+Resources
+Learn
+Guides on working with data
+Blog
+News, updates, and ideas
+Events
+Join a live event or watch on demand
+Customers
+Real companies, real data, real stories
+Discussion
+Share and connect with other users
+Metabase Experts
+Find an expert partner
+Community Stories
+Practical advice from our community
+Startup Guide to Financial Modeling
+New
+Modeling financial data with Metabase
+Community Data Stack Report
+New
+See how others work with data
+Recent Blog Posts
+Set up a basic pipeline for log analysis
+Embed a Metabase dashboard in Zendesk
+Keeping tabs on embedded analytics
+Pricing
+Log in
+Get started
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Collections and verified items
+Keep things organized
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone,
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/managing-people.txt
+
+Documentation Title:
+Managing people in Metabase
+
+Documentation Content:
+Managing people in Metabase
+Upcoming
+Metabase for advanced users
+Register Now
+×
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Self-service BI in 5 minutes
+Pro
+Advanced tools and controls
+Enterprise
+White-glove treatment
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Watch a 5-minute demo
+to see how to set up and publish a dashboard
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+New
+Metabase 49:
+New tools for dashboard creators, data sharers, and more
+Documentation
+Resources
+Learn
+Guides on working with data
+Blog
+News, updates, and ideas
+Events
+Join a live event or watch on demand
+Customers
+Real companies, real data, real stories
+Discussion
+Share and connect with other users
+Metabase Experts
+Find an expert partner
+Community Stories
+Practical advice from our community
+Startup Guide to Financial Modeling
+New
+Modeling financial data with Metabase
+Community Data Stack Report
+New
+See how others work with data
+Recent Blog Posts
+Set up a basic pipeline for log analysis
+Embed a Metabase dashboard in Zendesk
+Keeping tabs on embedded analytics
+Pricing
+Log in
+Get started
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Collections and verified items
+Keep things organized
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone,
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/developers-guide/contributing.txt
+
+Documentation Title:
+Contributing to Metabase
+
+Documentation Content:
+Working on features
+Some features, eg Database drivers, don’t have any user facing pixels. These are a great place to start off contributing as they don’t require as much communication, discussions about tradeoffs and process in general.
+In situations where a design has already been done, we can always use some help. Chime in on a pull request or an issue and offer to help.
+Generally speaking, any issue in
+Help Wanted
+is fair game.
+#YOLO JUST SUBMIT A PR
+If you come up with something really cool, and want to share it with us, just submit a PR. If it hasn’t gone through the above process, we probably won’t merge it as is, but if it’s compelling, we’re more than willing to help you via code review, design review and generally OCD nitpicking so that it fits into the rest of our codebase.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+

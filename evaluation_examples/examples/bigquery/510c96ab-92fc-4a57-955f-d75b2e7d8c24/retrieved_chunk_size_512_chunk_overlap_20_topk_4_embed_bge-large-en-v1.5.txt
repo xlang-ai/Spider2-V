@@ -1,0 +1,326 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/visualize-jupyter.txt
+
+Documentation Title:
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
+
+Documentation Content:
+The output is similar to the following:
+Query complete after 0.07s: 100%|██████████| 4/4 [00:00<00:00, 1440.60query/s]
+Downloading: 100%|██████████| 41/41 [00:02<00:00, 20.21rows/s]
+country_code      country_name    num_regions
+0   TR  Turkey         81
+1   TH  Thailand       77
+2   VN  Vietnam        63
+3   JP  Japan          47
+4   RO  Romania        42
+5   NG  Nigeria        37
+6   IN  India          36
+7   ID  Indonesia      34
+8   CO  Colombia       33
+9   MX  Mexico         32
+10  BR  Brazil         27
+11  EG  Egypt          27
+12  UA  Ukraine        27
+13  CH  Switzerland    26
+14  AR  Argentina      24
+15  FR  France         22
+16  SE  Sweden         21
+17  HU  Hungary        20
+18  IT  Italy          20
+19  PT  Portugal       20
+20  NO  Norway         19
+21  FI  Finland        18
+22  NZ  New Zealand    17
+23  PH  Philippines    17
+...
+Note:
+Your results might differ from what is above as the
+google_trends
+dataset being queried is refreshed with new data on an ongoing basis.
+In the next cell (below the output from the previous cell), enter the
+following command to run the same query, but this time save the results to
+a new pandas DataFrame that's named
+regions_by_country
+. You provide that
+name by using an argument with the
+%%bigquery
+magic command.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+
+Documentation Title:
+Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+
+Documentation Content:
+df = bpd.read_gbq_table(
+    "bigquery-public-data.google_analytics_sample.ga_sessions_*",
+    filters=[
+        ("_table_suffix", ">=", "20170701"),
+        ("_table_suffix", "<=", "20170801"),
+    ],
+)
+
+operating_system = df["device"].struct.field("operatingSystem")
+operating_system = operating_system.fillna("")
+is_mobile = df["device"].struct.field("isMobile")
+country = df["geoNetwork"].struct.field("country").fillna("")
+pageviews = df["totals"].struct.field("pageviews").fillna(0)
+features = bpd.DataFrame(
+    {
+        "os": operating_system,
+        "is_mobile": is_mobile,
+        "country": country,
+        "pageviews": pageviews,
+    }
+)
+# Use Logistic Regression predict method to predict results
+# using your model.
+# Find more information here in
+# [BigFrames](https://cloud.google.com/python/docs/reference/bigframes/latest/bigframes.ml.linear_model.LogisticRegression#bigframes_ml_linear_model_LogisticRegression_predict)
+
+predictions = model.predict(features)
+
+# Call groupby method to group predicted_label by country.
+# Call sum method to get the total_predicted_label by country.
+total_predicted_purchases = predictions.groupby(["country"])[
+    ["predicted_label"]
+].sum()
+
+# Call the sort_values method with the parameter
+# ascending = False to get the highest values.
+# Call head method to limit to the 10 highest values.
+total_predicted_purchases.sort_values(ascending=False).head(10)
+
+# country
+# United States    220
+# Taiwan             8
+# Canada             7
+# India              2
+# Japan              2
+# Turkey             2
+# Australia          1
+# Brazil             1
+# Germany            1
+# Guyana             1
+# Name: predicted_label, dtype: Int64
+Predict purchases per user
+In this example, you try to predict the number of transactions each website
+visitor will make.
+SQL
+This query is identical to the previous query except for the
+GROUP BY
+clause. Here the
+GROUP BY
+clause —
+GROUP BY fullVisitorId
+— is used to group the results by visitor ID.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/writing-results.txt
+
+Documentation Title:
+Writing query results  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+You can save query results to Google Drive only in CSV or newline-delimited
+JSON format.
+What's next
+Learn how to programmatically
+export a table to a JSON file
+.
+Learn about
+quotas for query jobs
+.
+Learn about
+BigQuery storage pricing
+.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+Why Google
+Choosing Google Cloud
+Trust and security
+Open cloud
+Multicloud
+Global infrastructure
+Customers and case studies
+Analyst reports
+Whitepapers
+Blog
+Products and pricing
+Google Cloud pricing
+Google Workspace pricing
+See all products
+Solutions
+Infrastructure modernization
+Databases
+Application modernization
+Smart analytics
+Artificial Intelligence
+Security
+Productivity & work transformation
+Industry solutions
+DevOps solutions
+Small business solutions
+See all solutions
+Resources
+Google Cloud documentation
+Google Cloud quickstarts
+Google Cloud Marketplace
+Learn about cloud computing
+Support
+Code samples
+Cloud Architecture Center
+Training
+Certifications
+Google for Developers
+Google Cloud for Startups
+System status
+Release Notes
+Engage
+Contact sales
+Find a Partner
+Become a Partner
+Events
+Podcasts
+Developer Center
+Press Corner
+Google Cloud on YouTube
+Google Cloud Tech on YouTube
+Follow on X
+Join User Research
+We're hiring. Join Google Cloud!
+Google Cloud Community
+About Google
+Privacy
+Site terms
+Google Cloud terms
+Manage cookies
+Our third decade of climate action: join us
+Sign up for the Google Cloud newsletter
+Subscribe
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+中文 – 简体
+日本語
+한국어
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/paging-results.txt
+
+Documentation Title:
+Read data with BigQuery API using pagination  |  Google Cloud
+
+Documentation Content:
+destination = client.get_table(destination)
+
+# Download rows.
+#
+# The client library automatically handles pagination.
+print("The query data:")
+rows = client.list_rows(destination, max_results=20)
+for row in rows:
+    print("name={}, count={}".format(row["name"], row["total_people"]))
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+Why Google
+Choosing Google Cloud
+Trust and security
+Open cloud
+Multicloud
+Global infrastructure
+Customers and case studies
+Analyst reports
+Whitepapers
+Blog
+Products and pricing
+Google Cloud pricing
+Google Workspace pricing
+See all products
+Solutions
+Infrastructure modernization
+Databases
+Application modernization
+Smart analytics
+Artificial Intelligence
+Security
+Productivity & work transformation
+Industry solutions
+DevOps solutions
+Small business solutions
+See all solutions
+Resources
+Google Cloud documentation
+Google Cloud quickstarts
+Google Cloud Marketplace
+Learn about cloud computing
+Support
+Code samples
+Cloud Architecture Center
+Training
+Certifications
+Google for Developers
+Google Cloud for Startups
+System status
+Release Notes
+Engage
+Contact sales
+Find a Partner
+Become a Partner
+Events
+Podcasts
+Developer Center
+Press Corner
+Google Cloud on YouTube
+Google Cloud Tech on YouTube
+Follow on X
+Join User Research
+We're hiring. Join Google Cloud!
+Google Cloud Community
+About Google
+Privacy
+Site terms
+Google Cloud terms
+Manage cookies
+Our third decade of climate action: join us
+Sign up for the Google Cloud newsletter
+Subscribe
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+中文 – 简体
+日本語
+한국어
+
+
+

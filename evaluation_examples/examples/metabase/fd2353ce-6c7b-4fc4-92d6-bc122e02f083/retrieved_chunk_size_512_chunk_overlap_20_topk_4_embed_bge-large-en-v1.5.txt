@@ -1,0 +1,413 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/api-keys.txt
+
+Documentation Title:
+API keys
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+People and Groups
+API keys
+Metabase can create API keys to authenticate programmatic requests to the API. To set the permissions for an API key, you can assign the key to a
+group
+.
+Fair warning about Metabase’s API
+We don’t version the
+Metabase API
+. We rarely change API endpoints, and almost never remove them, but if you write code that relies on the API, there’s a chance you might have to update your code in the future.
+That said, there are times when it’s nice to work with the API, like when managing permissions with a large number of people and groups, or bulk archiving, or content creation. So we added the ability to create API keys to authenticate your programmatic requests.
+Create an API key
+To create an API key:
+Click on the
+gear
+icon in the upper right.
+Select
+Admin settings
+.
+Go to the
+Settings
+tab.
+Click on the
+Authentication
+tab on the left menu.
+Scroll to
+API Keys
+and click
+Manage
+.
+Click the
+Create API Key
+button.
+Enter a
+Key name
+. You can have multiple API keys, so give it a name that will help you remember what you’re using the key for.
+Select a
+Group
+. The key will have the same permissions granted to that group.
+Click
+Create
+.
+Copy the generated API key and save it somewhere safe. Metabase won’t be able to show you the key again. If you lose the key, you’ll need to regenerate a new key.
+Managing API Keys
+To view and manage existing API keys:
+Click on the
+gear
+icon in the upper right.
+Select
+Admin settings
+.
+Go to the
+Settings
+tab.
+Click on the
+Authentication
+tab on the left menu.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-api.txt
+
+Documentation Title:
+Working with the Metabase API
+
+Documentation Content:
+Warning: the Metabase API can change
+The API is subject to change
+. We rarely change API endpoints, and almost never remove them, but if you write code that relies on the API, there’s a chance you might have to update your code in the future.
+The API isn’t versioned
+. So don’t expect to stay on a particular version of Metabase in order to use a “stable” API.
+For API changes, check out the Developer guide’s
+API changelog
+.
+Getting started with the Metabase API
+To keep things simple, we’ll use the venerable command line utility
+curl
+for our API call examples; you could also consider a dedicated tool for developing API requests (like
+Postman
+). To follow along, you can
+spin up a fresh Metabase on localhost
+and play around.
+Create an API key
+To use the API, create an
+API key
+.
+Example GET request
+Here’s an example API request that hits the
+/api/permissions/group
+endpoint, which returns the permission groups you have set up in your Metabase. Replace
+YOUR_API_KEY
+with your API key:
+curl
+\
+-H
+'x-api-key: YOUR_API_KEY'
+\
+-X
+GET
+'http://localhost:3000/api/permissions/group'
+The above request returns an array of JSON objects for the groups in your Metabase (formatted for readability):
+[
+{
+"id"
+:
+2
+,
+"name"
+:
+"Administrators"
+,
+"member_count"
+:
+2
+},
+{
+"id"
+:
+1
+,
+"name"
+:
+"All Users"
+,
+"member_count"
+:
+3
+}
+]
+Example POST request
+You can also use a file to store the JSON payload for a POST request. This makes it easy to have a pre-defined set of requests you want to make to the API.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/api-keys.txt
+
+Documentation Title:
+API keys
+
+Documentation Content:
+You can copy the code, save it as file (e.g., as
+api-test.js
+), and run the code with
+node api-test.js
+.
+// Assuming you've set the key in process with
+// `export METABASE_API_KEY="YOUR_KEY_HERE"`
+const
+API_KEY
+=
+process
+.
+env
+.
+METABASE_API_KEY
+;
+const
+init
+=
+{
+headers
+:
+{
+"
+Content-Type
+"
+:
+"
+application/json
+"
+,
+"
+X-API-KEY
+"
+:
+API_KEY
+,
+},
+};
+const
+host
+=
+"
+http://127.0.0.1:3000
+"
+;
+async
+function
+getGroups
+()
+{
+const
+response
+=
+await
+fetch
+(
+`
+${
+host
+}
+/api/permissions/group`
+,
+init
+);
+return
+response
+.
+json
+();
+}
+getGroups
+().
+then
+(
+groups
+=>
+console
+.
+log
+(
+"
+Groups in your Metabase:
+"
+,
+groups
+));
+Further reading
+Metabase API reference
+.
+Working with the Metabase API
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/api/api-key.txt
+
+Documentation Title:
+API key
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Api
+API key
+/api/api-key endpoints for CRUD management of API Keys.
+DELETE /api/api-key/:id
+Delete an ApiKey.
+You must be a superuser to do this.
+PARAMS:
+id
+value must be an integer greater than zero.
+GET /api/api-key/
+Get a list of API keys. Non-paginated.
+You must be a superuser to do this.
+GET /api/api-key/count
+Get the count of API keys in the DB.
+You must be a superuser to do this.
+PARAMS:
+_body
+POST /api/api-key/
+Create a new API key (and an associated
+User
+) with the provided name and group ID.
+You must be a superuser to do this.
+PARAMS:
+group_id
+value must be an integer greater than zero.
+name
+value must be a non-blank string.
+_body
+PUT /api/api-key/:id
+Update an API key by changing its group and/or its name.
+You must be a superuser to do this.
+PARAMS:
+id
+value must be an integer greater than zero.
+group_id
+nullable value must be an integer greater than zero.
+name
+nullable value must be a non-blank string.
+_body
+PUT /api/api-key/:id/regenerate
+Regenerate an API Key.
+You must be a superuser to do this.
+PARAMS:
+id
+value must be an integer greater than zero.
+« Back to API index
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+

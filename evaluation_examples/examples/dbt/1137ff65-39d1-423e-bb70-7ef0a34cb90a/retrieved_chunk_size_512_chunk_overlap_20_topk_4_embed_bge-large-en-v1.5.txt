@@ -1,0 +1,546 @@
+Documentation Source:
+docs.getdbt.com/guides/manual-install5f72.txt
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Edit your
+dbt_project.yml
+file.
+Update your project
+name
+to:
+dbt_project.yml
+name
+:
+'jaffle_shop'
+Configure
+jaffle_shop
+so everything in it will be materialized as a table; and configure
+example
+so everything in it will be materialized as a view. Update your
+models
+config block to:
+dbt_project.yml
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+Click
+Save
+.
+Enter the
+dbt run
+command. Your
+customers
+model should now be built as a table!
+info
+To do this, dbt had to first run a
+drop view
+statement (or API call on BigQuery), then a
+create table as
+statement.
+Edit
+models/customers.sql
+to override the
+dbt_project.yml
+for the
+customers
+model only by adding the following snippet to the top, and click
+Save
+:
+models/customers.sql
+{{
+config
+(
+materialized
+=
+'view'
+)
+}}
+with
+customers
+as
+(
+select
+id
+as
+customer_id
+.
+.
+.
+)
+Enter the
+dbt run
+command. Your model,
+customers
+, should now build as a view.
+BigQuery users need to run
+dbt run --full-refresh
+instead of
+dbt run
+to full apply materialization changes.
+Enter the
+dbt run --full-refresh
+command for this to take effect in your warehouse.
+FAQs
+​
+Delete the example models
+​
+You can now delete the files that dbt created when you initialized the project:
+Delete the
+models/example/
+directory.
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install0c17.txt
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Edit your
+dbt_project.yml
+file.
+Update your project
+name
+to:
+dbt_project.yml
+name
+:
+'jaffle_shop'
+Configure
+jaffle_shop
+so everything in it will be materialized as a table; and configure
+example
+so everything in it will be materialized as a view. Update your
+models
+config block to:
+dbt_project.yml
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+Click
+Save
+.
+Enter the
+dbt run
+command. Your
+customers
+model should now be built as a table!
+info
+To do this, dbt had to first run a
+drop view
+statement (or API call on BigQuery), then a
+create table as
+statement.
+Edit
+models/customers.sql
+to override the
+dbt_project.yml
+for the
+customers
+model only by adding the following snippet to the top, and click
+Save
+:
+models/customers.sql
+{{
+config
+(
+materialized
+=
+'view'
+)
+}}
+with
+customers
+as
+(
+select
+id
+as
+customer_id
+.
+.
+.
+)
+Enter the
+dbt run
+command. Your model,
+customers
+, should now build as a view.
+BigQuery users need to run
+dbt run --full-refresh
+instead of
+dbt run
+to full apply materialization changes.
+Enter the
+dbt run --full-refresh
+command for this to take effect in your warehouse.
+FAQs
+​
+Delete the example models
+​
+You can now delete the files that dbt created when you initialized the project:
+Delete the
+models/example/
+directory.
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install121c.txt
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Edit your
+dbt_project.yml
+file.
+Update your project
+name
+to:
+dbt_project.yml
+name
+:
+'jaffle_shop'
+Configure
+jaffle_shop
+so everything in it will be materialized as a table; and configure
+example
+so everything in it will be materialized as a view. Update your
+models
+config block to:
+dbt_project.yml
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+Click
+Save
+.
+Enter the
+dbt run
+command. Your
+customers
+model should now be built as a table!
+info
+To do this, dbt had to first run a
+drop view
+statement (or API call on BigQuery), then a
+create table as
+statement.
+Edit
+models/customers.sql
+to override the
+dbt_project.yml
+for the
+customers
+model only by adding the following snippet to the top, and click
+Save
+:
+models/customers.sql
+{{
+config
+(
+materialized
+=
+'view'
+)
+}}
+with
+customers
+as
+(
+select
+id
+as
+customer_id
+.
+.
+.
+)
+Enter the
+dbt run
+command. Your model,
+customers
+, should now build as a view.
+BigQuery users need to run
+dbt run --full-refresh
+instead of
+dbt run
+to full apply materialization changes.
+Enter the
+dbt run --full-refresh
+command for this to take effect in your warehouse.
+FAQs
+​
+Delete the example models
+​
+You can now delete the files that dbt created when you initialized the project:
+Delete the
+models/example/
+directory.
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
+FAQs
+​
+Build models on top of other models
+​
+As a best practice in SQL, you should separate logic that cleans up your data from logic that transforms your data.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install8722.txt
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Edit your
+dbt_project.yml
+file.
+Update your project
+name
+to:
+dbt_project.yml
+name
+:
+'jaffle_shop'
+Configure
+jaffle_shop
+so everything in it will be materialized as a table; and configure
+example
+so everything in it will be materialized as a view. Update your
+models
+config block to:
+dbt_project.yml
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+Click
+Save
+.
+Enter the
+dbt run
+command. Your
+customers
+model should now be built as a table!
+info
+To do this, dbt had to first run a
+drop view
+statement (or API call on BigQuery), then a
+create table as
+statement.
+Edit
+models/customers.sql
+to override the
+dbt_project.yml
+for the
+customers
+model only by adding the following snippet to the top, and click
+Save
+:
+models/customers.sql
+{{
+config
+(
+materialized
+=
+'view'
+)
+}}
+with
+customers
+as
+(
+select
+id
+as
+customer_id
+.
+.
+.
+)
+Enter the
+dbt run
+command. Your model,
+customers
+, should now build as a view.
+BigQuery users need to run
+dbt run --full-refresh
+instead of
+dbt run
+to full apply materialization changes.
+Enter the
+dbt run --full-refresh
+command for this to take effect in your warehouse.
+FAQs
+​
+Delete the example models
+​
+You can now delete the files that dbt created when you initialized the project:
+Delete the
+models/example/
+directory.
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
+FAQs
+​
+Build models on top of other models
+​
+As a best practice in SQL, you should separate logic that cleans up your data from logic that transforms your data.
+
+
+

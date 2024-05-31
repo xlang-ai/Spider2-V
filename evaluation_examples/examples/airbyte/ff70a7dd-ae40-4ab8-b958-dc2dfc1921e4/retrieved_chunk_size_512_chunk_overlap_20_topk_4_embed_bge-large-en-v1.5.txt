@@ -1,0 +1,179 @@
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+By default the path that you specify will be located inside
+/tmp/airbyte_local
+. In this tutorial I set the destination to
+/json_from_faker
+, which means that the data will be copied to
+/tmp/airbyte_local/json_from_faker
+on the localhost where Airbyte is running. After specifying the Destination Path, click on Set up destination.
+Configure the Local JSON destination
+‍
+This will take you to a page to set up the connection. Set the replication frequency to
+Manual
+(since we will use Airflow to trigger Airbyte syncs rather than using Airbyte’s scheduler) and then click on
+Set up connection
+as highlighted in the image below.
+Specify connection settings
+‍
+Trigger a sync from the
+Sample Data (faker)
+source to the
+Local JSON
+output by clicking on
+Sync now
+as highlighted in the image below.
+Manually trigger a sync from the UI
+‍
+The sync should take a few seconds, at which point you should see that the sync has succeed as shown below.
+After the sync has completed
+‍
+You can now confirm if some sample data has been copied to the expected location. As previously mentioned, for this example the JSON data can be seen in
+/tmp/airbyte_local_json_from_faker
+. Because there were three streams generated, the following three JSON files should be available:
+_airbyte_raw_products.jsonl	
+_airbyte_raw_users.jsonl
+_airbyte_raw_purchases.jsonl
+You have now created a simple example connection in Airbyte which can be manually triggered. A manually triggered connection is ideal for situations where you wish to use an external orchestrator.
+In the next section you will see how to trigger a manual sync on this connection by hitting a REST endpoint directly. After that, you will see how Airflow can be used to hit that same endpoint to trigger synchronizations.
+Test the API endpoints with cURL
+Before using the REST endpoint from within Airflow, it is useful to verify that it is working as expected.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+Create an Airflow DAG
+In this section, I present Python code for a simple DAG that performs the following tasks:
+trigger_airbyte
+: Uses
+AirbyteTriggerSyncOperator
+to asynchronously trigger Airbyte to perform a synchronization from the
+Sample Data (Faker)
+input to the
+Local JSON
+(file) output using the Airbyte connection that we defined above. Because this is executed asynchronously, it immediately returns along with a job id that is used for determining the completion of the synchronization.
+wait_for_sync_completion
+: Uses
+AirbyteJobSensor
+to wait for Airbyte to complete the synchronization.
+raw_products_file_sensor
+: Uses
+FileSensor
+to confirm that the file created by Airbyte exists. One of the files created by the
+Sample Data (Faker)
+source is called
+_airbyte_raw_products.jsonl
+, and this task waits for that file to exist.
+mv_raw_products_file
+: Uses
+BashOperator
+to rename the raw products file.
+The code which demonstrates these steps is given below.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.txt
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Create a source:
+Go to the Sources tab and click on "+ New source".
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+Look fo Faker source connector
+Create a Faker source
+2. Create a destination:
+Go to the Destinations tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select "BigQuery".
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
+Click on "Set up destination".
+Look for BigQuery destination connector
+Create a BigQuery destination
+3. Create a connection:
+Go to the Connections tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+‍
+Establish a connector between Faker and BigQuery
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
+1. Navigate to the dbt Project Directory:
+Move to the dbt project directory in your project's file structure.
+cd ../../dbt_project
+This directory contains all the dbt-related configurations and SQL models.
+2. Update Connection Details:
+Within this directory, you'll find a <span class="text-style-code">profiles.yml file</span>. This file holds the configuration for dbt to connect to BigQuery.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+Furthermore, the file paths assume that you have specified /
+json_from_faker
+in the Airbyte connector that we defined earlier – if this is not your case, then update
+RAW_PRODUCTS_FILE
+and
+COPY_OF_RAW_PRODUCTS
+in the code to reflect the correct path.
+In order to see the new DAG, click on
+DAGs
+on the top of the screen and then click on the refresh button highlighted below:
+View a list of the DAGs and click on the refresh button
+‍
+After some time, the DAG which you just added to the DAGs folder will appear. The name that will appear corresponds to the
+dag_id
+you specify in the code:
+dag_id='airbyte_example_airflow_dag'
+This will appear in the list of DAGs as follows:
+‍
+Ensure that the DAG that you have created appears in the list
+View the new DAG
+The DAG that is specified by the above code can be viewed in Airflow by clicking on the Graph button that is annotated in the following illustration, and looks as follows:
+‍
+View a graph of the tasks in the selected DAG
+Execute the Airflow DAG
+Click on the newly created DAG called
+airbyte_example_airflow_dag
+highlighted in the image above. This will take you to a screen which gives more information about the DAG. Run the DAG by clicking on the button in the top right corner as annotated in the following image:
+Trigger the Airflow DAG that executes an Airbyte synchronization
+‍
+After triggering the DAG, you will see a screen similar to the following, which indicates that it is executing:
+The status of the Airflow DAG
+‍
+Each time the above DAG is executed, you should see an associated Sync in Airbyte’s Sync History UI as follows:
+The status of the synchronization that has been executed by Airbyte
+‍
+Finally, once the DAG has completed, you can look in your local file system to see the files that Airbyte created, as well as the file that Airflow renamed from
+_airbyte_raw_products.jsonl
+to
+moved_raw_products.jsonl
+.
+
+
+

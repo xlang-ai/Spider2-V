@@ -1,0 +1,328 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.txt
+
+Documentation Title:
+Snowflake in 20 minutes | Snowflake Documentation
+
+Documentation Content:
+For more information, see
+Format 1 (preferred): Account name in your organization
+.
+<user_name>
+is the login name for your Snowflake user.
+Note
+If your account has an identity provider (IdP) that has been defined for your account, you can use a web browser to authenticate instead of a password, as the following example demonstrates:
+$
+snowsql
+-a
+<account_identifier>
+-u
+<user_name>
+--authenticator
+externalbrowser
+Copy
+For more information, see
+Using a web browser for federated authentication/SSO
+.
+When SnowSQL prompts you, enter the password for your Snowflake user.
+If you log in successfully, SnowSQL displays a command prompt that includes
+your current warehouse, database, and schema.
+Note
+If you get locked out of the account and can’t obtain the account identifier, you can find it in the Welcome email that Snowflake sent to
+you when you signed up for the trial account, or you can work with your
+ORGADMIN to
+get the account details
+.
+You can also find the values for
+locator
+,
+cloud
+, and
+region
+in the Welcome email.
+If your Snowflake user doesn’t have a default warehouse, database, and schema, or if
+you didn’t configure SnowSQL to specify a default warehouse, database, and schema,
+the prompt displays
+no
+warehouse
+,
+no
+database
+, and
+no
+schema
+. For example:
+user-name#(no warehouse)@(no database).(no schema)>
+Copy
+This prompt indicates that there is no warehouse, database, and schema
+selected for the current session. You create these objects
+in the next step. As you follow the next steps in this tutorial to create
+these objects, the prompt automatically updates to include the names of these objects.
+For more information, see
+Connecting through SnowSQL
+.
+Create Snowflake objects
+¶
+During this step you create the following Snowflake objects:
+A database (
+sf_tuts
+) and a table (
+emp_basic
+). You load sample data into this table.
+A
+virtual warehouse
+(
+sf_tuts_wh
+).
+This warehouse provides the compute resources needed to load data into
+the table and query the table. For this tutorial, you create an X-Small warehouse.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/snowsql-start.txt
+
+Documentation Title:
+Connecting through SnowSQL | Snowflake Documentation
+
+Documentation Content:
+Optional.
+#rolename = <string>      # Default role. Optional.
+#authenticator = <string> # Authenticator: 'snowflake', 'externalbrowser' (to use any IdP and a web browser),  https://<okta_account_name>.okta.com (to use Okta natively), 'oauth' to authenticate using OAuth.
+Copy
+Attention
+The password is stored in plain text in the
+config
+file. You must explicitly secure the file to restrict access. For example, in Linux or macOS, you can set the read permissions to you
+alone by running
+chmod
+:
+$
+chmod
+700
+~/.snowsql/config
+Copy
+If your password includes special characters, you must enclose the password in either single quotes or double quotes.
+Verifying the network connection to Snowflake with SnowCD
+¶
+After configuration, you can evaluate and troubleshoot your network connectivity to Snowflake using
+SnowCD
+.
+You can use SnowCD during the initial configuration process and on-demand at any time to evaluate and troubleshoot your network connection to Snowflake.
+Using named connections
+¶
+To make multiple simultaneous connections to Snowflake, or to simply store different sets of connection configurations, you can define one or more
+named
+connections.
+Defining named connections in the configuration file
+¶
+Open the
+config
+configuration file in a text editor. By default, the file is located in:
+Linux/macOS
+:
+~/.snowsql/
+Windows
+:
+%USERPROFILE%\.snowsql\
+Add a separate
+[connections]
+section with a unique name for each named connection.
+For example, the following illustrates a connection named
+my_example_connection
+for a Snowflake account with the
+account identifier
+myorganization-myaccount
+:
+[
+connections.my_example_connection
+]
+accountname
+=
+myorganization-myaccount
+username
+=
+jsmith
+password
+=
+xxxxxxxxxxxxxxxxxxxx
+dbname
+=
+mydb
+schemaname
+=
+public
+warehousename
+=
+mywh
+Copy
+Connecting to Snowflake using a named connection
+¶
+Use the
+-c
+<string>
+(or
+--connection
+<string>
+) connection parameter to specify a named connection, where
+<string>
+is the name of a connection defined in the
+configuration file
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.txt
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+For DEFAULT_WAREHOUSE, use
+COMPUTE_WH
+.
+CREATE
+OR
+REPLACE
+USER
+snowman
+PASSWORD
+=
+'sn0wf@ll'
+LOGIN_NAME
+=
+'snowstorm'
+FIRST_NAME
+=
+'Snow'
+LAST_NAME
+=
+'Storm'
+EMAIL
+=
+'snow.storm@snowflake.com'
+MUST_CHANGE_PASSWORD
+=
+true
+DEFAULT_WAREHOUSE
+=
+COMPUTE_WH
+;
+Copy
+This command returns the following output:
+User SNOWMAN successfully created.
+If you were creating a real user in a real Snowflake account, you would now send the
+following information in a secure manner to the person who would need to access
+this new account:
+Snowflake Account URL: the Snowflake account link where the user will log in.
+You can find this link at the top of your browser
+(for example:
+https://app.snowflake.com/myorg/myaccount/
+,
+where
+myorg
+is the Snowflake organization ID, and
+myaccount
+is the account ID).
+LOGIN_NAME, as specified in the CREATE USER command.
+PASSWORD, as specified in the CREATE USER command.
+Step 5. Grant a system role and warehouse access to the user
+¶
+Now that you have created a user, you can use the SECURITYADMIN role to grant the
+SYSADMIN role to the user, as well as grant USAGE on the COMPUTE_WH warehouse.
+Granting a role to another role creates a parent-child relationship between the roles
+(also referred to as a role hierarchy). Granting a role to a user enables the user to perform
+all operations allowed by the role (through the access privileges granted to the role).
+The SYSADMIN role has privileges to create warehouses, databases, and database objects
+in an account and grant those privileges to other roles. Only grant this role to users who should
+have these privileges. For information about other system-defined roles, see
+see
+Overview of Access Control
+.
+To grant the user access to a role and a warehouse, do the following:
+In the open worksheet, place your cursor in the
+USE ROLE
+line,
+then select
+Run
+.
+USE
+ROLE
+SECURITYADMIN
+;
+Copy
+Place your cursor in the
+GRANT ROLE
+line, enter the name of the user you created,
+then select
+Run
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.txt
+
+Documentation Title:
+Snowflake in 20 minutes | Snowflake Documentation
+
+Documentation Content:
+To set up Snowflake for this tutorial, complete the following before continuing:
+Create a user
+To create the database, table, and virtual warehouse, you must be logged in as a
+Snowflake user with a role that grants you the privileges to create these objects.
+If you’re using a 30-day trial account, you can log in as the user that was created for the account.
+This user has the role with the privileges needed to create the objects.
+If you don’t have a Snowflake user, you can’t perform this tutorial.
+If you don’t have a role that lets you create a user, ask someone who does to perform this step for you.
+Users with the ACCOUNTADMIN or SECURITYADMIN role can create users.
+Install SnowSQL
+To install SnowSQL, see
+Installing SnowSQL
+.
+Download sample data files
+For this tutorial you download sample employee data files in CSV format that Snowflake provides.
+To download and unzip the sample data files:
+Download the set of sample data files. Right-click the name of the archive
+file,
+getting-started.zip
+, and save the link/file to your local file system.
+Unzip the sample files. The tutorial assumes you unpacked files into one of the following directories:
+Linux/macOS:
+/tmp
+Windows:
+C:\\temp
+Each file has five data records. The data uses a comma (,) character as field
+delimiter. The following is an example record:
+Althea,Featherstone,afeatherstona@sf_tuts.com,"8172 Browning Street, Apt B",Calatrava,7/12/2017
+Copy
+There are no blank spaces before or after the commas separating the
+fields in each record. This is the default that Snowflake expects when loading CSV data.
+Log in to SnowSQL
+¶
+After you have
+SnowSQL
+, start SnowSQL to connect to Snowflake:
+Open a command line window.
+Start SnowSQL:
+$
+snowsql
+-a
+<account_identifier>
+-u
+<user_name>
+Copy
+Where:
+<account_identifier>
+is the unique identifier for your Snowflake account.
+The preferred format of the
+account identifier
+is as follows:
+organization_name
+-
+account_name
+Names of your Snowflake organization and account.
+
+
+

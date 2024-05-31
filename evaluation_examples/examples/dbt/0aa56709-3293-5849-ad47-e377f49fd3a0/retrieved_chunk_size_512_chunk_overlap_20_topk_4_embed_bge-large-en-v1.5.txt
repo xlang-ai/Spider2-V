@@ -1,0 +1,561 @@
+Documentation Source:
+docs.getdbt.com/guides/databricks121c.txt
+
+Documentation Title:
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+
+Documentation Content:
+Does my test file need to be named `schema.yml`?
+Document your models
+​
+Adding
+documentation
+to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.
+Update your
+models/schema.yml
+file to include some descriptions, such as those below.
+models/schema.yml
+version
+:
+2
+models
+:
+-
+name
+:
+customers
+description
+:
+One record per customer
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+first_order_date
+description
+:
+NULL when a customer has not yet placed an order.
+-
+name
+:
+stg_customers
+description
+:
+This model cleans up customer data
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+stg_orders
+description
+:
+This model cleans up order data
+columns
+:
+-
+name
+:
+order_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+status
+tests
+:
+-
+accepted_values
+:
+values
+:
+[
+'placed'
+,
+'shipped'
+,
+'completed'
+,
+'return_pending'
+,
+'returned'
+]
+-
+name
+:
+customer_id
+tests
+:
+-
+not_null
+-
+relationships
+:
+to
+:
+ref('stg_customers')
+field
+:
+customer_id
+Run
+dbt docs generate
+to generate the documentation for your project. dbt introspects your project and your warehouse to generate a
+JSON
+file with rich documentation about your project.
+Click the book icon in the Develop interface to launch documentation in a new tab.
+FAQs
+​
+Commit your changes
+​
+Now that you've built your customer model, you need to commit the changes you made to the project so that the repository has your latest code.
+If you edited directly in the protected primary branch:
+Click the
+Commit and sync git
+button. This action prepares your changes for commit.
+A modal titled
+Commit to a new branch
+will appear.
+In the modal window, name your new branch
+add-customers-model
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/databricks5f72.txt
+
+Documentation Title:
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+
+Documentation Content:
+Does my test file need to be named `schema.yml`?
+Document your models
+​
+Adding
+documentation
+to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.
+Update your
+models/schema.yml
+file to include some descriptions, such as those below.
+models/schema.yml
+version
+:
+2
+models
+:
+-
+name
+:
+customers
+description
+:
+One record per customer
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+first_order_date
+description
+:
+NULL when a customer has not yet placed an order.
+-
+name
+:
+stg_customers
+description
+:
+This model cleans up customer data
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+stg_orders
+description
+:
+This model cleans up order data
+columns
+:
+-
+name
+:
+order_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+status
+tests
+:
+-
+accepted_values
+:
+values
+:
+[
+'placed'
+,
+'shipped'
+,
+'completed'
+,
+'return_pending'
+,
+'returned'
+]
+-
+name
+:
+customer_id
+tests
+:
+-
+not_null
+-
+relationships
+:
+to
+:
+ref('stg_customers')
+field
+:
+customer_id
+Run
+dbt docs generate
+to generate the documentation for your project. dbt introspects your project and your warehouse to generate a
+JSON
+file with rich documentation about your project.
+Click the book icon in the Develop interface to launch documentation in a new tab.
+FAQs
+​
+Commit your changes
+​
+Now that you've built your customer model, you need to commit the changes you made to the project so that the repository has your latest code.
+If you edited directly in the protected primary branch:
+Click the
+Commit and sync git
+button. This action prepares your changes for commit.
+A modal titled
+Commit to a new branch
+will appear.
+In the modal window, name your new branch
+add-customers-model
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/databricks8722.txt
+
+Documentation Title:
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+
+Documentation Content:
+Does my test file need to be named `schema.yml`?
+Document your models
+​
+Adding
+documentation
+to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.
+Update your
+models/schema.yml
+file to include some descriptions, such as those below.
+models/schema.yml
+version
+:
+2
+models
+:
+-
+name
+:
+customers
+description
+:
+One record per customer
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+first_order_date
+description
+:
+NULL when a customer has not yet placed an order.
+-
+name
+:
+stg_customers
+description
+:
+This model cleans up customer data
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+stg_orders
+description
+:
+This model cleans up order data
+columns
+:
+-
+name
+:
+order_id
+description
+:
+Primary key
+tests
+:
+-
+unique
+-
+not_null
+-
+name
+:
+status
+tests
+:
+-
+accepted_values
+:
+values
+:
+[
+'placed'
+,
+'shipped'
+,
+'completed'
+,
+'return_pending'
+,
+'returned'
+]
+-
+name
+:
+customer_id
+tests
+:
+-
+not_null
+-
+relationships
+:
+to
+:
+ref('stg_customers')
+field
+:
+customer_id
+Run
+dbt docs generate
+to generate the documentation for your project. dbt introspects your project and your warehouse to generate a
+JSON
+file with rich documentation about your project.
+Click the book icon in the Develop interface to launch documentation in a new tab.
+FAQs
+​
+Commit your changes
+​
+Now that you've built your customer model, you need to commit the changes you made to the project so that the repository has your latest code.
+If you edited directly in the protected primary branch:
+Click the
+Commit and sync git
+button. This action prepares your changes for commit.
+A modal titled
+Commit to a new branch
+will appear.
+In the modal window, name your new branch
+add-customers-model
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/reference/resource-properties/description.txt
+
+Documentation Title:
+description | dbt Developer Hub
+
+Documentation Content:
+models/schema.yml
+version
+:
+2
+models
+:
+-
+name
+:
+fct_orders
+description
+:
+This table has basic information about orders
+,
+as well as some derived facts based on payments
+columns
+:
+-
+name
+:
+status
+description
+:
+'{{ doc("orders_status") }}'
+models/docs.md
+{% docs orders_status %}
+Orders can be one of the following statuses:
+| status         | description                                                               |
+|----------------|---------------------------------------------------------------------------|
+| placed         | The order has been placed but has not yet left the warehouse              |
+| shipped        | The order has been shipped to the customer and is currently in transit     |
+| completed      | The order has been received by the customer                               |
+| returned       | The order has been returned by the customer and received at the warehouse |
+{% enddocs %}
+Link to another model in a description
+​
+You can use relative links to link to another model. It's a little hacky — but to do this:
+Serve your docs site.
+Navigate to the model you want to link to, e.g.
+http://127.0.0.1:8080/#!/model/model.jaffle_shop.stg_stripe__payments
+Copy the url_path, i.e. everything after
+http://127.0.0.1:8080/
+, so in this case
+#!/model/model.jaffle_shop.stg_stripe__payments
+Paste it as the link
+models/schema.yml
+version
+:
+2
+models
+:
+-
+name
+:
+customers
+description: "Filtering done based on
+[stg_stripe__payments](#!/model/model.jaffle_shop.stg_stripe__payments)
+"
+columns
+:
+-
+name
+:
+customer_id
+description
+:
+Primary key
+Include an image from your repo in your descriptions
+​
+This section applies to dbt Core users only. Including an image from your repository ensures your images are version-controlled.
+Both dbt Cloud and dbt Core users can
+include an image from the web
+, which offers dynamic content, reduced repository size, accessibility, and ease of collaboration.
+To include an image in your model's
+description
+field:
+Add the file in a subdirectory, e.g.
+
+
+

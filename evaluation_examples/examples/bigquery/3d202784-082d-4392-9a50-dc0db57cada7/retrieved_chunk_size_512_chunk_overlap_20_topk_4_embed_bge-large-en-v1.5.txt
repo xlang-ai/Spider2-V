@@ -1,0 +1,262 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+
+Documentation Title:
+Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+
+Documentation Content:
+df = bpd.read_gbq_table(
+    "bigquery-public-data.google_analytics_sample.ga_sessions_*",
+    filters=[
+        ("_table_suffix", ">=", "20170701"),
+        ("_table_suffix", "<=", "20170801"),
+    ],
+)
+
+operating_system = df["device"].struct.field("operatingSystem")
+operating_system = operating_system.fillna("")
+is_mobile = df["device"].struct.field("isMobile")
+country = df["geoNetwork"].struct.field("country").fillna("")
+pageviews = df["totals"].struct.field("pageviews").fillna(0)
+features = bpd.DataFrame(
+    {
+        "os": operating_system,
+        "is_mobile": is_mobile,
+        "country": country,
+        "pageviews": pageviews,
+    }
+)
+# Use Logistic Regression predict method to predict results
+# using your model.
+# Find more information here in
+# [BigFrames](https://cloud.google.com/python/docs/reference/bigframes/latest/bigframes.ml.linear_model.LogisticRegression#bigframes_ml_linear_model_LogisticRegression_predict)
+
+predictions = model.predict(features)
+
+# Call groupby method to group predicted_label by country.
+# Call sum method to get the total_predicted_label by country.
+total_predicted_purchases = predictions.groupby(["country"])[
+    ["predicted_label"]
+].sum()
+
+# Call the sort_values method with the parameter
+# ascending = False to get the highest values.
+# Call head method to limit to the 10 highest values.
+total_predicted_purchases.sort_values(ascending=False).head(10)
+
+# country
+# United States    220
+# Taiwan             8
+# Canada             7
+# India              2
+# Japan              2
+# Turkey             2
+# Australia          1
+# Brazil             1
+# Germany            1
+# Guyana             1
+# Name: predicted_label, dtype: Int64
+Predict purchases per user
+In this example, you try to predict the number of transactions each website
+visitor will make.
+SQL
+This query is identical to the previous query except for the
+GROUP BY
+clause. Here the
+GROUP BY
+clause —
+GROUP BY fullVisitorId
+— is used to group the results by visitor ID.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+
+Documentation Title:
+Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+
+Documentation Content:
+Enter the following GoogleSQL query in the
+Query editor
+text area.
+#standardSQL
+SELECT
+*
+FROM
+ML.EVALUATE(MODEL `bqml_tutorial.sample_model`, (
+SELECT
+IF(totals.transactions IS NULL, 0, 1) AS label,
+IFNULL(device.operatingSystem, "") AS os,
+device.isMobile AS is_mobile,
+IFNULL(geoNetwork.country, "") AS country,
+IFNULL(totals.pageviews, 0) AS pageviews
+FROM
+`bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE
+_TABLE_SUFFIX BETWEEN '20170701' AND '20170801'))
+Click
+Run
+.
+When the query is complete, click the
+Results
+tab below the query text
+area. The results should look like the following:
++--------------------+---------------------+--------------------+--------------------+---------------------+----------+
+|     precision      |       recall        |      accuracy      |      f1_score      |      log_loss       | roc_auc  |
++--------------------+---------------------+--------------------+--------------------+---------------------+----------+
+| 0.4451901565995526 | 0.08879964301651048 | 0.9716829479411401 | 0.1480654761904762 | 0.07921781778780206 | 0.970706 |
++--------------------+---------------------+--------------------+--------------------+---------------------+----------+
+Because you performed a logistic regression, the results include the following
+columns:
+precision
+— A metric for classification models. Precision identifies the frequency
+with which a model was correct when predicting the positive class.
+recall
+— A metric for classification models that answers the following
+question: Out of all the possible positive labels, how many did the model
+correctly identify?
+accuracy
+— Accuracy is the fraction of predictions that a classification model
+got right.
+f1_score
+—
+A measure of the accuracy of the model. The f1 score is the harmonic average of
+the precision and recall. An f1 score's best value is 1. The worst value is 0.
+log_loss
+— The loss function used in a logistic regression. This is the measure
+of how far the model's predictions are from the correct labels.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+
+Documentation Title:
+Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+
+Documentation Content:
+To run the query:
+In the Google Cloud console, click the
+Compose new query
+button.
+Enter the following GoogleSQL query in the
+Query editor
+text area.
+#standardSQL
+SELECT
+fullVisitorId,
+SUM(predicted_label) as total_predicted_purchases
+FROM
+ML.PREDICT(MODEL `bqml_tutorial.sample_model`, (
+SELECT
+IFNULL(device.operatingSystem, "") AS os,
+device.isMobile AS is_mobile,
+IFNULL(totals.pageviews, 0) AS pageviews,
+IFNULL(geoNetwork.country, "") AS country,
+fullVisitorId
+FROM
+`bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE
+_TABLE_SUFFIX BETWEEN '20170701' AND '20170801'))
+GROUP BY fullVisitorId
+ORDER BY total_predicted_purchases DESC
+LIMIT 10
+Click
+Run
+.
+When the query is complete, click the
+Results
+tab below the query text
+area. The results should look like the following:
++---------------------+---------------------------+
+|    fullVisitorId    | total_predicted_purchases |
++---------------------+---------------------------+
+| 9417857471295131045 |                         4 |
+| 2158257269735455737 |                         3 |
+| 5073919761051630191 |                         3 |
+| 7104098063250586249 |                         2 |
+| 4668039979320382648 |                         2 |
+| 1280993661204347450 |                         2 |
+| 7701613595320832147 |                         2 |
+| 0376394056092189113 |                         2 |
+| 9097465012770697796 |                         2 |
+| 4419259211147428491 |                         2 |
++---------------------+---------------------------+
+BigQuery DataFrames
+Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the
+BigQuery quickstart
+    using BigQuery DataFrames
+.
+    For more information, see the
+BigQuery DataFrames reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see
+Set 
+    up authentication for a local development environment
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+
+Documentation Title:
+Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+
+Documentation Content:
+The stats
+continue to update as each iteration completes.
+BigQuery DataFrames
+Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the
+BigQuery quickstart
+    using BigQuery DataFrames
+.
+    For more information, see the
+BigQuery DataFrames reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see
+Set 
+    up authentication for a local development environment
+.
+from bigframes.ml.linear_model import LogisticRegression
+import bigframes.pandas as bpd
+
+# Start by selecting the data you'll use for training. `read_gbq` accepts
+# either a SQL query or a table ID. Since this example selects from multiple
+# tables via a wildcard, use SQL to define this data. Watch issue
+# https://github.com/googleapis/python-bigquery-dataframes/issues/169
+# for updates to `read_gbq` to support wildcard tables.
+
+df = bpd.read_gbq_table(
+    "bigquery-public-data.google_analytics_sample.ga_sessions_*",
+    filters=[
+        ("_table_suffix", ">=", "20160801"),
+        ("_table_suffix", "<=", "20170630"),
+    ],
+)
+
+# Extract the total number of transactions within
+# the Google Analytics session.
+#
+# Because the totals column is a STRUCT data type, call
+# Series.struct.field("transactions") to extract the transactions field.
+# See the reference documentation below:
+# https://cloud.google.com/python/docs/reference/bigframes/latest/bigframes.operations.structs.StructAccessor#bigframes_operations_structs_StructAccessor_field
+transactions = df["totals"].struct.field("transactions")
+
+# The "label" values represent the outcome of the model's
+# prediction. In this case, the model predicts if there are any
+# ecommerce transactions within the Google Analytics session.
+# If the number of transactions is NULL, the value in the label
+# column is set to 0. Otherwise, it is set to 1.
+label = transactions.notnull().map({True: 1, False: 0}).rename("label")
+
+# Extract the operating system of the visitor's device.
+
+
+

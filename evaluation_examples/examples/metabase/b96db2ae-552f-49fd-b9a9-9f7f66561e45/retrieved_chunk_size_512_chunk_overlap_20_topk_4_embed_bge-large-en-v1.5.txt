@@ -1,0 +1,394 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.txt
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+Maps
+When you select the
+Map
+visualization, Metabase will automatically try and pick the best kind of map to use based on the table or result set.
+Formatting data in charts
+While we’re talking about formatting, we thought you should also know that you can access formatting options for the columns used in a chart. Just open the visualization settings and select the
+Data
+tab:
+Then click on the gear icon next to the column that you want to format. Dates, numbers, and currencies tend to have the most useful formatting options.
+Further reading
+Charts with multiple series
+Appearance
+BI dashboard best practices
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/detail.txt
+
+Documentation Title:
+Detail
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Questions
+Detail
+The
+Detail
+visualization shows a single result record (row) in an easy-to-read, two-column display.
+You can cycle through records using the arrow buttons.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/index.txt
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+Read more
+Article 6
+Almost everything you can do with the table visualization
+Learn how to set up conditional formatting, mini bar charts, value formatting, and more.
+Read more
+Article 7
+Creating pivot tables
+Learn how to create pivot tables using different databases in Metabase.
+Read more
+Article 8
+Funnel charts
+Use funnel charts to show progression through steps.
+Read more
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.txt
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Questions
+Visualizing data
+While tables are useful for looking up information or finding specific numbers, it’s usually easier to see trends and make sense of data using charts.
+To change how the answer to your question is displayed, click on the
+Visualization
+button in the bottom-left of the screen to open the visualization sidebar.
+If a particular visualization doesn’t really make sense for your answer, that option will appear in the “Other charts” section. You can still select one of these other charts, though you might need to fiddle with the chart options to make the chart work with your data.
+Not sure which visualization type to use? Check out
+Which chart should you use?
+Visualization options
+Each visualization type has its own advanced options.
+To change the settings for a specific chart, for example a row chart, you could either:
+Click on the gear icon in the bottom left of the chart (next to the
+Visualization
+button, or
+Click on
+Visualization
+in the bottom left of the chart, then hover over the currently selected chart and click on the
+gear
+icon that pops up.
+Visualization types
+Metabase ships with a bunch of different visualizations types:
+Numbers
+The
+Numbers
+option is for displaying a single number, nice and big.
+Trends
+The
+Trend
+visualization is great for displaying how a single number has changed between two time periods.
+Detail
+The
+Detail
+visualization shows a single result record (row) in an easy-to-read, two-column display.
+Progress bars
+Progress bars
+are for comparing a single number to a goal value that you set.
+Gauges
+Gauges
+allow you to show a single number in the context of a set of colored ranges that you can specify.
+
+
+

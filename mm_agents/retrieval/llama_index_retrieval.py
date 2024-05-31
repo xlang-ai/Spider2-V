@@ -21,15 +21,16 @@ Settings.tokenizer = tiktoken.encoding_for_model("gpt-3.5-turbo").encode
 Settings.llm = None
 
 APPS_TO_WEBSITES = {
+                'metabase': 'www.metabase.com',
+                'superset': 'superset.apache.org',
                 'bigquery': 'cloud.google.com',
                 'jupyter': 'jupyterlab.readthedocs.io',
-                'dbt': 'docs.getdbt.com',
                 'airbyte': 'airbyte.com',
+                'dbt': 'docs.getdbt.com',
                 'dagster': 'release-1-7-2.dagster.dagster-docs.io',
                 'airflow': 'docs.astronomer.io',
-                'superset': 'superset.apache.org',
-                'metabase': 'www.metabase.com',
                 'snowflake': 'docs.snowflake.com'}
+
 
 ALL_DOMAINS = ['excel', 'servicenow', 'jupyter', 'dbt', 'airflow', 'dagster', 'airbyte', 'snowflake', 'bigquery', 'superset', 'metabase']
 
@@ -99,7 +100,7 @@ class LlamaIndexRetrieval:
                 index = VectorStoreIndex(nodes, storage_context=storage_context, show_progress=True)
                 index.set_index_id(app)
                 indices_dict[app] = index
-                storage_context.persist(persist_dir=f'{doc_directory}/{storage_name}')
+                index.storage_context.persist(persist_dir=f'{doc_directory}/{storage_name}')
 
         self.indices_dict = indices_dict
         self.chunk_size = chunk_size

@@ -1,0 +1,328 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/rollback.txt
+
+Documentation Title:
+ROLLBACK | Snowflake Documentation
+
+Documentation Content:
+Examples
+¶
+Begin a transaction, insert some values into a table, and then complete the transaction by rolling back the changes made in the
+transaction:
+SELECT
+COUNT
+(*)
+FROM
+A1
+;
+----------+
+COUNT(*) |
+----------+
+0        |
+----------+
+BEGIN
+NAME
+T4
+;
+SELECT
+CURRENT_TRANSACTION
+();
+-----------------------+
+CURRENT_TRANSACTION() |
+-----------------------+
+1432071523422         |
+-----------------------+
+INSERT
+INTO
+A1
+VALUES
+(
+1
+),
+(
+2
+);
+-------------------------+
+number of rows inserted |
+-------------------------+
+2                       |
+-------------------------+
+ROLLBACK
+;
+SELECT
+COUNT
+(*)
+FROM
+A1
+;
+----------+
+COUNT(*) |
+----------+
+0        |
+----------+
+SELECT
+CURRENT_TRANSACTION
+();
+-----------------------+
+CURRENT_TRANSACTION() |
+-----------------------+
+[NULL]                |
+-----------------------+
+SELECT
+LAST_TRANSACTION
+();
+--------------------+
+LAST_TRANSACTION() |
+--------------------+
+1432071523422      |
+--------------------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Syntax
+Parameters
+Examples
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-worksheet.txt
+
+Documentation Title:
+Using Worksheets for Queries / DML / DDL | Snowflake Documentation
+
+Documentation Content:
+Opening multiple, concurrent worksheets, each with its own separate session, allowing you to run queries in different worksheets with different contexts without any degradation in UI performance.
+Saving a worksheet for later use.
+Opening a worksheet from your library of saved worksheets.
+Note
+Saved worksheets are not accessible outside of the Classic Console.
+Saved worksheets cannot currently be shared with other users.
+Loading SQL script files from your workstation or network into a worksheet. After you’ve loaded a script file, you can optionally edit and save it to your library of saved worksheets.
+Logging out without losing your work. Snowflake retains the static contents of each worksheet, so you can log in again later and resume working where you left off. Snowflake displays the worksheets
+that were open when you logged out.
+Note that resized/collapsed panes, width changes to the result/data preview columns, and even the cursor position in the SQL editor, are persisted:
+When switching between open worksheets.
+When closing and reopening the same worksheet.
+Between user sessions.
+Specifying a different role for each worksheet and switching roles without losing your work. You can execute specific statements in a worksheet, then switch roles before continuing your work
+in the same worksheet.
+Note
+Your current interface role determines the default role for worksheets that you open, but the worksheets are not tied to the interface role. Each worksheet has its own role that can be set
+independently.
+Logging into Snowflake in another browser or tab. Any worksheet changes you made in one Snowflake instance persist to the other instance after a minute or two. You can continue working in the
+other browser (or tab) without re-entering your work.
+Refreshing your browser, if necessary. If you’re in the middle of running queries, they will resume running when the refresh is completed. Note that if you log out of Snowflake, any active
+queries stop running.
+You can also perform other tasks on this page, including:
+Resizing the current warehouse to dynamically increase or decrease the compute resources utilized for executing your queries and other DML statements.
+Exporting the result for a selected query/statement (if the result is still available). For more information, see
+Exporting Query Results
+.
+Saving and Managing Worksheets
+¶
+Snowflake automatically saves worksheets as you type and persists the current state of a worksheet between user sessions.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.txt
+
+Documentation Title:
+Getting started with worksheets | Snowflake Documentation
+
+Documentation Content:
+Select
++
+and select
+SQL Worksheet
+or
+Python Worksheet
+to create a worksheet.
+The worksheet opens in the same window with the date and time of creation as the default title.
+You can then start writing in your worksheet. For a SQL worksheet,
+start writing queries
+.
+For a Python worksheet,
+start writing code
+.
+Create worksheets from a SQL file
+¶
+To create a SQL worksheet from an existing SQL file, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Select the
+…
+more menu »
+Create Worksheet from SQL File
+.
+Browse to the SQL file to upload.
+A new worksheet opens with a title that matches the file name.
+You can also add a SQL file to an existing SQL worksheet. Refer to
+Append a SQL script to an existing worksheet
+.
+Opening worksheets in tabs
+¶
+You can use tabs to refer to multiple active worksheets and explore the databases and schemas in Snowflake while writing SQL
+statements or Python code in Snowsight. Your scroll position is preserved in each tab, making comparisons across worksheets easier
+to perform. Worksheet tabs are preserved across sessions, so you can pick up your work where you left off.
+To open your Snowsight worksheets in tabs, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+.
+Select an existing worksheet, or select
++ Worksheet
+to open a new worksheet. A worksheet opens in a tab.
+Select a role to run the worksheet as, and select a warehouse to allocate the compute resources for your query.
+In the
+Worksheets
+menu, select an existing worksheet or select
++
+to open a new worksheet tab. By default, the new worksheet
+uses your default role and warehouse.
+(Optional) Make changes to the role or warehouse used to run the new worksheet.
+After you open a worksheet, you can
+update the contents
+,
+run SQL statements
+or
+write Python code
+, and manage the worksheet.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/rollback.txt
+
+Documentation Title:
+ROLLBACK | Snowflake Documentation
+
+Documentation Content:
+ROLLBACK | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Overview
+SQL Data Types Reference
+SQL Command Reference
+Query Syntax
+Query Operators
+General DDL
+General DML
+All Commands (Alphabetical)
+Accounts
+Users, Roles, & Privileges
+Integrations
+Replication & Failover
+Sessions
+Transactions
+BEGIN
+COMMIT
+DESCRIBE TRANSACTION
+ROLLBACK
+SHOW LOCKS
+SHOW TRANSACTIONS
+Virtual Warehouses & Resource Monitors
+Databases, Schemas, & Shares
+Tables, Views, & Sequences
+Functions, Procedures, & Scripting
+Streams & Tasks
+Classes & Instances
+Machine Learning Models
+Listings
+Security
+Data Governance
+Privacy
+Data Loading & Unloading
+File Staging
+Alerts
+Native Apps Framework
+Streamlit
+Snowpark Container Services
+Function and Stored Procedure Reference
+Class Reference
+Scripting Reference
+General Reference
+API Reference
+Reference
+SQL Command Reference
+Transactions
+ROLLBACK
+ROLLBACK
+¶
+Rolls back an open transaction in the current session.
+See also:
+BEGIN
+,
+COMMIT
+,
+SHOW TRANSACTIONS
+,
+DESCRIBE TRANSACTION
+Syntax
+¶
+ROLLBACK
+[
+WORK
+]
+Copy
+Parameters
+¶
+WORK
+Optional keyword that provides compatibility with other database systems.
+
+
+

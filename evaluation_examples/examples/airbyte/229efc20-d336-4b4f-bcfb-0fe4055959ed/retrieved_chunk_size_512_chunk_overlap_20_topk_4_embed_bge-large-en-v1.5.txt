@@ -1,0 +1,271 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.txt
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+Check the data from your first sync
+​
+Once the first sync has completed, you can verify the sync has completed by checking the data in your destination.
+Cloud
+Self Hosted
+If you followed along and created your own connection using a
+Google Sheets
+destination, you will now see three tabs created in your Google Sheet,
+products
+,
+users
+, and
+purchases
+.
+If you followed along and created your own connection using a
+Local JSON
+destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR_PATH with the path you chose in your destination setup, and YOUR_STREAM_NAME with the name of an actual stream you replicated):
+cat /tmp/airbyte_local/YOUR_PATH/_airbyte_raw_YOUR_STREAM_NAME.jsonl
+You should see a list of JSON objects, each containing a unique
+airbyte_ab_id
+, an
+emitted_at
+timestamp, and
+airbyte_data
+containing the extracted record.
+tip
+If you are using Airbyte on Windows with WSL2 and Docker, refer to
+this guide
+to locate the replicated folder and file.
+What's next?
+​
+Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing
+catalog of sources and destinations
+, and you can even
+contribute your own
+.
+If you have any questions at all, please reach out to us on
+Slack
+. If you would like to see a missing feature or connector added, please create an issue on our
+Github
+. Our community's participation is invaluable in helping us grow and improve every day, and we always welcome your feedback.
+Thank you, and we hope you enjoy using Airbyte!
+Edit this page
+Previous
+Add a Destination
+Next
+Configuring Connections
+Configure the connection
+Connection Overview
+Check the data from your first sync
+What's next?
+Was this page helpful?
+Yes
+No
+
+
+
+Documentation Source:
+airbyte.com/tutorials/extract-data-from-the-webflow-api.txt
+
+Documentation Title:
+Build a connector to extract data from the Webflow API | Airbyte
+
+Documentation Content:
+– the list of
+supported destinations
+is long and growing.
+Below I show how to replicate Webflow collections to a
+local json file
+.
+‍
+This tells Airbyte to output json data to
+/tmp/airbyte_local/webflow-blog-test
+. You will then be presented with a screen that allows you to configure the connection parameters as follows:
+Notice that there are many stream names available, all of which were
+dynamically generated based on the collections that are available in Webflow
+. Using the switch on the left side allows you to specify which of these streams you are interested in replicating to your output. For this demonstration, you may leave all settings with their default value, and then click on the
+Set up connection
+button in the bottom right corner.
+Once this is done, you will see that the first sync has already started as follows:
+‍
+And after a few minutes, if everything has gone as expected, you should see that the connection succeeded as follows:
+‍
+You can then look in the local directory at
+/tmp/airbyte_local/webflow-blog-test
+to verify that several json files have been created, with each file corresponding to a Webflow collection. In my case, the output looks as follows:
+‍
+This confirms that all of the collections have been pulled from Webflow, and copied to a directory on my local host!
+Creating a pull request (optional)
+Assuming that you wish to contribute your connector back
+to the Airbyte community, once you have validated that your connector is working as expected, you can push your local branch to github and then click on the
+Compare & pull request
+button, as shown in the image below:
+‍
+After you have created a pull request, one of Airbyte’s engineers will work with you to get your connector merged into the master branch so that it can be distributed and used by others.
+Conclusion
+Because of the open source nature of Airbyte, it is relatively easy to create your own connectors. In this article I presented the
+Webflow source connector
+implementation as an example of how to create a custom Airbyte source connector written in Python.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/connector-development/connector-builder-ui/connector-builder-compatibility.txt
+
+Documentation Title:
+Compatibility Guide | Airbyte Documentation
+
+Documentation Content:
+Basic HTTP
+API Key
+OAuth
+Session Token
+Other
+Is the data returned as JSON?
+How are records paginated?
+Page count
+Limit-Offset (OffsetIncrement)
+Link to next page (CursorPagination)
+Are the required parameters of the integration key-value pairs?
+Was this page helpful?
+Yes
+No
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/local-json.txt
+
+Documentation Title:
+Local JSON | Airbyte Documentation
+
+Documentation Content:
+Local JSON | Airbyte Documentation
+Skip to main content
+About Airbyte
+Tutorials
+Support
+Cloud Status
+Try Airbyte Cloud
+Search
+Airbyte Connectors
+Connector Catalog
+Sources
+Destinations
+Amazon SQS
+Astra DB Destination
+AWS Datalake
+Azure Blob Storage
+BigQuery
+Cassandra
+Chargify
+Chroma
+ClickHouse
+Convex
+Local CSV
+Cumul.io
+Databend
+Databricks Lakehouse
+Dev Null Destination
+Doris
+DuckDB
+DynamoDB
+End-to-End Testing Destination
+Elasticsearch
+Exasol
+Firebolt
+Firestore
+Google Cloud Storage (GCS)
+Google Sheets
+Iceberg
+Kafka
+Keen
+Kinesis
+KVDB
+Vector Database (powered by LangChain)
+Local JSON
+Mariadb Columnstore
+MeiliSearch
+Milvus
+MongoDB
+MQTT
+MSSQL
+MySQL
+Oracle DB
+Pinecone
+Postgres
+PubSub
+Pulsar
+Qdrant
+R2
+RabbitMQ
+Redis
+Redpanda
+Redshift
+Rockset
+S3-Glue
+S3
+Scylla
+SelectDB
+SFTP JSON
+Snowflake Cortex Destination
+Snowflake
+Sqlite
+Starburst Galaxy destination user guide
+Streamr
+Teradata
+TiDB
+Timeplus
+Typesense
+Vectara
+vertica
+Weaviate
+Xata
+Yellowbrick
+Yugabytedb
+Custom or New Connector
+Build a Connector
+Connector Support Levels
+Using Airbyte
+Getting Started
+Configuring Connections
+Managing Syncs
+Managing Airbyte
+Deploy Airbyte
+Self-Managed Enterprise
+Upgrading Airbyte
+Configuring Airbyte
+Access Management
+Airbyte at Scale
+Security
+Integrating with Airbyte
+Account Management
+Developer Guides
+API documentation
+Terraform Documentation
+Using PyAirbyte
+Understand Airbyte
+Contribute to Airbyte
+Licenses
+Community
+Getting Support
+Code of Conduct
+Product Updates
+Roadmap
+Release Notes
+Connector Catalog
+Destinations
+Local JSON
+On this page
+Availability
+Not available
+Airbyte Cloud
+Available
+Airbyte OSS
+Not available
+PyAirbyte
+Support Level
+Community
+Latest Version
+0.2.
+
+
+

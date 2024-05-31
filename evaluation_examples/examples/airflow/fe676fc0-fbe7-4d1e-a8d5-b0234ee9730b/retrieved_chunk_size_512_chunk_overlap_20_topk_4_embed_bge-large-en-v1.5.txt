@@ -1,0 +1,230 @@
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.txt
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+If you do, the environment variable takes precedence.
+Test if your credentials work when used in a direct API call to the external tool.
+Test your connections using the Airflow UI or the Airflow CLI. See
+Testing connections
+.
+note
+Testing connections is disabled by default in Airflow 2.7+. You can enable connection testing by defining the environment variable
+AIRFLOW__CORE__TEST_CONNECTION=Enabled
+in your Airflow environment. Astronomer recommends not enabling this feature until you are sure that only highly trusted UI/API users have "edit connection" permissions.
+To find information about what parameters are required for a specific connection:
+Read provider documentation in the
+Astronomer Registry
+to access the Apache Airflow documentation for the provider. Most commonly used providers will have documentation on each of their associated connection types. For example, you can find information on how to set up different connections to Azure in the Azure provider docs.
+Check the documentation of the external tool you are connecting to and see if it offers guidance on how to authenticate.
+View the source code of the hook that is being used by your operator.
+You can also test connections from within your IDE by using the
+dag.test()
+method. See
+Debug interactively with dag.test()
+and
+How to test and debug your Airflow connections
+.
+I need more help
+​
+The information provided here should help you resolve the most common issues. If your issue was not covered in this guide, try the following resources:
+If you are an Astronomer customer contact our
+customer support
+.
+Post your question to
+Stack Overflow
+, tagged with
+airflow
+and other relevant tools you are using. Using Stack Overflow is ideal when you are unsure which tool is causing the error, since experts for different tools will be able to see your question.
+Join the
+Apache Airflow Slack
+and open a thread in
+#newbie-questions
+or
+#troubleshooting
+. The Airflow slack is the best place to get answers to more complex Airflow specific questions.
+If you found a bug in Airflow or one of its core providers, please open an issue in the
+Airflow GitHub repository
+. For bugs in Astronomer open source tools please open an issue in the relevant
+Astronomer repository
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.txt
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+To get more specific answers to your question, include the following information in your question or issue:
+Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
+Your Airflow version and the version of relevant providers.
+The full error with the error trace if applicable.
+The full code of the DAG causing the error if applicable.
+What you are trying to accomplish in as much detail as possible.
+What you changed in your environment when the problem started.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+DAG writing best practices
+Next
+Dynamic tasks
+Assumed knowledge
+General Airflow debugging approach
+Airflow is not starting on the Astro CLI
+Common DAG issues
+DAGs don't appear in the Airflow UI
+Import errors due to dependency conflicts
+DAGs are not running correctly
+Common task issues
+Tasks are not running correctly
+Tasks are failing
+Issues with dynamically mapped tasks
+Missing Logs
+Troubleshooting connections
+I need more help
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-support.txt
+
+Documentation Title:
+Submit a support request | Astronomer Documentation
+
+Documentation Content:
+Additionally, if the immediate problem is solved but there are follow up investigations ongoing, those follow ups will be conducted in a separate ticket at a lower priority.
+P2:
+High impact. Ability to use Astro is severely impaired but does not affect critical, previously working pipelines in production.
+Examples:
+A newly deployed production DAG is not working, even though it ran successfully in a development or test environment.
+The Airflow UI is unavailable.
+You are unable to deploy code to your Deployment, but existing DAGs and tasks are running as expected.
+You need to
+modify a Hybrid cluster setting
+that is required for running tasks, such as adding a new worker instance type.
+Task logs are missing in the Airflow UI.
+P3:
+Medium impact. Service is partially impaired.
+Examples:
+A newly deployed DAG is not working in a development Deployment, even though it ran successfully in a local environment using the Astro CLI.
+You need to
+modify a Hybrid cluster setting
+that affects your cluster's performance but isn't required to run tasks, such as changing the size of your cluster's database or adding a new VPC peering connection.
+Astro CLI usage is impaired (for example, there are incompatibility errors between installed packages).
+There is an Airflow issue that has a code-based solution.
+You received a log alert on Astronomer.
+You have lost the ability to use a
+Public Preview
+feature that does not affect general services.
+P4:
+Low impact. Astro is fully usable but you have a question for our team.
+Examples:
+There are package incompatibilities caused by a specific, complex use case.
+You have an inquiry or a small bug report for a Public Preview feature.
+Be as descriptive as possible
+​
+The more information you can provide about the issue you're experiencing, the quicker Astronomer support can start the troubleshooting and resolution process. When submitting a support request, include the following information:
+Have you made any recent changes to your Deployment or running DAGs?
+What solutions have you already tried?
+Is this a problem in more than one Deployment?
+Include logs or code snippets
+​
+If you've already copied task logs or Airflow component logs, send them as a part of your request. The more context you can provide, the better.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-databricks.txt
+
+Documentation Title:
+Orchestrate Databricks jobs with Airflow | Astronomer Documentation
+
+Documentation Content:
+If you would be using Airflow's built in
+retry functionality
+a separete cluster would be created for each failed task.
+If you only want to rerun specific tasks within your Workflow, you can use the
+Repair a single failed task
+operator extra link on an individual task in the Databricks Workflow.
+Alternative ways to run Databricks with Airflow
+​
+The Astro Databricks provider is under active development, and support for more Databricks task types is still being added. If you want to orchestrate an action in your Databricks environment that is not yet supported by the Astro Databricks provider such as
+updating a Databricks repository
+, check the
+community-managed Databricks provider
+for relevant operators.
+Additionally, the community-managed Databricks provider contains hooks (for example the
+DatabricksHook
+) that simplify interaction with Databricks, including writing your own
+custom Databricks operators
+.
+You can find several example DAGs that use the community-managed Databricks provider on the
+Astronomer Registry
+.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Tags:
+Integrations
+DAGs
+Edit this page
+Previous
+Connection
+Next
+dbt Cloud
+Why use Airflow with Databricks
+Time to complete
+Assumed knowledge
+Prerequisites
+Step 1: Configure your Astro project
+Step 2: Create Databricks Notebooks
+Step 3: Configure the Databricks connection
+Step 4: Create your DAG
+How it works
+Parameters
+Repairing a Databricks Workflow
+Alternative ways to run Databricks with Airflow
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+

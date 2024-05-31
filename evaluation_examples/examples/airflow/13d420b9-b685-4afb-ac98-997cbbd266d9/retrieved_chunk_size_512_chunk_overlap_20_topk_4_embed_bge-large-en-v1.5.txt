@@ -1,0 +1,212 @@
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.txt
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+Is called when defined with the
+@dag
+decorator. See also
+Introduction to Airflow decorators
+.
+Import errors due to dependency conflicts
+​
+A frequent cause of DAG import errors is not having the necessary packages installed in your Airflow environment. You might be missing
+provider packages
+that are required for using specific operators or hooks, or you might be missing Python packages used in Airflow tasks.
+In an Astro project, you can install OS-level packages by adding them to your
+packages.txt
+file. You can install Python-level packages, such as provider packages, by adding them to your
+requirements.txt
+file. If you need to install packages using a specific package manager, consider doing so by adding a bash command to your Dockerfile.
+To prevent compatibility issues when new packages are released, Astronomer recommends pinning a package version to your project. For example, adding
+astronomer-providers[all]==1.14.0
+to your
+requirements.txt
+file ensures that no future releases of
+astronomer-providers
+causes compatibility issues. If no version is pinned, Airflow will always use the latest available version.
+If you are using the Astro CLI, packages are installed in the scheduler Docker container. You can confirm that a package is installed correctly by running:
+astro dev
+bash
+--scheduler
+"pip freeze | grep <package-name>"
+If you have conflicting package versions or need to run multiple Python versions, you can run tasks in different environments using a few different operators:
+KubernetesPodOperator
+: Runs a task in a separate Kubernetes Pod.
+ExternalPythonOperator
+: Runs a task in a predefined virtual environment.
+PythonVirtualEnvOperator
+: Runs a task in a temporary virtual environment.
+If many Airflow tasks share a set of alternate package and version requirements a common pattern is to run them in two or more separate Airflow deployments.
+DAGs are not running correctly
+​
+If your DAGs are either not running or running differently than you intended, consider checking the following common causes:
+DAGs need to be unpaused in order to run on their schedule. You can unpause a DAG by clicking the toggle on the left side of the Airflow UI or by using the
+Airflow CLI
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/cross-dag-dependencies.txt
+
+Documentation Title:
+Cross-DAG dependencies | Astronomer Documentation
+
+Documentation Content:
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Context
+Next
+Custom hooks and operators
+Assumed knowledge
+Implement cross-DAG dependencies
+Dataset dependencies
+TriggerDagRunOperator
+ExternalTaskSensor
+Airflow API
+DAG dependencies view
+Cross-deployment dependencies
+Cross-deployment dependencies on Astro
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.txt
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+To get more specific answers to your question, include the following information in your question or issue:
+Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
+Your Airflow version and the version of relevant providers.
+The full error with the error trace if applicable.
+The full code of the DAG causing the error if applicable.
+What you are trying to accomplish in as much detail as possible.
+What you changed in your environment when the problem started.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+DAG writing best practices
+Next
+Dynamic tasks
+Assumed knowledge
+General Airflow debugging approach
+Airflow is not starting on the Astro CLI
+Common DAG issues
+DAGs don't appear in the Airflow UI
+Import errors due to dependency conflicts
+DAGs are not running correctly
+Common task issues
+Tasks are not running correctly
+Tasks are failing
+Issues with dynamically mapped tasks
+Missing Logs
+Troubleshooting connections
+I need more help
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.txt
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+For example, to run
+airflow dags test
+on the DAG
+my_dag
+for the execution date of
+2023-01-29
+run:
+astro dev run dags
+test
+my_dag
+'2023-01-29'
+The Astro CLI
+​
+The Astro CLI includes a suite of commands to help simplify common testing workflows. See
+Test your Astro project locally
+.
+Test DAGs in a CI/CD pipeline
+​
+You can use CI/CD tools to test and deploy your Airflow code. By installing the Astro CLI into your CI/CD process, you can test your DAGs before deploying them to a production environment. See
+set up CI/CD
+for example implementations.
+info
+Astronomer customers can use the Astro GitHub integration, which allows you to automatically deploy code from a GitHUb repository to an Astro deployment, viewing Git metadata in the Astro UI. See
+Deploy code with the Astro GitHub integration
+.
+Add test data or files for local testing
+​
+Use the
+include
+folder of your Astro project to store files for testing locally, such as test data or a dbt project file. The files in your
+include
+folder are included in your deploys to Astro, but they are not parsed by Airflow. Therefore, you don't need to specify them in
+.airflowignore
+to prevent parsing.
+If you're running Airflow locally, apply your changes by refreshing the Airflow UI.
+Debug interactively with dag.test()
+​
+The
+dag.test()
+method allows you to run all tasks in a DAG within a single serialized Python process, without running the Airflow scheduler. The
+dag.test()
+method lets you iterate faster and use IDE debugging tools when developing DAGs.
+This functionality replaces the deprecated DebugExecutor. Learn more in the
+Airflow documentation
+.
+Prerequisites
+​
+Ensure that your testing environment has:
+Airflow 2.5.0
+or later. You can check your version by running
+airflow version
+.
+All provider packages that your DAG uses.
+An initialized
+Airflow metadata database
+, if your DAG uses elements of the metadata database like XCom. The Airflow metadata database is created when Airflow is first run in an environment.
+
+
+

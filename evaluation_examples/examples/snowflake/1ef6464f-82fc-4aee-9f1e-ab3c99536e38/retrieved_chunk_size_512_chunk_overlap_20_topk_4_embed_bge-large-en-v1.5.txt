@@ -1,0 +1,341 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.txt
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Overview
+Connecting to Snowflake
+Ecosystem
+Snowsight
+Getting started with Snowsight
+Exploring the navigation menu
+About the Snowsight Upgrade
+Upgrading to Snowsight
+Search Snowflake objects and resources
+Getting started with worksheets
+Managing and using worksheets
+Querying data with SQL worksheets
+Using Snowflake Copilot in SQL worksheets
+Visualizing worksheet results
+Visualizing data with dashboards
+Filter query results in worksheets and dashboards
+Explore and manage data
+Manage your user profile
+Manage notification contacts
+Manage support cases
+Classic Console
+SnowSQL
+Visual Studio Code SQL Extension
+Client Download
+Client Configuration
+Connecting to Third-Party Systems
+Snowflake Connector for Google Analytics Aggregate Data
+Snowflake Connector for Google Analytics Raw Data
+Snowflake Connector for Google Looker Studio
+Snowflake Connector for ServiceNow®
+Snowflake Connector for ServiceNow®v2
+Virtual warehouses
+Databases, Tables, & Views
+Data Types
+Data Loading
+Data Unloading
+Queries
+Data Sharing & Collaboration
+Snowflake AI Features
+Snowflake Cortex
+Alerts & Notifications
+Security
+Data Governance
+Privacy
+Organizations & Accounts
+Business Continuity & Data Recovery
+Performance Optimization
+Cost & Billing
+Guides
+Connecting to Snowflake
+Snowsight
+Filter query results in worksheets and dashboards
+Filter query results in dashboards and worksheets
+¶
+You can filter your query results in dashboards and SQL worksheets using system filters, available to all roles in Snowflake,
+or with custom filters created by administrators.
+Create custom filters
+¶
+Custom filters let you change the results of a query without directly editing the query.
+Filters are implemented as special keywords that resolve as a subquery or list of values, which are then used in the execution of a query.
+As a result, there are some limitations when using a filter in a SQL query. See
+Specify a filter in a SQL query
+.
+Note
+Anyone in your account can view and use a custom filter after it is created. A custom filter has an associated role,
+but that role does not limit filter visibility.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.txt
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+Select
+Save
+.
+Select
+Done
+to close the
+Filters
+dialog.
+Write a query to populate a filter
+¶
+To populate a list of filter options from a query, your query must follow certain guidelines:
+Must return the columns
+name
+and
+value
+.
+Can return the optional column
+description
+.
+Can return other columns, but those do not appear in the drop-down filter list.
+A filter can only run one query at a time. You cannot run multiple queries to generate the list of filter options, for example by running
+one query to return the
+name
+column and a second query to return the
+value
+column.
+Note
+The query used to populate a list of filter options is run as the user that created (or last modified) the filter.
+Because anyone in your account can view and use a custom filter after it is created, make sure that the list of
+filter options produced by your query do not contain protected or sensitive data.
+After you write your filter query and add it in the
+New filter
+dialog, do the following to finish setting up your query filter:
+Select
+Done
+to save your filter query and return to the
+Add Filter
+dialog.
+Optionally change the default refresh option from
+Refresh hourly
+to
+Never refresh
+or
+Refresh daily
+. For details
+and considerations for filter refresh options, see
+Manage refresh frequency for a custom filter
+.
+Return to the steps for creating a custom filter to finish creating your filter. See
+Create a custom filter
+.
+Review and manage custom filters in an account
+¶
+To review custom filters in your account, open a worksheet or dashboard and then select
+.
+To make changes to any filters, such as changing the refresh frequency for the query used to populate a custom filter list,
+you must have the ACCOUNTADMIN role or a role with
+permissions to manage filters
+.
+See
+Manage refresh frequency for a custom filter
+.
+Manage ownership of custom filters
+¶
+Each custom filter has an associated role. Anyone with that role can edit or delete the filter.
+Users with the ACCOUNTADMIN role can view and edit every filter in the account.
+If the role associated with a filter is dropped, the role dropping the filter role does
+not
+inherit ownership of the custom filter.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.txt
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+See
+Manage ownership of custom filters
+for more details.
+For
+Warehouse
+, select a warehouse to use to refresh filter values, if the filter is based on a query.
+The owner role for the filter must have the USAGE privilege on the warehouse you select.
+If you want to run and validate your query as part of these steps, the warehouse must be running.
+For
+Options via
+, choose whether the filter values are populated by a query or a list:
+If you select
+Query
+, select
+Write Query
+and see
+Write a query to populate a filter
+for guidance writing a
+filter query.
+If you select
+List
+, do the following:
+Select
+Edit List
+.
+Optionally, for
+Name
+, enter a name for the list item. The name appears in the drop-down list for the filter.
+If you do not provide a name, the
+Value
+is used.
+For
+Value
+, enter the value of the column name to use in the filter.
+Continue adding name and value pairs until your list is complete, then select
+Save
+.
+In the
+Add Filter
+dialog, for
+Value Type
+, choose whether the list items are
+Text
+or
+Number
+types of data.
+If you want users to be able to select multiple items in the drop-down list of filter options,
+turn on the toggle for
+Multiple values can be selected
+.
+If you want users to be able to see results for all items in the column, turn on the toggle for
+Include an “All” option
+, then select
+how you want the
+All
+option to function:
+Select
+Any value
+to have the
+All
+in the filter mean that the column to which the filter applies can have any value in
+the results, whether or not the value exists in the filter list.
+Select
+Any value in list of options
+to have
+All
+in the filter mean that the column to which the filter applies contains
+any item in the filter list.
+If you want users to be able to see results for items not specified in the filter, turn on the toggle for
+Include an “Other” option
+.
+Select
+Save
+.
+Select
+Done
+to close the
+Filters
+dialog.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.txt
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+A custom filter has an associated role,
+but that role does not limit filter visibility.
+Grant permission to create custom filters
+¶
+To let a user create custom filters, a user with the ACCOUNTADMIN role must grant the relevant permissions to a role granted to that user.
+You can only use Snowsight to grant roles the ability to create custom filters.
+To grant a role permission to create custom filters for your account, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets and open a worksheet,
+or select
+Projects
+»
+Dashboards
+to open the list of dashboards and open a dashboard.
+Select
+and, if in a worksheet, select
+Manage Filters
+.
+In the dialog that appears, select
+Edit Permission
+.
+In the
+Filter Permissions
+dialog, select the roles you want to grant the ability to create filters to.
+Select
+Save
+.
+Create a custom filter
+¶
+You must use Snowsight to create a filter, and you must use a role with permissions to create custom filters.
+To create a custom filter, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets and open a worksheet,
+or select
+Projects
+»
+Dashboards
+to open the list of dashboards and open a dashboard.
+Select
+and, if in a worksheet, select
+Manage Filters
+.
+In the
+Filters
+dialog that appears, select
++ Filter
+.
+To add a filter, complete the following:
+For
+Display Name
+, enter a name for the filter. This name appears on the filter when selecting the filter on a worksheet or dashboard.
+For
+SQL Keyword
+, enter a unique keyword to insert into queries. Use the format
+:<string>
+, without spaces.
+For example:
+:page_path
+.
+For
+Description
+, enter a description of the filter.
+For
+Role
+, select a role to associate with the filter and run the query used to populate filter values, if the filter is based
+on a query. Only roles with permissions to create custom filters appear in the drop-down list.
+See
+Manage ownership of custom filters
+for more details.
+
+
+

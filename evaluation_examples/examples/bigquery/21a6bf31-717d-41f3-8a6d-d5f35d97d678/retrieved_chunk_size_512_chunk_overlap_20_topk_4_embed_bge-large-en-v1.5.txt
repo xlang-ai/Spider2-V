@@ -1,0 +1,394 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/bigquery-web-ui.txt
+
+Documentation Title:
+Explore the Google Cloud console  |  BigQuery
+
+Documentation Content:
+Display resources
+The
+Explorer
+pane lists datasets that you can browse in your current
+project or any projects that you starred.
+To display the datasets in a project, click
+arrow_right
+Toggle node
+for that
+project.
+To display the tables, views, and functions in a dataset, click the
+dataset.
+Resources are also displayed in the
+Explorer
+pane when you open them
+some other way. For example, when you create a table and then click
+Go to table
+, the
+Explorer
+pane highlights and shows that table under
+its dataset.
+To display information about a resource in a project or dataset, click the name
+of the resource in the
+Explorer
+pane and view the details pane. The set of
+available actions depends on the resource. For example, the following image
+shows the tab for a table:
+Star resources
+If you have important or current projects, datasets, or tables, you can star them
+in the
+Explorer
+pane. To star a resource, hold the pointer over the name of
+the resource that you want to star, and then click
+star_border
+Star
+.
+For more information on starring a project, see
+Star a project
+.
+View starred resources
+To view only the starred resources in the
+Explorer
+pane, click
+Show starred resources only
+in the
+Explorer
+pane.
+To view all the resources in the
+Explorer
+pane, click
+Show all resources
+.
+Unstar resources
+To unstar a resource, click
+star
+Unstar
+next to the resource.
+Welcome tab
+Preview
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section
+        of the
+Service Specific Terms
+.
+        
+        Pre-GA products and features are available "as is" and might have limited support.
+      
+      For more information, see the
+launch stage descriptions
+.
+The first time you open BigQuery, you see the welcome tab
+and a query editor tab, with the welcome tab in focus. The welcome tab contains
+the following demo guides:
+Run a sample query on a public dataset from Google Trends.
+Add data to BigQuery.
+You may close the welcome tab, but it appears again when you refresh the page.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/bigquery-web-ui.txt
+
+Documentation Title:
+Explore the Google Cloud console  |  BigQuery
+
+Documentation Content:
+You may close the welcome tab, but it appears again when you refresh the page.
+If you want to see the welcome tab on startup, select the
+Show welcome page on startup
+checkbox. To go back to the welcome tab, click
+Welcome
+.
+To open a query editor from the welcome tab, click
+add_box
+Compose a new query
+. To access
+ways to import data and search data sources that work with
+BigQuery, click
+add_box
+Add data
+.
+If you open BigQuery using your workspace URL, then
+your workspace query editor tab opens first.
+Run query demo guide
+The
+Get started
+section contains the demo guide for running a sample
+query on a Google Trends public dataset.
+To run the demo guide, follow these steps. To exit the demo at any time,
+click
+close
+Close tour
+.
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+Ensure that you are on the BigQuery
+welcome page: click
+Welcome
+.
+Click
+search
+Open this query
+.
+The
+bigquery-public-data
+project is automatically added to the
+Explorer
+pane. The public project and the
+google_trends
+dataset are expanded, and
+the
+Google Trends Data
+dialog highlights the starred
+top_terms
+table.
+Additionally, the query editor is opened with a predefined query.
+In the
+Google Trends Data
+dialog, click
+Next
+.
+In the
+Google Trends Query
+dialog, click
+Next
+.
+To return to the previous step, click
+Back
+in the dialog.
+In the
+Run this query
+dialog, click
+Try it
+.
+To return to the previous step, click
+Back
+in the dialog.
+In the
+Query results
+dialog, click
+Done
+.
+You can run this demo multiple times.
+To view the Google Trends public dataset, in the welcome page, click
+View dataset
+.
+Run add data demo guide
+The
+Add your own data
+section contains the demo guide for adding data to
+BigQuery through popular sources.
+To run the demo guide, follow these steps. To exit the demo at any time,
+click
+close
+Close tour
+. To return to the
+previous step where applicable, click
+Back
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.txt
+
+Documentation Title:
+Query a public dataset with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+The BigQuery sandbox lets you learn
+BigQuery with a limited set of BigQuery
+features at no charge.
+Ensure that the BigQuery API is enabled.
+Enable the API
+If you created a new project, the BigQuery API is automatically
+    enabled.
+Open a public dataset
+BigQuery public datasets are available by default in the
+Google Cloud console.
+In the following example, you access datasets in the public project
+bigquery-public-data
+.
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the
+Explorer
+pane, click
++Add
+.
+In the
+Add
+dialog, search
+public datasets
+, and then click
+Public Datasets
+.
+Select a dataset, and then click
+View dataset
+.
+In the
+Explorer
+pane, your dataset is selected and you can view its
+details.
+Optional: Click
+more_vert
+View actions
+next to your dataset to view more options.
+Each dataset contains tables, which you can view by clicking
+arrow_right
+Toggle node
+next to any dataset.
+Query a public dataset
+In the following steps, you query the USA Names public dataset to determine
+the most common names in the United States between 1910 and 2013:
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+Go to the
+Editor
+field.
+If the
+Editor
+field is not visible, then click
+add_box
+Compose new query
+.
+In the
+Editor
+field, copy the following
+query:
+SELECT
+  name,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name
+ORDER BY
+  total DESC
+LIMIT
+  10;
+If the query is valid, then a check mark appears along with the amount of
+data that the query processes. If the query is invalid, then an
+exclamation point appears along with an error message.
+Click
+Run
+.
+The most common names are listed in the
+Query results
+section.
+The table's header row contains each column name that you selected in the
+query.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.txt
+
+Documentation Title:
+Query a public dataset with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+DML
+Transform data in partitioned tables
+Work with change history
+Export data
+Export to file
+Export to Cloud Storage
+Export to Bigtable
+Export as Protobuf columns
+Analyze
+Introduction
+Query BigQuery data
+Run a query
+Analyze with a data canvas
+Write queries with Gemini
+Write query results
+Generate profile insights
+Generate data insights
+Query data with SQL
+Introduction
+Arrays
+JSON data
+Sketches
+Multi-statement queries
+Recursive CTEs
+Table sampling
+Time series
+Transactions
+Saved queries
+Introduction
+Create saved queries
+Use cached results
+Run parameterized queries
+Query with wildcard tables
+Access historical data
+Schedule queries
+Troubleshoot queries
+Optimize queries
+Introduction
+Use the query plan explanation
+Get query performance insights
+Optimize query computation
+Use history-based optimizations
+Optimize storage
+Use BI Engine
+Use nested and repeated data
+Optimize functions
+Query external data sources
+Manage open source metadata
+Use external tables and datasets
+Amazon S3 data
+Query Amazon S3 data
+Export query results to Amazon S3
+Query Apache Iceberg data
+Query open table formats with manifests
+Azure Blob Storage data
+Query Azure Blob Storage data
+Export query results to Azure Blob Storage
+Query Cloud Bigtable data
+Cloud Storage data
+Query Cloud Storage data in BigLake tables
+Query Cloud Storage data in external tables
+Work with Salesforce Data Cloud data
+Query Google Drive data
+Create AWS Glue federated datasets
+Run federated queries
+Federated queries
+Query SAP Datasphere data
+Query Cloud Spanner data
+Query Cloud SQL data
+Analyze unstructured data
+Run inference
+Analyze with remote functions
+Tutorial: Create and use a remote function
+Search indexed text
+Work with text analyzers
+Work with sessions
+Introduction
+Create sessions
+Write queries in sessions
+Run queries in sessions
+Terminate sessions
+View query history in sessions
+Find sessions
+Use geospatial analytics
+Introduction
+Work with geospatial analytics
+Visualize geospatial data
+Geospatial analytics syntax reference
+Geospatial analytics tutorials
+Get started with geospatial analytics
+Use geospatial analytics to plot a hurricane's path
+Use programmatic tools
+Introduction
+Use notebooks in BigQuery
+Introduction
+Create notebooks
+Explore query results
+Use
+
+
+

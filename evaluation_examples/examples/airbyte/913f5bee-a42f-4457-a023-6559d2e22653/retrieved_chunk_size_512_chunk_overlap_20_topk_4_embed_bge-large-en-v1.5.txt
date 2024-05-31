@@ -1,0 +1,339 @@
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.txt
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Create a source:
+Go to the Sources tab and click on "+ New source".
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+Look fo Faker source connector
+Create a Faker source
+2. Create a destination:
+Go to the Destinations tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select "BigQuery".
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
+Click on "Set up destination".
+Look for BigQuery destination connector
+Create a BigQuery destination
+3. Create a connection:
+Go to the Connections tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+‍
+Establish a connector between Faker and BigQuery
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
+1. Navigate to the dbt Project Directory:
+Move to the dbt project directory in your project's file structure.
+cd ../../dbt_project
+This directory contains all the dbt-related configurations and SQL models.
+2. Update Connection Details:
+Within this directory, you'll find a <span class="text-style-code">profiles.yml file</span>. This file holds the configuration for dbt to connect to BigQuery.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.txt
+
+Documentation Title:
+E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
+
+Documentation Content:
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+2. Create a destination
+:
+Go to the "Destinations" tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select BigQuery.
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the Service Account Key JSON field, enter the contents of the JSON file. Yes, the full JSON.
+Click on Set up destination.
+3. Create a connection
+:
+Go to the "Connections" tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
+1. Navigate to the dbt Project Directory
+:
+Move to the directory containing the dbt configuration:
+cd ../../dbt_project
+‍
+2. Update Connection Details
+:
+You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform.
+Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path, the dataset location and your BigQuery project ID.
+Provide your BigQuery project ID in the database field of the <span class="text-style-code">/models/ecommerce/sources/faker_sources.yml</span> file.
+3. Test the Connection (Optional)
+:
+You can test the connection to your BigQuery instance using the following command.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+"purchases"
+(
+"id"
+float8
+,
+"user_id"
+float8
+,
+"product_id"
+float8
+,
+"purchased_at"
+timestamptz
+,
+"added_to_cart_at"
+timestamptz
+,
+"returned_at"
+timestamptz
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_dev_purchases_hashid" text,
+)
+;
+Features
+​
+Feature
+Supported?(Yes/No)
+Notes
+Full Refresh Sync
+Yes
+Incremental Sync
+Yes
+Namespaces
+No
+Of note, if you choose
+Incremental Sync
+, state will be maintained between syncs, and once you hit
+count
+records, no new records will be added.
+You can choose a specific
+seed
+(integer) as an option for this connector which will guarantee that
+the same fake records are generated each time. Otherwise, random data will be created on each
+subsequent sync.
+Requirements
+​
+None!
+Reference
+​
+Config fields reference
+Field
+Type
+Property name
+›
+Count
+integer
+count
+›
+Seed
+integer
+seed
+›
+Records Per Stream Slice
+integer
+records_per_slice
+›
+Always Updated
+boolean
+always_updated
+›
+Parallelism
+integer
+parallelism
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+6.1.0
+2024-04-08
+36898
+Update car prices and years
+6.0.3
+2024-03-15
+36167
+Make 'count' an optional config parameter.
+6.0.2
+2024-02-12
+35174
+Manage dependencies with Poetry.
+6.0.1
+2024-02-12
+35172
+Base image migration: remove Dockerfile and use the python-connector-base image
+6.0.0
+2024-01-30
+34644
+Declare 'id' columns as primary keys.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+"users"
+(
+"address"
+jsonb
+,
+"occupation"
+text
+,
+"gender"
+text
+,
+"academic_degree"
+text
+,
+"weight"
+int8
+,
+"created_at"
+timestamptz
+,
+"language"
+text
+,
+"telephone"
+text
+,
+"title"
+text
+,
+"updated_at"
+timestamptz
+,
+"nationality"
+text
+,
+"blood_type"
+text
+,
+"name"
+text
+,
+"id"
+float8
+,
+"age"
+int8
+,
+"email"
+text
+,
+"height"
+text
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_users_hashid" text
+)
+;
+CREATE
+TABLE
+"public"
+.
+"users_address"
+(
+"_airbyte_users_hashid"
+text
+,
+"country_code"
+text
+,
+"province"
+text
+,
+"city"
+text
+,
+"street_number"
+text
+,
+"state"
+text
+,
+"postal_code"
+text
+,
+"street_name"
+text
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_address_hashid" text
+)
+;
+CREATE
+TABLE
+"public"
+.
+"products"
+(
+"id"
+float8
+,
+"make"
+text
+,
+"year"
+float8
+,
+"model"
+text
+,
+"price"
+float8
+,
+"created_at"
+timestamptz
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_dev_products_hashid" text,
+)
+;
+CREATE
+TABLE
+"public"
+.
+
+
+

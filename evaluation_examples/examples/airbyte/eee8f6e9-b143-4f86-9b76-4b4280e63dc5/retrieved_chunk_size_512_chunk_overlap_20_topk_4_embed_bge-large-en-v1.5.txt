@@ -1,0 +1,258 @@
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+By default the path that you specify will be located inside
+/tmp/airbyte_local
+. In this tutorial I set the destination to
+/json_from_faker
+, which means that the data will be copied to
+/tmp/airbyte_local/json_from_faker
+on the localhost where Airbyte is running. After specifying the Destination Path, click on Set up destination.
+Configure the Local JSON destination
+‍
+This will take you to a page to set up the connection. Set the replication frequency to
+Manual
+(since we will use Airflow to trigger Airbyte syncs rather than using Airbyte’s scheduler) and then click on
+Set up connection
+as highlighted in the image below.
+Specify connection settings
+‍
+Trigger a sync from the
+Sample Data (faker)
+source to the
+Local JSON
+output by clicking on
+Sync now
+as highlighted in the image below.
+Manually trigger a sync from the UI
+‍
+The sync should take a few seconds, at which point you should see that the sync has succeed as shown below.
+After the sync has completed
+‍
+You can now confirm if some sample data has been copied to the expected location. As previously mentioned, for this example the JSON data can be seen in
+/tmp/airbyte_local_json_from_faker
+. Because there were three streams generated, the following three JSON files should be available:
+_airbyte_raw_products.jsonl	
+_airbyte_raw_users.jsonl
+_airbyte_raw_purchases.jsonl
+You have now created a simple example connection in Airbyte which can be manually triggered. A manually triggered connection is ideal for situations where you wish to use an external orchestrator.
+In the next section you will see how to trigger a manual sync on this connection by hitting a REST endpoint directly. After that, you will see how Airflow can be used to hit that same endpoint to trigger synchronizations.
+Test the API endpoints with cURL
+Before using the REST endpoint from within Airflow, it is useful to verify that it is working as expected.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.txt
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Create a source:
+Go to the Sources tab and click on "+ New source".
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+Look fo Faker source connector
+Create a Faker source
+2. Create a destination:
+Go to the Destinations tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select "BigQuery".
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
+Click on "Set up destination".
+Look for BigQuery destination connector
+Create a BigQuery destination
+3. Create a connection:
+Go to the Connections tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+‍
+Establish a connector between Faker and BigQuery
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
+1. Navigate to the dbt Project Directory:
+Move to the dbt project directory in your project's file structure.
+cd ../../dbt_project
+This directory contains all the dbt-related configurations and SQL models.
+2. Update Connection Details:
+Within this directory, you'll find a <span class="text-style-code">profiles.yml file</span>. This file holds the configuration for dbt to connect to BigQuery.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+"purchases"
+(
+"id"
+float8
+,
+"user_id"
+float8
+,
+"product_id"
+float8
+,
+"purchased_at"
+timestamptz
+,
+"added_to_cart_at"
+timestamptz
+,
+"returned_at"
+timestamptz
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_dev_purchases_hashid" text,
+)
+;
+Features
+​
+Feature
+Supported?(Yes/No)
+Notes
+Full Refresh Sync
+Yes
+Incremental Sync
+Yes
+Namespaces
+No
+Of note, if you choose
+Incremental Sync
+, state will be maintained between syncs, and once you hit
+count
+records, no new records will be added.
+You can choose a specific
+seed
+(integer) as an option for this connector which will guarantee that
+the same fake records are generated each time. Otherwise, random data will be created on each
+subsequent sync.
+Requirements
+​
+None!
+Reference
+​
+Config fields reference
+Field
+Type
+Property name
+›
+Count
+integer
+count
+›
+Seed
+integer
+seed
+›
+Records Per Stream Slice
+integer
+records_per_slice
+›
+Always Updated
+boolean
+always_updated
+›
+Parallelism
+integer
+parallelism
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+6.1.0
+2024-04-08
+36898
+Update car prices and years
+6.0.3
+2024-03-15
+36167
+Make 'count' an optional config parameter.
+6.0.2
+2024-02-12
+35174
+Manage dependencies with Poetry.
+6.0.1
+2024-02-12
+35172
+Base image migration: remove Dockerfile and use the python-connector-base image
+6.0.0
+2024-01-30
+34644
+Declare 'id' columns as primary keys.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+Versions
+There may be future modifications to the API and/or Airflow that could render some of the instructions given in this tutorial obsolete. The instructions presented in this tutorial were created in February 2023, and the following tools were used:
+Airbyte OSS 0.40.32
+Docker Desktop v4.10.1
+macOS Monterey Version 12.5.1
+MacBook Pro with the Apple M1 Pro Chip
+Airflow v2.5.1 Git Version: .release:2.5.1+49867b660b6231c1319969217bc61917f7cf9829
+Install Airbyte
+If you already have a local copy of Airbyte running, then you may skip this section. Otherwise, follow the instructions to
+deploy Airbyte
+.
+[Optional] Modify
+BASIC_AUTH_USERNAME
+and
+BASIC_AUTH_PASSWORD
+in the (hidden)
+.env
+file. For this tutorial I use the following default values:
+BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password
+Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:
+Airbyte OSS login prompt
+Create a connection
+Create a connection that sends data from the
+Sample Data (Faker)
+source to the
+Local JSON
+(file system) output. Click on “Create your first connection” as shown below:
+Create your first connection prompt
+‍
+You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.
+Select Sample Data (Faker) as a source
+‍
+After selecting Sample Data as the source, you will see a screen that should look as follows. Click on
+Set up source
+as shown below.
+Configure Sample Data (Faker) as a source
+‍
+You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select
+Local JSON
+as shown below:
+Select Local JSON as a destination
+‍
+After selecting Local JSON as the output, you will need to specify where the JSON files should be written.
+
+
+

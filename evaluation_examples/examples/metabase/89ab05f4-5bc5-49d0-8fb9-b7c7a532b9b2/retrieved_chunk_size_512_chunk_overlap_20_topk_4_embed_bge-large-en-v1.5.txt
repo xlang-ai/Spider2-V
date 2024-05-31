@@ -1,0 +1,290 @@
+Documentation Source:
+www.metabase.com/learn/visualization/histograms.txt
+
+Documentation Title:
+Visualize your data as a histogram
+
+Documentation Content:
+The bins are of equal length (and can be empty), and the bins are contiguous. The height of each bar represents the count (or proportion) of the items in the bin. The number of bins is up to the user, though Metabase will automatically select the number of bins for you.
+Here’s a bar chart that displays the count of people from the People table grouped by referral source.
+Here’s the histogram we’ll create in
+the walkthrough below
+.
+Metabase makes it easy to create a histogram. In fact, if the data is suitable for a histogram, Metabase will automatically create a histogram for you.
+Create a histogram
+Follow along with Metabase’s
+Sample Database
+to create the histogram detailed below.
+Select
++ New
+>
+Question
+. In the
+Query Builder
+under
+Pick your starting data
+, choose
+Raw Data
+>
+Sample Database
+, and select the
+Orders
+table. Then
+Visualize
+the results.
+Once you’re viewing the Orders table, click
+Summarize
+. Scroll down and select
+Total
+, and click the
++
+button to add the grouping. Metabase will automatically create a histogram for you!
+The histogram shows that customers are most likely to make purchases totaling in the $40-60 range. If you hover over one of the bars, Metabase will display the count of orders in that range. You can also click on a bar to
+drill-through the data
+and see the orders that compose the bar.
+Edit a histogram
+Metabase gives you
+a lot of knobs for customizing a bar chart
+. For now, we’ll hone in on the settings that make histograms shine.
+Metabase will automatically set the number of bins, but you can change how Metabase bins the data. Click
+Summarize
+, scroll down to
+# Total
+, and click on
+Auto binned
+. A dropdown menu will present the options:
+Auto bin
+, 10, 50, or 100 bins, or
+Don't bin
+.
+Click the
+Settings
+>
+Axes
+. The x-axis scale currently says
+Histogram
+. Metabase detects when your
+bar chart
+should present as a histogram, and selects the best x-axis scale for your visualization.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/histograms.txt
+
+Documentation Title:
+Visualize your data as a histogram
+
+Documentation Content:
+Managing your information budget
+Don't use "data" as a crutch for lazy thinking
+Common data model mistakes made by startups
+Ten common analytics mistakes startups make
+The five stages of embedding grief
+The push and pull of analytics
+ETLs, ELTs, and Reverse ETLs
+Administration and operation
+Admin overview
+How to run Metabase in production
+Managing people in Metabase
+Guide to sharing data
+Keeping your analytics organized
+Multiple environments
+Serialization: preloading dashboards in a new Metabase instance
+Setting up a git-based workflow
+Making dashboards faster
+Metabase at scale
+Working with the Metabase API
+Permissions
+Permissions strategies
+Guide to data permissions
+Working with collection permissions
+Basic sandboxes: setting row-level permissions
+Custom sandboxes: limiting access to columns
+Data sandboxes: personalizing the data that people can see in Metabase
+Use Impersonation to get row-level permissions with both GUI and SQL queries
+Configuring multi-tenant data permissions
+How to keep tabs on your data
+Auditing your users and data
+Using LDAP for authentication and access control
+Customer-facing analytics
+Strategies for delivering customer-facing analytics
+Publishing data visualizations to the web
+A Metabase mystery
+Multi-tenant self-service analytics
+Brand your Metabase
+Securing embedded Metabase
+Learn
+Visualizing data
+Article
+Visualize your data as a histogram
+Learn when to use a histogram, and how Metabase makes it easy to create histograms.
+Histograms versus bar charts
+Create a histogram
+Edit a histogram
+Further reading
+We’ll walk through creating a
+histogram
+, which is a type of bar chart that displays groups of data across a continuous range. Histograms are helpful for gaining insights into how much of an item people are likely to buy, the price range they are likely to purchase within, or even the time of year that most people make purchases.
+Histograms versus bar charts
+Histograms are a type of
+bar chart
+. While the bars on a typical bar chart represent categorical groups, the bars on a histogram represent ranges along a continuous, quantifiable spectrum.
+In other words, you split the data into bins in order to view the distribution of values within a range.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/histograms.txt
+
+Documentation Title:
+Visualize your data as a histogram
+
+Documentation Content:
+Guide to line charts
+Master the bar chart visualization
+Visualize your data as a histogram
+Visualizing data with maps
+Almost everything you can do with the table visualization
+Creating pivot tables
+Funnel charts
+Building dashboards
+BI dashboard best practices
+Linking filters in dashboards
+Custom destinations: choose what happens when people click on charts in your dashboard
+Cross-filtering: using a chart to update a dashboard filter
+Adding filters to dashboards with SQL questions
+Build a record lookup tool with Metabase
+Why you should regularly edit your dashboards
+Fun with Markdown in your dashboards
+Time series analysis
+Getting insights from time series data
+Comparing time periods
+Visualizing time series comparisons
+Measuring rates of change
+Data modeling
+Models in Metabase
+Analytics engineering for fact tables
+Actions
+Build a basic CRUD app with actions
+Analytics with Metabase
+Which data warehouse should you use?
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/histograms.txt
+
+Documentation Title:
+Visualize your data as a histogram
+
+Documentation Content:
+Visualize your data as a histogram
+Upcoming
+Metabase for advanced users
+Register Now
+×
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Self-service BI in 5 minutes
+Pro
+Advanced tools and controls
+Enterprise
+White-glove treatment
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Watch a 5-minute demo
+to see how to set up and publish a dashboard
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+New
+Metabase 49:
+New tools for dashboard creators, data sharers, and more
+Documentation
+Resources
+Learn
+Guides on working with data
+Blog
+News, updates, and ideas
+Events
+Join a live event or watch on demand
+Customers
+Real companies, real data, real stories
+Discussion
+Share and connect with other users
+Metabase Experts
+Find an expert partner
+Community Stories
+Practical advice from our community
+Startup Guide to Financial Modeling
+New
+Modeling financial data with Metabase
+Community Data Stack Report
+New
+See how others work with data
+Recent Blog Posts
+Set up a basic pipeline for log analysis
+Embed a Metabase dashboard in Zendesk
+Keeping tabs on embedded analytics
+Pricing
+Log in
+Get started
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Collections and verified items
+Keep things organized
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone,
+
+
+

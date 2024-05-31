@@ -1,0 +1,359 @@
+Documentation Source:
+docs.astronomer.io/learn/connections/postgres.txt
+
+Documentation Title:
+Create a Postgres connection in Airflow | Astronomer Documentation
+
+Documentation Content:
+Refer to the following documents to for more information about retrieveing these values:
+AWS: Connect to Postgres running on
+RDS
+GCP: Connect to Postgres running on
+Cloud SQL
+Azure: Connect to Postgres running on an
+Azure database
+For example, if you're running Postgres in a Relational Data Store (RDS) in AWS, complete the following steps to retrieve these values:
+In your AWS console, select your region, then go to the RDS service and select your Postgres database.
+Open the
+Connectivity & security
+tab and copy the
+Endpoint
+and
+Port
+.
+Follow the AWS instructions to
+create a user
+and
+grant a role to the user
+that Airflow will use to connect to Postgres. Copy the username and password.
+(Optional) To use a specific schema, copy the name of the schema. If you skip this, the default schema
+public
+will be used.
+Create your connection
+​
+Open your Astro project and add the following line to your
+requirements.txt
+file:
+apache-airflow-providers-postgres
+This will install the Postgres provider package, which makes the Postgres connection type available in Airflow.
+Run
+astro dev restart
+to restart your local Airflow environment and apply your changes in
+requirements.txt
+.
+In the Airflow UI for your local Airflow environment, go to
+Admin
+>
+Connections
+. Click
++
+to add a new connection, then choose
+Postgres
+as the connection type.
+Fill out the following connection fields using the information you retrieved from
+Get connection details
+:
+Connection Id
+: Enter a name for the connection.
+Host
+: Enter your Postgres server's host/ endpoint URL/ server name/ instance ID.
+Schema
+: Enter your schema name.
+Login
+: Enter your username.
+Password
+: Enter your password.
+Port
+: Enter your Postgres server's
+Port
+.
+Click
+Test
+. After the connection test succeeds, click
+Save
+.
+How it works
+​
+Airflow uses the
+psycopg2
+python library to connect to Postgres through the
+PostgresHook
+. You can also directly use the PostgresHook to create your own custom operators.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/configure-cli.txt
+
+Documentation Title:
+Configure the Astro CLI | Astronomer Documentation
+
+Documentation Content:
+true
+true
+or
+false
+local.registry
+The location of your local Docker container running Airflow.
+localhost:5555
+Any available port
+postgres.user
+The username for the Postgres metadata database.
+postgres
+Any string
+postgres.password
+The password for the Postgres metadata database.
+postgres
+Any string
+postgres.host
+The hostname for the Postgres metadata database.
+postgres
+Any string
+postgres.port
+The port for the Postgres metadata database.
+5432
+Any available port
+postgres.repository
+Image repository to pull the Postgres image from
+docker.io/postgres
+Any Postgres image in a repository
+postgres.tag
+The tag for your Postgres image
+12.6
+Any valid image tag
+project.name
+The name of your Astro project.
+Empty string
+Any string
+show_warnings
+Determines whether warning messages appear when starting a local Airflow environment. For example, when set to
+true
+, you'll receive warnings when a new version of Astro Runtime is available and when your Astro project doesn't have any DAGs.
+true
+true
+,
+false
+skip_parse
+Determines whether the CLI parses DAGs before pushing code to a Deployment.
+false
+true
+,
+false
+upgrade_message
+Determines whether a message indicating the availability of a new Astro CLI version displays in the Astro CLI.
+true
+true
+,
+false
+webserver.port
+The port for the webserver in your local Airflow environment.
+8080
+Any available port
+Option
+Description
+Default value
+Valid values
+houston.dial_timeout
+The time in seconds to wait for a Houston connection.
+10
+Any integer
+houston.skip_verify_tls
+Determines whether the Transport Layer Security (TLS) certificate is verified when connecting to Houston.
+false
+true
+,
+false
+interactive
+Determines whether responses are paginated in the Astro CLI when pagination is supported.
+false
+true
+,
+false
+page_size
+Determines the size of the paginated response when
+interactive
+is set to
+true
+.
+20
+Any integer
+postgres.user
+The username for the Postgres metadata database.
+postgres
+Any string
+postgres.password
+The password for the Postgres metadata database.
+postgres
+Any string
+postgres.host
+The hostname for the Postgres metadata database.
+postgres
+Any string
+postgres.port
+The port for the Postgres metadata database.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/connections/postgres.txt
+
+Documentation Title:
+Create a Postgres connection in Airflow | Astronomer Documentation
+
+Documentation Content:
+Create a Postgres connection in Airflow | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Get started
+Airflow concepts
+Airflow tutorials
+Integrations & connections
+Amazon SageMaker
+Apache Kafka/Confluent
+Azure Blob Storage
+Azure Container Instances
+Azure Data Factory
+Microsoft Entra Workload ID
+BigQuery
+Cohere
+Databricks
+dbt Cloud
+dbt Core
+DuckDB
+Fivetran
+Great Expectations
+Jupyter notebook
+Marquez
+MLflow
+MongoDB
+Microsoft SQL Server
+OpenAI
+OpenSearch
+pgvector
+Pinecone
+Postgres
+Redshift
+Snowflake
+Soda Core
+Weaviate
+Weights and Biases
+Use cases
+Airflow glossary
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Integrations & connections
+Postgres
+On this page
+Create a Postgres connection in Airflow
+Postgres
+is a free and open source relational database system. Integrating Postgres with Airflow allows you to interact with your Postgres database, run queries, ans load or export data from an Airflow DAG.
+This guide provides the basic setup for creating a Postgres connection.
+Prerequisites
+​
+The
+Astro CLI
+.
+A locally running
+Astro project
+.
+A Postgres database running in the cloud or on-premises.
+Permission
+to access your Postgres database from your local Airflow environment.
+Get connection details
+​
+A connection from Airflow to Postgres requires the following information:
+Host (also known as the endpoint URL, server name, or instance ID based on your cloud provider)
+Port (default is 5432)
+Username
+Password
+Schema (default is
+public
+)
+The method to retrieve these values will vary based which cloud provider you use to host Microsoft SQL Server.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/troubleshoot-locally.txt
+
+Documentation Title:
+Troubleshoot a local Airflow environment | Astronomer Documentation
+
+Documentation Content:
+Run
+docker stop $(docker ps -q)
+to stop all running Docker containers.
+Change the default port assignment
+​
+If port 8080 or 5432 are in use on your machine by other services, the Airflow webserver and metadata database won't be able to start. To run these components on different ports, run the following commands in your Astro project:
+astro config
+set
+webserver.port
+<
+available-port
+>
+astro config
+set
+postgres.port
+<
+available-port
+>
+For example, to use 8081 for your webserver port and 5435 for your database port, you would run the following commands:
+astro config
+set
+webserver.port
+8081
+astro config
+set
+postgres.port
+5435
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Use Airflow connections from Astro
+Next
+Test your DAGs
+Troubleshoot KubernetesPodOperator issues
+Troubleshoot dependency errors
+New DAGs aren't visible in the Airflow UI
+DAGs running slowly
+Astro project won't load after running
+astro dev start
+Ports are not available for my local Airflow webserver
+Stop all running Docker containers
+Change the default port assignment
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+

@@ -1,0 +1,121 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-partitions.txt
+
+Documentation Title:
+PARTITIONS view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+max(partition_id) AS latest_partition_id,
+  COUNT(partition_id) AS partition_count,
+  sum(total_logical_bytes) AS sum_total_logical_bytes,
+  max(last_modified_time) AS max_last_updated_time
+FROM `bigquery-public-data.covid19_usafacts.INFORMATION_SCHEMA.PARTITIONS`
+GROUP BY 1, 2;
+The results look similar to the following:
++-----------------+----------------+--------------------+---------------------+-----------------+-------------------------+--------------------------------+
+| table_name      | partition_type | earliest_partition | latest_partition_id | partition_count | sum_total_logical_bytes | max_last_updated_time          |
++--------------+-------------------+--------------------+---------------------+-----------------+-------------------------+--------------------------------+
+| confirmed_cases | DAY            | 20221204           | 20221213            | 10              | 26847302                | 2022-12-13 00:09:25.604000 UTC |
+| deaths          | DAY            | 20221204           | 20221213            | 10              | 26847302                | 2022-12-13 00:09:24.709000 UTC |
+| summary         | DAY            | 20221204           | 20221213            | 10              | 241285338               | 2022-12-13 00:09:27.496000 UTC |
++-----------------+----------------+--------------------+---------------------+-----------------+-------------------------+--------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.txt
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+time
+ORDER BY zip_code, time;
+
+/*---------------------+----------+-----+-------------+
+ |        time         | zip_code | aqi | temperature |
+ +---------------------+----------+-----+-------------+
+ | 2020-09-08 00:00:00 |    60606 |  22 |          63 |
+ | 2020-09-08 03:00:00 |    60606 |  21 |          58 |
+ | 2020-09-08 06:00:00 |    60606 |  27 |          55 |
+ | 2020-09-08 09:00:00 |    60606 |  36 |          56 |
+ | 2020-09-08 15:00:00 |    60606 |  43 |          67 |
+ | 2020-09-08 18:00:00 |    60606 |  33 |          68 |
+ | 2020-09-08 21:00:00 |    60606 |  25 |          65 |
+ | 2020-09-08 00:00:00 |    94105 |  60 |          73 |
+ | 2020-09-08 03:00:00 |    94105 |  70 |          67 |
+ | 2020-09-08 06:00:00 |    94105 |  75 |          64 |
+ | 2020-09-08 09:00:00 |    94105 | 101 |          62 |
+ | 2020-09-08 12:00:00 |    94105 | 125 |          62 |
+ | 2020-09-08 18:00:00 |    94105 | 151 |          68 |
+ | 2020-09-08 21:00:00 |    94105 | 143 |          74 |
+ +---------------------+----------+-----+-------------*/
+Note how the output has gaps at certain time intervals.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.txt
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+2020-10-01) |   21 |    31 |
+ |         2 | [2020-10-01, 2021-01-01) |   21 |    31 |
+ |         2 | [2021-01-01, 2021-04-01) |   21 |    31 |
+ |         2 | [2021-04-01, 2021-07-01) |   21 |    31 |
+ |         2 | [2021-04-01, 2021-07-01) |   21 |    12 |
+ |         2 | [2021-07-01, 2021-10-01) |   21 |    12 |
+ |         2 | [2021-10-01, 2022-01-01) |   21 |    12 |
+ |         2 | [2022-01-01, 2022-04-01) |   21 |    12 |
+ |         2 | [2022-04-01, 2022-07-01) |   21 |    12 |
+ +-----------+--------------------------+------+-------*/
+In the previous query, the row with the range
+[2020-04-15, 2021-04-15)
+is
+split into 5 ranges, starting with the range
+[2020-04-01, 2020-07-01)
+. Note
+that the start boundary now extends beyond the original start boundary, in order
+to align with the common origin. If you don't want the start boundary to not
+extend beyond the original start boundary, you can restrict the
+JOIN
+condition:
+WITH sensor_data AS (
+  SELECT * FROM UNNEST(
+    ARRAY<STRUCT<sensor_id INT64, duration RANGE<DATE>, flow INT64, spins INT64>>[
+    (1, RANGE<DATE> "[2020-01-01, 2020-12-31)", 10, 21),
+    (1, RANGE<DATE> "[2021-01-01, 2021-12-31)", 11, 4),
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.txt
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+|
+ | 2020-09-08 15:00:00 |    60606 |              63 |              68 |
+ | 2020-09-08 18:00:00 |    60606 |              67 |              69 |
+ | 2020-09-08 21:00:00 |    60606 |              63 |              67 |
+ | 2020-09-08 00:00:00 |    94105 |              71 |              74 |
+ | 2020-09-08 03:00:00 |    94105 |              66 |              69 |
+ | 2020-09-08 06:00:00 |    94105 |              64 |              65 |
+ | 2020-09-08 09:00:00 |    94105 |              62 |              63 |
+ | 2020-09-08 12:00:00 |    94105 |              61 |              62 |
+ | 2020-09-08 15:00:00 |    94105 |              62 |
+
+
+

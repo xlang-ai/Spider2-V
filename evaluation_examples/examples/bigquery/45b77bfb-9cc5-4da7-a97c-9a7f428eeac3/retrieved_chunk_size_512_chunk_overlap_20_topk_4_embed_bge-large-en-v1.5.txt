@@ -1,0 +1,349 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.txt
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Add an empty column  |  BigQuery  |  Google Cloud
+Documentation
+Technology areas
+close
+AI solutions, generative AI, and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Networking
+Observability and monitoring
+Security
+Storage
+Cross-product tools
+close
+Access and resources management
+Cloud SDK, languages, frameworks, and tools
+Costs and usage management
+Infrastructure as code
+Migration
+Related sites
+close
+Google Cloud Home
+Free Trial and Free Tier
+Architecture Center
+Blog
+Contact Sales
+Google Cloud Developer Center
+Google Developer Center
+Google Cloud Marketplace (in console)
+Google Cloud Marketplace Documentation
+Google Cloud Skills Boost
+Google Cloud Solution Center
+Google Cloud Support
+Google Cloud Tech Youtube Channel
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+中文 – 简体
+日本語
+한국어
+Sign in
+BigQuery
+Guides
+Reference
+Samples
+Resources
+Contact Us
+Start free
+Documentation
+Guides
+Reference
+Samples
+Resources
+Technology areas
+More
+Cross-product tools
+More
+Related sites
+More
+Console
+Contact Us
+Start free
+BigQuery
+All BigQuery code samples
+Analytics Hub Samples
+Create a data exchange and listing using Analytics Hub
+BigQuery Samples
+Create a BigQuery DataFrame from a CSV file in GCS
+Create a BigQuery DataFrame from a finished query job
+Add a column using a load job
+Add a column using a query job
+Add a label
+Add an empty column
+Array parameters
+Authorize a BigQuery Dataset
+Cancel a job
+Check dataset existence
+Clustered table
+Column-based time partitioning
+Copy a single-source table
+Copy a table
+Copy multiple tables
+Create a BigQuery DataFrame from a table
+Create a client with a service account key file
+Create a client with application default credentials
+Create a clustered table
+Create a clustering model with BigQuery DataFrames
+Create a dataset and grant access to it
+Create a dataset in BigQuery.
+Create a dataset with a customer-managed encryption key
+Create a job
+Create a model
+Create a regression model with BigQuery
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.txt
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+encryption key
+Create a job
+Create a model
+Create a regression model with BigQuery DataFrames
+Create a routine
+Create a routine with DDL
+Create a table
+Create a table using a template
+Create a view
+Create a view with DDL
+Create an authorized view
+Create an integer-range partitioned table
+Create credentials with scopes
+Create external table with hive partitioning
+Create IAM policy
+Create materialized view
+Create table with schema
+Delete a dataset
+Delete a dataset and its contents
+Delete a label from a dataset
+Delete a label from a table
+Delete a model
+Delete a routine
+Delete a table
+Delete materialized view
+Deploy and apply a remote function using BigQuery DataFrames
+Disable query cache
+Download public table data to DataFrame
+Download public table data to DataFrame from the sandbox
+Download query results to a GeoPandas GeoDataFrame
+Download query results to DataFrame
+Download table data to DataFrame
+Dry run query
+Enable large results
+Export a model
+Export a table to a compressed file
+Export a table to a CSV file
+Export a table to a JSON file
+Generate text with the BigQuery DataFrames API
+Get a model
+Get a routine
+Get dataset labels
+Get dataset properties
+Get job properties
+Get table labels
+Get table properties
+Get view properties
+Grant view access
+Import a local file
+Insert GeoJSON data
+Insert rows with no IDs
+Insert WKT data
+List by label
+List datasets
+List jobs
+List models
+List models using streaming
+List routines
+List tables
+Load a CSV file
+Load a CSV file to replace a table
+Load a CSV file with autodetect schema
+Load a DataFrame to BigQuery with pandas-gbq
+Load a JSON file
+Load a JSON file to replace a table
+Load a JSON file with autodetect schema
+Load a Parquet file
+Load a Parquet to replace a table
+Load a table in JSON format
+Load an Avro file
+Load an Avro file to replace a table
+Load an ORC file
+Load an ORC file to replace a table
+Load data from DataFrame
+Load data into a column-based time partitioning table
+Migration Guide: pandas-gbq
+Migration Guide: pandas-gbq
+Named parameters
+Named parameters and provided types
+Nested
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.txt
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+String datasetName = "MY_DATASET_NAME";
+    String tableId = "MY_TABLE_NAME";
+    String newColumnName = "NEW_COLUMN_NAME";
+    addEmptyColumn(newColumnName, datasetName, tableId);
+  }
+
+  public static void addEmptyColumn(String newColumnName, String datasetName, String tableId) {
+    try {
+      // Initialize client that will be used to send requests. This client only needs to be created
+      // once, and can be reused for multiple requests.
+      BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
+
+      Table table = bigquery.getTable(datasetName, tableId);
+      Schema schema = table.getDefinition().getSchema();
+      FieldList fields = schema.getFields();
+
+      // Create the new field/column
+      Field newField = Field.of(newColumnName, LegacySQLTypeName.STRING);
+
+      // Create a new schema adding the current fields, plus the new one
+      List<Field> fieldList = new ArrayList<Field>();
+      fields.forEach(fieldList::add);
+      fieldList.add(newField);
+      Schema newSchema = Schema.of(fieldList);
+
+      // Update the table with the new schema
+      Table updatedTable =
+          table.toBuilder().setDefinition(StandardTableDefinition.of(newSchema)).build();
+      updatedTable.update();
+      System.out.println("Empty column successfully added to table");
+    } catch (BigQueryException e) {
+      System.out.println("Empty column was not added. \n" + e.toString());
+    }
+  }
+}
+Node.js
+Before trying this sample, follow the
+Node.js
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Node.js
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+// Import the Google Cloud client library and create a client
+const {BigQuery} = require('@google-cloud/bigquery');
+const bigquery = new BigQuery();
+
+async function addEmptyColumn() {
+  // Adds an empty column to the schema.
+
+  /**
+   * TODO(developer): Uncomment the following lines before running the sample.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.txt
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+hybrid, and multicloud
+Industry solutions
+Networking
+Observability and monitoring
+Security
+Storage
+Access and resources management
+Cloud SDK, languages, frameworks, and tools
+Costs and usage management
+Infrastructure as code
+Migration
+Google Cloud Home
+Free Trial and Free Tier
+Architecture Center
+Blog
+Contact Sales
+Google Cloud Developer Center
+Google Developer Center
+Google Cloud Marketplace (in console)
+Google Cloud Marketplace Documentation
+Google Cloud Skills Boost
+Google Cloud Solution Center
+Google Cloud Support
+Google Cloud Tech Youtube Channel
+Home
+BigQuery
+Documentation
+Samples
+Add an empty column
+Stay organized with collections
+Save and categorize content based on your preferences.
+Manually add an empty column.
+Explore further
+For detailed documentation that includes this code sample, see the following:
+Modifying table schemas
+Code sample
+Go
+Before trying this sample, follow the
+Go
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Go
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+import (
+	"context"
+	"fmt"
+
+	"cloud.google.com/go/bigquery"
+)
+
+// updateTableAddColumn demonstrates modifying the schema of a table to append an additional column.
+
+
+

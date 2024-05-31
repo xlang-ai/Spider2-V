@@ -1,0 +1,285 @@
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.txt
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
+If you would like to make your dashboard available to other users, simply select Draft next to the
+title of your dashboard on the top left to change your dashboard to be in Published state. You can
+also favorite this dashboard by selecting the star.
+Annotations
+​
+Annotations allow you to add additional context to your chart. In this section, we will add an
+annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
+dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
+eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).
+First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
+save. We can use this layer to refer to a number of different annotations.
+Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
+selecting the green plus sign. Then, select the Volcanic Eruptions layer, add a short description
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.
+Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
+dialogue:
+Name the layer as Volcanic Eruptions
+Change the Annotation Layer Type to Event
+Set the Annotation Source as Superset annotation
+Specify the Annotation Layer as Volcanic Eruptions
+Select
+Apply
+to see your annotation shown on the chart.
+If you wish, you can change how your annotation looks by changing the settings in the Display
+configuration section. Otherwise, select
+OK
+and finally
+Save
+to save your chart. If you keep
+the default selection to overwrite the chart, your annotation will be saved to the chart and also
+appear automatically in the Tutorial Dashboard.
+Advanced Analytics
+​
+In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
+allows you to apply additional transformations to your data.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.txt
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+INTEGER
+name: VARCHAR(250)
+type: VARCHAR(12)
+AnnotationLayer (annotation_layer)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+descr: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+name: VARCHAR(250)
+UserAttribute (user_attribute)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+user_id: INTEGER
+welcome_dashboard_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+avatar_url: VARCHAR(100)
+Dashboard (dashboards)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+position_json: TEXT
+description: TEXT
+css: TEXT
+certified_by: TEXT
+certification_details: TEXT
+json_metadata: TEXT
+published: BOOLEAN
+is_managed_externally: BOOLEAN
+external_url: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+uuid: BINARY(16)
+dashboard_title: VARCHAR(500)
+slug: VARCHAR(255)
+Annotation (annotation)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+start_dttm: DATETIME
+end_dttm: DATETIME
+layer_id: INTEGER
+long_descr: TEXT
+json_metadata: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+short_descr: VARCHAR(500)
+TaggedObject (tagged_object)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+tag_id: INTEGER
+object_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+object_type: VARCHAR(9)
+CssTemplate (css_templates)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+css: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+template_name: VARCHAR(250)
+FavStar (favstar)
+id: INTEGER
+user_id: INTEGER
+obj_id: INTEGER
+dttm: DATETIME
+class_name: VARCHAR(50)
+Slice (slices)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+datasource_id: INTEGER
+params: TEXT
+query_context: TEXT
+description: TEXT
+cache_timeout: INTEGER
+last_saved_at: DATETIME
+last_saved_by_fk: INTEGER
+certified_by: TEXT
+certification_details: TEXT
+is_managed_externally:
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/development/index.txt
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+./scripts/po2json.sh
+If you get errors running
+po2json
+, you might be running the Ubuntu package with the same
+name, rather than the Node.js package (they have a different format for the arguments). If
+there is a conflict, you may need to update your
+PATH
+environment variable or fully qualify
+the executable path (e.g.
+/usr/local/bin/po2json
+instead of
+po2json
+).
+If you get a lot of
+[null,***]
+in
+messages.json
+, just delete all the
+null,
+.
+For example,
+"year":["年"]
+is correct while
+"year":[null,"年"]
+is incorrect.
+For the translations to take effect we need to compile translation catalogs into binary MO files.
+pybabel compile -d superset/translations
+Creating a new language dictionary
+​
+To create a dictionary for a new language, run the following, where
+LANGUAGE_CODE
+is replaced with
+the language code for your target language, e.g.
+es
+(see
+Flask AppBuilder i18n documentation
+for more details):
+pip
+install
+-r superset/translations/requirements.txt
+pybabel init -i superset/translations/messages.pot -d superset/translations -l LANGUAGE_CODE
+Then,
+Updating language files
+.
+Tips
+​
+Adding a new datasource
+​
+Create Models and Views for the datasource, add them under superset folder, like a new my_models.py
+with models for cluster, datasources, columns and metrics and my_views.py with clustermodelview
+and datasourcemodelview.
+Create DB migration files for the new models
+Specify this variable to add the datasource model and from which module it is from in config.py:
+For example:
+ADDITIONAL_MODULE_DS_MAP
+=
+{
+'superset.my_models'
+:
+[
+'MyDatasource'
+,
+'MyOtherDatasource'
+]
+}
+This means it'll register MyDatasource and MyOtherDatasource in superset.my_models module in the source registry.
+Visualization Plugins
+​
+The topic of authoring new plugins, whether you'd like to contribute
+it back or not has been well documented in the
+the documentation
+, and in
+this blog post
+.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/development/index.txt
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+To contribute a plugin to Superset, your plugin must meet the following criteria:
+The plugin should be applicable to the community at large, not a particularly specialized use case
+The plugin should be written with TypeScript
+The plugin should contain sufficient unit/e2e tests
+The plugin should use appropriate namespacing, e.g. a folder name of
+plugin-chart-whatever
+and a package name of
+@superset-ui/plugin-chart-whatever
+The plugin should use them variables via Emotion, as passed in by the ThemeProvider
+The plugin should provide adequate error handling (no data returned, malformed data, invalid controls, etc.)
+The plugin should contain documentation in the form of a populated
+README.md
+file
+The plugin should have a meaningful and unique icon
+Above all else, the plugin should come with a
+commitment to maintenance
+from the original author(s)
+Submissions will be considered for submission (or removal) on a case-by-case basis.
+Adding a DB migration
+​
+Alter the model you want to change. This example will add a
+Column
+Annotations model.
+Example commit
+Generate the migration file
+superset db migrate -m
+'add_metadata_column_to_annotation_model'
+This will generate a file in
+migrations/version/{SHA}_this_will_be_in_the_migration_filename.py
+.
+Example commit
+Upgrade the DB
+superset db upgrade
+The output should look like this:
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 1a1d627ebd8e -> 40a0a483dd12, add_metadata_column_to_annotation_model.py
+Add column to view
+Since there is a new column, we need to add it to the AppBuilder Model view.
+Example commit
+Test the migration's
+down
+method
+superset db downgrade
+The output should look like this:
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+
+
+

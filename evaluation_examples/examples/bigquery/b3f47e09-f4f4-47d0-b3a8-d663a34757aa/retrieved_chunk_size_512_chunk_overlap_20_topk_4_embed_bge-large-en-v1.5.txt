@@ -1,0 +1,416 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-resnet.txt
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+capture
+Use the legacy streaming API
+Load data from other Google services
+Load data using third-party apps
+Load data using cross-cloud operations
+Transform data
+Introduction
+Transform with DML
+Transform data in partitioned tables
+Work with change history
+Export data
+Export to file
+Export to Cloud Storage
+Export to Bigtable
+Export as Protobuf columns
+Analyze
+Introduction
+Query BigQuery data
+Run a query
+Analyze with a data canvas
+Write queries with Gemini
+Write query results
+Generate profile insights
+Generate data insights
+Query data with SQL
+Introduction
+Arrays
+JSON data
+Sketches
+Multi-statement queries
+Recursive CTEs
+Table sampling
+Time series
+Transactions
+Saved queries
+Introduction
+Create saved queries
+Use cached results
+Run parameterized queries
+Query with wildcard tables
+Access historical data
+Schedule queries
+Troubleshoot queries
+Optimize queries
+Introduction
+Use the query plan explanation
+Get query performance insights
+Optimize query computation
+Use history-based optimizations
+Optimize storage
+Use BI Engine
+Use nested and repeated data
+Optimize functions
+Query external data sources
+Manage open source metadata
+Use external tables and datasets
+Amazon S3 data
+Query Amazon S3 data
+Export query results to Amazon S3
+Query Apache Iceberg data
+Query open table formats with manifests
+Azure Blob Storage data
+Query Azure Blob Storage data
+Export query results to Azure Blob Storage
+Query Cloud Bigtable data
+Cloud Storage data
+Query Cloud Storage data in BigLake tables
+Query Cloud Storage data in external tables
+Work with Salesforce Data Cloud data
+Query Google Drive data
+Create AWS Glue federated datasets
+Run federated queries
+Federated queries
+Query SAP Datasphere data
+Query Cloud Spanner data
+Query Cloud SQL data
+Analyze unstructured data
+Run inference
+Analyze with remote functions
+Tutorial: Create and use a remote function
+Search indexed text
+Work with text analyzers
+Work with sessions
+Introduction
+Create sessions
+Write queries in sessions
+Run queries in sessions
+Terminate sessions
+View query history in sessions
+Find sessions
+Use geospatial analytics
+Introduction
+Work with geospatial analytics
+Visualize geospatial data
+Geospatial analytics syntax reference
+Geospatial analytics
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-resnet.txt
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+data quality
+Monitor Data Transfer Service
+Monitor materialized views
+Monitor reservations
+Dashboards, charts and alerts
+Audit workloads
+Introduction
+Audit policy tags
+View Data Policy audit logs
+Data Transfer Service audit logs
+Analytics Hub audit logging
+BigQuery audit logs reference
+Migrate audit logs
+BigLake API audit logs
+Optimize resources
+Control costs
+Estimate and control query costs
+Custom cost controls
+Optimize with recommendations
+View cluster and partition recommendations
+Apply cluster and partition recommendations
+Manage materialized view recommendations
+Organize with labels
+Introduction
+Add labels
+View labels
+Update labels
+Filter using labels
+Delete labels
+Manage data quality
+Monitor data quality with scans
+Data Catalog overview
+Work with Data Catalog
+Govern
+Introduction
+Control access to resources
+Introduction
+Control access to resources with IAM
+Control access with authorization
+Authorized datasets
+Authorized routines
+Authorized views
+Control access with VPC service controls
+Control table and dataset access with tags
+Control access with conditions
+Control column and row access
+Control access to table columns
+Introduction to column-level access control
+Restrict access with column-level access control
+Impact on writes
+Manage policy tags
+Manage policy tags across locations
+Best practices for using policy tags
+Control access to table rows
+Introduction to row-level security
+Work with row-level security
+Use row-level security with other BigQuery features
+Best practices for row-level security
+Protect sensitive data
+Mask data in table columns
+Introduction to data masking
+Mask column data
+Anonymize data with differential privacy
+Use differential privacy
+Extend differential privacy
+Restrict data access using analysis rules
+Use Sensitive Data Protection
+Manage encryption
+Encryption at rest
+Customer-managed encryption keys
+Column-level encryption with Cloud KMS
+AEAD encryption
+Develop
+Introduction
+BigQuery code samples
+BigQuery API basics
+BigQuery APIs and libraries overview
+Authentication
+Introduction
+Get started
+Authenticate as an end user
+Authenticate with JSON Web Tokens
+Run jobs programmatically
+Paginate with BigQuery API
+API performance tips
+Batch requests
+Choose a Python library
+BigQuery DataFrames
+Introduction
+Use BigQuery DataFrames
+Use ODBC and JDBC drivers
+AI solutions, generative AI,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/analyze-data-tableau.txt
+
+Documentation Title:
+Quickstart: Analyze BigQuery data with BI Engine and Tableau  |  BigQuery: Cloud Data Warehouse  |  Google Cloud
+
+Documentation Content:
+data quality
+Monitor Data Transfer Service
+Monitor materialized views
+Monitor reservations
+Dashboards, charts and alerts
+Audit workloads
+Introduction
+Audit policy tags
+View Data Policy audit logs
+Data Transfer Service audit logs
+Analytics Hub audit logging
+BigQuery audit logs reference
+Migrate audit logs
+BigLake API audit logs
+Optimize resources
+Control costs
+Estimate and control query costs
+Custom cost controls
+Optimize with recommendations
+View cluster and partition recommendations
+Apply cluster and partition recommendations
+Manage materialized view recommendations
+Organize with labels
+Introduction
+Add labels
+View labels
+Update labels
+Filter using labels
+Delete labels
+Manage data quality
+Monitor data quality with scans
+Data Catalog overview
+Work with Data Catalog
+Govern
+Introduction
+Control access to resources
+Introduction
+Control access to resources with IAM
+Control access with authorization
+Authorized datasets
+Authorized routines
+Authorized views
+Control access with VPC service controls
+Control table and dataset access with tags
+Control access with conditions
+Control column and row access
+Control access to table columns
+Introduction to column-level access control
+Restrict access with column-level access control
+Impact on writes
+Manage policy tags
+Manage policy tags across locations
+Best practices for using policy tags
+Control access to table rows
+Introduction to row-level security
+Work with row-level security
+Use row-level security with other BigQuery features
+Best practices for row-level security
+Protect sensitive data
+Mask data in table columns
+Introduction to data masking
+Mask column data
+Anonymize data with differential privacy
+Use differential privacy
+Extend differential privacy
+Restrict data access using analysis rules
+Use Sensitive Data Protection
+Manage encryption
+Encryption at rest
+Customer-managed encryption keys
+Column-level encryption with Cloud KMS
+AEAD encryption
+Develop
+Introduction
+BigQuery code samples
+BigQuery API basics
+BigQuery APIs and libraries overview
+Authentication
+Introduction
+Get started
+Authenticate as an end user
+Authenticate with JSON Web Tokens
+Run jobs programmatically
+Paginate with BigQuery API
+API performance tips
+Batch requests
+Choose a Python library
+BigQuery DataFrames
+Introduction
+Use BigQuery DataFrames
+Use ODBC and JDBC drivers
+AI solutions, generative AI,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-mobilenet.txt
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a feature vector model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+practices
+Stream updates with change data capture
+Use the legacy streaming API
+Load data from other Google services
+Load data using third-party apps
+Load data using cross-cloud operations
+Transform data
+Introduction
+Transform with DML
+Transform data in partitioned tables
+Work with change history
+Export data
+Export to file
+Export to Cloud Storage
+Export to Bigtable
+Export as Protobuf columns
+Analyze
+Introduction
+Query BigQuery data
+Run a query
+Analyze with a data canvas
+Write queries with Gemini
+Write query results
+Generate profile insights
+Generate data insights
+Query data with SQL
+Introduction
+Arrays
+JSON data
+Sketches
+Multi-statement queries
+Recursive CTEs
+Table sampling
+Time series
+Transactions
+Saved queries
+Introduction
+Create saved queries
+Use cached results
+Run parameterized queries
+Query with wildcard tables
+Access historical data
+Schedule queries
+Troubleshoot queries
+Optimize queries
+Introduction
+Use the query plan explanation
+Get query performance insights
+Optimize query computation
+Use history-based optimizations
+Optimize storage
+Use BI Engine
+Use nested and repeated data
+Optimize functions
+Query external data sources
+Manage open source metadata
+Use external tables and datasets
+Amazon S3 data
+Query Amazon S3 data
+Export query results to Amazon S3
+Query Apache Iceberg data
+Query open table formats with manifests
+Azure Blob Storage data
+Query Azure Blob Storage data
+Export query results to Azure Blob Storage
+Query Cloud Bigtable data
+Cloud Storage data
+Query Cloud Storage data in BigLake tables
+Query Cloud Storage data in external tables
+Work with Salesforce Data Cloud data
+Query Google Drive data
+Create AWS Glue federated datasets
+Run federated queries
+Federated queries
+Query SAP Datasphere data
+Query Cloud Spanner data
+Query Cloud SQL data
+Analyze unstructured data
+Run inference
+Analyze with remote functions
+Tutorial: Create and use a remote function
+Search indexed text
+Work with text analyzers
+Work with sessions
+Introduction
+Create sessions
+Write queries in sessions
+Run queries in sessions
+Terminate sessions
+View query history in sessions
+Find sessions
+Use geospatial analytics
+Introduction
+Work with geospatial analytics
+Visualize geospatial data
+Geospatial
+
+
+

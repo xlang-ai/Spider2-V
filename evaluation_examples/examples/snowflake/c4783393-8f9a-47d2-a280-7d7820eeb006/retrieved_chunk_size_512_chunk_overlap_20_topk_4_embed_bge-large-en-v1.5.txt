@@ -1,0 +1,303 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/drop-schema.txt
+
+Documentation Title:
+DROP SCHEMA | Snowflake Documentation
+
+Documentation Content:
+Otherwise, a
+dangling reference
+occurs.
+The DROP operation fails if a session policy or password policy is set on a user or the account.
+Examples
+¶
+Drop a schema named
+myschema
+(from the
+CREATE SCHEMA
+examples):
+DROP
+SCHEMA
+myschema
+;
++
+--------------------------------+
+| status                         |
+|--------------------------------|
+| MYSCHEMA successfully dropped. |
++
+--------------------------------+
+SHOW
+SCHEMAS
+;
++
+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+
+| created_on                      | name               | is_default | is_current | database_name | owner  | comment                                                   | options | retention_time |
+|---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------|
+| Fri, 13 May 2016 17:26:07 -0700 | INFORMATION_SCHEMA | N          | N          | MYTESTDB      |        | Views describing the contents of schemas in this database |         |              1 |
+| Tue, 17 Mar 2015 16:57:04 -0700 | PUBLIC             | N          | Y          | MYTESTDB      | PUBLIC |                                                           |         |              1 |
++
+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Syntax
+Parameters
+Usage notes
+Examples
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/show-schemas.txt
+
+Documentation Title:
+SHOW SCHEMAS | Snowflake Documentation
+
+Documentation Content:
+13 May 2016 17:58:37 -0700 | INFORMATION_SCHEMA | N          | N          | MYTESTDB      |        | Views describing the contents of schemas in this database |         |              1 | ROLE            | NULL   |
+| Wed, 25 Feb 2015 16:16:54 -0800 | PUBLIC             | N          | Y          | MYTESTDB      | PUBLIC |                                                           |         |              1 | ROLE            | NULL   |
++
+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+-----------------+--------+
+Copy
+Show all schemas in the current database,
+mytestdb
+, that you have privileges to view, including dropped schemas (this example
+builds on the
+DROP SCHEMA
+examples):
+SHOW
+SCHEMAS
+HISTORY
+;
++
+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+---------------------------------+-----------------+----------+
+| created_on                      | name               | is_default | is_current | database_name | owner  | comment                                                   | options | retention_time | dropped_on                      | owner_role_type | budget   |
+|
+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+---------------------------------+-----------------+----------+
+| Fri, 13 May 2016 17:59:50 -0700 | INFORMATION_SCHEMA | N          | N          | MYTESTDB      |        | Views describing the contents of schemas in this database |         |              1 | NULL                            |                 | NULL     |
+| Wed, 25 Feb 2015 16:16:54 -0800 | PUBLIC             | N          | Y          | MYTESTDB      | PUBLIC |                                                           |         |              1 | NULL                            | ROLE            | NULL     |
+| Tue, 17 Mar 2015 16:42:29 -0700 | MYSCHEMA           | N          | N          | MYTESTDB      | PUBLIC |                                                           |         |              1 | Fri,
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/drop-schema.txt
+
+Documentation Title:
+DROP SCHEMA | Snowflake Documentation
+
+Documentation Content:
+schema_name
+), the command looks for the schema
+in the current database for the session.
+CASCADE
+|
+RESTRICT
+Specifies whether the schema can be dropped if foreign keys exist that reference any tables in the schema:
+CASCADE
+drops the schema and all objects in the schema, including tables with primary/unique keys that are referenced by
+foreign keys in other tables.
+RESTRICT
+returns a warning about existing foreign key references and does not drop the schema.
+Default:
+CASCADE
+Usage notes
+¶
+Dropping a schema does not permanently remove it from the system. A version of the dropped schema is retained in
+Time Travel
+for the number of days specified by the
+DATA_RETENTION_TIME_IN_DAYS
+parameter for the schema:
+Within the Time Travel retention period, a dropped schema can be restored using the
+UNDROP SCHEMA
+command.
+When the Time Travel retention period ends, the next state for the dropped schema depends on whether it is permanent or transient:
+A permanent schema moves into
+Fail-safe
+. In Fail-safe (7 days), a dropped schema can be
+recovered, but only by Snowflake. When the schema leaves Fail-safe, it is purged.
+A transient schema has no Fail-safe, so it is purged when it moves out of Time Travel.
+Once a dropped schema has been purged, it cannot be recovered; it must be recreated.
+Currently, when a schema is dropped, the data retention period for child tables, if explicitly set to be different from the retention
+of the schema, is not honored. The child tables are retained for the same period of time as the schema. To honor the data retention
+period for these tables, drop them explicitly
+before
+you drop the schema.
+After dropping a schema, creating a schema with the same name creates a new version of the schema. The dropped version of the previous
+schema can still be restored using the following method:
+Rename the current version of the schema to a different name.
+Use the
+UNDROP SCHEMA
+command to restore the previous version.
+If a policy or tag is attached a table or view column, dropping the schema successfully requires the policy or tag to be self-contained
+within the database and schema. For example,
+database_1
+contains
+policy_1
+and
+policy_1
+is only used in
+database_1
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/bcr-bundles/2022_06_bundle.txt
+
+Documentation Title:
+2022_06 Bundle | Snowflake Documentation
+
+Documentation Content:
+Snowflake returns either of the following error messages:
+For CREATE OR REPLACE DATABASE:
+Cannot
+drop
+database
+because:
+Policy
+'<db.schema.policy>'
+used
+by
+schema
+'<db.schema>'
+in
+another
+database
+For CREATE OR REPLACE SCHEMA:
+Cannot
+drop
+schema
+because:
+Policy
+'<db.schema.policy>'
+used
+by
+another
+schema
+'<db.schema>'
+If either of the two error messages occur, query the Account Usage
+POLICY_REFERENCES
+view, use a role to unset the masking or row access policy, and then retry the CREATE OR REPLACE statement.
+For example:
+Query the view:
+Cross-schema
+policy references that need to be removed prior to replacement:
+select
+*
+from
+snowflake
+.
+account_usage
+.
+policy_references
+where
+policy_db
+=<
+policy_db
+>
+and
+policy_schema
+=<
+policy_schema_to_replace
+>
+and
+ref_schema_name
+!=
+<
+policy_schema
+>;
+Copy
+Cross-database
+policy references that need to be removed prior to replacement:
+select
+*
+from
+snowflake
+.
+account_usage
+.
+policy_references
+where
+policy_db
+=<
+policy_db_to_replace
+>’
+and
+ref_database_name
+!=
+<
+policy_db
+>;
+Copy
+Unset the policies:
+For
+masking policies
+:
+alter
+table
+<
+table_name
+>
+modify
+column
+<
+col_name
+>
+unset
+masking policy
+;
+Copy
+For
+row access policies
+:
+alter
+table
+<
+table_name
+>
+drop
+all
+row access policies
+;
+Copy
+Retry the CREATE OR REPLACE command.
+Note that, with CLONE operations, you should store the policy objects in a separate database or schema prior to running the CLONE statements.
+INFER_SCHEMA Function: New ORDER_ID Column in Output
+¶
+The output of the
+INFER_SCHEMA
+function now includes a new ORDER_ID column which indicates the column order in the
+staged files.
+Currently, when you create a table with the column definitions derived from a set of staged files (using
+CREATE TABLE … USING TEMPLATE
+), the column order in the table is randomized. While table column ordering
+does not matter for Snowflake, this may cause confusion when you compare the file column order to the table column order.
+
+
+

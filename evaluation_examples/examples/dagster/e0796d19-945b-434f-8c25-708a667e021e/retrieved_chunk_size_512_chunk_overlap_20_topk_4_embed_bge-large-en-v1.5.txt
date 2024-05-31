@@ -1,0 +1,573 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/testing-assets.txt
+
+Documentation Title:
+Testing Assets | Dagster Docs
+
+Documentation Content:
+I can't wait to use it!"
+}
+,
+{
+"title"
+:
+"Pied Piper launches new product"
+}
+,
+]
+)
+results
+=
+topstories_word_cloud
+(
+df
+)
+assert
+results
+is
+not
+None
+# It returned something
+Testing a graph of assets
+#
+We'll also write a test for all the assets together. To do that, we can put them in a list and then pass it to the
+materialize
+function. That returns an
+ExecuteInProcessResult
+object, whose methods let us investigate, in detail, the success or failure of execution, the values produced by the computation, and other events associated with execution.
+Update the
+test_assets.py
+file to include the following code:
+from
+dagster
+import
+materialize
+from
+tutorial_project
+.
+assets
+import
+(
+topstory_ids
+,
+topstories
+,
+topstories_word_cloud
+)
+# Instead of importing one asset, import them all
+def
+test_hackernews_assets
+(
+)
+:
+assets
+=
+[
+topstory_ids
+,
+topstories
+,
+topstories_word_cloud
+]
+result
+=
+materialize
+(
+assets
+)
+assert
+result
+.
+success
+    df
+=
+result
+.
+output_for_node
+(
+"topstories"
+)
+assert
+len
+(
+df
+)
+==
+100
+Running the tests
+#
+Use pytest, or your test runner of choice, to run the unit tests. Navigate to the top-level
+tutorial_project
+directory (the one that contains the
+tutorial_project_tests
+directory) and run:
+pytest tutorial_project_tests
+Wait a few seconds for the tests to run and observe the output in your terminal.
+Related
+#
+Dagster is written to make testing easy in a domain where it has historically been very difficult. Refer to the
+Testing
+documentation to learn more.
+On This Page
+Testing assets
+Prerequisites
+Testing an individual asset
+Testing a graph of assets
+Running the tests
+Related
+Edit Page on GitHub
+Share Feedback
+Star
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/testing-assets.txt
+
+Documentation Title:
+Testing Assets | Dagster Docs
+
+Documentation Content:
+Testing Assets | Dagster Docs
+Ask AI
+Platform
+Dagster+
+New
+Pricing
+Blog
+Community
+Docs
+Sign in
+Join us on Slack
+Star us
+Try Dagster+
+Platform
+Dagster+
+Pricing
+Blog
+Community
+Docs
+Contact Sales
+Sign in
+Try Dagster+
+Search
+the docs
+Press
+Ctrl
+and
+K
+to search
+Getting started
+What's Dagster?
+Quickstart
+Installation
+Creating a new project
+Getting help
+Tutorial
+Concepts
+Deployment
+Integrations
+Guides
+API Reference
+About
+1.7.2
+/ 0.23.2 (libs)
+You are viewing an unreleased or outdated version of the documentation
+View Latest Documentation
+→
+Testing assets
+#
+Creating testable and verifiable data pipelines is one of the focuses of Dagster. We believe ensuring data quality is critical for managing the complexity of data systems. Here, we'll cover how to write unit tests for individual assets, as well as for graphs of assets together.
+Prerequisites
+#
+This guide builds off of the project written in the
+tutorial
+. If you haven't already, you should complete the tutorial before continuing. Other guides may also build off the project created in the tutorial, but for this guide, we'll assume that the Dagster project is the same as the one created in the tutorial.
+It also assumes that you have installed a test runner like
+pytest
+.
+Testing an individual asset
+#
+We'll start by writing a test for the
+topstories_word_cloud
+asset definition, which is an image of a word cloud of the titles of top stories on Hacker News. To run the function that derives an asset from its upstream dependencies, we can invoke it directly, as if it's a regular Python function.
+Add the following code to the
+test_assets.py
+file in your
+tutorial_project_tests
+directory:
+import
+pandas
+as
+pd
+from
+tutorial_project
+.
+assets
+import
+topstories_word_cloud
+def
+test_topstories_word_cloud
+(
+)
+:
+df
+=
+pd
+.
+DataFrame
+(
+[
+{
+"title"
+:
+"Wow, Dagster is such an awesome and amazing product. I can't wait to use it!"
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/assets.txt
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+groups
+(
+"marketing"
+)
+-
+AssetSelection
+.
+all_asset_checks
+()
+# Select all asset checks that target a list of assets:
+AssetSelection
+.
+checks_for_assets
+(
+*
+my_assets_list
+)
+# Select a specific asset check:
+AssetSelection
+.
+checks
+(
+my_asset_check
+)
+static
+all
+(
+include_sources
+=
+False
+)
+[source]
+¶
+Returns a selection that includes all assets and their asset checks.
+Parameters
+:
+include_sources
+(
+bool
+) –
+(
+experimental
+)
+(This parameter may break in future versions, even between dot releases.) If True, then include all source assets.
+static
+all_asset_checks
+(
+)
+[source]
+¶
+Returns a selection that includes all asset checks.
+static
+assets
+(
+*
+assets_defs
+)
+[source]
+¶
+Returns a selection that includes all of the provided assets and asset checks that target
+them.
+Parameters
+:
+*assets_defs
+(
+Union
+[
+AssetsDefinition
+,
+str
+,
+Sequence
+[
+str
+]
+,
+AssetKey
+]
+) – The assets to
+select.
+Examples
+AssetSelection
+.
+assets
+(
+AssetKey
+([
+"a"
+]))
+AssetSelection
+.
+assets
+(
+"a"
+)
+AssetSelection
+.
+assets
+(
+AssetKey
+([
+"a"
+]),
+AssetKey
+([
+"b"
+]))
+AssetSelection
+.
+assets
+(
+"a"
+,
+"b"
+)
+@asset
+def
+asset1
+():
+...
+AssetSelection
+.
+assets
+(
+asset1
+)
+asset_key_list
+=
+[
+AssetKey
+([
+"a"
+]),
+AssetKey
+([
+"b"
+])]
+AssetSelection
+.
+assets
+(
+*
+asset_key_list
+)
+static
+checks
+(
+*
+assets_defs_or_check_keys
+)
+[source]
+¶
+Returns a selection that includes all of the provided asset checks or check keys.
+static
+checks_for_assets
+(
+*
+assets_defs
+)
+[source]
+¶
+Returns a selection with the asset checks that target the provided assets.
+downstream
+(
+depth
+=
+None
+,
+include_self
+=
+True
+)
+[source]
+¶
+Returns a selection that includes all assets that are downstream of any of the assets in
+this selection, selecting the assets in this selection by default. Includes the asset checks targeting the returned assets. Iterates through each
+asset in this selection and returns the union of all downstream assets.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/execution.txt
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+log
+.
+info
+(
+context
+.
+asset_partition_key_for_output
+())
+# materializing the 2023-08-21 partition of this asset will log:
+#   "2023-08-21"
+@multi_asset
+(
+outs
+=
+{
+"first_asset"
+:
+AssetOut
+(
+key
+=
+[
+"my_assets"
+,
+"first_asset"
+]),
+"second_asset"
+:
+AssetOut
+(
+key
+=
+[
+"my_assets"
+,
+"second_asset"
+])
+}
+partitions_def
+=
+partitions_def
+,
+)
+def
+a_multi_asset
+(
+context
+:
+AssetExecutionContext
+):
+context
+.
+log
+.
+info
+(
+context
+.
+asset_partition_key_for_output
+(
+"first_asset"
+))
+context
+.
+log
+.
+info
+(
+context
+.
+asset_partition_key_for_output
+(
+"second_asset"
+))
+# materializing the 2023-08-21 partition of this asset will log:
+#   "2023-08-21"
+#   "2023-08-21"
+@asset
+(
+partitions_def
+=
+partitions_def
+,
+ins
+=
+{
+"self_dependent_asset"
+:
+AssetIn
+(
+partition_mapping
+=
+TimeWindowPartitionMapping
+(
+start_offset
+=-
+1
+,
+end_offset
+=-
+1
+))
+}
+)
+def
+self_dependent_asset
+(
+context
+:
+AssetExecutionContext
+,
+self_dependent_asset
+):
+context
+.
+log
+.
+info
+(
+context
+.
+asset_partition_key_for_output
+())
+# materializing the 2023-08-21 partition of this asset will log:
+#   "2023-08-21"
+property
+asset_partition_key_range
+¶
+(
+deprecated
+)
+>
+      This API will be removed in version 2.0.
+Use
+partition_key_range
+instead..>
+The range of partition keys for the current run.
+If run is for a single partition key, return a
+PartitionKeyRange
+with the same start and
+end. Raises an error if the current run is not a partitioned run.
+asset_partition_key_range_for_input
+(
+input_name
+)
+[source]
+¶
+Return the PartitionKeyRange for the corresponding input. Errors if the asset depends on a
+non-contiguous chunk of the input.
+
+
+

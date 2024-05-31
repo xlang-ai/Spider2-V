@@ -1,0 +1,211 @@
+Documentation Source:
+www.metabase.com/learn/visualization/funnel.txt
+
+Documentation Title:
+Funnel charts
+
+Documentation Content:
+We’ll show examples both in the query builder and the sql editor:
+Query builder
+SQl editor
+The Sample Database doesn’t contain events; it’s just four tables with order, product, and customer information. So we’ll have to get a little creative here to come up with examples for funnel charts.
+Funnel chart example using the query builder
+Here’s a contrived example. We’re going to pretend that the steps in our funnel are product categories (because we don’t have anything like statuses or pages or other progressions in our Sample Database). Here’s the
+notebook view
+of our query:
+What we’ve done is joined the
+Orders
+and
+Products
+tables (see
+Joins in Metabase
+), summarized the count of orders, and grouped those counts by product category. Then we’ve sorted the results by count, descending. To get a funnel chart, we clicked on
+Visualization
+in the bottom left, and selected
+Funnel
+. In the settings of a funnel chart, under the
+Data
+tab, you can set the
+Step
+(in this case we’re using the product category) and the
+Measure
+(the count of orders).
+Notice that in the
+Settings -> Display
+tab, you can change the
+Funnel type
+to “Bar chart”, which is another valid way of representing the data. The advantage of a funnel chart (beyond the visual metaphor) is that Metabase will also show the percentage of the measure that made it through each step.
+Keeping the steps sorted with a custom column
+If the count in each step doesn’t naturally decrease, you may need to sort the steps manually to preserve the actual progression of steps. For example, if you have the same count in successive steps, the steps could get swapped in the funnel chart, like if Metabase defaults to sorting the steps alphabetically to break the tie. Likewise if you have funnels that can expand in count at certain steps (new people entering the funnel halfway through, for example) the funnel will default to descending counts, which will mess up your step order.
+In these cases, you can create an additional column to number the steps, and sort by step to enforce the correct funnel sequence.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/funnel.txt
+
+Documentation Title:
+Funnel charts
+
+Documentation Content:
+Guide to line charts
+Master the bar chart visualization
+Visualize your data as a histogram
+Visualizing data with maps
+Almost everything you can do with the table visualization
+Creating pivot tables
+Funnel charts
+Building dashboards
+BI dashboard best practices
+Linking filters in dashboards
+Custom destinations: choose what happens when people click on charts in your dashboard
+Cross-filtering: using a chart to update a dashboard filter
+Adding filters to dashboards with SQL questions
+Build a record lookup tool with Metabase
+Why you should regularly edit your dashboards
+Fun with Markdown in your dashboards
+Time series analysis
+Getting insights from time series data
+Comparing time periods
+Visualizing time series comparisons
+Measuring rates of change
+Data modeling
+Models in Metabase
+Analytics engineering for fact tables
+Actions
+Build a basic CRUD app with actions
+Analytics with Metabase
+Which data warehouse should you use?
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/funnel.txt
+
+Documentation Title:
+Funnel charts
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Questions
+Funnel charts
+Funnels
+are commonly used in e-commerce or sales to visualize how many customers are present within each step of a checkout flow or sales cycle. At their most general, funnels show you values broken out by steps, and the percent decrease between each successive step. To create a funnel in Metabase, you’ll need to have a table with at least two columns: one column that contains the metric you’re interested in, and another that contains the funnel’s steps.
+For example, I might have an Opportunities table, and I could create a question that gives me the number of sales leads broken out by a field that contains stages such as
+Prospecting
+,
+Qualification
+,
+Proposal
+,
+Negotiation
+, and
+Closed
+. In this example, the percentages shown along the x-axis tell you what percent of the total starting opportunities are still present at each subsequent step; so 18.89% of our total opportunities have made it all the way to being closed deals. The number below each percent is the actual value of the count at that step — in our example, the actual number of opportunities that are currently at each step. Together, these numbers help you figure out where you’re losing your customers or users.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/line-charts.txt
+
+Documentation Title:
+Guide to line charts
+
+Documentation Content:
+How to create a line chart
+Let’s take a look at the
+Orders
+table in the
+Sample Database
+that ships with Metabase. From the main navigation bar, click on
++ New
+>
+Question
+, which will take you to Metabase’s query builder. Choose
+Raw Data
+>
+Sample Database
+, then pick the
+Orders
+table. Click
+Visualize
+, then click the
+Visualization button
+in the bottom right to bring up the
+Visualization sidebar
+.
+Let’s start with how
+not
+to create a line chart. If you select
+line chart
+, Metabase will present you with an empty line chart.
+Metabase can’t read minds (yet), so it doesn’t know which columns from the
+Orders
+table to use for the x and y axes. To create a line chart, you’ll need to pick a metric for Metabase to plot over time. For example, you could show order totals over time by setting the x axis to
+created_at
+and the y axis to
+total
+. Metabase will automatically plot the line chart:
+That’s technically a line chart, but it looks more like the cardiograph of a startled hummingbird, and that’s even after Metabase has truncated the results shown. (If you hover over the gray warning triangle in the upper right, you’ll see that Metabase has only plotted 2,000 rows.)
+To make the chart more legible, we can summarize the data, so each point on the line chart is an aggregate of rows—“buckets” of records. (It’s much more common to plot unaggregated rows in visualizations like
+pin maps
+, or a
+scatterplot
+, e.g., to show each product plotted by price and rating.)
+As an example of an aggregated metric, let’s plot the sum of order totals for each month. Click on the green
+Summarize button
+to pull up the
+Summarize sidebar
+. Metabase defaults to counting the records, but we’re not interested in the number of orders, so we’ll click on
+Count
+and change it to
+Sum of
+and select the
+Total
+column from
+Order
+.
+Next, we’ll want to group our order totals by month.
+
+
+

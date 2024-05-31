@@ -1,0 +1,399 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-quality-tutorial-start.txt
+
+Documentation Title:
+Tutorial: Getting started with data metric functions | Snowflake Documentation
+
+Documentation Content:
+city
+,
+country
+,
+email
+,
+first_name
+,
+last_name
+,
+phone
+,
+state
+,
+street
+,
+zip_code
+)
+VALUES
+(
+1589420
+,
+'san francisco'
+,
+'usa'
+,
+'john.doe@'
+,
+'john'
+,
+'doe'
+,
+1234567890
+,
+null
+,
+null
+,
+null
+);
+INSERT
+INTO
+customers
+(
+account_number
+,
+city
+,
+country
+,
+email
+,
+first_name
+,
+last_name
+,
+phone
+,
+state
+,
+street
+,
+zip_code
+)
+VALUES
+(
+8028387
+,
+'san francisco'
+,
+'usa'
+,
+'bart.simpson@example.com'
+,
+'bart'
+,
+'simpson'
+,
+1012023030
+,
+null
+,
+'market st'
+,
+94102
+);
+INSERT
+INTO
+customers
+(
+account_number
+,
+city
+,
+country
+,
+email
+,
+first_name
+,
+last_name
+,
+phone
+,
+state
+,
+street
+,
+zip_code
+)
+VALUES
+(
+1589420
+,
+'san francisco'
+,
+'usa'
+,
+'john.doe@example.com'
+,
+'john'
+,
+'doe'
+,
+1234567890
+,
+'ca'
+,
+'concar dr'
+,
+94402
+),
+(
+2834123
+,
+'san mateo'
+,
+'usa'
+,
+'jane.doe@example.com'
+,
+'jane'
+,
+'doe'
+,
+3641252911
+,
+'ca'
+,
+'concar dr'
+,
+94402
+),
+(
+4829381
+,
+'san mateo'
+,
+'usa'
+,
+'jim.doe@example.com'
+,
+'jim'
+,
+'doe'
+,
+3641252912
+,
+'ca'
+,
+'concar dr'
+,
+94402
+),
+(
+9821802
+,
+'san francisco'
+,
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/2024/other/2024-02-21.txt
+
+Documentation Title:
+February 21, 2024 — Data sharing & collaboration for accounts in U.S. government regions | Snowflake Documentation
+
+Documentation Content:
+government regions
+¶
+With this release, we are pleased to announce that data sharing and collaboration with listings is now available for accounts in
+U.S. government regions.
+After accepting the cross-region disclaimer, anyone in your account with the required privileges can do the following:
+Publish free and limited trial listings on the Snowflake Marketplace.
+Share free listings directly with consumers.
+Access and install free and limited trial listings from the Snowflake Marketplace.
+Install free listings shared directly with your account.
+Some limitations apply. For more details, see:
+Prepare to provide listings from accounts in U.S. government regions
+Prepare to access listings from accounts in U.S. government regions
+Limitations for accessing listings from accounts in U.S. government regions
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.txt
+
+Documentation Title:
+Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+
+Documentation Content:
+Box 975, 553 Odio, Road|Hulste|63345 |
+| Field delimiter '|' found while expecting record delimiter '\n'                                                                                                      | mycsvtable/contacts3.csv.gz         |    5 |       125 |         625 | parsing  | 100016 |     22000 | "MYCSVTABLE"["POSTALCODE":10] |          4 |              5 | 14|Sophia|Christian|Turpis Ltd|lectus.pede@non.ca|1-962-503-3253|1-157-|850-3602|P.O. Box 824, 7971 Sagittis Rd.|Chattanooga|56188                  |
++
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+Copy
+The result shows two data errors in
+mycsvtable/contacts3.csv.gz
+:
+Number
+of
+columns
+in
+file
+(11)
+does
+not
+match
+that
+of
+the
+corresponding
+table
+(10)
+In Row 1, a hyphen was mistakenly replaced with the pipe (
+|
+) character, the data file delimiter, effectively creating an additional column in the record.
+Field
+delimiter
+'|'
+found
+while
+expecting
+record
+delimiter
+'n'
+In Row 5, an additional pipe (
+|
+) character was introduced after a hyphen, breaking the record.
+Fix the errors and load the data files again
+¶
+In regular use, you would fix the problematic records manually and write them to a new data file.
+You would then stage the fixed data files to the S3 bucket and attempt to reload the data from
+the files. For this tutorial, you are using Snowflake provided sample data, which you do not correct.
+Verify the loaded data
+¶
+Execute a
+SELECT
+statement to verify that the data was loaded successfully.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/cleanrooms/demo-flows/python-based-templates.txt
+
+Documentation Title:
+Snowflake Data Clean Rooms: Secure Python Based Templates | Snowflake Documentation
+
+Documentation Content:
+Snowflake Data Clean Rooms: Secure Python Based Templates | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Overview
+Connecting to Snowflake
+Virtual warehouses
+Databases, Tables, & Views
+Data Types
+Data Loading
+Data Unloading
+Queries
+Data Sharing & Collaboration
+Introduction to Secure Data Sharing
+About listings
+About Snowflake Marketplace
+Legal requirements for providers and consumers of listings
+Snowflake Data Clean Rooms
+Getting started
+Administrator tasks
+Web app
+Developer APIs
+Provider API reference guide
+Consumer API reference guide
+Differential privacy
+Supported flows
+Provider data analysis
+Overlap analysis
+Custom analysis templates
+Secure Python-based templates
+Machine learning
+Secure Python UDTF-based templates
+Snowpark
+Register clean room in web app
+Managed accounts
+Adding Snowflake data
+Third-party connectors
+Activation connectors
+Identity & data provider connectors
+External data connectors
+Amazon S3
+Azure Blob Storage
+Google Cloud Storage
+Using listings as a provider
+Becoming a provider of listings
+Accessing Provider Studio
+Managing your provider profile
+Preparing data for a listing
+Creating and publishing a listing
+Configuring listings
+Configuring Cross-Cloud Auto-fulfillment
+Paid listings pricing models
+Managing listing requests
+Modifying published listings
+Defining listing referral links
+Removing listings as a provider
+Monitoring usage of your listing
+Monetization usage views
+About working with listings using SQL
+Using listings as a consumer
+Becoming a consumer of listings
+Exploring listings
+Accessing and installing listings as a consumer
+Paying for listings
+Data sharing for providers
+Getting started
+Working with shares
+Sharing data from multiple databases
+Sharing data across regions and cloud platforms
+Using secure objects to control data access
+Sharing data protected by a policy
+Data sharing for consumers
+Consuming shared data
+General data sharing tasks
+Managing reader accounts
+Configuring reader accounts
+Enabling non-Admins to perform sharing tasks
+Granting privileges to other roles
+Sharing from Business Critical to non-Business Critical
+Data Exchange
+About
+Admin and membership
+Accessing a Data Exchange
+Becoming a data provider
+Managing data listings
+Configuring and using Data Exchanges
+Requesting a new Data Exchange
+Snowflake AI
+
+
+

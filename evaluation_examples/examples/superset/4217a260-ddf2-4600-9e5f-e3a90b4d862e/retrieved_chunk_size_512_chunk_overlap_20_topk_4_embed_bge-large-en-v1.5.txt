@@ -1,0 +1,282 @@
+Documentation Source:
+superset.apache.org/docs/contributing/development/index.txt
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+​
+Setting things up to squeeze an "hello world" into any part of Superset should be as simple as
+docker-compose
+up
+Note that:
+this will pull/build docker images and run a cluster of services, including:
+A Superset
+Flask web server
+, mounting the local python repo/code
+A Superset
+Celery worker
+, also mounting the local python repo/code
+A Superset
+Node service
+, mounting, compiling and bundling the JS/TS assets
+A Superset
+Node websocket service
+to power the async backend
+Postgres
+as the metadata database and to store example datasets, charts and dashboards whic
+should be populated upon startup
+Redis
+as the message queue for our async backend and caching backend
+It'll load up examples into the database upon first startup
+all other details and pointers available in
+docker-compose.yml
+The local repository is mounted withing the services, meaning updating
+the code on the host will be reflected in the docker images
+Superset is served at localhost:8088/
+You can login with admin/admin
+caution
+Since
+docker-compose
+is primarily designed to run a set of containers on
+a single host
+and can't credibly support
+high availability
+as a result, we do not support nor recommend
+using our
+docker-compose
+constructs to support production-type use-cases. For single host
+environments, we recommend using
+minikube
+along
+our
+installing on k8s
+documentation.
+configured to be secure.
+Installing Development Tools
+​
+note
+While docker-compose simplifies a lot of the setup, there are still
+many things you'll want to set up locally to power your IDE, and things like
+commit hooks
+,
+linters
+, and
+test-runners
+. Note that you can do these
+things inside docker images with commands like
+docker-compose exec superset_app bash
+for
+instance, but many people like to run that tooling from their host.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/index.txt
+
+Documentation Title:
+Contributing to Superset | Superset
+
+Documentation Content:
+Contributing to Superset | Superset
+Skip to main content
+Documentation
+Getting Started
+FAQ
+Community
+Resources
+GitHub
+Slack
+Mailing List
+Stack Overflow
+Get Started
+Search
+Introduction
+Quickstart
+Installation
+Configuration
+Using Superset
+Contributing
+Contributing to Superset
+Guidelines
+Setting up a Development Environment
+Development How-tos
+Resources
+Misc.
+Security
+FAQ
+API
+Edit this page on GitHub
+Contributing
+Contributing to Superset
+On this page
+Contributing to Superset
+Superset is an
+Apache Software foundation
+project.
+The core contributors (or committers) to Superset communicate primarily in the following channels (
+which can be joined by anyone):
+Mailing list
+Apache Superset Slack community
+GitHub issues
+GitHub pull requests
+GitHub discussions
+Superset Community Calendar
+More references:
+Comprehensive Tutorial for Contributing Code to Apache Superset
+Superset Wiki (code guidelines and additional resources)
+Orientation
+​
+Here's a list of repositories that contain Superset-related packages:
+apache/superset
+is the main repository containing the
+apache-superset
+Python package
+distributed on
+pypi
+. This repository
+also includes Superset's main TypeScript/JavaScript bundles and react apps under
+the
+superset-frontend
+folder.
+github.com/apache-superset
+is the
+GitHub organization under which we manage Superset-related
+small tools, forks and Superset-related experimental ideas.
+Types of Contributions
+​
+Report Bug
+​
+The best way to report a bug is to file an issue on GitHub. Please include:
+Your operating system name and version.
+Superset version.
+Detailed steps to reproduce the bug.
+Any details about your local setup that might be helpful in troubleshooting.
+When posting Python stack traces, please quote them using
+Markdown blocks
+.
+Please note that feature requests opened as GitHub Issues will be moved to Discussions.
+Submit Ideas or Feature Requests
+​
+The best way is to start an
+"Ideas" Discussion thread
+on GitHub:
+Explain in detail how it would work.
+Keep the scope as narrow as possible, to make it easier to implement.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+database.windows.net:1433/TestSchema
+ClickHouse
+pip install clickhouse-connect
+clickhousedb://{username}:{password}@{hostname}:{port}/{database}
+CockroachDB
+pip install cockroachdb
+cockroachdb://root@{hostname}:{port}/{database}?sslmode=disable
+Dremio
+pip install sqlalchemy_dremio
+dremio://user:pwd@host:31010/
+Elasticsearch
+pip install elasticsearch-dbapi
+elasticsearch+http://{user}:{password}@{host}:9200/
+Exasol
+pip install sqlalchemy-exasol
+exa+pyodbc://{username}:{password}@{hostname}:{port}/my_schema?CONNECTIONLCALL=en_US.UTF-8&driver=EXAODBC
+Google BigQuery
+pip install sqlalchemy-bigquery
+bigquery://{project_id}
+Google Sheets
+pip install shillelagh[gsheetsapi]
+gsheets://
+Firebolt
+pip install firebolt-sqlalchemy
+firebolt://{client_id}:{client_secret}@{database}/{engine_name}?account_name={name}
+Hologres
+pip install psycopg2
+postgresql+psycopg2://<UserName>:<DBPassword>@<Database Host>/<Database Name>
+IBM Db2
+pip install ibm_db_sa
+db2+ibm_db://
+IBM Netezza Performance Server
+pip install nzalchemy
+netezza+nzpy://<UserName>:<DBPassword>@<Database Host>/<Database Name>
+MySQL
+pip install mysqlclient
+mysql://<UserName>:<DBPassword>@<Database Host>/<Database Name>
+Oracle
+pip install cx_Oracle
+oracle://
+PostgreSQL
+pip install psycopg2
+postgresql://<UserName>:<DBPassword>@<Database Host>/<Database Name>
+Presto
+pip install pyhive
+presto://
+Rockset
+pip install rockset-sqlalchemy
+rockset://<api_key>:@<api_server>
+SAP Hana
+pip install hdbcli sqlalchemy-hana
+or
+pip install apache-superset[hana]
+hana://{username}:{password}@{host}:{port}
+StarRocks
+pip install starrocks
+starrocks://<User>:<Password>@<Host>:<Port>/<Catalog>.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+{region_name}.amazonaws.com?connector=superset
+AWS Redshift
+pip install sqlalchemy-redshift
+redshift+psycopg2://<userName>:<DBPassword>@<AWS End Point>:5439/<Database Name>
+Apache Doris
+pip install pydoris
+doris://<User>:<Password>@<Host>:<Port>/<Catalog>.<Database>
+Apache Drill
+pip install sqlalchemy-drill
+drill+sadrill:// For JDBC drill+jdbc://
+Apache Druid
+pip install pydruid
+druid://<User>:<password>@<Host>:<Port-default-9088>/druid/v2/sql
+Apache Hive
+pip install pyhive
+hive://hive@{hostname}:{port}/{database}
+Apache Impala
+pip install impyla
+impala://{hostname}:{port}/{database}
+Apache Kylin
+pip install kylinpy
+kylin://<username>:<password>@<hostname>:<port>/<project>?<param1>=<value1>&<param2>=<value2>
+Apache Pinot
+pip install pinotdb
+pinot://BROKER:5436/query?server=http://CONTROLLER:5983/
+Apache Solr
+pip install sqlalchemy-solr
+solr://{username}:{password}@{hostname}:{port}/{server_path}/{collection}
+Apache Spark SQL
+pip install pyhive
+hive://hive@{hostname}:{port}/{database}
+Ascend.io
+pip install impyla
+ascend://{username}:{password}@{hostname}:{port}/{database}?auth_mechanism=PLAIN;use_ssl=true
+Azure MS SQL
+pip install pymssql
+mssql+pymssql://UserName@presetSQL:TestPassword@presetSQL.database.windows.
+
+
+

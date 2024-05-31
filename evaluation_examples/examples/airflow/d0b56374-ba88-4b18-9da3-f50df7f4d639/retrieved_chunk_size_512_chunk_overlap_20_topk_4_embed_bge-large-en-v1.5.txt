@@ -1,0 +1,507 @@
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.txt
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+Then, open your project directory and run:
+astro dev start
+This command builds your project and spins up 6 Docker containers on your machine to run it:
+The Airflow webserver, which runs the Airflow UI and can be accessed at
+https://localhost:8080/
+.
+The Airflow scheduler, which is responsible for monitoring and triggering tasks.
+The Airflow triggerer, which is an Airflow component used to run deferrable operators.
+The Airflow metadata database, which is a Postgres database that runs on port
+5432
+.
+A local
+MinIO
+instance, which can be accessed at
+https://localhost:9000/
+.
+A local
+MLflow
+instance, which can be accessed at
+https://localhost:5000/
+.
+Project contents
+​
+Data source
+​
+This example uses the
+Possum Regression dataset
+from Kaggle. It contains measurements of different attributes, such as total length, skull width, or age, for 104 possums. This data was originally published by Lindenmayer et al. (1995) in the Australian Journal of Zoology and is commonly used to teach linear regression.
+Project overview
+​
+This project consists of three DAGs which have dependency relationships through
+Airflow datasets
+.
+The
+feature_eng
+DAG prepares the MLflow experiment and builds prediction features from the possum data.
+The
+train
+DAG trains a RidgeCV model on the engineered features from
+feature_eng
+and then registers the model with MLflow using operators from the
+MLflow Airflow provider
+.
+The
+predict
+DAG uses the trained model from
+train
+to create predictions and plot them against the target values.
+Note that the model is trained on the whole dataset and predictions are made on the same data. In a real world scenario you'd want to split the data into a training, validation, and test set.
+Project code
+​
+This use case shows many Airflow features and ways to interact with MLflow. The following sections will highlight a couple of relevant code snippets in each DAG and explain them in more detail.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.txt
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+feature_df
+=
+context
+[
+"ti"
+]
+.
+xcom_pull
+(
+dag_id
+=
+"feature_eng"
+,
+task_ids
+=
+"build_features"
+,
+include_prior_dates
+=
+True
+)
+return
+feature_df
+The ID number of the MLflow experiment is retrieved using the MLflowClientHook in the
+fetch_experiment_id
+task in order to track model training in the same experiment.
+The
+train_model
+task, defined with the
+@aql.dataframe
+decorator, shows how model training can be parameterized when using Airflow. In this example, the hyperparameters, the
+target_colum
+, and the model class are hardcoded, but they could also be retrieved from upstream tasks via
+XCom
+or passed into manual runs of the DAG using
+DAG params
+.
+The project is set up to train the
+scikit-learn RidgeCV model
+to predict the tail length of possums using information such as their age, total length, or skull width.
+@aql
+.
+dataframe
+(
+)
+def
+train_model
+(
+feature_df
+:
+DataFrame
+,
+experiment_id
+:
+str
+,
+target_column
+:
+str
+,
+model_class
+:
+callable
+,
+hyper_parameters
+:
+dict
+,
+run_name
+:
+str
+,
+)
+-
+>
+str
+:
+"Train a model and log it to MLFlow."
+# ...
+with
+mlflow
+.
+start_run
+(
+experiment_id
+=
+experiment_id
+,
+run_name
+=
+run_name
+)
+as
+run
+:
+model
+.
+fit
+(
+feature_df
+.
+drop
+(
+target
+,
+axis
+=
+1
+)
+,
+feature_df
+[
+target
+]
+)
+run_id
+=
+run
+.
+info
+.
+run_id
+return
+run_id
+# ...
+model_trained
+=
+train_model
+(
+feature_df
+=
+fetched_feature_df
+,
+experiment_id
+=
+fetched_experiment_id
+,
+target_column
+=
+TARGET_COLUMN
+,
+model_class
+=
+RidgeCV
+,
+hyper_parameters
+=
+{
+"alphas"
+:
+np
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.txt
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+run_prediction
+=
+ModelLoadAndPredictOperator
+(
+mlflow_conn_id
+=
+"mlflow_default"
+,
+task_id
+=
+"run_prediction"
+,
+model_uri
+=
+f"s3://
+{
+MLFLOW_ARTIFACT_BUCKET
+}
+/"
++
+"{{ ti.xcom_pull(task_ids='fetch_model_run_id')}}"
++
+"/artifacts/model"
+,
+data
+=
+fetched_feature_df
+,
+)
+The predicted possum tail length values are converted to a dataframe and then plotted against the true tail lengths using matplotlib. The resulting graph offers a visual representation of how much variation of possum tail length can be explained by a linear regression model using the features in the dataset in this specific possum population of 104 animals.
+Congratulations! You ran a ML pipeline tracking model parameters and versions in MLflow using the MLflow Airflow provider. You can now use this pipeline as a template for your own MLflow projects.
+See also
+​
+Documentation:
+MLflow
+.
+Tutorial:
+Use MLflow with Apache Airflow
+.
+Provider:
+MLflow Airflow provider
+.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+ML orchestration with Airflow datasets
+Next
+Airflow glossary
+Before you start
+Clone the project
+Run the project
+Project contents
+Data source
+Project overview
+Project code
+See also
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.txt
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+The
+mlflow
+package is used to
+track
+the scaler run in MLflow.
+The task is defined using the
+@aql.dataframe
+decorator from the
+Astro Python SDK
+.
+@aql
+.
+dataframe
+(
+)
+def
+build_features
+(
+raw_df
+:
+DataFrame
+,
+experiment_id
+:
+str
+,
+target_column
+:
+str
+,
+categorical_columns
+:
+list
+,
+numeric_columns
+:
+list
+,
+)
+-
+>
+DataFrame
+:
+# ...
+scaler
+=
+StandardScaler
+(
+)
+with
+mlflow
+.
+start_run
+(
+experiment_id
+=
+experiment_id
+,
+run_name
+=
+"Scaler"
+)
+as
+run
+:
+X_encoded
+=
+pd
+.
+DataFrame
+(
+scaler
+.
+fit_transform
+(
+X_encoded
+)
+,
+columns
+=
+X_encoded
+.
+columns
+)
+mlflow
+.
+sklearn
+.
+log_model
+(
+scaler
+,
+artifact_path
+=
+"scaler"
+)
+mlflow
+.
+log_metrics
+(
+pd
+.
+DataFrame
+(
+scaler
+.
+mean_
+,
+index
+=
+X_encoded
+.
+columns
+)
+[
+0
+]
+.
+to_dict
+(
+)
+)
+# ...
+return
+X_encoded
+# return a pandas DataFrame
+You can view the Scaler run in the MLflow UI at
+localhost:5000
+.
+Model training DAG
+​
+Airflow
+datasets
+let you schedule DAGs based on when a specific file or database is updated in a separate DAG. In this example, the model training DAG is scheduled to run as soon as the last task in the feature engineering DAG completes.
+@dag
+(
+schedule
+=
+[
+Dataset
+(
+"s3://"
++
+DATA_BUCKET_NAME
++
+"_"
++
+FILE_PATH
+)
+]
+,
+start_date
+=
+datetime
+(
+2023
+,
+1
+,
+1
+)
+,
+catchup
+=
+False
+,
+)
+The
+fetch_feature_df
+task pulls the feature dataframe that was pushed to
+XCom
+in the previous DAG.
+@task
+def
+fetch_feature_df
+(
+**
+context
+)
+:
+"Fetch the feature dataframe from the feature engineering DAG."
+feature_df
+=
+context
+[
+"ti"
+]
+.
+
+
+

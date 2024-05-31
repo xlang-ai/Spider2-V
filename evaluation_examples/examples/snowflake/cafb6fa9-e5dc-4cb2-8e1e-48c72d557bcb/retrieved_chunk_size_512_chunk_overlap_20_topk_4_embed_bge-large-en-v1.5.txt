@@ -1,0 +1,346 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.txt
+
+Documentation Title:
+Load and query sample data using SQL | Snowflake Documentation
+
+Documentation Content:
+Provide your
+account identifier
+or account URL.
+If you’ve previously signed in to Snowsight, you might see an account name that you can select.
+Sign in using your Snowflake account credentials.
+Step 2. Open the SQL worksheet for loading and querying data
+¶
+You can use worksheets to write and run SQL commands on your Snowflake database. Your trial account has access
+to a pre-loaded worksheet for this tutorial. The worksheet has the SQL commands that
+you will run to create a database, load data into it, and query the data. For more information
+about worksheets, see
+Getting started with worksheets
+.
+To open the pre-loaded tutorial worksheet:
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open
+[Tutorial] Using SQL to load and query sample data
+.
+Your worksheet looks similar to the following image.
+Step 3. Set the role and warehouse to use
+¶
+The role you use determines the privileges you have. In this tutorial, use the
+ACCOUNTADMIN system role so that you can view and manage objects in your account.
+For more information, see
+Using the ACCOUNTADMIN Role
+.
+A warehouse provides the required resources to create and manage objects and run
+SQL commands. These resources include CPU, memory, and temporary storage. Your
+trial account has a virtual warehouse (
+compute_wh
+) that you can use for this
+tutorial. For more information, see
+Virtual warehouses
+.
+To set the role and warehouse to use, do the following:
+In the open worksheet, place your cursor in the USE ROLE line.
+USE
+ROLE
+accountadmin
+;
+Copy
+In the upper-right corner of the worksheet, select
+Run
+.
+Note
+In this tutorial, run SQL statements one at a time. Do not select
+Run All
+.
+Place your cursor in the USE WAREHOUSE line, then select
+Run
+.
+USE
+WAREHOUSE
+compute_wh
+;
+Copy
+Step 4. Create a database, schema, and table
+¶
+A database stores data in tables that you can manage and query. A schema is a logical
+grouping of database objects, such as tables and views. For example, a schema might
+contain the database objects required for a specific application.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.txt
+
+Documentation Title:
+Snowflake in 20 minutes | Snowflake Documentation
+
+Documentation Content:
+Retrieve all data
+¶
+Return all rows and columns from the table:
+SELECT
+*
+FROM
+emp_basic
+;
+Copy
+The following is a partial result:
++
+------------+--------------+---------------------------+-----------------------------+--------------------+------------+
+| FIRST_NAME | LAST_NAME    | EMAIL                     | STREETADDRESS               | CITY               | START_DATE |
+|------------+--------------+---------------------------+-----------------------------+--------------------+------------|
+| Arlene     | Davidovits   | adavidovitsk@sf_tuts.com  | 7571 New Castle Circle      | Meniko             | 2017-05-03 |
+| Violette   | Shermore     | vshermorel@sf_tuts.com    | 899 Merchant Center         | Troitsk            | 2017-01-19 |
+| Ron        | Mattys       | rmattysm@sf_tuts.com      | 423 Lien Pass               | Bayaguana          | 2017-11-15 |
+...
+...
+...
+| Carson     | Bedder       | cbedderh@sf_tuts.co.au    | 71 Clyde Gallagher Place    | Leninskoye         | 2017-03-29 |
+| Dana       | Avory        | davoryi@sf_tuts.com       | 2 Holy Cross Pass           | Wenlin             | 2017-05-11 |
+| Ronny      | Talmadge     | rtalmadgej@sf_tuts.co.uk  | 588 Chinook Street          | Yawata             | 2017-06-02 |
++
+------------+--------------+---------------------------+-----------------------------+--------------------+------------+
+Copy
+Insert additional data rows
+¶
+In addition to loading data from staged files into a table, you can insert rows directly into a table using the
+INSERT
+DML command.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data-using.txt
+
+Documentation Title:
+Using the Sample Database | Snowflake Documentation
+
+Documentation Content:
+For example, in SQL:
+show databases
+like
+'%sample%'
+;
++
+-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
+| created_on                    | name                  | is_default | is_current | origin                  | owner        | comment | options | retention_time |
+|-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------|
+| 2016-07-14 14:30:21.711 -0700 | SNOWFLAKE_SAMPLE_DATA | N          | N          | SFC_SAMPLES.SAMPLE_DATA | ACCOUNTADMIN |         |         | 1              |
++
+-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
+Copy
+Note that this example illustrates the sample database, SNOWFLAKE_SAMPLE_DATA, has been
+shared with your account
+by Snowflake.
+The
+origin
+column in the SHOW DATABASES output (or the
+Origin
+column in the
+Databases
+page in the interface) displays the fully-qualified name of the shared
+database, SFC_SAMPLES.SAMPLE_DATA, indicating it originated from the SFC_SAMPLES account (used by Snowflake to share the sample data).
+Querying Tables and Views in the Sample Database
+¶
+To use a table or view in the sample database, you can either:
+Reference the fully-qualified name of the table in your query (in the form of
+snowflake_sample_data.
+schema_name
+.
+object_name
+).
+OR
+Specify the sample database (and schema) for your session using the
+USE DATABASE
+and/or
+USE SCHEMA
+commands.
+The following two examples illustrate using both approaches to query the
+lineitem
+table in the
+tpch_sf1
+schema:
+select
+count
+(*)
+from
+snowflake_sample_data
+.
+tpch_sf1
+.
+lineitem
+;
++
+----------+
+| COUNT(*) |
+|----------|
+|  6001215 |
++
+----------+
+use
+schema
+snowflake_sample_data
+.
+tpch_sf1
+;
+select
+count
+(*)
+from
+lineitem
+;
++
+----------+
+| COUNT(*) |
+|----------|
+|  6001215 |
++
+----------+
+Copy
+Note
+You must have a running, current warehouse in your session to perform queries.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/match-recognize-introduction.txt
+
+Documentation Title:
+Identifying Sequences of Rows That Match a Pattern | Snowflake Documentation
+
+Documentation Content:
+00
+,
+UP
+AS
+price
+>
+LAG
+(
+price
+),
+DOWN
+AS
+price
+<
+LAG
+(
+price
+)
+)
+WHERE
+company
+=
+'XYZ'
+ORDER
+BY
+price_date
+;
++
+---------+------------+-------+
+| COMPANY | PRICE_DATE | PRICE |
+|---------+------------+-------|
+| XYZ     | 2020-10-02 |    24 |
+| XYZ     | 2020-10-03 |    37 |
+| XYZ     | 2020-10-04 |    63 |
+| XYZ     | 2020-10-05 |    65 |
+| XYZ     | 2020-10-06 |    56 |
+| XYZ     | 2020-10-07 |    50 |
++
+---------+------------+-------+
+Copy
+SELECT
+company
+,
+price_date
+,
+price
+FROM
+stock_price_history
+MATCH_RECOGNIZE
+(
+PARTITION
+BY
+company
+ORDER
+BY
+price_date
+ALL
+ROWS
+PER
+MATCH
+PATTERN
+(
+{-
+LESS_THAN_45
+-}
+UP
+{-
+UP
+*
+-}
+DOWN
+{-
+DOWN
+*
+-}
+)
+DEFINE
+LESS_THAN_45
+AS
+price
+<
+45
+.
+00
+,
+UP
+AS
+price
+>
+LAG
+(
+price
+),
+DOWN
+AS
+price
+<
+LAG
+(
+price
+)
+)
+WHERE
+company
+=
+'XYZ'
+ORDER
+BY
+price_date
+;
++
+---------+------------+-------+
+| COMPANY | PRICE_DATE | PRICE |
+|---------+------------+-------|
+| XYZ     | 2020-10-03 |    37 |
++
+---------+------------+-------+
+Copy
+Returning Information About the Match
+¶
+Basic Match Information
+¶
+In many cases, you want your query to list not only information from the table that contains the data, but also
+information about the patterns that were found. When you want information about the matches themselves, you specify
+that information in the
+MEASURES
+clause.
+
+
+

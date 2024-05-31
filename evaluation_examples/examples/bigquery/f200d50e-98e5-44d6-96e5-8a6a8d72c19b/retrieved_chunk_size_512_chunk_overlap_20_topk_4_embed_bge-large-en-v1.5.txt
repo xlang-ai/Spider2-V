@@ -1,0 +1,198 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tablesd41d.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tables.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/data-canvas.txt
+
+Documentation Title:
+Analyze with data canvas  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Click
+Save
+. The notebook is created successfully.
+Click
+Open in BQ Studio
+to view the created notebook.
+Example 3
+Prompt 1
+Find data about USA names
+Potential result
+BigQuery data canvas generates a list of tables. For this example, we are going to
+select the
+bigquery-public-data.usa_names.usa_1910_current
+table.
+Click
+Query
+to query the data. Enter a prompt to query the data.
+Potential result
+BigQuery data canvas generates the following query:
+SELECT
+  state,
+  gender,
+  year,
+  name,
+  number
+FROM
+  `bigquery-public-data.usa_names.usa_1910_current`
+BigQuery data canvas generates the results of the query. We are going to ask an
+additional query to filter this data. Click
+Query these results
+.
+Prompt 2
+Get me the top 10 most popular names in 1980
+Potential result
+BigQuery data canvas generates the following query:
+SELECT
+  name,
+  SUM(number) AS total_count
+FROM
+  `bigquery-public-data`.usa_names.usa_1910_current
+WHERE
+  year = 1980
+GROUP BY
+  name
+ORDER BY
+  total_count DESC
+LIMIT
+  10;
+After running the query, we get a table with the ten most common names of
+children born in 1980.
+For this example, we are going to visualize these results. Click
+Visualize
+.
+BigQuery data canvas suggests several visualization options, including bar chart, pie
+chart, line graph, and custom visualization. Click
+Create bar chart
+.
+BigQuery data canvas creates a bar chart similar to the following:
+Along with providing a chart, BigQuery data canvas summarizes some of the key details
+of the data backing the visualization. You can modify the chart by clicking
+Visualization details
+and editing your chart in the side panel.
+Prompt 3
+Create a bar chart sorted high to low, with a gradient
+Potential result
+BigQuery data canvas creates a bar chart similar to the following:
+To make further changes, click
+Visualization details
+. The Vis details
+sidebar is displayed. You can edit the chart title, x-axis name, y-axis name,
+and more.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.txt
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+21:00:00 |    94105 | 143 |          74 |
+ +---------------------+----------+-----+-------------*/
+Get a 3-hour minimum and maximum value
+In the following query, you compute 3-hour minimum and maximum temperatures for
+each zip code:
+SELECT
+  TIMESTAMP_BUCKET(time, INTERVAL 3 HOUR) AS time,
+  zip_code,
+  MIN(temperature) AS temperature_min,
+  MAX(temperature) AS temperature_max,
+FROM mydataset.environmental_data_hourly
+GROUP BY zip_code, time
+ORDER BY zip_code, time;
+
+/*---------------------+----------+-----------------+-----------------+
+ |        time         | zip_code | temperature_min | temperature_max |
+ +---------------------+----------+-----------------+-----------------+
+ | 2020-09-08 00:00:00 |    60606 |              60 |              66 |
+ | 2020-09-08 03:00:00 |    60606 |              57 |              59 |
+ | 2020-09-08 06:00:00 |    60606 |              55 |              56 |
+ | 2020-09-08 09:00:00 |    60606 |              55 |              56 |
+ | 2020-09-08 12:00:00 |    60606 |              56 |              59 |
+ | 2020-09-08 15:00:00 |
+
+
+

@@ -1,0 +1,281 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data-using.txt
+
+Documentation Title:
+Using the Sample Database | Snowflake Documentation
+
+Documentation Content:
+For example, in SQL:
+show databases
+like
+'%sample%'
+;
++
+-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
+| created_on                    | name                  | is_default | is_current | origin                  | owner        | comment | options | retention_time |
+|-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------|
+| 2016-07-14 14:30:21.711 -0700 | SNOWFLAKE_SAMPLE_DATA | N          | N          | SFC_SAMPLES.SAMPLE_DATA | ACCOUNTADMIN |         |         | 1              |
++
+-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
+Copy
+Note that this example illustrates the sample database, SNOWFLAKE_SAMPLE_DATA, has been
+shared with your account
+by Snowflake.
+The
+origin
+column in the SHOW DATABASES output (or the
+Origin
+column in the
+Databases
+page in the interface) displays the fully-qualified name of the shared
+database, SFC_SAMPLES.SAMPLE_DATA, indicating it originated from the SFC_SAMPLES account (used by Snowflake to share the sample data).
+Querying Tables and Views in the Sample Database
+¶
+To use a table or view in the sample database, you can either:
+Reference the fully-qualified name of the table in your query (in the form of
+snowflake_sample_data.
+schema_name
+.
+object_name
+).
+OR
+Specify the sample database (and schema) for your session using the
+USE DATABASE
+and/or
+USE SCHEMA
+commands.
+The following two examples illustrate using both approaches to query the
+lineitem
+table in the
+tpch_sf1
+schema:
+select
+count
+(*)
+from
+snowflake_sample_data
+.
+tpch_sf1
+.
+lineitem
+;
++
+----------+
+| COUNT(*) |
+|----------|
+|  6001215 |
++
+----------+
+use
+schema
+snowflake_sample_data
+.
+tpch_sf1
+;
+select
+count
+(*)
+from
+lineitem
+;
++
+----------+
+| COUNT(*) |
+|----------|
+|  6001215 |
++
+----------+
+Copy
+Note
+You must have a running, current warehouse in your session to perform queries.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.txt
+
+Documentation Title:
+Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+
+Documentation Content:
+Box 975, 553 Odio, Road|Hulste|63345 |
+| Field delimiter '|' found while expecting record delimiter '\n'                                                                                                      | mycsvtable/contacts3.csv.gz         |    5 |       125 |         625 | parsing  | 100016 |     22000 | "MYCSVTABLE"["POSTALCODE":10] |          4 |              5 | 14|Sophia|Christian|Turpis Ltd|lectus.pede@non.ca|1-962-503-3253|1-157-|850-3602|P.O. Box 824, 7971 Sagittis Rd.|Chattanooga|56188                  |
++
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+Copy
+The result shows two data errors in
+mycsvtable/contacts3.csv.gz
+:
+Number
+of
+columns
+in
+file
+(11)
+does
+not
+match
+that
+of
+the
+corresponding
+table
+(10)
+In Row 1, a hyphen was mistakenly replaced with the pipe (
+|
+) character, the data file delimiter, effectively creating an additional column in the record.
+Field
+delimiter
+'|'
+found
+while
+expecting
+record
+delimiter
+'n'
+In Row 5, an additional pipe (
+|
+) character was introduced after a hyphen, breaking the record.
+Fix the errors and load the data files again
+¶
+In regular use, you would fix the problematic records manually and write them to a new data file.
+You would then stage the fixed data files to the S3 bucket and attempt to reload the data from
+the files. For this tutorial, you are using Snowflake provided sample data, which you do not correct.
+Verify the loaded data
+¶
+Execute a
+SELECT
+statement to verify that the data was loaded successfully.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data.txt
+
+Documentation Title:
+Sample Data Sets | Snowflake Documentation
+
+Documentation Content:
+Sample Data Sets | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Overview
+Concepts
+Tutorials
+Sample Data
+Usage
+TPC-DS
+TPC-H
+Getting Started
+Sample Data
+Sample Data Sets
+¶
+Snowflake provides sample data sets, such as the industry-standard TPC-DS and TPC-H benchmarks, for evaluating and testing a broad range of Snowflake’s SQL support.
+Sample data sets are provided in a database named SNOWFLAKE_SAMPLE_DATA that has been
+shared with your account
+from the Snowflake SFC_SAMPLES account.
+If you do not see the database, you can create it yourself. Refer to
+Using the Sample Database
+.
+The database contains a schema for each data set, with the sample data stored in the tables in each schema. The database and schemas
+do not use any data storage so they do
+not
+incur storage charges for your account. You can execute queries on the tables in
+these databases just as you would with any other databases in your account. Executing queries requires a running, current warehouse
+for your session, which consumes credits.
+Next Topics:
+Using the Sample Database
+Sample Data: TPC-DS
+Sample Data: TPC-H
+Sample Data: OpenWeatherMap —
+Deprecated
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+Related content
+Query Data in Snowflake
+Query Syntax
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/desc-result.txt
+
+Documentation Title:
+DESCRIBE RESULT | Snowflake Documentation
+
+Documentation Content:
+| default | primary key | unique key | check | expression | comment |
+|-----------+-------------------+--------+-------+---------+-------------+------------+-------+------------+---------|
+| CITY      | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
+| ZIP       | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
+| STATE     | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
+| SQ__FT    | NUMBER(38,0)      | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
+| TYPE      | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
+| SALE_DATE | DATE              | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
+| PRICE     | NUMBER(38,0)      | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
++
+-----------+-------------------+--------+-------+---------+-------------+------------+-------+------------+---------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Syntax
+Parameters
+Usage notes
+Examples
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+

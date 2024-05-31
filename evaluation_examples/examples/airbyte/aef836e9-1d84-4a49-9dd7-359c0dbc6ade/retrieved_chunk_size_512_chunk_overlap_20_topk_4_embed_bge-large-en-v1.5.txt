@@ -1,0 +1,285 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+5.0.2
+2024-01-17
+34344
+Ensure unique state messages
+5.0.1
+2023-01-08
+34033
+Add standard entrypoints for usage with AirbyteLib
+5.0.0
+2023-08-08
+29213
+Change all
+*id
+fields and
+products.year
+to be integer
+4.0.0
+2023-07-19
+28485
+Bump to test publication
+3.0.2
+2023-07-07
+27807
+Bump to test publication
+3.0.1
+2023-06-28
+27807
+Fix bug with purchase stream updated_at
+3.0.0
+2023-06-23
+27684
+Stream cursor is now
+updated_at
+& remove
+records_per_sync
+option
+2.1.0
+2023-05-08
+25903
+Add user.address (object)
+2.0.3
+2023-02-20
+23259
+bump to test publication
+2.0.2
+2023-02-20
+23259
+bump to test publication
+2.0.1
+2023-01-30
+22117
+source-faker
+goes beta
+2.0.0
+2022-12-14
+20492
+and
+20741
+Decouple stream states for better parallelism
+1.0.0
+2022-11-28
+19490
+Faker uses the CDK; rename streams to be lower-case (breaking), add determinism to random purchases, and rename
+0.2.1
+2022-10-14
+19197
+Emit
+AirbyteEstimateTraceMessage
+0.2.0
+2022-10-14
+18021
+Move to mimesis for speed!
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+"purchases"
+(
+"id"
+float8
+,
+"user_id"
+float8
+,
+"product_id"
+float8
+,
+"purchased_at"
+timestamptz
+,
+"added_to_cart_at"
+timestamptz
+,
+"returned_at"
+timestamptz
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_dev_purchases_hashid" text,
+)
+;
+Features
+​
+Feature
+Supported?(Yes/No)
+Notes
+Full Refresh Sync
+Yes
+Incremental Sync
+Yes
+Namespaces
+No
+Of note, if you choose
+Incremental Sync
+, state will be maintained between syncs, and once you hit
+count
+records, no new records will be added.
+You can choose a specific
+seed
+(integer) as an option for this connector which will guarantee that
+the same fake records are generated each time. Otherwise, random data will be created on each
+subsequent sync.
+Requirements
+​
+None!
+Reference
+​
+Config fields reference
+Field
+Type
+Property name
+›
+Count
+integer
+count
+›
+Seed
+integer
+seed
+›
+Records Per Stream Slice
+integer
+records_per_slice
+›
+Always Updated
+boolean
+always_updated
+›
+Parallelism
+integer
+parallelism
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+6.1.0
+2024-04-08
+36898
+Update car prices and years
+6.0.3
+2024-03-15
+36167
+Make 'count' an optional config parameter.
+6.0.2
+2024-02-12
+35174
+Manage dependencies with Poetry.
+6.0.1
+2024-02-12
+35172
+Base image migration: remove Dockerfile and use the python-connector-base image
+6.0.0
+2024-01-30
+34644
+Declare 'id' columns as primary keys.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.txt
+
+Documentation Title:
+E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
+
+Documentation Content:
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+2. Create a destination
+:
+Go to the "Destinations" tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select BigQuery.
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the Service Account Key JSON field, enter the contents of the JSON file. Yes, the full JSON.
+Click on Set up destination.
+3. Create a connection
+:
+Go to the "Connections" tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
+1. Navigate to the dbt Project Directory
+:
+Move to the directory containing the dbt configuration:
+cd ../../dbt_project
+‍
+2. Update Connection Details
+:
+You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform.
+Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path, the dataset location and your BigQuery project ID.
+Provide your BigQuery project ID in the database field of the <span class="text-style-code">/models/ecommerce/sources/faker_sources.yml</span> file.
+3. Test the Connection (Optional)
+:
+You can test the connection to your BigQuery instance using the following command.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/airbyte-dbt-snowflake-and-looker-adsl-stack.txt
+
+Documentation Title:
+Airbyte, dbt, Snowflake and Looker (ADSL) Stack | Airbyte
+
+Documentation Content:
+Additional JDBC parameters:
+Add additional JDBC parameters from the Snowflake JDBC driver.
+Add warehouse=<YOUR WAREHOUSE NAME>.
+Additionally, by default, Looker will set the following Snowflake parameters on each session:
+TIMESTAMP_TYPE_MAPPING=TIMESTAMP_LTZ
+JDBC_TREAT_DECIMAL_AS_INT=FALSE
+TIMESTAMP_INPUT_FORMAT=AUTO
+AUTOCOMMIT=TRUE
+You can override each of these parameters by setting an alternative value in the Additional JDBC parameters field, for example: &AUTOCOMMIT=FALSE
+Click on
+Test
+to check if the connection is Successful. For troubleshooting, see
+here
+.
+Click
+Connect
+to save these settings.
+Now that the connection to Snowflake has been created, you are good to go to explore your Snowflake data in Looker.
+Next Steps
+Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:
+Create dbt Sources for Airbyte Data
+:
+Your raw data extracted via Airbyte can be represented as sources in dbt. Start by
+creating new dbt sources
+to represent this data, allowing for structured transformations down the line.
+Add Your dbt Transformations
+:
+With your dbt sources in place, you can now build upon them. Add your custom SQL transformations in dbt, ensuring that you treat the sources as an upstream dependency. This ensures that your transformations work on the most up-to-date raw data.
+Execute the Pipeline in Dagster
+:
+Navigate to the Dagster UI and click on "Materialize all". This triggers the entire pipeline, encompassing the extraction via Airbyte, transformations via dbt, and any other subsequent steps.
+Explore in Looker
+:
+You can use the SQL Runner to create queries and Explores, create and share Looks (reports and dashboards), or use LookML to create a data model that Looker will use to query your data. However way you wish to go with your Snowflake data, the choice is yours.
+Extend the Project
+:
+The real beauty of this integration is its extensibility.
+
+
+

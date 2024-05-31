@@ -1,0 +1,336 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.txt
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Column
+b
+has the default value
+'hello'
+.
+CREATE TABLE mydataset.simple_table (
+  a STRING,
+  b STRING DEFAULT 'hello');
+When you insert data into
+simple_table
+that omits column
+b
+, the default
+value
+'hello'
+is used instead—for example:
+INSERT mydataset.simple_table (a) VALUES ('val1'), ('val2');
+The table
+simple_table
+contains the following values:
++------+-------+
+| a    | b     |
++------+-------+
+| val1 | hello |
+| val2 | hello |
++------+-------+
+If a column has type
+STRUCT
+, then you must set the default value for the
+entire
+STRUCT
+field. You cannot set the default value for a subset of the
+fields. The
+default value for an array cannot be
+NULL
+or contain any
+NULL
+elements.
+The following example creates a table called
+complex_table
+and sets a
+default value for the column
+struct_col
+, which contains nested fields,
+including an
+ARRAY
+type:
+CREATE TABLE mydataset.complex_table (
+  struct_col STRUCT<x STRUCT<x1 TIMESTAMP, x2 NUMERIC>, y ARRAY<DATE>>
+    DEFAULT ((CURRENT_TIMESTAMP(), NULL),
+             [DATE '2022-01-01', CURRENT_DATE()])
+);
+You can't set default values that violate a constraint on the column, such as
+a default value that doesn't conform to a
+parameterized type
+or a
+NULL
+default value when the column's
+mode
+is
+REQUIRED
+.
+Change default values
+To change the default value for a column, select one of the following options:
+Console
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the
+Explorer
+panel, expand your project and dataset, then select
+the table.
+In the details panel, click the
+Schema
+tab.
+Click
+Edit schema
+. You might need to scroll to see this button.
+In the
+Current schema
+page, locate the top-level field that you want
+to change.
+Enter the default value for that field.
+Click
+Save
+.
+SQL
+Use the
+ALTER COLUMN SET DEFAULT
+DDL statement
+.
+In the Google Cloud console, go to the
+BigQuery
+page.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.txt
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the query editor, enter the following statement:
+ALTER TABLE mydataset.mytable
+ALTER COLUMN column_name SET DEFAULT default_expression;
+Click
+play_circle
+Run
+.
+For more information about how to run queries, see
+Run an interactive query
+.
+Setting the default value for a column only affects future inserts to the table.
+It does not change any existing table data. The following example sets the
+default value of column
+a
+to
+SESSION_USER()
+;
+ALTER TABLE mydataset.simple_table ALTER COLUMN a SET DEFAULT SESSION_USER();
+If you insert a row into
+simple_table
+that omits column
+a
+, the current
+session user is used instead.
+INSERT mydataset.simple_table (b) VALUES ('goodbye');
+The table
+simple_table
+contains the following values:
++------------------+---------+
+| a                | b       |
++------------------+---------+
+| val1             | hello   |
+| val2             | hello   |
+| user@example.com | goodbye |
++------------------+---------+
+Remove default values
+To remove the default value for a column, select one of the following options:
+Console
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the
+Explorer
+panel, expand your project and dataset, then select
+the table.
+In the details panel, click the
+Schema
+tab.
+Click
+Edit schema
+. You might need to scroll to see this button.
+In the
+Current schema
+page, locate the top-level field that you want
+to change.
+Enter
+NULL
+for the default value.
+Click
+Save
+.
+SQL
+Use the
+ALTER COLUMN DROP DEFAULT
+DDL statement
+.
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the query editor, enter the following statement:
+ALTER TABLE mydataset.mytable ALTER COLUMN column_name DROP DEFAULT;
+You can also remove the default value from a column by changing its value to
+NULL
+with the
+ALTER COLUMN SET DEFAULT
+DDL statement
+.
+Click
+play_circle
+Run
+.
+For more information about how to run queries, see
+Run an interactive query
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/change-history.txt
+
+Documentation Title:
+Work with change history  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+ALTER TABLE mydataset.Produce ADD COLUMN color STRING;
+INSERT INTO mydataset.Produce VALUES ("grapes", 40, "purple");
+UPDATE mydataset.Produce SET inventory = inventory + 5 WHERE TRUE;
+DELETE mydataset.Produce WHERE product = "bananas";
+View the new table.
+SELECT * FROM mydataset.Produce;
++---------+-----------+--------+
+| product | inventory | color  |
++---------+-----------+--------+
+| apples  | 15        | NULL   |
+| carrots | 35        | NULL   |
+| grapes  | 45        | purple |
++---------+-----------+--------+
+View the full change history of appends.
+SELECT
+  product,
+  inventory,
+  color,
+  _CHANGE_TYPE AS change_type,
+  _CHANGE_TIMESTAMP AS change_time
+FROM
+  APPENDS(TABLE mydataset.Produce, NULL, NULL);
+The output is similar to the following:
++---------+-----------+--------+-------------+--------------------------------+
+| product | inventory | color  | change_type | change_time                    |
++---------+-----------+--------+-------------+--------------------------------+
+| apples  | 10        | NULL   | INSERT      | 2022-04-15 20:06:00.488000 UTC |
+| bananas | 20        | NULL   | INSERT      | 2022-04-15 20:06:08.490000 UTC |
+| carrots | 30        | NULL   | INSERT      | 2022-04-15 20:06:08.490000 UTC |
+| grapes  | 40        | purple | INSERT      | 2022-04-15 20:07:45.751000 UTC |
++---------+-----------+--------+-------------+--------------------------------+
+The
+inventory
+column displays the values that were set when the rows were
+originally inserted into to the table. It does not show the changes from the
+UPDATE
+statement. The row with information on bananas is still present since
+the
+APPENDS
+TVF only captures additions to tables, not deletions.
+Limitations
+Change history is subject to the following limitations:
+You can only view information about appends, not updates or deletions.
+The data is limited to the time travel window of the table.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.txt
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+The following example creates two tables and updates one of them with a
+MERGE
+statement:
+CREATE TABLE mydataset.target_table (
+  a STRING,
+  b STRING DEFAULT 'default_b',
+  c STRING DEFAULT SESSION_USER())
+AS (
+  SELECT
+    'val1' AS a, 'hi' AS b, '123@google.com' AS c
+  UNION ALL
+  SELECT
+    'val2' AS a, 'goodbye' AS b, SESSION_USER() AS c
+);
+
+CREATE TABLE mydataset.source_table (
+  a STRING DEFAULT 'default_val',
+  b STRING DEFAULT 'Happy day!')
+AS (
+  SELECT
+    'val1' AS a, 'Good evening！' AS b
+  UNION ALL
+  SELECT
+    'val3' AS a, 'Good morning!' AS b
+);
+
+MERGE mydataset.target_table T
+USING mydataset.source_table S
+ON T.a = S.a
+WHEN NOT MATCHED THEN
+  INSERT(a, b) VALUES (a, DEFAULT);
+The result is the following:
++------+-----------+--------------------+
+| a    | b         | c                  |
++------+-----------+--------------------+
+| val1 | hi        | 123@google.com     |
+| val2 | goodbye   | default@google.com |
+| val3 | default_b | default@google.com |
++------+-----------+--------------------+
+You can update a table with default values by using the
+UPDATE
+DML statement
+.
+The following example updates the table
+source_table
+so that each row of
+column
+b
+is equal to its default value:
+UPDATE mydataset.source_table
+SET b =  DEFAULT
+WHERE TRUE;
+The result is the following:
++------+------------+
+| a    | b          |
++------+------------+
+| val1 | Happy day! |
+| val3 | Happy day! |
++------+------------+
+Append a table
+You can use the
+bq query
+command with the
+--append_table
+flag to append the
+results of a query to a destination table that has default values. If the query
+omits a column with a default value, the default value is assigned.
+
+
+

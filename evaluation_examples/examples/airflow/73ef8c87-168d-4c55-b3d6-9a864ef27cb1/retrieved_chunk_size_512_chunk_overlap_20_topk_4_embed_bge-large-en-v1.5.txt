@@ -1,0 +1,423 @@
+Documentation Source:
+docs.astronomer.io/astro/airflow-api.txt
+
+Documentation Title:
+Make requests to the Airflow REST API | Astronomer Documentation
+
+Documentation Content:
+If it's not, add
+apache-airflow-providers-http
+to the
+requirements.txt
+file of our Astro project and redeploy it to Astro.
+In your triggering DAG, add the following task. It uses the
+SimpleHttpOperator
+to make a request to the
+dagRuns
+endpoint of the Deployment that contains the DAG to trigger.
+from
+datetime
+import
+datetime
+from
+airflow
+.
+models
+.
+dag
+import
+DAG
+from
+airflow
+.
+providers
+.
+http
+.
+operators
+.
+http
+import
+SimpleHttpOperator
+with
+DAG
+(
+dag_id
+=
+"triggering_dag"
+,
+schedule
+=
+None
+,
+start_date
+=
+datetime
+(
+2023
+,
+1
+,
+1
+)
+)
+:
+SimpleHttpOperator
+(
+task_id
+=
+"trigger_external_dag"
+,
+log_response
+=
+True
+,
+method
+=
+"POST"
+,
+# Change this to the DAG_ID of the DAG you are triggering
+endpoint
+=
+f"api/v1/dags/<triggered_dag>/dagRuns"
+,
+http_conn_id
+=
+"http_conn"
+,
+data
+=
+{
+"logical_date"
+:
+"{{ logical_date }}"
+,
+# if you want to add parameters:
+# params: '{"foo": "bar"}'
+}
+)
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Upgrade Astro Runtime
+Next
+Overview
+Prerequisites
+Step 1: Retrieve your access token
+Step 2: Retrieve the Deployment URL
+Step 3: Make an Airflow API request
+Example API Requests
+List DAGs
+Trigger a DAG run
+Trigger a DAG run by date
+Pause a DAG
+Trigger DAG runs across Deployments
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow-part-2.txt
+
+Documentation Title:
+Get started with Apache Airflow, Part 2: Providers, connections, and variables | Astronomer Documentation
+
+Documentation Content:
+Save the connection by clicking the
+Save
+button.
+Note that the option to test connections is only available for selected connection types and disabled by default in Airflow 2.7+, see
+Test a connection
+.
+Step 5: Create an HTTP connection
+​
+In the
+Connections
+view, click
++
+to create a new connection.
+Name the connection
+open_notify_api_conn
+and select a
+Connection Type
+of
+HTTP
+.
+Enter the host URL for the API you want to query in the
+Host
+field. For this tutorial we use the
+Open Notify API
+, which has an endpoint returning the current location of the ISS. The host for this API is
+http://api.open-notify.org
+.
+Click
+Save
+.
+You should now have two connections as shown in the following screenshot:
+Step 6: Review the DAG code
+​
+Now that your Airflow environment is configured correctly, look at the DAG code you copied from the repository to see how your new variable and connections are used at the code level.
+At the top of the file, the DAG is described in a docstring. It's highly recommended to always document your DAGs and include any additional connections or variables that are required for the DAG to work.
+"""
+## Find the International Space Station
+This DAG waits for a specific commit message to appear in a GitHub repository,
+and then pulls the current location of the International Space Station from an API
+and print it to the logs.
+This DAG needs a GitHub connection with the name `my_github_conn` and
+an HTTP connection with the name `open_notify_api_conn`
+and the host `https://api.open-notify.org/` to work.
+Additionally you need to set an Airflow variable with
+the name `open_notify_api_endpoint` and the value `iss-now.json`.
+"""
+After the docstring, all necessary packages are imported. Notice how both the HttpOperator as well as the GithubSensor are part of provider packages.
+from
+airflow
+.
+decorators
+import
+dag
+,
+task
+from
+airflow
+.
+models
+.
+baseoperator
+import
+chain
+from
+airflow
+.
+providers
+.
+http
+.
+operators
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/best-practices/cross-deployment-dependencies.txt
+
+Documentation Title:
+Cross-deployment dependencies | Astronomer Documentation
+
+Documentation Content:
+While you can also use the HttpOperator or a custom Python function in an
+@task
+decorated task to make the API request to update the dataset, an advantage of using a listener is that the dataset is updated and the downstream DAG runs whenever
+any
+DAG updates the dataset. This means you don't need to implement an API call in every upstream DAG that updates the same dataset.
+Prerequisites
+​
+Two
+Astro Deployments
+.
+A
+Deployment API token
+,
+Workspace API token
+, or
+Organization API token
+for one of your deployments. This deployment will host your downstream DAG.
+Two
+Astro projects
+.
+Process
+​
+In your upstream Deployment, which is the Deployment for which you did
+not
+create an API Token, use
+Variables
+in the Astro UI to create an environment variable for your API token, and use
+API_TOKEN
+for the key.
+For your downstream Deployment, follow the guidance in
+Make requests to the Airflow REST API - Step 2
+to obtain the Deployment URL for your downstream Deployment. The Deployment URL should be in the format of
+clq52ag32000108i8e3v3acml.astronomer.run/dz3uu847
+.
+In your upstream Deployment, use Variables in the Astro UI to create an environment variable where you can store your downstream Deployment URL, using
+DEPLOYMENT_URL
+for the key.
+In the upstream Deployment, add the following DAG to your Astro project running in the upstream Deployment. In the
+get_bear
+task, the TaskFlow API automatically registers
+MY_DATASET
+as an outlet Dataset. This creates an update to this Dataset in the
+same
+Airflow deployment. The dependent
+on_dataset_changed
+task creates or updates the Dataset via a request to the Airflow API Datasets endpoint in a
+different
+Airflow deployment.
+from
+airflow
+.
+datasets
+import
+Dataset
+from
+airflow
+.
+decorators
+import
+dag
+,
+task
+from
+pendulum
+import
+datetime
+import
+os
+URI
+=
+"file://include/bears"
+MY_DATASET
+=
+Dataset
+(
+URI
+)
+TOKEN
+=
+os
+.
+environ
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow-part-2.txt
+
+Documentation Title:
+Get started with Apache Airflow, Part 2: Providers, connections, and variables | Astronomer Documentation
+
+Documentation Content:
+get
+(
+f"https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=
+{
+lat
+}
+&longitude=
+{
+lon
+}
+"
+)
+.
+json
+(
+)
+country
+=
+r
+[
+"countryName"
+]
+city
+=
+r
+[
+"locality"
+]
+task_logger
+.
+info
+(
+f"The International Space Station is currently over
+{
+city
+}
+in
+{
+country
+}
+."
+)
+return
+r
+log_iss_location_obj
+=
+log_iss_location
+(
+get_iss_coordinates
+.
+output
+)
+chain
+(
+github_sensor
+,
+get_iss_coordinates
+,
+log_iss_location_obj
+)
+find_the_iss
+(
+)
+Step 2: Add a provider package
+​
+If your Airflow project is not running locally yet, run
+astro dev start
+in the your Astro project directory to start your Airflow environment.
+Open the Airflow UI to confirm that your DAG was pushed to your environment. On the
+DAGs
+page, you should see a "DAG Import Error" like the one shown here:
+This error is due to a missing provider package.
+Provider packages
+are Python packages maintained separately from core Airflow that contain hooks and operators for interacting with external services. You can browse all available providers in the
+Astronomer Registry
+.
+Your DAG uses operators from two Airflow provider packages: the
+HTTP provider
+and the
+GitHub provider
+. While the HTTP provider is pre-installed in the Astro Runtime image, the GitHub provider is not, which causes the DAG import error.
+Open the
+GitHub provider page
+in the Astronomer Registry.
+Copy the provider name and version by clicking
+Use Provider
+in the top right corner.
+Paste the provider name and version into the
+requirements.txt
+file of your Astro project. Make sure to only add
+apache-airflow-providers-github=<version>
+without
+pip install
+.
+Restart your Airflow environment by running
+astro dev restart
+. Unlike DAG code changes, package dependency changes require a complete restart of Airflow.
+Step 3: Add an Airflow variable
+​
+After restarting your Airflow instance, you should not see the DAG import error from
+Step 2
+.
+
+
+

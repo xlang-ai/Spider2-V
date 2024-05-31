@@ -1,0 +1,411 @@
+Documentation Source:
+docs.getdbt.com/docs/build/unit-tests.txt
+
+Documentation Title:
+Unit tests | dbt Developer Hub
+
+Documentation Content:
+Unit testing a model
+​
+This example creates a new
+dim_customers
+model with a field
+is_valid_email_address
+that calculates whether or not the customer’s email is valid:
+with
+customers
+as
+(
+select
+*
+from
+{{ ref
+(
+'stg_customers'
+)
+}}
+)
+,
+accepted_email_domains
+as
+(
+select
+*
+from
+{{ ref
+(
+'top_level_email_domains'
+)
+}}
+)
+,
+check_valid_emails
+as
+(
+select
+customers
+.
+customer_id
+,
+customers
+.
+first_name
+,
+customers
+.
+last_name
+,
+customers
+.
+email
+,
+coalesce
+(
+regexp_like
+(
+customers
+.
+email
+,
+'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'
+)
+=
+true
+and
+accepted_email_domains
+.
+tld
+is
+not
+null
+,
+false
+)
+as
+is_valid_email_address
+from
+customers
+left
+join
+accepted_email_domains
+on
+customers
+.
+email_top_level_domain
+=
+lower
+(
+accepted_email_domains
+.
+tld
+)
+)
+select
+*
+from
+check_valid_emails
+The logic posed in this example can be challenging to validate. You can add a unit test to this model to ensure the
+is_valid_email_address
+logic captures all known edge cases: emails without
+.
+, emails without
+@
+, and emails from invalid domains.
+unit_tests
+:
+-
+name
+:
+test_is_valid_email_address
+description
+:
+"Check my is_valid_email_address logic captures all known edge cases - emails without ., emails without @, and emails from invalid domains."
+
+
+
+Documentation Source:
+docs.getdbt.com/blog/customer-360-view-identity-resolution.txt
+
+Documentation Title:
+The JaffleGaggle Story: Data Modeling for a Customer 360 View | dbt Developer Blog
+
+Documentation Content:
+In it, we
+perform the email domain extraction from the email
+.
+select
+id as user_id,
+name as user_name,
+email,
+{{ extract_email_domain('email') }} AS email_domain,
+gaggle_id,
+created_at
+from source
+We defined the email domain extraction as a
+macro
+called
+extract_email_domain
+, which we call in line 18 (which you can find in the pullout below).
+This uses a regex to capture the text to the right of the ‘@’ character and makes sure to only use the lowercase email parameter before extracting the domain. This is because email domains aren’t case sensitive, but SQL is (see users 2954 and 3140 in the
+seed data
+for an example).
+{% macro extract_email_domain(email) %}
+{# This is the SQL to extract the email domain in the Snowflake Flavor of SQL #}
+regexp_substr(lower({{ email }}), '@(.*)', 1, 1, 'e',1)
+{% endmacro %}
+Builder Beware! Notice we didn’t check for improperly formatted emails, like periods at the end of the domain or whitespaces. Make sure you check your dataset to see if this is a valid assumption.
+Generally, it’d be useful to leverage a regular expression to strip and pull down an email address. However, because this is a B2B use case, not all email domains are created equal. We want to make sure we flag personal emails so they’re treated differently than the corporate emails our sales team will reach out to (this makes sales outreach more productive, and ensures we aren’t contacting people more than once).
+Tip:
+If you’re building out a definition like "personal email domains" for the first time, I strongly recommend building alignment upfront with the rest of the business. . Understanding the impact and having a shared understanding of these kinds of definitions reduces friction and allows you to
+run your data team like a product team
+rather than responding to ad hoc service requests.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/unit-tests.txt
+
+Documentation Title:
+Unit tests | dbt Developer Hub
+
+Documentation Content:
+model
+:
+dim_customers
+given
+:
+-
+input
+:
+ref('stg_customers')
+rows
+:
+-
+{
+email
+:
+cool@example.com
+,
+email_top_level_domain
+:
+example.com
+}
+-
+{
+email
+:
+cool@unknown.com
+,
+email_top_level_domain
+:
+unknown.com
+}
+-
+{
+email
+:
+badgmail.com
+,
+email_top_level_domain
+:
+gmail.com
+}
+-
+{
+email
+:
+missingdot@gmailcom
+,
+email_top_level_domain
+:
+gmail.com
+}
+-
+input
+:
+ref('top_level_email_domains')
+rows
+:
+-
+{
+tld
+:
+example.com
+}
+-
+{
+tld
+:
+gmail.com
+}
+expect
+:
+rows
+:
+-
+{
+email
+:
+cool@example.com
+,
+is_valid_email_address
+:
+true
+}
+-
+{
+email
+:
+cool@unknown.com
+,
+is_valid_email_address
+:
+false
+}
+-
+{
+email
+:
+badgmail.com
+,
+is_valid_email_address
+:
+false
+}
+-
+{
+email
+:
+missingdot@gmailcom
+,
+is_valid_email_address
+:
+false
+}
+The previous example defines the mock data using the inline
+dict
+format, but you can also use
+csv
+or
+sql
+either inline or in a separate fixture file.
+When using the
+dict
+or
+csv
+format, you only have to define the mock data for the columns relevant to you. This enables you to write succinct and
+specific
+unit tests.
+note
+The direct parents of the model that you’re unit testing (in this example,
+stg_customers
+and
+top_level_email_domains
+) need to exist in the warehouse before you can execute the unit test.
+Use the
+--empty
+flag to build an empty version of the models to save warehouse spend.
+dbt run
+--select
+"stg_customers top_level_email_domains"
+--empty
+Alternatively, use
+dbt build
+to, in lineage order:
+Run the unit tests on your model.
+Materialize your model in the warehouse.
+Run the data tests on your model.
+Now you’re ready to run this unit test. You have a couple of options for commands depending on how specific you want to be:
+dbt test --select dim_customers
+runs
+all
+of the tests on
+dim_customers
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/reference/resource-properties/unit-tests.txt
+
+Documentation Title:
+About unit tests property | dbt Developer Hub
+
+Documentation Content:
+com
+,
+email_top_level_domain
+:
+example.com
+}
+-
+{
+email
+:
+cool@unknown.com
+,
+email_top_level_domain
+:
+unknown.com
+}
+-
+{
+email
+:
+badgmail.com
+,
+email_top_level_domain
+:
+gmail.com
+}
+-
+{
+email
+:
+missingdot@gmailcom
+,
+email_top_level_domain
+:
+gmail.com
+}
+-
+input
+:
+ref('top_level_email_domains')
+format
+:
+sql
+rows
+:
+|
+select 'example.com' as tld union all
+select 'gmail.com' as tld
+expect
+:
+# the expected output given the inputs above
+format
+:
+sql
+fixture
+:
+valid_email_address_fixture_output
+0
+Edit this page
+Last updated
+on
+May 16, 2024
+Previous
+where
+Next
+Input
+Before you begin
+Examples
+Edit this page
+Terms of Service
+Privacy Policy
+Security
+Cookie Settings
+© 2024 dbt Labs, Inc. All Rights Reserved.
+
+
+

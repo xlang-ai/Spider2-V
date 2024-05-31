@@ -1,0 +1,347 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigqueryconnection-create-connection.txt
+
+Documentation Title:
+Create a Cloud SQL connection  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+def main() -> None:
+    # TODO(developer): Set all variables for your Cloud SQL for MySQL connection.
+    project_id = "your-project-id"  # set project_id
+    location = "US"  # set location
+    # See: https://cloud.google.com/bigquery/docs/locations for a list of
+    # available locations.
+    database = "my-database"  # set database name
+    username = "my-username"  # set database username
+    password = "my-password"  # set database password
+    cloud_sql_conn_name = ""  # set the name of your connection
+    transport = "grpc"  # Set the transport to either "grpc" or "rest"
+    connection_id = "my-sample-connection"
+
+    cloud_sql_credential = bq_connection.CloudSqlCredential(
+        {
+            "username": username,
+            "password": password,
+        }
+    )
+    cloud_sql_properties = bq_connection.CloudSqlProperties(
+        {
+            "type_": bq_connection.CloudSqlProperties.DatabaseType.MYSQL,
+            "database": database,
+            "instance_id": cloud_sql_conn_name,
+            "credential": cloud_sql_credential,
+        }
+    )
+    create_mysql_connection(
+        connection_id, project_id, location, cloud_sql_properties, transport
+    )
+
+
+def create_mysql_connection(
+    connection_id: str,
+    project_id: str,
+    location: str,
+    cloud_sql_properties: bq_connection.CloudSqlProperties,
+    transport: str,
+) -> None:
+    connection = bq_connection.types.Connection({"cloud_sql": cloud_sql_properties})
+    client = bq_connection.ConnectionServiceClient(transport=transport)
+    parent = client.common_location_path(project_id, location)
+    request = bq_connection.CreateConnectionRequest(
+        {
+            "parent": parent,
+            "connection": connection,
+            # connection_id is optional, but can be useful to identify
+            # connections by name. If not supplied, one is randomly
+            # generated.
+            "connection_id": connection_id,
+        }
+    )
+    response = client.create_connection(request)
+    print(f"Created connection successfully: {response.name}")
+What's next
+To search and filter code samples for other Google Cloud products, see the
+Google Cloud sample browser
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/bigqueryconnection/rpc/google.cloud.bigquery.connection.txt
+
+Documentation Title:
+Package google.cloud.bigquery.connection.v1  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+v1
+Stay organized with collections
+Save and categorize content based on your preferences.
+Index
+ConnectionService
+(interface)
+AwsAccessRole
+(message)
+AwsProperties
+(message)
+AzureProperties
+(message)
+CloudResourceProperties
+(message)
+CloudSpannerProperties
+(message)
+CloudSqlCredential
+(message)
+CloudSqlProperties
+(message)
+CloudSqlProperties.DatabaseType
+(enum)
+Connection
+(message)
+ConnectorConfiguration
+(message)
+ConnectorConfiguration.Asset
+(message)
+ConnectorConfiguration.Authentication
+(message)
+ConnectorConfiguration.Endpoint
+(message)
+ConnectorConfiguration.Network
+(message)
+ConnectorConfiguration.PrivateServiceConnect
+(message)
+ConnectorConfiguration.Secret
+(message)
+ConnectorConfiguration.Secret.SecretType
+(enum)
+ConnectorConfiguration.UsernamePassword
+(message)
+CreateConnectionRequest
+(message)
+DeleteConnectionRequest
+(message)
+GetConnectionRequest
+(message)
+ListConnectionsRequest
+(message)
+ListConnectionsResponse
+(message)
+MetastoreServiceConfig
+(message)
+SalesforceDataCloudProperties
+(message)
+SparkHistoryServerConfig
+(message)
+SparkProperties
+(message)
+UpdateConnectionRequest
+(message)
+ConnectionService
+Manages external data source connections and credentials.
+CreateConnection
+rpc CreateConnection(
+CreateConnectionRequest
+) returns (
+Connection
+)
+Creates a new connection.
+Authorization scopes
+Requires one of the following OAuth scopes:
+https://www.googleapis.com/auth/bigquery
+https://www.googleapis.com/auth/cloud-platform
+For more information, see the
+Authentication Overview
+.
+DeleteConnection
+rpc DeleteConnection(
+DeleteConnectionRequest
+) returns (
+Empty
+)
+Deletes connection and associated credential.
+Authorization scopes
+Requires one of the following OAuth scopes:
+https://www.googleapis.com/auth/bigquery
+https://www.googleapis.com/auth/cloud-platform
+For more information, see the
+Authentication Overview
+.
+GetConnection
+rpc GetConnection(
+GetConnectionRequest
+) returns (
+Connection
+)
+Returns specified connection.
+Authorization scopes
+Requires one of the following OAuth scopes:
+https://www.googleapis.com/auth/bigquery
+https://www.googleapis.com/auth/cloud-platform
+For more information, see the
+Authentication Overview
+.
+GetIamPolicy
+rpc GetIamPolicy(
+GetIamPolicyRequest
+) returns (
+Policy
+)
+Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connect-to-sql.txt
+
+Documentation Title:
+Connect to Cloud SQL  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+bq mk --connection --display_name='friendly name' --connection_type='CLOUD_SQL' \
+  --properties='{"instanceId":"federation-test:us-central1:mytestsql","database":"mydatabase","type":"MYSQL"}' \
+  --connection_credential='{"username":"myusername", "password":"mypassword"}' \
+  --project_id=federation-test --location=us my_connection_id
+API
+Within the BigQuery Connection API, you can invoke
+CreateConnection
+within
+the
+ConnectionService
+to instantiate a connection.  See the
+client library page
+for more details.
+Java
+Before trying this sample, follow the
+Java
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Java
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+import com.google.cloud.bigquery.connection.v1.CloudSqlCredential;
+import com.google.cloud.bigquery.connection.v1.CloudSqlProperties;
+import com.google.cloud.bigquery.connection.v1.Connection;
+import com.google.cloud.bigquery.connection.v1.CreateConnectionRequest;
+import com.google.cloud.bigquery.connection.v1.LocationName;
+import com.google.cloud.bigqueryconnection.v1.ConnectionServiceClient;
+import java.io.IOException;
+
+// Sample to create a connection with cloud MySql database
+public class CreateConnection {
+
+  public static void main(String[] args) throws IOException {
+    // TODO(developer): Replace these variables before running the sample.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/bigqueryconnection/rpc/google.cloud.bigquery.connection-2.txt
+
+Documentation Title:
+Package google.cloud.bigquery.connection.v1beta1  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+database
+string
+Database name.
+type
+DatabaseType
+Type of the Cloud SQL database.
+credential
+CloudSqlCredential
+Input only. Cloud SQL credential.
+service_account_id
+string
+Output only. The account ID of the service used for the purpose of this connection.
+When the connection is used in the context of an operation in BigQuery, this service account will serve as the identity being used for connecting to the CloudSQL instance specified in this connection.
+DatabaseType
+Supported Cloud SQL database types.
+Enums
+DATABASE_TYPE_UNSPECIFIED
+Unspecified database type.
+POSTGRES
+Cloud SQL for PostgreSQL.
+MYSQL
+Cloud SQL for MySQL.
+Connection
+Configuration parameters to establish connection with an external data source, except the credential attributes.
+Fields
+name
+string
+The resource name of the connection in the form of:
+projects/{project_id}/locations/{location_id}/connections/{connection_id}
+friendly_name
+string
+User provided display name for the connection.
+description
+string
+User provided description.
+creation_time
+int64
+Output only. The creation timestamp of the connection.
+last_modified_time
+int64
+Output only. The last update timestamp of the connection.
+has_credential
+bool
+Output only. True, if credential is configured for this connection.
+Union field
+properties
+. Properties specific to the underlying data source.
+properties
+can be only one of the following:
+cloud_sql
+CloudSqlProperties
+Cloud SQL properties.
+ConnectionCredential
+Credential to use with a connection.
+Fields
+Union field
+credential
+. Credential specific to the underlying data source.
+credential
+can be only one of the following:
+cloud_sql
+CloudSqlCredential
+Credential for Cloud SQL database.
+CreateConnectionRequest
+The request for
+ConnectionService.CreateConnection
+.
+Fields
+parent
+string
+Required. Parent resource name. Must be in the format
+projects/{project_id}/locations/{location_id}
+Authorization requires the following
+IAM
+permission on the specified resource
+parent
+:
+bigquery.connections.create
+connection_id
+string
+Optional. Connection id that should be assigned to the created connection.
+connection
+Connection
+Required. Connection to create.
+DeleteConnectionRequest
+The request for [ConnectionService.DeleteConnectionRequest][].
+Fields
+name
+string
+Required.
+
+
+

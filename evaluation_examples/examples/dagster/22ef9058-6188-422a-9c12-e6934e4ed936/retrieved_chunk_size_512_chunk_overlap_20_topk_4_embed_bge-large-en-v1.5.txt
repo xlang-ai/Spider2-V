@@ -1,0 +1,556 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/writing-your-first-asset.txt
+
+Documentation Title:
+Tutorial, part three: Writing your first asset | Dagster Docs
+
+Documentation Content:
+json
+(
+)
+[
+:
+100
+]
+os
+.
+makedirs
+(
+"data"
+,
+exist_ok
+=
+True
+)
+with
+open
+(
+"data/topstory_ids.json"
+,
+"w"
+)
+as
+f
+:
+json
+.
+dump
+(
+top_new_story_ids
+,
+f
+)
+That's all it takes to get started 🎉. Dagster now knows that this is an asset. In future sections, you'll see how you can add metadata, schedule when to refresh the asset, and more.
+And now you're done! Time to go into the Dagster UI and see what you've built.
+Exploring the Dagster UI
+#
+Using Dagster's UI, you can explore your data assets, manually launch runs, and observe what's happening during pipeline runs.
+As a reminder, to launch the UI, set your terminal's current directory to
+/tutorial
+and run the following command:
+dagster dev
+Navigate to
+localhost:3000
+in your browser to see the Dagster UI.
+You should see a screen that looks similar to below. If you do not see it, go the top navigation bar, click on
+Assets
+, then go the top-right region and click on
+View global asset lineage
+. You can also navigate directly to this page by going to
+localhost:3000/asset-groups
+. As more assets are built, this graph will show your entire data platform in one place. This page can also be referred to as the
+Global Asset Lineage
+.
+Observe that Dagster has detected your
+topstory_ids
+asset, but it says that the asset has never been
+“materialized”
+.
+Step 2: Materialize your asset
+#
+To
+materialize
+a Software-defined asset means to create or update it. Dagster materializes assets by executing the asset's function or triggering an integration.
+To manually materialize an asset in the UI, click the
+Materialize
+button in the upper right corner of the screen. This will create a Dagster run that will materialize your assets.
+To follow the progress of the materialization and monitor the logs, each run has a dedicated page.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.txt
+
+Documentation Title:
+Quickstart | Dagster Docs
+
+Documentation Content:
+json
+(
+)
+with
+open
+(
+config
+.
+hn_top_story_ids_path
+,
+"w"
+)
+as
+f
+:
+json
+.
+dump
+(
+top_story_ids
+[
+:
+config
+.
+top_stories_limit
+]
+,
+f
+)
+@asset
+(
+deps
+=
+[
+hackernews_top_story_ids
+]
+)
+def
+hackernews_top_stories
+(
+config
+:
+HNStoriesConfig
+)
+-
+>
+MaterializeResult
+:
+"""Get items based on story ids from the HackerNews items endpoint."""
+with
+open
+(
+config
+.
+hn_top_story_ids_path
+,
+"r"
+)
+as
+f
+:
+hackernews_top_story_ids
+=
+json
+.
+load
+(
+f
+)
+results
+=
+[
+]
+for
+item_id
+in
+hackernews_top_story_ids
+:
+item
+=
+requests
+.
+get
+(
+f"https://hacker-news.firebaseio.com/v0/item/
+{
+item_id
+}
+.json"
+)
+.
+json
+(
+)
+results
+.
+append
+(
+item
+)
+df
+=
+pd
+.
+DataFrame
+(
+results
+)
+df
+.
+to_csv
+(
+config
+.
+hn_top_stories_path
+)
+return
+MaterializeResult
+(
+metadata
+=
+{
+"num_records"
+:
+len
+(
+df
+)
+,
+"preview"
+:
+MetadataValue
+.
+md
+(
+str
+(
+df
+[
+[
+"title"
+,
+"by"
+,
+"url"
+]
+]
+.
+to_markdown
+(
+)
+)
+)
+,
+}
+)
+Next steps
+#
+Congratulations on successfully running your first Dagster pipeline! In this example, we used
+assets
+, which are a cornerstone of Dagster projects. They empower data engineers to:
+Think in the same terms as stakeholders
+Answer questions about data quality and lineage
+Work with the modern data stack (dbt, Airbyte/Fivetran, Spark)
+Create declarative freshness policies instead of task-driven cron schedules
+Dagster also offers
+ops and jobs
+, but we recommend starting with assets.
+To create your own project, consider the following options:
+Scaffold a new project using our
+new project guide
+.
+Begin with an official example, like the
+dbt & Dagster project
+, and explore
+all examples on GitHub
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.txt
+
+Documentation Title:
+Tutorial, part four: Building an asset graph | Dagster Docs
+
+Documentation Content:
+Modify your
+assets.py
+to add the
+pandas
+import and a new asset called
+topstories
+:
+Add new imports, such as
+import pandas as pd
+, to the top of
+assets.py
+import
+json
+import
+os
+import
+pandas
+as
+pd
+# Add new imports to the top of `assets.py`
+import
+requests
+from
+dagster
+import
+asset
+# ... Keep the `topstory_ids` asset from the previous section
+@asset
+(
+deps
+=
+[
+topstory_ids
+]
+)
+# this asset is dependent on topstory_ids
+def
+topstories
+(
+)
+-
+>
+None
+:
+with
+open
+(
+"data/topstory_ids.json"
+,
+"r"
+)
+as
+f
+:
+topstory_ids
+=
+json
+.
+load
+(
+f
+)
+results
+=
+[
+]
+for
+item_id
+in
+topstory_ids
+:
+item
+=
+requests
+.
+get
+(
+f"https://hacker-news.firebaseio.com/v0/item/
+{
+item_id
+}
+.json"
+)
+.
+json
+(
+)
+results
+.
+append
+(
+item
+)
+if
+len
+(
+results
+)
+%
+20
+==
+0
+:
+print
+(
+f"Got
+{
+len
+(
+results
+)
+}
+items so far."
+)
+df
+=
+pd
+.
+DataFrame
+(
+results
+)
+df
+.
+to_csv
+(
+"data/topstories.csv"
+)
+Dependencies between assets are defined using the
+deps
+parameter of the
+@asset
+decorator. In this case,
+topstory_ids
+(the list of IDs) is a dependency of
+topstories
+(the CSV file).
+In your browser, navigate back to Dagster's Global Asset Lineage (
+localhost:3000/asset-groups
+), and click on the
+Reload Definitions
+button on the top-right region of the page. This will tell Dagster to re-scan your code for new assets and other definitions without stopping Dagster. You can also use the Command + Option + R (Mac) or Control + Alt (Windows) + R keyboard shortcut to perform the same action.
+After reloading your definitions, look at the asset graph to see the relationship between your assets.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/introduction.txt
+
+Documentation Title:
+Introduction to Dagster and Software-defined Assets Tutorial | Dagster Docs
+
+Documentation Content:
+Here's an example. The asset is a dataset called
+topstories
+, and it depends on another asset called
+topstory_ids
+.
+topstories
+gets the IDs computed in
+topstory_ids
+, then fetches data for each of those IDs.
+@asset
+(
+deps
+=
+[
+topstory_ids
+]
+)
+def
+topstories
+(
+)
+-
+>
+None
+:
+with
+open
+(
+"data/topstory_ids.json"
+,
+"r"
+)
+as
+f
+:
+topstory_ids
+=
+json
+.
+load
+(
+f
+)
+results
+=
+[
+]
+for
+item_id
+in
+topstory_ids
+:
+item
+=
+requests
+.
+get
+(
+f"https://hacker-news.firebaseio.com/v0/item/
+{
+item_id
+}
+.json"
+)
+.
+json
+(
+)
+results
+.
+append
+(
+item
+)
+if
+len
+(
+results
+)
+%
+20
+==
+0
+:
+print
+(
+f"Got
+{
+len
+(
+results
+)
+}
+items so far."
+)
+df
+=
+pd
+.
+DataFrame
+(
+results
+)
+df
+.
+to_csv
+(
+"data/topstories.csv"
+)
+Building a DAG of assets
+#
+A set of assets forms a
+DAG (directed acyclic graph)
+, where the edges correspond to data dependencies between assets. This DAG helps you to:
+Understand how your assets relate to each other
+Empower you and your teammates to act, learn, and debug your pipelines
+Your DAGs are viewable in Dagster's web-based UI, shown below:
+Assets enable the best long-term approach for building pipelines in Dagster and this tutorial focuses on them. However, developers can use Dagster's underlying Ops and Graphs when granular workflows are needed. For more on Ops and Graphs, refer to
+their tutorial
+and a guide on
+how SDAs relate to ops and graphs
+.
+Next steps
+#
+In this section, you learned how Software-defined assets are the building blocks of Dagster and also about the benefits of asset-based pipelines.
+Within your current data pipelines, you likely have many assets. Or if you are earlier in your data journey, you might have an understanding of what data your stakeholders need.
+
+
+

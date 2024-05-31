@@ -1,0 +1,332 @@
+Documentation Source:
+docs.astronomer.io/astro/cli/configure-cli.txt
+
+Documentation Title:
+Configure the Astro CLI | Astronomer Documentation
+
+Documentation Content:
+true
+true
+or
+false
+local.registry
+The location of your local Docker container running Airflow.
+localhost:5555
+Any available port
+postgres.user
+The username for the Postgres metadata database.
+postgres
+Any string
+postgres.password
+The password for the Postgres metadata database.
+postgres
+Any string
+postgres.host
+The hostname for the Postgres metadata database.
+postgres
+Any string
+postgres.port
+The port for the Postgres metadata database.
+5432
+Any available port
+postgres.repository
+Image repository to pull the Postgres image from
+docker.io/postgres
+Any Postgres image in a repository
+postgres.tag
+The tag for your Postgres image
+12.6
+Any valid image tag
+project.name
+The name of your Astro project.
+Empty string
+Any string
+show_warnings
+Determines whether warning messages appear when starting a local Airflow environment. For example, when set to
+true
+, you'll receive warnings when a new version of Astro Runtime is available and when your Astro project doesn't have any DAGs.
+true
+true
+,
+false
+skip_parse
+Determines whether the CLI parses DAGs before pushing code to a Deployment.
+false
+true
+,
+false
+upgrade_message
+Determines whether a message indicating the availability of a new Astro CLI version displays in the Astro CLI.
+true
+true
+,
+false
+webserver.port
+The port for the webserver in your local Airflow environment.
+8080
+Any available port
+Option
+Description
+Default value
+Valid values
+houston.dial_timeout
+The time in seconds to wait for a Houston connection.
+10
+Any integer
+houston.skip_verify_tls
+Determines whether the Transport Layer Security (TLS) certificate is verified when connecting to Houston.
+false
+true
+,
+false
+interactive
+Determines whether responses are paginated in the Astro CLI when pagination is supported.
+false
+true
+,
+false
+page_size
+Determines the size of the paginated response when
+interactive
+is set to
+true
+.
+20
+Any integer
+postgres.user
+The username for the Postgres metadata database.
+postgres
+Any string
+postgres.password
+The password for the Postgres metadata database.
+postgres
+Any string
+postgres.host
+The hostname for the Postgres metadata database.
+postgres
+Any string
+postgres.port
+The port for the Postgres metadata database.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/run-airflow-locally.txt
+
+Documentation Title:
+Run your Astro project in a local Airflow environment with the CLI | Astronomer Documentation
+
+Documentation Content:
+Make requests to the Airflow REST API locally
+​
+Make requests to the
+Airflow REST API
+in a local Airflow environment with HTTP basic access authentication. This can be useful for testing and troubleshooting API calls before executing them in a Deployment on Astro.
+To make local requests with cURL or Python, you only need the username and password for your local user. Both of these values are
+admin
+by default. They are the same credentials for logging into the Airflow UI, and they're listed when you run
+astro dev start
+.
+To make requests to the Airflow REST API in a Deployment on Astro, see
+Airflow API
+.
+cURL
+​
+curl
+-X
+GET localhost:8080/api/v1/
+<
+endpoint
+>
+--user
+"admin:admin"
+Python
+​
+import
+requests
+response
+=
+requests
+.
+get
+(
+url
+=
+"http://localhost:8080/api/v1/<endpoint>"
+,
+auth
+=
+(
+"admin"
+,
+"admin"
+)
+)
+Hard reset your local environment
+​
+In most cases,
+restarting your local project
+is sufficient for testing and making changes to your project. However, it is sometimes necessary to kill your Docker containers and metadata database for testing purposes. To do so, run the following command:
+astro dev
+kill
+This command forces your running containers to stop and deletes all data associated with your local Postgres metadata database, including Airflow connections, logs, and task history.
+Override the Astro CLI Docker Compose file
+​
+The Astro CLI uses a default set of
+Docker Compose
+configurations to define and run local Airflow components. For advanced testing cases, you might need to override these default configurations. For example, you might need to:
+Add extra containers to mimic services that your Airflow environment needs to interact with locally, such as an SFTP server.
+Change the volumes mounted to any of your local containers.
+info
+The Astro CLI does not support overrides to environment variables that are required globally. For the list of environment variables that Astro enforces, see
+Global environment variables
+. To learn more about environment variables, read
+Environment variables
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-duckdb.txt
+
+Documentation Title:
+Use DuckDB with Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+The Astro Python SDK is the ideal tool if you want to easily connect to several database tools without changing any underlying code.
+In this tutorial we will cover the first two ways. To learn more about how to connect to DuckDB (and other data warehouses) with the Astro Python SDK, see
+Write a DAG with the Astro Python SDK
+.
+Other ways to learn
+There are multiple resources for learning about this topic. See also:
+Webinar:
+How to use DuckDB with Airflow
+.
+Example repository:
+Astronomer's DuckDB example repository
+.
+Time to complete
+​
+This tutorial takes approximately 15 minutes to complete.
+Assumed knowledge
+​
+To get the most out of this tutorial, make sure you have an understanding of:
+The basics of DuckDB. See
+the DuckDB documentation
+.
+Airflow fundamentals, such as writing DAGs and defining tasks. See
+Get started with Apache Airflow
+.
+Airflow decorators. See
+Introduction to Airflow decorators
+.
+Airflow connections. See
+Manage connections in Apache Airflow
+.
+Prerequisites
+​
+The
+Astro CLI
+.
+Step 1: Configure your Astro project
+​
+To use DuckDB with Airflow, install the
+DuckDB Airflow provider
+in your Astro project. This will also install the newest version of the
+DuckDB Python package
+.
+Create a new Astro project:
+$
+mkdir
+astro-duckdb-tutorial
+&&
+cd
+astro-duckdb-tutorial
+$ astro dev init
+Add the DuckDB Airflow provider to your Astro project
+requirements.txt
+file.
+airflow-provider-duckdb==0.2.0
+If you are connecting to MotherDuck, the DuckDB cloud service, you need to use the amd64 version of Astro Runtime to prevent package conflicts. In this case, replace the
+FROM
+statement in your Dockerfile with the following line:
+FROM
+--platform
+=
+linux/amd64
+quay.io/astronomer/astro-runtime:8.6.0
+If you are only using DuckDB locally, you do not need to modify your Dockerfile.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/troubleshoot-locally.txt
+
+Documentation Title:
+Troubleshoot a local Airflow environment | Astronomer Documentation
+
+Documentation Content:
+Run
+docker stop $(docker ps -q)
+to stop all running Docker containers.
+Change the default port assignment
+​
+If port 8080 or 5432 are in use on your machine by other services, the Airflow webserver and metadata database won't be able to start. To run these components on different ports, run the following commands in your Astro project:
+astro config
+set
+webserver.port
+<
+available-port
+>
+astro config
+set
+postgres.port
+<
+available-port
+>
+For example, to use 8081 for your webserver port and 5435 for your database port, you would run the following commands:
+astro config
+set
+webserver.port
+8081
+astro config
+set
+postgres.port
+5435
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Use Airflow connections from Astro
+Next
+Test your DAGs
+Troubleshoot KubernetesPodOperator issues
+Troubleshoot dependency errors
+New DAGs aren't visible in the Airflow UI
+DAGs running slowly
+Astro project won't load after running
+astro dev start
+Ports are not available for my local Airflow webserver
+Stop all running Docker containers
+Change the default port assignment
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+

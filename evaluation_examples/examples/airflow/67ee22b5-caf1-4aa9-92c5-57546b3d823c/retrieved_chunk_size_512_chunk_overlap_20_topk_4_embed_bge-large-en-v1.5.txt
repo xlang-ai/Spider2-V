@@ -1,0 +1,249 @@
+Documentation Source:
+docs.astronomer.io/astro/view-logs.txt
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+Click the
+Logs
+tab to switch from
+Graph
+view.
+View task logs in the Airflow UI
+​
+Access the Airflow UI.
+To access the Airflow UI for a Deployment, open the Deployment in the Astro UI and click
+Open Airflow
+.
+To access the Airflow UI in a local environment, open a browser and go to
+http://localhost:8080
+.
+Click a DAG.
+Click
+Graph
+.
+Click a task run.
+Click
+Instance Details
+.
+Click
+Log
+.
+See also
+​
+Export task logs and metrics to Datadog
+Export task logs to AWS Cloudwatch
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Deployment API keys (Deprecated)
+Next
+DAGs
+Airflow Component Logs
+Airflow component log levels
+View Airflow component logs in the Astro UI
+View Airflow component logs locally
+Airflow task logs
+Airflow task log levels
+View task logs on the Astro UI
+View task logs in the Airflow UI
+See also
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-support.txt
+
+Documentation Title:
+Submit a support request | Astronomer Documentation
+
+Documentation Content:
+Additionally, if the immediate problem is solved but there are follow up investigations ongoing, those follow ups will be conducted in a separate ticket at a lower priority.
+P2:
+High impact. Ability to use Astro is severely impaired but does not affect critical, previously working pipelines in production.
+Examples:
+A newly deployed production DAG is not working, even though it ran successfully in a development or test environment.
+The Airflow UI is unavailable.
+You are unable to deploy code to your Deployment, but existing DAGs and tasks are running as expected.
+You need to
+modify a Hybrid cluster setting
+that is required for running tasks, such as adding a new worker instance type.
+Task logs are missing in the Airflow UI.
+P3:
+Medium impact. Service is partially impaired.
+Examples:
+A newly deployed DAG is not working in a development Deployment, even though it ran successfully in a local environment using the Astro CLI.
+You need to
+modify a Hybrid cluster setting
+that affects your cluster's performance but isn't required to run tasks, such as changing the size of your cluster's database or adding a new VPC peering connection.
+Astro CLI usage is impaired (for example, there are incompatibility errors between installed packages).
+There is an Airflow issue that has a code-based solution.
+You received a log alert on Astronomer.
+You have lost the ability to use a
+Public Preview
+feature that does not affect general services.
+P4:
+Low impact. Astro is fully usable but you have a question for our team.
+Examples:
+There are package incompatibilities caused by a specific, complex use case.
+You have an inquiry or a small bug report for a Public Preview feature.
+Be as descriptive as possible
+​
+The more information you can provide about the issue you're experiencing, the quicker Astronomer support can start the troubleshooting and resolution process. When submitting a support request, include the following information:
+Have you made any recent changes to your Deployment or running DAGs?
+What solutions have you already tried?
+Is this a problem in more than one Deployment?
+Include logs or code snippets
+​
+If you've already copied task logs or Airflow component logs, send them as a part of your request. The more context you can provide, the better.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.txt
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+To get more specific answers to your question, include the following information in your question or issue:
+Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
+Your Airflow version and the version of relevant providers.
+The full error with the error trace if applicable.
+The full code of the DAG causing the error if applicable.
+What you are trying to accomplish in as much detail as possible.
+What you changed in your environment when the problem started.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+DAG writing best practices
+Next
+Dynamic tasks
+Assumed knowledge
+General Airflow debugging approach
+Airflow is not starting on the Astro CLI
+Common DAG issues
+DAGs don't appear in the Airflow UI
+Import errors due to dependency conflicts
+DAGs are not running correctly
+Common task issues
+Tasks are not running correctly
+Tasks are failing
+Issues with dynamically mapped tasks
+Missing Logs
+Troubleshooting connections
+I need more help
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/view-logs.txt
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+For example,
+acti*
+returns results that include
+action
+and
+acting
+. The string search does not include fuzzy matching, so misspelled strings or incomplete strings without a wildcard,
+*
+, return zero results.
+Time range
+: Filter the logs displayed based on time.
+Log type
+: Filter based on whether the log message is from a scheduler, worker, webserver, or trigger.
+View Airflow component logs locally
+​
+To show logs for your Airflow scheduler, webserver, or triggerer locally, run the following Astro CLI command:
+astro dev logs
+After you run this command, the most recent logs for these components appear in your terminal window.
+By default, running
+astro dev logs
+shows logs for all Airflow components. To see logs only for a specific component, add any of the following flags to your command:
+--scheduler
+--webserver
+--triggerer
+To continue monitoring logs, run
+astro dev logs --follow
+. The
+--follow
+flag ensures that the latest logs continue to appear in your terminal window. For more information about this command, see
+CLI Command Reference
+.
+Airflow task logs
+​
+Airflow task logs can help you troubleshoot a specific task instance that failed or retried. Based on your preference, you can choose to use to access task logs in the Astro UI or the Airflow UI. Both provide filters, search, and download options for task logs and share other information about your DAG performance on the same page.
+Task logs for Astro Deployments are retained for 90 days. The task log retention policy is not currently configurable.
+You can also access local Airflow task logs in your local
+Airflow UI
+or
+printed to the terminal
+.
+Airflow task log levels
+​
+Similar to the Airflow component log levels, task logs might also be associated with one of the following log levels, that you can search or filter with:
+Error
+Warn
+Info
+Debug
+Critical
+View task logs on the Astro UI
+​
+To access task logs from the Astro UI:
+In the Astro UI, select a Workspace.
+Click
+DAGs
+.
+Click the DAG you want to view task logs for.
+Click a task run in the DAG run grid.
+Click the
+Logs
+tab to switch from
+Graph
+view.
+
+
+

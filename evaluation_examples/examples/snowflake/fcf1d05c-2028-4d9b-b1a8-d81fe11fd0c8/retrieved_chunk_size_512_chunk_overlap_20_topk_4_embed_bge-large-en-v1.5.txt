@@ -1,0 +1,368 @@
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets.txt
+
+Documentation Title:
+Writing Snowpark Code in Python Worksheets | Snowflake Documentation
+
+Documentation Content:
+table
+(
+inputTableName
+)
+df
+.
+filter
+(
+col
+(
+"STATE"
+)
+!=
+"SKIPPED"
+)
+\
+.
+group_by
+((
+"SCHEDULED_TIME"
+),
+"STATE"
+)
+.
+count
+()
+\
+.
+write
+.
+mode
+(
+"overwrite"
+)
+.
+save_as_table
+(
+outputTableName
+)
+return
+outputTableName
++
+" table successfully written"
+Copy
+Select
+Settings
+and for the
+Return type
+, select
+String
+for the type returned by the handler function.
+Run the code.
+After you run your code in a Python worksheet, you can open a SQL worksheet and query the table. See
+Querying data using worksheets
+.
+Example: Read Files from a Stage with Python Worksheets
+¶
+Snowpark Python lets you read files from a stage and write the contents to a table or save them as a view in Snowflake.
+In this example, the Python code reads the contents of a compressed CSV-formatted file containing employee data,
+data_0_0_0.csv.gz
+from the
+db1.public.files
+named stage and writes the contents to a table called
+employees
+.
+Note
+To run this code example, you must use a role that has:
+The USAGE privilege on the stage, database, and schema used in the code.
+The CREATE TABLE privilege on the database schema to which you want to add the table.
+Sign in to Snowsight.
+Open
+Projects
+»
+Worksheets
+.
+Select
++
+»
+Python Worksheet
+.
+Select a database and schema that you want to add the table to.
+Select a warehouse to use to run the worksheet. If you have a default warehouse for your user, it is pre-selected.
+Make sure your warehouse is running.
+Write the Snowpark Python code as part of the
+main
+function:
+import
+snowflake.snowpark
+as
+snowpark
+from
+snowflake.snowpark.types
+import
+*
+schema_for_file
+=
+StructType
+([
+StructField
+(
+"name"
+,
+StringType
+()),
+StructField
+(
+"role"
+,
+StringType
+())
+])
+fileLocation
+=
+"@DB1.PUBLIC.FILES/data_0_0_0.csv.gz"
+outputTableName
+=
+"employees"
+def
+main
+(
+session
+:
+snowpark
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.txt
+
+Documentation Title:
+Getting started with worksheets | Snowflake Documentation
+
+Documentation Content:
+Select
++
+and select
+SQL Worksheet
+or
+Python Worksheet
+to create a worksheet.
+The worksheet opens in the same window with the date and time of creation as the default title.
+You can then start writing in your worksheet. For a SQL worksheet,
+start writing queries
+.
+For a Python worksheet,
+start writing code
+.
+Create worksheets from a SQL file
+¶
+To create a SQL worksheet from an existing SQL file, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Select the
+…
+more menu »
+Create Worksheet from SQL File
+.
+Browse to the SQL file to upload.
+A new worksheet opens with a title that matches the file name.
+You can also add a SQL file to an existing SQL worksheet. Refer to
+Append a SQL script to an existing worksheet
+.
+Opening worksheets in tabs
+¶
+You can use tabs to refer to multiple active worksheets and explore the databases and schemas in Snowflake while writing SQL
+statements or Python code in Snowsight. Your scroll position is preserved in each tab, making comparisons across worksheets easier
+to perform. Worksheet tabs are preserved across sessions, so you can pick up your work where you left off.
+To open your Snowsight worksheets in tabs, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+.
+Select an existing worksheet, or select
++ Worksheet
+to open a new worksheet. A worksheet opens in a tab.
+Select a role to run the worksheet as, and select a warehouse to allocate the compute resources for your query.
+In the
+Worksheets
+menu, select an existing worksheet or select
++
+to open a new worksheet tab. By default, the new worksheet
+uses your default role and warehouse.
+(Optional) Make changes to the role or warehouse used to run the new worksheet.
+After you open a worksheet, you can
+update the contents
+,
+run SQL statements
+or
+write Python code
+, and manage the worksheet.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets.txt
+
+Documentation Title:
+Writing Snowpark Code in Python Worksheets | Snowflake Documentation
+
+Documentation Content:
+After running a Python worksheet, review the results and output returned by your script. The results display as a string, variant, or a
+table, depending on your code. See
+Running Python Worksheets
+.
+Note
+Because Python worksheets run inside Snowflake rather than in your local development environment, you cannot use
+session.add_import
+to add a file that your Python code depends on, or
+session.add_packages
+or
+session.add_requirements
+to add packages that you need
+to use in your Python code. Instead, you add those files to a stage and reference them in your code.
+See
+Staging files using Snowsight
+.
+Python worksheets have the following limitations:
+Log levels lower than WARN do not appear in the
+Output
+for a Python worksheet by default. To log lower level messages to the output,
+use a logging library such as the
+logging
+module to set the level of messages logged.
+No support for breakpoints or running only portions of the Python code in a worksheet.
+No support for images or webpages. Images or webpages generated by Python code cannot be displayed in Python worksheets.
+Python worksheets use Python 3.11 by default, but you can choose another supported version in
+Packages
+.
+If you require support for any of these options, consider using your local development environment instead.
+See
+Setting Up Your Development Environment for Snowpark Python
+.
+Prerequisites for Python Worksheets
+¶
+To use Python worksheets, you must do the following:
+Review and accept the Anaconda Terms of Service in Snowsight. See
+Review and accept the Anaconda Terms of Service
+.
+(Optional) Add Python files and packages that are not
+included with Anaconda
+that you want
+to use in a Python worksheet to a named stage. See
+Add a Python File from a Stage to a Worksheet
+.
+Choose a warehouse to use for Python worksheets. Snowflake recommends using an X-Small warehouse for development.
+If you’re running a very large Snowpark workload, use a
+Snowpark-optimized warehouse
+.
+See
+Warehouse size
+for additional details about warehouse sizes.
+Review and accept the Anaconda Terms of Service
+¶
+Before you start using the packages provided by Anaconda inside Snowflake, you must acknowledge
+the
+External Offerings Terms
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/2024/ui/2024-02-07.txt
+
+Documentation Title:
+February 07-08, 2024 — Snowsight Release Notes | Snowflake Documentation
+
+Documentation Content:
+If you have additional questions, please feel free to contact
+Snowflake Support
+.
+Write Snowpark code in Python worksheets —–
+General Availability
+¶
+With this release, we are pleased to announce the general availability of Python worksheets in Snowsight. Python worksheets let
+you write and run Snowpark Python code in a worksheet in Snowsight. You can now use Python version 3.11 or another
+supported version.
+In a Python worksheet, you can do the following:
+Write a Python script to read data from a stage, transform it, and save it to a table, all without leaving Snowsight.
+Use included packages from Anaconda or import packages from a stage to write code more easily.
+Automate your Python code by deploying it as a stored procedure and scheduling it as a task.
+For more information, see
+Writing Snowpark Code in Python Worksheets
+.
+Recover worksheets for dropped users —–
+General Availability
+¶
+With this release, we are pleased to announce the general availability of recovering Snowsight worksheets for users that have
+been dropped from Snowflake. You can recover up to 500 worksheets for each dropped user.
+For more details, see
+Recover worksheets owned by a dropped user
+.
+Get Started page for some accounts —–
+Removed
+¶
+With this release, the
+Get Started
+page that was available to some trial and Snowflake On Demand accounts has been removed.
+Release Notes Change Log
+¶
+Announcement
+Update
+Date
+New navigation menu (Preview)
+Removed
+02-08-24
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Write Snowpark code in Python worksheets —– General Availability
+Recover worksheets for dropped users —– General Availability
+Get Started page for some accounts —– Removed
+Release Notes Change Log
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+

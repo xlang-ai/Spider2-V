@@ -1,0 +1,294 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-database.txt
+
+Documentation Title:
+Understanding the Airflow metadata database | Astronomer Documentation
+
+Documentation Content:
+environ
+[
+"USERNAME_AIRFLOW_INSTANCE"
+]
+password
+=
+os
+.
+environ
+[
+"PASSWORD_AIRFLOW_INSTANCE"
+]
+# specify which dag to delete
+dag_id
+=
+"dag_to_delete"
+# send the deletion request
+req
+=
+requests
+.
+delete
+(
+f"
+{
+ENDPOINT_URL
+}
+/api/v1/dags/
+{
+dag_id
+}
+"
+,
+auth
+=
+(
+user_name
+,
+password
+)
+)
+# print the API response
+print
+(
+req
+.
+text
+)
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Tags:
+Database
+SQL
+Components
+Edit this page
+Previous
+Executor
+Next
+Scaling Airflow
+Assumed knowledge
+Database specifications
+Metadata database content
+User information (security)
+DAG Configurations and Variables (Admin)
+DAG and task runs (browse)
+Other tables
+Airflow metadata database best practices
+Use the Airflow REST API to access the metadata database
+Retrieve the number of successfully completed tasks
+Pause and unpause a DAG
+Delete a DAG
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/release-notes.txt
+
+Documentation Title:
+Astro release notes | Astronomer Documentation
+
+Documentation Content:
+Bug fixes
+​
+Fixed an issue where adding a user to a Workspace and then deleting the user from Astro made it impossible to create new Deployments in that Workspace
+Improved error handling in the Airflow UI in cases where a user does not exist or does not have permission to view a Deployment
+July 30, 2021
+​
+Improvements
+​
+Increased the limit of
+Worker Resources
+from 30 AU to 175 AU (17.5 CPU, 65.625 GB RAM). If your tasks require this many resources, reach out to us to make sure that your cluster is sized appropriately
+Collapsed the
+People
+and
+Teams
+tabs on the left-hand navigation bar into a single
+Access
+tab
+Added a
+Cluster
+field to the Deployments tab in the Astro UI. Now, you can reference which cluster each of your Deployments is in
+Replaced our white "A" favicon to one that supports color mode
+Informational tooltips are now available in
+Deployment Configuration
+Bug fixes
+​
+Fixed an issue where a deleted user could not sign up to Astro again
+Removed Deployment-level user roles from the Astro UI. Support for them coming soon
+Fixed an issue where a newly created Deployment wouldn't show up on the list of Deployments in the Workspace
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Billing
+Next
+Astro Runtime
+May 15, 2024
+Additional improvements
+Bug fixes
+May 8, 2024
+Updates to address ranges for dedicated clusters on Google Cloud Provider
+Improvements to Astro performance
+Additional improvements
+Bug fixes
+April 30, 2024
+Deploy automatically from GitHub using the official Astro GitHub integration
+April 23, 2024
+Restrict a custom Deployment role to specific Workspaces
+Additional improvements
+Bug fixes
+April 16, 2024
+Bug fixes
+April 9, 2024
+Additional improvements
+Bug fixes
+April 3, 2024
+Additional improvements
+Bug fixes
+March 26,
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/release-notes.txt
+
+Documentation Title:
+Astro release notes | Astronomer Documentation
+
+Documentation Content:
+If you try to access a given page on Astro while unauthenticated and reach the login screen, logging in now brings you to the original page you requested.
+Bug fixes
+​
+Fixed an issue where an incorrect total number of team members would appear in the
+People
+tab
+August 20, 2021
+​
+Support for the Airflow REST API
+​
+You can now programmatically trigger DAGs and update your Deployments on Astro by making requests to Airflow's
+REST API
+. Currently this feature works only with temporary tokens, which are available at
+cloud.astronomer.io/token
+. Support for Deployment API keys is coming soon. For more information on using this feature, read
+Airflow API
+.
+Additional improvements
+​
+Set
+AIRFLOW_HOME = 'usr/local/airflow'
+as a permanent global environment variable
+In the Astro UI, long environment variable keys and values now wrap to fit the screen
+Added links for the Astronomer Registry and certification courses to the left-hand navbar
+Moved the
+Teams
+and
+People
+tabs into the
+Settings
+page of the UI
+Added
+Cluster
+information to the metadata section of a Deployment's information page in the UI
+Renamed various UI elements to better represent their functionality
+Increased the maximum
+Worker Termination Grace Period
+from 600 minutes (10 hours) to 1440 minutes (24 hours)
+Bug fixes
+​
+The left-hand navbar in the UI is no longer cut off when minimized on smaller screens
+Fixed an issue where you could not delete a Workspace via the UI
+Fixed an issue where expired tokens would occasionally appear on
+cloud.astronomer.io/token
+Fixed an issue where the UI would initially load an inaccurate number of team members on the
+Access
+page
+Fixed alphabetical sorting by name in the
+People
+tab in the UI
+Removed placeholder columns from various tables in the UI
+August 6, 2021
+​
+Additional improvements
+​
+Informational tooltips are now available on the
+New Deployment
+page.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-support.txt
+
+Documentation Title:
+Submit a support request | Astronomer Documentation
+
+Documentation Content:
+Additionally, if the immediate problem is solved but there are follow up investigations ongoing, those follow ups will be conducted in a separate ticket at a lower priority.
+P2:
+High impact. Ability to use Astro is severely impaired but does not affect critical, previously working pipelines in production.
+Examples:
+A newly deployed production DAG is not working, even though it ran successfully in a development or test environment.
+The Airflow UI is unavailable.
+You are unable to deploy code to your Deployment, but existing DAGs and tasks are running as expected.
+You need to
+modify a Hybrid cluster setting
+that is required for running tasks, such as adding a new worker instance type.
+Task logs are missing in the Airflow UI.
+P3:
+Medium impact. Service is partially impaired.
+Examples:
+A newly deployed DAG is not working in a development Deployment, even though it ran successfully in a local environment using the Astro CLI.
+You need to
+modify a Hybrid cluster setting
+that affects your cluster's performance but isn't required to run tasks, such as changing the size of your cluster's database or adding a new VPC peering connection.
+Astro CLI usage is impaired (for example, there are incompatibility errors between installed packages).
+There is an Airflow issue that has a code-based solution.
+You received a log alert on Astronomer.
+You have lost the ability to use a
+Public Preview
+feature that does not affect general services.
+P4:
+Low impact. Astro is fully usable but you have a question for our team.
+Examples:
+There are package incompatibilities caused by a specific, complex use case.
+You have an inquiry or a small bug report for a Public Preview feature.
+Be as descriptive as possible
+​
+The more information you can provide about the issue you're experiencing, the quicker Astronomer support can start the troubleshooting and resolution process. When submitting a support request, include the following information:
+Have you made any recent changes to your Deployment or running DAGs?
+What solutions have you already tried?
+Is this a problem in more than one Deployment?
+Include logs or code snippets
+​
+If you've already copied task logs or Airflow component logs, send them as a part of your request. The more context you can provide, the better.
+
+
+

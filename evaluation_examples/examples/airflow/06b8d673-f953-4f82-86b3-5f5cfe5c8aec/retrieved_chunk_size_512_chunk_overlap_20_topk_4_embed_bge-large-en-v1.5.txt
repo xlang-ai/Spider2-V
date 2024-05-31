@@ -1,0 +1,526 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+Create a new file in your
+dags
+folder called
+sql_data_quality.py
+.
+Copy and paste the following DAG code into the file:
+"""
+## Check data quality using SQL check operators
+This DAG creates a toy table about birds in SQLite to run data quality checks on using the
+SQLColumnCheckOperator, SQLTableCheckOperator, and SQLCheckOperator.
+"""
+from
+airflow
+.
+decorators
+import
+dag
+from
+airflow
+.
+providers
+.
+common
+.
+sql
+.
+operators
+.
+sql
+import
+(
+SQLColumnCheckOperator
+,
+SQLTableCheckOperator
+,
+SQLCheckOperator
+,
+)
+from
+airflow
+.
+providers
+.
+sqlite
+.
+operators
+.
+sqlite
+import
+SqliteOperator
+from
+pendulum
+import
+datetime
+_CONN_ID
+=
+"sqlite_conn"
+_TABLE_NAME
+=
+"birds"
+@dag
+(
+start_date
+=
+datetime
+(
+2023
+,
+7
+,
+1
+)
+,
+schedule
+=
+None
+,
+catchup
+=
+False
+,
+template_searchpath
+=
+[
+"/usr/local/airflow/include/"
+]
+,
+)
+def
+sql_data_quality
+(
+)
+:
+create_table
+=
+SqliteOperator
+(
+task_id
+=
+"create_table"
+,
+sqlite_conn_id
+=
+_CONN_ID
+,
+sql
+=
+f"""
+CREATE TABLE IF NOT EXISTS
+{
+_TABLE_NAME
+}
+(
+bird_name VARCHAR,
+observation_year INT,
+bird_happiness INT
+);
+"""
+,
+)
+populate_data
+=
+SqliteOperator
+(
+task_id
+=
+"populate_data"
+,
+sqlite_conn_id
+=
+_CONN_ID
+,
+sql
+=
+f"""
+INSERT INTO
+{
+_TABLE_NAME
+}
+(bird_name, observation_year, bird_happiness) VALUES
+('King vulture (Sarcoramphus papa)', 2022, 9),
+('Victoria Crowned Pigeon (Goura victoria)', 2021, 10),
+('Orange-bellied parrot (Neophema chrysogaster)', 2021, 9),
+('Orange-bellied parrot (Neophema chrysogaster)', 2020, 8),
+(NULL, 2019, 8),
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+2020, 8),
+(NULL, 2019, 8),
+('Indochinese green magpie (Cissa hypoleuca)', 2018, 10);
+"""
+,
+)
+column_checks
+=
+SQLColumnCheckOperator
+(
+task_id
+=
+"column_checks"
+,
+conn_id
+=
+_CONN_ID
+,
+table
+=
+_TABLE_NAME
+,
+partition_clause
+=
+"bird_name IS NOT NULL"
+,
+column_mapping
+=
+{
+"bird_name"
+:
+{
+"null_check"
+:
+{
+"equal_to"
+:
+0
+}
+,
+"distinct_check"
+:
+{
+"geq_to"
+:
+2
+}
+,
+}
+,
+"observation_year"
+:
+{
+"max"
+:
+{
+"less_than"
+:
+2023
+}
+}
+,
+"bird_happiness"
+:
+{
+"min"
+:
+{
+"greater_than"
+:
+0
+}
+,
+"max"
+:
+{
+"leq_to"
+:
+10
+}
+}
+,
+}
+,
+)
+table_checks
+=
+SQLTableCheckOperator
+(
+task_id
+=
+"table_checks"
+,
+conn_id
+=
+_CONN_ID
+,
+table
+=
+_TABLE_NAME
+,
+checks
+=
+{
+"row_count_check"
+:
+{
+"check_statement"
+:
+"COUNT(*) >= 3"
+}
+,
+"average_happiness_check"
+:
+{
+"check_statement"
+:
+"AVG(bird_happiness) >= 9"
+,
+"partition_clause"
+:
+"observation_year >= 2021"
+,
+}
+,
+}
+,
+)
+custom_check
+=
+SQLCheckOperator
+(
+task_id
+=
+"custom_check"
+,
+conn_id
+=
+_CONN_ID
+,
+sql
+=
+"custom_check.sql"
+,
+params
+=
+{
+"table_name"
+:
+_TABLE_NAME
+}
+,
+)
+create_table
+>>
+populate_data
+>>
+[
+column_checks
+,
+table_checks
+,
+custom_check
+]
+sql_data_quality
+(
+)
+This DAG creates and populates a small SQlite table
+birds
+with information about birds. Then, three tasks containing data quality checks are run on the table:
+The
+column_checks
+task uses the
+SQLColumnCheckOperator
+to run the column-level checks provided to the
+column_mapping
+dictionary.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+column_checks
+=
+SQLColumnCheckOperator
+(
+task_id
+=
+"column_checks"
+,
+conn_id
+=
+"MY_DB_CONNECTION"
+,
+table
+=
+"MY_TABLE"
+,
+partition_clause
+=
+"CUSTOMER_NAME IS NOT NULL"
+,
+column_mapping
+=
+{
+"MY_NUM_COL_1"
+:
+{
+"min"
+:
+{
+"equal_to"
+:
+10
+,
+"tolerance"
+:
+0.1
+}
+}
+,
+"MY_NUM_COL_2"
+:
+{
+"max"
+:
+{
+"less_than"
+:
+300
+,
+"partition_clause"
+:
+"CUSTOMER_STATUS = 'active'"
+}
+}
+,
+}
+,
+)
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Object storage
+Next
+Use the Astro Python SDK
+Time to complete
+Assumed knowledge
+Prerequisites
+Step 1: Configure your Astro project
+Step 2: Create a connection to SQLite
+Step 3: Add a SQL file with a custom check
+Step 4: Create a DAG using SQL check operators
+How it works
+SQLColumnCheckOperator
+SQLTableCheckOperator
+SQLCheckOperator
+partition_clause
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+Run data quality checks using SQL check operators | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Get started
+Airflow concepts
+Airflow tutorials
+Create Airflow listeners
+Customize Extra Links
+Clean up the metadata database
+Custom XCom backends
+Develop with PyCharm
+Develop with VS Code
+Microsoft Teams Notifications
+ML with the Astro Cloud IDE
+Object storage
+Use SQL check operators
+Use the Astro Python SDK
+Write DAG documentation
+Integrations & connections
+Use cases
+Airflow glossary
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Airflow tutorials
+Use SQL check operators
+On this page
+Run data quality checks using SQL check operators
+Data quality is key to the success of an organization's data systems. With in-DAG quality checks, you can halt pipelines and alert stakeholders before bad data makes its way to a production lake or warehouse.
+The SQL check operators in the
+Common SQL provider
+provide a simple and effective way to implement data quality checks in your Airflow DAGs. Using this set of operators, you can quickly develop a pipeline specifically for checking data quality, or you can add data quality checks to existing pipelines with just a few more lines of code.
+This tutorial shows how to use three SQL check operators (SQLColumnCheckOperator, SQLTableCheckOperator, and SQLCheckOperator) to build a robust data quality suite for your DAGs.
+Other ways to learn
+There are multiple resources for learning about this topic. See also:
+Webinar:
+Implementing Data Quality Checks in Airflow
+.
+Webinar:
+Efficient data quality checks with Airflow 2.7
+.
+Use case:
+Use Airflow setup/ teardown to run data quality checks in an MLOps pipeline
+.
+Example repository:
+data quality demo
+.
+Time to complete
+​
+This tutorial takes approximately 30 minutes to complete.
+Assumed knowledge
+​
+To get the most out of this tutorial, you should have an understanding of:
+How to design a data quality process. See
+Data quality and Airflow
+.
+Running SQL from Airflow.
+
+
+

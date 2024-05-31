@@ -1,0 +1,416 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.txt
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
+readlines
+(
+)
+cocktail
+.
+append
+(
+contents
+)
+return
+[
+item
+for
+sublist
+in
+cocktail
+for
+item
+in
+sublist
+]
+with
+DAG
+(
+dag_id
+=
+"datasets_consumer_dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+10
+,
+1
+)
+,
+schedule
+=
+[
+INSTRUCTIONS
+,
+INFO
+]
+,
+# Scheduled on both Datasets
+catchup
+=
+False
+,
+)
+:
+PythonOperator
+(
+task_id
+=
+"read_about_cocktail"
+,
+python_callable
+=
+read_about_cocktail_func
+,
+)
+Any number of datasets can be provided to the
+schedule
+parameter as a list or as an expression using
+conditional logic
+. If the Datasets are provided in a list, the DAG is triggered after all of the datasets have received at least one update due to a producing task completing successfully.
+When you work with datasets, keep the following considerations in mind:
+Datasets can only be used by DAGs in the same Airflow environment.
+Airflow monitors datasets only within the context of DAGs and tasks. It does not monitor updates to datasets that occur outside of Airflow.
+Consumer DAGs that are scheduled on a dataset are triggered every time a task that updates that dataset completes successfully. For example, if
+task1
+and
+task2
+both produce
+dataset_a
+, a consumer DAG of
+dataset_a
+runs twice - first when
+task1
+completes, and again when
+task2
+completes.
+Consumer DAGs scheduled on a dataset are triggered as soon as the first task with that dataset as an outlet finishes, even if there are downstream producer tasks that also operate on the dataset.
+Airflow 2.9 added several new features to datasets:
+Conditional Dataset Scheduling
+Combined Dataset and Time-based Scheduling
+Datasets are now shown in the
+Graph
+view of a DAG in the Airflow UI. The
+upstream1
+DAG in the screenshot below is a consumer of the
+dataset0
+dataset, and has one task
+update_dataset_1
+that updates the
+dataset1
+dataset.
+For more information about datasets, see
+Data-aware scheduling
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.txt
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
+write
+(
+msg
+)
+f
+.
+close
+(
+)
+with
+DAG
+(
+dag_id
+=
+"datasets_producer_dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+10
+,
+1
+)
+,
+schedule
+=
+None
+,
+catchup
+=
+False
+,
+render_template_as_native_obj
+=
+True
+,
+)
+:
+get_cocktail
+=
+PythonOperator
+(
+task_id
+=
+"get_cocktail"
+,
+python_callable
+=
+get_cocktail_func
+,
+op_kwargs
+=
+{
+"api"
+:
+API
+}
+,
+)
+write_instructions_to_file
+=
+PythonOperator
+(
+task_id
+=
+"write_instructions_to_file"
+,
+python_callable
+=
+write_instructions_to_file_func
+,
+op_kwargs
+=
+{
+"response"
+:
+"{{ ti.xcom_pull(task_ids='get_cocktail') }}"
+}
+,
+outlets
+=
+[
+INSTRUCTIONS
+]
+,
+)
+write_info_to_file
+=
+PythonOperator
+(
+task_id
+=
+"write_info_to_file"
+,
+python_callable
+=
+write_info_to_file_func
+,
+op_kwargs
+=
+{
+"response"
+:
+"{{ ti.xcom_pull(task_ids='get_cocktail') }}"
+}
+,
+outlets
+=
+[
+INFO
+]
+,
+)
+get_cocktail
+>>
+write_instructions_to_file
+>>
+write_info_to_file
+A consumer DAG runs whenever the dataset(s) it is scheduled on is updated by a producer task, rather than running on a time-based schedule. For example, if you have a DAG that should run when the
+INSTRUCTIONS
+and
+INFO
+datasets are updated, you define the DAG's schedule using the names of those two datasets.
+Any DAG that is scheduled with a dataset is considered a consumer DAG even if that DAG doesn't actually access the referenced dataset. In other words, it's up to you as the DAG author to correctly reference and use datasets.
+TaskFlow API
+Traditional syntax
+from
+pendulum
+import
+datetime
+from
+airflow
+.
+datasets
+import
+Dataset
+from
+airflow
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.txt
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
+For more information about datasets, see
+Data-aware scheduling
+.
+The
+Datasets
+tab, and the
+DAG Dependencies
+view in the Airflow UI give you observability for datasets and data dependencies in the DAG's schedule.
+On the
+DAGs
+view, you can see that your
+dataset_downstream_1_2
+DAG is scheduled on two producer datasets (one in
+dataset_upstream1
+and
+dataset_upstream2
+). When Datasets are provided as a list, the DAG is scheduled to run after all Datasets in the list have received at least one update. In the following screenshot, the
+dataset_downstream_1_2
+DAG's next run is pending one dataset update. At this point the
+dataset_upstream
+DAG has run and updated its dataset, but the
+dataset_upstream2
+DAG has not.
+The
+Datasets
+tab shows a list of all datasets in your Airflow environment and a graph showing how your DAGs and datasets are connected. You can filter the lists of Datasets by recent updates.
+Click one of the datasets to display a list of task instances that updated the dataset and a highlighted view of that dataset and its connections on the graph.
+The
+DAG Dependencies
+view (found under the
+Browse
+tab) shows a graph of all dependencies between DAGs (in green) and datasets (in orange) in your Airflow environment.
+note
+DAGs that are triggered by datasets do not have the concept of a data interval. If you need information about the triggering event in your downstream DAG, you can use the parameter
+triggering_dataset_events
+from the context. This parameter provides a list of all the triggering dataset events with parameters
+[timestamp, source_dag_id, source_task_id, source_run_id, source_map_index ]
+.
+Updating a dataset
+​
+As of Airflow 2.9+ there are three ways to update a dataset:
+A task with an outlet parameter that references the dataset completes successfully.
+A
+POST
+request to the
+datasets endpoint of the Airflow REST API
+.
+A manual update in the Airflow UI.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/scheduling-in-airflow.txt
+
+Documentation Title:
+Schedule DAGs in Airflow | Astronomer Documentation
+
+Documentation Content:
+Schedule DAGs in Airflow | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Get started
+Airflow concepts
+Basics
+BashOperator
+Connections
+DAGs
+Datasets and data-aware scheduling
+Hooks
+Manage Airflow code
+OpenLineage
+Operators
+Run SQL
+Schedule DAGs
+Sensors
+Task dependencies
+The Airflow UI
+Variables
+DAGs
+Infrastructure
+Advanced
+Airflow tutorials
+Integrations & connections
+Use cases
+Airflow glossary
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Airflow concepts
+Basics
+Schedule DAGs
+On this page
+Schedule DAGs in Airflow
+One of the fundamental features of Apache Airflow is the ability to schedule jobs. Historically, Airflow users scheduled their DAGs by specifying a
+schedule
+with a cron expression, a timedelta object, or a preset Airflow schedule. Recent versions of Airflow have added new ways to schedule DAGs, including
+data-aware scheduling with datasets
+and the option to define complex custom schedules with
+timetables
+.
+In this guide, you'll learn Airflow scheduling concepts and the different ways you can schedule a DAG.
+Other ways to learn
+There are multiple resources for learning about this topic. See also:
+Astronomer Academy:
+Airflow: DAG Scheduling
+module.
+Webinar:
+Scheduling in Airflow: A Comprehensive Introduction
+.
+Assumed knowledge
+​
+To get the most out of this guide, you should have an existing knowledge of:
+Basic Airflow concepts. See
+Introduction to Apache Airflow
+.
+Configuring Airflow DAGs. See
+Introduction to Airflow DAGs
+.
+Date and time modules in Python3. See the
+Python documentation on the
+datetime
+package
+.
+Scheduling concepts
+​
+To gain a better understanding of DAG scheduling, it's important that you become familiar with the following terms and parameters:
+Data Interval
+: A property of each DAG run that represents the period of data that each task should operate on.
+
+
+
