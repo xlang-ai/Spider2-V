@@ -1,0 +1,67 @@
+{
+    "id": "30f3108a-0432-46b4-88cf-49acb42ad39b",
+    "snapshot": "jupyter",
+    "instruction": "Help me find the best K value for a KNN regressor on the California Housing Dataset. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.",
+    "source": [
+        "https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/30f3108a-0432-46b4-88cf-49acb42ad39b/KNN.ipynb",
+                "dest": "/home/user/Desktop/KNN.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/30f3108a-0432-46b4-88cf-49acb42ad39b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/KNN.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/KNN.ipynb",
+            "dest": "KNN.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/30f3108a-0432-46b4-88cf-49acb42ad39b/KNN_gold.ipynb",
+            "dest": "KNN_gold.ipynb"
+        }
+    }
+}
