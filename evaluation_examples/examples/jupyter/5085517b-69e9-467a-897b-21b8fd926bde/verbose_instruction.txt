@@ -1,0 +1,22 @@
+This task requires you to build a Decision Tree model to classify the onset of diabetes based on different diagnostic measures.
+1. Add the following code below the ``#TODO 1`` comment.
+```python
+X = pima[feature_cols]
+y = pima.label
+```
+2. Add the following code below the ``#TODO 2`` comment. First, instantiate a decision tree model.
+```python
+clf = DecisionTreeClassifier(random_state=SEED)
+```
+3. Then, add the following code afterward to fit the decision tree model.
+```python
+clf = clf.fit(X_train,y_train)
+```
+4. Finally, add the following code afterward to predict the response for the test dataset.
+```python
+y_pred = clf.predict(X_test)
+```
+5. Click the button "Run" in the menu bar on the top.
+6. In the drop-down menu, select and click "Run All Cells".
+7. Wait until all cells completes running, then click the button "File" in the menu bar on the top.
+8. In the drop-down menu, select and click "Save All".
