@@ -1,0 +1,26 @@
+This task requires you to apply some data preprocessing techniques, especially data scaling, to the famous California Housing Datasets.
+1. Add the following code below the ``#TODO 1`` comment.
+```python
+df.head()
+```
+2. Add the following code below the ``#TODO 2`` comment.
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=SEED)
+```
+3. Add the following code below the ``#TODO 3`` comment. First, instantiate a standard scaler.
+```python
+scaler = StandardScaler()
+```
+4. Next, fit the scaler according to our training dataset.
+```python
+scaler.fit(X_train)
+```
+5. Finally, transform both training dataset and testing dataset.
+```python
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+```
+6. Click the button "Run" in the menu bar on the top.
+7. In the drop-down menu, select and click "Run All Cells".
+8. Wait until all cells completes running, then click the button "File" in the menu bar on the top.
+9. In the drop-down menu, select and click "Save All".
