@@ -1,7 +1,7 @@
 {
     "id": "d4b4bde1-84f6-4644-b993-65dccbe15ea0",
     "snapshot": "jupyter",
-    "instruction": "Help me apply data scaling to the famous California Housing dataset. Follow the instructions specified in the jupyter notebook. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.",
+    "instruction": "Help me apply Data Scaling to the famous California Housing dataset. Follow the instructions specified in the jupyter notebook. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.",
     "source": [
         "https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/"
     ],
