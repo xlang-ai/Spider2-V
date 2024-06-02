@@ -1,0 +1,17 @@
+To reset and update the password, please follow these steps:
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click the "People" tab on the top bar;
+4. Click the three dots (...) on the right of the John Wilson account;
+5. Choose "Reset password" in the drop-down panel;
+6. Click the "Reset password" button;
+7. Click the icon on the right side of the "Show" button to copy the temporary password;
+8. Click the "Done" button;
+9. Click the "Exit admin" button on the top right;
+10. Click the gear icon on the top right;
+11. Choose "Account settings" in the drop-down panel;
+12. Click the "Password" tab in the center of the page;
+13. Paste the temporary password in the "Current password" input box;
+14. Type "metabase123" in the "Create a password" input box;
+15. Type "metabase123" in the "Confirm your password" input box;
+16. Click the "Save" button.
