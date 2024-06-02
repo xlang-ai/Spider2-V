@@ -233,7 +233,7 @@ class PromptAgent:
             # observation_space can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som"]
             screen_size={'width': 1920, "height": 1080},
             max_trajectory_length=3,
-            a11y_tree_max_tokens=10000
+            a11y_tree_max_tokens=5000
     ):
         self.platform = platform
         self.model = model
@@ -565,7 +565,6 @@ class PromptAgent:
         #     f.write(json.dumps(messages, indent=4))
 
         # logger.info("PROMPT: %s", messages)
-
         try:
             response = self.call_llm({
                 "model": self.model,
@@ -719,8 +718,6 @@ class PromptAgent:
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
             temperature = payload["temperature"]
-
-            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
 
             mistral_messages = []
 
@@ -971,8 +968,6 @@ class PromptAgent:
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
             temperature = payload["temperature"]
-
-            assert self.observation_space in pure_text_settings, f"The model {self.model} can only support text-based input, please consider change based model or settings"
 
             groq_messages = []
 

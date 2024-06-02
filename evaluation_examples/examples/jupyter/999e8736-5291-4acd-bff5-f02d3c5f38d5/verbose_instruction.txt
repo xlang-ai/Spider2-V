@@ -15,11 +15,11 @@ clf.fit(X_train, y_train)
 ```python
 y_pred = clf.predict(X_test)
 ```
-5. Add the following code below the ``#TODO: Print the accuracy score of the model.`` comment.
+5. Add the following code below the ``#TODO 5`` comment.
 ```python
 print(metrics.accuracy_score(y_test, y_pred))
 ```
 6. Click the button "Run" in the menu bar on the top.
 7. In the drop-down menu, select and click "Run All Cells".
-8. Click the button "File" in the menu bar on the top.
-9. 7. In the drop-down menu, select and click "Save All".
+8. Wait until all cells completes running, then click the button "File" in the menu bar on the top.
+9. In the drop-down menu, select and click "Save All".

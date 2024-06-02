@@ -1,9 +1,9 @@
 {
-    "id": "999e8736-5291-4acd-bff5-f02d3c5f38d5",
+    "id": "30f3108a-0432-46b4-88cf-49acb42ad39b",
     "snapshot": "jupyter",
-    "instruction": "Help me build a linear SVM model and use it to classify over the famous cancer dataset. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.",
+    "instruction": "Help me find the best K value for a KNN regressor on the California Housing Dataset. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.",
     "source": [
-        "https://www.datacamp.com/tutorial/svm-classification-scikit-learn-python"
+        "https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/"
     ],
     "related_apps": [
         "chromium",
@@ -13,13 +13,13 @@
         "cli+gui",
         "traditional_data_processing"
     ],
-    "action_number": 9,
+    "action_number": 10,
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/SVM.ipynb",
-                "dest": "/home/user/Desktop/SVM.ipynb"
+                "src": "evaluation_examples/examples/jupyter/30f3108a-0432-46b4-88cf-49acb42ad39b/KNN.ipynb",
+                "dest": "/home/user/Desktop/KNN.ipynb"
             }
         },
         {
@@ -35,7 +35,7 @@
         {
             "type": "script_and_execute",
             "parameters": {
-                "src": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/init.sh",
+                "src": "evaluation_examples/examples/jupyter/30f3108a-0432-46b4-88cf-49acb42ad39b/init.sh",
                 "dest": "/home/user/init.sh"
             }
         },
@@ -45,7 +45,7 @@
                 "command": [
                     "bash",
                     "-c",
-                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/SVM.ipynb"
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/KNN.ipynb"
                 ]
             }
         }
@@ -55,13 +55,13 @@
         "func": "compare_notebook_outputs",
         "result": {
             "type": "vm_file",
-            "path": "/home/user/Desktop/SVM.ipynb",
-            "dest": "SVM.ipynb"
+            "path": "/home/user/Desktop/KNN.ipynb",
+            "dest": "KNN.ipynb"
         },
         "expected": {
             "type": "local_file",
-            "path": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/SVM_gold.ipynb",
-            "dest": "SVM_gold.ipynb"
+            "path": "evaluation_examples/examples/jupyter/30f3108a-0432-46b4-88cf-49acb42ad39b/KNN_gold.ipynb",
+            "dest": "KNN_gold.ipynb"
         }
     }
 }
