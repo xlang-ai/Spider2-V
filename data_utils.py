@@ -1,4 +1,4 @@
-import os
+import os, time
 from typing import List, Dict
 from collections import defaultdict
 import os, string, json
@@ -13,8 +13,8 @@ ALL_DOMAINS = ['excel', 'servicenow', 'jupyter', 'dbt', 'airflow', 'dagster', 'a
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "1gJNk_ndBTH4tib1gyzLUKRcmDT-z4s5o0CGR8rFsU-g"
 
-#os.environ['http_proxy'] = 'http://127.0.0.1:58591'
-#os.environ['https_proxy'] = 'http://127.0.0.1:58591'
+# os.environ['http_proxy'] = 'http://127.0.0.1:58591'
+# os.environ['https_proxy'] = 'http://127.0.0.1:58591'
 CLIENT_SECRETS = 'client_secrets.json'
 CREDENTIALS = 'credentials.json'
 
@@ -96,10 +96,15 @@ class GoogleSheetAPI:
         tools, result = self.TOOLS, {}
         if unfinished:
             assert column_char is not None, "Must specify column_char when extracting unfinished uuids"
-            column_index = string.ascii_uppercase.index(column_char.upper())
+            if len(column_char) == 1:
+                column_index = string.ascii_uppercase.index(column_char.upper())
+            else:
+                first_column_index = string.ascii_uppercase.index(column_char[0]) + 1
+                second_column_index = string.ascii_uppercase.index(column_char[1])
+                column_index = first_column_index * 26 + second_column_index
 
         for tool in tools:
-            range = f'{tool}!A1:X50' # extract each tool's data
+            range = f'{tool}!A1:AZ50' # extract each tool's data
             response = self.sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=range).execute()
             values = response.get("values", [])
             validated_uuids = []
@@ -130,11 +135,16 @@ class GoogleSheetAPI:
     def get_result_dict_from_sheet(self, column_char: str):
         print('Aggregated results from Google Sheet is:')
         column_char = column_char.upper()
-        column_index = string.ascii_uppercase.index(column_char)
+        if len(column_char) == 1:
+            column_index = string.ascii_uppercase.index(column_char)
+        else:
+            first_column_index = string.ascii_uppercase.index(column_char[0]) + 1
+            second_column_index = string.ascii_uppercase.index(column_char[1])
+            column_index = first_column_index * 26 + second_column_index
         result_dict = {}
         method = self.sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=f'dbt!{column_char}1:{column_char}1').execute().get('values', [])[0][0]
         for tool in self.TOOLS:
-            data_range = f'{tool}!A1:X50'
+            data_range = f'{tool}!A1:AZ50'
             response = self.sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=data_range).execute()
             values = response.get("values", [])
             result_dict[tool] = {'total': 0, 'unfinished': 0, 'outliers': 0, 'success': 0, "failed": 0}
@@ -179,15 +189,29 @@ class GoogleSheetAPI:
         column_char = column_char.upper()
         if column_char != "":
             if column_index >= 0:
-                assert string.ascii_uppercase[column_index] == column_char
+                if column_index >= len(string.ascii_uppercase):
+                    first_column_index = column_index // 26 - 1
+                    second_column_index = column_index % 26
+                    exp_column_char = string.ascii_uppercase[first_column_index] + string.ascii_uppercase[second_column_index]
+                else: exp_column_char = string.ascii_uppercase[column_index]
+                assert exp_column_char == column_char
             else:
-                column_index = string.ascii_uppercase.index(column_char)
+                if len(column_char) == 1:
+                    column_index = string.ascii_uppercase.index(column_char)
+                else:
+                    first_column_index = string.ascii_uppercase.index(column_char[0]) + 1
+                    second_column_index = string.ascii_uppercase.index(column_char[1])
+                    column_index = first_column_index * 26 + second_column_index
         else:
             assert column_index >= 0, "Must specify at least one of column_index or column_char"
-            column_char = string.ascii_uppercase[column_index]
+            if column_index >= len(string.ascii_uppercase):
+                first_column_index = column_index // 26 - 1
+                second_column_index = column_index % 26
+                column_char = string.ascii_uppercase[first_column_index] + string.ascii_uppercase[second_column_index]
+            else: column_char = string.ascii_uppercase[column_index]
         total = 0
         for tool in result_dict:
-            data_range = f'{tool}!A1:X50' # extract each tool's data
+            data_range = f'{tool}!A1:AZ50' # extract each tool's data
             response = self.sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=data_range).execute()
             values = response.get("values", [])
             tool_result = result_dict[tool]
@@ -211,10 +235,10 @@ class GoogleSheetAPI:
                 cur_res = row[column_index] if len(row) > column_index else "" # means no value is written yet
                 score = tool_result[eid]
                 if str(cur_res) == "1" and int(score) == 0:
-                    print(f'[WARNING]: cell for row {rid} and column {column_name} has value 1 already, but new score=0. Just skip !')
+                    print(f'[WARNING]: {tool} cell for row {rid} and column {column_name} has value 1 already, but new score=0. Just skip !')
                     continue
                 if str(cur_res) == "0" and int(score) == 1:
-                    print(f'[Attention]: cell for row {rid} and column {column_name} has value 0 already, but will be updated to score 1.0 !')
+                    print(f'[Attention]: {tool} cell for row {rid} and column {column_name} has value 0 already, but will be updated to score 1.0 !')
                 if str(cur_res) == str(int(score)): continue
                 cell_pos[eid] = (tool, rid, int(score))
             
@@ -224,6 +248,7 @@ class GoogleSheetAPI:
                 data_range = f'{tool}!{column_char}{rid+1}:{column_char}{rid+1}'
                 body = {"values": [[score]]}
                 result = self.sheet.values().update(spreadsheetId=SPREADSHEET_ID, range=data_range, valueInputOption='RAW', body=body).execute()
+                time.sleep(1)
             total += len(cell_pos)
             # print(f'In total, for tool {tool}, update {len(cell_pos)} result for method {column_name} (in column {column_char})')
         print(f'In total, update {total} result for method {column_name} (in column {column_char})')
@@ -309,13 +334,22 @@ class LocalUtilsAPI():
         return action_numbers
 
 
-    def get_result_dict_from_dir(self, experiment_name: str):
+    def get_result_dict_from_dir(self, experiment_name: str, include_uuid: bool = True):
         """ Given the result directory, return all results under this directory.
         @return:
+            if include_uuid:
             {
                 "dbt": {
                     "8aa9e870-b0c9-5417-be80-03154e83c7a3": 1.0,
                     "8ff98608-8e0e-526e-9413-d744554ba708": 0.0
+                }
+            }
+            else:
+            {
+                "dbt": {
+                    "success": 2,
+                    "failed": 50,
+                    "rate": 4
                 }
             }
         """
@@ -336,36 +370,98 @@ class LocalUtilsAPI():
                             print(f'[ERROR]: when trying to convert result into score for {example_result_file}')
                             continue
                     result_dict[tool][eid] = score
+        if not include_uuid:
+            for tool in result_dict:
+                success = sum([1 for eid in result_dict[tool] if int(result_dict[tool][eid]) == 1])
+                failed = sum([1 for eid in result_dict[tool] if int(result_dict[tool][eid]) == 0])
+                rate = success * 100.0 / (success + failed) if success + failed > 0 else 0.0
+                result_dict[tool] = {'success': success, 'failed': failed, 'rate': rate}
+            result_dict['total'] = {
+                'success': sum([result_dict[tool]['success'] for tool in result_dict]),
+                'failed': sum([result_dict[tool]['failed'] for tool in result_dict])
+            }
+            result_dict['total']['rate'] = result_dict['total']['success'] * 100.0 / (result_dict['total']['success'] + result_dict['total']['failed']) if result_dict['total']['success'] + result_dict['total']['failed'] > 0 else 0.0
         return result_dict
 
+    def compare_result_from_dir(self, *result_dict):
+        total = len(result_dict)
+        for idx, results in enumerate(result_dict):
+            s = set()
+            for tool in results:
+                for uid in results[tool]:
+                    s.add((tool, uid))
+            if idx == 0:
+                joint = s
+            else: joint = joint.intersection(s)
+        print('In total, there are', len(joint), 'joint examples')
+        for idx, results in enumerate(result_dict):
+            res = [results[tool][uid] for (tool, uid) in joint]
+            rate = sum(res) * 100.0 / len(res) if len(res) > 0 else 0.0
+            print(f'Success rate for result{idx}: {rate:.2f}')
+        return
+
+    def filter_examples(self, fp, output_file=None):
+        with open(fp, 'r') as inf:
+            data = json.load(inf)
+        count, new_data = 0, {}
+        for tool in data:
+            new_data[tool] = []
+            if tool == 'excel':
+                continue
+            for uid in data[tool]:
+                config = os.path.join('evaluation_examples', 'examples', tool, uid, f'{uid}.json')
+                config = json.load(open(config, 'r'))
+                if 'account' in config['tags']: continue
+                new_data[tool].append(uid)
+                count += 1
+        output_file = fp if output_file is None else output_file
+        with open(output_file, 'w') as of:
+            json.dump(new_data, of, indent=4, ensure_ascii=False)
+        print(f'In total, filter {count} from {sum([len(data[tool]) for tool in data])} examples and write to file {output_file}.')
+        return
 
 sheet = GoogleSheetAPI()
 data = LocalUtilsAPI()
-
 
 if __name__ == '__main__':
 
     # get annotated and validated number for each tool from google sheet
     result_dict = sheet.get_validated_number()
     print_result_dict(result_dict)
+    exit(0)
 
     # get validated uuids for each tool from google sheet and write into json file (for experiment)
-    sheet.get_validated_uuids(output_file='evaluation_examples/test_validated.json')
-    sheet.get_validated_uuids(unfinished=True, column_char='Q', output_file='evaluation_examples/test_unfinished_validated.json') # only find example uuids that have no result in column Q
+    # sheet.get_validated_uuids(output_file='evaluation_examples/test_validated.json')
+    # only extract unfinished experiment samples according experiment column XX, e.g., S or AA, if unfinished=True, must specify column_char
+    # sheet.get_validated_uuids(unfinished=True, column_char='AA', output_file='evaluation_examples/test_unfinished_validated.json')
+    # self-customized filter method
+    # data.filter_examples('evaluation_examples/test_validated.json', output_file='evaluation_examples/test_ablation.json')
+    # exit(0)
 
     # get aggregated result from local result directory, e.g., results/pyautogui_som_gpt-4o-2024-05-13
-    result_dict = data.get_result_dict_from_dir(experiment_name='pyautogui_som_gpt-4o-2024-05-13')
+    # if you want to write into googlesheet from local result dir, please set include_uuid=True !!!
+    # result_dict1 = data.get_result_dict_from_dir(experiment_name='pyautogui_som_gpt-4o-2024-05-13_rag', include_uuid=True)
+    # if you want to see aggregated results from local dir, set include_uuid=False
+    # print_result_dict(result_dict1)
+    # if you want to write into googlesheet from local result dir, please set include_uuid=True !!!
+    # result_dict2 = data.get_result_dict_from_dir(experiment_name='pyautogui_som_gpt-4-vision-preview_rag', include_uuid=True)
+    # if you want to see aggregated results from local dir, set include_uuid=False
+    # print_result_dict(result_dict2)
+    # if you want to compare results, set include_uuid=True
+    # data.compare_result_from_dir(result_dict1, result_dict2)
+    # exit(0)
 
     # write/update result from result_dict into google sheet, must specify the column name
     # if column name does not exist, it will be created
     # either `column_char` or `column_index` should be provided
     # if cell empty, write result into it; if already 1, not write 0; if already 0, update to 1
     ################### Please be careful when writing data into Google Sheet  ####################
-    # sheet.write_result_dict_into_sheet(result_dict, column_name='pyautogui-som-gpt4o', column_char='Q')
+    # sheet.write_result_dict_into_sheet(result_dict1, column_name='rag-pyautogui-som-gpt4o', column_char='AA')
     ################### Please be careful when writing data into Google Sheet  ####################
 
     # get result from google sheet, this will print aggregated results for column Q on Google sheet
-    sheet.get_result_dict_from_sheet('Q')
+    # sheet.get_result_dict_from_sheet('AA')
+    # exit(0)
 
     def check_data_tool(data: dict) -> bool:
         tool = data['snapshot']
