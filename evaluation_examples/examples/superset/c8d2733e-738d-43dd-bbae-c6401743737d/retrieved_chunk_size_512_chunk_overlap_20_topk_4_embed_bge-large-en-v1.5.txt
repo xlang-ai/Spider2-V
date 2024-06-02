@@ -1,0 +1,355 @@
+Documentation Source:
+superset.apache.org/docs/using-superset/issue-codes/index.txt
+
+Documentation Title:
+Issue Codes | Superset
+
+Documentation Content:
+Please make sure the query has a single statement and it's a SELECT statement.
+Issue 1026
+​
+Query is too complex and takes too long to run.
+The submitted query might be too complex to run under the time limit defined by your Superset administrator. Please double check your query and verify if it can be optimized. Alternatively, contact your administrator to increase the timeout period.
+Issue 1027
+​
+The database is currently running too many queries.
+The database might be under heavy load, running too many queries. Please try again later, or contact an administrator for further assistance.
+Issue 1028
+​
+One or more parameters specified in the query are malformed.
+The query contains one or more malformed template parameters. Please check your query and confirm that all template parameters are surround by double braces, for example, "{{ ds }}". Then, try running your query again.
+Issue 1029
+​
+The object does not exist in this database.
+Either the schema, column, or table do not exist in the database.
+Issue 1030
+​
+The query potentially has a syntax error.
+The query might have a syntax error. Please check and run again.
+Issue 1031
+​
+The results backend no longer has the data from the query.
+The results from the query might have been deleted from the results backend after some period. Please re-run your query.
+Issue 1032
+​
+The query associated with the results was deleted.
+The query associated with the stored results no longer exists. Please re-run your query.
+Issue 1033
+​
+The results stored in the backend were stored in a different format, and no longer can be deserialized.
+The query results were stored in a format that is no longer supported. Please re-run your query.
+Issue 1034
+​
+The database port provided is invalid.
+Please check that the provided database port is an integer between 0 and 65535 (inclusive).
+Issue 1035
+​
+Failed to start remote query on a worker.
+The query was not started by an asynchronous worker. Please reach out to your administrator for further assistance.
+Issue 1036
+​
+The database was deleted.
+The operation failed because the database referenced no longer exists. Please reach out to your administrator for further assistance.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.txt
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+Resources | Superset
+Skip to main content
+Documentation
+Getting Started
+FAQ
+Community
+Resources
+GitHub
+Slack
+Mailing List
+Stack Overflow
+Get Started
+Search
+Introduction
+Quickstart
+Installation
+Configuration
+Using Superset
+Contributing
+Contributing to Superset
+Guidelines
+Setting up a Development Environment
+Development How-tos
+Resources
+Misc.
+Security
+FAQ
+API
+Edit this page on GitHub
+Contributing
+Resources
+On this page
+Resources
+Entity-Relationship Diagram
+​
+Here is our interactive ERD:
+Apache Superset ERD
+SQL Lab
+Data Assets
+Core
+System
+Inherited from Flask App Builder (FAB)
+Alerts & Reports
+TableSchema (table_schema)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+tab_state_id: INTEGER
+database_id: INTEGER
+description: TEXT
+expanded: BOOLEAN
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+schema: VARCHAR(256)
+catalog: VARCHAR(256)
+table: VARCHAR(256)
+Query (query)
+tracking_url: TEXT
+extra_json: TEXT
+id: INTEGER
+database_id: INTEGER
+user_id: INTEGER
+sql: TEXT
+select_sql: TEXT
+executed_sql: TEXT
+limit: INTEGER
+select_as_cta: BOOLEAN
+select_as_cta_used: BOOLEAN
+progress: INTEGER
+rows: INTEGER
+error_message: TEXT
+changed_on: DATETIME
+client_id: VARCHAR(11)
+tmp_table_name: VARCHAR(256)
+tmp_schema_name: VARCHAR(256)
+status: VARCHAR(16)
+tab_name: VARCHAR(256)
+sql_editor_id: VARCHAR(256)
+schema: VARCHAR(256)
+catalog: VARCHAR(256)
+limiting_factor: VARCHAR(18)
+ctas_method: VARCHAR(16)
+results_key: VARCHAR(64)
+start_time: NUMERIC(20, 6)
+start_running_time: NUMERIC(20, 6)
+end_time: NUMERIC(20, 6)
+end_result_backend_time: NUMERIC(20, 6)
+TabState (tab_state)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+user_id: INTEGER
+active: BOOLEAN
+database_id: INTEGER
+sql: TEXT
+query_limit: INTEGER
+latest_query_id: INTEGER
+autorun:
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.txt
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+TEXT
+report_schedule_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+type: VARCHAR(50)
+ReportSchedule (report_schedule)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+description: TEXT
+context_markdown: TEXT
+active: BOOLEAN
+sql: TEXT
+chart_id: INTEGER
+dashboard_id: INTEGER
+database_id: INTEGER
+last_eval_dttm: DATETIME
+last_value: FLOAT
+last_value_row_json: TEXT
+validator_config_json: TEXT
+log_retention: INTEGER
+grace_period: INTEGER
+working_timeout: INTEGER
+force_screenshot: BOOLEAN
+custom_width: INTEGER
+custom_height: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+type: VARCHAR(50)
+name: VARCHAR(150)
+crontab: VARCHAR(1000)
+creation_method: VARCHAR(255)
+timezone: VARCHAR(100)
+report_format: VARCHAR(50)
+last_state: VARCHAR(50)
+validator_type: VARCHAR(100)
+ReportExecutionLog (report_execution_log)
+id: INTEGER
+scheduled_dttm: DATETIME
+start_dttm: DATETIME
+end_dttm: DATETIME
+value: FLOAT
+value_row_json: TEXT
+error_message: TEXT
+report_schedule_id: INTEGER
+uuid: BINARY(16)
+state: VARCHAR(50)
+Apache Superset ERD
+SQL Lab
+Data Assets
+Core
+System
+Inherited from Flask App Builder (FAB)
+Alerts & Reports
+TableSchema (table_schema)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+tab_state_id: INTEGER
+database_id: INTEGER
+description: TEXT
+expanded: BOOLEAN
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+schema: VARCHAR(256)
+catalog: VARCHAR(256)
+table: VARCHAR(256)
+Query (query)
+tracking_url: TEXT
+extra_json: TEXT
+id: INTEGER
+database_id: INTEGER
+user_id: INTEGER
+sql: TEXT
+select_sql: TEXT
+executed_sql: TEXT
+limit: INTEGER
+select_as_cta: BOOLEAN
+select_as_cta_used: BOOLEAN
+progress: INTEGER
+rows: INTEGER
+error_message: TEXT
+changed_on: DATETIME
+client_id: VARCHAR(11)
+tmp_table_name: VARCHAR(256)
+tmp_schema_name:
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.txt
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+VARCHAR(11)
+tmp_table_name: VARCHAR(256)
+tmp_schema_name: VARCHAR(256)
+status: VARCHAR(16)
+tab_name: VARCHAR(256)
+sql_editor_id: VARCHAR(256)
+schema: VARCHAR(256)
+catalog: VARCHAR(256)
+limiting_factor: VARCHAR(18)
+ctas_method: VARCHAR(16)
+results_key: VARCHAR(64)
+start_time: NUMERIC(20, 6)
+start_running_time: NUMERIC(20, 6)
+end_time: NUMERIC(20, 6)
+end_result_backend_time: NUMERIC(20, 6)
+TabState (tab_state)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+user_id: INTEGER
+active: BOOLEAN
+database_id: INTEGER
+sql: TEXT
+query_limit: INTEGER
+latest_query_id: INTEGER
+autorun: BOOLEAN
+template_params: TEXT
+hide_left_bar: BOOLEAN
+saved_query_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+label: VARCHAR(256)
+schema: VARCHAR(256)
+catalog: VARCHAR(256)
+SavedQuery (saved_query)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+user_id: INTEGER
+db_id: INTEGER
+description: TEXT
+sql: TEXT
+template_parameters: TEXT
+rows: INTEGER
+last_run: DATETIME
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+uuid: BINARY(16)
+schema: VARCHAR(128)
+catalog: VARCHAR(256)
+label: VARCHAR(256)
+RowLevelSecurityFilter (row_level_security_filters)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+description: TEXT
+clause: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+name: VARCHAR(255)
+filter_type: VARCHAR(7)
+group_key: VARCHAR(255)
+SqlaTable (tables)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+description: TEXT
+default_endpoint: TEXT
+is_featured: BOOLEAN
+filter_select_enabled: BOOLEAN
+offset: INTEGER
+cache_timeout: INTEGER
+is_managed_externally: BOOLEAN
+external_url: TEXT
+database_id: INTEGER
+fetch_values_predicate: TEXT
+sql: TEXT
+is_sqllab_view: BOOLEAN
+template_params: TEXT
+extra:
+
+
+
