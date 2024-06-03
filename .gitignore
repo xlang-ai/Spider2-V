@@ -2,6 +2,9 @@
 *.pth
 *.pt
 
+# documents
+evaluation_examples/documents/
+
 # Credential files
 #uncomment the line below after making it public
 #evaluation_examples/settings/*/*.json
@@ -187,6 +190,9 @@ test2.xlsx
 
 # VM environment
 vm_data
+.vms
 
 # Experiment result
 results
+
+.vscode

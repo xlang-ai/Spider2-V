@@ -13,8 +13,8 @@ ALL_DOMAINS = ['excel', 'servicenow', 'jupyter', 'dbt', 'airflow', 'dagster', 'a
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "1gJNk_ndBTH4tib1gyzLUKRcmDT-z4s5o0CGR8rFsU-g"
 
-# os.environ['http_proxy'] = 'http://127.0.0.1:58591'
-# os.environ['https_proxy'] = 'http://127.0.0.1:58591'
+os.environ['http_proxy'] = 'http://127.0.0.1:58591'
+os.environ['https_proxy'] = 'http://127.0.0.1:58591'
 CLIENT_SECRETS = 'client_secrets.json'
 CREDENTIALS = 'credentials.json'
 
@@ -132,8 +132,28 @@ class GoogleSheetAPI:
         return result
 
 
-    def get_result_dict_from_sheet(self, column_char: str):
-        print('Aggregated results from Google Sheet is:')
+    def get_result_dict_from_sheet(self, column_char: str, include_uuid: bool = False):
+        """
+        @return:
+            if include_uuid:
+            {
+                "dbt": {
+                    "8aa9e870-b0c9-5417-be80-03154e83c7a3": 1.0,
+                    "8ff98608-8e0e-526e-9413-d744554ba708": 0.0
+                }
+            }
+            else:
+            {
+                "dbt": {
+                    "success": 2,
+                    "failed": 50,
+                    "failed": 10,
+                    "outliers": 0,
+                    "total": 62,
+                    "rate": 4
+                }
+            }
+        """
         column_char = column_char.upper()
         if len(column_char) == 1:
             column_index = string.ascii_uppercase.index(column_char)
@@ -147,7 +167,9 @@ class GoogleSheetAPI:
             data_range = f'{tool}!A1:AZ50'
             response = self.sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=data_range).execute()
             values = response.get("values", [])
-            result_dict[tool] = {'total': 0, 'unfinished': 0, 'outliers': 0, 'success': 0, "failed": 0}
+            if include_uuid:
+                result_dict[tool] = {}
+            else: result_dict[tool] = {'total': 0, 'unfinished': 0, 'outliers': 0, 'success': 0, "failed": 0}
             for rid, row in enumerate(values):
                 if rid == 0:
                     if len(row) <= column_index:
@@ -158,28 +180,35 @@ class GoogleSheetAPI:
                     continue
                 result_dict[tool]['total'] += 1
                 if len(row) <= column_index or str(row[column_index]) == "": # result not available yet
-                    result_dict[tool]['unfinished'] += 1
+                    if not include_uuid:
+                        result_dict[tool]['unfinished'] += 1
                     continue
                 result = str(row[column_index])
                 if result not in ["0", "1"]:
                     print(f'[WARNING]: result for {tool}/{row[0]} and method {method} (column {column_char}) is {result}, neither 0 nor 1')
-                    result_dict[tool]['outliers'] += 1
+                    if not include_uuid:
+                        result_dict[tool]['outliers'] += 1
                     continue
-                if result == "1":
-                    result_dict[tool]['success'] += 1
-                else: result_dict[tool]['failed'] += 1
-            assert result_dict[tool]['success'] + result_dict[tool]['failed'] == result_dict[tool]['total'] - result_dict[tool]['outliers'] - result_dict[tool]['unfinished']
-            count = result_dict[tool]['success'] + result_dict[tool]['failed']
-            result_dict[tool]['rate'] = result_dict[tool]['success'] * 100.0 / count if count > 0 else 0.0
-            
-        total = sum([result_dict[tool]['total'] for tool in result_dict])
-        unfinished = sum([result_dict[tool]['unfinished'] for tool in result_dict])
-        outliers = sum([result_dict[tool]['outliers'] for tool in result_dict])
-        success = sum([result_dict[tool]['success'] for tool in result_dict])
-        failed = sum([result_dict[tool]['failed'] for tool in result_dict])
-        rate = success * 100.0 / (success + failed) if success + failed > 0 else 0.0
-        result_dict['total'] = {'total': total, 'unfinished': unfinished, 'outliers': outliers, 'success': success, 'failed': failed, 'rate': rate}
-        print_result_dict(result_dict)
+                if include_uuid:
+                    result_dict[tool][row[0].strip()] = int(result)
+                else:
+                    key = 'success' if result == "1" else 'failed'
+                    result_dict[tool][key] += 1
+            if not include_uuid:
+                assert result_dict[tool]['success'] + result_dict[tool]['failed'] == result_dict[tool]['total'] - result_dict[tool]['outliers'] - result_dict[tool]['unfinished']
+                count = result_dict[tool]['success'] + result_dict[tool]['failed']
+                result_dict[tool]['rate'] = result_dict[tool]['success'] * 100.0 / count if count > 0 else 0.0
+        
+        if not include_uuid:
+            total = sum([result_dict[tool]['total'] for tool in result_dict])
+            unfinished = sum([result_dict[tool]['unfinished'] for tool in result_dict])
+            outliers = sum([result_dict[tool]['outliers'] for tool in result_dict])
+            success = sum([result_dict[tool]['success'] for tool in result_dict])
+            failed = sum([result_dict[tool]['failed'] for tool in result_dict])
+            rate = success * 100.0 / (success + failed) if success + failed > 0 else 0.0
+            result_dict['total'] = {'total': total, 'unfinished': unfinished, 'outliers': outliers, 'success': success, 'failed': failed, 'rate': rate}
+            print('Results from Google Sheet column {}:'.format(column_char))
+            print_result_dict(result_dict)
         return result_dict
 
 
@@ -383,7 +412,7 @@ class LocalUtilsAPI():
             result_dict['total']['rate'] = result_dict['total']['success'] * 100.0 / (result_dict['total']['success'] + result_dict['total']['failed']) if result_dict['total']['success'] + result_dict['total']['failed'] > 0 else 0.0
         return result_dict
 
-    def compare_result_from_dir(self, *result_dict):
+    def compare_result_dict_list(self, *result_dict):
         total = len(result_dict)
         for idx, results in enumerate(result_dict):
             s = set()
@@ -393,9 +422,9 @@ class LocalUtilsAPI():
             if idx == 0:
                 joint = s
             else: joint = joint.intersection(s)
-        print('In total, there are', len(joint), 'joint examples')
+        print('In total, there are', len(joint), 'joint examples in these', total, 'result dicts.')
         for idx, results in enumerate(result_dict):
-            res = [results[tool][uid] for (tool, uid) in joint]
+            res = [int(results[tool][uid]) for (tool, uid) in joint]
             rate = sum(res) * 100.0 / len(res) if len(res) > 0 else 0.0
             print(f'Success rate for result{idx}: {rate:.2f}')
         return
@@ -448,7 +477,7 @@ if __name__ == '__main__':
     # if you want to see aggregated results from local dir, set include_uuid=False
     # print_result_dict(result_dict2)
     # if you want to compare results, set include_uuid=True
-    # data.compare_result_from_dir(result_dict1, result_dict2)
+    # data.compare_result_dict_list(result_dict1, result_dict2)
     # exit(0)
 
     # write/update result from result_dict into google sheet, must specify the column name

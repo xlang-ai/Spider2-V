@@ -65,7 +65,9 @@ class LlamaIndexRetrieval:
         storage_name = f'storage_chunk_size_{args.chunk_size}_chunk_overlap_{args.chunk_overlap}_' \
                        f'embed_{Path(args.embed_model_name_or_path).name}'
         try:
-            storage_context = StorageContext.from_defaults(persist_dir=f'{doc_directory}/{storage_name}')
+            print('Start to load context ...')
+            storage_context = StorageContext.from_defaults(persist_dir=os.path.join(doc_directory, storage_name))
+            print('Storage context loaded!')
         except FileNotFoundError:
             storage_context = StorageContext.from_defaults(
                 docstore=SimpleDocumentStore(),
@@ -76,12 +78,13 @@ class LlamaIndexRetrieval:
         # Load vector index
         indices_dict = dict.fromkeys(APPS_TO_WEBSITES.keys())
 
-        with open(f'{doc_directory}/webpage_title.json', 'r') as f:
+        with open(os.path.join(doc_directory, 'webpage_title.json'), 'r') as f:
             webpage_titles = json.load(f)
 
         for app, website in APPS_TO_WEBSITES.items():
             try:
                 indices_dict[app] = load_index_from_storage(storage_context, index_id=app)
+                print(f'Indice dict for {app} loaded!')
             except ValueError:
                 print(f'build index of app-{app} from scratch...')
                 node_parser = SentenceSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap,
@@ -100,7 +103,7 @@ class LlamaIndexRetrieval:
                 index = VectorStoreIndex(nodes, storage_context=storage_context, show_progress=True)
                 index.set_index_id(app)
                 indices_dict[app] = index
-                index.storage_context.persist(persist_dir=f'{doc_directory}/{storage_name}')
+                index.storage_context.persist(persist_dir=os.path.join(doc_directory, storage_name))
 
         self.indices_dict = indices_dict
         self.chunk_size = chunk_size
@@ -143,7 +146,7 @@ def parse_args():
     parser.add_argument('--chunk_size', type=int, default=512)
     parser.add_argument('--chunk_overlap', type=int, default=20)
     parser.add_argument('--topk', type=int, default=4)
-    parser.add_argument('--embed_model_name_or_path', type=str, default="openai")
+    parser.add_argument('--embed_model_name_or_path', type=str, default="evaluation_examples/documents/bge-large-en-v1.5")
     args = parser.parse_args()
     return args
 
@@ -168,7 +171,8 @@ if __name__ == '__main__':
         with open(example_path, 'r') as f:
             query_data = json.load(f)
         retrieved_data = retrieval.retrieve_docs_by_instruction_data(query_data, args.topk)
+        suffix = args.doc_directory.rstrip(os.sep).split('_')[-1]
         retrieved_filename = f'retrieved_chunk_size_{args.chunk_size}_chunk_overlap_{args.chunk_overlap}_' \
-                             f'topk_{args.topk}_embed_{Path(args.embed_model_name_or_path).name}.txt'
+                             f'topk_{args.topk}_embed_{Path(args.embed_model_name_or_path).name}.{suffix}'
         with open(example_path.parent / (retrieved_filename), 'w') as f:
             f.write(retrieved_data)
