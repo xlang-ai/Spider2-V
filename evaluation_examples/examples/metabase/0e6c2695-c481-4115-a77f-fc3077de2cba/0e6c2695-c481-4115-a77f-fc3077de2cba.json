@@ -14,7 +14,7 @@
         "cli",
         "data_analysis_and_visualization"
     ],
-    "action_number": 19,
+    "action_number": 18,
     "config": [
         {
             "type": "script_and_execute",
