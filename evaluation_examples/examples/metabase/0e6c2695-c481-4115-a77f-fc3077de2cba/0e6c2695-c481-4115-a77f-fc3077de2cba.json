@@ -10,9 +10,8 @@
         "metabase"
     ],
     "tags": [
-        "gui",
-        "cli",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "cli+gui"
     ],
     "action_number": 19,
     "config": [
