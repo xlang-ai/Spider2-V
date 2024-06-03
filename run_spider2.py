@@ -125,6 +125,7 @@ def get_retrieved_context(config_path: str, topk: int = 4, file_name: str = "ret
     if os.path.exists(context_path):
         with open(context_path, "r", encoding="utf-8") as f:
             context = f.read().strip()
+        if context.strip() == "": return None
         splits = context.split("Documentation Source:")
         if len(splits) > topk + 1: # the first is ""
             return "Documentation Source:".join(splits[:topk + 1])
