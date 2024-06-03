@@ -75,7 +75,7 @@ def config() -> argparse.Namespace:
         help="Observation space to use for the environment",
     )
     parser.add_argument("--sleep_after_execution", type=float, default=0.5)
-    parser.add_argument("--max_steps", type=int, default=20, help="Maximum number of steps for each example, this can be altered dynamically according to field `action_number` in the example config")
+    parser.add_argument("--max_steps", type=int, default=15, help="Maximum number of steps for each example, this can be altered dynamically according to field `action_number` in the example config")
 
     # agent config
     parser.add_argument("--max_trajectory_length", type=int, default=5, help='maximum length of interaction history to provide to the agent')
@@ -88,6 +88,7 @@ def config() -> argparse.Namespace:
     parser.add_argument("--stop_token", type=str, default=None)
 
     # example config
+    parser.add_argument("--exclude_account", action='store_true', help="Whether to use RAG for the agent")
     parser.add_argument("--rag", action='store_true', help="Whether to use RAG for the agent")
     parser.add_argument("--rag_topk", type=int, default=4, help="Top k to use for RAG")
     parser.add_argument("--rag_filename", type=str, default="retrieved_chunk_size_512_chunk_overlap_20_topk_4_embed_bge-large-en-v1.5.txt", help="RAG retrieved context file name")
@@ -220,12 +221,14 @@ def get_result_dir(args):
     result_dir = f"{args.action_space}_{args.observation_space}_{args.model}"
     if args.verbose_instruction:
         result_dir = "verbose_" + result_dir
+    if args.rag:
+        result_dir += '_rag'
     # result_dir += '_actioninfo'
     # result_dir += f"_temp{args.temperature}_traj{args.max_trajectory_length}"
     return os.path.join(args.result_dir, result_dir)
 
 
-def get_examples(args, result_dir, easy_first: bool = True, exclude_account: bool = True) -> List[Dict[str, str]]:
+def get_examples(args, result_dir, easy_first: bool = True, exclude_account: bool = False) -> List[Dict[str, str]]:
     """ Get [Filter] the list of example dict for the current experiment.
     # Filter method:
     - args.from_scratch (bool): if True, ignore existing results under the result directory, otherwise,
@@ -245,7 +248,7 @@ def get_examples(args, result_dir, easy_first: bool = True, exclude_account: boo
         with open(fp, 'r') as f:
             content = f.read().strip()
             return len(content) > 0
-
+    exclude_account = args.exclude_account
     examples_to_run, excel_examples_to_run = [], []
     data_dir = os.path.join(args.test_config_base_dir, "examples")
     filtered_domain = ALL_DOMAINS if 'all' in args.domains else args.domains
