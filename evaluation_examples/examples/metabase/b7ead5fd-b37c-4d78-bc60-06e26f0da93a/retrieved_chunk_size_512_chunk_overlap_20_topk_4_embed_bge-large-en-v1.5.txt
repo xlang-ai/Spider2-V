@@ -1,0 +1,394 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.txt
+
+Documentation Title:
+People can't log in to Metabase
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Troubleshooting Guide
+People can’t log in to Metabase
+No access to Metabase login page
+If you’re not a Metabase admin, you’ll have to tag them for help here.
+Check that you have the correct
+site URL
+from
+Settings
+>
+Admin settings
+>
+General
+.
+Check if the
+account is deactivated
+.
+No access to Metabase Cloud account
+The admin password for
+store.metabase.com
+(where you can find payment and subscription info) is not necessarily the same as the password for your Metabase instance (where you log in to look at data).
+If you’ve forgotten your Metabase Cloud admin password, you can
+contact support
+to reset the password.
+Related topics
+Troubleshooting SAML
+.
+Troubleshooting LDAP
+.
+Resetting someone’s password
+.
+Resetting the admin password
+.
+Deleting an account that’s set up incorrectly
+.
+Are you still stuck?
+If you can’t solve your problem using the troubleshooting guides:
+Search or ask the
+Metabase community
+.
+Search for
+known bugs or limitations
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/api/user.txt
+
+Documentation Title:
+User
+
+Documentation Content:
+PARAMS:
+id
+value must be an integer greater than zero.
+modal
+PUT /api/user/:id/password
+Update a user’s password.
+PARAMS:
+id
+value must be an integer greater than zero.
+password
+password is too common.
+old_password
+request
+PUT /api/user/:id/reactivate
+Reactivate user at
+:id
+.
+You must be a superuser to do this.
+PARAMS:
+id
+value must be an integer greater than zero.
+« Back to API index
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/changing-password-complexity.txt
+
+Documentation Title:
+Password complexity
+
+Documentation Content:
+Password complexity
+Upcoming
+Metabase for advanced users
+Register Now
+×
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Self-service BI in 5 minutes
+Pro
+Advanced tools and controls
+Enterprise
+White-glove treatment
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Watch a 5-minute demo
+to see how to set up and publish a dashboard
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+New
+Metabase 49:
+New tools for dashboard creators, data sharers, and more
+Documentation
+Resources
+Learn
+Guides on working with data
+Blog
+News, updates, and ideas
+Events
+Join a live event or watch on demand
+Customers
+Real companies, real data, real stories
+Discussion
+Share and connect with other users
+Metabase Experts
+Find an expert partner
+Community Stories
+Practical advice from our community
+Startup Guide to Financial Modeling
+New
+Modeling financial data with Metabase
+Community Data Stack Report
+New
+See how others work with data
+Recent Blog Posts
+Set up a basic pipeline for log analysis
+Embed a Metabase dashboard in Zendesk
+Keeping tabs on embedded analytics
+Pricing
+Log in
+Get started
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Collections and verified items
+Keep things organized
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone,
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/releases.txt
+
+Documentation Title:
+Metabase versions
+
+Documentation Content:
+47.2
+v1.47.1
+v1.47.0
+v1.46.8
+v1.46.7
+v1.46.6.4
+v1.46.6.3
+v1.46.6.2
+v1.46.6.1
+v1.46.6
+v1.46.5
+v1.46.4
+v1.46.3
+v1.46.2
+v1.46.1
+v1.46.0
+v1.45.4.3
+v1.45.4.2
+v1.45.4.1
+v1.45.4
+v1.45.3.1
+v1.45.3
+v1.45.2.1
+v1.45.2
+v1.45.1
+v1.45.0
+v1.44.7.3
+v1.44.7.2
+v1.44.7.1
+v1.44.7
+v1.44.6.1
+v1.44.6
+v1.44.5
+v1.44.4
+v1.44.3
+v1.44.2
+v1.44.1
+v1.44.0
+v1.43.7.3
+v1.43.7.2
+v1.43.7.1
+v1.43.7
+v1.43.5
+v1.43.4.2
+v1.43.4.1
+v1.43.4
+v1.43.3
+v1.43.2
+v1.43.1
+v1.43.0
+v1.42.6
+v1.42.4
+v1.42.3
+v1.42.2
+v1.42.1
+v1.42.0
+v1.41.9
+v1.41.7
+v1.41.6
+v1.41.5
+v1.41.4
+v1.41.3.1
+v1.41.3
+v1.41.2
+v1.41.
+
+
+

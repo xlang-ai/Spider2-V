@@ -1,0 +1,53 @@
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/settingregistry.ISettingRegistry.IProperty.md
+
+Documentation Title:
+IProperty | @jupyterlab
+
+Documentation Content:
+ptionsTogglableHiddenFileBrowserModelIOptionsUploaderIOptionsBreadCrumbsDirListingFileBrowserFileBrowserModelFileUploadStatusFilterFileBrowserModelTogglableHiddenFileBrowserModelUploaderIFileBrowserFactoryIUploadModelIDefaultFileBrowserCHUNK\_SIZEIDefaultFileBrowserIFileBrowserCommandsIFileBrowserFactoryLARGE\_FILE\_SIZEfileeditorEditorSyntaxStatusModelIOptionsFileEditorIOptionsdefaultEditorConfigFileEditorFactoryIOptionsTabSpaceStatusModelIOptionsEditorSyntaxStatusEdit
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/settingregistry.ISettingRegistry.IProperty.md
+
+Documentation Title:
+IProperty | @jupyterlab
+
+Documentation Content:
+witchTabBarSvgTabPanelSvgToolbarWindowedLayoutWindowedListWindowedListModelIButtonPropsIDisposableMenuItemIElementRefPropsIFilterBoxPropsIFormComponentPropsIFormRendererIFormRendererRegistryIHTMLSelectPropsIInputGroupPropsILabCustomizerOptionsILabIconManagerIOptionPropsIRankedMenuIScoreDEFAULT\_STYLE\_CLASSDEFAULT\_UI\_OPTIONSHTML\_SELECT\_CLASSIFormRendererRegistryILabIconManagerTABLE\_CLASSaddAboveIconaddBelowIconaddIconbadIconbellIconblankIconbugDotIconbugIconbuildIc
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/settingregistry.ISettingRegistry.IProperty.md
+
+Documentation Title:
+IProperty | @jupyterlab
+
+Documentation Content:
+CellMetadataIBaseOutputICodeCellICodeCellJupyterMetadataICodeCellMetadataIDisplayDataIDisplayUpdateIErrorIExecuteResultIKernelspecMetadataILanguageInfoMetadataIMarkdownCellIMimeBundleINotebookContentINotebookMetadataIRawCellIRawCellMetadataIStreamIUnrecognizedCellIUnrecognizedOutputCellTypeExecutionCountICellICellMetadataIOutputMultilineStringOutputMetadataOutputTypeStreamTypeMAJOR\_VERSIONMINOR\_VERSIONisCodeisDisplayDataisDisplayUpdateisErrorisExecuteResultisMarkdowni
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookAdapter.md
+
+Documentation Title:
+NotebookAdapter | @jupyterlab
+
+Documentation Content:
+Parameters
+
+
+	+ ##### cells: CellList
+	
+	Observable list of changed cells
+	+ ##### change: IObservableList.IChangedArgs
+	
+	Changed data#### Returns Promise
+* Defined in packages/notebook/lib/notebooklspadapter.d.ts:89
+
+
+
