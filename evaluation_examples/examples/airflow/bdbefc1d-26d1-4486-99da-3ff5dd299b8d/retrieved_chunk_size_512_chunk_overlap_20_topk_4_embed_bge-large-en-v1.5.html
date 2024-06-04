@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.html
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
+</span></span><span><span>)</span><span>:</span></span><span><span>PythonOperator</span><span>(</span></span><span><span>task_id</span><span>=</span><span>"read_about_cocktail"</span><span>,</span></span><span><span>python_callable</span><span>=</span><span>read_about_cocktail_func</span><span>,</span></span><span>)</span></code></div></div><p>Any number of datasets can be provided to the <code>schedule</code>parameter as a list or as an expression using <a>conditional logic</a>. If the Datasets are provided in a list, the DAG is triggered after all of the datasets have received at least one update due to a producing task completing successfully.</p><p>When you work with datasets, keep the following considerations in mind:</p><ul><li>Datasets can only be used by DAGs in the same Airflow environment.</li><li>Airflow monitors datasets only within the context of DAGs and tasks. It does not monitor updates to datasets that occur outside of Airflow.</li><li>Consumer DAGs that are scheduled on a dataset are triggered every time a task that updates that dataset completes successfully. For example, if <code>task1</code>and <code>task2</code>both produce <code>dataset_a</code>, a consumer DAG of <code>dataset_a</code>runs twice - first when <code>task1</code>completes, and again when <code>task2</code>completes.</li><li>Consumer DAGs scheduled on a dataset are triggered as soon as the first task with that dataset as an outlet finishes, even if there are downstream producer tasks that also operate on the dataset.</li></ul><p>Airflow 2.9 added several new features to datasets:</p><ul><a>Conditional Dataset Scheduling</a><a>Combined Dataset and Time-based Scheduling</a><li><p>Datasets are now shown in the <strong>Graph</strong>view of a DAG in the Airflow UI.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.html
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
+The <code>upstream1</code>DAG in the screenshot below is a consumer of the <code>dataset0</code>dataset, and has one task <code>update_dataset_1</code>that updates the <code>dataset1</code>dataset.</p><img/></li></ul><p>For more information about datasets, see <a>Data-aware scheduling</a>.</p><p>The <strong>Datasets</strong>tab, and the <strong>DAG Dependencies</strong>view in the Airflow UI give you observability for datasets and data dependencies in the DAG's schedule.</p><p>On the <strong>DAGs</strong>view, you can see that your <code>dataset_downstream_1_2</code>DAG is scheduled on two producer datasets (one in <code>dataset_upstream1</code>and <code>dataset_upstream2</code>). When Datasets are provided as a list, the DAG is scheduled to run after all Datasets in the list have received at least one update. In the following screenshot, the <code>dataset_downstream_1_2</code>DAG's next run is pending one dataset update. At this point the <code>dataset_upstream</code>DAG has run and updated its dataset, but the <code>dataset_upstream2</code>DAG has not.</p><img/><p>The <strong>Datasets</strong>tab shows a list of all datasets in your Airflow environment and a graph showing how your DAGs and datasets are connected. You can filter the lists of Datasets by recent updates.</p><img/><p>Click one of the datasets to display a list of task instances that updated the dataset and a highlighted view of that dataset and its connections on the graph.</p><img/><p>The <strong>DAG Dependencies</strong>view (found under the <strong>Browse</strong>tab) shows a graph of all dependencies between DAGs (in green) and datasets (in orange) in your Airflow environment.</p><img/><div><div>note</div><p>DAGs that are triggered by datasets do not have the concept of a data interval.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/scheduling-in-airflow.html
+
+Documentation Title:
+Schedule DAGs in Airflow | Astronomer Documentation
+
+Documentation Content:
+the DAG now has a schedule of <strong>Dataset</strong>. The <strong>Next Run</strong>column shows the datasets the DAG depends on and how many of them have been updated.</p><img/><p>To learn more about datasets and data driven scheduling, see <a>Datasets and Data-Aware Scheduling in Airflow</a>guide.</p><h2>Timetables<a>​</a></h2><p><a>Timetables</a>, introduced in Airflow 2.2, address the limitations of cron expressions and timedelta objects by allowing users to define their own schedules in Python code. All DAG schedules are ultimately determined by their internal timetable and if a cron expression or timedelta object is not suitable, you can define your own.</p><p>Custom timetables can be registered as part of an Airflow plugin. They must be a subclass of <code>Timetable</code>, and they should contain the following methods, both of which return a <code>DataInterval</code>with a start and an end:</p><ul><li><code>next_dagrun_info</code>: Returns the data interval for the DAG's regular schedule</li><li><code>infer_manual_data_interval</code>: Returns the data interval when the DAG is manually triggered</li></ul><h3>Continuous timetable<a>​</a></h3><p>You can run a DAG continuously with a pre-defined timetable.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/scheduling-in-airflow.html
+
+Documentation Title:
+Schedule DAGs in Airflow | Astronomer Documentation
+
+Documentation Content:
+</span></span><span><span>start_date</span><span>=</span><span>datetime</span><span>(</span><span>2024</span><span>,</span><span>4</span><span>,</span><span>1</span><span>)</span><span>,</span></span><span><span>schedule</span><span>=</span><span>DatasetOrTimeSchedule</span><span>(</span></span><span><span>timetable</span><span>=</span><span>CronTriggerTimetable</span><span>(</span><span>"0 0 * * *"</span><span>,</span><span>timezone</span><span>=</span><span>"UTC"</span><span>)</span><span>,</span></span><span><span>datasets</span><span>=</span><span>(</span><span>dataset1 </span><span>|</span><span>dataset2</span><span>)</span><span>,</span></span><span><span>)</span><span>,</span></span><span># Use () instead of [] to be able to use conditional dataset scheduling!</span><span># This scheduling option is available in Airflow 2.9+</span><span>)</span></code><p>This DAG runs every day at midnight UTC and, additionally, whenever either <code>dataset1</code>or <code>dataset2</code>is updated.</p></div></div></div><p>Datasets can be updated by any tasks in any DAG of the same Airflow environment, by calls to the <a>dataset endpoint of the Airflow REST API</a>, or manually in the Airflow UI.</p><p>In the Airflow UI, the DAG now has a schedule of <strong>Dataset</strong>.
+
+
+

@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/astro/view-logs.html
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+This often includes deprecation notices marked as <code>DeprecationWarning</code>. For example, Airflow might recommend that you upgrade your Deployment if there was a change to the Airflow database or task execution logic.</li><li><strong>Info</strong>: Emitted frequently by Airflow to show that a standard scheduler process, such as DAG parsing, has started. These logs are frequent and can contain useful information. If you run dynamically generated DAGs, for example, these logs will show how many DAGs were created per DAG file and how long it took the scheduler to parse each of them.</li></ul><h3>View Airflow component logs in the Astro UI<a>​</a></h3><p>You can access scheduler, triggerer, and task logs in the Astro UI to find the past 24 hours of logs for any Deployment on its <strong>Logs</strong>page.</p><ol><p>In the Astro UI, select a Workspace and then a Deployment.</p><p>Click the <strong>Logs</strong>tab.</p></ol><p>The maximum number of lines returned is 10,000, with 50 results displayed per page. If there are no logs available for a given Deployment, the following message appears:</p><span>No matching events have been recorded in the past 24 hours.</span><p>Typically, this indicates that the Deployment you selected does not currently have any DAGs running.</p><h4>Filter options<a>​</a></h4><p>You can use the following options to specify the types of logs or messages that you want to view.</p><ul><p><strong>String search</strong>: Enter a string, keyword, or phrase to find in your logs. You can also search with suffix wildcards by adding a <code>*</code>to your search query. For example, <code>acti*</code>returns results that include <code>action</code>and <code>acting</code>.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.html
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+See <a>Troubleshooting connections</a>.</li><li>Is the issue with all DAGs, or is it isolated to one DAG?</li><li>Can you collect the relevant logs? For more information on log location and configuration, see the <a>Airflow logging</a>guide.</li><li>Which versions of Airflow and Airflow providers are you using? Make sure that you're using the correct version of the <a>Airflow documentation</a>.</li><li>Can you reproduce the problem in a new local Airflow instance using the <a>Astro CLI</a>?</li></ul><p>Answering these questions will help you narrow down what kind of issue you're dealing with and inform your next steps.</p><div><div>info</div><p>You can debug your DAG code with IDE debugging tools using the <code>dag.test()</code>method. See <a>Debug interactively with dag.test()</a>.</p></div><h2>Airflow is not starting on the Astro CLI<a>​</a></h2><p>The 3 most common ways to run Airflow locally are using the <a>Astro CLI</a>, running a <a>standalone instance</a>, or running <a>Airflow in Docker</a>. This guide focuses on troubleshooting the Astro CLI, which is an open source tool for quickly running Airflow on a local machine.</p><p>The most common issues related to the Astro CLI are:</p><ul><li>The Astro CLI was not correctly installed. Run <code>astro version</code>to confirm that you can successfully run Astro CLI commands. If a newer version is available, consider upgrading.</li><li>The Docker Daemon is not running. Make sure to start Docker Desktop before starting the Astro CLI.</li><li>There are errors caused by custom commands in the Dockerfile, or dependency conflicts with the packages in <code>packages.txt</code>and <code>requirements.txt</code>.</li><li>Airflow components are in a crash-loop because of errors in custom plugins or XCom backends.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.html
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>DAG writing best practices</div></a><a><div>Next</div><div>Dynamic tasks</div></a></nav></div><ul><a>Assumed knowledge</a><a>General Airflow debugging approach</a><a>Airflow is not starting on the Astro CLI</a><li><a>Common DAG issues</a><ul><a>DAGs don't appear in the Airflow UI</a><a>Import errors due to dependency conflicts</a><a>DAGs are not running correctly</a></ul></li><li><a>Common task issues</a><ul><a>Tasks are not running correctly</a><a>Tasks are failing</a><a>Issues with dynamically mapped tasks</a></ul></li><a>Missing Logs</a><a>Troubleshooting connections</a><a>I need more help</a></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/view-logs.html
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+task logs might also be associated with one of the following log levels, that you can search or filter with:</p><ul><strong>Error</strong><strong>Warn</strong><strong>Info</strong><strong>Debug</strong><strong>Critical</strong></ul><h3>View task logs on the Astro UI<a>​</a></h3><p>To access task logs from the Astro UI:</p><ol><li>In the Astro UI, select a Workspace.</li><li>Click <strong>DAGs</strong>.</li><li>Click the DAG you want to view task logs for.</li><li>Click a task run in the DAG run grid.</li><li>Click the <strong>Logs</strong>tab to switch from <strong>Graph</strong>view.</li></ol><h3>View task logs in the Airflow UI<a>​</a></h3><li>Access the Airflow UI.</li><ul><li>To access the Airflow UI for a Deployment, open the Deployment in the Astro UI and click <strong>Open Airflow</strong>.</li><li>To access the Airflow UI in a local environment, open a browser and go to <code>http://localhost:8080</code>.</li></ul><ol><li>Click a DAG.</li><li>Click <strong>Graph</strong>.</li><li>Click a task run.</li><li>Click <strong>Instance Details</strong>.</li><li>Click <strong>Log</strong>.</li></ol><h2>See also<a>​</a></h2><ul><a>Export task logs and metrics to Datadog</a><a>Export task logs to AWS Cloudwatch</a></ul></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time.
+
+
+

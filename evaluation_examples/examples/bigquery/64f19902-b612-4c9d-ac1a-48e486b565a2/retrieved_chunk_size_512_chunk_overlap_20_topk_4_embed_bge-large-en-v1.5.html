@@ -1,0 +1,179 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/analyze-data-tableau.html
+
+Documentation Title:
+Quickstart: Analyze BigQuery data with BI Engine and Tableau  |  BigQuery: Cloud Data Warehouse  |  Google Cloud
+
+Documentation Content:
+</p><p>In the <strong>Confirm and submit</strong>section, review the agreement.</p><p>If you accept the terms of agreement, click <strong>Create</strong>.</p></ol><p>After you confirm your reservation, the details are displayed on the
+<strong>Reservations</strong>page.</p><img/><h2>Connect to a dataset from Tableau</h2><p>To connect to a dataset from Tableau, you need to take some steps in Tableau
+and then some steps in BI Engine.</p><h3>Steps to take in Tableau</h3><ol><li>Start
+<a>Tableau Desktop</a>.</li><li>Under <strong>Connect</strong>, select <strong>Google BigQuery</strong>.</li><li>In the tab that opens, select the account that has the
+BigQuery data that you want to access.</li><li>If you're not already signed in, enter your email or phone, select
+<strong>Next</strong>, and enter your password.</li><li>Select <strong>Accept</strong>.</li></ol><p>Tableau can now access your BigQuery data.</p><p>In the <a>Tableau Desktop</a>, on the <strong>Data Source</strong>page:</p><ol><li>From the <strong>Billing Project</strong>drop-down, select the billing project
+where you created the reservation.</li><li>From the <strong>Project</strong>drop-down, select your project.</li><li>From the <strong>Dataset</strong>drop-down, select the dataset <code>biengine_tutorial</code>.</li><li>Under <strong>Table</strong>, select the table <code>311_service_requests_copy</code>.</li></ol><h2>Creating a chart</h2><p>Once you have added the data source to the report, the next step is to create a
+visualization.</p><p>Create a chart that displays the top complaints by neighborhood:</p><ol><li>In the Google Cloud console, click on <strong>New worksheet</strong>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-query-external-sheets-perm.html
+
+Documentation Title:
+Query Sheets with a permanent table  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+# dataset_id = "your-project.your_dataset"
+
+# Configure the external data source.
+dataset = client.get_dataset(dataset_id)
+table_id = "us_states"
+schema = [
+    bigquery.SchemaField("name", "STRING"),
+    bigquery.SchemaField("post_abbr", "STRING"),
+]
+table = bigquery.Table(dataset.table(table_id), schema=schema)
+external_config = bigquery.ExternalConfig("GOOGLE_SHEETS")
+# Use a shareable link or grant viewing access to the email address you
+# used to authenticate with BigQuery (this example Sheet is public).
+sheet_url = (
+    "https://docs.google.com/spreadsheets"
+    "/d/1i_QCL-7HcSyUZmIbP9E6lO_T5u3HnpLe7dnpHaijg_E/edit?usp=sharing"
+)
+external_config.source_uris = [sheet_url]
+options = external_config.google_sheets_options
+assert options is not None
+options.skip_leading_rows = 1  # Optionally skip header row.
+options.range = (
+    "us-states!A20:B49"  # Optionally set range of the sheet to query from.
+)
+table.external_data_configuration = external_config
+
+# Create a permanent table linked to the Sheets file.
+table = client.create_table(table)  # Make an API request.
+
+# Example query to find states starting with "W".
+sql = 'SELECT * FROM `{}.{}` WHERE name LIKE "W%"'.format(dataset_id, table_id)
+
+results = client.query_and_wait(sql)  # Make an API request.
+
+# Wait for the query to complete.
+w_states = list(results)
+print(
+    "There are {} states with names starting with W in the selected range.".format(
+        len(w_states)
+    )
+)</code></section></div></section><section><h2>What's next</h2><p>To search and filter code samples for other Google Cloud products, see the
+        <a>Google Cloud sample browser</a>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connected-sheets.html
+
+Documentation Title:
+Using Connected Sheets  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+To activate BigQuery in a preexisting project, go to
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+      <p>Enable the BigQuery API.
+            
+          
+        
+      </p><a>Enable the API</a></li></ol><p>When you finish this topic, you can avoid continued billing by deleting the
+resources you created. See <a>Cleaning up</a>for more detail.</p><h2>Open BigQuery datasets from Connected Sheets</h2><p>The following example uses a public dataset to show you how to connect to
+BigQuery from Google Sheets.</p><ol><p>Create or open a Google Sheets spreadsheet.</p><li><p>Click <strong>Data</strong>, click <strong>Data connectors</strong>, and then click <strong>Connect to
+BigQuery</strong>.</p><aside><strong>Note:</strong><span>If you do not see the <strong>Data connectors</strong>option, see
+<a>Before you begin</a>.</span></aside></li><p>Click <strong>Get connected</strong>.</p><p>Select a Google Cloud project that has billing enabled.</p><p>Click <strong>Public datasets</strong>.</p><p>In the search box, type <strong>chicago</strong>and then select the
+<strong>chicago_taxi_trips</strong>dataset.</p><li><p>Select the <strong>taxi_trips</strong>table and then click <strong>Connect</strong>.</p><img/><p>Your spreadsheet should look similar to the following:</p><img/></li></ol><p>Start using the spreadsheet. You can create pivot tables, formulas, and charts
+using familiar Google Sheets techniques.</p><p>Although the spreadsheet shows a preview of only 500 rows, any pivot tables,
+formulas, and charts use the entire set of data. The maximum number of rows for
+results returned for pivot tables is 50,000. You can also extract the data to a
+sheet. The maximum number of rows for results returned for data extracts is
+50,000.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/managing-table-data.html
+
+Documentation Title:
+Managing table data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><code>import com.google.cloud.bigquery.BigQuery;
+import com.google.cloud.bigquery.BigQuery.TableDataListOption;
+import com.google.cloud.bigquery.BigQueryException;
+import com.google.cloud.bigquery.BigQueryOptions;
+import com.google.cloud.bigquery.TableId;
+import com.google.cloud.bigquery.TableResult;
+
+// Sample to directly browse a table with optional paging
+public class BrowseTable {
+
+  public static void runBrowseTable() {
+    // TODO(developer): Replace these variables before running the sample.
+    String table = "MY_TABLE_NAME";
+    String dataset = "MY_DATASET_NAME";
+    browseTable(dataset, table);
+  }
+
+  public static void browseTable(String dataset, String table) {
+    try {
+      // Initialize client that will be used to send requests. This client only needs to be created
+      // once, and can be reused for multiple requests.
+      BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
+
+      // Identify the table itself
+      TableId tableId = TableId.of(dataset, table);
+
+      // Page over 100 records. If you don't need pagination, remove the pageSize parameter.
+      TableResult result = bigquery.listTableData(tableId, TableDataListOption.pageSize(100));
+
+      // Print the records
+      result
+          .iterateAll()
+          .forEach(
+              row -&gt; {
+                row.forEach(fieldValue -&gt; System.out.print(fieldValue.toString() + ", "));
+                System.out.println();
+              });
+
+      System.out.println("Query ran successfully");
+    } catch (BigQueryException e) {
+      System.out.println("Query failed to run \n" + e.toString());
+    }
+  }
+}</code></section><section><span>Node.js</span><p>Before trying this sample, follow the <span>Node.js</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Node.js</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+
+
+

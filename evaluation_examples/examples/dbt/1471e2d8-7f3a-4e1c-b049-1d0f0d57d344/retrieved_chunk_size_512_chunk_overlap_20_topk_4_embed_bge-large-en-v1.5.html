@@ -1,0 +1,44 @@
+Documentation Source:
+docs.getdbt.com/docs/build/unit-tests.html
+
+Documentation Title:
+Unit tests | dbt Developer Hub
+
+Documentation Content:
+</p><h2>Unit testing a model<a>​</a></h2><p>This example creates a new <code>dim_customers</code>model with a field <code>is_valid_email_address</code>that calculates whether or not the customer’s email is valid: </p><code><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span><span>select</span><span>*</span><span>from</span><span>{{ ref</span><span>(</span><span>'stg_customers'</span><span>)</span><span>}}</span></span><span><span>)</span><span>,</span></span><span><span>accepted_email_domains </span><span>as</span><span>(</span></span><span><span>select</span><span>*</span><span>from</span><span>{{ ref</span><span>(</span><span>'top_level_email_domains'</span><span>)</span><span>}}</span></span><span><span>)</span><span>,</span></span><span><span>check_valid_emails </span><span>as</span><span>(</span></span><span>select</span><span><span>customers</span><span>.</span><span>customer_id</span><span>,</span></span><span><span>customers</span><span>.</span><span>first_name</span><span>,</span></span><span><span>customers</span><span>.</span><span>last_name</span><span>,</span></span><span><span>customers</span><span>.</span><span>email</span><span>,</span></span><span><span>coalesce</span><span>(</span><span>regexp_like</span><span>(</span></span><span><span>customers</span><span>.</span><span>email</span><span>,</span><span>'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/unit-tests.html
+
+Documentation Title:
+Unit tests | dbt Developer Hub
+
+Documentation Content:
+[A-Za-z]{2,}$'</span></span><span>)</span><span><span>=</span><span>true</span></span><span><span>and</span><span>accepted_email_domains</span><span>.</span><span>tld </span><span>is</span><span>not</span><span>null</span><span>,</span></span><span><span>false</span><span>)</span><span>as</span><span>is_valid_email_address</span></span><span><span>from</span><span>customers</span></span><span><span>left</span><span>join</span><span>accepted_email_domains</span></span><span><span>on</span><span>customers</span><span>.</span><span>email_top_level_domain </span><span>=</span><span>lower</span><span>(</span><span>accepted_email_domains</span><span>.</span><span>tld</span><span>)</span></span><span>)</span><span><span>select</span><span>*</span><span>from</span><span>check_valid_emails</span></span></code><p>The logic posed in this example can be challenging to validate. You can add a unit test to this model to ensure the <code>is_valid_email_address</code>logic captures all known edge cases: emails without <code>.</code>, emails without <code>@</code>, and emails from invalid domains.</p><code><span><span>unit_tests</span><span>:</span></span><span><span>-</span><span>name</span><span>:</span><span>test_is_valid_email_address</span></span><span><span>description</span><span>:</span><span>"Check my is_valid_email_address logic captures all known edge cases - emails without ., emails without @, and emails from invalid domains.
+
+
+
+Documentation Source:
+docs.getdbt.com/reference/resource-properties/unit-testing-versions.html
+
+Documentation Title:
+Unit testing versioned SQL models | dbt Developer Hub
+
+Documentation Content:
+</span><span># my test_is_valid_email_address unit test will run on ONLY version 2 of my_model</span><span><span>unit_tests</span><span>:</span></span><span><span>-</span><span>name</span><span>:</span><span>test_is_valid_email_address </span></span><span><span>model</span><span>:</span><span>my_model </span></span><span><span>versions</span><span>:</span></span><span><span>include</span><span>:</span></span><span><span>-</span><span>2</span></span><span>.</span><span># my test_is_valid_email_address unit test will run on all versions EXCEPT 1 of my_model</span><span><span>unit_tests</span><span>:</span></span><span><span>-</span><span>name</span><span>:</span><span>test_is_valid_email_address</span></span><span><span>model</span><span>:</span><span>my_model </span></span><span><span>versions</span><span>:</span></span><span><span>exclude</span><span>:</span></span><span><span>-</span><span>1</span></span><span>.</span></code></div><div>0</div><div><a>Edit this page</a><span>Last updatedon <time>May 16, 2024</time></span></div></article><nav><a><div>Previous</div><div>Input</div></a><a><div>Next</div><div>Overrides</div></a></nav></div></div><div><div><a>Terms of Service</a><a>Privacy Policy</a><a>Security</a><button>Cookie Settings</button></div><div>© 2024 dbt Labs, Inc. All Rights Reserved.</div></div></div>
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/unit-tests.html
+
+Documentation Title:
+Unit tests | dbt Developer Hub
+
+Documentation Content:
+</p><span><span>dbt run </span><span>--select</span><span>"stg_customers top_level_email_domains"</span><span>--empty</span></span><p>Alternatively, use <code>dbt build</code>to, in lineage order:</p><ul><li>Run the unit tests on your model.</li><li>Materialize your model in the warehouse.</li><li>Run the data tests on your model.</li></ul></div></div><p>Now you’re ready to run this unit test. You have a couple of options for commands depending on how specific you want to be: </p><ul><li><code>dbt test --select dim_customers</code>runs <em>all</em>of the tests on <code>dim_customers</code>.</li><li><code>dbt test --select "dim_customers,test_type:unit"</code>runs all of the <em>unit</em>tests on <code>dim_customers</code>.</li><li><code>dbt test --select test_is_valid_email_address</code>runs the test named <code>test_is_valid_email_address</code>.</li></ul><code><span><span>dbt </span><span>test</span><span>--select</span><span>test_is_valid_email_address</span></span><span><span>16</span><span>:03:49  Running with </span><span>dbt</span><span>=</span><span>1.8</span><span>.0-a1</span></span><span><span>16</span><span>:03:49  Registered adapter: </span><span>postgres</span><span>=</span><span>1.8</span><span>.0-a1</span></span><span><span>16</span><span>:03:50  Found </span><span>6</span><span>models, </span><span>5</span><span>seeds, </span><span>4</span><span>data tests, </span><span>0</span><span>sources, </span><span>0</span><span>exposures,
+
+
+

@@ -1,0 +1,99 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+
+Documentation Title:
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><code>import bigframes.pandas as bpd
+
+df = bpd.read_gbq(
+    "bigquery-public-data.ml_datasets.census_adult_income",
+    columns=(
+        "age",
+        "workclass",
+        "marital_status",
+        "education_num",
+        "occupation",
+        "hours_per_week",
+        "income_bracket",
+        "functional_weight",
+    ),
+    max_results=100,
+)
+df.peek()
+# Output:
+# age      workclass       marital_status  education_num          occupation  hours_per_week income_bracket  functional_weight
+#  47      Local-gov   Married-civ-spouse             13      Prof-specialty              40           &gt;50K             198660
+#  56        Private        Never-married              9        Adm-clerical              40          &lt;=50K              85018
+#  40        Private   Married-civ-spouse             12        Tech-support              40           &gt;50K             285787
+#  34   Self-emp-inc   Married-civ-spouse              9        Craft-repair              54           &gt;50K             207668
+#  23        Private   Married-civ-spouse             10   Handlers-cleaners              40          &lt;=50K              40060</code></section></div><p>The query results show that the <code>income_bracket</code>column in the
+<code>census_adult_income</code>table has only one of two values: <code>&lt;=50K</code>or <code>&gt;50K</code>. The
+<code>functional_weight</code>column is the number of individuals that the census
+organization believes a particular row represents.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.html
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Column <code>b</code>has the default value <code>'hello'</code>.</p><pre>CREATE TABLE mydataset.simple_table (
+  a STRING,
+  b STRING DEFAULT 'hello');
+</pre><p>When you insert data into <code>simple_table</code>that omits column <code>b</code>, the default
+value <code>'hello'</code>is used instead—for example:</p><pre>INSERT mydataset.simple_table (a) VALUES ('val1'), ('val2');
+</pre><p>The table <code>simple_table</code>contains the following values:</p><pre>+------+-------+
+| a    | b     |
++------+-------+
+| val1 | hello |
+| val2 | hello |
++------+-------+
+</pre><p>If a column has type <code>STRUCT</code>, then you must set the default value for the
+entire <code>STRUCT</code>field. You cannot set the default value for a subset of the
+fields. The
+default value for an array cannot be <code>NULL</code>or contain any <code>NULL</code>elements.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.html
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+The following example creates a table called <code>complex_table</code>and sets a
+default value for the column <code>struct_col</code>, which contains nested fields,
+including an <code>ARRAY</code>type:</p><pre>CREATE TABLE mydataset.complex_table (
+  struct_col STRUCT&lt;x STRUCT&lt;x1 TIMESTAMP, x2 NUMERIC&gt;, y ARRAY&lt;DATE&gt;&gt;
+    DEFAULT ((CURRENT_TIMESTAMP(), NULL),
+             [DATE '2022-01-01', CURRENT_DATE()])
+);
+</pre><p>You can't set default values that violate a constraint on the column, such as
+a default value that doesn't conform to a
+<a>parameterized type</a>or a <code>NULL</code>default value when the column's <a>mode</a>is <code>REQUIRED</code>.</p><h2>Change default values</h2><p>To change the default value for a column, select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>panel, expand your project and dataset, then select
+the table.</p><p>In the details panel, click the <strong>Schema</strong>tab.</p><p>Click <strong>Edit schema</strong>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.html
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+You might need to scroll to see this button.</p><p>In the <strong>Current schema</strong>page, locate the top-level field that you want
+to change.</p><p>Enter the default value for that field.</p><p>Click <strong>Save</strong>.</p></ol></section><section><h3>SQL </h3><p>Use the
+<a><code>ALTER COLUMN SET DEFAULT</code>DDL statement</a>.</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, enter the following statement:</p><pre>ALTER TABLE mydataset.mytable
+ALTER COLUMN column_name SET DEFAULT default_expression;
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p></ol><p>For more information about how to run queries, see <a>Run an interactive query</a>.</p></section></div><p>Setting the default value for a column only affects future inserts to the table.
+It does not change any existing table data.
+
+
+

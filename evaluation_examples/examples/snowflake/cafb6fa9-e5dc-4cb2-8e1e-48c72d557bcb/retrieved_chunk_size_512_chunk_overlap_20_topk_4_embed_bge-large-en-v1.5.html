@@ -1,0 +1,47 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data-using.html
+
+Documentation Title:
+Using the Sample Database | Snowflake Documentation
+
+Documentation Content:
+</span><span>+</span><span>-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+</span><span>| created_on                    | name                  | is_default | is_current | origin                  | owner        | comment | options | retention_time |</span><span>|-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------|</span><span>| 2016-07-14 14:30:21.711 -0700 | SNOWFLAKE_SAMPLE_DATA | N          | N          | SFC_SAMPLES.SAMPLE_DATA | ACCOUNTADMIN |         |         | 1              |</span><span>+</span><span>-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+</span></pre><span>Copy</span></div><p>Note that this example illustrates the sample database, SNOWFLAKE_SAMPLE_DATA, has been <span>shared with your account</span>by Snowflake.</p><p>The <span>origin</span>column in the SHOW DATABASES output (or the <span>Origin</span>column in the <span>Databases</span><img/>page in the interface) displays the fully-qualified name of the shared
+database, SFC_SAMPLES.SAMPLE_DATA, indicating it originated from the SFC_SAMPLES account (used by Snowflake to share the sample data).</p></section><section><h2>Querying Tables and Views in the Sample Database<a>¶</a></h2><p>To use a table or view in the sample database, you can either:</p><ul><li><p>Reference the fully-qualified name of the table in your query (in the form of <code><span>snowflake_sample_data.</span><span>schema_name</span><span>.</span><span>object_name</span></code>).</p><p>OR</p></li><p>Specify the sample database (and schema) for your session using the <span>USE DATABASE</span>and/or <span>USE SCHEMA</span>commands.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data-using.html
+
+Documentation Title:
+Using the Sample Database | Snowflake Documentation
+
+Documentation Content:
+In the dialog, select a tutorial and click on the <span>Open</span>button:</p><img/></li><li><p>A new worksheet is created containing the contents of the tutorial:</p><img/></li></ol><p>You can then execute the queries in the tutorial as you would in any worksheet. You can also alter the tutorial in the worksheet and save it as a custom worksheet.</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Viewing the Sample Database</a><a>Querying Tables and Views in the Sample Database</a><a>Using the Tutorial SQL Scripts</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/functions-window-using.html
+
+Documentation Title:
+Using Window Functions | Snowflake Documentation
+
+Documentation Content:
+The rows are put in descending order (highest profit first), so the most profitable store has rank 1:</p><div><pre><span>SELECT</span><span>city</span><span>,</span><span>branch_ID</span><span>,</span><span>net_profit</span><span>,</span><span>RANK</span><span>()</span><span>OVER</span><span>(</span><span>PARTITION</span><span>BY</span><span>city</span><span>ORDER</span><span>BY</span><span>net_profit</span><span>DESC</span><span>)</span><span>AS</span><span>rank</span><span>FROM</span><span>store_sales</span><span>ORDER</span><span>BY</span><span>city</span><span>,</span><span>rank</span><span>;</span><span>+</span><span>-----------+-----------+------------+------+</span><span>| CITY      | BRANCH_ID | NET_PROFIT | RANK |</span><span>|-----------+-----------+------------+------|</span><span>| Montreal  |         3 |   10000.00 |    1 |</span><span>| Montreal  |         4 |    9000.00 |    2 |</span><span>| Vancouver |         2 |   15000.00 |    1 |</span><span>| Vancouver |         1 |   10000.00 |    2 |</span><span>+</span><span>-----------+-----------+------------+------+</span></pre><span>Copy</span></div><div><p>Note</p><p>The <span>net_profit</span>column is <span>not</span>passed to the <span>RANK</span>function. In
+this query, the rows are sorted in order by <span>net_profit</span>by using the <code><span>ORDER</span><span>BY</span></code>sub-clause of the <span>OVER</span>clause.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data-tpch.html
+
+Documentation Title:
+Sample Data: TPC-H | Snowflake Documentation
+
+Documentation Content:
+These aggregates are grouped by
+RETURNFLAG and LINESTATUS, and listed in ascending order of RETURNFLAG and LINESTATUS. A count of the number of line items in each group is included:</p><div><pre><span>use</span><span>schema</span><span>snowflake_sample_data</span><span>.</span><span>tpch_sf1</span><span>;</span><span>-- or snowflake_sample_data.{tpch_sf10 | tpch_sf100 | tpch_sf1000}</span><span>select</span><span>l_returnflag</span><span>,</span><span>l_linestatus</span><span>,</span><span>sum</span><span>(</span><span>l_quantity</span><span>)</span><span>as</span><span>sum_qty</span><span>,</span><span>sum</span><span>(</span><span>l_extendedprice</span><span>)</span><span>as</span><span>sum_base_price</span><span>,</span><span>sum</span><span>(</span><span>l_extendedprice</span><span>*</span><span>(</span><span>1</span><span>-</span><span>l_discount</span><span>))</span><span>as</span><span>sum_disc_price</span><span>,</span><span>sum</span><span>(</span><span>l_extendedprice</span><span>*</span><span>(</span><span>1</span><span>-</span><span>l_discount</span><span>)</span><span>*</span><span>(</span><span>1</span><span>+</span><span>l_tax</span><span>))</span><span>as</span><span>sum_charge</span><span>,</span><span>avg</span><span>(</span><span>l_quantity</span><span>)</span><span>as</span><span>avg_qty</span><span>,</span><span>avg</span><span>(</span><span>l_extendedprice</span><span>)</span><span>as</span><span>avg_price</span><span>,
+
+
+

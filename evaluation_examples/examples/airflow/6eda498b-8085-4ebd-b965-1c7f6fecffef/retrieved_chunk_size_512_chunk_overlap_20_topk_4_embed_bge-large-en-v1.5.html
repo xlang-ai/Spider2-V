@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.html
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+This data was originally published by Lindenmayer et al. (1995) in the Australian Journal of Zoology and is commonly used to teach linear regression.</p><h3>Project overview<a>​</a></h3><p>This project consists of three DAGs which have dependency relationships through <a>Airflow datasets</a>.</p><img/><p>The <code>feature_eng</code>DAG prepares the MLflow experiment and builds prediction features from the possum data.</p><img/><p>The <code>train</code>DAG trains a RidgeCV model on the engineered features from <code>feature_eng</code>and then registers the model with MLflow using operators from the <a>MLflow Airflow provider</a>.</p><img/><p>The <code>predict</code>DAG uses the trained model from <code>train</code>to create predictions and plot them against the target values.</p><img/><p>Note that the model is trained on the whole dataset and predictions are made on the same data. In a real world scenario you'd want to split the data into a training, validation, and test set.</p><h3>Project code<a>​</a></h3><p>This use case shows many Airflow features and ways to interact with MLflow. The following sections will highlight a couple of relevant code snippets in each DAG and explain them in more detail.</p><h4>Feature engineering DAG<a>​</a></h4><p>The feature engineering DAG starts with a task that creates the necessary object storage buckets in the resource provided as <code>AWS_CONN_ID</code>using the <a>S3CreateBucketOperator</a>. By default, the project uses a local MinIO instance, which is created when starting the Astro project. If you want to use remote object storage, you can change the <code>AWS_CONN_ID</code>in the <code>.env</code>file and provide your AWS credentials credentials.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.html
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+When combined, Airflow and MLflow make a powerful platform for ML orchestration (MLOx).</p><p>This use case shows how to use MLflow with Airflow to engineer machine learning features, train a <a>scikit-learn Ridge linear regression model</a>, and create predictions based on the trained model.</p><div><div>info</div><p>For more detailed instructions on using MLflow with Airflow, see the <a>MLflow tutorial</a>.</p></div><img/><h2>Before you start<a>​</a></h2><p>Before trying this example, make sure you have:</p><ul><li>The <a>Astro CLI</a>.</li><li><a>Docker Desktop</a>.</li></ul><h2>Clone the project<a>​</a></h2><p>Clone the example project from the <a>Astronomer GitHub</a>. To keep your credentials secure when you deploy this project to your own git repository, make sure to create a file called <code>.env</code>with the contents of the <code>.env_example</code>file in the project root directory.</p><p>The repository is configured to spin up and use local MLflow and MinIO instances without you needing to define connections or access external tools.</p><h2>Run the project<a>​</a></h2><p>To run the example project, first make sure Docker Desktop is running.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.html
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+In this example, the model training DAG is scheduled to run as soon as the last task in the feature engineering DAG completes.</p><code><span><span>@dag</span><span>(</span></span><span><span>schedule</span><span>=</span><span>[</span><span>Dataset</span><span>(</span><span>"s3://"</span><span>+</span><span>DATA_BUCKET_NAME </span><span>+</span><span>"_"</span><span>+</span><span>FILE_PATH</span><span>)</span><span>]</span><span>,</span></span><span><span>start_date</span><span>=</span><span>datetime</span><span>(</span><span>2023</span><span>,</span><span>1</span><span>,</span><span>1</span><span>)</span><span>,</span></span><span><span>catchup</span><span>=</span><span>False</span><span>,</span></span><span>)</span></code><p>The <code>fetch_feature_df</code>task pulls the feature dataframe that was pushed to <a>XCom</a>in the previous DAG.</p><code><span>@task</span><span><span>def</span><span>fetch_feature_df</span><span>(</span><span>**</span><span>context</span><span>)</span><span>:</span></span><span>"Fetch the feature dataframe from the feature engineering DAG.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/use-case-airflow-mlflow.html
+
+Documentation Title:
+Predict possum tail length using MLflow, Airflow, and linear regression | Astronomer Documentation
+
+Documentation Content:
+</span><span>1</span><span>,</span><span>num</span><span>=</span><span>30</span><span>)</span><span>}</span><span>,</span></span><span><span>run_name</span><span>=</span><span>"RidgeCV"</span><span>,</span></span><span>)</span></code><p>You can view the run of the RidgeCV model in the MLflow UI at <code>localhost:5000</code>.</p><img/><p>Lastly, the model training DAG registers the model and its version with MLflow using three operators from the MLflow Airflow provider. Note how information like the <code>run_id</code>or <code>version</code>of the model is pulled from XCom using <a>Jinja templates</a>.</p><code><span><span>create_registered_model </span><span>=</span><span>CreateRegisteredModelOperator</span><span>(</span></span><span><span>task_id</span><span>=</span><span>"create_registered_model"</span><span>,</span></span><span><span>name</span><span>=</span><span>REGISTERED_MODEL_NAME</span><span>,</span></span><span><span>tags</span><span>=</span><span>[</span></span><span><span>{</span><span>"key"</span><span>:</span><span>"model_type"</span><span>,</span><span>"value"</span><span>:</span><span>"regression"</span><span>}</span><span>,</span></span><span><span>{</span><span>"key"</span><span>:</span><span>"data"</span><span>,</span><span>"value"</span><span>:</span><span>"possum"</span><span>}</span><span>,</span></span><span><span>]</span><span>,
+
+
+

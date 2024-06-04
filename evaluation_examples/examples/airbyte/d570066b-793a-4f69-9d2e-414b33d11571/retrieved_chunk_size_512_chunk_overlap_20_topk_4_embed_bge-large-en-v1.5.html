@@ -1,0 +1,46 @@
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.html
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Here, you should see your source and destination connectors, as well as the connection between them, set up and ready to go 🎉.</p><p>‍</p><figure><img/><figcaption>Airbyte connections</figcaption></figure><h3>Setting Up Airbyte Connectors Using the UI</h3><p>Start by launching the Airbyte UI by going to <a>http://localhost:8000/</a>in your browser. Then:</p><h4>1. Create a source:</h4><ul><li>Go to the Sources tab and click on "+ New source".</li><li>Search for “faker” using the search bar and select "Sample Data (Faker)".</li><li>Adjust the Count and optional fields as needed for your use case. You can also leave as is.</li><li>Click on "Set up source".</li></ul><figure><img/><figcaption>Look fo Faker source connector</figcaption></figure><figure><img/><figcaption>Create a Faker source</figcaption></figure><h4>2. Create a destination:</h4><ul><li>Go to the Destinations tab and click on "+ New destination".</li><li>Search for “bigquery” using the search bar and select "BigQuery".</li><li>Enter the connection details as needed.</li><li>For simplicity, you can use "Standard Inserts" as the loading method.</li><li>In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.</li><li>Click on "Set up destination".</li></ul><figure><img/><figcaption>Look for BigQuery destination connector</figcaption></figure><figure><img/><figcaption>Create a BigQuery destination</figcaption></figure><h4>3.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password
+</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figure><img/><figcaption>Airbyte OSS login prompt</figcaption></figure><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figure><img/><figcaption>Create your first connection prompt</figcaption></figure><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figure><img/><figcaption>Select Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figure><img/><figcaption>Configure Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figure><img/><figcaption>Select Local JSON as a destination</figcaption></figure><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/add-a-source.html
+
+Documentation Title:
+Add a Source | Airbyte Documentation
+
+Documentation Content:
+When viewing the Airbyte UI, you'll see the main navigation bar on the left side of your screen. Click the <strong>Sources</strong>tab to bring up a list of all available sources.</p><p>You can use the provided search bar, or simply scroll down the list to find the source you want to replicate data from. Let's use a demo source, Faker, as an example. Clicking on the <strong>Sample Data (Faker)</strong>card will bring us to its setup page.</p><img/><p>The left half of the page contains a set of fields that you will have to fill out. In the <strong>Source name</strong>field, you can enter a name of your choosing to help you identify this instance of the connector. By default, this will be set to the name of the source (ie, <code>Sample Data (Faker)</code>).</p><p>Each connector in Airbyte will have its own set of authentication methods and configurable parameters. In the case of Sample Data (Faker), you can adjust the number of records you want returned in your <code>Users</code>data, and optionally adjust additional configuration settings. You can always refer to your source's provided setup guide for specific instructions on filling out each field.</p><div><div>info</div><p>Some sources will have an <strong>Optional Fields</strong>tab. You can open this tab to view and configure any additional optional parameters that exist for the souce, but you do not have to do so to successfully set up the connector.</p></div><p>Once you've filled out all the required fields, click on the <strong>Set up source</strong>button and Airbyte will run a check to verify the connection. Happy replicating!</p><p>Can't find the connectors that you want? Try your hand at easily building one yourself using our <a>Connector Builder</a>!</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Core Concepts</div></a><a><div>Next</div><div>Add a Destination</div></a></nav></div></div></div>
+
+
+
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.html
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Create a connection:</h4><ul><li>Go to the Connections tab and click on "+ New connection".</li><li>Select the source and destination you just created.</li><li>Enter the connection details as needed.</li><li>For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.</li><li>Click on "Set up connection".</li></ul><p>That’s it! Your connection is set up and ready to go! 🎉</p><p>‍</p><figure><img/><figcaption>Establish a connector between Faker and BigQuery</figcaption></figure><h2>4. Setting Up the dbt Project</h2><p><a>dbt (data build tool)</a>allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.</p><h3>1. Navigate to the dbt Project Directory:</h3><p>Move to the dbt project directory in your project's file structure.</p><code>cd ../../dbt_project</code><p>This directory contains all the dbt-related configurations and SQL models.</p><h3>2. Update Connection Details:</h3><p>Within this directory, you'll find a &lt;span class="text-style-code"&gt;profiles.yml file&lt;/span&gt;.
+
+
+

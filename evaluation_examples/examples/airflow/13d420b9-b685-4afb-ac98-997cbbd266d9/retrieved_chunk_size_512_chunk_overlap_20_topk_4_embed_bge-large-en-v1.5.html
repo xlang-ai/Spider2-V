@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/learn/cross-dag-dependencies.html
+
+Documentation Title:
+Cross-DAG dependencies | Astronomer Documentation
+
+Documentation Content:
+The Airflow API is ideal for this use case. In this section, you'll learn how to implement this method on Astro, but the general concepts are also applicable to your Airflow environments.</p><h3>Cross-deployment dependencies on Astro<a>​</a></h3><p>To implement cross-DAG dependencies on two different Airflow environments on Astro, follow the guidance in <a>Cross-deployment dependencies</a>.</p></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Context</div></a><a><div>Next</div><div>Custom hooks and operators</div></a></nav></div><ul><a>Assumed knowledge</a><li><a>Implement cross-DAG dependencies</a><ul><a>Dataset dependencies</a><a>TriggerDagRunOperator</a><a>ExternalTaskSensor</a><a>Airflow API</a></ul></li><a>DAG dependencies view</a><li><a>Cross-deployment dependencies</a><a>Cross-deployment dependencies on Astro</a></li></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/category/dags.html
+
+Documentation Title:
+DAGs | Astronomer Documentation
+
+Documentation Content:
+</p></header><section><a><h2><img/>Astro Python SDK for ETL</h2><p>Use the Astro Python SDK to implement ELT use cases in Airflow.</p></a><a><h2><img/>Branches</h2><p>Learn about Airflow’s multiple options for building conditional logic and branching within DAGs, including the BranchPythonOperator and ShortCircuitOperator.</p></a><a><h2><img/>Context</h2><p>Access the Airflow context in your tasks.</p></a><a><h2><img/>Cross-DAG dependencies</h2><p>How to implement dependencies between your Airflow DAGs.</p></a><a><h2><img/>Custom hooks and operators</h2><p>How to correctly import custom hooks and operators.</p></a><a><h2><img/>DAG notifications</h2><p>Master the basics of Apache Airflow notifications. Learn how to set up automatic email and Slack notifications to be alerted of events in your DAGs.</p></a><a><h2><img/>DAG parameters</h2><p>Learn about all important DAG-level parameters in Airflow.</p></a><a><h2><img/>DAG writing best practices</h2><p>Keep up to date with the best practices for developing efficient, secure, and scalable DAGs using Airflow.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-architecture.html
+
+Documentation Title:
+About Astro | Astronomer Documentation
+
+Documentation Content:
+Astronomer recommends that you create a dedicated Git repository for each Astro project. To run a DAG, you add the DAG to your Astro project and deploy your Astro project to Astro.</p><p>See <a>Run your first DAG with the Astro CLI</a>to create your first Astro project.</p><h3>Astro UI<a>​</a></h3><p>The Astro UI, hosted at <code>https://cloud.astronomer.io</code>, is the primary interface for accessing and managing Astro from your web browser. You can use the Astro UI to:</p><ul><li>Manage users, teams, and permissions.</li><li>Create and configure Deployments, including infrastructure resources and compute.</li><li>View all of your organization's Deployments, DAGs, and tasks in a single place.</li><li>Monitor the health of your Airflow environments with a variety of alerts, logs, and analytics interfaces.</li><li>Stay up to date with the latest Astro features.</li><li>Create and edit DAGs in the Astro Cloud IDE.</li></ul><h3>Deployment<a>​</a></h3><p>An Astro <em>Deployment</em>is an Airflow environment hosted on Astro. It encompasses all core Airflow components, including the Airflow webserver, scheduler, and workers, along with additional tools for reliability and observability. It runs in an isolated Kubernetes namespace in an <a>Astro cluster</a>and has a set of attached resources to run your Airflow tasks.</p><p>Compared to an open source Airflow environment, an Astro Deployment is easy to create, delete, and modify through either the Astro UI or with the Astro CLI. You can <a>fine-tune resources and settings</a>directly from the Astro UI, see metrics and analytics for your DAGs, review your deploy history, and more. The infrastructure required to run a Deployment is managed by Astronomer.</p><p>To run DAGs in a Deployment, you must either deploy an Astro project manually from your local machine or configure an automated deploy process using a third-party CI/CD tool with the Astro CLI. Then, you can open the Airflow UI from the Astro UI and view your DAGs.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.html
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>DAG writing best practices</div></a><a><div>Next</div><div>Dynamic tasks</div></a></nav></div><ul><a>Assumed knowledge</a><a>General Airflow debugging approach</a><a>Airflow is not starting on the Astro CLI</a><li><a>Common DAG issues</a><ul><a>DAGs don't appear in the Airflow UI</a><a>Import errors due to dependency conflicts</a><a>DAGs are not running correctly</a></ul></li><li><a>Common task issues</a><ul><a>Tasks are not running correctly</a><a>Tasks are failing</a><a>Issues with dynamically mapped tasks</a></ul></li><a>Missing Logs</a><a>Troubleshooting connections</a><a>I need more help</a></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+
+
+

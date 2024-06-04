@@ -1,0 +1,45 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.html
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+If your dbt project contains dbt tests, they will be run directly after a model has completed. Note that it is a best practice to set <code>retries</code>to at least 2 for all tasks that run dbt models.</p></li></ol><div><div>tip</div><p>In some cases, especially in larger dbt projects, you might run into a <code>DagBag import timeout</code>error.
+This error can be resolved by increasing the value of the Airflow configuration <a>core.dagbag_import_timeout</a>.</p></div><ol><li><p>Run the DAG manually by clicking the play button and view the DAG in the graph view. Double click the task groups in order to expand them and see all tasks.</p><img/></li><p>Check the <a>XCom</a>returned by the <code>query_table</code>task to see your name in the <code>model2</code>table.</p></ol><div><div>info</div><p>The DbtTaskGroup class populates an Airflow task group with Airflow tasks created from dbt models inside of a normal DAG. To directly define a full DAG containing only dbt models use the <code>DbtDag</code>class, as shown in the <a>Cosmos documentation</a>.</p></div><p>Congratulations! You've run a DAG using Cosmos to automatically create tasks from dbt models. You can learn more about how to configure Cosmos in the <a>Cosmos documentation</a>.</p><h2>Alternative ways to run dbt Core with Airflow<a>​</a></h2><p>While using Cosmos is recommended, there are several other ways to run dbt Core with Airflow.</p><h3>Using the BashOperator<a>​</a></h3><p>You can use the <a>BashOperator</a>to execute specific dbt commands. It's recommended to run <code>dbt-core</code>and the dbt adapter for your database in a virtual environment because there often are dependency conflicts between dbt and other packages.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.html
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+With <a>Cosmos</a>you can integrate dbt jobs into your Airflow orchestration environment as a standalone DAG or as a task group within a DAG.</p><p>The benefits of using Airflow with dbt Core include:</p><ul><li>Use Airflow's <a>data-aware scheduling</a>and <a>Airflow sensors</a>to run models depending on other events in your data ecosystem.</li><li>Turn each dbt model into a task, complete with Airflow features like <a>retries</a>and <a>error notifications</a>, as well as full observability into past runs directly in the Airflow UI.</li><li>Run <code>dbt test</code>on tables created by individual models immediately after a model has completed. Catch issues before moving downstream and integrate additional <a>data quality checks</a>with your preferred tool to run alongside dbt tests.</li><li>Run dbt projects using <a>Airflow connections</a>instead of dbt profiles. You can store all your connections in one place, directly within Airflow or by using a <a>secrets backend</a>.</li><li>Leverage native support for installing and running dbt in a virtual environment to avoid dependency conflicts with Airflow.</li></ul><h2>Time to complete<a>​</a></h2><p>This tutorial takes approximately 30 minutes to complete.</p><h2>Assumed knowledge<a>​</a></h2><p>To get the most out of this tutorial, make sure you have an understanding of:</p><ul><li>The basics of dbt Core. See <a>What is dbt?</a>.</li><li>Airflow fundamentals, such as writing DAGs and defining tasks. See <a>Get started with Apache Airflow</a>.</li><li>How Airflow and dbt concepts relate to each other. See <a>Similar dbt &amp; Airflow concepts</a>.</li><li>Airflow operators. See <a>Operators 101</a>.</li><li>Airflow task groups.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.html
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+<code>model2.sql</code>depends on <code>model1.sql</code>and selects everything from the upstream model.</p></li></ol><p>You should now have the following structure within your Astro project:</p><code><span>.</span><span>└── dags</span><span>└── dbt</span><span>└── my_simple_dbt_project</span><span>├── dbt_project.yml</span><span>└── models</span><span>├── model1.sql</span><span>└── model2.sql</span></code><h2>Step 3: Create an Airflow connection to your data warehouse<a>​</a></h2><p>Cosmos allows you to apply Airflow connections to your dbt project.</p><ol><p>Start Airflow by running <code>astro dev start</code>.</p><p>In the Airflow UI, go to <strong>Admin</strong>-&gt; <strong>Connections</strong>and click <strong>+</strong>.</p><li><p>Create a new connection named <code>db_conn</code>. Select the connection type and supplied parameters based on the data warehouse you are using.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.html
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+If you are using a different data warehouse, replace <code>dbt-postgres</code>with the adapter package for your data warehouse.</p></li><li><p>Add <a>Cosmos</a>and the <a>Postgres provider</a>to your Astro project <code>requirements.txt</code>file. If you are using a different data warehouse, replace <code>apache-airflow-providers-postgres</code>with the provider package for your data warehouse. You can find information on all provider packages on the <a>Astronomer registry</a>.</p><code><span>astronomer-cosmos==1.0.4</span><span>apache-airflow-providers-postgres==5.6.0</span></code></li></ol><h2>Step 2: Prepare your dbt project<a>​</a></h2><p>To integrate your dbt project with Airflow, you need to add the project folder to your Airflow environment. For this step you can either add your own project in a new <code>dbt</code>folder in your <code>dags</code>directory, or follow the steps below to create a simple project using two models.</p><ol><p>Create a folder called <code>dbt</code>in your <code>dags</code>folder.</p><p>In the <code>dbt</code>folder, create a folder called <code>my_simple_dbt_project</code>.</p><li><p>In the <code>my_simple_dbt_project</code>folder add your <code>dbt_project.yml</code>. This configuration file needs to contain at least the name of the project.
+
+
+

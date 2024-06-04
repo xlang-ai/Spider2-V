@@ -1,0 +1,61 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+"</span><span>)</span><span>return</span>SkipReason<span>(</span><span>"Nothing to do"</span><span>)</span></code><p>These logs can be viewed when inspecting a tick in the tick history view on the corresponding sensor page.</p><h2>Testing sensors<span>#</span></h2><div><div><button>Via the Dagster UI</button><button>Via the CLI</button><button>Via Python</button></div><div><h3>Via the Dagster UI<span>#</span></h3><span><strong>Before you test</strong>: Test evaluations of sensors run the sensor's underlying Python function, meaning that any side effects contained within that sensor's function may be executed.</span><p>In the UI, you can manually trigger a test evaluation of a sensor and view the results.</p><ol><p>Click <strong>Overview &gt; Sensors</strong>.</p><p>Click the sensor you want to test.</p><li><p>Click the <strong>Test Sensor</strong>button, located near the top right corner of the page.</p><img/></li><li><p>You'll be prompted to provide a cursor value. You can use the existing cursor for the sensor (which will be prepopulated) or enter a different value. If you're not using cursors, leave this field blank.</p><img/></li><li><p>Click <strong>Evaluate</strong>to fire the sensor. A window containing the result of the evaluation will display, whether it's run requests, a skip reason, or a Python error:</p><img/><p>If the run was successful, then for each produced run request, you can open the launchpad pre-scaffolded with the config produced by that run request. You'll also see a new computed cursor value from the evaluation, with the option to persist the value.</p></li></ol></div></div><h2>Monitoring sensors in the Dagster UI<span>#</span></h2><p>Using the UI, you can monitor and operate sensors.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/asset-sensors.html
+
+Documentation Title:
+Asset Sensors | Dagster Docs
+
+Documentation Content:
+</span>asset_event<span>:</span>EventLogEntry<span>)</span><span>:</span><span>assert</span>asset_event<span>.</span>dagster_event <span>and</span>asset_event<span>.</span>dagster_event<span>.</span>asset_key
+    <span>yield</span>RunRequest<span>(</span>run_key<span>=</span>context<span>.</span>cursor<span>,</span>run_config<span>=</span>RunConfig<span>(</span>ops<span>=</span><span>{</span><span>"read_materialization"</span><span>:</span>ReadMaterializationConfig<span>(</span>asset_key<span>=</span><span>list</span><span>(</span>asset_event<span>.</span>dagster_event<span>.</span>asset_key<span>.</span>path<span>)</span><span>)</span><span>}</span><span>)</span><span>,</span><span>)</span></code><h2>Testing an asset sensor<span>#</span></h2><p>To write a unit test for an asset sensor, you first need to construct a context object using a test instance that can log <code>AssetMaterialization</code>events.</p><p>You can then directly invoke your asset sensor with that context and evaluate the results.</p><code><span>from</span>dagster <span>import</span>DagsterInstance<span>,</span>build_sensor_context<span>,</span>materialize
+
+
+<span>def</span><span>test_my_asset_sensor</span><span>(</span><span>)</span><span>:</span><span>@asset</span><span>def</span><span>my_table</span><span>(</span><span>)</span><span>:</span><span>return</span><span>1</span>instance <span>=</span>DagsterInstance<span>.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+The UI provides multiple views that help with observing sensor evaluations, skip reasons, and errors.</p><p>To view all sensors, navigate to <strong>Overview &gt; Sensors</strong>. Here, you can start and stop sensors, and view their frequency, last tick, and last run:</p><img/><p>Click on any sensor to <a>test the sensor</a>, monitor all sensor evaluations on a timeline, and view a table of runs launched by the sensor.</p><h2>Run status sensors<span>#</span></h2><p>If you want to act on the status of a job run, Dagster provides a way to create a sensor that reacts to run statuses. You can use <code>run_status_sensor</code>with a specified <code>DagsterRunStatus</code>to decorate a function that will run when the given status occurs.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/schedules-sensors.html
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+If the job has
+a <span>PartitionedConfig</span>, this value will override replace the config
+provided by it.</p></dl><dl><dt><span>tags</span><a>¶</a></dt><dd><p>A dictionary of tags (string key-value pairs) to attach
+to the launched run.</p><dl><dt>Type<span>:</span></dt><p>Optional[Dict[str, Any]]</p></dl></dd></dl><dl><dt><span>job_name</span><a>¶</a></dt><dd><p>(Experimental) The name of the job this run request will launch.
+Required for sensors that target multiple jobs.</p><dl><dt>Type<span>:</span></dt><p>Optional[str]</p></dl></dd></dl><dl><dt><span>asset_selection</span><a>¶</a></dt><dd><p>A subselection of assets that should be
+launched with this run. If the sensor or schedule targets a job, then by default a
+RunRequest returned from it will launch all of the assets in the job. If the sensor
+targets an asset selection, then by default a RunRequest returned from it will launch
+all the assets in the selection. This argument is used to specify that only a subset of
+these assets should be launched, instead of all of them.</p><dl><dt>Type<span>:</span></dt><p>Optional[Sequence[<a>AssetKey</a>]]</p></dl></dd></dl><dl><dt><span>asset_check_keys</span><a>¶</a></dt><dd><p>(Experimental) A subselection of asset checks that
+should be launched with this run. This is currently only supported on sensors. If the
+sensor targets a job, then by default a RunRequest returned from it will launch all of
+the asset checks in the job. If the sensor targets an asset selection, then by default a
+RunRequest returned from it will launch all the asset checks in the selection.
+
+
+

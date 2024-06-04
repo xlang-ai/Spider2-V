@@ -1,0 +1,51 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/rollback.html
+
+Documentation Title:
+ROLLBACK | Snowflake Documentation
+
+Documentation Content:
+</span><span>SELECT</span><span>CURRENT_TRANSACTION</span><span>();</span><span>-----------------------+</span><span>CURRENT_TRANSACTION() |</span><span>-----------------------+</span><span>1432071523422         |</span><span>-----------------------+</span><span>INSERT</span><span>INTO</span><span>A1</span><span>VALUES</span><span>(</span><span>1</span><span>),</span><span>(</span><span>2</span><span>);</span><span>-------------------------+</span><span>number of rows inserted |</span><span>-------------------------+</span><span>2                       |</span><span>-------------------------+</span><span>ROLLBACK</span><span>;</span><span>SELECT</span><span>COUNT</span><span>(*)</span><span>FROM</span><span>A1</span><span>;</span><span>----------+</span><span>COUNT(*) |</span><span>----------+</span><span>0        |</span><span>----------+</span><span>SELECT</span><span>CURRENT_TRANSACTION</span><span>();</span><span>-----------------------+</span><span>CURRENT_TRANSACTION() |</span><span>-----------------------+</span><span>[NULL]                |</span><span>-----------------------+</span><span>SELECT</span><span>LAST_TRANSACTION</span><span>();</span><span>--------------------+</span><span>LAST_TRANSACTION() |</span><span>--------------------+</span><span>1432071523422      |</span><span>--------------------+</span></pre><span>Copy</span></div></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-worksheet.html
+
+Documentation Title:
+Using Worksheets for Queries / DML / DDL | Snowflake Documentation
+
+Documentation Content:
+Snowflake retains the static contents of each worksheet, so you can log in again later and resume working where you left off. Snowflake displays the worksheets
+that were open when you logged out.</p><p>Note that resized/collapsed panes, width changes to the result/data preview columns, and even the cursor position in the SQL editor, are persisted:</p><ul><p>When switching between open worksheets.</p><p>When closing and reopening the same worksheet.</p><p>Between user sessions.</p></ul></li><li><p>Specifying a different role for each worksheet and switching roles without losing your work. You can execute specific statements in a worksheet, then switch roles before continuing your work
+in the same worksheet.</p><div><p>Note</p><p>Your current interface role determines the default role for worksheets that you open, but the worksheets are not tied to the interface role. Each worksheet has its own role that can be set
+independently.</p></div></li><p>Logging into Snowflake in another browser or tab. Any worksheet changes you made in one Snowflake instance persist to the other instance after a minute or two. You can continue working in the
+other browser (or tab) without re-entering your work.</p><p>Refreshing your browser, if necessary. If you’re in the middle of running queries, they will resume running when the refresh is completed. Note that if you log out of Snowflake, any active
+queries stop running.</p></ul><p>You can also perform other tasks on this page, including:</p><ul><p>Resizing the current warehouse to dynamically increase or decrease the compute resources utilized for executing your queries and other DML statements.</p><p>Exporting the result for a selected query/statement (if the result is still available). For more information, see <span>Exporting Query Results</span>.</p></ul></section><section><h2>Saving and Managing Worksheets<a>¶</a></h2><p>Snowflake automatically saves worksheets as you type and persists the current state of a worksheet between user sessions. To organize your worksheets, double-click on the worksheet label in the tab
+(e.g.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/rollback.html
+
+Documentation Title:
+ROLLBACK | Snowflake Documentation
+
+Documentation Content:
+Unloading</span><span>File Staging</span><span>Alerts</span><span>Native Apps Framework</span><span>Streamlit</span><span>Snowpark Container Services</span></div></li><span>Function and Stored Procedure Reference</span><span>Class Reference</span><span>Scripting Reference</span><span>General Reference</span><span>API Reference</span></ol><div><div><nav><a>Reference</a><a>SQL Command Reference</a><a>Transactions</a><span>ROLLBACK</span></nav><section><h1>ROLLBACK<a>¶</a></h1><p>Rolls back an open transaction in the current session.</p><dl><dt>See also:</dt><p><span>BEGIN</span>, <span>COMMIT</span>, <span>SHOW TRANSACTIONS</span>, <span>DESCRIBE TRANSACTION</span></p></dl><section><h2>Syntax<a>¶</a></h2><div><pre><span>ROLLBACK</span><span>[</span><span>WORK</span><span>]</span></pre><span>Copy</span></div></section><section><h2>Parameters<a>¶</a></h2><dl><span>WORK</span><p>Optional keyword that provides compatibility with other database systems.</p></dl></section><section><h2>Examples<a>¶</a></h2><p>Begin a transaction, insert some values into a table, and then complete the transaction by rolling back the changes made in the
+transaction:</p><div><pre><span>SELECT</span><span>COUNT</span><span>(*)</span><span>FROM</span><span>A1</span><span>;</span><span>----------+</span><span>COUNT(*) |</span><span>----------+</span><span>0        |</span><span>----------+</span><span>BEGIN</span><span>NAME</span><span>T4</span><span>;</span><span>SELECT</span><span>CURRENT_TRANSACTION</span><span>();
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/rollback.html
+
+Documentation Title:
+ROLLBACK | Snowflake Documentation
+
+Documentation Content:
+Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Syntax</a><a>Parameters</a><a>Examples</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+

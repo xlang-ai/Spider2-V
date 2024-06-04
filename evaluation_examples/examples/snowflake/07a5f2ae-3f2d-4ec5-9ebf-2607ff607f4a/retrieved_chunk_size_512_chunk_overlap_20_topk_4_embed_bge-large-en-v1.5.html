@@ -1,0 +1,48 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/data-load-s3.html
+
+Documentation Title:
+Bulk loading from Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+Tables</span><span>REST API</span><span>Processing with UDF and Procedure Handlers</span><span>Sharing</span><span>Troubleshooting</span><span>Accessing Data in Other Storage</span><span>Amazon S3-compatible Storage</span><span>Querying and Transforming Data</span><span>Querying Data in Staged Files</span><span>Querying Metadata for Staged Files</span><span>Transforming Data During Load</span><span>Evolving Table Schema Automatically</span><span>Continuous Data Pipelines</span><span>Overview</span><span>Dynamic tables</span><span>Streams</span><span>Tasks</span><span>Examples</span></div></li><span>Data Unloading</span><span>Queries</span><span>Data Sharing &amp; Collaboration</span><span>Snowflake AI Features</span><span>Snowflake Cortex</span><span>Alerts &amp; Notifications</span><span>Security</span><span>Data Governance</span><span>Privacy</span><span>Organizations &amp; Accounts</span><span>Business Continuity &amp; Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Data Loading</a><span>Amazon S3</span></nav><section><h1>Bulk loading from Amazon S3<a>¶</a></h1><p>If you already have a Amazon Web Services (AWS) account and use S3 buckets for storing and managing your data files, you can make use of your existing buckets and folder paths for bulk loading into
+Snowflake.This set of topics describes how to use the COPY command to bulk load from an S3 bucket into tables.</p><p>As illustrated in the diagram below, loading data from an S3 bucket is performed in two steps:</p><dl><dt>Step 1<span>:</span></dt><p>Snowflake assumes the data files have already been staged in an S3 bucket.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide-getting-started.html
+
+Documentation Title:
+Getting Started - Snowflake Documentation
+
+Documentation Content:
+</p></div><div><p>TUTORIAL</p><p>Bulk Loading from a Local File System Using COPY</p><p>Learn how to load data from files in your local file system into a table.</p></div><div><p>TUTORIAL</p><p>Bulk Loading from Amazon S3 Using COPY</p><p>Learn how to load data from files in an existing Amazon Simple Storage Service (Amazon S3) bucket into a table.</p></div><div><p>TUTORIAL</p><p>JSON Basics</p><p>Learn how to load JSON data from files, query the data, and flatten and store the data in a table.</p></div><div><p>TUTORIAL</p><p>Loading JSON Data into a Relational Table</p><p>Learn more about how to store JSON objects, extract JSON elements, and transform those elements into table columns.</p></div><div><p>TUTORIAL</p><p>Loading and Unloading Parquet Data</p><p>Learn how to upload Parquet data by transforming elements of a staged Parquet file directly into table columns.</p></div></div></div><div><div><h2>Sample Data Sets</h2><p>Snowflake provides sample data sets, such as the industry-standard TPC-DS and TPC-H benchmarks, for evaluating and testing a broad range of Snowflake’s SQL support.</p><a>See all</a></div><div><div><p>SNOWFLAKE_SAMPLE_DATA</p><p>The sample database, SNOWFLAKE_SAMPLE_DATA, is identical to the databases that you create in your account, except that it is read-only.</p></div><div><p>TPC-DS</p><p>TPC-DS models the decision support functions of a retail product supplier. The supporting schema contains vital business information, such as customer, order, and product data.</p></div><div><p>TPC-H</p><p>TPC-H is a decision support benchmark.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.html
+
+Documentation Title:
+Load data from cloud storage: Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+This tutorial uses the <span>compute_wh</span>warehouse included with your trial account.</p><p>You created a database to store the data and a schema to group the database objects logically.</p><p>You created a storage integration and a stage to load data from a CSV file stored in an AWS S3 bucket.</p><p>After the data was loaded into your database, you queried it using a SELECT statement.</p></ul></section><section><h3>What’s next?<a>¶</a></h3><p>Continue learning about Snowflake using the following resources:</p><ul><li><p>Complete the other tutorials provided by Snowflake:</p><span>Snowflake Tutorials</span></li><li><p>Familiarize yourself with key Snowflake concepts and features, as well as the SQL commands used to
+load tables from cloud storage:</p><ul><span>Introduction to Snowflake</span><span>Load Data into Snowflake</span><span>Data Loading and Unloading Commands</span></ul></li><li><p>Try the Tasty Bytes Quickstarts provided by Snowflake:</p><a>Tasty Bytes Quickstarts</a></li></ul></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.html
+
+Documentation Title:
+Load data from cloud storage: Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+For example:</p><div><pre><span>COPY</span><span>INTO</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>calendar</span><span>FROM</span><span>@</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>s3data_stage</span><span>FILES</span><span>=</span><span>(</span><span>'calendar.txt'</span><span>);</span></pre><span>Copy</span></div><p>Your output looks similar to the following image.</p><img/></section><section><h2>Step 8. Query the table<a>¶</a></h2><p>Now that the data is loaded, you can run queries on the <span>calendar</span>table.</p><p>To run a query in the open worksheet, select the line or lines of the SELECT command,
+and then select <span>Run</span>. For example, run the following query:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>calendar</span><span>;</span></pre><span>Copy</span></div><p>Your output looks similar to the following image.</p><img/></section><section><h2>Step 9. Cleanup, summary, and additional resources<a>¶</a></h2><p>Congratulations! You have successfully completed this tutorial for trial accounts.</p><p>Take a few minutes to review a short summary and the key points covered in the tutorial.
+You might also want to consider cleaning up by dropping any objects you created in the tutorial.
+
+
+

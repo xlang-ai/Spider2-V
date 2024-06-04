@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.html
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+Note that only Markdown will be rendered and other formats will be displayed as rich content.</p><p>To add documentation to your task, follow these steps:</p><ol><li><p>Add the following code with a string in Markdown format:</p><code><span><span>doc_md_task </span><span>=</span><span>"""</span></span><span>### Purpose of this task</span><span>This task **boldly** suggests a daily activity.</span><span>"""</span></code></li><li><p>Add the following code with a string written in monospace format:</p><code><span><span>doc_monospace_task </span><span>=</span><span>"""</span></span><span>If you don't like the suggested activity you can always just go to the park instead.</span><span>"""</span></code></li><li><p>Add the following code with a string in JSON format:</p><code><span><span>doc_json_task </span><span>=</span><span>"""</span></span><span>{</span><span>"previous_suggestions": {</span><span>"go to the gym": ["frequency": 2, "rating": 8],</span><span>"mow your lawn": ["frequency": 1, "rating": 2],</span><span>"read a book": ["frequency": 3, "rating": 10],
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-architecture.html
+
+Documentation Title:
+About Astro | Astronomer Documentation
+
+Documentation Content:
+Astronomer recommends that you create a dedicated Git repository for each Astro project. To run a DAG, you add the DAG to your Astro project and deploy your Astro project to Astro.</p><p>See <a>Run your first DAG with the Astro CLI</a>to create your first Astro project.</p><h3>Astro UI<a>​</a></h3><p>The Astro UI, hosted at <code>https://cloud.astronomer.io</code>, is the primary interface for accessing and managing Astro from your web browser. You can use the Astro UI to:</p><ul><li>Manage users, teams, and permissions.</li><li>Create and configure Deployments, including infrastructure resources and compute.</li><li>View all of your organization's Deployments, DAGs, and tasks in a single place.</li><li>Monitor the health of your Airflow environments with a variety of alerts, logs, and analytics interfaces.</li><li>Stay up to date with the latest Astro features.</li><li>Create and edit DAGs in the Astro Cloud IDE.</li></ul><h3>Deployment<a>​</a></h3><p>An Astro <em>Deployment</em>is an Airflow environment hosted on Astro. It encompasses all core Airflow components, including the Airflow webserver, scheduler, and workers, along with additional tools for reliability and observability. It runs in an isolated Kubernetes namespace in an <a>Astro cluster</a>and has a set of attached resources to run your Airflow tasks.</p><p>Compared to an open source Airflow environment, an Astro Deployment is easy to create, delete, and modify through either the Astro UI or with the Astro CLI. You can <a>fine-tune resources and settings</a>directly from the Astro UI, see metrics and analytics for your DAGs, review your deploy history, and more. The infrastructure required to run a Deployment is managed by Astronomer.</p><p>To run DAGs in a Deployment, you must either deploy an Astro project manually from your local machine or configure an automated deploy process using a third-party CI/CD tool with the Astro CLI. Then, you can open the Airflow UI from the Astro UI and view your DAGs.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.html
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+</li><li>Add custom doc strings to an Airflow task.</li></ul><h2>Time to complete<a>​</a></h2><p>This tutorial takes approximately 15 minutes to complete.</p><h2>Assumed knowledge<a>​</a></h2><ul><li>Basic Airflow concepts. See <a>Introduction to Apache Airflow</a>.</li><li>Basic Python. See the <a>Python Documentation</a>.</li></ul><h2>Prerequisites<a>​</a></h2><li>The <a>Astro CLI</a>.</li><h2>Step 1: Create an Astro project<a>​</a></h2><p>To run Airflow locally, you first need to create an Astro project.</p><ol><li><p>Create a new directory for your Astro project:</p><span><span>mkdir</span><span>&lt;</span><span>your-astro-project-name</span><span>&gt;</span><span>&amp;&amp;</span><span>cd</span><span>&lt;</span><span>your-astro-project-name</span><span>&gt;</span></span></li><li><p>Run the following Astro CLI command to initialize an Astro project in the directory:</p><span>astro dev init</span></li><li><p>To enable raw HTML in your Markdown DAG descriptions, add the following Airflow config environment variable to your <code>.env</code>file. This will allow you to use HTML in your DAG descriptions. If you don't want to enable this setting due to security concerns you will still be able to use Markdown in your DAG descriptions and the HTML shown in this tutorial will be displayed as raw content.</p><span>AIRFLOW__WEBSERVER__ALLOW_RAW_HTML_DESCRIPTIONS=True</span></li><li><p>Start your Airflow instance by running:</p><span>astro dev start</span></li></ol><h2>Step 2: Create a new DAG<a>​</a></h2><ol><p>In your <code>dags</code>folder, create a file named <code>docs_example_dag.py</code>.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.html
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+It uses the [BoredAPI](https://www.boredapi.com/) to do so.</span><span>Before I get to do the activity I will have to:</span><span>- Clean up the kitchen.</span><span>- Check on my pipelines.</span><span>- Water the plants.</span><span>Here are some happy plants:</span><span>&lt;img src="https://www.publicdomainpictures.net/pictures/80000/velka/succulent-roses-echeveria.jpg" alt="plants" width="300"/&gt;</span><span>"""</span></code><p>This doc string is written in Markdown. It includes a title, a link to an external website, a bulleted list, as well as an image which has been formatted using HTML. To learn more about Markdown, see <a>The Markdown Guide</a>.</p></li><p>Add the documentation to your DAG by passing <code>doc_md_DAG</code>to the <code>doc_md</code>parameter of your DAG class as shown in the code snippet below:</p></ol><div><ul><li>TaskFlow API</li><li>Traditional syntax</li></ul><div><code><span><span>@dag</span><span>(</span></span><span><span>start_date</span><span>=</span><span>datetime</span><span>(</span><span>2022</span><span>,</span><span>11</span><span>,</span><span>1</span><span>)</span><span>,</span></span><span><span>schedule</span><span>=</span><span>"@daily"</span><span>,</span></span><span><span>catchup</span><span>=</span><span>False</span><span>,
+
+
+

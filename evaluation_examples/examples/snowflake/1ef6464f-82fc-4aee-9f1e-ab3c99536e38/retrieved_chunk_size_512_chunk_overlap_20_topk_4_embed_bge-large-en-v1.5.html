@@ -1,0 +1,63 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.html
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+Notifications</span><span>Security</span><span>Data Governance</span><span>Privacy</span><span>Organizations &amp; Accounts</span><span>Business Continuity &amp; Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Connecting to Snowflake</a><a>Snowsight</a><span>Filter query results in worksheets and dashboards</span></nav><section><h1>Filter query results in dashboards and worksheets<a>¶</a></h1><p>You can filter your query results in dashboards and SQL worksheets using system filters, available to all roles in Snowflake,
+or with custom filters created by administrators.</p><section><h2>Create custom filters<a>¶</a></h2><p>Custom filters let you change the results of a query without directly editing the query.</p><p>Filters are implemented as special keywords that resolve as a subquery or list of values, which are then used in the execution of a query.
+As a result, there are some limitations when using a filter in a SQL query. See <span>Specify a filter in a SQL query</span>.</p><div><p>Note</p><p>Anyone in your account can view and use a custom filter after it is created. A custom filter has an associated role,
+but that role does not limit filter visibility.</p></div><section><h3>Grant permission to create custom filters<a>¶</a></h3><p>To let a user create custom filters, a user with the ACCOUNTADMIN role must grant the relevant permissions to a role granted to that user.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.html
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+Use the format <span>:&lt;string&gt;</span>, without spaces.
+For example: <span>:page_path</span>.</p><p>For <span>Description</span>, enter a description of the filter.</p><p>For <span>Role</span>, select a role to associate with the filter and run the query used to populate filter values, if the filter is based
+on a query. Only roles with permissions to create custom filters appear in the drop-down list.
+See <span>Manage ownership of custom filters</span>for more details.</p><p>For <span>Warehouse</span>, select a warehouse to use to refresh filter values, if the filter is based on a query.
+The owner role for the filter must have the USAGE privilege on the warehouse you select.
+If you want to run and validate your query as part of these steps, the warehouse must be running.</p><li><p>For <span>Options via</span>, choose whether the filter values are populated by a query or a list:</p><ul><p>If you select <span>Query</span>, select <span>Write Query</span>and see <span>Write a query to populate a filter</span>for guidance writing a
+filter query.</p><li><p>If you select <span>List</span>, do the following:</p><ol><p>Select <span>Edit List</span>.</p><p>Optionally, for <span>Name</span>, enter a name for the list item. The name appears in the drop-down list for the filter.
+If you do not provide a name, the <span>Value</span>is used.</p><p>For <span>Value</span>, enter the value of the column name to use in the filter.</p><p>Continue adding name and value pairs until your list is complete, then select <span>Save</span>.</p></ol></li></ul></li></ol></li><p>In the <span>Add Filter</span>dialog, for <span>Value Type</span>, choose whether the list items are <span>Text</span>or <span>Number</span>types of data.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.html
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+</p></ul><p>A filter can only run one query at a time. You cannot run multiple queries to generate the list of filter options, for example by running
+one query to return the <span>name</span>column and a second query to return the <span>value</span>column.</p><div><p>Note</p><p>The query used to populate a list of filter options is run as the user that created (or last modified) the filter.
+Because anyone in your account can view and use a custom filter after it is created, make sure that the list of
+filter options produced by your query do not contain protected or sensitive data.</p></div><p>After you write your filter query and add it in the <span>New filter</span>dialog, do the following to finish setting up your query filter:</p><ol><p>Select <span>Done</span>to save your filter query and return to the <span>Add Filter</span>dialog.</p><p>Optionally change the default refresh option from <span>Refresh hourly</span>to <span>Never refresh</span>or <span>Refresh daily</span>. For details
+and considerations for filter refresh options, see <span>Manage refresh frequency for a custom filter</span>.</p><p>Return to the steps for creating a custom filter to finish creating your filter. See <span>Create a custom filter</span>.</p></ol></section></section></section><section><h2>Review and manage custom filters in an account<a>¶</a></h2><p>To review custom filters in your account, open a worksheet or dashboard and then select <img/>.</p><p>To make changes to any filters, such as changing the refresh frequency for the query used to populate a custom filter list,
+you must have the ACCOUNTADMIN role or a role with <span>permissions to manage filters</span>.
+See <span>Manage refresh frequency for a custom filter</span>.</p><section><h3>Manage ownership of custom filters<a>¶</a></h3><p>Each custom filter has an associated role. Anyone with that role can edit or delete the filter.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.html
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+Notifications</span><span>Security</span><span>Data Governance</span><span>Privacy</span><span>Organizations &amp; Accounts</span><span>Business Continuity &amp; Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Connecting to Snowflake</a><a>Snowsight</a><span>Querying data with SQL worksheets</span></nav><section><h1>Querying data using worksheets<a>¶</a></h1><p>After you <span>create or open a worksheet</span>, you can
+<span>manage the worksheet</span>, write and execute queries, explore query results and history,
+and set up filters using Snowsight.</p><section><h2>Writing queries in worksheets<a>¶</a></h2><p>After you open a worksheet, you can write SQL queries and statements.</p><section><h3>Set worksheet context<a>¶</a></h3><p>When you set a database and optionally, a database schema, as the worksheet context, you can reference objects in the schema
+without fully qualifying the object names in your query.</p></section><section><h3>Write queries with autocomplete<a>¶</a></h3><p>As you enter your script in the query editor, the autocomplete feature suggests:</p><ul><p>Query syntax keywords such as SQL functions or aliases.</p><p>Values that match table or column names within a schema.</p></ul><p>Select a function to view its syntax and a brief description.</p><p>Snowflake tracks table aliases and suggests them as autocomplete options.
+
+
+

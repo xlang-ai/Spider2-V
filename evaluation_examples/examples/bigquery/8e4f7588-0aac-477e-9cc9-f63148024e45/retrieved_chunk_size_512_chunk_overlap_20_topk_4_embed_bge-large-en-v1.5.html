@@ -1,0 +1,101 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-partitions.html
+
+Documentation Title:
+PARTITIONS view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+COUNT(partition_id) AS partition_count,
+  sum(total_logical_bytes) AS sum_total_logical_bytes,
+  max(last_modified_time) AS max_last_updated_time
+FROM `bigquery-public-data.covid19_usafacts.INFORMATION_SCHEMA.PARTITIONS`
+GROUP BY 1, 2;
+</pre><p>The results look similar to the following:</p><pre>+-----------------+----------------+--------------------+---------------------+-----------------+-------------------------+--------------------------------+
+| table_name      | partition_type | earliest_partition | latest_partition_id | partition_count | sum_total_logical_bytes | max_last_updated_time          |
++--------------+-------------------+--------------------+---------------------+-----------------+-------------------------+--------------------------------+
+| confirmed_cases | DAY            | 20221204           | 20221213            | 10              | 26847302                | 2022-12-13 00:09:25.604000 UTC |
+| deaths          | DAY            | 20221204           | 20221213            | 10              | 26847302                | 2022-12-13 00:09:24.709000 UTC |
+| summary         | DAY            | 20221204           | 20221213            | 10              | 241285338               | 2022-12-13 00:09:27.496000 UTC |
++-----------------+----------------+--------------------+---------------------+-----------------+-------------------------+--------------------------------+
+</pre></div><button>Send feedback
+  
+  </button></article><devsite-content-footer><p>Except as otherwise noted, the content of this page is licensed under the <a>Creative Commons Attribution 4.0 License</a>, and code samples are licensed under the <a>Apache 2.0 License</a>. For details, see the <a>Google Developers Site Policies</a>. Java is a registered trademark of Oracle and/or its affiliates.</p><p>Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.html
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+time
+ORDER BY zip_code, time;
+
+/*---------------------+----------+-----+-------------+
+ |        time         | zip_code | aqi | temperature |
+ +---------------------+----------+-----+-------------+
+ | 2020-09-08 00:00:00 |    60606 |  22 |          63 |
+ | 2020-09-08 03:00:00 |    60606 |  21 |          58 |
+ | 2020-09-08 06:00:00 |    60606 |  27 |          55 |
+ | 2020-09-08 09:00:00 |    60606 |  36 |          56 |
+ | 2020-09-08 15:00:00 |    60606 |  43 |          67 |
+ | 2020-09-08 18:00:00 |    60606 |  33 |          68 |
+ | 2020-09-08 21:00:00 |    60606 |  25 |          65 |
+ | 2020-09-08 00:00:00 |    94105 |  60 |          73 |
+ | 2020-09-08 03:00:00 |    94105 |  70 |          67 |
+ | 2020-09-08 06:00:00 |    94105 |  75 |          64 |
+ | 2020-09-08 09:00:00 |    94105 | 101 |          62 |
+ | 2020-09-08 12:00:00 |    94105 | 125 |          62 |
+ | 2020-09-08 18:00:00 |    94105 | 151 |          68 |
+ | 2020-09-08 21:00:00 |    94105 | 143 |          74 |
+ +---------------------+----------+-----+-------------*/
+</code><p>Note how the output has gaps at certain time intervals. For example,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.html
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+55 |              56 |
+ | 2020-09-08 12:00:00 |    60606 |              56 |              59 |
+ | 2020-09-08 15:00:00 |    60606 |              63 |              68 |
+ | 2020-09-08 18:00:00 |    60606 |              67 |              69 |
+ | 2020-09-08 21:00:00 |    60606 |              63 |              67 |
+ | 2020-09-08 00:00:00 |    94105 |              71 |              74 |
+ | 2020-09-08 03:00:00 |    94105 |              66 |              69 |
+ | 2020-09-08 06:00:00 |    94105 |              64 |              65 |
+ | 2020-09-08 09:00:00 |    94105 |              62 |              63 |
+ | 2020-09-08 12:00:00 |
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/working-with-time-series.html
+
+Documentation Title:
+Work with time series data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+|  22 |          63 |
+ | 2020-09-08 03:00:00 |    60606 |  21 |          58 |
+ | 2020-09-08 06:00:00 |    60606 |  27 |          55 |
+ | 2020-09-08 09:00:00 |    60606 |  36 |          56 |
+ | 2020-09-08 12:00:00 |    60606 |  36 |          62 |
+ | 2020-09-08 15:00:00 |    60606 |  43 |          67 |
+ | 2020-09-08 18:00:00 |    60606 |  33 |          68 |
+ | 2020-09-08 21:00:00 |    60606 |  25 |          65 |
+ | 2020-09-08 00:00:00 |    94105 |  60 |          73 |
+ | 2020-09-08 03:00:00 |    94105 |  70 |          67 |
+ | 2020-09-08 06:00:00 |    94105 |  75 |          64 |
+ | 2020-09-08 09:00:00 |    94105 | 101 |          62 |
+ | 2020-09-08 12:00:00 |    94105 | 125 |          62 |
+ |
+
+
+

@@ -1,0 +1,55 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+</span>array<span>(</span>y_test<span>)</span>y_test <span>=</span>y_test<span>.</span>fillna<span>(</span><span>0</span><span>)</span>transformed_y_test <span>=</span>np<span>.</span>array<span>(</span>y_test<span>)</span><span>return</span>transformed_X_test<span>,</span>transformed_y_test
+</code><p>We also transformed the dataframes into NumPy arrays and removed <code>nan</code>values to prepare the data for training.</p><h3>Training the model<span>#</span></h3><p>At this point, we have <code>X_train</code>, <code>y_train</code>, <code>X_test</code>, and <code>y_test</code>ready to go for our model. To train our model, we can use any number of models from libraries like <a>sklearn</a>, <a>TensorFlow</a>, and <a>PyTorch</a>.</p><p>In our example, we will train an <a>XGBoost model</a>to predict a numerical value.</p><code><span>import</span>xgboost <span>as</span>xg
+<span>from</span>sklearn<span>.</span>metrics <span>import</span>mean_absolute_error
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+including using assets for different elements, how to automate model training, and monitoring your model's drift.</p><h2>Before you begin<span>#</span></h2><p>This guide assumes you have familiarity with machine learning concepts and several Dagster concepts, including <a>software-defined assets</a>and <a>jobs</a>.</p><h2>Benefits of building machine learning pipelines in Dagster<span>#</span></h2><ul><li>Dagster makes iterating on machine learning models and testing easy, and it is designed to use during the development process.</li><li>Dagster has a lightweight execution model means you can access the benefits of an orchestrator, like re-executing from the middle of a pipeline and parallelizing steps while you're experimenting.</li><li>Dagster models data assets, not just tasks, so it understands the upstream and downstream data dependencies.</li><li>Dagster is a one-stop shop for both the data transformations and the models that depend on the data transformations.</li></ul><h2>Machine learning development<span>#</span></h2><p>If you are already using Dagster for your ETL pipelines, it is a natural progression to build out and test your models in Dagster.</p><p>For this guide, we will be using the Hacker News data demoed in the <a>tutorial</a>.</p><p>The machine learning model we will walk through takes the Hacker News stories and uses the titles to predict the number of comments that a story will generate. This will be a supervised model since we have the number of comments for all the previous stories.</p><p>The assets graph will look like this at the end of this guide (click to expand):</p><img/><h3>Ingesting data<span>#</span></h3><p>First, we will create an asset that retrieves the most recent Hacker News records.</p><code><span>import</span>requests
+<span>from</span>dagster <span>import</span>asset
+<span>import</span>pandas <span>as</span>pd
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+</span>title
+    <span># Transform the new story titles using the existing vectorizer</span>inference_x <span>=</span>tfidf_vectorizer<span>.</span>transform<span>(</span>inference_x<span>)</span><span>return</span>xgboost_comments_model<span>.</span>predict<span>(</span>inference_x<span>)</span></code><p>Depending on what the objective of your ML model is, you can use this data to set alerts, save model performance history, and trigger retraining.</p><h2>Where to go from here<span>#</span></h2><ul><li><a>Managing machine learning models with Dagster</a>- This guide reviews ways to manage and maintain your machine learning (ML) models in Dagster</li><li>Dagster is flexible so there could be many 'right' ways to implement your machine learning pipeline and different avenues to explore</li><li>Dagster intergrates with <a>MLflow</a>that can be used to keep track of your models</li><li>Dagster integrates with <a>Weights &amp; Biases</a>and an <a>example</a>which demonstrates how to use W\&amp;B's artifacts with Dagster.</li></ul></div></div></div><div><div><div>On This Page</div><li><a>Building machine learning pipelines with Dagster</a><ol><a>Before you begin</a><a>Benefits of building machine learning pipelines in Dagster</a><li><a>Machine learning development</a><ol><a>Ingesting data</a><a>Transforming data</a><a>Training the model</a><a>Evaluating our results</a></ol></li><a>Where to go from here</a></ol></li></div><a>Edit Page on GitHub</a><button>Share Feedback</button><a>Star</a></div></div></div></div></body>
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+<span>@asset</span><span>def</span><span>xgboost_comments_model</span><span>(</span>transformed_training_data<span>)</span><span>:</span>transformed_X_train<span>,</span>transformed_y_train <span>=</span>transformed_training_data
+    <span># Train XGBoost model, which is a highly efficient and flexible model</span>xgb_r <span>=</span>xg<span>.</span>XGBRegressor<span>(</span>objective<span>=</span><span>"reg:squarederror"</span><span>,</span>eval_metric<span>=</span>mean_absolute_error<span>,</span>n_estimators<span>=</span><span>20</span><span>)</span>xgb_r<span>.</span>fit<span>(</span>transformed_X_train<span>,</span>transformed_y_train<span>)</span><span>return</span>xgb_r
+
+
+<span>@asset</span><span>def</span><span>comments_model_test_set_r_squared</span><span>(</span>transformed_test_data<span>,</span>xgboost_comments_model<span>)</span><span>:</span>transformed_X_test<span>,</span>transformed_y_test <span>=</span>transformed_test_data
+    <span># Use the test set data to get a score of the XGBoost model</span>score <span>=</span>xgboost_comments_model<span>.</span>score<span>(</span>transformed_X_test<span>,</span>transformed_y_test<span>)</span><span>return</span>score
+</code><h3>Evaluating our results<span>#</span></h3><p>In our model assets, we evaluated each of the models on the test data and in this case, got the <a>score</a>derived from comparing the predicted to actual results. Next, to predict the results, we'll create another asset that runs inference on the model more frequently than the model is re-trained.</p><code><span>@asset</span><span>def</span><span>latest_story_comment_predictions</span><span>(</span>xgboost_comments_model<span>,
+
+
+

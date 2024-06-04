@@ -1,0 +1,97 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/connect-to-sql.html
+
+Documentation Title:
+Connect to Cloud SQL  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For example:
+<code>--properties='{"param":"param_value"}'</code>. For
+creating a connection resource, you must supply the <code>instanceID</code>,
+<code>database</code>, and <code>type</code>parameters.</li><li><var>CREDENTIALS</var>: the parameters <code>username</code>and
+<code>password</code>.</li><li><var>PROJECT_ID</var>: your project ID.</li><li><var>LOCATION</var>: the region your Cloud SQL instance
+is located in.</li><li><var>CONNECTION_ID</var>: the connection identifier.</li></ul><p>For example, the following command creates a new connection resource
+named my_new_connection (friendly name: "My new connection") in a project
+with the ID <code>federation-test</code>.</p><code>bq mk --connection --display_name='friendly name' --connection_type='CLOUD_SQL' \
+  --properties='{"instanceId":"federation-test:us-central1:mytestsql","database":"mydatabase","type":"MYSQL"}' \
+  --connection_credential='{"username":"myusername", "password":"mypassword"}' \
+  --project_id=federation-test --location=us my_connection_id
+</code></section><section><h3>API </h3><p>Within the BigQuery Connection API, you can invoke <code>CreateConnection</code>within
+the <code>ConnectionService</code>to instantiate a connection.  See the <a>client library page</a>for more details.</p></section><section><h3>Java </h3><section><p>Before trying this sample, follow the <span>Java</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Java</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigqueryconnection-create-connection.html
+
+Documentation Title:
+Create a Cloud SQL connection  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</span></devsite-feature-tooltip><div><section><p>Add credentials to connect BigQuery to Cloud SQL.</p><h2>Explore further</h2><p>For detailed documentation that includes this code sample, see the following:
+      </p><a>Connect to Cloud SQL</a><h2>Code sample</h2><div><section><span>Java</span><p>Before trying this sample, follow the <span>Java</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Java</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>import com.google.cloud.bigquery.connection.v1.CloudSqlCredential;
+import com.google.cloud.bigquery.connection.v1.CloudSqlProperties;
+import com.google.cloud.bigquery.connection.v1.Connection;
+import com.google.cloud.bigquery.connection.v1.CreateConnectionRequest;
+import com.google.cloud.bigquery.connection.v1.LocationName;
+import com.google.cloud.bigqueryconnection.v1.ConnectionServiceClient;
+import java.io.IOException;
+
+// Sample to create a connection with cloud MySql database
+public class CreateConnection {
+
+  public static void main(String[] args) throws IOException {
+    // TODO(developer): Replace these variables before running the sample.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/bigqueryconnection/rpc/google.cloud.bigquery.connection-2.html
+
+Documentation Title:
+Package google.cloud.bigquery.connection.v1beta1  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+True, if credential is configured for this connection.</p></td></tr><td>Union field <code>properties</code>. Properties specific to the underlying data source. <code>properties</code>can be only one of the following:</td><tr><code>cloud_sql</code><td><a>CloudSqlProperties</a><p>Cloud SQL properties.</p></td></tr></tbody></table></section><section><h2>ConnectionCredential</h2><p>Credential to use with a connection.</p><table><th>Fields</th><tbody><td>Union field <code>credential</code>. Credential specific to the underlying data source. <code>credential</code>can be only one of the following:</td><tr><code>cloud_sql</code><td><a>CloudSqlCredential</a><p>Credential for Cloud SQL database.</p></td></tr></tbody></table></section><section><h2>CreateConnectionRequest</h2><p>The request for <a>ConnectionService.CreateConnection</a>.</p><table><th>Fields</th><tbody><tr><code>parent</code><td><code>string</code><p>Required. Parent resource name. Must be in the format <code>projects/{project_id}/locations/{location_id}</code></p><p>Authorization requires the following <a>IAM</a>permission on the specified resource <code>parent</code>:</p><code>bigquery.connections.create</code></td></tr><tr><code>connection_id</code><td><code>string</code><p>Optional. Connection id that should be assigned to the created connection.</p></td></tr><tr><code>connection</code><td><a>Connection</a><p>Required. Connection to create.</p></td></tr></tbody></table></section><section><h2>DeleteConnectionRequest</h2><p>The request for [ConnectionService.DeleteConnectionRequest][].</p><table><th>Fields</th><tr><code>name</code><td><code>string</code><p>Required.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/bigqueryconnection/rest/v1beta1/projects.locations.connections/create.html
+
+Documentation Title:
+Method: projects.locations.connections.create  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+cessEntry</span><span>DmlStats</span><span>EncryptionConfiguration</span><span>GetPolicyOptions</span><span>Job</span><span>JobReference</span><span>Policy</span><span>ProjectReference</span><span>QueryParameter</span><span>RoundingMode</span><span>RowAccessPolicyReference</span><span>SessionInfo</span><span>StandardSqlDataType</span><span>StandardSqlField</span><span>TableReference</span><span>TargetType</span><span>TestIamPermissionsResponse</span></ul></div><s
+
+
+

@@ -1,0 +1,45 @@
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/ui_components.LabIcon.IProps.html
+
+Documentation Title:
+IProps | @jupyterlab
+
+Documentation Content:
+Items in a container are sorted by ascending <code>order</code>value and then by their source code order.</p><p><strong>Syntax</strong>: <code>&lt;integer&gt;</code></p><p><strong>Initial value</strong>: <code>0</code></p><table><tr><th>Chrome</th><th>Firefox</th><th>Safari</th><th>Edge</th><th>IE</th></tr><tbody><tr><strong>29</strong><strong>20</strong><strong>9</strong><strong>12</strong><strong>11</strong></tr><tr><td>21 <em>-x-</em></td><td>7 <em>-x-</em></td><td>10 <em>-x-</em></td></tr></tbody></table><h3>See</h3><a>https://developer.mozilla.org/docs/Web/CSS/order</a></div><aside><p>Inherited from LabIconStyle.IProps.order</p><li>Defined in node_modules/csstype/index.d.ts:3253</li></aside></section><section><h3><code>Optional</code><span>orphans</span></h3><div><span>orphans</span><span>?
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/filebrowser.DirListing-1.html
+
+Documentation Title:
+DirListing | @jupyterlab
+
+Documentation Content:
+show</p><li>Defined in node_modules/@lumino/widgets/types/widget.d.ts:220</li></aside></li></ul></section><section><span>shutdownKernels</span><ul><li><span>shutdownKernels</span><span>(</span><span>)</span><span>: </span><a>Promise</a><span>&lt;</span><span>void</span><span>&gt;</span></li><li><p>Shut down kernels on the applicable currently selected items.</p><h4>Returns <a>Promise</a><span>&lt;</span><span>void</span><span>&gt;</span></h4><p>A promise that resolves when the operation is complete.</p><li>Defined in packages/filebrowser/lib/listing.d.ts:114</li></li></ul></section><section><span>sort</span><ul><li><span>sort</span><span>(</span><span>state</span><span>)</span><span>: </span><span>void</span></li><li><p>Sort the items using a sort condition.</p><div><h4>Parameters</h4><h5><span>state</span>: <a>DirListing</a><span>.</span><a>ISortState</a></h5></div><h4>Returns <span>void</span></h4><li>Defined in packages/filebrowser/lib/listing.d.ts:72</li></li></ul></section><section><span>sortedItems</span><ul><li><span>sortedItems</span><span>(</span><span>)</span><span>: </span><span>IterableIterator</span><span>&lt;</span><a>Contents</a><span>.</span><a>IModel</a><span>&gt;</span></li><li><p>Create an iterator over the listing's sorted items.</p><h4>Returns <span>IterableIterator</span><span>&lt;</span><a>Contents</a><span>.</span><a>IModel</a><span>&gt;
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/filebrowser.DirListing-1.html
+
+Documentation Title:
+DirListing | @jupyterlab
+
+Documentation Content:
+d.ts:355</li></section><section><h3><code>Private</code><span>_softSelection</span></h3><div><span>_softSelection</span><span>:</span><span>any</span></div><li>Defined in packages/filebrowser/lib/listing.d.ts:360</li></section><section><h3><code>Private</code><span>_sortNotebooksFirst</span></h3><div><span>_sortNotebooksFirst</span><span>:</span><span>any</span></div><li>Defined in packages/filebrowser/lib/listing.d.ts:370</li></section><section><h3><code>Private</code><span>_sortState</span></h3><div><span>_sortState</span><span>:</span><span>any</span></div><li>Defined in packages/filebrowser/lib/listing.d.ts:351</li></section><section><h3><code>Private</code><span>_sortedItems</span></h3><div><span>_sortedItems</span><span>:</span><span>any</span></div><li>Defined in packages/filebrowser/lib/listing.d.ts:350</li></section><section><h3><code>Private</code><span>_startDrag</span></h3><div><span>_startDrag</span><span>:</span><span>any</span></div><p>Start a drag event.</p><li>Defined in packages/filebrowser/lib/listing.d.ts:286</li></section><section><h3><code>Private</code><span>_trans</span></h3><div><span>_trans</span><span>:</span><span>any</span></div><li>Defined in packages/filebrowser/lib/listing.d.ts:347</li></section><section><h3><code>Readonly</code><span>node</span></h3><div><span>node</span><span>:</span><a>HTMLElement</a></div><p>Get the DOM node owned by the widget.</p><aside><p>Inherited from Widget.
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/filebrowser.DirListing-1.html
+
+Documentation Title:
+DirListing | @jupyterlab
+
+Documentation Content:
+</p><div><h4>Parameters</h4><li><h5><span>hidden</span>: <span>boolean</span></h5><div><p><code>true</code>to hide the widget, or <code>false</code>to show it.</p><a>Notes</a><p>This is a convenience method for <code>hide()</code>and <code>show()</code>.</p></div></li></div><h4>Returns <span>void</span></h4><aside><p>Inherited from Widget.setHidden</p><li>Defined in node_modules/@lumino/widgets/types/widget.d.ts:238</li></aside></li></ul></section><section><span>setNotebooksFirstSorting</span><ul><li><span>setNotebooksFirstSorting</span><span>(</span><span>isEnabled</span><span>)</span><span>: </span><span>void</span></li><li><p>Update the setting to sort notebooks above files.
+This sorts the items again if the internal value is modified.</p><div><h4>Parameters</h4><h5><span>isEnabled</span>: <span>boolean</span></h5></div><h4>Returns <span>void</span></h4><li>Defined in packages/filebrowser/lib/listing.d.ts:203</li></li></ul></section><section><span>show</span><ul><li><span>show</span><span>(</span><span>)</span><span>: </span><span>void</span></li><li><div><p>Show the widget and make it visible to its parent widget.</p><a>Notes</a><p>This causes the <a>isHidden</a>property to be <code>false</code>.</p><p>If the widget is not explicitly hidden, this is a no-op.</p></div><h4>Returns <span>void</span></h4><aside><p>Inherited from Widget.show</p><li>Defined in node_modules/@lumino/widgets/types/widget.d.
+
+
+

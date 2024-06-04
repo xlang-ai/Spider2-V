@@ -1,0 +1,59 @@
+Documentation Source:
+www.metabase.com/learn/visualization/how-to-create-pivot-tables.html
+
+Documentation Title:
+Creating pivot tables
+
+Documentation Content:
+)</li><li>and how those orders break down by product category</li></ul><p>Here’s our query using the <strong>Query Builder</strong>:</p><img/><p>Here we’re taking data from the <code>Orders</code>table and summarizing the records. We’re grouping the orders by <code>User → State</code>, <code>Created At</code>(by year), and <code>Product → Category</code>. For each group (say Alaska in 2017), we count the number of orders and add up the subtotals for those orders. (Note that, even though we’ve only selected the <code>Orders</code>table in the data section, Metabase will automatically join the <code>Products</code>and <code>People</code>tables to get the State and Category data.)</p><p>The resulting table is a regular one, with rows for each combination of state, year, and product category.</p><p>Now, let’s say that for each state, we also want to know the sum of the annual subtotals for each state (e.g., how much money did orders for Doohickey products make in Alaska for all years?). To find out, we could add up the subtotals ourselves, or use a pivot table to calculate that figure for us. At the bottom left of your screen, click <strong>Visualization</strong>&gt; <strong>Pivot table</strong>.</p><img/><p>In our pivot table, Metabase has set the rows, columns, and values as follows:</p><ul><li>rows: <code>User → State</code>and <code>Created At</code>(by year)</li><li>columns: <code>Product → Category</code></li><li>values: <code>Count</code>and <code>Sum of Subtotal</code></li></ul><p>Like the flat table, the pivot table lets us see, for example, that in 2020 our customers in Alaska (AK) have purchased a combined 11 Doohickey products for $867.63.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/pivot-table.html
+
+Documentation Title:
+Pivot table
+
+Documentation Content:
+49
+</a><a>Questions</a></ol><article><h1>Pivot table</h1><p>Pivot tables allow you swap rows and columns, group data, and include subtotals in your table. You can group one or more metrics by one or more dimensions.</p><p>Pivot tables are not currently available for the following databases in Metabase:</p><ul><li>Druid</li><li>Google Analytics</li><li>MongoDB</li></ul><p>Pivot tables work for simple and custom questions with summarized data for all other <a>officially supported databases</a>. They don’t work for questions that lack aggregate data, and they don’t work for questions written in SQL, as Metabase would need to modify your SQL code in order to calculate subtotals. If you really need to use SQL, the workaround here is to create your question in two steps: first do all the complex things you need to do in SQL, save the results as a question, then use that saved SQL question as the starting point for a new GUI question which summarizes that data.</p><p>In the settings for the Pivot Table visualization, you can assign fields to one of three “buckets”:</p><ul><li>Fields to use for the table <strong>rows</strong></li><li>Fields to use for the table <strong>columns</strong></li><li>Fields to use for the table <strong>values</strong></li></ul><p>Let’s say we ask the following question in the notebook editor:</p><img/><p>From the <code>Orders</code>table, we’ve summarized by the count of orders and the average order total, and grouped by <code>User → State</code>, <code>Product → Category</code>, and <code>Created At</code>binned by year. Here’s our question visualized as a pivot table:</p><img/><p>We’ve assigned the fields <code>User → State</code>and <code>Created At</code>to table rows, and assigned the <code>Product -&gt; Category</code>field to generate our columns: Doohickey, Gadget, and so on.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/pivot-table.html
+
+Documentation Title:
+Pivot table
+
+Documentation Content:
+We can drag and drop dimensions between the row and column buckets, and add aggregations to the table values bucket. For example, if we assign a field to the columns bucket, Metabase will pivot that field and render each unique value of that field as a column heading.</p><p>You can put multiple fields in the “rows” and “columns” buckets, but note that the order of the fields changes how Metabase displays the table: each additional field will nest within the previous field.</p><p>Where it makes sense, Metabase will automatically include subtotals for grouped rows. For example, as in the image above, because we’ve grouped our rows first by <code>State</code>, then by <code>Created At</code>, Metabase will list each year for each <code>State</code>, and aggregate the metric(s) for that subgroup. For orders placed in Wisconsin, Metabase would sum the count of orders for each category, and find the average annual order total in each product category in Wisconsin.</p><p>To collapse a group on a pivot table, you can click on the minus (–) button next to the group’s heading (or the plus (+) button to expand it). When you save a pivot table, Metabase will remember which groups were expanded and which were collapsed.</p><p>For more, check out <a>How to create a pivot table to summarize your data</a>.</p></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/how-to-create-pivot-tables.html
+
+Documentation Title:
+Creating pivot tables
+
+Documentation Content:
+Next, we save that SQL question (here as <code>Raw data for pivot table</code>), and start a new query builder question that uses the results of that question as its starting data.</p><img/><p>Now we can count, sum, and group our results:</p><img/><p>When we visualize this question, we’ll now be able to use the pivot table visualization to see the group subtotals and grand totals.</p><h2>Further reading</h2><a>Visualization types</a><div><a>« Previous</a><a>Next »</a></div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p></article></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase. No spam, ever.</p></div><div><div><h6>Product</h6><a>Watch Demo</a><a>Data Sources</a><a>Security</a><a>Cloud</a><a>Roadmap</a><a>What's New</a><h6>Pricing</h6><a>Plans</a><a>Open Source</a></div><div><h6>Use Cases</h6><a>Self-Service Business Analytics
+        </a><a>Embedded Analytics
+        </a><h6>Metabase Plans</h6><a>Starter and Open Source</a><a>Pro</a><a>Enterprise</a></div><div><h6>Features</h6><a>Query Builder</a><a>Drill Through</a><a>Collections</a><a>Usage analytics
+          <span>New
+          </span></a><a>Analytics dashboards</a><a>SQL editor</a><a>Sandboxing</a><a>Models</a><a>Permissions</a><a>CSV upload</a></div><div><h6>Company</h6><a>Jobs
+          <div>We're hiring!
+
+
+

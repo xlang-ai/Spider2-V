@@ -1,0 +1,58 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.html
+
+Documentation Title:
+Monitor query activity with Query History | Snowflake Documentation
+
+Documentation Content:
+you can use:</p><ul><p>The <span>Query History</span>page in Snowsight.</p><p>The <span>QUERY_HISTORY View</span>in the ACCOUNT_USAGE schema of the SNOWFLAKE database.</p><p>The <span>QUERY_HISTORY</span>family of table functions in
+<span>INFORMATION_SCHEMA</span>.</p></ul><p>With the <span>Query History</span>page in Snowsight, you can do the following:</p><ul><p>Monitor queries executed by users in your account.</p><p>View details about queries, including performance data. In some cases,
+<span>query details are unavailable</span>.</p><p>Explore each step of an executed query in the query profile.</p></ul><p>The Query History page lets you explore queries executed in your Snowflake account over the last 14 days.</p><p>Within a worksheet, you can see the query history for queries that have been run in that worksheet.
+See <span>View query history</span>.</p><section><h2>Review Query History by using Snowsight<a>¶</a></h2><p>To access the <span>Query History</span>page in Snowsight, do the following:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Monitoring</span>» <span>Query History</span>.</p><p><span>Filter your view</span>to see the most relevant and accurate results.</p></ol><div><p>Note</p><p>You might see incomplete or no results when you use the <span>Query History</span>page. This is because the page spends a maximum of 15 seconds
+retrieving results and returns whatever query information is available at that time.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.html
+
+Documentation Title:
+Monitor query activity with Query History | Snowflake Documentation
+
+Documentation Content:
+To retrieve results reliably, use filters to reduce
+the time it takes to retrieve results to under 15 seconds.</p></div><section><h3>Privileges required to view Query History<a>¶</a></h3><p>You can always view history for queries that you have run.</p><p>To view history for other queries, your active role affects what else you can see in <span>Query History</span>:</p><ul><p>If your active role is the ACCOUNTADMIN role, you can view all query history for the account.</p><p>If your active role has the MONITOR or OPERATE privilege granted on a warehouse, you can view queries run by other users that
+use that warehouse.</p><p>If your active role is granted the GOVERNANCE_VIEWER database role for the SNOWFLAKE database, you can view the query history for all
+users in your account. See <span>SNOWFLAKE database roles</span>.</p><p>If your active role is granted the READER_USAGE_VIEWER database role for the SNOWFLAKE database, you can view the query history for all
+users in reader accounts associated with your account. See <span>SNOWFLAKE database roles</span>.</p></ul></section><section><h3>Considerations for using Query History<a>¶</a></h3><p>When reviewing the <span>Query History</span>for your account, consider the following:</p><ul><p>Details for queries executed more than 7 days ago do not include <span>User</span>information due to the data retention policy for
+<span>sessions</span>. You can use the user filter to retrieve queries run by individual users.
+See <span>Filter Query History</span>.</p><p>For queries that failed due to syntax or parsing errors, you see <span>&lt;redacted&gt;</span>instead of the SQL statement that was executed.
+If you are granted a role with appropriate privileges, you can set the <span>ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR</span>parameter to view
+the full query text.</p><p>Filters and the <span>Started</span>and <span>End Time</span>columns use your current time zone.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/2023/ui/2023-12-12.html
+
+Documentation Title:
+December 12–14, 2023 — Snowsight Release Notes | Snowflake Documentation
+
+Documentation Content:
+You can recover up to 500 worksheets for each dropped user.</p><p>For more details, see <span>Recover worksheets owned by a dropped user</span>.</p></section><section><h2>View Query History in worksheets —– <em>General Availability</em><a>¶</a></h2><p>With this release, we are pleased to announce the general availability of Query History in worksheets in Snowsight.
+When you view Query History for a worksheet, you can review the queries run in a Snowsight worksheet, as well as the query results.</p><p>For more information, see <span>View query history</span>.</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Recover worksheets for dropped users — Preview</a><a>View Query History in worksheets —– General Availability</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.html
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+See <span>Monitor query activity with Query History</span>for details on using <span>Query History</span>.</p><p>To determine which filter is responsible for a filter query refresh, you must open the list of filters and open each filter to
+view the details.</p><section><h4>Troubleshoot failed filter query refreshes<a>¶</a></h4><p>Refreshes of the filter query can fail for one of the following reasons:</p><ul><p>The user that created or last modified the filter has been dropped or disabled in Snowflake.</p><p>The user is inactive because they have not signed in for 3 months.</p></ul><p>It is not possible to see which users created or last modified a given filter.
+
+
+

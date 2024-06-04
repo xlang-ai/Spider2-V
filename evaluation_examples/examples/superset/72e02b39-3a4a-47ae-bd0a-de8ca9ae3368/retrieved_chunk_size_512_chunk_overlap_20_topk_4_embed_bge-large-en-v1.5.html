@@ -1,0 +1,64 @@
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.html
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+TimescaleDB is a PostgreSQL extension, and you can use the standard PostgreSQL connector library, <a>psycopg2</a>, to connect to the database.</p><p>If you're using docker compose, psycopg2 comes out of the box with Superset.</p><p>TimescaleDB sample connection parameters:</p><ul><li><strong>User Name</strong>: User</li><li><strong>Password</strong>: Password</li><li><strong>Database Host</strong>:<ul><li>For Localhost: localhost or 127.0.0.1</li><li>For On Prem: IP address or Host name</li><li>For <a>Timescale Cloud</a>service: Host name</li><li>For <a>Managed Service for TimescaleDB</a>service: Host name</li></ul></li><li><strong>Database Name</strong>: Database Name</li><li><strong>Port</strong>: default 5432 or Port number of the service</li></ul><p>The connection string looks like:</p><span>postgresql://{username}:{password}@{host}:{port}/{database name}</span><p>You can require SSL by adding <code>?sslmode=require</code>at the end (e.g. in case you use <a>Timescale Cloud</a>):</p><span>postgresql://{username}:{password}@{host}:{port}/{database name}?sslmode=require</span><a>Learn more about TimescaleDB!</a><h4>Trino<a>​</a></h4><p>Supported trino version 352 and higher</p><h5>Connection String<a>​</a></h5><p>The connection string format is as follows:</p><span>trino://{username}:{password}@{hostname}:{port}/{catalog}</span><p>If you are running Trino with docker on local machine, please use the following connection URL</p><span>trino://trino@host.docker.internal:8080</span><h5>Authentications<a>​</a></h5><h6>1.
+
+
+
+Documentation Source:
+superset.apache.org/docs/installation/docker-compose/index.html
+
+Documentation Title:
+Docker Compose | Superset
+
+Documentation Content:
+Note that many browsers now default to <code>https</code>- if
+yours is one of them, please make sure it uses <code>http</code>.</p><p>Log in with the default username and password:</p><span>username: admin</span><span>password: admin</span><h2>4. Connecting Superset to your local database instance<a>​</a></h2><p>When running Superset using <code>docker</code>or <code>docker compose</code>it runs in its own docker container, as if
+the Superset was running in a separate machine entirely. Therefore attempts to connect to your local
+database with the hostname <code>localhost</code>won't work as <code>localhost</code>refers to the docker container
+Superset is running in, and not your actual host machine. Fortunately, docker provides an easy way
+to access network resources in the host machine from inside a container, and we will leverage this
+capability to connect to our local database instance.</p><p>Here the instructions are for connecting to postgresql (which is running on your host machine) from
+Superset (which is running in its docker container). Other databases may have slightly different
+configurations but gist would be same and boils down to 2 steps -</p><li><strong>(Mac users may skip this step)</strong>Configuring the local postgresql/database instance to accept
+public incoming connections. By default, postgresql only allows incoming connections from
+<code>localhost</code>and under Docker, unless you use <code>--network=host</code>, <code>localhost</code>will refer to different
+endpoints on the host machine and in a docker container respectively. Allowing postgresql to accept
+connections from the Docker involves making one-line changes to the files <code>postgresql.conf</code>and
+<code>pg_hba.conf</code>; you can find helpful links tailored to your OS / PG version on the web easily for
+this task.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.html
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+Refer to the SQLAlchemy docs for more information.</p><h5>Schemas<a>​</a></h5><p>Databases like Postgres and Redshift use the <strong>schema</strong>as the logical entity on top of the
+<strong>database</strong>. For Superset to connect to a specific schema, you can set the <strong>schema</strong>parameter in
+the <strong>Edit Tables</strong>form (Sources &gt; Tables &gt; Edit record).</p><h5>External Password Store for SQLAlchemy Connections<a>​</a></h5><p>Superset can be configured to use an external store for database passwords. This is useful if you a
+running a custom secret distribution framework and do not wish to store secrets in Superset’s meta
+database.</p><p>Example: Write a function that takes a single argument of type <code>sqla.engine.url</code>and returns the
+password for the given connection string. Then set <code>SQLALCHEMY_CUSTOM_PASSWORD_STORE</code>in your config
+file to point to that function.</p><code><span><span>def</span><span>example_lookup_password</span><span>(</span><span>url</span><span>)</span><span>:</span></span><span><span>secret </span><span>=</span><span>&lt;&lt;</span><span>get password </span><span>from</span><span>external framework</span><span>&gt;&gt;</span></span><span><span>return</span><span>'secret'</span></span><span><span>SQLALCHEMY_CUSTOM_PASSWORD_STORE </span><span>=</span><span>example_lookup_password</span></span></code><p>A common pattern is to use environment variables to make secrets available.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.html
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+<code>SQLALCHEMY_CUSTOM_PASSWORD_STORE</code>can also be used for that purpose.</p><code><span><span>def</span><span>example_password_as_env_var</span><span>(</span><span>url</span><span>)</span><span>:</span></span><span># assuming the uri looks like</span><span># mysql://localhost?superset_user:{SUPERSET_PASSWORD}</span><span><span>return</span><span>url</span><span>.</span><span>password</span><span>.</span><span>format</span><span>(</span><span>**</span><span>os</span><span>.</span><span>environ</span><span>)</span></span><span><span>SQLALCHEMY_CUSTOM_PASSWORD_STORE </span><span>=</span><span>example_password_as_env_var</span></span></code><h5>SSL Access to Databases<a>​</a></h5><p>You can use the <code>Extra</code>field in the <strong>Edit Databases</strong>form to configure SSL:</p><code><span>{</span><span>"metadata_params": {},</span><span>"engine_params": {</span><span>"connect_args":{</span><span>"sslmode":"require",</span><span>"sslrootcert": "/path/to/my/pem"</span><span>}</span><span>}</span><span>}</span></code><h2>Misc.<a>​</a></h2><h3>Querying across databases<a>​</a></h3><p>Superset offers an experimental feature for querying across different databases. This is done via a special database called "Superset meta database" that uses the "superset://" SQLAlchemy URI. When using the database it's possible to query any table in any of the configured databases using the following syntax:</p><span><span>SELECT</span><span>*</span><span>FROM</span><span>"database name.[[catalog.
+
+
+

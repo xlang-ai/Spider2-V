@@ -1,0 +1,67 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/email.html
+
+Documentation Title:
+Email
+
+Documentation Content:
+49
+</a><a>Configuring Metabase</a></ol><article><h1>Email</h1><p>Once you connect your database to Metabase, you’ll want to configure an email account to send system notifications to your organization’s users. Metabase uses email to reset passwords, onboard new users, and notify you when something happens.</p><p>To edit email settings:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin Settings</strong>.</li><li>From the default <strong>Settings</strong>tab, click on <strong>Email</strong>in the left sidebar.</li></ol><h2>Metabase Cloud</h2><p>Metabase Cloud manages an email server for you, so you don’t need to set up email (and you won’t see SMTP settings in your Admin console).</p><p>If you like, you can still set up:</p><ul><li>a name for your Cloud email account (from name)</li><li>an email address to recieve email replies (reply-to address)</li></ul><h2>Configuring your email account</h2><p>For Metabase to send messages to your organization’s users, you’ll need to set up an email account to send emails via <strong>SMTP</strong>(simple mail transfer protocol), which is an email standard that secures emails with SSL security protection.</p><p>To start, go to the Admin Panel from the dropdown menu in the top right of Metabase, then from the Settings page, click on <strong>Email</strong>in the left menu.</p><p>You should see this form:</p><img/><p>Here you’ll set:</p><ul><li><strong>SMTP HOST</strong>: The address of the SMTP server that handles your emails.</li><li><strong>SMTP PORT</strong>: The port your SMTP server uses for outgoing emails.</li><li><strong>SMTP SECURITY</strong>:
+    <ul><li>None</li><li>SSL</li><li>TLS</li><li>STARTTLS</li></ul></li><li><strong>SMTP Username</strong>.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/api/email.html
+
+Documentation Title:
+Email
+
+Documentation Content:
+You must be a superuser or have <code>setting</code>permission to do this.</p><code>POST /api/email/test</code><p>Send a test email using the SMTP Settings. You must be a superuser or have <code>setting</code>permission to do this.
+  Returns <code>{:ok true}</code>if we were able to send the message successfully, otherwise a standard 400 error response.</p><code>PUT /api/email/</code><p>Update multiple email Settings. You must be a superuser or have <code>setting</code>permission to do this.</p><h3>PARAMS:</h3><li><code>settings</code>map.</li><a>« Back to API index</a></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/email.html
+
+Documentation Title:
+Email
+
+Documentation Content:
+This restriction only applies to sending email to people who lack an account with that Metabase. People with accounts in a Metabase who aren’t <a>sandboxed</a>will be able to email any other person with an account in that same Metabase.</p><p>To allow all domains, leave the field empty (allowing all domains is the default).</p><p>To specify multiple domains, separate each domain with a comma, with no space in between (e.g., “domain1,domain2”).</p><p>You can also set this property using the environment variable <code>MB_SUBSCRIPTION_ALLOWED_DOMAINS</code>.</p><p>This setting doesn’t affect existing subscriptions and alerts.</p><h2>Suggest recipients on dashboard subscriptions and alerts</h2><p>Configuring suggested recipients is only available on <a>Pro</a>and <a>Enterprise</a>plans (both self-hosted and on Metabase Cloud).</p><p>Control which recipients people can see when they create a new <a>dashboard subscription</a>or <a>alert</a>. For example, you may want to restrict people to viewing potential recipients that belong to the same <a>groups</a>they are a member of.</p><p>Options include:</p><ul><li>Suggest all users</li><li>Only suggest users in the same groups</li><li>Don’t show suggestions</li></ul><p>People who are sandboxed won’t see suggestions.</p><h2>Further reading</h2><ul><a>Alerts</a><a>Dashboard subscriptions</a><a>Notification permissions</a><a>Setting up Slack</a><a>Auditing Metabase</a></ul></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs?
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/account-settings.html
+
+Documentation Title:
+Account settings
+
+Documentation Content:
+This change will also affect other applications, not just Metabase. Check out the instructions for how to set the user preferences for your operating system in the <a>MDN Web Docs</a>.</p><h2>Notifications</h2><p>If you subscribe or are added to dashboard subscriptions or alerts, you’ll be able to manage those notifications here (as well as on the relevant question or dashboard themselves).</p></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase. No spam, ever.</p></div><div><div><h6>Product</h6><a>Watch Demo</a><a>Data Sources</a><a>Security</a><a>Cloud</a><a>Roadmap</a><a>What's New</a><h6>Pricing</h6><a>Plans</a><a>Open Source</a></div><div><h6>Use Cases</h6><a>Self-Service Business Analytics
+        </a><a>Embedded Analytics
+        </a><h6>Metabase Plans</h6><a>Starter and Open Source</a><a>Pro</a><a>Enterprise</a></div><div><h6>Features</h6><a>Query Builder</a><a>Drill Through</a><a>Collections</a><a>Usage analytics
+          <span>New
+          </span></a><a>Analytics dashboards</a><a>SQL editor</a><a>Sandboxing</a><a>Models</a><a>Permissions</a><a>CSV upload</a></div><div><h6>Company</h6><a>Jobs
+          <div>We're hiring!
+
+
+

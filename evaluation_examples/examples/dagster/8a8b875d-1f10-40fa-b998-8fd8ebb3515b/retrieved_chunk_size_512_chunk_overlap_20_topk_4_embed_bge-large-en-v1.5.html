@@ -1,0 +1,49 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/intro-to-ops-jobs/single-op-job.html
+
+Documentation Title:
+Intro to ops and jobs, part one: Write a single-op job | Dagster Docs
+
+Documentation Content:
+"</span><span>)</span><span>if</span>os<span>.</span>path<span>.</span>isfile<span>(</span>f<span>)</span><span>]</span><span>for</span>f <span>in</span>files<span>:</span>get_dagster_logger<span>(</span><span>)</span><span>.</span>info<span>(</span><span><span>f"Size of </span><span><span>{</span>f<span>}</span></span><span>is </span><span><span>{</span>os<span>.</span>path<span>.</span>getsize<span>(</span>f<span>)</span><span>}</span></span><span>"</span></span><span>)</span></code><p>In this simple case, our op takes no arguments, and also returns no outputs. Don't worry, we'll soon encounter ops that are more dynamic.</p><h2>Step 2: Write your first job<span>#</span></h2><p>To execute our op, we'll embed it in an equally simple job. A job is a set of ops arranged into a <a>DAG</a>of computation. You'll typically define jobs by annotating ordinary Python functions with the <code>@job</code>decorator.</p><code><span>@job</span><span>def</span><span>file_sizes_job</span><span>(</span><span>)</span><span>:</span>get_file_sizes<span>(</span><span>)</span></code><p>Here you'll see that we call <code>get_file_sizes()</code>. This call doesn't actually execute the op. Within the bodies of functions decorated with <code>@job</code>, we use function calls to indicate the dependency structure of the op making up the job.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/intro-to-ops-jobs/single-op-job.html
+
+Documentation Title:
+Intro to ops and jobs, part one: Write a single-op job | Dagster Docs
+
+Documentation Content:
+Here, we indicate that the execution of <code>get_file_sizes</code>doesn't depend on any other ops by calling it with no arguments.</p><h2>Step 3: Execute your first job<span>#</span></h2><p>Assuming you’ve saved this job as <code>hello.py</code>, you can execute it via any of three different mechanisms:</p><div><div><button>Dagster UI</button><button>Dagster CLI</button><button>Python API</button></div><div><h3>Dagster UI<span>#</span></h3><p>To visualize your job (which only has one op) in the UI, just run the following. Make sure you're in the directory in which you've saved the job file:</p><code>dagster dev -f hello.py
+</code><p>You'll see output like:</p><code>Serving dagster-webserver on http://127.0.0.1:3000 <span>in</span>process <span>70635</span></code><p>You should be able to navigate to <a>http://127.0.0.1:3000</a>in your web browser and view your job. It isn't very interesting yet, because it only has one op.</p><img/><p>Click on the <strong>Launchpad</strong>tab and you'll see the view below.</p><img/><p>The large upper left pane is empty here, but, in jobs with parameters, this is where you'll be able to edit job configuration on the fly.</p><p>Click the <strong>Launch Run</strong>button on the bottom right to execute this job directly from the UI.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/intro-to-ops-jobs/single-op-job.html
+
+Documentation Title:
+Intro to ops and jobs, part one: Write a single-op job | Dagster Docs
+
+Documentation Content:
+<a>Ops</a>are individual units of computation that we wire together to form <a>jobs</a>.</p><p>In this part, you'll:</p><ul><a>Write your first op</a><a>Write your first job</a><a>Execute the job</a></ul><h2>Step 1: Write your first op<span>#</span></h2><p>Let's write our first Dagster op and save it as <code>hello.py</code>.</p><p>Typically, you'll define ops by annotating ordinary Python functions with the <code>@op</code>decorator.</p><p>Our first op finds the sizes of all the files in our current directory and logs them.</p><code><span>import</span>os
+<span>from</span>dagster <span>import</span>job<span>,</span>op<span>,</span>get_dagster_logger
+
+
+<span>@op</span><span>def</span><span>get_file_sizes</span><span>(</span><span>)</span><span>:</span>files <span>=</span><span>[</span>f <span>for</span>f <span>in</span>os<span>.</span>listdir<span>(</span><span>".
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/intro-to-ops-jobs/testable.html
+
+Documentation Title:
+Intro to ops and jobs, part three: Testing ops and jobs | Dagster Docs
+
+Documentation Content:
+</p><p>Creating testable and verifiable ops and jobs is one of the focuses of Dagster. We believe ensuring data quality is critical for managing the complexity of data systems.</p><p>In the final part of this tutorial, you'll learn how to write unit tests for Dagster jobs and ops.</p><h2>Testing the job (and its ops)<span>#</span></h2><p>Let's go back to the <code>diamond</code>job we wrote in the <a>prior section</a>, and ensure that it's working as expected by writing some unit tests.</p><p>We'll start by writing a test for the <code>test_get_total_size</code>op, which takes a dictionary of file sizes as input and returns the sum of the file sizes. To run an op, we can invoke it directly, as if it's a regular Python function:</p><code><span>def</span><span>test_get_total_size</span><span>(</span><span>)</span><span>:</span>file_sizes <span>=</span><span>{</span><span>"file1"</span><span>:</span><span>400</span><span>,</span><span>"file2"</span><span>:</span><span>50</span><span>}</span>result <span>=</span>get_total_size<span>(</span>file_sizes<span>)</span><span>assert</span>result <span>==</span><span>450</span></code><p>We'll also write a test for the entire job.
+
+
+

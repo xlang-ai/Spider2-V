@@ -1,0 +1,129 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/geospatial-get-started.html
+
+Documentation Title:
+Get started with geospatial analytics  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</dd></dl><dl><code>FROM `bigquery-public-data.new_york.citibike_stations`</code><dd>The <code>FROM</code>clause specifies the table being queried: <code>citibike_stations</code>.</dd></dl><dl><code>WHERE num_bikes_available &gt; 30</code><dd>The <code>WHERE</code>clause filters the values in the <code>num_bikes_available</code>column to
+just those stations with more than 30 bikes.</dd></dl></ul><h3>Run the query</h3><p>To run the query by using the Google Cloud console:</p><ol><li><p>Go to the BigQuery page in the Google Cloud console.</p><a>Go to the BigQuery page</a></li><li><p>Enter the following GoogleSQL query in the <strong>Query editor</strong>text area.</p><pre>-- Finds Citi Bike stations with &gt; 30 bikes
+SELECT
+  ST_GeogPoint(longitude, latitude)  AS WKT,
+  num_bikes_available
+FROM
+  `bigquery-public-data.new_york.citibike_stations`
+WHERE num_bikes_available &gt; 30
+</pre></li><li><p>Click <strong>Run</strong>.</p><p>The query takes a moment to complete.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/kmeans-tutorial.html
+
+Documentation Title:
+Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+In this tutorial,
+you cluster bike stations based on the following attributes:</p><ul><li>Duration of rentals</li><li>Number of trips per day</li><li>Distance from city center</li></ul><div><section><h3>SQL </h3><p>The following GoogleSQL query is used to
+examine the data used to train your k-means model.</p><pre>#standardSQL
+WITH
+hs AS (
+SELECT
+  h.start_station_name AS station_name,
+  IF
+  (EXTRACT(DAYOFWEEK
+    FROM
+      h.start_date) = 1
+    OR EXTRACT(DAYOFWEEK
+    FROM
+      h.start_date) = 7,
+    "weekend",
+    "weekday") AS isweekday,
+  h.duration,
+  ST_DISTANCE(ST_GEOGPOINT(s.longitude,
+      s.latitude),
+    ST_GEOGPOINT(-0.1,
+      51.5))/1000 AS distance_from_city_center
+FROM
+  `bigquery-public-data.london_bicycles.cycle_hire` AS h
+JOIN
+  `bigquery-public-data.london_bicycles.cycle_stations` AS s
+ON
+  h.start_station_id = s.id
+WHERE
+  h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
+  AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
+stationstats AS (
+SELECT
+  station_name,
+  isweekday,
+  AVG(duration) AS duration,
+  COUNT(duration) AS num_trips,
+  MAX(distance_from_city_center) AS distance_from_city_center
+FROM
+  hs
+GROUP BY
+  station_name, isweekday )
+SELECT
+*
+FROM
+stationstats
+ORDER BY
+distance_from_city_center ASC
+</pre><strong>Query details</strong><p>This query extracts data on cycle hires, including <code>start_station_name</code>, and
+<code>duration</code>and joins it against station information, including <code>distance-from-city-center</code>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/geospatial-get-started.html
+
+Documentation Title:
+Get started with geospatial analytics  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+The data is processed by Citi Bike to remove trips that are
+taken by staff to service and inspect the system and any trips below 60
+seconds in length, which are considered false starts.</p><p>You can start exploring this data in the BigQuery console by
+viewing the details of the <code>citibike_stations</code>table:</p><a>Go to citibike_stations schema</a><p>Three columns in this table are relevant to this tutorial:</p><ul><li><code>bike_stations.longitude</code>: the longitude of a station. The values are
+valid WGS 84 longitudes in decimal degrees format.</li><li><code>bike_stations.latitude</code>: the latitude of a station. The values are
+valid WGS 84 latitudes in decimal degrees format.</li><li><code>num_bikes_available</code>: the number of bikes available for rental.</li></ul><h2>Query the bike stations with more than 30 bikes available</h2><p>In this section of the tutorial, you run a GoogleSQL query that finds all the
+Citi Bike stations in New York City with more than 30 bikes available to rent.</p><h3>Query details</h3><p>The following GoogleSQL query is used to find the Citi Bike stations with
+more than 30 bikes.</p><pre>SELECT
+  ST_GeogPoint(longitude, latitude)  AS WKT,
+  num_bikes_available
+FROM
+  `bigquery-public-data.new_york.citibike_stations`
+WHERE num_bikes_available &gt; 30
+</pre><p>The query clauses do the following:</p><ul><dl><code>SELECT ST_GeogPoint(longitude, latitude)  AS WKT, num_bikes_available</code><dd>The <code>SELECT</code>clause selects the <code>num_bikes_available</code>column and uses the
+<code>ST_GeogPoint</code>function to convert the values in the <code>latitude</code>and <code>longitude</code>columns to <code>GEOGRAPHY</code>types (points).
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/visualize-looker-studio.html
+
+Documentation Title:
+Analyze data with Looker Studio  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+This is useful if you want to modify the data in
+BigQuery before working with it in Looker Studio,
+or if you only need a subset of the fields in the table.</p><aside><strong>Note:</strong><span>You can visualize a maximum of 5,000 rows of data in
+Looker Studio charts.</span></aside><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Select your <a>billing project</a>.</p><p>In the <strong>Explorer</strong>pane, enter <code>bikeshare_trips</code>in the
+<strong>Type to search</strong>field.</p><p>Go to <strong>bigquery-public-data <span>&gt;</span>austin_bikeshare <span>&gt;</span>bikeshare_trips</strong>.</p><p>Click <span>more_vert</span><strong>View actions</strong>,
+and then click <strong>Query</strong>.</p><li><p>In the query editor, construct your query. For example:</p><pre>SELECT
+  *
+FROM
+  `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+LIMIT
+  1000;
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p><li><p>In the <strong>Query results</strong>section, click <strong>Explore data</strong>, and then click
+<strong>Explore with Looker Studio</strong>.</p><img/></li><p>On the <strong>Welcome to Looker Studio</strong>page, click
+<strong>Get Started</strong>if you agree to the Google Looker Studio and
+Google Terms of Service.</p><li><p>On the <strong>Authorize Looker Studio access</strong>page, click <strong>Authorize</strong>to authorize the connection if you agree to the terms of service, and
+then select your marketing preferences.
+
+
+

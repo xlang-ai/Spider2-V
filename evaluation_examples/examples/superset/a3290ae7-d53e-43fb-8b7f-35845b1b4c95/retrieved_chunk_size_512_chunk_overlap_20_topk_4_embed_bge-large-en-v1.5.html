@@ -1,0 +1,42 @@
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.html
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+If the connection looks good, save the configuration
+by clicking the <strong>Connect</strong>button in the bottom right corner of the modal window:</p><p>Congratulations, you've just added a new data source in Superset!</p><h3>Registering a new table<a>​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong>in Superset)
+that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><img/><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
+<strong>Schema</strong>, and <strong>Table</strong>using the drop downs that appear. In the following example,
+we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><img/><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
+for how the column should be treated in the Explore workflow:</p><ul><li>Is the column temporal? (should it be used for slicing &amp; dicing in time series charts?)</li><li>Should the column be filterable?</li><li>Is the column dimensional?</li><li>If it's a datetime column, how should Superset parse
+the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><img/><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+The Superset semantic layer can store 2 types of computed data:</p><li>Virtual metrics: you can write SQL queries that aggregate values
+from multiple column (e.g.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.html
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+(tables)</text><text>created_on: DATETIME</text><text>changed_on: DATETIME</text><text>id: INTEGER</text><text>description: TEXT</text><text>default_endpoint: TEXT</text><text>is_featured: BOOLEAN</text><text>filter_select_enabled: BOOLEAN</text><text>offset: INTEGER</text><text>cache_timeout: INTEGER</text><text>is_managed_externally: BOOLEAN</text><text>external_url: TEXT</text><text>database_id: INTEGER</text><text>fetch_values_predicate: TEXT</text><text>sql: TEXT</text><text>is_sqllab_view: BOOLEAN</text><text>template_params: TEXT</text><text>extra: TEXT</text><text>normalize_columns: BOOLEAN</text><text>always_filter_main_dttm: BOOLEAN</text><text>created_by_fk: INTEGER</text><text>changed_by_fk: INTEGER</text><text>uuid: BINARY(16)</text><text>params: VARCHAR(1000)</text><text>perm: VARCHAR(1000)</text><text>schema_perm: VARCHAR(1000)</text><text>catalog_perm: VARCHAR(1000)</text><text>table_name: VARCHAR(250)</text><text>main_dttm_col: VARCHAR(250)</text><text>schema: VARCHAR(255)</text><text>catalog: VARCHAR(256)</text><text>Column (sl_columns)</text><text>created_on: DATETIME</text><text>changed_on: DATETIME</text><text>extra_json: TEXT</text><text>id: INTEGER</text><text>is_additive: BOOLEAN</text><text>is_aggregation: BOOLEAN</text><text>is_filterable: BOOLEAN</text><text>is_dimensional: BOOLEAN</text><text>is_increase_desired: BOOLEAN</text><text>is_managed_externally: BOOLEAN</text><text>is_partition: BOOLEAN</text><text>is_physical: BOOLEAN</text><text>is_spatial: BOOLEAN</text><text>is_temporal: BOOLEAN</text><text>name: TEXT</text><text>type: TEXT</text><text>advanced_data_type: TEXT</text><text>expression:
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/sql-templating/index.html
+
+Documentation Title:
+SQL Templating | Superset
+
+Documentation Content:
+By default, the following variables are
+made available in the Jinja context:</p><ul><li><code>columns</code>: columns which to group by in the query</li><li><code>filter</code>: filters applied in the query</li><li><code>from_dttm</code>: start <code>datetime</code>value from the selected time range (<code>None</code>if undefined)</li><li><code>to_dttm</code>: end <code>datetime</code>value from the selected time range (<code>None</code>if undefined)</li><li><code>groupby</code>: columns which to group by in the query (deprecated)</li><li><code>metrics</code>: aggregate expressions in the query</li><li><code>row_limit</code>: row limit of the query</li><li><code>row_offset</code>: row offset of the query</li><li><code>table_columns</code>: columns available in the dataset</li><li><code>time_column</code>: temporal column of the query (<code>None</code>if undefined)</li><li><code>time_grain</code>: selected time grain (<code>None</code>if undefined)</li></ul><p>For example, to add a time range to a virtual dataset, you can write the following:</p><code><span><span>SELECT</span><span>*</span></span><span><span>FROM</span><span>tbl</span></span><span><span>WHERE</span><span>dttm_col </span><span>&gt;</span><span>'{{ from_dttm }}'</span><span>and</span><span>dttm_col </span><span>&lt;
+
+
+

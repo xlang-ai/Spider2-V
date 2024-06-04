@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.html
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+"</span><span>)</span></span><span><span>print_reaction </span><span>=</span><span>BashOperator</span><span>(</span></span><span><span>task_id</span><span>=</span><span>"print_reaction"</span><span>,</span></span><span><span>bash_command</span><span>=</span><span>"echo This is awesome!"</span><span>,</span></span><span>)</span><span><span>chain</span><span>(</span><span>print_num_people_in_space</span><span>(</span><span>)</span><span>,</span><span>print_reaction</span><span>)</span></span><span># print_num_people_in_space() &gt;&gt; print_reaction</span><span><span>my_astronauts_dag</span><span>(</span><span>)</span></span></code></details><h2>Step 7: Run the new DAG<a>​</a></h2><p>Go back to the Airflow UI to view your new DAG. Airflow parses the <code>/dags</code>directory for changes to existing files every 30 seconds and new files every 5 minutes.</p><div><div>tip</div><div><p>You can manually trigger a full parse of your DAGs by running the following command in your terminal:</p><span>astro dev run dags reserialize</span></div></div><p>When your new DAG appears in the Airflow UI, you can run it to test it.</p><ol><p>Start the new DAG and trigger a run like you did in <a>Step 4</a>.</p><li><p>Click the name of your new DAG and open the <strong>Grid</strong>view.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.html
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+Let's trigger a run of the <code>example_astronauts</code>DAG!</p><ol><li><p>Before you can trigger a DAG run in Airflow, you have to unpause the DAG. To unpause <code>example_astronauts</code>, click the slider button next to its name. Once you unpause it, the DAG starts to run on the schedule defined in its code.</p><img/></li><p>While all DAGs can run on a schedule defined in their code, you can manually trigger a DAG run at any time from the Airflow UI. Manually trigger <code>example_astronauts</code>by clicking the play button under the <strong>Actions</strong>column. During development, running DAGs on demand can help you identify and resolve issues.</p></ol><p>After you press <strong>Play</strong>, the <strong>Runs</strong>and <strong>Recent Tasks</strong>sections for the DAG start to populate with data.</p><img/><p>These circles represent different <a>states</a>that your DAG and task runs can be in. However, these are only high-level summaries of your runs that won't make much sense until you learn more about how Airflow works. To get a better picture of how your DAG is running, let's explore some other views in Airflow.</p><h2>Step 5: Explore the Airflow UI<a>​</a></h2><p>The navigation bar in the Airflow UI contains tabs with different information about your Airflow environment. For more information about what you can find in each tab, see <a>The Airflow UI</a>.</p><p>Let's explore the available views in the <strong>DAGs</strong>page. To access different DAG views for <code>example_astronauts</code>:</p><ol><li><p>Click the name of the DAG to access the <strong>Grid</strong>view, which shows the status of running and completed tasks.</p><p>Each column in the grid represents a complete DAG run, and each block in the column represents a specific task instance.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/error-notifications-in-airflow.html
+
+Documentation Title:
+Manage Airflow DAG notifications | Astronomer Documentation
+
+Documentation Content:
+io"</span><span>,</span></span><span><span>"email_on_retry"</span><span>:</span><span>False</span><span>,</span></span><span>}</span><span><span>with</span><span>DAG</span><span>(</span></span><span><span>"sla-dag"</span><span>,</span></span><span><span>start_date</span><span>=</span><span>datetime</span><span>(</span><span>2023</span><span>,</span><span>1</span><span>,</span><span>1</span><span>)</span><span>,</span></span><span><span>max_active_runs</span><span>=</span><span>1</span><span>,</span></span><span><span>schedule</span><span>=</span><span>duration</span><span>(</span><span>minutes</span><span>=</span><span>2</span><span>)</span><span>,</span></span><span><span>default_args</span><span>=</span><span>default_args</span><span>,</span></span><span><span>catchup</span><span>=</span><span>False</span><span>,</span></span><span><span>)</span><span>as</span><span>dag</span><span>:</span></span><span><span>t0 </span><span>=</span><span>EmptyOperator</span><span>(</span><span>task_id</span><span>=</span><span>"start"</span><span>,</span><span>sla</span><span>=</span><span>duration</span><span>(</span><span>seconds</span><span>=</span><span>50</span><span>)</span><span>)</span></span><span><span>t1 </span><span>=</span><span>EmptyOperator</span><span>(</span><span>task_id</span><span>=</span><span>"end"</span><span>,
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.html
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+dag_id=my_astronauts_dag, task_id=print_num_people_in_space, execution_date=20240227T135707, start_date=20240227T135707, end_date=20240227T135707</span></code><p>Repeat steps 1-3 for the <code>print_reaction</code>task. The task logs should include the output of the <code>bash_command</code>given to the task and look similar to the text below:</p><code><span>[2024-02-27, 13:57:08 UTC] {subprocess.py:63} INFO - Tmp dir root location: /tmp</span><span>[2024-02-27, 13:57:08 UTC] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'echo This is awesome!']</span><span>[2024-02-27, 13:57:08 UTC] {subprocess.py:86} INFO - Output:</span><span>[2024-02-27, 13:57:08 UTC] {subprocess.py:93} INFO - This is awesome!</span><span>[2024-02-27, 13:57:08 UTC] {subprocess.py:97} INFO - Command exited with return code 0</span></code><h2>Next steps<a>​</a></h2><p>Congratulations! You've written and run your first DAG in Airflow. You've also learned how to navigate the Airflow UI and view task logs.
+
+
+

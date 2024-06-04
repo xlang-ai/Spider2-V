@@ -1,0 +1,44 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+Enterprise</span></span></div><p>Now that you've learned how to set up your first <a>source</a>and <a>destination</a>, it's time to finish the setup by creating your very first connection!</p><p>On the left side of your main Airbyte dashboard, select <strong>Connections</strong>. You will be prompted to choose which source and destination to use for this connection. For this example, we'll use the <strong>Google Sheets</strong>source and the destination you previously set up, either <strong>Local JSON</strong>or <strong>Google Sheets</strong>.</p><h2>Configure the connection<a>​</a></h2><p>Once you've chosen your source and destination you can configure the connection. You'll first be asked a few questions about how your data should sync, these correlate to our sync modes which you can read more about on <a>this page</a>.</p><p>Most users select "Mirror Source", which will simply copy the data from the source to the destination where you'll see one row in the destination for each row in the source. If you prefer to Append Historical Changes or take a Full Snapshot with each sync, you can optionally select those options, but keep in mind those will create duplicate records in your destination. The sync mode we choose for all the enabled streams will reflect your selection here.</p><p>Next, you can toggle which streams you want to replicate. Our test data consists of three streams, which we've enabled and set to <code>Incremental - Append + Deduped</code>sync mode.</p><img/><p>Your sync mode is already determined by your selection above, but you can change the sync mode for an individual stream. You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see <a>this page</a>.</p><p>You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/add-a-source.html
+
+Documentation Title:
+Add a Source | Airbyte Documentation
+
+Documentation Content:
+When viewing the Airbyte UI, you'll see the main navigation bar on the left side of your screen. Click the <strong>Sources</strong>tab to bring up a list of all available sources.</p><p>You can use the provided search bar, or simply scroll down the list to find the source you want to replicate data from. Let's use a demo source, Faker, as an example. Clicking on the <strong>Sample Data (Faker)</strong>card will bring us to its setup page.</p><img/><p>The left half of the page contains a set of fields that you will have to fill out. In the <strong>Source name</strong>field, you can enter a name of your choosing to help you identify this instance of the connector. By default, this will be set to the name of the source (ie, <code>Sample Data (Faker)</code>).</p><p>Each connector in Airbyte will have its own set of authentication methods and configurable parameters. In the case of Sample Data (Faker), you can adjust the number of records you want returned in your <code>Users</code>data, and optionally adjust additional configuration settings. You can always refer to your source's provided setup guide for specific instructions on filling out each field.</p><div><div>info</div><p>Some sources will have an <strong>Optional Fields</strong>tab. You can open this tab to view and configure any additional optional parameters that exist for the souce, but you do not have to do so to successfully set up the connector.</p></div><p>Once you've filled out all the required fields, click on the <strong>Set up source</strong>button and Airbyte will run a check to verify the connection. Happy replicating!</p><p>Can't find the connectors that you want? Try your hand at easily building one yourself using our <a>Connector Builder</a>!</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Core Concepts</div></a><a><div>Next</div><div>Add a Destination</div></a></nav></div></div></div>
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/marketo.html
+
+Documentation Title:
+Marketo | Airbyte Documentation
+
+Documentation Content:
+Specifically, copy your <strong>Endpoint</strong>without "/rest" and keep them handy for use in the Airbyte UI.</p><p>We're almost there! Armed with your Endpoint &amp; Identity URLs and your Client ID and Secret, head over to the Airbyte UI to setup Marketo as a source.</p><h2>Step 2: Set up the Marketo connector in Airbyte<a>​</a></h2><strong>For Airbyte Cloud:</strong><ol><li><a>Log into your Airbyte Cloud</a>account.</li><li>In the left navigation bar, click Sources. In the top-right corner, click <strong>+new source</strong>.</li><li>On the Set up the source page, enter the name for the Marketo connector and select <strong>Marketo</strong>from the Source type dropdown.</li><li>Enter the start date, domain URL, client ID and secret</li><li>Submit the form</li></ol><strong>For Airbyte Open Source:</strong><ol><li>Navigate to the Airbyte Open Source dashboard</li><li>Set the name for your source</li><li>Enter the start date</li><li>Enter the domain URL</li><li>Enter client ID and secret</li><li>Click <strong>Set up source</strong></li></ol><h2>Supported sync modes<a>​</a></h2><p>The Marketo source connector supports the following<a>sync modes</a>:</p><ul><li>Full Refresh | Overwrite</li><li>Full Refresh | Append</li><li>Incremental | Append</li><li>Incremental | Deduped</li></ul><h2>Supported Streams<a>​</a></h2><p>This connector can be used to sync the following tables from Marketo:</p><ul><li><strong>Activities_X</strong>where X is an activity type contains information about lead activities of the type X. For example, activities_send_email contains information about lead activities related to the activity type <code>send_email</code>.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/e-commerce-analytics-with-airbyte-dbt-dagster-and-bigquery.html
+
+Documentation Title:
+E-commerce Analytics Stack with Airbyte, dbt, Dagster and BigQuery | Airbyte
+
+Documentation Content:
+Here, you should see your source and destination connectors, as well as the connection between them, set up and ready to go 🎉.</p><h3>Setting Up Airbyte Connectors Using the UI</h3><p>Start by launching the Airbyte UI by going to <a>http://localhost:8000/</a>in your browser. Then:</p><h4><strong>1. Create a source</strong>:</h4><ul><li>Go to the Sources tab and click on "+ New source".</li><li>Search for “faker” using the search bar and select "Sample Data (Faker)".</li><li>Adjust the Count and optional fields as needed for your use case. You can also leave as is.</li><li>Click on "Set up source".</li></ul><h4><strong>2. Create a destination</strong>:</h4><ul><li>Go to the Destinations tab and click on "+ New destination".</li><li>Search for “bigquery” using the search bar and select "BigQuery".</li><li>Enter the connection details as needed.</li><li>For simplicity, you can use "Standard Inserts" as the loading method.</li><li>In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.</li><li>Click on "Set up destination".</li></ul><h4><strong>3. Create a connection</strong>:</h4><ul><li>Go to the Connections tab and click on "+ New connection".</li><li>Select the source and destination you just created.</li><li>Enter the connection details as needed.</li><li>Click on "Set up connection".</li></ul><p>That’s it! Your connection is set up and ready to go! 🎉</p><h2>Setting Up the dbt Project</h2><p><a>dbt (data build tool)</a>allows you to transform your data by writing, documenting, and executing SQL workflows.
+
+
+

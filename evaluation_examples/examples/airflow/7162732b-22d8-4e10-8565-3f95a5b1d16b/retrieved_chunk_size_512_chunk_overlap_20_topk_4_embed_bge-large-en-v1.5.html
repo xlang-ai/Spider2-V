@@ -1,0 +1,45 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-database.html
+
+Documentation Title:
+Understanding the Airflow metadata database | Astronomer Documentation
+
+Documentation Content:
+</span></span><span><span>auth</span><span>=</span><span>(</span><span>user_name</span><span>,</span><span>password</span><span>)</span><span>,</span></span><span>)</span><span># print the API response</span><span><span>print</span><span>(</span><span>req</span><span>.</span><span>text</span><span>)</span></span></code><h3>Delete a DAG<a>​</a></h3><p>Deleting the metadata of a DAG can be accomplished either by clicking the <code>trashcan</code>icon in the Airflow UI or sending a <code>DELETE</code>request with the Airflow REST API. This is not possible while the DAG is still running, and will not delete the Python file in which the DAG is defined, meaning the DAG will appear again in your UI with no history at the next parsing of the <code>/dags</code>folder from the scheduler.</p><p>The Python script below sends a DELETE request to a DAG with a specific ID (here: <code>dag_to_delete</code>).</p><code><span># import the request library</span><span><span>import</span><span>requests</span></span><span><span>import</span><span>os</span></span><span># provide the location of your airflow instance</span><span><span>ENDPOINT_URL </span><span>=</span><span>"http://localhost:8080/"</span></span><span># in this example env variables were used to store login information</span><span># you will need to provide your own credentials</span><span><span>user_name </span><span>=</span><span>os</span><span>.</span><span>environ</span><span>[</span><span>"USERNAME_AIRFLOW_INSTANCE"</span><span>]</span></span><span><span>password </span><span>=</span><span>os</span><span>.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/deployment-role-reference.html
+
+Documentation Title:
+Custom Deployment role permissions references | Astronomer Documentation
+
+Documentation Content:
+</li><li><code>deployment.airflow.dagRun.delete</code>: Delete DAG runs in the Airflow UI or Astro UI <strong>DAGs</strong>page.</li></ul><h2>Deployment Airflow Datasets<a>​</a></h2><li><code>deployment.airflow.datasets.get</code>: View the datasets for DAGs in the Airflow UI.</li><h2>Deployment Airflow Docs<a>​</a></h2><li><code>deployment.airflow.docs.get</code>: View the documentation for DAGs in the Airflow UI.</li><h2>Deployment Airflow ImportError<a>​</a></h2><li><code>deployment.airflow.importError.get</code>: View any import errors for DAGs in the Airflow UI.</li><h2>Deployment Airflow Job<a>​</a></h2><li><code>deployment.airflow.job.get</code>: View scheduler jobs in the Airflow UI.</li><h2>Deployment Airflow Plugin<a>​</a></h2><li><code>deployment.airflow.plugin.get</code>: View plugins in the Airflow UI.</li><h2>Deployment Airflow Pool<a>​</a></h2><ul><li><code>deployment.airflow.pool.get</code>: View pools in the Airflow UI.</li><li><code>deployment.airflow.pool.create</code>: Create pools in the Airflow UI.</li><li><code>deployment.airflow.pool.update</code>: Update pools in the Airflow UI.</li><li><code>deployment.airflow.pool.delete</code>: Delete pools in the Airflow UI.</li></ul><h2>Deployment Airflow Provider<a>​</a></h2><li><code>deployment.airflow.provider.get</code>: View installed provider packages in the Airflow UI.</li><h2>Deployment Airflow SlaMiss<a>​</a></h2><li><code>deployment.airflow.slaMiss.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/view-logs.html
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+This often includes deprecation notices marked as <code>DeprecationWarning</code>. For example, Airflow might recommend that you upgrade your Deployment if there was a change to the Airflow database or task execution logic.</li><li><strong>Info</strong>: Emitted frequently by Airflow to show that a standard scheduler process, such as DAG parsing, has started. These logs are frequent and can contain useful information. If you run dynamically generated DAGs, for example, these logs will show how many DAGs were created per DAG file and how long it took the scheduler to parse each of them.</li></ul><h3>View Airflow component logs in the Astro UI<a>​</a></h3><p>You can access scheduler, triggerer, and task logs in the Astro UI to find the past 24 hours of logs for any Deployment on its <strong>Logs</strong>page.</p><ol><p>In the Astro UI, select a Workspace and then a Deployment.</p><p>Click the <strong>Logs</strong>tab.</p></ol><p>The maximum number of lines returned is 10,000, with 50 results displayed per page. If there are no logs available for a given Deployment, the following message appears:</p><span>No matching events have been recorded in the past 24 hours.</span><p>Typically, this indicates that the Deployment you selected does not currently have any DAGs running.</p><h4>Filter options<a>​</a></h4><p>You can use the following options to specify the types of logs or messages that you want to view.</p><ul><p><strong>String search</strong>: Enter a string, keyword, or phrase to find in your logs. You can also search with suffix wildcards by adding a <code>*</code>to your search query. For example, <code>acti*</code>returns results that include <code>action</code>and <code>acting</code>.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-ui.html
+
+Documentation Title:
+An introduction to the Airflow UI | Astronomer Documentation
+
+Documentation Content:
+It does not show any code that may be imported in the DAG, such as custom hooks or operators or code in your <code>/include</code>directory.</p><h3>Audit Logs<a>​</a></h3><p>The <strong>Audit Logs</strong>tab shows a list of events that have occurred in your Airflow environment relating to the DAG, DAG run or task instance you have selected.</p><img/><h3>Run Duration<a>​</a></h3><p>The <strong>Run Duration</strong>tab shows a bar chart of the duration of each DAG run over time.</p><img/><h3>Logs<a>​</a></h3><p>To access the <a>logs</a>of a specific task instance, click on the <strong>Logs</strong>tab which appears as soon as you select a task instance. By default the logs of the task execution are shown, while the <strong>Pre task execution logs</strong>and the <strong>Post task execution logs</strong>are collapsed and can be expanded by clicking on the respective log item.</p><img/><h2>Cluster activity tab<a>​</a></h2><p>The cluster activity tab shows aggregated metrics for the entire Airflow cluster. It includes live metrics, such as currently occupied slots in different <a>pools</a>, unpaused DAGs, and scheduler health.
+It also includes historical metrics like the states of past DAG runs and task instances, as well as how each DAG run was triggered.</p><img/><h2>Datasets tab<a>​</a></h2><p>The <strong>Dataset</strong>tab links to a page showing all datasets that have been produced in the Airflow environment, as well as all dependencies between datasets and DAGs in a graph.</p><img/><p>Click a dataset to open the history of all updates to the dataset that were recorded in the Airflow environment. You can use the Play button to manually trigger an update to a Dataset.</p><img/><h2>Security tab<a>​</a></h2><div><div>Astro does not support the Security tab</div><p>On Astro, role-based access control is managed at the platform level.
+
+
+

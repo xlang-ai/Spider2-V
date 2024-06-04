@@ -1,0 +1,44 @@
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.html
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+If the timestamps are unchanged, then dbt will not take any action.</p><p>The <code>timestamp</code>strategy requires the following configurations:</p><table><tr><th>Config</th><th>Description</th><th>Example</th></tr><tr><td>updated_at</td><td>A column which represents when the source row was last updated</td><code>updated_at</code></tr></table><strong>Example usage:</strong><div><span>snapshots/orders_snapshot_timestamp.sql</span><code><span><span>{</span><span>%</span><span>snapshot</span><span>orders_snapshot_timestamp </span><span>%</span><span>}</span></span><span>{{</span><span><span>config</span><span>(</span></span><span><span>target_schema</span><span>=</span><span>'snapshots'</span><span>,</span></span><span><span>strategy</span><span>=</span><span>'timestamp'</span><span>,</span></span><span><span>unique_key</span><span>=</span><span>'id'</span><span>,</span></span><span><span>updated_at</span><span>=</span><span>'updated_at'</span><span>,</span></span><span>)</span><span>}}</span><span><span>select</span><span>*</span><span>from</span><span>{{ source</span><span>(</span><span>'jaffle_shop'</span><span>,</span><span>'orders'</span><span>)</span><span>}}</span></span><span><span>{</span><span>%</span><span>endsnapshot </span><span>%</span><span>}</span></span></code></div><h3>Check strategy<a>​</a></h3><p>The <code>check</code>strategy is useful for tables which do not have a reliable <code>updated_at</code>column. This strategy works by comparing a list of columns between their current and historical values. If any of these columns have changed, then dbt will invalidate the old record and record the new one.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.html
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+You'll also need to configure your snapshot to tell dbt how to detect record changes.</p><div><span>snapshots/orders_snapshot.sql</span><code><span><span>{</span><span>%</span><span>snapshot</span><span>orders_snapshot </span><span>%</span><span>}</span></span><span>{{</span><span><span>config</span><span>(</span></span><span><span>target_database</span><span>=</span><span>'analytics'</span><span>,</span></span><span><span>target_schema</span><span>=</span><span>'snapshots'</span><span>,</span></span><span><span>unique_key</span><span>=</span><span>'id'</span><span>,</span></span><span><span>strategy</span><span>=</span><span>'timestamp'</span><span>,</span></span><span><span>updated_at</span><span>=</span><span>'updated_at'</span><span>,</span></span><span>)</span><span>}}</span><span><span>select</span><span>*</span><span>from</span><span>{{ source</span><span>(</span><span>'jaffle_shop'</span><span>,</span><span>'orders'</span><span>)</span><span>}}</span></span><span><span>{</span><span>%</span><span>endsnapshot </span><span>%</span><span>}</span></span></code></div><div><div>Preview or Compile Snapshots in IDE</div><p>It is not possible to "preview data" or "compile sql" for snapshots in dbt Cloud. Instead, run the <code>dbt snapshot</code>command in the IDE by completing the following steps.</p></div><p>When you run the <a><code>dbt snapshot</code>command</a>:</p><ul><li><strong>On the first run:</strong>dbt will create the initial snapshot table — this will be the result set of your <code>select</code>statement, with additional columns including <code>dbt_valid_from</code>and <code>dbt_valid_to</code>.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.html
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+That same record will now look like:</p><table><tr><th>id</th><th>status</th><th>updated_at</th></tr><tr><td>1</td><td>shipped</td><td>2019-01-02</td></tr></table><p>This order is now in the "shipped" state, but we've lost the information about when the order was last in the "pending" state. This makes it difficult (or impossible) to analyze how long it took for an order to ship. dbt can "snapshot" these changes to help you understand how values in a row change over time. Here's an example of a snapshot table for the previous example:</p><table><tr><th>id</th><th>status</th><th>updated_at</th><th>dbt_valid_from</th><th>dbt_valid_to</th></tr><tbody><tr><td>1</td><td>pending</td><td>2019-01-01</td><td>2019-01-01</td><td>2019-01-02</td></tr><tr><td>1</td><td>shipped</td><td>2019-01-02</td><td>2019-01-02</td><code>null</code></tr></tbody></table><p>In dbt, snapshots are <code>select</code>statements, defined within a snapshot block in a <code>.sql</code>file (typically in your <code>snapshots</code>directory).
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.html
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+You can change the <code>target_database</code>configuration, the <code>target_schema</code>configuration and the name of the snapshot (as defined in <code>{% snapshot .. %}</code>) will change how dbt names this table.</li><code><span>$ dbt snapshot</span><span>Running with dbt=0.16.0</span><span>15:07:36 | Concurrency: 8 threads (target='dev')</span><span>15:07:36 |</span><span>15:07:36 | 1 of 1 START snapshot snapshots.orders_snapshot...... [RUN]</span><span>15:07:36 | 1 of 1 OK snapshot snapshots.orders_snapshot..........[SELECT 3 in 1.82s]</span><span>15:07:36 |</span><span>15:07:36 | Finished running 1 snapshots in 0.68s.</span><span>Completed successfully</span><span>Done. PASS=2 ERROR=0 SKIP=0 TOTAL=1</span></code><ol><p>Inspect the results by selecting from the table dbt created. After the first run, you should see the results of your query, plus the <a>snapshot meta fields</a>as described below.</p><p>Run the <code>snapshot</code>command again, and inspect the results. If any records have been updated, the snapshot should reflect this.</p><p>Select from the <code>snapshot</code>in downstream models using the <code>ref</code>function.</p></ol><div><span>models/changed_orders.sql</span><span><span>select</span><span>*</span><span>from</span><span>{{ ref</span><span>(</span><span>'orders_snapshot'</span><span>)</span><span>}}</span></span></div><li>Schedule the <code>snapshot</code>command to run regularly — snapshots are only useful if you run them frequently.</li><h2>Detecting row changes<a>​</a></h2><p>Snapshot "strategies" define how dbt knows if a row has changed.
+
+
+

@@ -1,0 +1,107 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-ads-transfer.html
+
+Documentation Title:
+Load data from Google Ads  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+table properties</span><span>Get view properties</span><span>Grant view access</span><span>Import a local file</span><span>Insert GeoJSON data</span><span>Insert rows with no IDs</span><span>Insert WKT data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized view</span><span>Query
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-ads-transfer.html
+
+Documentation Title:
+Load data from Google Ads  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Connection Samples</span><ul><span>Create a Cloud SQL connection</span><span>Create an AWS connection</span><span>Delete a connection</span><span>Get connection metadata</span><span>List connections</span><span>List connections</span><span>Share a connection</span><span>Update connection metadata</span></ul></div><div><span>BigQuery Data Transfer Service Samples</span><ul><span>Copy a dataset</span><span>Create a scheduled query</span><span>Create a scheduled query with a service account</span><span>Create a transfer configuration with run notifications</span><span>Delete a scheduled query</span><span>Delete a transfer configuration</span><span>Disable a transfer configuration</span><span>Get configuration metadata</span><span>Get transfer run metadata</span><span>List run history</span><span>List supported data sources</span><span>List transfer configurations</span><span>Load data from Amazon Redshift</span><span>Load data from Amazon S3</span><span>Load data from Campaign Manager</span><span>Load data from Cloud Storage</span><span>Load data from Google Ad Manager</span><span>Load data from Google Ads</span><span>Load data from Google Play</span><span>Load data from Teradata</span><span>Load data from YouTube Channel reports</span><span>Load data from YouTube Content Owner reports</span><span>Re-enable a transfer configuration</span><span>Schedule a backfill run</span><span>Update configuration metadata</span><span>Update transfer configuration credentials</span></ul></div><div><span>BigQuery Migration Samples</span><span>Demonstrate batch query translation</span></div><div><span>BigQuery Reservation Samples</span><span>Report capacity commitments and reservations</span></div><div><span>BigQuery Storage Samples</span><ul><span>Append buffered records</span><span>Append committed records</span><span>Append data for a complex schema</span><span>Append pending records</span><span>Append records using default client</span><span>Append rows with a static protocol buffer</span><span>Download table data in the Arrow data format</span><span>Download table
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv.html
+
+Documentation Title:
+Loading CSV data from Cloud Storage  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>require "google/cloud/bigquery"
+
+def load_table_gcs_csv dataset_id = "your_dataset_id"
+  bigquery = Google::Cloud::Bigquery.new
+  dataset  = bigquery.dataset dataset_id
+  gcs_uri  = "gs://cloud-samples-data/bigquery/us-states/us-states.csv"
+  table_id = "us_states"
+
+  load_job = dataset.load_job table_id, gcs_uri, skip_leading: 1 do |schema|
+    schema.string "name"
+    schema.string "post_abbr"
+  end
+  puts "Starting job #{load_job.job_id}"
+
+  load_job.wait_until_done! # Waits for table load to complete.
+  puts "Job finished."
+
+  table = dataset.table table_id
+  puts "Loaded #{table.rows_count} rows to table #{table.id}"
+end</code></section></section></div><h2>Loading CSV data into a table that uses column-based time partitioning</h2><p>To load CSV data from Cloud Storage into a BigQuery table
+that uses column-based time partitioning:</p><div><section><span>Go</span><p>Before trying this sample, follow the <span>Go</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Go</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>import (
+	"context"
+	"fmt"
+	"time"
+
+	"cloud.google.com/go/bigquery"
+)
+
+// importPartitionedTable demonstrates specifing time partitioning for a BigQuery table when loading
+// CSV data from Cloud Storage.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-ads-transfer.html
+
+Documentation Title:
+Load data from Google Ads  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</a></nav><div><a>Contact Us</a><a>Start free</a></div></div></div><nav><img/><div><ul><li><span>Documentation
+   </span><ul><span>Guides
+   </span><span>Reference
+   </span><span>Samples
+   </span><span>Resources
+   </span></ul></li><li><span>Technology areas
+   </span><span>More
+   </span></li><li><span>Cross-product tools
+   </span><span>More
+   </span></li><li><span>Related sites
+   </span><span>More
+   </span></li><span>Console
+   </span><span>Contact Us
+   </span><span>Start free
+   </span></ul><div><ul><span>BigQuery</span><span>All BigQuery code samples</span><div><span>Analytics Hub Samples</span><span>Create a data exchange and listing using Analytics Hub</span></div><div><span>BigQuery Samples</span><ul><span>Create a BigQuery DataFrame from a CSV file in GCS</span><span>Create a BigQuery DataFrame from a finished query job</span><span>Add a column using a load job</span><span>Add a column using a query job</span><span>Add a label</span><span>Add an empty column</span><span>Array parameters</span><span>Authorize a BigQuery Dataset</span><span>Cancel a job</span><span>Check dataset existence</span><span>Clustered table</span><span>Column-based time partitioning</span><span>Copy a single-source table</span><span>Copy a table</span><span>Copy multiple tables</span><span>Create a BigQuery DataFrame from a table</span><span>Create a client with a service account key file</span><span>Create a client with application default credentials</span><span>Create a clustered table</span><span>Create a clustering model with BigQuery DataFrames</span><span>Create a dataset and grant access to it</span><span>Create a dataset in
+
+
+

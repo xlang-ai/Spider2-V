@@ -1,0 +1,46 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/delete.html
+
+Documentation Title:
+DELETE | Snowflake Documentation
+
+Documentation Content:
+This example deletes by bicycle_ID:</p><div><pre><span>DELETE</span><span>FROM</span><span>leased_bicycles</span><span>WHERE</span><span>bicycle_ID</span><span>=</span><span>105</span><span>;</span><span>+</span><span>------------------------+</span><span>| number of rows deleted |</span><span>|------------------------|</span><span>|                      1 |</span><span>+</span><span>------------------------+</span></pre><span>Copy</span></div><p>Show the data after the delete:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>leased_bicycles</span><span>ORDER</span><span>BY</span><span>bicycle_ID</span><span>;</span><span>+</span><span>------------+-------------+</span><span>| BICYCLE_ID | CUSTOMER_ID |</span><span>|------------+-------------|</span><span>|        101 |        1111 |</span><span>|        102 |        2222 |</span><span>|        103 |        3333 |</span><span>|        104 |        4444 |</span><span>+</span><span>------------+-------------+</span></pre><span>Copy</span></div><p>This example shows how to use the <span>USING</span>clause to specify rows to be deleted. This <span>USING</span>clause specifies the returned_bicycles
+table, which lists the IDs of the bicycles to be deleted from the leased_bicycles table.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/delete.html
+
+Documentation Title:
+DELETE | Snowflake Documentation
+
+Documentation Content:
+These bicycles need be removed from the table of
+leased bicycles.</p></ul><p>Create tables:</p><div><pre><span>CREATE</span><span>TABLE</span><span>leased_bicycles</span><span>(</span><span>bicycle_id</span><span>INTEGER</span><span>,</span><span>customer_id</span><span>INTEGER</span><span>);</span><span>CREATE</span><span>TABLE</span><span>returned_bicycles</span><span>(</span><span>bicycle_id</span><span>INTEGER</span><span>);</span></pre><span>Copy</span></div><p>Load data:</p><div><pre><span>INSERT</span><span>INTO</span><span>leased_bicycles</span><span>(</span><span>bicycle_ID</span><span>,</span><span>customer_ID</span><span>)</span><span>VALUES</span><span>(</span><span>101</span><span>,</span><span>1111</span><span>),</span><span>(</span><span>102</span><span>,</span><span>2222</span><span>),</span><span>(</span><span>103</span><span>,</span><span>3333</span><span>),</span><span>(</span><span>104</span><span>,</span><span>4444</span><span>),</span><span>(</span><span>105</span><span>,</span><span>5555</span><span>);</span><span>INSERT</span><span>INTO</span><span>returned_bicycles</span><span>(</span><span>bicycle_ID</span><span>)</span><span>VALUES</span><span>(</span><span>102</span><span>),</span><span>(</span><span>104</span><span>);</span></pre><span>Copy</span></div><p>This example shows how to use the <span>WHERE</span>clause to delete a specified row(s).
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/delete.html
+
+Documentation Title:
+DELETE | Snowflake Documentation
+
+Documentation Content:
+</span><span>COMMIT</span><span>WORK</span><span>;</span></pre><span>Copy</span></div><p>Show the data after the delete:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>leased_bicycles</span><span>ORDER</span><span>BY</span><span>bicycle_ID</span><span>;</span><span>+</span><span>------------+-------------+</span><span>| BICYCLE_ID | CUSTOMER_ID |</span><span>|------------+-------------|</span><span>|        101 |        1111 |</span><span>+</span><span>------------+-------------+</span></pre><span>Copy</span></div></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Syntax</a><a>Required parameters</a><a>Optional parameters</a><a>Usage notes</a><a>Examples</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/functions/database_storage_usage_history.html
+
+Documentation Title:
+DATABASE_STORAGE_USAGE_HISTORY | Snowflake Documentation
+
+Documentation Content:
+the database cannot be recovered using Time Travel), then the database name is reported as <code><span>DROPPED_</span><span>id</span></code>, where <span>id</span>is an internally-generated identifier. This ID can be used to match entries across rows returned by the table function.</p></section><section><h2>Examples<a>¶</a></h2><p>Retrieve average daily storage usage for the past 10 days, per database, for all databases in your account:</p><div><pre><span>select</span><span>*</span><span>from</span><span>table</span><span>(</span><span>information_schema</span><span>.</span><span>database_storage_usage_history</span><span>(</span><span>dateadd</span><span>(</span><span>'days'</span><span>,-</span><span>10</span><span>,</span><span>current_date</span><span>()),</span><span>current_date</span><span>()));</span></pre><span>Copy</span></div></section></section></article><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+
+
+

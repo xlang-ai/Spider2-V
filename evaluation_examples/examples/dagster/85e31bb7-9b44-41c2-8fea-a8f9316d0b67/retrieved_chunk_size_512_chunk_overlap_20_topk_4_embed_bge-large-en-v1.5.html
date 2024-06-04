@@ -1,0 +1,54 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/load-dbt-models.html
+
+Documentation Title:
+Using Dagster with dbt, part 2: Load dbt models as Dagster assets
+
+Documentation Content:
+</span><p>At this point, you should have a <a>fully-configured dbt project</a>that's ready to work with Dagster.</p><p>In this section, you'll finally begin integrating dbt with Dagster! To do this, you'll:</p><ul><a>Create a Dagster project that wraps your dbt project</a><a>Inspect your Dagster project in Dagster's UI</a><a>Build your dbt models in Dagster</a><a>Understand the Python code in your Dagster project</a></ul><h2>Step 1: Create a Dagster project that wraps your dbt project<span>#</span></h2><p>You can create a Dagster project that wraps your dbt project by using the <code>dagster-dbt</code>command line interface. Make sure you're in the directory where your <code>dbt_project.yml</code>is. If you're continuing from the previous section, then you'll already be in this directory. Then, run:</p><code>dagster-dbt project scaffold --project-name jaffle_dagster
+</code><p>This creates a directory called <code>jaffle_dagster/</code>inside the current directory. The <code>jaffle_dagster/</code>directory contains a set of files that define a Dagster project.</p><p>In general, it's up to you where to put your Dagster project. It's most common to put your Dagster project at the root of your git repository. Therefore, in this case, because the <code>dbt_project.yml</code>was at the root of the <code>jaffle_shop</code>git repository, we created our Dagster project there.</p><p><strong>Note</strong>: The <code>dagster-dbt project scaffold</code>command creates the Dagster project in whatever directory you run it from.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/load-dbt-models.html
+
+Documentation Title:
+Using Dagster with dbt, part 2: Load dbt models as Dagster assets
+
+Documentation Content:
+Materializing an asset means running some computation to update its contents in persistent storage. In this tutorial, that persistent storage is our local DuckDB database.</p><p>To build your dbt project, i.e. materialize your assets, click the <strong>Materialize all</strong>button near the top right corner of the page. This will launch a run to materialize the assets. When finished, the <strong>Materialized</strong>and <strong>Latest Run</strong>attributes in the asset will be populated:</p><img/><p>After the run completes, you can:</p><ul><li>Click the <strong>asset</strong>to open a sidebar containing info about the asset, including its last materialization stats and a link to view the <a><strong>Asset details</strong>page</a></li><li>Click the ID of the <strong>Latest Run</strong>in an asset to view the <strong>Run details</strong>page. This page contains detailed info about the run, including timing information, errors, and logs.</li></ul><h2>Step 4: Understand the Python code in your Dagster project<span>#</span></h2><p>You saw how you can create a Dagster project that loads a dbt project. How does this work? Understanding how Dagster loads a dbt project will give you a foundation for customizing how Dagster runs your dbt project, as well as for connecting it to other data assets outside of dbt.</p><p>The most important file is the Python file that contains the set of definitions for Dagster to load: <code>jaffle_shop/definitions.py</code>. Dagster executes the code in this file to find out what assets it should be aware of, as well as details about those assets.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/upstream-assets.html
+
+Documentation Title:
+Using Dagster with dbt, part 3: Define assets upstream of your dbt models
+
+Documentation Content:
+Replace the contents of <code>model/staging/stg_customers.sql</code>with this:</p><code><span>with</span>source <span>as</span><span>(</span>{<span>#-</span><span>Use</span>source instead <span>of</span>seed:
+    <span>#}</span><span>select</span><span>*</span><span>from</span>{{ source<span>(</span><span>'jaffle_shop'</span><span>,</span><span>'raw_customers'</span><span>)</span>}}
+
+<span>)</span><span>,</span>renamed <span>as</span><span>(</span><span>select</span>id <span>as</span>customer_id<span>,</span>first_name<span>,</span>last_name
+
+    <span>from</span>source
+
+<span>)</span><span>select</span><span>*</span><span>from</span>renamed
+</code></li><h2>Step 4: Materialize the assets using the Dagster UI<span>#</span></h2><p>If the Dagster UI is still running from the previous section, click the "Reload Definitions" button in the upper right corner. If you shut it down, then you can launch it again with the same command from the previous section:</p><code><span>DAGSTER_DBT_PARSE_PROJECT_ON_LOAD</span><span>=</span><span>1</span>dagster dev
+</code><p>Our <code>raw_customers</code>model is now defined as a Python asset. We can also see that assets downstream of this new Python asset, such as <code>stg_customers</code>and <code>customers</code>, are now marked stale because the code definition of <code>raw_customers</code>has changed.</p><img/><p>Click the <strong>Materialize all</strong>button.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/load-dbt-models.html
+
+Documentation Title:
+Using Dagster with dbt, part 2: Load dbt models as Dagster assets
+
+Documentation Content:
+Here's a breakdown of what's going on:</p><ul><li>It creates a variable named <code>jaffle_shop_dbt_assets</code>that holds an object that represents a set of Dagster assets.</li><li>These Dagster assets reflect the dbt models described in the manifest file. The manifest file is passed in using the <code>manifest</code>argument.</li><li>The decorated function defines what should happen when you materialize one of these Dagster assets, e.g. by clicking the <strong>Materialize</strong>button in the UI or materializing it automatically by putting it on a schedule. In this case, it will invoke the <code>dbt build</code>command on the selected assets. The <code>context</code>parameter that's provided along with <code>dbt build</code>carries the selection.</li></ul><p>If you later want to customize how your dbt models are translated into Dagster assets, you'll do so by editing its definition in <code>assets.py</code>.</p><h2>What's next?<span>#</span></h2><p>At this point, you've loaded your dbt models into Dagster as assets, viewed them in Dagster's asset graph UI, and materialized them.
+
+
+

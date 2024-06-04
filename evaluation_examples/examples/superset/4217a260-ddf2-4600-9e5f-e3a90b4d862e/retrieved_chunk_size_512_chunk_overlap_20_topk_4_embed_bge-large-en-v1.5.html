@@ -1,0 +1,67 @@
+Documentation Source:
+superset.apache.org/docs/contributing/development/index.html
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+)<a>​</a></h2><p>Setting things up to squeeze an "hello world" into any part of Superset should be as simple as</p><span><span>docker-compose</span><span>up</span></span><p>Note that:</p><ul><li>this will pull/build docker images and run a cluster of services, including:<ul><li>A Superset <strong>Flask web server</strong>, mounting the local python repo/code</li><li>A Superset <strong>Celery worker</strong>, also mounting the local python repo/code</li><li>A Superset <strong>Node service</strong>, mounting, compiling and bundling the JS/TS assets</li><li>A Superset <strong>Node websocket service</strong>to power the async backend</li><li><strong>Postgres</strong>as the metadata database and to store example datasets, charts and dashboards whic
+should be populated upon startup</li><li><strong>Redis</strong>as the message queue for our async backend and caching backend</li></ul></li><li>It'll load up examples into the database upon first startup</li><li>all other details and pointers available in
+<a>docker-compose.yml</a></li><li>The local repository is mounted withing the services, meaning updating
+the code on the host will be reflected in the docker images</li><li>Superset is served at localhost:8088/</li><li>You can login with admin/admin</li></ul><div><div>caution</div><p>Since <code>docker-compose</code>is primarily designed to run a set of containers on <strong>a single host</strong>and can't credibly support <strong>high availability</strong>as a result, we do not support nor recommend
+using our <code>docker-compose</code>constructs to support production-type use-cases. For single host
+environments, we recommend using <a>minikube</a>along
+our <a>installing on k8s</a>documentation.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/development/index.html
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+<strong>Most people should stick to
+the first few sections - ("Fork &amp; Clone", "docker-compose" and "Installing Dev Tools")</strong></p></div><h2>Fork and Clone<a>​</a></h2><p>First, <a>fork the repository on GitHub</a>,
+then clone it.</p><p>Second, you can clone the main repository directly, but you won't be able to send pull requests.</p><code><span><span>git</span><span>clone git@github.com:your-username/superset.git</span></span><span><span>cd</span><span>superset</span></span></code><h2>docker-compose (recommended!
+
+
+
+Documentation Source:
+superset.apache.org/docs/installation/docker-compose/index.html
+
+Documentation Title:
+Docker Compose | Superset
+
+Documentation Content:
+Clone Superset's GitHub repository</a><li><a>2. Launch Superset Through Docker Compose</a><ul><a>Option #1 - for an interactive development environment</a><a>Option #2 - build a set of immutable images from the local branch</a><a>Option #3 - boot up an official release</a></ul></li><li><a>docker-compose tips &amp; configuration</a><a>Configuring Further</a></li><a>3. Log in to Superset</a><a>4. Connecting Superset to your local database instance</a></ul></div></div></div><div><div>We use  <img/></div><p>Copyright © 2024,
+          The <a>Apache Software Foundation</a>,
+          Licensed under the Apache <a>License</a>.</p><small>Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+          <a>Apache Software Foundation</a>resources</small><img/><small><a>Security</a>| 
+              <a>Donate</a>| 
+              <a>Thanks</a>| 
+              <a>Events</a>| 
+              <a>License</a>| 
+              <a>Privacy</a></small><img/></div></div>
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/index.html
+
+Documentation Title:
+Contributing to Superset | Superset
+
+Documentation Content:
+Please include:</p><ul><li>Your operating system name and version.</li><li>Superset version.</li><li>Detailed steps to reproduce the bug.</li><li>Any details about your local setup that might be helpful in troubleshooting.</li></ul><p>When posting Python stack traces, please quote them using
+<a>Markdown blocks</a>.</p><em>Please note that feature requests opened as GitHub Issues will be moved to Discussions.</em><h3>Submit Ideas or Feature Requests<a>​</a></h3><p>The best way is to start an <a>"Ideas" Discussion thread</a>on GitHub:</p><ul><li>Explain in detail how it would work.</li><li>Keep the scope as narrow as possible, to make it easier to implement.</li><li>Remember that this is a volunteer-driven project, and that your contributions are as welcome as anyone's :)</li></ul><p>To propose large features or major changes to codebase, and help usher in those changes, please create a <strong>Superset Improvement Proposal (SIP)</strong>. See template from <a>SIP-0</a></p><h3>Fix Bugs<a>​</a></h3><p>Look through the GitHub issues. Issues tagged with <code>#bug</code>are
+open to whoever wants to implement them.</p><h3>Implement Features<a>​</a></h3><p>Look through the GitHub issues. Issues tagged with
+<code>#feature</code>are open to whoever wants to implement them.</p><h3>Improve Documentation<a>​</a></h3><p>Superset could always use better documentation,
+whether as part of the official Superset docs,
+in docstrings, <code>docs/*.rst</code>or even on the web as blog posts or
+articles. See <a>Documentation</a>for more details.</p><h3>Add Translations<a>​</a></h3><p>If you are proficient in a non-English language, you can help translate
+text strings from Superset's UI.
+
+
+

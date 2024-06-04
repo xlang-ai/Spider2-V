@@ -1,0 +1,44 @@
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+You can pat yourself in the back as you just synced data from GitHub to a Postgres database.</p><p>Let's move on to connecting that database to Metabase, so we can start creating our dashboard.</p></div><h2>Step 2: Connecting the PostgreSQL database to Metabase</h2><div><h3>Installing Metabase</h3><p>‍Metabase is an open source analytic tool that you can get started working with in a couple of ways; using the .jar file, installing it as a Mac app or using a Docker container.For this tutorial we will be using the Mac app(you can alternatively look up the installation that suits you <a>here</a>). To do this, simply run:If you are on a Mac, you can download the Metabase app from <a>here</a>. After download, launch the app and complete registration for an account and you will see the Metabase dashboard:</p><img/><p>‍</p><h3>Setting Up a Postgres Database in Metabase</h3><p>In order to set up our database, we will click on the cog(settings) icon on the menu bar of the Metabase app and choose the admin option to be taken to the admin view where we can add a database:</p><img/><p>‍</p><p>Click on the add a database button and you will be presented with a form where you should select PostgreSQL as your database of choice and then fill out the connection parameters which will be the one for the PostgreSQL database we created to hold the data from GitHub</p><p>Fill out the details to match the credentials of the PostgreSQL database we created earlier.</p><p>‍</p><img/><p>‍</p><p>Afterwards, hit save when you are done entering the database credentials and your database would have been fully loaded onto Metabase ready for us to start creating our dashboard.</p></div><div><div><h3>Should you build or buy your data pipelines?</h3><p>Download our free guide and discover the best approach for your needs,
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+2021 </p></div><div><img/><img/></div></div><div><div><div>Step 1: Replicating Data from GitHub to Postgres with Airbyte</div><div>Step 2: Connecting the PostgreSQL database to Metabase</div><div>Step 3: Creating the dashboards in Metabase</div><div>Wrapping up.</div><h2>Join our newsletter to get all the insights on the data stack</h2></div><div><div><img/><p>‍</p><p>In this article, we will be leveraging <a>Airbyte</a>- an open-source data integration platform and <a>Metabase</a>- an open-source open source way for everyone in your company to ask questions and learn from data - to build the GitHub activity dashboard above.</p><p>Airbyte provides us with a rich set of source connectors, and one of those is the GitHub connector which allows us to get data off a GitHub repo. We are going to use this connector to get the data of the <a>Airbyte</a>repo and copy them into a Postgres database destination. We will then connect this database to Metabase in order to create the activity dashboard.</p><p>If you prefer to follow along with a video, we have a walkthrough of this recipe on our YouTube channel. Watch that <a>here</a>!</p><p>‍</p><p>‍</p><p>What we will need:</p><ul><li>Git</li><li>Docker</li><li>Docker Compose</li><li>Airbyte</li><li>Postgres Database</li><li>GitHub access token</li><li>Metabase</li></ul></div><h2>Step 1: Replicating Data from GitHub to Postgres with Airbyte</h2><div><h3>Setting up Airbyte</h3><p>You can skip this step if you already have Airbyte on your machine.</p><p>To set up Airbyte on your machine, make sure you have Docker and Docker compose set-up, as well as git.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+Finally, we are running the container in the background with the -d flag.</p><p>Now that we have set up the destination database, let's head over to the Airbyte web app and create a connection from the Airbyte GitHub source to our Postgres database.</p><h3>Creating the Airbyte connection</h3><p>Back in the Airbyte web app in your browser, click on the <em>new source</em>button in the top right corner of the app to go to the page to add a new Airbyte source.</p><p>Enter the name <strong>github-source</strong>as the source name and click the drop down and select Github connector as source type. After selecting the GitHub source type, you will be presented with two text boxes.The first is to enter a repository you want. In this box, type in <strong>airbytehq/airbyte</strong>, and then, in the second box, you will need to provide a GitHub access token which you can obtain from<a>here</a>.</p><p>Make sure you grant the token the repo and write:discussion permissions. After you've filled all fields, hit the set up source button.</p><img/><p>If the setup was successful, you will be taken to the destination screen where you will add a new destination.</p><p>Click the <em>add destination</em>button, and, in the drop down that follows, click <em>add new destination</em>. Then, you will see a page to add the destination name. Type in the name we gave the Postgres container we created earlier (github-destination), and then choose Postgres as the destination type.</p><p>After, you will be presented with some text boxes to enter the database connection details.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+Enter the values for the Postgres container we created earlier:</p><ul><li>host - localhost</li><li>post - 3003</li><li>schema - public (leave default)</li><li>database - postgres</li><li>Password - password</li><li>username - postgres</li></ul><p>Then click on the basic normalization toggle button to check it on as we want Airbyte to normalize the data coming in from GitHub. Overall the UI should look like this:</p><img/><p>Then click on the Set up destination button. If your credentials are all good for the database, the postgres destination would have been set, and now you will need to make the connection from the source (GitHub) to the destination (Postgres).</p><p>You should check the boxes that are checked in the screenshot below, and then choose how often Airbyte will attempt to replicate data to be every hour in the Sync frequency drop down. Then, click on the <em>Set up connection</em>button.</p><img/><p>You will be taken to the source page, click on the source and you will see the status of your sync. The sync should take a while to complete.</p><p>When done, you will see the status change from running to Succeeded. Also, the byte count will be referring to the byte of data Airbyte has pulled from GitHub into your Postgres database.</p><img/><p>‍</p><p>That wasn’t a lot of work, was it?
+
+
+
