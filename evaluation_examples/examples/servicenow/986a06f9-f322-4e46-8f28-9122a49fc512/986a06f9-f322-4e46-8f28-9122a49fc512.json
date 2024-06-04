@@ -5,9 +5,9 @@
         "WorkArena@FilterServiceCatalogItemListTask"
     ],
     "tags": [
-        "gui",
         "account",
-        "it_service_management"
+        "it_service_management",
+        "cli+gui"
     ],
     "related_apps": [
         "chromium",
