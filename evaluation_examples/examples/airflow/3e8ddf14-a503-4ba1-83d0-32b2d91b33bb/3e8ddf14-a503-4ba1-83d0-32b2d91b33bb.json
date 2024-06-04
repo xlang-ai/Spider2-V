@@ -3,7 +3,7 @@
     "snapshot": "airflow",
     "instruction": "I am using Astronomer to deploy Airflow. I have finished my work today on Airflow. For safety, please help me log out my account.",
     "source": [
-        "authors"
+        "https://www.astronomer.io/docs/astro/security"
     ],
     "config": [
         {
