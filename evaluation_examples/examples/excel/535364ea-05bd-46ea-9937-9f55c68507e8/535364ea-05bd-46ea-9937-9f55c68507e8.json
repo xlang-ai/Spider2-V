@@ -85,7 +85,7 @@
         }
     },
     "tags": [
-        "gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "cli+gui"
     ]
 }
