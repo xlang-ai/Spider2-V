@@ -613,7 +613,7 @@ class PromptAgent:
         max_tries=10
     )
     def call_llm(self, payload):
-        os.environ["OPENAI_API_KEY"] = "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"
+
         if self.model.startswith("gpt"):
             headers = {
                 "Content-Type": "application/json",
@@ -686,9 +686,10 @@ class PromptAgent:
             logger.debug("CLAUDE MESSAGE: %s", repr(claude_messages))
 
             headers = {
-                "x-api-key": os.environ["ANTHROPIC_API_KEY"],
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json"
+                'Accept': 'application/json',
+                'Authorization': f'Bearer {os.environ["ANTHROPIC_API_KEY"]}',
+                'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                'Content-Type': 'application/json'
             }
 
             payload = {
@@ -700,7 +701,7 @@ class PromptAgent:
             }
 
             response = requests.post(
-                "https://api.anthropic.com/v1/messages",
+                "https://api.claude-Plus.top/v1/chat/completions",
                 headers=headers,
                 json=payload
             )
@@ -711,9 +712,9 @@ class PromptAgent:
                 time.sleep(5)
                 return ""
             else:
-                return response.json()['content'][0]['text']
+                return response.json()['choices'][0]['message']['content']
 
-        elif self.model.startswith("mistral"):
+        elif self.model.startswith("mixtral"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
@@ -734,9 +735,9 @@ class PromptAgent:
 
             from openai import OpenAI
 
-            client = OpenAI(api_key=os.environ["TOGETHER_API_KEY"],
-                            base_url='https://api.together.xyz',
-                            )
+            client = Groq(
+                api_key=os.environ.get("GROQ_API_KEY"),
+            )
 
             flag = 0
             while True:
@@ -919,47 +920,64 @@ class PromptAgent:
 
                 gemini_messages.append(gemini_message)
 
+            headers = {
+                'Accept': 'application/json',
+                'Authorization': f'Bearer {os.environ["GEMINI_API_KEY"]}',
+                'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                'Content-Type': 'application/json'
+            }  
+
+            payload = {
+                "model": self.model,
+                "max_tokens": max_tokens,
+                "messages": gemini_messages,
+                "temperature": temperature,
+                "top_p": top_p
+            }
+
+            response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
+            import pdb; pdb.set_trace()
             # the system message of gemini-1.5-pro-latest need to be inputted through model initialization parameter
-            system_instruction = None
-            if gemini_messages[0]['role'] == "system":
-                system_instruction = gemini_messages[0]['parts'][0]
-                gemini_messages.pop(0)
+            # system_instruction = None
+            # if gemini_messages[0]['role'] == "system":
+            #     system_instruction = gemini_messages[0]['parts'][0]
+            #     gemini_messages.pop(0)
 
-            api_key = os.environ.get("GENAI_API_KEY")
-            assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
-            genai.configure(api_key=api_key)
-            logger.info("Generating content with Gemini model: %s", self.model)
-            request_options = {"timeout": 120}
-            gemini_model = genai.GenerativeModel(
-                self.model,
-                system_instruction=system_instruction
-            )
+            # api_key = os.environ.get("GENAI_API_KEY")
+            # assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
+            # genai.configure(api_key=api_key)
+            # logger.info("Generating content with Gemini model: %s", self.model)
+            # request_options = {"timeout": 120}
+            # gemini_model = genai.GenerativeModel(
+            #     self.model,
+            #     system_instruction=system_instruction
+            # )
 
-            with open("response.json", "w") as f:
-                messages_to_save = []
-                for message in gemini_messages:
-                    messages_to_save.append({
-                        "role": message["role"],
-                        "content": [part if isinstance(part, str) else "image" for part in message["parts"]]
-                    })
-                json.dump(messages_to_save, f, indent=4)
+            # with open("response.json", "w") as f:
+            #     messages_to_save = []
+            #     for message in gemini_messages:
+            #         messages_to_save.append({
+            #             "role": message["role"],
+            #             "content": [part if isinstance(part, str) else "image" for part in message["parts"]]
+            #         })
+            #     json.dump(messages_to_save, f, indent=4)
 
-            response = gemini_model.generate_content(
-                gemini_messages,
-                generation_config={
-                    "candidate_count": 1,
-                    # "max_output_tokens": max_tokens,
-                    "top_p": top_p,
-                    "temperature": temperature
-                },
-                safety_settings={
-                    "harassment": "block_none",
-                    "hate": "block_none",
-                    "sex": "block_none",
-                    "danger": "block_none"
-                },
-                request_options=request_options
-            )
+            # response = gemini_model.generate_content(
+            #     gemini_messages,
+            #     generation_config={
+            #         "candidate_count": 1,
+            #         # "max_output_tokens": max_tokens,
+            #         "top_p": top_p,
+            #         "temperature": temperature
+            #     },
+            #     safety_settings={
+            #         "harassment": "block_none",
+            #         "hate": "block_none",
+            #         "sex": "block_none",
+            #         "danger": "block_none"
+            #     },
+            #     request_options=request_options
+            # )
 
             return response.text
 
