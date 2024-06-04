@@ -895,28 +895,24 @@ class PromptAgent:
             temperature = payload["temperature"]
 
             gemini_messages = []
+
             for i, message in enumerate(messages):
-                role_mapping = {
-                    "assistant": "model",
-                    "user": "user",
-                    "system": "system"
+                gemini_message = {
+                    "role": message["role"],
+                    "content": []
                 }
                 assert len(message["content"]) in [1, 2], "One text, or one text with one image"
-                gemini_message = {
-                    "role": role_mapping[message["role"]],
-                    "parts": []
-                }
-
-                # The gemini only support the last image as single image input
                 for part in message["content"]:
 
                     if part['type'] == "image_url":
-                        # Put the image at the beginning of the message
-                        gemini_message['parts'].insert(0, encoded_img_to_pil_img(part['image_url']['url']))
-                    elif part['type'] == "text":
-                        gemini_message['parts'].append(part['text'])
-                    else:
-                        raise ValueError("Invalid content type: " + part['type'])
+                        image_source = {}
+                        image_source["type"] = "base64"
+                        image_source["media_type"] = "image/png"
+                        image_source["data"] = part['image_url']['url'].replace("data:image/png;base64,", "")
+                        gemini_message['content'].append({"type": "image", "source": image_source})
+
+                    if part['type'] == "text":
+                        gemini_message['content'].append({"type": "text", "text": part['text']})
 
                 gemini_messages.append(gemini_message)
 
@@ -926,60 +922,18 @@ class PromptAgent:
                 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
                 'Content-Type': 'application/json'
             }  
-
-            payload = {
-                "model": self.model,
-                "max_tokens": max_tokens,
-                "messages": gemini_messages,
-                "temperature": temperature,
-                "top_p": top_p
-            }
+            
+            payload = json.dumps({"model": self.model,"messages": gemini_messages,"max_tokens": max_tokens,"temperature": temperature,"top_p": top_p})
 
             response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
-            import pdb; pdb.set_trace()
-            # the system message of gemini-1.5-pro-latest need to be inputted through model initialization parameter
-            # system_instruction = None
-            # if gemini_messages[0]['role'] == "system":
-            #     system_instruction = gemini_messages[0]['parts'][0]
-            #     gemini_messages.pop(0)
+            
+            if response.status_code != 200:
+                logger.error("Failed to call LLM: " + response.text)
+                time.sleep(5)
+                return ""
+            else:
+                return response.json()['choices'][0]['message']['content']
 
-            # api_key = os.environ.get("GENAI_API_KEY")
-            # assert api_key is not None, "Please set the GENAI_API_KEY environment variable"
-            # genai.configure(api_key=api_key)
-            # logger.info("Generating content with Gemini model: %s", self.model)
-            # request_options = {"timeout": 120}
-            # gemini_model = genai.GenerativeModel(
-            #     self.model,
-            #     system_instruction=system_instruction
-            # )
-
-            # with open("response.json", "w") as f:
-            #     messages_to_save = []
-            #     for message in gemini_messages:
-            #         messages_to_save.append({
-            #             "role": message["role"],
-            #             "content": [part if isinstance(part, str) else "image" for part in message["parts"]]
-            #         })
-            #     json.dump(messages_to_save, f, indent=4)
-
-            # response = gemini_model.generate_content(
-            #     gemini_messages,
-            #     generation_config={
-            #         "candidate_count": 1,
-            #         # "max_output_tokens": max_tokens,
-            #         "top_p": top_p,
-            #         "temperature": temperature
-            #     },
-            #     safety_settings={
-            #         "harassment": "block_none",
-            #         "hate": "block_none",
-            #         "sex": "block_none",
-            #         "danger": "block_none"
-            #     },
-            #     request_options=request_options
-            # )
-
-            return response.text
 
         elif self.model == "llama3-70b":
             messages = payload["messages"]
