@@ -763,14 +763,28 @@ class PromptAgent:
             
             payload = json.dumps({"model": self.model,"messages": gemini_messages,"max_tokens": max_tokens,"temperature": temperature,"top_p": top_p})
 
-            response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
-            
-            if response.status_code != 200:
-                logger.error("Failed to call LLM: " + response.text)
-                time.sleep(5)
-                return ""
+            max_attempts = 20
+            attempt = 0
+            while attempt < max_attempts:
+                try:
+                    response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
+                    logger.info(f"response_code {response.status_code}")
+                except:
+                    time.sleep(5)
+                    continue
+                if response.status_code == 200:
+                    result = response.json()['choices'][0]['message']['content']
+                    break
+                else:
+                    logger.error(f"Failed to call LLM")
+                    time.sleep(5)
+                    attempt += 1
             else:
-                return response.json()['choices'][0]['message']['content']
+                print("Exceeded maximum attempts to call LLM.")
+                result = ""
+                
+            return result
+
 
 
         elif self.model.startswith("mixtral"):
@@ -984,14 +998,30 @@ class PromptAgent:
             
             payload = json.dumps({"model": self.model,"messages": gemini_messages,"max_tokens": max_tokens,"temperature": temperature,"top_p": top_p})
 
-            response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
+    
             
-            if response.status_code != 200:
-                logger.error("Failed to call LLM: " + response.text)
-                time.sleep(5)
-                return ""
+            max_attempts = 20
+            attempt = 0
+            while attempt < max_attempts:
+                try:
+                    response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
+                    logger.info(f"response_code {response.status_code}")
+                except:
+                    time.sleep(5)
+                    continue
+                if response.status_code == 200:
+                    result = response.json()['choices'][0]['message']['content']
+                    break
+                else:
+                    logger.error(f"Failed to call LLM")
+                    time.sleep(5)
+                    attempt += 1
             else:
-                return response.json()['choices'][0]['message']['content']
+                print("Exceeded maximum attempts to call LLM.")
+                result = ""
+                
+            return result
+
 
 
         elif self.model == "llama3-70b":
