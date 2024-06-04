@@ -3,7 +3,7 @@
     "snapshot": "superset",
     "instruction": "I don't need to use the chart Mychart, delete it right now.",
     "source": [
-        "authors"
+        "https://superset.apache.org/docs/using-superset/exploring-data"
     ],
     "related_apps": [
         "chromium",
