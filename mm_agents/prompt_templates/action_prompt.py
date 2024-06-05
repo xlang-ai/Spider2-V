@@ -132,11 +132,11 @@ ACTION_LIST = [
 
 For example:
 
-- For MOUSE_MOVE, you need to predict the x and y coordinate of the mouse cursor, the left top corner of the screen is (0, 0), the right bottom corner of the screen is determined by the screen size.
+- For MOVE_TO, you need to predict the x and y coordinate of the mouse cursor, the left top corner of the screen is (0, 0), the right bottom corner of the screen is determined by the screen size.
 Use case: move the mouse to position (56.1, 65.0)
 ```json
 {
-    "action_type": "MOUSE_MOVE",
+    "action_type": "MOVE_TO",
     "x": 56.1,
     "y": 65.0
 }
