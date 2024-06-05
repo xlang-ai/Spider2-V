@@ -15,4 +15,5 @@ In this task, we will connect Bigquery data to the Opened Google Sheet.
 14. Click "Restricted"
 15. Click "Anyone with the link" in the drop-down menu that opens.
 16. Click "Done".
+17. Click back to the "a2012.xlsx" Google Sheet.
 Finally, the connection is successfully established and anyone can access this link
