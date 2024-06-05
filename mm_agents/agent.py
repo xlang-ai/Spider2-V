@@ -717,8 +717,21 @@ class PromptAgent:
         #             result = response.json()['choices'][0]['message']['content']
         #             break
         #         else:
-        #             logger.error(f"Failed to call LLM")
-        #             time.sleep(10)
+        #             logger.error(f"Failed to call LLM", response.json())
+        #             if "found multiple" in response.json()['error']['message']:
+        #                 logger.error(f"Fail")
+        #                 if claude_messages[-1]['role'] == 'user' and claude_messages[-2]['role'] == 'user':
+        #                     claude_messages[-2]['content'][0]['text'] = claude_messages[-2]['content'][0]['text'] + " " + claude_messages[-1]['content'][0]['text']
+        #                     claude_messages.pop(-1)
+        #                     payload['messages'] = claude_messages
+        #                     response = requests.post(
+        #                         "https://api.claude-Plus.top/v1/chat/completions",
+        #                         headers=headers,
+        #                         json=payload
+        #                     )
+        #                     result = response.json()['choices'][0]['message']['content']
+        #             else:
+        #                 time.sleep(10)
         #             attempt += 1
         #     else:
         #         print("Exceeded maximum attempts to call LLM.")
