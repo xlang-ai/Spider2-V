@@ -733,7 +733,6 @@ class PromptAgent:
                             break
                     else:
                         time.sleep(10)
-                        continue
                     attempt += 1
             else:
                 print("Exceeded maximum attempts to call LLM.")
