@@ -649,106 +649,16 @@ class PromptAgent:
                 self.usages["completion_tokens"] += usage["completion_tokens"]
                 return response.json()['choices'][0]['message']['content']
 
-        # elif self.model.startswith("claude"):
-        #     messages = payload["messages"]
-        #     max_tokens = payload["max_tokens"]
-        #     top_p = payload["top_p"]
-        #     temperature = payload["temperature"]
-
-        #     claude_messages = []
-
-        #     for i, message in enumerate(messages):
-        #         claude_message = {
-        #             "role": message["role"],
-        #             "content": []
-        #         }
-        #         assert len(message["content"]) in [1, 2], "One text, or one text with one image"
-        #         for part in message["content"]:
-
-        #             if part['type'] == "image_url":
-        #                 image_source = {}
-        #                 image_source["type"] = "base64"
-        #                 image_source["media_type"] = "image/png"
-        #                 image_source["data"] = part['image_url']['url'].replace("data:image/png;base64,", "")
-        #                 claude_message['content'].append({"type": "image", "source": image_source})
-
-        #             if part['type'] == "text":
-        #                 claude_message['content'].append({"type": "text", "text": part['text']})
-
-        #         claude_messages.append(claude_message)
-
-        #     # the claude not support system message in our endpoint, so we concatenate it at the first user message
-        #     if claude_messages[0]['role'] == "system":
-        #         claude_system_message_item = claude_messages[0]['content'][0]
-        #         claude_messages[1]['content'].insert(0, claude_system_message_item)
-        #         claude_messages.pop(0)
-
-        #     logger.debug("CLAUDE MESSAGE: %s", repr(claude_messages))
-
-        #     headers = {
-        #         'Accept': 'application/json',
-        #         'Authorization': f'Bearer {os.environ["ANTHROPIC_API_KEY"]}',
-        #         'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
-        #         'Content-Type': 'application/json'
-        #     }
-
-        #     payload = {
-        #         "model": self.model,
-        #         "max_tokens": max_tokens,
-        #         "messages": claude_messages,
-        #         "temperature": temperature,
-        #         "top_p": top_p
-        #     }
-
-        #     max_attempts = 20
-        #     attempt = 0
-        #     while attempt < max_attempts:
-        #         try:
-        #             response = requests.post(
-        #                 "https://api.claude-Plus.top/v1/chat/completions",
-        #                 headers=headers,
-        #                 json=payload
-        #             )
-        #             logger.info(f"response_code {response.status_code}")
-        #         except:
-        #             time.sleep(8)
-        #             continue
-        #         if response.status_code == 200:
-        #             result = response.json()['choices'][0]['message']['content']
-        #             break
-        #         else:
-        #             logger.error(f"Failed to call LLM", response.json())
-        #             if "found multiple" in response.json()['error']['message']:
-        #                 logger.error(f"Fail")
-        #                 if claude_messages[-1]['role'] == 'user' and claude_messages[-2]['role'] == 'user':
-        #                     claude_messages[-2]['content'][0]['text'] = claude_messages[-2]['content'][0]['text'] + " " + claude_messages[-1]['content'][0]['text']
-        #                     claude_messages.pop(-1)
-        #                     payload['messages'] = claude_messages
-        #                     response = requests.post(
-        #                         "https://api.claude-Plus.top/v1/chat/completions",
-        #                         headers=headers,
-        #                         json=payload
-        #                     )
-        #                     result = response.json()['choices'][0]['message']['content']
-        #             else:
-        #                 time.sleep(10)
-        #             attempt += 1
-        #     else:
-        #         print("Exceeded maximum attempts to call LLM.")
-        #         result = ""
-                
-        #     return result
-
         elif self.model.startswith("claude"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
             top_p = payload["top_p"]
             temperature = payload["temperature"]
 
-            gemini_messages = []
+            claude_messages = []
 
             for i, message in enumerate(messages):
-                gemini_message = {
+                claude_message = {
                     "role": message["role"],
                     "content": []
                 }
@@ -760,43 +670,135 @@ class PromptAgent:
                         image_source["type"] = "base64"
                         image_source["media_type"] = "image/png"
                         image_source["data"] = part['image_url']['url'].replace("data:image/png;base64,", "")
-                        gemini_message['content'].append({"type": "image", "source": image_source})
+                        claude_message['content'].append({"type": "image", "source": image_source})
 
                     if part['type'] == "text":
-                        gemini_message['content'].append({"type": "text", "text": part['text']})
+                        claude_message['content'].append({"type": "text", "text": part['text']})
 
-                gemini_messages.append(gemini_message)
+                claude_messages.append(claude_message)
+
+            # the claude not support system message in our endpoint, so we concatenate it at the first user message
+            if claude_messages[0]['role'] == "system":
+                claude_system_message_item = claude_messages[0]['content'][0]
+                claude_messages[1]['content'].insert(0, claude_system_message_item)
+                claude_messages.pop(0)
+
+            logger.debug("CLAUDE MESSAGE: %s", repr(claude_messages))
 
             headers = {
                 'Accept': 'application/json',
-                'Authorization': f'Bearer {os.environ["GEMINI_API_KEY"]}',
+                'Authorization': f'Bearer {os.environ["ANTHROPIC_API_KEY"]}',
                 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
                 'Content-Type': 'application/json'
-            }  
-            
-            payload = json.dumps({"model": self.model,"messages": gemini_messages,"max_tokens": max_tokens,"temperature": temperature,"top_p": top_p})
+            }
+
+            payload = {
+                "model": self.model,
+                "max_tokens": max_tokens,
+                "messages": claude_messages,
+                "temperature": temperature,
+                "top_p": top_p
+            }
 
             max_attempts = 20
             attempt = 0
             while attempt < max_attempts:
                 try:
-                    response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
+                    response = requests.post(
+                        "https://api.claude-Plus.top/v1/chat/completions",
+                        headers=headers,
+                        json=payload
+                    )
                     logger.info(f"response_code {response.status_code}")
                 except:
-                    time.sleep(5)
+                    time.sleep(8)
                     continue
                 if response.status_code == 200:
                     result = response.json()['choices'][0]['message']['content']
                     break
                 else:
-                    logger.error(f"Failed to call LLM")
-                    time.sleep(5)
+                    logger.error(f"Failed to call LLM", response.json())
+                    if "found multiple" in response.json()['error']['message']:
+                        logger.error(f"Fail")
+                        if claude_messages[-1]['role'] == 'user' and claude_messages[-2]['role'] == 'user':
+                            claude_messages[-2]['content'][0]['text'] = claude_messages[-2]['content'][0]['text'] + " " + claude_messages[-1]['content'][0]['text']
+                            claude_messages.pop(-1)
+                            payload['messages'] = claude_messages
+                            response = requests.post(
+                                "https://api.claude-Plus.top/v1/chat/completions",
+                                headers=headers,
+                                json=payload
+                            )
+                            result = response.json()['choices'][0]['message']['content']
+                            break
+                    else:
+                        time.sleep(10)
+                        continue
                     attempt += 1
             else:
                 print("Exceeded maximum attempts to call LLM.")
                 result = ""
                 
             return result
+
+        # elif self.model.startswith("claude"):
+        #     messages = payload["messages"]
+        #     max_tokens = payload["max_tokens"]
+        #     top_p = payload["top_p"]
+        #     temperature = payload["temperature"]
+
+        #     gemini_messages = []
+
+        #     for i, message in enumerate(messages):
+        #         gemini_message = {
+        #             "role": message["role"],
+        #             "content": []
+        #         }
+        #         assert len(message["content"]) in [1, 2], "One text, or one text with one image"
+        #         for part in message["content"]:
+
+        #             if part['type'] == "image_url":
+        #                 image_source = {}
+        #                 image_source["type"] = "base64"
+        #                 image_source["media_type"] = "image/png"
+        #                 image_source["data"] = part['image_url']['url'].replace("data:image/png;base64,", "")
+        #                 gemini_message['content'].append({"type": "image", "source": image_source})
+
+        #             if part['type'] == "text":
+        #                 gemini_message['content'].append({"type": "text", "text": part['text']})
+
+        #         gemini_messages.append(gemini_message)
+
+        #     headers = {
+        #         'Accept': 'application/json',
+        #         'Authorization': f'Bearer {os.environ["GEMINI_API_KEY"]}',
+        #         'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+        #         'Content-Type': 'application/json'
+        #     }  
+            
+        #     payload = json.dumps({"model": self.model,"messages": gemini_messages,"max_tokens": max_tokens,"temperature": temperature,"top_p": top_p})
+
+        #     max_attempts = 20
+        #     attempt = 0
+        #     while attempt < max_attempts:
+        #         try:
+        #             response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
+        #             logger.info(f"response_code {response.status_code}")
+        #         except:
+        #             time.sleep(5)
+        #             continue
+        #         if response.status_code == 200:
+        #             result = response.json()['choices'][0]['message']['content']
+        #             break
+        #         else:
+        #             logger.error(f"Failed to call LLM")
+        #             time.sleep(5)
+        #             attempt += 1
+        #     else:
+        #         print("Exceeded maximum attempts to call LLM.")
+        #         result = ""
+                
+        #     return result
 
 
 
