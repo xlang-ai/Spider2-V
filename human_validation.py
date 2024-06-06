@@ -121,7 +121,7 @@ def human_agent():
             else: verbose_instruction = None
 
             while True:
-                action = input("\033[31m[Action] Please enter your action number, chosen from:\n1. start recording;\n2. end recording (by default, the original video will be overwritten);\n3. evaluate;\n4. end recording and evaluate (indeed 2+3);\n5. reset VM environment;\n6. show verbose instruction for reference;\n7. switch to the next example.\nYour choice is (Press Ctrl+C to exit): \033[0m")
+                action = input("\033[31m[Action] Please enter your action number, chosen from:\n1. start recording;\n2. end recording (by default, the original video will be overwritten);\n3. evaluate;\n4. end recording and evaluate (indeed 2+3);\n5. reset VM environment;\n6. show verbose instruction for reference;\n7. switch to the next example.\n8. Take a screenshot and save to local file.\nYour choice is (Press Ctrl+C to exit): \033[0m")
 
                 if action.strip() in ['1', 'start']: # start recoding and timing
                     env.controller.start_recording()
@@ -144,6 +144,11 @@ def human_agent():
                     logger.info(f'\x1b[32m[Task instruction for example {example["id"]}]:\x1b \n{example["instruction"]}\x1b[0m')
                 elif action.strip() in ['6', 'verbose']:
                     logger.info(f'Verbose instruciton is: {verbose_instruction if verbose_instruction else "Not found."}')
+                elif action.strip() == '8':
+                    image = env.controller.get_screenshot()
+                    with open('screenshot.png', 'wb') as file:
+                        file.write(image)
+                    logger.info("screenshot downloaded to screenshot.png ...")
                 elif action.strip() in ['7', 'next']:
                     logger.info('Switching to the next example ...')
                     break
