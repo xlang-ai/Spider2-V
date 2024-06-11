@@ -1,5 +1,5 @@
 #coding=utf8
-import copy, json, os
+import json, os
 import gymnasium as gym
 import logging
 import numpy as np
@@ -10,17 +10,7 @@ from typing import Optional, Union
 from browsergym.core.chat import Chat
 from browsergym.core.task import AbstractBrowserTask
 from browsergym.core.constants import BROWSERGYM_ID_ATTRIBUTE
-from browsergym.core.observation import (
-    _pre_extract,
-    _post_extract,
-    extract_screenshot,
-    extract_dom_snapshot,
-    extract_merged_axtree,
-    extract_focused_element_bid,
-)
-from browsergym.core.action.highlevel import HighLevelActionSet
-from browsergym.core.action.base import execute_python_code
-from browsergym.core import _get_global_playwright
+from browsergym.core import _get_global_playwright, _set_global_playwright
 from desktop_env.configs.general import get_browser
 from browsergym.workarena import ALL_WORKARENA_TASKS
 
@@ -72,11 +62,24 @@ class ServiceNowEnv(gym.Env, ABC):
                 self.chat.close()
             except: pass
             self.chat = None
+        if self.context is not None:
+            try:
+                self.context.close()
+            except: pass
+        if self.browser is not None:
+            try:
+                self.browser.close()
+            except: pass
+        pw: playwright.sync_api.Playwright = _get_global_playwright()
+        if pw is not None:
+            pw.stop()
+            _set_global_playwright(None)
+        return
 
 
-    def reset(self, seed=None, *args, **kwargs):
+    def reset(self, seed: int = 999):
         # we need the following line to seed self.np_random
-        super().reset(seed=seed, *args, **kwargs)
+        super().reset(seed=seed)
 
         pw: playwright.sync_api.Playwright = _get_global_playwright()
         # important: change playwright's test id attribute from "data-testid" to "bid"
@@ -125,8 +128,9 @@ document.addEventListener("visibilitychange", () => {
 
         # create and setup a new task
         task_seed = self.np_random.integers(np.iinfo(np.int32).max + 1)
-        self.task = self.task_entrypoint(**self.task_kwargs)
-        goal, info = self.task.setup(seed=task_seed, page=self.page)
+        self.task = self.task_entrypoint(seed=task_seed, **self.task_kwargs)
+        goal, info = self.task.setup(page=self.page)
+        print('Original goal:', goal)
 
         # initialize the chat
         self.chat.add_message(
