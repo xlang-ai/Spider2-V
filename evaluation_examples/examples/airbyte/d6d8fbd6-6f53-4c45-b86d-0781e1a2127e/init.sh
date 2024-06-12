@@ -73,24 +73,4 @@ echo "AIRBYTE_USERNAME=airbyte" >> ~/.octavia
 echo "AIRBYTE_PASSWORD=password" >> ~/.octavia
 mkdir airbyte-configuration && cd airbyte-configuration
 
-
 gnome-terminal --maximize --working-directory=/home/user/projects/airbyte/airbyte-configuration/
-
-# octavia init
-
-## octavia list connectors sources | grep postgres
-# octavia generate source decd338e-5647-4c0b-adf4-da0e75f5a750 postgres
-# nano sources/postgres/configuration.yaml
-# octavia apply
-
-## octavia list connectors destinations | grep postgres
-# octavia generate destination 25c5221d-dce2-4163-ade9-739ef790f503 postgres
-# nano postgres destinations/bigquery/configuration.yaml
-
-#  octavia generate connection --source sources/postgres/configuration.yaml --destination destinations/postgres/configuration.yaml postgres-to-postgres
-# nano connections/postgres_to_postgres/configuration.yaml
-# octavia apply -f connections/postgres_to_postgres/configuration.yaml
-
-
-
-

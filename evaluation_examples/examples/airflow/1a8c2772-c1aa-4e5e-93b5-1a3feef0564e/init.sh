@@ -1,5 +1,8 @@
 #!/bin/bash
 
+exec 1>/dev/null
+exec 2>/dev/null
+
 ASTRO_RUNTIME_VERSION=10.5.0
 
 function to_ready_state(){

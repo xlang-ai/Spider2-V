@@ -5,7 +5,7 @@
 # The installed anaconda3 should be in the directory /home/user/anaconda3/.
 # Some images should be pre-downloaded in VM snapshots to accelerate the process.
 # Please ensure the initial project is copied to the home directory.
-# This script is tested on Ubuntu 20.04 LTS.
+# This script is tested on Ubuntu 22.04 LTS.
 ####################################################################################################
 
 # ignore all output and error
