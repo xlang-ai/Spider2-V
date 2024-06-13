@@ -1,7 +1,7 @@
 {
     "id": "xxxxxxxx-xxxxxx-xxxxxx",
     "snapshot": "snapshot_name",
-    "instruction": "",
+    "instruction": "task goal",
     "source": [
         "source_url1",
         "source_url2"
@@ -12,28 +12,26 @@
     ],
     "tags": [
         "cli+gui", // cli or cli+gui
-        "abstract", // verbose or abstract
+        "abstract", // verbose or abstract instruction
         "account", // optional
-        "multimodal" // optional
+        "data_warehousing" // task categories
     ],
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "counterpart": "xxxxxxxx-xxxxxx-xxxxxx", // for comparison, abstract v.s. verbose
     "config": [
         {
-            "type": "",
+            "type": "method_to_setup_environment",
             "parameters": {
-
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
-        "func": "metric_func",
+        "func": "metric_function_name",
         "result": {
-            "type": ""
+            "type": "method_to_obtain_predicted_result"
         },
         "expected": {
-            "type": ""
+            "type": "method_to_obtain_expected_result"
         },
         "options": {}
     }
