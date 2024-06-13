@@ -1,7 +1,7 @@
 {
     "id": "4aa4cebb-d9d6-429f-b9da-547887ac5ce1",
     "snapshot": "snowflake",
-    "instruction": "Help me create a new table and load data from local file into it. The detailed requirements is .txt on desktop.",
+    "instruction": "Help me create a new table and load data from local file into it. The detailed requirements are in .txt file on desktop.",
     "source": [
         "https://docs.snowflake.com/en/user-guide/data-load-web-ui"
     ],

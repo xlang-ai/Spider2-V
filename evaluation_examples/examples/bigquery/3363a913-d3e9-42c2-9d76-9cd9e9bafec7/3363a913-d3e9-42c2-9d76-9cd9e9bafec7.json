@@ -44,7 +44,7 @@
         "chromium"
     ],
     "tags": [
-        "gui",
+        "cli+gui",
         "account",
         "data_warehousing"
     ],

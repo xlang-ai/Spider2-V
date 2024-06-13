@@ -3,7 +3,7 @@
     "snapshot": "superset",
     "instruction": "My boss told me to create a pivot table for the dataset 'flight' to see the sum of cost in each mouth from 2011-1-1:00:00:00 to 2011-6-30:00:00:00. He said there should be 3 level of column: department, travel class and mouth. Please help me to build these table and name it 'TravelPrivot'.",
     "source": [
-        "My boss told me to create a pivot table for the dataset  'flight' to see the sum of cost in each mouth from 2011.1.1 to 2011.6.30. He said there should be 3 level of column: department, travel class and mouth. Please help me to build these table and name it 'TravelPrivot'."
+        "https://superset.apache.org/docs/using-superset/exploring-data/#pivot-table"
     ],
     "related_apps": [
         "chromium",
