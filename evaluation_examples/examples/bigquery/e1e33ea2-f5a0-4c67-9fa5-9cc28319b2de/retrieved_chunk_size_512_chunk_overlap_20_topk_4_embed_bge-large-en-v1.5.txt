@@ -1,0 +1,190 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tablesd41d.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tables.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/logistic-regression-prediction.txt
+
+Documentation Title:
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Select 100 rows from the
+census_adult_income
+table:
+SQL
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the query editor, run the following GoogleSQL query:
+SELECT
+age,
+workclass,
+marital_status,
+education_num,
+occupation,
+hours_per_week,
+income_bracket,
+functional_weight
+FROM
+`bigquery-public-data.ml_datasets.census_adult_income`
+LIMIT
+100;
+The results look similar to the following:
+BigQuery DataFrames
+Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the
+BigQuery quickstart
+    using BigQuery DataFrames
+.
+    For more information, see the
+BigQuery DataFrames reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see
+Set 
+    up authentication for a local development environment
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/tables.txt
+
+Documentation Title:
+Create and use tables  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For readability, some columns
+are excluded from the result.
++--------------+------------+--------------------+-------------------+-----------------+---------------------+
+  | table_name   | table_type | base_table_catalog | base_table_schema | base_table_name | snapshot_time_ms    |
+  +--------------+------------+--------------------+-------------------+-----------------+---------------------+
+  | items_clone  | CLONE      | myproject          | mydataset         | items           | 2018-10-31 22:40:05 |
+  | orders_bk    | SNAPSHOT   | myproject          | mydataset         | orders          | 2018-11-01 08:22:39 |
+  +--------------+------------+--------------------+-------------------+-----------------+---------------------+
+Example 3:
+The following example retrieves
+table_name
+and
+ddl
+columns from the
+INFORMATION_SCHEMA.TABLES
+view for the
+population_by_zip_2010
+table in the
+census_bureau_usa
+dataset. This dataset is part of the BigQuery
+public dataset program
+.
+Because the table you're querying is in another project, you add the project ID to the dataset in
+the following format:
+`
+project_id
+`.
+dataset
+.INFORMATION_SCHEMA.
+view
+.
+In this example, the value is
+`bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+.
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment.
+
+
+

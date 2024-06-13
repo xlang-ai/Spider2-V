@@ -1,0 +1,7 @@
+This task requires you to tune the AdaBoost classifier to achieve a 1.0 accuracy. Follow the steps:
+1. In the "Building the AdaBoost Model" section, change the ``n_estimators`` of AdaBoostClassifier from 1 to 40.
+2. Change the ``learning_rate`` of AdaBoostClassifier from 0.1 to 0.8.
+3. Click the button "Run" in the menu bar on the top.
+4. In the drop-down menu, select and click "Run All Cells".
+5. Wait until all cells completes running, then click the button "File" in the menu bar on the top.
+6. In the drop-down menu, select and click "Save All".

@@ -1,0 +1,11 @@
+Sometimes, we use Airbyte to transfer data from a remote link to a local file. But the local file is stored in the running docker container. To obtain this file, we need to copy it from the file system of the container. Firstly, we need to figure out the destination path. To achieve this:
+1) click the "Destinations" button on the left panel of the Airbyte UI page;
+2) next, click the row containing text "Local SQLite";
+3) we can see a new window containing destination_path, "/local/epidemiology.sqlite".
+This value indicates where the target database is stored. According to the definition of SQLite destination, the local mount is mounted by Docker onto LOCAL_ROOT. By default, the LOCAL_ROOT env variable is set /tmp/airbyte_local. This means the /local is substituted by /tmp/airbyte_local and the real file path is "/tmp/airbyte_local/epidemiology.sqlite". Now, we can download it from the container:
+4) Open the terminal via clicking the icon on the left menu bar of the Ubuntu system;
+5) Type in command "docker ps" to check all running instances. The container with image "airbyte/server" is exactly where the local data is stored. We can extract the corresponding container id via:
+`container_id=$(docker ps | grep "airbyte/server" | awk '{print $1}')`
+6) After obtaining the container id, we can use docker cp command to copy the database `epidemiology.sqlite` from the container to our local file system `~/Desktop/`:
+`docker cp ${container_id}:/tmp/airbyte_local/epidemiology.sqlite ~/Desktop/epidemiology.sqlite`
+Till now, we have finished all steps to extract the saved sqlite from airbyte container to local file system.

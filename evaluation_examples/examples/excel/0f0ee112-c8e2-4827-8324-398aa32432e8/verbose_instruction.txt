@@ -1,0 +1,23 @@
+I would like to create a pivot table and a horizontal bar chart for my table. Please follow these steps:
+1. Click the "Append sheet" on the left of "Sheet1" on the bottom (its icon is a sheet of paper with a "+" on the bottom-right). A new sheet with name "Sheet2" will be created.
+2. In the new Sheet2, select cells A1:B1.
+3. Right click and choose "Merge Cells" option.
+4. Input "Summer sales ($)" in the merged cell.
+5. Click "Sheet1" tab at the bottom to switch to "Sheet1".
+6. Press Ctrl+A hotkey to choose all data in Sheet1.
+7. Click "Insert" on the top menu bar. Select "Pivot Table..." in the dropdown menu.
+8. Make sure the selection is "Current selection" and the entire sheet containing data is selected. Then click "OK" on the button-right of the pop-up window.
+9. Press and drag "Product" from the available fields on the right to "Row Fields:" on the bottom-left of the pop-up window.
+10. Similarly, press and drag "Revenue" from the available fields to "Data Fields:" in the middle.
+11. Click row "Source and Destination" at the bottom to manually choose the destination.
+12. Under "Destination", choose "Selection" from the radio box, and click the "Shrink" button on the right of the same row.
+13. Click "Sheet2" at the bottom. Then select cell A2. You can see "$Sheet2.$A$2" in the textbox on the "Pivot Table Layout: Destination" window.
+14. Click the "Expand" button on the right of the textbox and return to the full pop-up window.
+15. Click "OK" on the bottom-right of the "Pivot Table Layout" window. A pivot table will be generated in "Sheet2".
+16. In "Sheet2", click "Insert" on the top menu bar. Select "Chart..." in the dropdown menu.
+17. Click row "Bar" under panel "Choose a Chart Type".
+18. Click "Next >" at the bottom part of the popup window.
+19. On the right side of the window, type "Revenue of Each Product" into the text field `Title`.
+20. Find the checkbox for "Display legend", uncheck it.
+21. Click "Finish" button on the bottom-right of the pop-up window.
+22. Finally, save the excel file using "Excel 2007-365 Fromat".

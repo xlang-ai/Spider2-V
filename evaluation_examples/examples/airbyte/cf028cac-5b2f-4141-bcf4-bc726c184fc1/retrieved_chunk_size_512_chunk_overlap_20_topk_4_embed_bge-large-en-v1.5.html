@@ -1,0 +1,47 @@
+Documentation Source:
+airbyte.com/tutorials/postgresql-change-data-capture-elt.html
+
+Documentation Title:
+Build an EL(T) from Postgres CDC (Change Data Capture) | Airbyte
+
+Documentation Content:
+CDC enables organizations to make informed decisions based on up-to-date data and ensures that data across multiple systems remains consistent and accurate.</li></li><li><strong>What are the prerequisites for setting up CDC in PostgreSQL, and what components are required?</strong><li>To set up CDC in PostgreSQL, you'll need a PostgreSQL database instance configured with logical replication enabled. Additionally, you'll require a logical decoding plugin, such as pgoutput or wal2json, which converts the WAL records into a format that can be consumed by downstream applications or systems.</li></li><li><strong>Can CDC in PostgreSQL capture all types of data modifications, including inserts, updates, and deletions?</strong><li>Yes, CDC in PostgreSQL can capture all types of data modifications, including inserts, updates, and deletions. By monitoring changes at the database level and utilizing logical decoding, PostgreSQL CDC ensures that all modifications to database records are captured and made available for replication or analysis.</li></li><li><strong>How does CDC ensure data consistency and integrity when replicating data from PostgreSQL using a data replication tool?</strong><li>CDC guarantees data consistency and integrity when replicating PostgreSQL data with Airbyte by continuously monitoring database changes, capturing all modifications (inserts, updates, and deletions), and preserving the order of operations during replication. Airbyte's incremental replication minimizes latency, and its built-in data validation and error handling mechanisms ensure accuracy and reliability.</li></li></ol><div><img/><div><h3>About the Author</h3><p>Thalia Barrera is a data engineer and technical writer at Airbyte. She has over a decade of experience as an engineer in the IT industry. She enjoys crafting technical and training materials for fellow engineers.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.html
+
+Documentation Title:
+Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
+
+Documentation Content:
+Furthermore, because each incremental sync executes queries against the source to detect modifications, it requires the source data to have a suitable <a>cursor field</a>such as <em>updated_at</em>, which is used to keep track of which records have already been replicated. </p><p>On the other hand, CDC incremental replication reads a log of the changes that have been made to the source database and transmits these changes to the destination. Because changes are read from a transaction log when using CDC, it is not necessary for the source data to have a suitable cursor field. Additionally, intermediate changes and deletions on the source are correctly transmitted to the destination because they are logged just like any other modification to the source data.</p><p>The differences between CDC incremental replication and non-CDC incremental replication are summarized in the table below:</p><img/><p>CDC replication can also be used in conjunction with full<a>refresh replication</a>. However, as mentioned in the <a>CDC documentation</a>, full refresh replication mode is done with the same process both with and without CDC. </p><h2>Launch a Postgres source and destination</h2><p>The above discussion has given a brief overview of how CDC sync modes work. The remainder of this article is focussed on a step-by-step overview of CDC with incremental deduped history replication. </p><blockquote>ℹ️  The examples in this tutorial are presented with new/empty Postgres containers, but it is not a requirement that your source and destination databases are empty. Furthermore, these examples use the root postgres users which should not be done for production. For instructions on how to set up a more secure configuration, see the tutorial: <a>Build an EL(T) from PostgreSQL using Change Data Capture (CDC)</a>.
+
+
+
+Documentation Source:
+airbyte.com/blog/change-data-capture-definition-methods-and-benefits.html
+
+Documentation Title:
+Understanding Change Data Capture (CDC): Definition, Methods, Benefits | Airbyte
+
+Documentation Content:
+</p><p>Most databases allow the creation of triggers; you can see how to <a>create a trigger for PostgreSQL</a>.</p><img/><p>‍</p><strong>Key challenges:</strong><ul><li>If a transaction fails, roll-back logic may need to be implemented to remove the operation from the shadow table.</li><li>The trigger needs to be modified in case of table schema changes.</li><li>Triggers cannot be reused for other databases, given the differences in SQL language.</li><li>The use of triggers can slow down the transactional workload.</li></ul><h3>Database transaction log (Log-based CDC)</h3><p>Log-based CDC uses the transaction logs that some databases – such as Postgres, MySQL, SQL Server,  and Oracle – implement natively as part of their core functionality.</p><p>Log-based and trigger-based CDC are very similar – both keep a log of changes every time a database operation happens – so the shadow table and the transaction log contain the same information. The difference between log-based and trigger-based CDC is that the first one uses a core functionality of the database (transaction log); meanwhile, the triggers are created and defined by the user.</p><p>Since database logs are updated in every transaction, the experience is transparent, which means log-based CDC does not require any logical changes in database objects or the application running on top of the database. A system reads data directly from the database Change Data Capture logs to identify changes in a database, minimizing the impact of the capture process.</p><img/><p>‍</p><strong>Key challenges:</strong><ul><li>Some database operations are not captured in the CDC logs, such as ALTER or TRUNCATE. In that case, additional logic needs to be configured to force the logging of those operations.</li><li>If the destination datastore is down, transaction logs must be kept intact until the subsequent replication happens.</li></ul><p>As you can see, there are several approaches to implementing Change Data Capture. Before databases included native CDC, data engineers used techniques such as table differences, table metadata, and database triggers to capture changes made to a database.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgresql-change-data-capture-elt.html
+
+Documentation Title:
+Build an EL(T) from Postgres CDC (Change Data Capture) | Airbyte
+
+Documentation Content:
+Selecting a <em>Full Refresh</em>mode would sync the whole source table, which is most likely not what you want when using CDC. Learn more about sync modes in <a>our documentation</a>.</p><p>When using an <em>Incremental</em>sync mode, we would generally need to provide a <em>Cursor field</em>, but when using CDC, that's not necessary since the changes in the source are detected via the Debezium connector stream.</p><img/><p>Once you're ready, save the changes. Then, you can run your first sync by clicking on <em>Sync now</em>. You can check your run logs to verify everything is going well. Just wait for the sync to be completed, and that's it! You've replicated data using Postgres Change Data Capture.</p></div><h2>Step 6: Verify that the sync worked</h2><div><p>From the root directory of the Airbyte project, go to <em>/tmp/airbyte_local/cdc_tutorial</em>, and you will find a file named <em>_airbyte_raw_cars.jsonl</em>where the data from the PostgreSQL database was replicated.</p><p>You can check the file's contents in your preferred IDE or run the following command.</p><code>cat _airbyte_raw_cars.jsonl
+</code><p>‍</p><img/></div><h2>Step 7: Test CDC in action by creating and deleting an object from the database</h2><div><p>Now, let's test the CDC setup we have configured. To do that, run the following queries to insert and delete a row from the database.</p><code>INSERT INTO cars VALUES(3, 'tesla');
+DELETE FROM cars WHERE NAME = 'tesla';
+</code><p>Launch a sync and, once it finishes, check the local JSON file to verify that CDC has captured the change. The JSON file should now have two new lines, showing the addition and deletion of the row from the database.
+
+
+

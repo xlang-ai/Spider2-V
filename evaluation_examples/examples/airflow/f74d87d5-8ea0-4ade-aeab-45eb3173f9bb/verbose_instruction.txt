@@ -1,0 +1,4 @@
+I am using Astronomer to deploy airflow
+To show the first DAG project in graph view, we can follow the steps:
+1. In the DAG list, click the first DAG item' name
+2. In the detailed information box of DAG(the largest box in the middle of the webpage), click the "Graph" bottom in the top of the box

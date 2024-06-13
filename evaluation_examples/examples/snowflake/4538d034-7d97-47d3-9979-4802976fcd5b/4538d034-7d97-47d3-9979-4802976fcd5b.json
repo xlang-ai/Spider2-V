@@ -1,0 +1,86 @@
+{
+    "id": "4538d034-7d97-47d3-9979-4802976fcd5b",
+    "snapshot": "snowflake",
+    "instruction": "Help me create an event table and store logs in Snowflake.\n1. In a new SQL worksheet, create a new database named \"log_trace_db\".\n2. Create an event table called \"event_table\".\n3. Create a user-defined logging function in Python 3.8:\n- function name: log_trace_data\n- handler: run\n- logger name: logger\n- logger severity level: INFO\n- log message: \"Logging from Python function.\"\n- return value: \"SUCCESS\"\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create the event table and store logs, please follow these steps:\n1. Click the \"+\" button on the top right;\n2. Choose \"SQL Worksheet\" in the drop-down panel;\n3. In the opened blank worksheet, type in command:\n```\nCREATE OR REPLACE DATABASE log_trace_db;\nCREATE OR REPLACE EVENT TABLE event_table;\nCREATE OR REPLACE FUNCTION log_trace_data()\nRETURNS VARCHAR\nLANGUAGE PYTHON\nRUNTIME_VERSION = 3.8\nHANDLER = 'run'\nAS $$\n\nimport logging\n\nlogger = logging.getLogger(\"logger\")\n\n\ndef run():\n\n  logger.info(\"Logging from Python function.\")\n\n  return \"SUCCESS\"\n$$;\n```\n4. In the upper-right corner of the worksheet, click the down button on the right of the run button \"►\" and then select \"Run All\" from the drop-down menu to execute the command.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/developer-guide/logging-tracing/tutorials/logging-tracing-getting-started"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 4,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "exact_match",
+            "check_snowflake_log_message"
+        ],
+        "result": [
+            {
+                "type": "snowflake_function_result",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "log_trace_db",
+                "table": "event_table",
+                "function": "log_trace_data"
+            },
+            {
+                "type": "snowflake_log_message",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "log_trace_db",
+                "table": "event_table",
+                "logger": "logger"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "expected": "SUCCESS"
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "severity": "INFO",
+                    "message": "Logging from Python function."
+                }
+            }
+        ]
+    },
+    "counterpart": "a330a1c4-d9cf-48c5-bbea-f55f5b226328"
+}

@@ -1,0 +1,12 @@
+In this task, we want to count how many times each "Invoice No." appears, to achieve it:
+1. Select column A via clicking the tab on top of cell A1;
+2. Click "Insert -> Pivot Table..." on the top menu bar;
+3. In the pop-up window, choose "Current selection" and click the button "OK".
+4. For the bottom-left box `Row Fields`, drag the entry "Invoice No." from the right panel `Available Fields` into this area.
+5. For the bottom-middle box `Data Fields`, drag the same entry "Invoice No." from the right panel `Available Fields` into this area.
+6. Double click the single row `Sum - Invoice No.` in the Data Fields box.
+7. In the pop-up window `Data Field`, click the row `Count`.
+8. Then, click the "OK" button at the bottom right part.
+9. One more step, right click the new sheet tab with name "Pivot Table_Sheet1_1" at the bottom and choose "Rename Sheet...";
+10. Type in the sheet name "Sheet2" in the `Name` field.
+11. Finally, press Ctrl+S to save the file content.

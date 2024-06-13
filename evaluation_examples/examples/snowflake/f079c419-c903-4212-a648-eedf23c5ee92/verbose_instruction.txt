@@ -1,0 +1,8 @@
+This task is to get data through Marketplace on Snowflake. In the opened Snowsight web page,
+1. Click "Data Products >> Marketplace" sequentially.
+2. In the search box with "Search providers and data products" prompt on the top of the window, type in "American".
+3. Hit Enter.
+4. In the top search results, find and click the result named "American Community Survey, 2016".
+5. Click the "Get" button on the top-right.
+6. Click the "Get" button on the bottom of the pop-up window.
+7. After a few seconds, a success window pops up. Click "Done" button.

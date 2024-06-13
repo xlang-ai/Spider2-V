@@ -13,7 +13,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 6,
     "config": [
@@ -35,7 +36,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "check_include_exclude",
@@ -55,5 +55,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "06ae629f-f7bd-4a6e-be85-038ec4154b75"
 }

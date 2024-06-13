@@ -1,0 +1,86 @@
+{
+    "id": "28b33444-3b68-4147-94a1-5bf6cb276305",
+    "snapshot": "dagster",
+    "instruction": "Build a sensor \"directory_sensor\" that watches for file creation in the directory \"/home/user/file-watch-sensor/files\". When there is a new file created in that directory, launch the job \"log_file_job\" to output its filename. Start the sensor in the UI.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Build a sensor \"directory_sensor\" that watches for file creation in the directory \"/home/user/file-watch-sensor/files\". When there is a new file created in that directory, launch the job \"log_file_job\" to output its filename. Start the sensor in the UI.\nTo achieve this:\n1. Switch to VS Code.\n2. Open the folder `file_watch_sensor` in the left EXPLORER panel.\n3. Create a new file `directory_sensor.py` under this folder.\n4. Add the following code into `directory_sensor.py`:\n```\nimport os\nfrom dagster import sensor, RunRequest, RunConfig\nfrom .log_file_job import log_file_job, FileConfig\n\n@sensor(job=log_file_job, minimum_interval_seconds=3)\ndef directory_sensor():\n    for filename in os.listdir(\"/home/user/file-watch-sensor/files/\"):\n        filepath = os.path.join(\"/home/user/file-watch-sensor/files/\", filename)\n        if os.path.isfile(filepath):\n            yield RunRequest(\n                run_key=filename,\n                run_config=RunConfig(\n                    ops={\"process_file\": FileConfig(filename=filename)}\n                ),\n            )\n```\n5. Save the file content via Ctrl+S hotkey.\n6. Open the file `file_watch_sensor/__init__.py`.\n7. Update the code to include the sensor in the definitions:\n```\nfrom dagster import Definitions, load_assets_from_modules\n\nfrom . import assets, log_file_job\nfrom .directory_sensor import directory_sensor\n\nall_assets = load_assets_from_modules([assets])\n\ndefs = Definitions(\n    assets=all_assets,\n    sensors=[directory_sensor]\n)\n```\n8. Save this file via Ctrl+S.\n9. Switch to Chromium and open the Dagster UI.\n10. Click \"Reload all\" button on the top right of the page in the \"Deployment\" tab of the UI.\n11. Click \"file_watch_sensor\" on the left to enter the module containing the sensor.\n12. Navigate to the \"Sensors\" tab, and click the \"directory_sensor\" in the table below.\n13. Set the status to \"Running\" via enabling the radio button in the middle row of the page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/concepts/partitions-schedules-sensors/sensors"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 13,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/28b33444-3b68-4147-94a1-5bf6cb276305/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/28b33444-3b68-4147-94a1-5bf6cb276305/log_file_job.py",
+                "dest": "/home/user/file-watch-sensor/file_watch_sensor/log_file_job.py"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/28b33444-3b68-4147-94a1-5bf6cb276305/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "helloworld.txt",
+                        "welcome.txt",
+                        "test_sensor.txt",
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "46eb418d-c5d3-46b7-9f48-999f8a75c960"
+}

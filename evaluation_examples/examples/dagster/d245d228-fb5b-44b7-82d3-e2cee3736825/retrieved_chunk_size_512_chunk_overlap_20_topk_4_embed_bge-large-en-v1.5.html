@@ -1,0 +1,48 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/testing-assets.html
+
+Documentation Title:
+Testing Assets | Dagster Docs
+
+Documentation Content:
+That returns an <code>ExecuteInProcessResult</code>object, whose methods let us investigate, in detail, the success or failure of execution, the values produced by the computation, and other events associated with execution.</p><p>Update the <code>test_assets.py</code>file to include the following code:</p><code><span>from</span>dagster <span>import</span>materialize
+<span>from</span>tutorial_project<span>.</span>assets <span>import</span><span>(</span>topstory_ids<span>,</span>topstories<span>,</span>topstories_word_cloud
+<span>)</span><span># Instead of importing one asset, import them all</span><span>def</span><span>test_hackernews_assets</span><span>(</span><span>)</span><span>:</span>assets <span>=</span><span>[</span>topstory_ids<span>,</span>topstories<span>,</span>topstories_word_cloud<span>]</span>result <span>=</span>materialize<span>(</span>assets<span>)</span><span>assert</span>result<span>.</span>success
+    df <span>=</span>result<span>.</span>output_for_node<span>(</span><span>"topstories"</span><span>)</span><span>assert</span><span>len</span><span>(</span>df<span>)</span><span>==</span><span>100</span></code><h2>Running the tests<span>#</span></h2><p>Use pytest, or your test runner of choice, to run the unit tests. Navigate to the top-level <code>tutorial_project</code>directory (the one that contains the <code>tutorial_project_tests</code>directory) and run:</p><code>pytest tutorial_project_tests
+</code><p>Wait a few seconds for the tests to run and observe the output in your terminal.</p><h2>Related<span>#</span></h2><p>Dagster is written to make testing easy in a domain where it has historically been very difficult.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/assets/asset-checks.html
+
+Documentation Title:
+Asset checks | Dagster
+
+Documentation Content:
+Checks can also be executed on a one-off basis using the Dagster UI. Refer to the <a>Executing checks</a>section of the <a>Defining and executing asset checks</a>guide for more info.</p><p>With asset checks, you can also:</p><ul><li>Block downstream execution based on check results</li><li>Use severity levels and metadata <a>to communicate actionable details about check results in the UI</a></li><li>Use freshness checks <a>to identify stale assets that are due for a refresh</a></li><li><strong>Dagster+ only</strong>: <a>Create alerts based on asset check results</a></li></ul><h2>Limitations<span>#</span></h2><ul><p><strong>Dagster's UI is tested with a maximum of 1000 checks per asset.</strong>It's designed with the expectation that most assets will have fewer than 50 checks. If you have a use case that doesn't fit these limits, reach out to Dagster support to discuss.</p><p><strong>Checks are currently only supported per-asset, not per-partition.</strong>See <a>this issue</a>for updates.</p></ul></div></div></div><div><div><div>On This Page</div><li><a>Asset checks</a><ol><a>Benefits</a><a>How it works</a><a>Limitations</a></ol></li></div><a>Edit Page on GitHub</a><button>Share Feedback</button><a>Star</a></div></div></div></div></body>
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/testing-assets.html
+
+Documentation Title:
+Testing Assets | Dagster Docs
+
+Documentation Content:
+I can't wait to use it!"</span><span>}</span><span>,</span><span>{</span><span>"title"</span><span>:</span><span>"Pied Piper launches new product"</span><span>}</span><span>,</span><span>]</span><span>)</span>results <span>=</span>topstories_word_cloud<span>(</span>df<span>)</span><span>assert</span>results <span>is</span><span>not</span><span>None</span><span># It returned something</span></code><h2>Testing a graph of assets<span>#</span></h2><p>We'll also write a test for all the assets together. To do that, we can put them in a list and then pass it to the <code>materialize</code>function.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/assets/software-defined-assets.html
+
+Documentation Title:
+Software-defined assets | Dagster
+
+Documentation Content:
+This allows you to test assets in isolation from one another:</p><code><span>def</span><span>test_more_complex_asset</span><span>(</span><span>)</span><span>:</span>result <span>=</span>more_complex_asset<span>(</span><span>[</span><span>0</span><span>]</span><span>)</span><span>assert</span>result <span>==</span><span>[</span><span>0</span><span>,</span><span>4</span><span>,</span><span>5</span><span>,</span><span>6</span><span>]</span></code><p>If you use config of resources in your asset, they will be provided automatically during execution. When writing unit tests, you may provide them directly when invoking the asset function:</p><code><span>class</span><span>MyConfig</span><span>(</span>Config<span>)</span><span>:</span>api_url<span>:</span><span>str</span><span>class</span><span>MyAPIResource</span><span>(</span>ConfigurableResource<span>)</span><span>:</span><span>def</span><span>query</span><span>(</span>self<span>,</span>url<span>)</span><span>-</span><span>&gt;</span>Dict<span>[</span><span>str</span><span>,</span>Any<span>]</span><span>:</span><span>return</span>requests<span>.</span>get<span>(</span>url<span>)</span><span>.</span>json<span>(</span><span>)</span><span>@asset</span><span>def</span><span>uses_config_and_resource</span><span>(</span>config<span>:</span>MyConfig<span>,</span>my_api<span>:</span>MyAPIResource<span>)</span><span>:</span><span>return</span>my_api<span>.</span>query<span>(</span>config<span>.
+
+
+

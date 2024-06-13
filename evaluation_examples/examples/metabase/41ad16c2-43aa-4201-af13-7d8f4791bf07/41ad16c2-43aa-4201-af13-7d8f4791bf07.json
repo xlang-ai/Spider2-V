@@ -1,0 +1,55 @@
+{
+    "id": "41ad16c2-43aa-4201-af13-7d8f4791bf07",
+    "snapshot": "metabase",
+    "instruction": "Some experts tell me that we can run a self-hosted Metabase using java. Complete this job for me at localhost with port 3000. I want to see the welcome page.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we hope to launch the local web server for Metabase using Java. To achieve this goal:\n1. Downloading the Open Source metabase.jar in the current folder:\n`wget -c https://downloads.metabase.com/v0.49.7/metabase.jar`\n2. Once completion, type in the following command to start the server:\n`java -jar metabase.jar`\nWe need to wait for some time such that the local web server will be launched.\n3. Switch to the web browser, type in `http://localhost:3000` in the url box. Then, we will see the welcome page for Metabase.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/installation-and-operation/running-the-metabase-jar-file"
+    ],
+    "related_apps": [
+        "chromium",
+        "terminal",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 3,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/41ad16c2-43aa-4201-af13-7d8f4791bf07/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "is_expected_url_pattern_match",
+        "result": {
+            "type": "active_tab_info",
+            "goto_prefix": "http://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": [
+                    "http://localhost:3000"
+                ]
+            }
+        }
+    },
+    "counterpart": "7c38e400-d52c-4e07-b6c6-e2b4a1b38a6d"
+}

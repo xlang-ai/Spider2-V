@@ -14,7 +14,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_ingestion_and_integration"
+        "data_ingestion_and_integration",
+        "abstract"
     ],
     "action_number": 4,
     "config": [
@@ -54,7 +55,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [
             {
@@ -76,5 +76,6 @@
             "path": "evaluation_examples/examples/airbyte/60f97b80-cafc-454f-a31c-13bca1c42fa9/cities_gold.csv",
             "dest": "cities_gold.csv"
         }
-    }
+    },
+    "counterpart": "bf403ec0-fdc5-4c80-8144-41022e5cb281"
 }

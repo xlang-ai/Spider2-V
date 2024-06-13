@@ -1,0 +1,58 @@
+{
+    "id": "37d8e428-a793-4b72-ac23-b4a85b309d6d",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderIpadProTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 7,
+    "instruction": "Go to the hardware store and order 1 \"iPad pro\" with configuration {'Choose the colour': 'Silver', 'Choose the storage': '512'}\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Let's buy one iPad pro in the hardware store.\n1. Click the \"Hardware\" panel and wait for page loading.\n2. In the search bar on the top-right (with text \"Search catalog\"), click it and type in \"iPad Pro\".\n3. Press Enter to filter the items. We will see the desired item panel. Click it.\n4. In the order configuration page, for the option \"Choose the colour\", we click the radio box with text \"Silver\".\n5. As for the storage choice, we click the radio box starting with text \"512 GB\".\n6. Then, we come to the panel \"Order this item\" on the right, click and choose the \"Quantity\" selection bar with value \"1\".\n7. Finally, click the button \"Order Now\" in this panel and wait to web page response.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderIpadProTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "018a12a9-faeb-4427-a758-a40a58dc29f5"
+}

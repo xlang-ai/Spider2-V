@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 11,
     "config": [
@@ -71,7 +72,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": "compare_csv",
         "result": {
@@ -84,5 +84,6 @@
             "path": "evaluation_examples/examples/jupyter/f650d0be-7222-42ea-9f78-5e59b31b37e3/gold.csv",
             "dest": "gold.csv"
         }
-    }
+    },
+    "counterpart": "5eab2fda-8c01-4b26-918b-0f832ebb1e13"
 }

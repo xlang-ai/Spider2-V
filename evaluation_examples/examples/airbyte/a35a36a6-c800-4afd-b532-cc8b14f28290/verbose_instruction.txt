@@ -1,0 +1,125 @@
+In this task, we want to use Octavia CLI to import, edit, and apply Airbyte application configurations to replicate data from Postgres to Postgres: 
+
+1. Switch to the terminal window;
+2. In the terminal, run the following commands to initiate octavia:
+```
+octavia init
+octavia generate source decd338e-5647-4c0b-adf4-da0e75f5a750 postgres
+nano sources/postgres/configuration.yaml
+```
+3. Edit the sources/postgres/configuration.yaml according to the config.json file opened in gedit to set up the source configurations and save the file. After that, the file content should be like:
+```
+resource_name: "postgres"
+definition_type: source
+definition_id: decd338e-5647-4c0b-adf4-da0e75f5a750
+definition_image: airbyte/source-postgres
+definition_version: 3.3.18
+
+configuration:
+  host: "localhost"
+  port: 2000
+  schemas: ["public"] 
+  database: "postgres"
+  password: "password"
+  ssl_mode:
+    mode: "disable"
+  username: "postgres"
+  tunnel_method:
+    tunnel_method: "NO_TUNNEL"
+  jdbc_url_params: ""
+  replication_method:
+    method: "Standard"
+```
+4. In the terminal, run the following commands to initiate octavia:
+```
+octavia apply
+```
+And you should see "🎉 - Successfully created postgres on your Airbyte instance!" in the terimnal. Then you can check that the configuration is also available in the UI.
+5. After that, run in the terminal 
+```
+octavia generate destination 25c5221d-dce2-4163-ade9-739ef790f503 postgres
+nano postgres destinations/postgres/configuration.yaml
+```
+6. Edit the destinations/postgres/configuration.yaml according to the config.json file to set up the destination configurations and save the file. The file content should look like:
+```
+resource_name: "postgres"
+definition_type: destination
+definition_id: 25c5221d-dce2-4163-ade9-739ef790f503
+definition_image: airbyte/destination-postgres
+definition_version: 2.0.4
+
+configuration:
+  ssl: false
+  host: "localhost"
+  port: 3000
+  schema: "public"
+  database: "postgres"
+  password: "password"
+  ssl_mode:
+    mode: "disable"
+  username: "postgres"
+  tunnel_method:
+    tunnel_method: "NO_TUNNEL"
+  jdbc_url_params: ""
+  raw_data_schema: ""
+  disable_type_dedupe: false
+```
+7. In the terminal, run the following commands to initiate octavia:
+```
+octavia apply
+```
+And you should see "🎉 - Successfully created postgres on your Airbyte instance!" in the terimnal. Then you can check that the configuration is also available in the UI;
+8. Then run 
+```
+octavia generate connection --source sources/postgres/configuration.yaml --destination destinations/postgres/configuration.yaml postgres-to-postgres
+nano connections/postgres_to_postgres/configuration.yaml
+```
+in the terminal;
+9. Edit the connections/postgres_to_postgres/configuration.yaml according to the config.json file to set up the destination configurations and save the file. The file content should look like:
+```
+definition_type: connection
+resource_name: "postgres-to-postgres"
+source_configuration_path: sources/postgres/configuration.yaml
+destination_configuration_path: destinations/postgres/configuration.yaml
+
+configuration:
+  status: active
+  skip_reset: false
+  namespace_definition: source
+  namespace_format: "${SOURCE_NAMESPACE}"
+  prefix: ""
+  schedule_type: manual
+  sync_catalog:
+    streams:
+      - config:
+          alias_name: basic_file
+          cursor_field: []
+          destination_sync_mode: overwrite
+          primary_key:
+            - - id
+          selected: true
+          suggested: true
+          sync_mode: full_refresh
+        stream:
+          default_cursor_field: []
+          json_schema:
+            properties:
+              id:
+                airbyte_type: integer
+                type: number
+              name:
+                type: string
+            type: object
+          name: basic_file
+          namespace: public
+          source_defined_primary_key:
+            - - id
+          supported_sync_modes:
+            - full_refresh
+            - incremental
+```
+10. After that, run
+```
+octavia apply
+```
+You should see "🎉 - Successfully created postgres-to-bigquery on your Airbyte instance!" in the terminal. Then you can check that the conncetion is created in the UI.

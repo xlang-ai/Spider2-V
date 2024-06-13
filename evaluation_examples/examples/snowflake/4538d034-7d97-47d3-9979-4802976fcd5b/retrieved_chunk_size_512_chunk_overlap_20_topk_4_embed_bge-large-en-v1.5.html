@@ -1,0 +1,59 @@
+Documentation Source:
+docs.snowflake.com/en/developer-guide/logging-tracing/tutorials/logging-tracing-getting-started.html
+
+Documentation Title:
+Tutorial: Get Started with Logging and Tracing | Snowflake Documentation
+
+Documentation Content:
+Nicely done.</p><p>In this tutorial, you got an end-to-end view of how you can emit and store log and trace data from handler code, then query the stored data.
+Along the way, you:</p><ul><li><p><strong>Created an event table.</strong>For information related to event tables, refer to the following:</p><ul><p>For more detail on setting up an event table, refer to <span>Setting up an Event Table</span>.</p><p>For reference information about the columns that make up an event table, refer to
+<span>Event table columns</span>.</p><p>For more on things you can do with event tables, refer to <span>Working with Event Tables</span>.</p></ul></li><li><p><strong>Created a user-defined function (UDF)</strong>that emitted log and trace data. For related information, refer to the following:</p><ul><p>For an overview of logging support in Snowflake, refer to <span>Logging Messages from Functions and Procedures</span>. For specific about
+logging with Python, refer to <span>Logging Messages from Functions and Procedures</span>and the
+<a>logging</a>module in Python’s standard library.</p><p>For details on setting the log level, refer to <span>Setting log level</span>.</p><p>For an overview of tracing support, refer to <span>Trace Events for Functions and Procedures</span>. For specific about tracing with Python,
+refer to <span>Emitting trace events in Python</span>.</p><p>For details on setting the trace level, refer to <span>Setting trace level</span>.</p><p>For general information on creating UDFs, refer to <span>User-Defined Functions Overview</span>.</p></ul></li><li><p><strong>Queried the event table</strong>for log and trace data.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/logging-tracing/tutorials/logging-tracing-getting-started.html
+
+Documentation Title:
+Tutorial: Get Started with Logging and Tracing | Snowflake Documentation
+
+Documentation Content:
+In the next section, you’ll start emitting log messages that Snowflake stores in the table.</p></section><section><h2>Emit Log Messages<a>¶</a></h2><p>In this section, you’ll create a user-defined function (UDF) with Python handler code that emits log messages. As your code emits log
+messages, Snowflake collects the message data and stores it in the event table you created.</p><p>Snowflake supports APIs to log messages from each supported handler language. For handlers you write in Python, you can use the
+<span>logging</span>module in Python’s standard library.</p><p>To create a UDF that emits log messages:</p><ol><li><p>Paste and run the following statement to set the log level to <span>INFO</span>.</p><div><pre><span>ALTER</span><span>SESSION</span><span>SET</span><span>LOG_LEVEL</span><span>=</span><span>INFO</span><span>;</span></pre><span>Copy</span></div><p>This specifies the severity of log messages that Snowflake should capture as the UDF runs.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/logging-tracing/tracing.html
+
+Documentation Title:
+Trace Events for Functions and Procedures | Snowflake Documentation
+
+Documentation Content:
+</span><span>"example.key2"</span><span>:</span><span>"value2"</span><span>})</span><span>return</span><span>"SUCCESS"</span><span>$$;</span></pre><span>Copy</span></div></section><section><h2>Getting Started<a>¶</a></h2><p>To get started with event traces from handler code, follow these high-level steps:</p><ol><li><span>Set up an event table.</span><p>Snowflake uses your event table to store event data emitted by your handler code. An event table has
+columns <span>predefined by Snowflake</span>.</p></li><li><p>Get acquainted with the event trace API for the handler language you’ll be using.</p><p>Refer to <span>Supported Languages</span>for a list of handler languages, then view
+<span>content about how to emit trace events from your language</span>.</p></li><p>Add event trace code to your handler.</p><p>Learn how to <span>retrieve event trace data</span>from the event table.</p></ol></section><section><h2>Level for Trace Events<a>¶</a></h2><p>You can manage the verbosity of trace event data stored in the event table by setting the trace level. Before tracing, use this setting to make
+sure you’re capturing the log message severity.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/logging-tracing/tutorials/logging-tracing-getting-started.html
+
+Documentation Title:
+Tutorial: Get Started with Logging and Tracing | Snowflake Documentation
+
+Documentation Content:
+In the next section, you’ll create an event table for storing
+log and trace data.</p></section><section><h2>Create an Event Table<a>¶</a></h2><p>In this section, you’ll create an event table. As your handler code emits log messages and trace data, Snowflake saves the emitted data in
+event table rows. You can query the event table to analyze the data.</p><p>You must create an event table to collect log and trace data. An event table always uses the
+<span>predefined structure</span>defined by Snowflake.</p><div><p>Important</p><p>To complete this section, you’ll need to be able to use the ACCOUNTADMIN role, which is required when altering an account so that the new event
+table is the account’s active event table.</p></div><p>To create the event table and make it the active event table for the account:</p><ol><li><p>Paste and run the following statement to create an event table.</p><div><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>EVENT TABLE</span><span>tutorial_event_table</span><span>;</span></pre><span>Copy</span></div><p>This table is where Snowflake stores log and trace data.</p></div></li><li><p>Paste and run the following statement to alter the account so that the event table you created is the active one for the account.</p><div><pre><span>ALTER</span><span>ACCOUNT</span><span>SET</span><span>EVENT_TABLE</span><span>=</span><span>tutorial_log_trace_db</span><span>.</span><span>public</span><span>.</span><span>tutorial_event_table</span><span>;</span></pre><span>Copy</span></div><p>This statement sets the new event table as the table that Snowflake should use for storing log messages and trace data from handlers
+in the current account. You can have only one active event table for an account.</p></li></ol><p>In this section, you created an event table.
+
+
+

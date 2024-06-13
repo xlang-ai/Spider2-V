@@ -1,0 +1,107 @@
+{
+    "id": "66adc0e7-07ce-4ab3-a9f8-6a048fc5e802",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@KnowledgeBaseSearchTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 10,
+    "instruction": "Answer the following question using the knowledge base: \"Which firm is in charge of office event catering?\". Find the name of the catering firm and write this answer into the opened .txt file.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we need to answer the question \"Which firm is in charge of office event catering?\" and write the firm name into the opened text file. To do this:\n1. Focus on the Chrome/Chromium browser, which should stay in the servicenow page\n2. Locate the search bar next to category \"All\" on the menu bar\n3. Type in text \"\\\"catering service provider for office events\\\"\" and press Enter to search the result\n4. After searching, click the link of the fist Article\n5. Press Ctrl+F hotkey to invoke the page search function\n6. In the search box, type in \"catering service provider\". An you will the matched text highlighted in the web page\n7. Dive into the content, \"The catering service provider for office events is Gourmet Caterers.\". We can figure out that the firm is \"Gourmet Caterers\".\n8. Now, switch to the opened .txt file named `answer.txt`\n9. Input the answer \"Gourmet Caterers\" into into\n10. Press Ctrl+S to save the file. We have completed this task.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "KnowledgeBaseSearchTask",
+                "task_kwargs": {}
+            }
+        },
+        {
+            "type": "execute",
+            "parameters": {
+                "command": [
+                    "touch",
+                    "/home/user/Desktop/answer.txt"
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/answer.txt"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "gedit"
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "result": {
+            "type": "workarena_task_result",
+            "path": "/home/user/Desktop/answer.txt",
+            "dest": "answer.txt",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "5b70dd26-8c60-43ea-b388-082a6f603fe5"
+}

@@ -1,0 +1,9 @@
+In this task, we hope to backup the Metabase database file to a specific location. To achieve this goal:
+
+1. Navigate to /home/user/projects/metabase directory where locates the Metabase JAR.
+2. Open the terminal under the directory. 
+3. Check if the Metabase is running, you should first stop the Metabase process. To be specific, run "ps ux | grep java" to find the PID of running process. Use "kill -9 `PID`" to stop the process.
+4. Run "java -jar metabase.jar" and wait until the files are generated. 
+5. Terminate the process by "CTRL+C" or close the terminal.
+6. Copy the application database file (called `metabase.db.mv.db`) and keep that copy to the target directory, which means, creat the directory `/home/user/Metabase`, cd into it, paste the database file there.
+7. Navigate back to /home/user/projects/metabase directory. Restart Metabase: `java -jar metabase.jar`.

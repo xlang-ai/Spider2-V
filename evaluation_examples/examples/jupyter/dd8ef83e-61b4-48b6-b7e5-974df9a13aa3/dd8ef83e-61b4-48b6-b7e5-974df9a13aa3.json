@@ -1,0 +1,103 @@
+{
+    "id": "dd8ef83e-61b4-48b6-b7e5-974df9a13aa3",
+    "snapshot": "jupyter",
+    "instruction": "Display the number of films in each category, sorted in descending order\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Display the number of films in each category, sorted in descending order. In details,\n1. Double-click \"result.csv\" to see the predefined format\n2. Double-click category.csv film_actor.csv film_category.csv film.csv to preview the us baby data.\n3. Double-click \"notebook.ipynb\" to see the partial finished code.\n4. Scroll down to the bottom, hover your mouse over the blank space at the bottom.\n5. Click button \"Click to add a cell.\"\n6. Copy the code below to this cell:\n```\n\nfilm_actor = pd.read_csv('./film_actor.csv')\nfilm_category = pd.read_csv('./film_category.csv')\nfilm = pd.read_csv('./film.csv')\ncategory = pd.read_csv('./category.csv')\n\nconnection = sqlite3.connect('database.db')\n\nfilm_actor.to_sql('film_actor', connection, if_exists='replace', index=False)\nfilm_category.to_sql('film_category', connection, if_exists='replace', index=False)\nfilm.to_sql('film', connection, if_exists='replace', index=False)\ncategory.to_sql('category', connection, if_exists='replace', index=False)\n\n```\n7. Click button \"Click to add a cell.\"\n8. Copy the code below to this cell:\n\n```\nquery = \"\"\"\nSELECT\n    category.name,\n    COUNT(film_category.film_id) AS films_in_category\nFROM\n    category\n    LEFT JOIN film_category ON\n        category.category_id = film_category.category_id\nGROUP BY\n    category.category_id\nORDER BY\n    films_in_category DESC;\n\"\"\"\n\ndf = pd.read_sql_query(query, connection)\ndf.to_csv('result.csv', index=False)\n\n```\n9. Click the button \"Run\" in the menu bar on the top.\n10. In the drop-down menu, select and click \"Run All Cells\".\n11. Wait for about 10 seconds, the data will be inserted in to \"result.csv\"\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.kaggle.com/code/kapturovalexander/sql-postgresql-for-data-science"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/category.csv",
+                "dest": "/home/user/Desktop/category.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/film_actor.csv",
+                "dest": "/home/user/Desktop/film_actor.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/film_category.csv",
+                "dest": "/home/user/Desktop/film_category.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/film.csv",
+                "dest": "/home/user/Desktop/film.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/result.csv",
+                "dest": "/home/user/Desktop/result.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/dd8ef83e-61b4-48b6-b7e5-974df9a13aa3/gold.csv",
+            "dest": "gold.csv"
+        }
+    },
+    "counterpart": "de41e397-4e76-450f-ae98-e2a7dd9a6382"
+}

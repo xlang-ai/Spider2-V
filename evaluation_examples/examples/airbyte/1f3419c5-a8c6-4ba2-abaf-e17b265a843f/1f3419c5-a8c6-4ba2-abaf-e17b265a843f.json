@@ -1,0 +1,78 @@
+{
+    "id": "1f3419c5-a8c6-4ba2-abaf-e17b265a843f",
+    "snapshot": "airbyte",
+    "instruction": "I have created an airbyte connection from Postgres to Postgres. Can you help me to update the name of the record whose id=2 to 'Eg2b IncAp' in the airbyte-source container, and then execute a new sync?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to change the data in the source database and sync the existing Airbyte connection to transport the new data to the destination. To complete this:\n1. In the Airbyte UI page, wait until the current sync finishes.\n2. Switch to the terminal window;\n3. Next, in the terminal, run the following command to retrieve the stream and save the file:\n```\ndocker exec -i airbyte-source psql -U postgres <<EOF\nUPDATE table_one SET name='Eg2b IncAp' WHERE id=2;\nEOF\n```\n4. Switch to the Airbyte connection page, click \"incremental-sync-demo\" to check the current connection.\n5. Click button \"Sync now\" on the right, wait until the sync finishes.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://airbyte.com/tutorials/incremental-data-synchronization"
+    ],
+    "related_apps": [
+        "chromium",
+        "terminal",
+        "airbyte",
+        "docker",
+        "postgresql"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/1f3419c5-a8c6-4ba2-abaf-e17b265a843f/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/1f3419c5-a8c6-4ba2-abaf-e17b265a843f/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/1f3419c5-a8c6-4ba2-abaf-e17b265a843f/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "f1d8a4ab-dbee-422f-99c3-52b023208720"
+}

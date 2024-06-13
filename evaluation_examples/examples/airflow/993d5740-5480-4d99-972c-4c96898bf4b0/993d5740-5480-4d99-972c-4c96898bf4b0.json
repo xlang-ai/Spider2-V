@@ -1,0 +1,72 @@
+{
+    "id": "993d5740-5480-4d99-972c-4c96898bf4b0",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I have finished my work today on Airflow. For safety, please help me log out my account.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo log out the account, we can follow the steps:\n1. Hover over the account name in the upper right corner;\n2. Then, click 'Log Out' button\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.astronomer.io/docs/astro/security"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/993d5740-5480-4d99-972c-4c96898bf4b0/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 2,
+    "related_apps": [
+        "airflow",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/993d5740-5480-4d99-972c-4c96898bf4b0/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "3e8ddf14-a503-4ba1-83d0-32b2d91b33bb"
+}

@@ -1,0 +1,15 @@
+You need to refer to the existing figure and help me make a similar figure for the H/A/N column. The format must be the same. In details,
+1. Click the button "Run" in the menu bar on the top.
+2. In the drop-down menu, select and click "Restart the kernel and run all cells" at the top of the box.
+3. In the pop-up window, click "Restart"。
+4. Then you can see that the code is executed successfully and some figures are drawn.
+5. Read the output, understand the data, and keep scrolling down to the blank area
+6. Click button "Click to add a cell."
+7. Copy the code to this cell:
+```
+sns.countplot(data=df,x="H/A/N",order=df["H/A/N"].value_counts().index)
+plt.xticks(rotation=90)
+plt.savefig('result.png')
+plt.show()
+```
+8. Click "Run this cell and advance"

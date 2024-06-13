@@ -1,0 +1,92 @@
+{
+    "id": "c3a002da-39a8-43d2-829f-529cef91bb3b",
+    "snapshot": "excel",
+    "instruction": "Create a Pivot Table in a new sheet (Sheet2) to count how many times each \"Invoice No.\" appears.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to count how many times each \"Invoice No.\" appears, to achieve it:\n1. Select column A via clicking the tab on top of cell A1;\n2. Click \"Insert -> Pivot Table...\" on the top menu bar;\n3. In the pop-up window, choose \"Current selection\" and click the button \"OK\".\n4. For the bottom-left box `Row Fields`, drag the entry \"Invoice No.\" from the right panel `Available Fields` into this area.\n5. For the bottom-middle box `Data Fields`, drag the same entry \"Invoice No.\" from the right panel `Available Fields` into this area.\n6. Double click the single row `Sum - Invoice No.` in the Data Fields box.\n7. In the pop-up window `Data Field`, click the row `Count`.\n8. Then, click the \"OK\" button at the bottom right part.\n9. One more step, right click the new sheet tab with name \"Pivot Table_Sheet1_1\" at the bottom and choose \"Rename Sheet...\";\n10. Type in the sheet name \"Sheet2\" in the `Name` field.\n11. Finally, press Ctrl+S to save the file content.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@104"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/c3a002da-39a8-43d2-829f-529cef91bb3b/Invoices.xlsx",
+                "dest": "/home/user/Invoices.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/Invoices.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 20,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "Invoices.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/c3a002da-39a8-43d2-829f-529cef91bb3b/8_Invoices_gt1.xlsx",
+            "dest": "8_Invoices_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Invoices.xlsx",
+            "dest": "Invoices.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "pivot_table",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "ENSheet2",
+                    "pivot_props": [
+                        "col_fields",
+                        "filter",
+                        "row_fields",
+                        "data_fields"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "1954cced-e748-45c4-9c26-9855b97fbc5e"
+}

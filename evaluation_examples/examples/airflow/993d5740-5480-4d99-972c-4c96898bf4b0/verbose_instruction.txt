@@ -1,0 +1,4 @@
+I am using Astronomer to deploy Airflow
+To log out the account, we can follow the steps:
+1. Hover over the account name in the upper right corner;
+2. Then, click 'Log Out' button

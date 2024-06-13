@@ -1,0 +1,79 @@
+{
+    "id": "50776f15-e033-41ba-8533-09aff2df0e88",
+    "snapshot": "airbyte",
+    "instruction": "Could you help me construct an Airbyte connection to transfer data from Faker to PostgreSQL in the Airbyte local UI according to the config.png file on the desktop?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to construct an Airbyte connection to transfer data from Faker to PostgreSQL in the Airbyte local UI according to the config.png file. To complete this: \n1. Open the config.png file on the Desktop;\n2. Switch to the browser window;\n3. In the opened homepage of Airbyte, click the \"Sources\" link on the left panel;\n4. Then, in the search bar on the right, type in \"Faker\" and you should see one panel with name \"Sample Data (Faker)\" below;\n5. Click this panel;\n6. After that, click on the \"Set up source\" button to create the source;\n7. Once \"all tests passed\" is displayed, click the \"Destinations\" link on the left panel;\n8. Then, in the search bar on the right, type in \"Postgres\" and you should see a panel with the name \"Postgres\" below;\n10. Click this panel;\n11. Based on the \"destination Postgres\" details in the desktop config.png file, enter the configuration parameters in the appropriate fields;\n12. Note that, for private field \"Password\" whose input box may not be visible, you need to click the toggle link with text \"Optional fields\" in order to expand the hidden fields.\n13. After finishing all content, click the \"Set up destination\" button to create the destination connector;\n14. Once \"all tests passed\" is displayed, click the \"Connections\" link on the left panel;\n15. Then, click the \"Create your first connection\" button on the right;\n16. In the \"Define source\" step, choose \"select an existing source\";\n17. Click on the \"Sample Data (Faker)\" source link below;\n18. After that, in the \"Define destination\" step, choose \"select an existing destination\";\n19. Click on the \"Postgres\" destination link below. You may need to wait for some time;\n20. In the \"Connection configuration\" step, enter the parameters in the appropriate fields based on the \"connection\" details in the config.png file;\n21. Click the \"Set up connection\" button at the bottom right of the page to complete the connection setup.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 21,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/50776f15-e033-41ba-8533-09aff2df0e88/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/50776f15-e033-41ba-8533-09aff2df0e88/config.png",
+                "dest": "/home/user/Desktop/config.png"
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/50776f15-e033-41ba-8533-09aff2df0e88/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "d570066b-793a-4f69-9d2e-414b33d11571"
+}

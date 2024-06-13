@@ -1,0 +1,76 @@
+{
+    "id": "b5bed2ba-186a-4603-8705-083ad308c8c1",
+    "snapshot": "jupyter",
+    "instruction": "Refer to the existing figure and help me make a similar figure for the H/A/N column. The format must be the same. And save the result in 'result.png'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: You need to refer to the existing figure and help me make a similar figure for the H/A/N column. The format must be the same. In details,\n1. Click the button \"Run\" in the menu bar on the top.\n2. In the drop-down menu, select and click \"Restart the kernel and run all cells\" at the top of the box.\n3. In the pop-up window, click \"Restart\"。\n4. Then you can see that the code is executed successfully and some figures are drawn.\n5. Read the output, understand the data, and keep scrolling down to the blank area\n6. Click button \"Click to add a cell.\"\n7. Copy the code to this cell:\n```\nsns.countplot(data=df,x=\"H/A/N\",order=df[\"H/A/N\"].value_counts().index)\nplt.xticks(rotation=90)\nplt.savefig('result.png')\nplt.show()\n```\n8. Click \"Run this cell and advance\"\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.kaggle.com/code/mayankanand2701/rohit-sharma-all-centuries-notebook"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/b5bed2ba-186a-4603-8705-083ad308c8c1/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/b5bed2ba-186a-4603-8705-083ad308c8c1/Rohit_Sharma_Centuries.csv",
+                "dest": "/home/user/Desktop/Rohit_Sharma_Centuries.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/b5bed2ba-186a-4603-8705-083ad308c8c1/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/notebook.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_jupyterlab_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.png",
+            "dest": "result.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/b5bed2ba-186a-4603-8705-083ad308c8c1/gold.png",
+            "dest": "gold.png"
+        }
+    },
+    "counterpart": "279a4290-d744-4cc1-a576-bc4f7b9fcee9"
+}

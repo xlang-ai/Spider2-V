@@ -1,0 +1,60 @@
+In this task, we want to extend the original single Dagster asset into a 3-step pipeline graph `top10_story_ids -> top10_stories -> top5_mfw`. Please follow the steps below:
+1. Click the VS Code editor on the left panel or dock;
+2. In the opened `assets.py` file, it defines one asset `top10_story_ids` to download the top 10 story ids into filepath `data/story_ids.json`;
+3. Using the top 10 Hacker News story IDs, we'll now look up each story by its ID, ingest that data, and make a DataFrame out of it. Besides, we will connect the current asset `top10_story_ids` with this new asset `top10_stories` to establish dependencies. Concretely, we modify the `assets.py` to add the pandas import and a new asset called `top10_stories`:
+```
+# ... Keep the original `top10_story_ids` code
+
+@asset(deps=[top10_story_ids])  # this asset is dependent on top10_story_ids
+def top10_stories() -> None:
+    with open("data/story_ids.json", "r") as f:
+        story_ids = json.load(f)
+
+    results = []
+    for item_id in story_ids:
+        item = requests.get(
+            f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json"
+        ).json()
+        results.append(item)
+
+        if len(results) % 5 == 0:
+            print(f"Got {len(results)} items so far.")
+
+    json.dump(results, open('data/stories.json', 'w'), indent=4, ensure_ascii=False)
+```
+4. Now, we have extend the original asset to a 2-step pipeline, which not only downloads the story id, but also the story itself. The final asset will take the list of stories and create a dictionary of the most frequent words in the titles. Here is the finished code for the `top5_mfw` asset. Copy and paste the code into `assets.py`:
+```
+@asset(deps=[top10_stories])
+def top5_mfw() -> None:
+    stopwords = []
+    with open('stopwords.txt', 'r') as inf:
+        for line in inf:
+            line = line.strip()
+            if line == '': continue
+            stopwords.append(line)
+
+    topstories = json.load(open('data/stories.json', 'r'))
+
+    # loop through the titles and count the frequency of each word
+    word_counts = {}
+    for story in topstories:
+        raw_title = story['title']
+        title = raw_title.lower()
+        for word in title.split():
+            if word not in stopwords and len(word) > 0:
+                word_counts[word] = word_counts.get(word, 0) + 1
+
+    # Get the top 5 most frequent words
+    top_words = {
+        pair[0]: pair[1]
+        for pair in sorted(word_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+    }
+
+    with open("data/mfw.json", "w") as f:
+        json.dump(top_words, f)
+```
+5. Next, save the file content and switch to the web browser;
+6. Click "Reload definitions" on the top right to update all assets;
+7. Click the "Assets" panel on the top menu. We can see that the other two new assets have never been materialized;
+8. Switch to the graph view by clicking "View global asset lineage" on the left side of "Reload definitions";
+9. Finally, click the magic button "Materialize all" and waiting for all assets to be materialized.

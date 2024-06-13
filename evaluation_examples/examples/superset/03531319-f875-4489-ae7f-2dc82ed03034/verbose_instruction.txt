@@ -1,0 +1,23 @@
+To create a rolling mean line chart for table flights to see the trend of the average cost per day and make rolling period be 7 then save the chart as the name "rolling_mean", we can follow these steps:
+1. In the opened web page, select "Charts" in the top menu;
+2. Click '+CHART' in the top right corner;
+3. In the pop-up window, click "Choose a dataset" box;
+4. Select "flights";
+5. In right box, click "Line Chart";
+6. Click "CREATE NEW CHART" in the bottom;
+7. In the new window, drag the "Travel Date" title from left list to the "X-AXIS" box ;
+8. Drag the "Cost" title from left list to the "METRICS" box ;
+9. Click AGGREGATE box;
+10. Select "AVG";
+11. Click "SAVE";
+12. Click "CREATE CHART" in the bottom;
+13. Scoll down until "Advanced analytics" appears;
+14. Click "Advanced analytics"
+15. Click "ROLLING FUNCTION" bottom;
+16. Select "mean";
+17. Type 7 in PERIODS;
+18. Type 7 in MIN PERIODS;
+19. Click "CREATE CHART" in the bottom;
+20. Click "SAVE" in the top right corner;
+21. Type "rolling_mean" in "CHART NAME" box;
+22. Click "SAVE", and you can see table "rolling_mean" in the main panel.

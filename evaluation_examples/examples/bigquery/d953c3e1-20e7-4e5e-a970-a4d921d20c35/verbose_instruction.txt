@@ -1,0 +1,13 @@
+In this task, we will get a view of top 5 records with highest ANNUAL_RANK. Concretely,
+1. click '+' button on top of the welcome prompt "Welcome to BigQuery Studio!". This will open a blank query panel.
+2. write the following SQL into the blank panel "Untitled query":
+```
+CREATE VIEW `census.2012_best`
+AS
+SELECT *
+FROM `census.2012`
+ORDER BY ANNUAL_RANK
+LIMIT 5
+```
+3. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+4. Wait for a moment. The query results will show below.

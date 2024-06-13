@@ -1,0 +1,25 @@
+This task is to use jupyter notebook to finish a small ML task by implementing the function with #TODO prefix. On the opened ipynb file:
+1. For the 1st TODO, copy the code below to this cell:
+```
+data = pd.read_csv(path, header=None, names=['Exam1', 'Exam2', 'Admitted'])
+```
+2. For the 2nd TODO, copy the code below to replace "return None":
+```
+return 1 / (1 + np.exp(-z))
+```
+3. For the 3rd TODO, copy the code below to this cell:
+```
+data.insert(0, 'Ones', 1)
+```
+4. For the 4th TODO, copy the code below to replace "return None":
+```
+return (1/len(X) * X.T @ (sigmoid(X @ theta.T) - Y))
+```
+5. For the 5th TODO, copy the code below to replace "return None":
+```
+probability = sigmoid(X @ theta.T)
+return [1 if x >= 0.5 else 0 for x in probability]
+```
+6. Click the button "Run" in the menu bar on the top.
+7. In the drop-down menu, select and click "Run All Cells".
+8. Enter "Ctrl-S" to save the ipynb file.

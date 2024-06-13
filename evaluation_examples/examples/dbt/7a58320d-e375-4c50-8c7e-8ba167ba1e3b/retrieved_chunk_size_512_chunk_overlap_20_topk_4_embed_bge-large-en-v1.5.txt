@@ -1,0 +1,296 @@
+Documentation Source:
+docs.getdbt.com/guides/mesh-qsd41b.txt
+
+Documentation Title:
+Quickstart with dbt Mesh | dbt Developer Hub
+
+Documentation Content:
+This guide uses the Jaffle Shop sample data, including
+customers
+,
+orders
+, and
+payments
+tables. Follow the provided instructions to load this data into your respective data platform:
+Snowflake
+Databricks
+Redshift
+BigQuery
+Fabric
+Starburst Galaxy
+This guide assumes you have experience with or fundamental knowledge of dbt. Take the
+dbt Fundamentals
+course first if you are brand new to dbt.
+Create and configure two projects
+​
+In this section, you'll create two new, empty projects in dbt Cloud to serve as your foundational and downstream projects:
+Foundational projects
+(or upstream projects) typically contain core models and datasets that serve as the base for further analysis and reporting.
+Downstream projects
+build on these foundations, often adding more specific transformations or business logic for dedicated teams or purposes.
+For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.
+Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance'
+To
+create
+a new project in dbt Cloud:
+From
+Account settings
+, click
++ New Project
+.
+Enter a project name and click
+Continue
+.
+Use "Jaffle | Data Analytics" for one project
+Use "Jaffle | Finance" for the other project
+Select your data platform, then
+Next
+to set up your connection.
+In the
+Configure your environment
+section, enter the
+Settings
+for your new project.
+Click
+Test Connection
+. This verifies that dbt Cloud can access your data platform account.
+Click
+Next
+if the test succeeded. If it fails, you might need to go back and double-check your settings.
+For this guide, make sure you create a single
+development
+and
+Deployment
+per project.
+For "Jaffle | Data Analytics", set the default database to
+jaffle_da
+.
+For "Jaffle | Finance", set the default database to
+jaffle_finance
+Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud
+Continue the prompts to complete the project setup.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/mesh-qs0c17.txt
+
+Documentation Title:
+Quickstart with dbt Mesh | dbt Developer Hub
+
+Documentation Content:
+This guide uses the Jaffle Shop sample data, including
+customers
+,
+orders
+, and
+payments
+tables. Follow the provided instructions to load this data into your respective data platform:
+Snowflake
+Databricks
+Redshift
+BigQuery
+Fabric
+Starburst Galaxy
+This guide assumes you have experience with or fundamental knowledge of dbt. Take the
+dbt Fundamentals
+course first if you are brand new to dbt.
+Create and configure two projects
+​
+In this section, you'll create two new, empty projects in dbt Cloud to serve as your foundational and downstream projects:
+Foundational projects
+(or upstream projects) typically contain core models and datasets that serve as the base for further analysis and reporting.
+Downstream projects
+build on these foundations, often adding more specific transformations or business logic for dedicated teams or purposes.
+For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.
+Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance'
+To
+create
+a new project in dbt Cloud:
+From
+Account settings
+, click
++ New Project
+.
+Enter a project name and click
+Continue
+.
+Use "Jaffle | Data Analytics" for one project
+Use "Jaffle | Finance" for the other project
+Select your data platform, then
+Next
+to set up your connection.
+In the
+Configure your environment
+section, enter the
+Settings
+for your new project.
+Click
+Test Connection
+. This verifies that dbt Cloud can access your data platform account.
+Click
+Next
+if the test succeeded. If it fails, you might need to go back and double-check your settings.
+For this guide, make sure you create a single
+development
+and
+Deployment
+per project.
+For "Jaffle | Data Analytics", set the default database to
+jaffle_da
+.
+For "Jaffle | Finance", set the default database to
+jaffle_finance
+Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud
+Continue the prompts to complete the project setup.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/mesh-qs.txt
+
+Documentation Title:
+Quickstart with dbt Mesh | dbt Developer Hub
+
+Documentation Content:
+This guide uses the Jaffle Shop sample data, including
+customers
+,
+orders
+, and
+payments
+tables. Follow the provided instructions to load this data into your respective data platform:
+Snowflake
+Databricks
+Redshift
+BigQuery
+Fabric
+Starburst Galaxy
+This guide assumes you have experience with or fundamental knowledge of dbt. Take the
+dbt Fundamentals
+course first if you are brand new to dbt.
+Create and configure two projects
+​
+In this section, you'll create two new, empty projects in dbt Cloud to serve as your foundational and downstream projects:
+Foundational projects
+(or upstream projects) typically contain core models and datasets that serve as the base for further analysis and reporting.
+Downstream projects
+build on these foundations, often adding more specific transformations or business logic for dedicated teams or purposes.
+For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.
+Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance'
+To
+create
+a new project in dbt Cloud:
+From
+Account settings
+, click
++ New Project
+.
+Enter a project name and click
+Continue
+.
+Use "Jaffle | Data Analytics" for one project
+Use "Jaffle | Finance" for the other project
+Select your data platform, then
+Next
+to set up your connection.
+In the
+Configure your environment
+section, enter the
+Settings
+for your new project.
+Click
+Test Connection
+. This verifies that dbt Cloud can access your data platform account.
+Click
+Next
+if the test succeeded. If it fails, you might need to go back and double-check your settings.
+For this guide, make sure you create a single
+development
+and
+Deployment
+per project.
+For "Jaffle | Data Analytics", set the default database to
+jaffle_da
+.
+For "Jaffle | Finance", set the default database to
+jaffle_finance
+Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud
+Continue the prompts to complete the project setup.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/mesh-qs5f72.txt
+
+Documentation Title:
+Quickstart with dbt Mesh | dbt Developer Hub
+
+Documentation Content:
+This guide uses the Jaffle Shop sample data, including
+customers
+,
+orders
+, and
+payments
+tables. Follow the provided instructions to load this data into your respective data platform:
+Snowflake
+Databricks
+Redshift
+BigQuery
+Fabric
+Starburst Galaxy
+This guide assumes you have experience with or fundamental knowledge of dbt. Take the
+dbt Fundamentals
+course first if you are brand new to dbt.
+Create and configure two projects
+​
+In this section, you'll create two new, empty projects in dbt Cloud to serve as your foundational and downstream projects:
+Foundational projects
+(or upstream projects) typically contain core models and datasets that serve as the base for further analysis and reporting.
+Downstream projects
+build on these foundations, often adding more specific transformations or business logic for dedicated teams or purposes.
+For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.
+Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance'
+To
+create
+a new project in dbt Cloud:
+From
+Account settings
+, click
++ New Project
+.
+Enter a project name and click
+Continue
+.
+Use "Jaffle | Data Analytics" for one project
+Use "Jaffle | Finance" for the other project
+Select your data platform, then
+Next
+to set up your connection.
+In the
+Configure your environment
+section, enter the
+Settings
+for your new project.
+Click
+Test Connection
+. This verifies that dbt Cloud can access your data platform account.
+Click
+Next
+if the test succeeded. If it fails, you might need to go back and double-check your settings.
+For this guide, make sure you create a single
+development
+and
+Deployment
+per project.
+For "Jaffle | Data Analytics", set the default database to
+jaffle_da
+.
+For "Jaffle | Finance", set the default database to
+jaffle_finance
+Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud
+Continue the prompts to complete the project setup.
+
+
+

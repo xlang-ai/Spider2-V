@@ -1,0 +1,79 @@
+{
+    "id": "e9c8340e-d9c6-49b1-a082-31dce13b72c8",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. Help me trigger the DAG workFlow_Echo by airflow in graph view.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow.\nTo run the dag \"workFlow_Echo\", we can follow the steps:\n1. On the Airflow web page, find \"workFlow_Echo\" in the DAG list and click the slider to the left of the name to Unpause dag; \n2. Click the triangle under the Action column on the far right of the row to trigger the dag; \n3. Wait until the status of all tasks in the 'Runs' column to change to \"success\" or \"failed\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/get-started-with-airflow"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/e9c8340e-d9c6-49b1-a082-31dce13b72c8/workFlow.zip",
+                "dest": "/home/user/workFlow.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/e9c8340e-d9c6-49b1-a082-31dce13b72c8/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 3,
+    "related_apps": [
+        "airflow",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airflow/e9c8340e-d9c6-49b1-a082-31dce13b72c8/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "57a13efe-c008-4bc9-8959-36276115da0b"
+}

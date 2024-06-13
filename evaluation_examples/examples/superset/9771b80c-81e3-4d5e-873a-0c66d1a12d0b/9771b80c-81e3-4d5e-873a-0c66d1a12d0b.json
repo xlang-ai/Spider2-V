@@ -1,0 +1,72 @@
+{
+    "id": "9771b80c-81e3-4d5e-873a-0c66d1a12d0b",
+    "snapshot": "superset",
+    "instruction": "I want to creare a new public annotation table in database 'PublicData' using Superset. Please help me register the new table and set the start_dttm colmn as default datetime.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To register a new public annotation table in PublicData and set the start_dttm colmn as default datetime, we can follow these steps:\n1. In the opened web page, click the add icon in the top right corner;\n2. Select \"Data\" menu;\n3. Click the \"Create Dataset\" in the extended menu;\n4. In the pop-up window \"New Dataset\", firstly click the \"DATABASE\" box;\n5. Click \"PublicData\" in extended menu;\n6. Then click \"SCHEMA\" box;\n7. Click \"Public\" in extended menu;\n8. Then click \"TABLE\" box;\n9. Click \"annotation\" in extended menu;\n10. Click the \"CREATE DATASET AND CREATE CHART\" button in the buttom of the window;\n11. Next click the \"Datasets\" menu in the top and you can see \"annotation\" table in the main panel;\n12. Then click \"edit\" action of the \"annotation\" table on the right;\n13. Click \"colmn\" in the top of the new pop-up window;\n14. Check the \"Default datetime\" on the \"start_dttm\" raw;\t\n15. Then, click \"Save\" and return the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#registering-a-new-table"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 15,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/9771b80c-81e3-4d5e-873a-0c66d1a12d0b/tutorial_flights.csv",
+                "dest": "/home/user/tutorial_flights.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/9771b80c-81e3-4d5e-873a-0c66d1a12d0b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/9771b80c-81e3-4d5e-873a-0c66d1a12d0b/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "a3290ae7-d53e-43fb-8b7f-35845b1b4c95"
+}

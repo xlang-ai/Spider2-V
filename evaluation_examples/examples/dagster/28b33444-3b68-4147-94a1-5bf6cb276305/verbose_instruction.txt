@@ -1,0 +1,45 @@
+Build a sensor "directory_sensor" that watches for file creation in the directory "/home/user/file-watch-sensor/files". When there is a new file created in that directory, launch the job "log_file_job" to output its filename. Start the sensor in the UI.
+To achieve this:
+1. Switch to VS Code.
+2. Open the folder `file_watch_sensor` in the left EXPLORER panel.
+3. Create a new file `directory_sensor.py` under this folder.
+4. Add the following code into `directory_sensor.py`:
+```
+import os
+from dagster import sensor, RunRequest, RunConfig
+from .log_file_job import log_file_job, FileConfig
+
+@sensor(job=log_file_job, minimum_interval_seconds=3)
+def directory_sensor():
+    for filename in os.listdir("/home/user/file-watch-sensor/files/"):
+        filepath = os.path.join("/home/user/file-watch-sensor/files/", filename)
+        if os.path.isfile(filepath):
+            yield RunRequest(
+                run_key=filename,
+                run_config=RunConfig(
+                    ops={"process_file": FileConfig(filename=filename)}
+                ),
+            )
+```
+5. Save the file content via Ctrl+S hotkey.
+6. Open the file `file_watch_sensor/__init__.py`.
+7. Update the code to include the sensor in the definitions:
+```
+from dagster import Definitions, load_assets_from_modules
+
+from . import assets, log_file_job
+from .directory_sensor import directory_sensor
+
+all_assets = load_assets_from_modules([assets])
+
+defs = Definitions(
+    assets=all_assets,
+    sensors=[directory_sensor]
+)
+```
+8. Save this file via Ctrl+S.
+9. Switch to Chromium and open the Dagster UI.
+10. Click "Reload all" button on the top right of the page in the "Deployment" tab of the UI.
+11. Click "file_watch_sensor" on the left to enter the module containing the sensor.
+12. Navigate to the "Sensors" tab, and click the "directory_sensor" in the table below.
+13. Set the status to "Running" via enabling the radio button in the middle row of the page.

@@ -1,0 +1,23 @@
+To complete the visualization, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose Raw Data > Sample Database, then pick the Orders table. 
+4. Click Visualize.
+5. Then click the Visualization button at the bottom to bring up the Visualization sidebar.
+6. Choose the "Line" visualization type;
+7. Click on the Summarize button on the top right corner.
+8. Under Summarize by, delete "Count" and add a metric of "Sum of Total".
+9. Under Group by, choose "Created At - by month".
+10. Click "Done".
+11. Click the Visualization button at the bottom to bring up the Visualization sidebar.
+12. Click "Line" to bring up the Line options.
+13. Click on Display.
+14. Click on Goal line, and type 40000 under Goal value.
+15. Click on Trend line.
+16. Click Done.
+17. Click the "Download full results" button (cloud icon) on the bottom right;
+18. Choose ".png" in the panel;
+19. Open the local path "/home/user/Downloads";
+20. Rename the visualization file as "line_chart.png".
+21. Copy and paste it to the Desktop.

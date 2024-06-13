@@ -12,7 +12,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 11,
     "config": [
@@ -53,7 +54,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [
             {
@@ -112,5 +112,6 @@
                 }
             }
         ]
-    }
+    },
+    "counterpart": "ff224e88-7b07-4d0d-8540-7f88195940a0"
 }

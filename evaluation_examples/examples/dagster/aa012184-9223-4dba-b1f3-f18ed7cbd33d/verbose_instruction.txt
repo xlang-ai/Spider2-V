@@ -1,0 +1,59 @@
+We need to create some Dagster operations and jobs in this project. To do so:
+1. Go to the VS Code editor and open the file "file_sizes_job.py".
+2. In the file, add an operation (with decorator "@op") to get the file sizes in the directory "./files" and a job (with decorator "@job") to perform the operation:
+```
+import os
+from dagster import job, op, get_dagster_logger
+
+@op
+def get_file_sizes():
+    files = [f for f in os.listdir("./files") if os.path.isfile("./files/" + f)]
+    return {f: os.path.getsize("./files/" + f) for f in files}
+
+@job
+def file_sizes_job():
+    file_sizes = get_file_sizes()
+```
+3. Switch to the terminal, and make sure that you are in the directory "~/file-ops-and-jobs/".
+4. Use the command "dagster dev -f file_sizes_job.py" to start the Dagster UI.
+5. Switch to the application Chromium or Chrome browser.
+6. Navigate to "localhost:3000", and here you can see the job "file_sizes_job" with "get_file_sizes" operation in the graph.
+7. Go back to VS Code.
+8. In file `file_sizes_job.py`, we include more dagster operations and revise the job:
+```
+import os
+from dagster import job, op, get_dagster_logger
+
+@op
+def get_file_sizes():
+    files = [f for f in os.listdir("./files") if os.path.isfile("./files/" + f)]
+    return {f: os.path.getsize("./files/" + f) for f in files}
+
+# Add this op
+@op
+def get_total_file_size(file_sizes):
+    return sum(file_sizes.values())
+
+# Add this op
+@op
+def get_max_file_size(file_sizes):
+    return max(file_sizes.values())
+
+# Add this op
+@op
+def report_file_stats(total_size, max_size):
+    get_dagster_logger().info(f"Total size: {total_size}, max size: {max_size}")
+        
+@job
+def file_sizes_job():
+    file_sizes = get_file_sizes()
+    # Add the lines below
+    report_file_stats(
+        get_total_file_size(file_sizes),
+        get_max_file_size(file_sizes)
+    )
+```
+9. Go to the Dagster UI page in Chromium or Chrome browser.
+10. Click the "Deployment" button on the menu bar.
+11. Click the "Reload" button in the same row of text "__repository__file_sizes_job@file_sizes_job.py".
+12. Wait for the reload to finish.

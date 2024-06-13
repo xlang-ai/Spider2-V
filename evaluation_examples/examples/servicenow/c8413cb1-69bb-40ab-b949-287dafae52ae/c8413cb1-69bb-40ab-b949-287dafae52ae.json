@@ -1,0 +1,58 @@
+{
+    "id": "c8413cb1-69bb-40ab-b949-287dafae52ae",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@FilterAssetListTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 10,
+    "instruction": "Create and run a filter for the list to extract all entries where \"Asset function\" is \"Secondary\" and \"Serial number\" is \"\" and \"Class\" is \"Consumable\" and \"Location\" is \"30 Katharinenstr, Hamburg\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we are required to create a filter in the current asset table. To do this:\n1. Find and locate the funnel icon at the top part (the middle one of 3 icons on the left of text \"Assets View: ITAM Workspace\"). Click it.\n2. Find the input box \"-- choose field --\", click it.\n3. In the drop-down menu, click and choose \"Asset function\". You can also type the text \"Asset function\" into the input box to quickly filter the results.\n4. Next, we choose the operator for this option, click and choose \"is\" value\n5. And in the input box \"-- None --\" on the right, we choose the value \"Secondary\" in the drop-down menu\n6. Click the button \"AND\" on the right to add another condition.\n7. Again, we repeat the previous steps 2-5, to add another filter condition:\nChoose option: Serial number\nChoose operator: is\nInput value:\n(leave the input box empty)\n8. Click the button \"AND\" again to add another condition:\nChoose option: Class\nChoose operator: is\nInput value: Consumable\n9. Click the button \"AND\" again to add the last condition:\nChoose option: Location\nChoose operator: is\nInput value: 30 Katharinenstr, Hamburg\n10. Finally, click the button \"Run\" to filter the results. You may need to wait for a few seconds for the filter engine to work.\nTill now, we have completed this task.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "FilterAssetListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "d67180b5-d45c-4425-b222-236743fd6f88"
+}

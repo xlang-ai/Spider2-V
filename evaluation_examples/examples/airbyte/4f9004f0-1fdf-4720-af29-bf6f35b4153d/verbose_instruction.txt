@@ -1,0 +1,54 @@
+In this task, we need to finish the data integration and transformation pipeline from Faker to Snowflake using airbyte and dbt. Firstly, we need to create two databases in the Snowflake to store the raw data and transformed data.
+1) Go to the Snowflake Snowsight UI;
+2) Click the "Data" menu on the left panel;
+3) On the right panel, click icon "+ Database" on the top right of the screen;
+4) Type in the database name "raw_data";
+5) Click the button "Create". This database is used to accept the original data from Faker source;
+6) Similarly, click the icon "+ Database" again to create another database called "transformed_data". This database is used to accept the transformed data from dbt.
+Next, we need to configure the connection in Airbyte:
+7) Switch to the Airbyte UI page in the browser;
+8) Click the button "Create your first connection" in the main panel;
+9) Type in "faker" to search the data source "Sample Data (Faker)";
+10) Click this source in the filtered results;
+11) Click button "Set up source";
+12) With respect to the Snowflake destination, type in "Snowflake" in the search bar;
+13) Click this destination to open the settings window;
+14) Change the default "Authorization Method" into "Username and Passowrd";
+15) According to the README.md opened in the VS Code editor, we know that some credential information is stored in the environment variables. 
+16) Switch to the terminal and type in "echo $SNOWFLAKE_HOST". We can see the host address of Snowflake account;
+17) Get back to the web browser and type in this address in the `Host` field;
+18) Similarly, we can retrieve values in $SNOWFLAKE_USER / $SNOWFLAKE_PASSWORD, and fill in the `Username` / `Password` fields respectively;
+19) For the remaining fields, directly fill in values provided in README.md, that is:
+Database: raw_data
+Warehouse: COMPUTE_WH
+Role: ACCOUNTADMIN
+Default Schema: PUBLIC
+20) After that, click the button "Set up destination" in the Airbyte UI page;
+21) Regarding the connection configuration, we change the "Schedule type" to "Manual";
+22) Click the button "Set up connection" at the bottom of the page;
+23) In the `status` panel, click the button "Sync now" to manually trigger the data transfer;
+Now, we can switch to the VS Code to set up the connection for dbt.
+24) Click the `dbt_project` folder in the left panel of VS Code to unfold the directory tree;
+25) Choose the `profiles.yml` file under `dbt_project` and complete the following configuration:
+```
+dbt_project:
+  outputs:
+    dev:
+      type: snowflake
+      # detailed configuration to Snowflake
+      account: '{{ env_var("SNOWFLAKE_ACCOUNT") }}'
+      user: '{{ env_var("SNOWFLAKE_USER") }}'
+      password: '{{ env_var("SNOWFLAKE_PASSWORD") }}'
+      role: ACCOUNTADMIN
+      database: transformed_data
+      warehouse: COMPUTE_WH
+      schema: PUBLIC
+  target: dev
+```
+26) Press the hot key "Ctrl+S" to save the result. This profile specify the data destination of dbt transformation;
+27) With respect to the data source, we open the file with path `dbt_project -> models -> sources -> faker_sources.yml` in the VS Code;
+28) In the opened .yml file, fill in the two fields with `database: raw_data` and `schema: PUBLIC` respectively;
+29) Now, we have finished all connection work. We can change to the terminal and enter the directory `dbt_project`;
+`cd dbt_project`
+30) Type in commands `dbt debug` to check whether the connection is ok. You should see the output prompt `All checks passed!`;
+31) Then, type in commands `dbt run` in the terminal. This will perform the data transformation to convert data in database "raw_data" into database "transformed_data" on Snowflake. The output should contain the success signal `Completed successfully`.

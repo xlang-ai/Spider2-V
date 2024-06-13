@@ -1,0 +1,85 @@
+{
+    "id": "c1852011-6fa8-4d07-b3f8-d2eb34ea8294",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I want to see how my task documentaion looks like on astro web ui. Please read README.md with content and format details of documentation, then add necessary code in DAG file to create a task documentation. Run the dag for me to check your work.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo create document for task, we can follow the steps:\n1. Click the VS Code editor on the left panel or dock;\n2. According to the opened README.md file, we can extract the instructions on completing the dag file;\n3. Switch to the dag file ‘task_today.py’ that is opened in VSCode;\n4. We'll now define the document to be applied on the task:\nˋˋˋ\n# ... Keep the original ˋtask_todayˋ codes, the code should be written above class dag\ndoc_md_doc = \"\"\"\n\n### Purpose of this task\n\nThis task **boldly** suggests a daily activity to occupy my time.\n\nWeather today: https://wttr.in/HongKong\n\nIf I don't like the suggested activity I can always play some games instead.\n\nCheck steam for my game: https://store.steampowered.com/\n\nSports today: running\ngear: |\n    - running shoes\n    - sports clothes\n    - a healthy lung\nI hate running\n\nBut I can watch some anime when running: https://www.bilibili.com/\n\"\"\"\nˋˋˋ\n5. Then, we'll apply the doc defined in the @dag filed of dag:\nˋˋˋ\n@dag(\n    start_date=datetime(2024,4,1),\n    schedule=\"@daily\",\n    catchup=False,\n)\nˋˋˋ\n6. Save the file content and click the Chromium on the left panel to switch to the opened airflow web page;\n7. On the Airflow web page, find \"task_today\" in the DAG list and click the slider to the left of the name to Unpause dag; \n8. Click the triangle under the Action column on the far right of the row to trigger the dag; \n9. Wait until the status of all tasks in the 'Runs' column to change to \"success\" or \"failed\"\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/c1852011-6fa8-4d07-b3f8-d2eb34ea8294/task_today.zip",
+                "dest": "/home/user/task_today.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/c1852011-6fa8-4d07-b3f8-d2eb34ea8294/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 9,
+    "related_apps": [
+        "airflow",
+        "chromium",
+        "docker",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "html_check",
+            "src": "evaluation_examples/examples/airflow/c1852011-6fa8-4d07-b3f8-d2eb34ea8294/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "css_paths": [
+                "a[href='https://wttr.in/HongKong']",
+                "a[href='https://store.steampowered.com/']",
+                "a[href='https://www.bilibili.com/']"
+            ]
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "245c6692-4f8b-4b7b-9874-7484cbc28df6"
+}

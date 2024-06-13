@@ -1,0 +1,80 @@
+{
+    "id": "c0a65eaf-d488-486e-ba2b-60d5189a9779",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I know one of my SQL checking tasks failed. Please create connection, run the DAG and show me the log page of the specific task instance that failed on astro web ui for me to debug. The detail of connection is in README.md.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo build a connection on Airflow, create customed checker to check sql data quality and trigger the dag, we can follow the steps:\n1. Click the VS Code editor on the left panel or dock;\n2. According to the opened README.md file, we can extract the basic information about the connection; \n3. Now, click the Chromium on the left panel to switch to the opened airflow web page;\n4. Click the \"Admin\" button in the top menu bar of the web page;\n5. Select \"Connections\" from the drop-down menu;\n6. In the new page, click the blue button \"+\" below the search bar to create new Connection;\n7. In the window \"Add Connection\", firstly set the category to \"SQLite\";\n8. Next, type in values from config.yaml into the corresponding fields in the form:\n   Connection id: sqlite_conn, \n   Host: '/tmp/sqlite.db'\n9. After filling these fields, click the button \"Save\" at the bottom of the web page;\n10. Then, we will see a new line with name \"sqlite_conn\" in the connection panel;\n11. After the Connection build is completed, click the Chromium on the left panel to enter airflow web page; \n12. Click \"sql_data_quality\" in the Dag column to enter task details page of the dag;\n13. In the dag details page, find the row with error task instance with box color in red.\n14. Click the corresponding box in the row under the histogram on the left side of the UI to enter the corresponding task instance;\n15. Click logs in the details row on the right to enter the log page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-sql-data-quality"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/c0a65eaf-d488-486e-ba2b-60d5189a9779/SQL_Check.zip",
+                "dest": "/home/user/SQL_Check.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/c0a65eaf-d488-486e-ba2b-60d5189a9779/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 15,
+    "related_apps": [
+        "airflow",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/c0a65eaf-d488-486e-ba2b-60d5189a9779/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "fe676fc0-fbe7-4d1e-a8d5-b0234ee9730b"
+}

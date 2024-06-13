@@ -64,7 +64,8 @@
     ],
     "tags": [
         "gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_include_exclude",
@@ -85,5 +86,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "e7eb4da0-e296-4d45-889f-455d431ec9f5"
 }

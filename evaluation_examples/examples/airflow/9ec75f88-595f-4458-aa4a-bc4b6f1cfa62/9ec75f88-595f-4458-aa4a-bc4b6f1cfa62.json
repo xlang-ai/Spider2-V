@@ -1,0 +1,85 @@
+{
+    "id": "9ec75f88-595f-4458-aa4a-bc4b6f1cfa62",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I want to establish two external links (see README.md) for my DAG 'weather_data_dag'. Please finish my_extra_link_plugin.py, restart and trigger the DAG once you finish. \nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo build extra links for task and trigger the dag, we can follow the steps:\n1. Click the VS Code editor on the left panel or dock;\n2. According to the opened README.md file, we can extract the instructions on completing the plugin file;\n3. Switch to the plugin file ‘my_extra_link_plugin’ that is opened in VSCode;\n4. We'll now define two base operator links to set external links for the task. Concretely, we'll define two simple http operators pointing to \"https://wttr.in/HongKong\" and \"https://developer.mozilla.org/en-US/docs/Web/HTTP\":\nˋˋˋ\n# ... Keep the original ˋmy_extra_link_pluginˋ codes\nclass WTTRWeatherLink(BaseOperatorLink):\n    name = \"WTTRWeather\"\n\n    operators = [SimpleHttpOperator]\n\n    def get_link(self, operator, *, ti_key=None):\n        return \"https://wttr.in/HongKong\"\n\nclass HTTPDocsLink(BaseOperatorLink):\n    name = \"HTTP file\"\n\n    operators = [SimpleHttpOperator]\n\n    def get_link(self, operator, *, ti_key=None):\n        return \"https://developer.mozilla.org/en-US/docs/Web/HTTP\"\nˋˋˋ\n5. Save the file content and click the terminal on the left pannel, then type in the following command to restart the UI:\n`astro dev restart` \nChromium on the left panel to switch to the opened airflow web page;\n6. On the Airflow web page, find \"weather_data_dag\" in the DAG list and click the slider to the left of the name to Unpause dag; \n7. Click the triangle under the Action column on the far right of the row to trigger the dag; \n8. Wait until the status of all tasks in the 'Runs' column to change to \"success\" or \"failed\"\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/connections"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/9ec75f88-595f-4458-aa4a-bc4b6f1cfa62/weather.zip",
+                "dest": "/home/user/weather.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/9ec75f88-595f-4458-aa4a-bc4b6f1cfa62/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 8,
+    "related_apps": [
+        "airflow",
+        "chromium",
+        "docker",
+        "terminal",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "html_check",
+            "src": "evaluation_examples/examples/airflow/9ec75f88-595f-4458-aa4a-bc4b6f1cfa62/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "css_paths": [
+                "a[href='https://developer.mozilla.org/en-US/docs/Web/HTTP']",
+                "a[href='https://wttr.in/HongKong']"
+            ]
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "93b05252-b8cd-4f23-8850-168dc8107d83"
+}

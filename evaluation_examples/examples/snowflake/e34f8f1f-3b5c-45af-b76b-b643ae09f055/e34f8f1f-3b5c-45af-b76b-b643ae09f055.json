@@ -12,7 +12,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 7,
     "config": [
@@ -57,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "is_snowflake_user_created",
@@ -85,5 +85,6 @@
         "options": {
             "settings_file": "evaluation_examples/settings/snowflake/settings.json"
         }
-    }
+    },
+    "counterpart": "a0f66ca4-c190-4b95-82a6-df546f18beab"
 }

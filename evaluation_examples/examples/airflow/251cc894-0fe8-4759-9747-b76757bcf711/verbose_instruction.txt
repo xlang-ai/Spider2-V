@@ -1,0 +1,5 @@
+I am using Astronomer to deploy Airflow.
+To filter the dags with owner 'Astro' and order the result in ascending order, we can follow the steps:
+1. On the opened airflow UI webpage, find a DAG with owner 'Astro' in the dag list;
+2. Then, click the button ‘Astro’ in the 'Owner' column to filter all DAGs with owner 'Astro';
+3. Next, click the header 'Dag' of the dag list to arrange the DAGs in ascending order

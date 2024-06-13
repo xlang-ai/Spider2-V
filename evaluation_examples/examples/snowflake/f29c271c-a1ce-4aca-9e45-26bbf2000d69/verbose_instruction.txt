@@ -1,0 +1,11 @@
+This job is to create a new table on Snowflake and load local data into it. In the opened Snowsight web page,
+1. Click "Data >> Databases" on the left menu panel.
+2. In the middle menu panel, select database called USERS, then select schema PUBLIC on the drop-down menu.
+3. Click "Create" button on the right;
+4. In the drop-down menu, select Table » From File.
+5. In the Load Data into Table dialog, select Browse to add a file, and select users_information.json in the folder.
+6. Scroll down to the input field with name "Name", type in the table name "users_information".
+7. Click "Next" button.
+8. On the left of the window, if there is not several options you can choose, click "View options" button.
+9. Set "Strip outer array" to be TRUE. Note this step is important. If this value is not set to TRUE, the data cannot be loaded.
+10. Click "Load" button.

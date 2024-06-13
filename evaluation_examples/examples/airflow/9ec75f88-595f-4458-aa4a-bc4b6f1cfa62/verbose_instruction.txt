@@ -1,0 +1,30 @@
+I am using Astronomer to deploy Airflow
+To build extra links for task and trigger the dag, we can follow the steps:
+1. Click the VS Code editor on the left panel or dock;
+2. According to the opened README.md file, we can extract the instructions on completing the plugin file;
+3. Switch to the plugin file ‘my_extra_link_plugin’ that is opened in VSCode;
+4. We'll now define two base operator links to set external links for the task. Concretely, we'll define two simple http operators pointing to "https://wttr.in/HongKong" and "https://developer.mozilla.org/en-US/docs/Web/HTTP":
+ˋˋˋ
+# ... Keep the original ˋmy_extra_link_pluginˋ codes
+class WTTRWeatherLink(BaseOperatorLink):
+    name = "WTTRWeather"
+
+    operators = [SimpleHttpOperator]
+
+    def get_link(self, operator, *, ti_key=None):
+        return "https://wttr.in/HongKong"
+
+class HTTPDocsLink(BaseOperatorLink):
+    name = "HTTP file"
+
+    operators = [SimpleHttpOperator]
+
+    def get_link(self, operator, *, ti_key=None):
+        return "https://developer.mozilla.org/en-US/docs/Web/HTTP"
+ˋˋˋ
+5. Save the file content and click the terminal on the left pannel, then type in the following command to restart the UI:
+`astro dev restart` 
+Chromium on the left panel to switch to the opened airflow web page;
+6. On the Airflow web page, find "weather_data_dag" in the DAG list and click the slider to the left of the name to Unpause dag; 
+7. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+8. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"

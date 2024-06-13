@@ -1,0 +1,49 @@
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password
+</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figure><img/><figcaption>Airbyte OSS login prompt</figcaption></figure><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figure><img/><figcaption>Create your first connection prompt</figcaption></figure><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figure><img/><figcaption>Select Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figure><img/><figcaption>Configure Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figure><img/><figcaption>Select Local JSON as a destination</figcaption></figure><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.html
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+(Yes/No)</th><th>Notes</th></tr><tbody><tr><td>Full Refresh Sync</td><td>Yes</td></tr><tr><td>Incremental Sync</td><td>Yes</td></tr><tr><td>Namespaces</td><td>No</td></tr></tbody></table><p>Of note, if you choose <code>Incremental Sync</code>, state will be maintained between syncs, and once you hit
+<code>count</code>records, no new records will be added.</p><p>You can choose a specific <code>seed</code>(integer) as an option for this connector which will guarantee that
+the same fake records are generated each time. Otherwise, random data will be created on each
+subsequent sync.</p><h3>Requirements<a>​</a></h3><p>None!</p><h2>Reference<a>​</a></h2><div><h4>Config fields reference</h4><div><div>Field</div><div>Type</div><div>Property name</div><button><div>›</div><div>Count</div></button><div>integer</div><div>count</div><button><div>›</div><div>Seed</div></button><div>integer</div><div>seed</div><button><div>›</div><div>Records Per Stream Slice</div></button><div>integer</div><div>records_per_slice</div><button><div>›</div><div>Always Updated</div></button><div>boolean</div><div>always_updated</div><button><div>›</div><div>Parallelism</div></button><div>integer</div><div>parallelism</div></div></div><h2>Changelog<a>​</a></h2><table><tr><th>Version</th><th>Date</th><th>Pull Request</th><th>Subject</th></tr><tbody><tr><td>6.1.0</td><td>2024-04-08</td><a>36898</a><td>Update car prices and years</td></tr><tr><td>6.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/postgres/cloud-sql-postgres.html
+
+Documentation Title:
+Cloud SQL for PostgreSQL | Airbyte Documentation
+
+Documentation Content:
+</li><li>All available <a>sync modes</a>, providing flexibility in how data is delivered to your destination.</li><li>Reliable replication at any table size with <a>checkpointing</a>and chunking of database reads.</li></ul><img/><h2>Quick Start<a>​</a></h2><img/><p>Here is an outline of the minimum required steps to configure a connection to Postgres on Google Cloud SQL:</p><ol><li>Create a dedicated read-only Postgres user with permissions for replicating data</li><li>Create a new Postgres source in the Airbyte UI using <code>xmin</code>system column</li><li>(Airbyte Cloud Only) Allow inbound traffic from Airbyte IPs</li></ol><p>Once this is complete, you will be able to select Postgres as a source for replicating data.</p><h4>Step 1: Create a dedicated read-only Postgres user<a>​</a></h4><p>These steps create a dedicated read-only user for replicating data. Alternatively, you can use an existing Postgres user in your database. To create a user, first <a>connect to your database</a>. If you are getting started, you can use <a>Cloud Shell to connect directly from the UI</a>.</p><p>The following commands will create a new user:</p><span>CREATE USER &lt;user_name&gt; PASSWORD 'your_password_here';</span><p>Now, provide this user with read-only access to relevant schemas and tables. Re-run this command for each schema you expect to replicate data from (e.g.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.html
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+0.3</td><td>2024-03-15</td><a>36167</a><td>Make 'count' an optional config parameter.</td></tr><tr><td>6.0.2</td><td>2024-02-12</td><a>35174</a><td>Manage dependencies with Poetry.</td></tr><tr><td>6.0.1</td><td>2024-02-12</td><a>35172</a><td>Base image migration: remove Dockerfile and use the python-connector-base image</td></tr><tr><td>6.0.0</td><td>2024-01-30</td><a>34644</a><td>Declare 'id' columns as primary keys.</td></tr><tr><td>5.0.2</td><td>2024-01-17</td><a>34344</a><td>Ensure unique state messages</td></tr><tr><td>5.0.1</td><td>2023-01-08</td><a>34033</a><td>Add standard entrypoints for usage with AirbyteLib</td></tr><tr><td>5.0.0</td><td>2023-08-08</td><a>29213</a><td>Change all <code>*id</code>fields and <code>products.year</code>to be integer</td></tr><tr><td>4.0.0</td><td>2023-07-19</td><a>28485</a><td>Bump to test publication</td></tr><tr><td>3.0.2</td><td>2023-07-07</td><a>27807</a><td>Bump to test publication</td></tr><tr><td>3.0.1</td><td>2023-06-28</td><a>27807</a><td>Fix bug with purchase stream updated_at</td></tr><tr><td>3.0.
+
+
+

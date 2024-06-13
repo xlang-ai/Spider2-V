@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 11,
     "config": [
@@ -61,7 +62,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_json_file",
@@ -75,5 +75,6 @@
             "path": "evaluation_examples/examples/metabase/d67bab11-ca3b-4981-9d41-e67b03ac1d55/model_gold.json",
             "dest": "model_gold.json"
         }
-    }
+    },
+    "counterpart": "bc8b8bbc-781f-4a23-9ace-b061a60585f6"
 }

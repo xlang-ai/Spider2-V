@@ -1,0 +1,12 @@
+To create a table named 'tutorial_flights' in database 'MyDatabase' by uploading the tutorial_flights.csv in '/home/user' of local computer and set column 'Travel Date' to be parsed as Dates, we can follow these steps:
+1. In the opened web page, click the add icon in the top right corner;
+2. Select "Data" menu;
+3. Click the "Upload CSV to database" in the extended menu;
+4. In the pop-up interface "CSV to Database configuration", firstly click the "Choose File";
+5. Click home menu in the pop-up windows;
+6. Find the file 'tutorial_flights.csv' and click it;
+7. Click the "select" button and return to the "CSV to Database configuration" interface;
+8. Type "tutorial_flights" in the Table Name input box;
+9. Then click "File Settings";
+10. Next, type "Travel Date" into the "Columns To Be Parsed as Dates" input box;
+11. Then, click "Save", and we will see a dataset named "tutorial_flights" in the main panel.

@@ -1,0 +1,280 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-console.txt
+
+Documentation Title:
+Load and query data with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+In the
+Explorer
+panel, click your project name.
+Next to the
+babynames
+dataset, click
+More actions
+more_vert
+and select
+Open
+.
+In the details panel, click
+add_box
+Create
+   table
+.
+Unless otherwise indicated, use the default values for all settings.
+On the
+Create table
+page, do the following:
+In the
+Source
+section, choose
+Upload
+from the
+Create table
+    from
+list.
+In the
+Select file
+field, click
+Browse
+.
+Navigate to and open your local
+yob2014.txt
+file, and click
+Open
+.
+From the
+File
+    format
+list, choose
+CSV
+In the
+Destination
+section, enter
+names_2014
+for
+Table
+    name
+.
+In the
+Schema
+section, click the
+Edit as
+      text
+toggle, and paste the following
+  schema definition into the text field:
+name:string,assigned_sex_at_birth:string,count:integer
+Click
+Create
+    table
+.
+Wait for BigQuery to create the table and load the data.
+   When BigQuery finishes loading the data, expand the
+Personal
+    history
+and
+Project history
+panel to review the job details.
+Preview table data
+To preview the table data, follow these steps:
+In the
+Explorer
+panel, expand your project and
+babynames
+dataset, and then
+    select the
+names_2014
+table.
+In the details panel, click
+Preview
+. BigQuery displays the first few
+    rows of the table.
+The
+Preview
+tab is not available for all table types. For example, the
+Preview
+tab is not displayed for external tables or views.
+Query table data
+Next, query the table. The process is identical to the previous example,
+except that this time, you're querying your table instead of a public table.
+Click
+add_box
+Compose new query
+. A new
+Editor
+tab opens.
+In the
+Editor
+    tab
+, paste the following query. This query
+    retrieves the top five names for US babies that were assigned male at birth
+    in 2014.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-console.txt
+
+Documentation Title:
+Load and query data with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+Note
+: If you don't plan to keep the
+    resources that you create in this procedure, create a project instead of
+    selecting an existing project. After you finish these steps, you can
+    delete the project, removing all resources associated with the project.
+Go to project selector
+Optional: If you
+    select an existing project, make sure that you
+enable
+      the BigQuery API
+. The BigQuery API is automatically
+      enabled in new projects.
+Create a BigQuery dataset
+Use the Google Cloud console to create a dataset that stores the data.
+In the Google Cloud console, open the BigQuery page.
+Go to BigQuery
+In the
+Explorer
+panel, click your project name.
+Expand the
+more_vert
+View actions > Create dataset
+.
+On the
+Create dataset
+page, do the following:
+For
+Dataset ID
+, enter
+babynames
+.
+From the
+Data location
+list, choose
+us (multiple regions in United States)
+.
+     The public datasets are stored in the
+us
+multi-region
+location
+. For simplicity,
+      store your
+     dataset in the same location.
+Leave the remaining default settings as they are, and click
+Create dataset
+.
+Download the source data file
+The file that you're downloading contains approximately 7 MB of data about
+popular baby names. It's provided by the US Social Security Administration.
+For more information about the dataset, see the
+Social Security Administration's dataset information page
+.
+Download the US Social Security Administration's dataset by opening the
+following URL in a new browser tab:
+https://www.ssa.gov/OACT/babynames/names.zip
+Extract the file.
+For more information about the dataset schema, see the zip file's
+NationalReadMe.pdf
+file.
+To see what the data looks like, open the
+yob2014.txt
+file. This file
+contains comma-separated values for name, assigned sex at birth, and number
+of children with that name. The file has no header row.
+Note the location of the
+yob2014.txt
+file so that you can find it later.
+Load data into a table
+Next, load the data into a new table.
+In the
+Explorer
+panel, click your project name.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tablesd41d.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tables.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+

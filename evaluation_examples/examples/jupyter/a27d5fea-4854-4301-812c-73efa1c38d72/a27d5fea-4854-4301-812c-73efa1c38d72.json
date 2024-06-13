@@ -1,0 +1,82 @@
+{
+    "id": "a27d5fea-4854-4301-812c-73efa1c38d72",
+    "snapshot": "jupyter",
+    "instruction": "Display the 10 actors whose films rented the most, sorted in descending order\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Display the number of films in each category, sorted in descending order. In details,\n1. Double-click \"result.csv\" to see the predefined format\n2. Double-click \"notebook.ipynb\" to see the partial finished code.\n3. Scroll down to the bottom, hover your mouse over the blank space at the bottom.\n4. Click button \"Click to add a cell.\"\n5. Copy the code below to this cell:\n```\n\nconnection = sqlite3.connect('database.db')\n\n\nquery = \"\"\"\nSELECT\n    actor.actor_id,\n    actor.first_name,\n    actor.last_name,\n    COUNT(rental.rental_id) AS rented_times\nFROM\n    actor\n    LEFT JOIN film_actor ON\n        actor.actor_id = film_actor.actor_id\n    LEFT JOIN film ON\n        film_actor.film_id = film.film_id\n    LEFT JOIN inventory ON\n        film.film_id = inventory.film_id\n    LEFT JOIN rental ON\n        inventory.inventory_id = rental.inventory_id\nGROUP BY\n    actor.actor_id\nORDER BY\n    rented_times DESC\nLIMIT\n    10;\n\"\"\"\n\ndf = pd.read_sql_query(query, connection)\ndf.to_csv('result.csv', index=False)\n\n\n```\n6. Click the button \"Run\" in the menu bar on the top.\n7. In the drop-down menu, select and click \"Run All Cells\".\n8. Wait for about 10 seconds, the data will be inserted in to \"result.csv\"\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.kaggle.com/code/kapturovalexander/sql-postgresql-for-data-science"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a27d5fea-4854-4301-812c-73efa1c38d72/database.db",
+                "dest": "/home/user/Desktop/database.db"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a27d5fea-4854-4301-812c-73efa1c38d72/result.csv",
+                "dest": "/home/user/Desktop/result.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a27d5fea-4854-4301-812c-73efa1c38d72/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/a27d5fea-4854-4301-812c-73efa1c38d72/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/a27d5fea-4854-4301-812c-73efa1c38d72/gold.csv",
+            "dest": "gold.csv"
+        }
+    },
+    "counterpart": "b09a0441-20b3-45f1-966a-4d521e46c7ea"
+}

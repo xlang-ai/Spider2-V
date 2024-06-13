@@ -1,0 +1,8 @@
+To restore the table, please follow these steps:
+1. Copy the query ID in the opened "query_id.txt" file.
+2. Switch to the webpage and click the "+" button on the top right;
+3. Choose "SQL Worksheet" in the drop-down panel;
+4. In the opened blank worksheet, type in command:
+`CREATE OR REPLACE TABLE CUSTOMER.PUBLIC.CUSTOMER AS SELECT * FROM CUSTOMER.PUBLIC.CUSTOMER BEFORE(STATEMENT => '$query_id')`,
+where `$query_id` should be replaced with the copied one;
+5. In the upper-right corner of the worksheet, select "Run" (icon ►) to execute the command.

@@ -1,0 +1,52 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/io-management/io-managers.html
+
+Documentation Title:
+I/O managers | Dagster
+
+Documentation Content:
+</span>upstream_output<span>.</span>definition_metadata<span>[</span><span>"schema"</span><span>]</span><span>return</span>read_dataframe_from_table<span>(</span>name<span>=</span>table_name<span>,</span>schema<span>=</span>schema<span>)</span><span>else</span><span>:</span><span>raise</span>Exception<span>(</span><span>"Upstream output doesn't have schema and metadata set"</span><span>)</span></code><h3>Per-input loading in assets<span>#</span></h3><p>Let's say you have an asset that is set to store and load as a Pandas DataFrame, but you want to write a new asset that processes the first asset as a NumPy array. Rather than update the I/O manager of the first asset to be able to load as a Pandas DataFrame and a NumPy array, you can write a new loader for the new asset.</p><p>In this example, we store <code>upstream_asset</code>as a Pandas DataFrame, and we write a new I/O manager to load is as a NumPy array in <code>downstream_asset</code></p><code><span>class</span><span>PandasAssetIOManager</span><span>(</span>ConfigurableIOManager<span>)</span><span>:</span><span>def</span><span>handle_output</span><span>(</span>self<span>,</span>context<span>:</span>OutputContext<span>,</span>obj<span>)</span><span>:</span>file_path <span>=</span>self<span>.</span>_get_path<span>(</span>context<span>)</span>store_pandas_dataframe<span>(</span>name<span>=</span>file_path<span>,</span>table<span>=</span>obj<span>)</span><span>def</span><span>_get_path</span><span>(</span>self<span>,</span>context<span>)</span><span>:</span><span>return</span>os<span>.</span>path<span>.</span>join<span>(</span><span>"storage"</span><span>,
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/software-defined-assets.html
+
+Documentation Title:
+Software-Defined Assets with Pandas and PySpark | Dagster
+
+Documentation Content:
+</span>load_assets_from_modules
+
+    <span>from</span><span>.</span>assets <span>import</span>spark_asset<span>,</span>table_assets
+    <span>from</span><span>.</span>local_spark_filesystem_io_manager <span>import</span>LocalFileSystemIOManager
+
+    defs <span>=</span>Definitions<span>(</span>assets<span>=</span>load_assets_from_modules<span>(</span><span>[</span>table_assets<span>,</span>spark_asset<span>]</span><span>)</span><span>,</span>resources<span>=</span><span>{</span><span>"io_manager"</span><span>:</span>LocalFileSystemIOManager<span>(</span><span>)</span><span>}</span><span>,</span><span>)</span></code><h3>Defining a multi-type I/O Manager<span>#</span></h3><p>Because the same assets will be written and read into different Python types in different situations, we need to define an <code>IOManager</code>that can handle both of those types. Here's an extended version of the <code>IOManager</code>we defined before:</p><code><span># local_spark_filesystem_io_manager.py</span><span># Data is stored in Parquet files using the "Hadoop-style" layout in which each table corresponds to a</span><span># directory, and each file within the directory contains some of the rows.</span><span># The processing options are Pandas and Spark.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/io-management/io-managers.html
+
+Documentation Title:
+I/O managers | Dagster
+
+Documentation Content:
+</p><p>To set an I/O manager for a particular input, use the <code>input_manager_key</code>argument on <code>AssetIn</code>.</p><p>In this example,<code>first_asset</code>and <code>second_asset</code>will be stored using the default I/O manager, but will be loaded as inputs to <code>third_asset</code>using the logic defined in the <code>PandasSeriesIOManager</code>(in this case loading as Pandas Series rather than Python lists).</p><code><span>@asset</span><span>def</span><span>first_asset</span><span>(</span><span>)</span><span>-</span><span>&gt;</span>List<span>[</span><span>int</span><span>]</span><span>:</span><span>return</span><span>[</span><span>1</span><span>,</span><span>2</span><span>,</span><span>3</span><span>]</span><span>@asset</span><span>def</span><span>second_asset</span><span>(</span><span>)</span><span>-</span><span>&gt;</span>List<span>[</span><span>int</span><span>]</span><span>:</span><span>return</span><span>[</span><span>4</span><span>,</span><span>5</span><span>,</span><span>6</span><span>]</span><span>@asset</span><span>(</span>ins<span>=</span><span>{</span><span>"first_asset"</span><span>:</span>AssetIn<span>(</span>input_manager_key<span>=</span><span>"pandas_series"</span><span>)</span><span>,</span><span>"second_asset"</span><span>:</span>AssetIn<span>(</span>input_manager_key<span>=</span><span>"pandas_series"</span><span>)</span><span>,
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/libraries/dagster-gcp-pyspark.html
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+</span><span>resources</span><span>=</span><span>{</span><span>"io_manager"</span><span>:</span><span>bigquery_pyspark_io_manager</span><span>.</span><span>configured</span><span>({</span><span>"project"</span><span>:</span><span>{</span><span>"env"</span><span>:</span><span>"GCP_PROJECT"</span><span>}</span><span>})</span><span>}</span><span>)</span></pre><p>You can set a default dataset to store the assets using the <span>dataset</span>configuration value of the BigQuery I/O
+Manager. This dataset will be used if no other dataset is specified directly on an asset or op.</p><pre><span>defs</span><span>=</span><span>Definitions</span><span>(</span><span>assets</span><span>=</span><span>[</span><span>my_table</span><span>],</span><span>resources</span><span>=</span><span>{</span><span>"io_manager"</span><span>:</span><span>bigquery_pandas_io_manager</span><span>.</span><span>configured</span><span>({</span><span>"project"</span><span>:</span><span>{</span><span>"env"</span><span>:</span><span>"GCP_PROJECT"</span><span>}</span><span>"dataset"</span><span>:</span><span>"my_dataset"</span><span>})</span><span>}</span><span>)</span></pre><p>On individual assets, you an also specify the dataset where they should be stored using metadata or
+by adding a <span>key_prefix</span>to the asset key. If both <span>key_prefix</span>and metadata are defined, the metadata will
+take precedence.
+
+
+

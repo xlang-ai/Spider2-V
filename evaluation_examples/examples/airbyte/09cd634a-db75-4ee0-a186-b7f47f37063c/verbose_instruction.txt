@@ -1,0 +1,16 @@
+In this task, we want to export the config information of the current airbyte connection into a local json file. To complete this: 
+1. Switch to the browser page.
+2. Click the connection row in the main panel;
+3. In the Airbyte connection page, check the URL and note down the UUID string between "/connections/" and "/status/". This is the ConnectionId for that connection;
+4. Switch to the terminal;
+5. In the terminal, replace ${connectionId} with the ConnectionId you just noted down and execute:
+```
+connection_config=$(curl -X POST http://localhost:8000/api/v1/connections/get -H "Content-Type: application/json" -d "{\"connectionId\": \"${connectionId}\"}")
+
+```
+6. Then, in the terminal, execute 
+```
+echo ${connection_config} > /home/user/Desktop/connection_config.json 
+```
+to save the config file.
+

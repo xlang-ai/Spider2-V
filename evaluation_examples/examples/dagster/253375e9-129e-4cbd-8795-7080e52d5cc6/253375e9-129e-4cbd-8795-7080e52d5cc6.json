@@ -1,0 +1,98 @@
+{
+    "id": "253375e9-129e-4cbd-8795-7080e52d5cc6",
+    "snapshot": "dagster",
+    "instruction": "I have defined an Airflow DAG. Please help me migrate it to Dagster based on the requirements in \"README.md\". Remember to launch the Dagster webserver from \"dagster_migration.py\" and start the DAG schedule. Test the schedule on Dagster UI Launchpad and make sure the job can succeed.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I want to migrate a DAG from Airflow to Dagster. To do this:\n1. Open the file \"README.md\" from the EXPLORER panel in VS Code.\n2. Check the connection information to the MySQL server.\n3. Open \"dagster_migration.py\". Add the following code for migration and connection:\n```\nimport os\n\nfrom airflow.models import Connection\nfrom dagster_airflow import (\n    make_dagster_definitions_from_airflow_dags_path,\n)\n\nmigrated_airflow_definitions = make_dagster_definitions_from_airflow_dags_path(\n    os.path.abspath(\"./dags/\"),\n    connections=[\n        Connection(conn_id=\"mysql_conn\", conn_type=\"mysql\", description=\"MySQL connection\", host=\"localhost\", login=\"user\", password=\"password\", port=3306)\n    ]\n)\n```\n4. Save this file via Ctrl+S.\n5. Open the terminal. Make sure you are in the directory \"~/wikipediaPageViews\".\n6. Start the Dagster UI by the command `dagster dev -f dagster_migration.py`.\n7. Right click on the link \"http://127.0.0.1:3000\" in the output of the command.\n8. Click \"Open Link\" in the menu.\n9. A Chromium tab of the Dagster UI will open in existing web browser. Skip or dismiss the pop-up windows.\n10. In this web page, click \"Deployment\" on the top.\n11. Click \"dagster_migration.py\" on the left of the table.\n12. Click \"Schedules\" in the middle.\n13. In the table, enable the toggle button under column \"Running\" to start the schedule.\n14. To test the schedule, click \"wikipediaPageViews_schedule\" in the table.\n15. Click \"Test Schedule\" on the top-right of the page.\n16. A pop-up window will show up. Click \"Evaluate\" on the bottom-right of the pop-up window.\n17. Click \"Open in Launchpad\" on the right part of the table.\n18. Click \"Launch Run\" button on the bottom-right of the newly opened page.\n19. Wait for the run to complete. You should see \"RUN SUCCESS | Finished execution of run for ...\" under column \"EVENT TYPE\". Try to debug if the run fails.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/integrations/airflow/migrating-to-dagster"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 19,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/253375e9-129e-4cbd-8795-7080e52d5cc6/wikipediaPageViews.zip",
+                "dest": "/home/user/wikipediaPageViews.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/253375e9-129e-4cbd-8795-7080e52d5cc6/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/wikipediaPageViews/"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/253375e9-129e-4cbd-8795-7080e52d5cc6/database_export.sql",
+                    "dest": "/home/user/wikipediaPageViews/database_export.sql"
+                }
+            },
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/253375e9-129e-4cbd-8795-7080e52d5cc6/gold_pageviews.csv",
+                    "dest": "/home/user/wikipediaPageViews/gold_pageviews.csv"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/253375e9-129e-4cbd-8795-7080e52d5cc6/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "215615ac-996f-406f-8c90-e67dd185b488"
+}

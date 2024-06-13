@@ -1,0 +1,11 @@
+Our goal is to create an ML model named logistic_model in ml_project in Bigquery UI.
+1. First, we need to open the ml.sql file and click ml.sql
+2. We saw the specific information of SQL
+3. Change to the web browser, which resides in the BigQuery page.
+4. In the BigQuery Studio page, click the panel with title "Untitled query" on top of the header "Welcome to BigQuery Studio". This will switch the window to a blank panel which accepts SQL queries;
+5. Copy the contents of ml.sql into the Bigquery window
+6. Change the SQL to meet task requirements, change
+`bqml_tutorial.sample_model` to `ml_project.logistic_model`
+7. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+8. You need to wait for roughly one minute without performing any operation.
+9. After waiting, we found that the code ran successfully and the model was created successfully. Click 'GO TO MODEL'.

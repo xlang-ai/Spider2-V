@@ -1,0 +1,79 @@
+{
+    "id": "f764d847-af04-4edd-9f12-430f79df1129",
+    "snapshot": "airbyte",
+    "instruction": "My leader asked me to download the sync log of the existing Airbyte connection and save it as airbyte_log.txt on the Desktop. Could you help me with this task?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to download the sync log of the current airbyte connection. To complete this: \n1. Click the connection row in the main panel;\n2. In the Airbyte connection page, click the \"Job History\" button to see the sync history;\n3. When you see the current sync status display as \"Sync Succeeded\", click the three dots button on the rightmost side of this sync record;\n4. In the pop-up menu, click \"Download logs\" to download the sync logs to your local machine. In the prompt that appears, note down the name of the file;\n5. Click on \"Files\" in the left toolbar of the desktop;\n6. Click to enter the \"Downloads\" folder;\n7. Find the log file you just downloaded, right-click on it, select \"Rename\", and enter \"airbyte_log.txt\" as the new file name;\n8. Right-click on the file again, select \"Move to\" from the menu.\n9. After that, in the pop-up window, click \"Desktop\" on the left menu, then click the green \"select\" button in the top right corner of the pop-up window to complete the file move.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.airbyte.com/operator-guides/browsing-output-logs"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/f764d847-af04-4edd-9f12-430f79df1129/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/f764d847-af04-4edd-9f12-430f79df1129/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/f764d847-af04-4edd-9f12-430f79df1129/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "09bf6f69-4f65-4f76-a573-0385ec5ea699"
+}

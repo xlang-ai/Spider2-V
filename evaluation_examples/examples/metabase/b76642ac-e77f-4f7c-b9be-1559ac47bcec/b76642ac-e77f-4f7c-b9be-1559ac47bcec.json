@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 10,
     "config": [
@@ -45,7 +46,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "exact_match",
@@ -58,5 +58,6 @@
                 "expected": "select \"public\".\"orders\".\"user_id\" as \"user_id\", sum( case when \"public\".\"orders\".\"tax\" > 5 then 1 else 0.0 end ) / count(*) as \"tax percentage\" from \"public\".\"orders\" group by \"public\".\"orders\".\"user_id\" order by \"public\".\"orders\".\"user_id\" asc"
             }
         }
-    }
+    },
+    "counterpart": "19dc930c-4dcd-4cde-9285-21963e043841"
 }

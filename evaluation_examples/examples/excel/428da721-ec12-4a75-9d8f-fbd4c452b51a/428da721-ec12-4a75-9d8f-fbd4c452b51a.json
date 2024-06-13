@@ -1,0 +1,94 @@
+{
+    "id": "428da721-ec12-4a75-9d8f-fbd4c452b51a",
+    "snapshot": "excel",
+    "instruction": "Sort the data according to column A in an ascending order and then create a line chart with the \"Date Time\" column on the X-axis and quantity on the Y-axis.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To achive this goal, we need to do as the following steps:\n\n1. Press `Ctrl` and select cells $A2:$F$36.\n2. Click on the button on top of the page `Data`.\n3. In the drop down panel, select `Sort...`.\n4. Click on the drop down panel under \"Sort key 1\".\n5. Choose \"Column A\".\n6. CLick \"OK\".\n7. Start making the chart. Press `Ctrl` and select the cells $A$1:$A$36, $E$1:$E$36.\n8. Click on the botton `Insert` from the top of the page.\n9. In the drop down selector, select `Chart...`.\n10. Click on `Line` under \"Choose a chart type\".\n11. Click on the graph `Lines Only` at the right side.\n12. Click `Next`.\n13. Click `Next`.\n14. Click on the `Title` input box.\n15. Type \"Quantity\".\n16. Uncheck the check box before \"Display Legend\".\n17. Click `Finish`.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@5"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/428da721-ec12-4a75-9d8f-fbd4c452b51a/BoomerangSales.xlsx",
+                "dest": "/home/user/BoomerangSales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/BoomerangSales.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 17,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "BoomerangSales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/428da721-ec12-4a75-9d8f-fbd4c452b51a/6_BoomerangSales_gt1.xlsx",
+            "dest": "6_BoomerangSales_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/BoomerangSales.xlsx",
+            "dest": "BoomerangSales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                },
+                {
+                    "type": "chart",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0",
+                    "chart_props": [
+                        "type"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "3a7c8185-25c1-4941-bd7b-96e823c9f21f"
+}

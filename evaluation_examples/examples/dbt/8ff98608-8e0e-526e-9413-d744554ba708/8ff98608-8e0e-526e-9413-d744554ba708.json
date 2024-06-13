@@ -32,7 +32,8 @@
     ],
     "tags": [
         "cli",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "evaluator": {
         "func": [
@@ -76,5 +77,6 @@
                 "db_type": "duckdb"
             }
         ]
-    }
+    },
+    "counterpart": "6fde95d5-271a-4486-8f24-768049ed72f7"
 }

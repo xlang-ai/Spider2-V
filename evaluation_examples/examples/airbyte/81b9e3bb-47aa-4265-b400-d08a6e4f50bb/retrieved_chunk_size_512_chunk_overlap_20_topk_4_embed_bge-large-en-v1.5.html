@@ -1,0 +1,44 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/sftp-json.html
+
+Documentation Title:
+SFTP JSON | Airbyte Documentation
+
+Documentation Content:
+as <code>.jsonl</code>will be added on by the connector.</p><h3>Example:<a>​</a></h3><p>If <code>destination_path</code>is set to <code>/myfolder/files</code>and <code>filename</code>is set to <code>mydata</code>, the resulting file will be <code>/myfolder/files/mydata.jsonl</code>.</p><p>These files can then be accessed by creating an SFTP connection to the server and navigating to the <code>destination_path</code>.</p><h2>Changelog<a>​</a></h2><table><tr><th>Version</th><th>Date</th><th>Pull Request</th><th>Subject</th></tr><tr><td>0.1.0</td><td>2022-11-24</td><a>4924</a><td>🎉 New Destination: SFTP JSON</td></tr></table></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>SelectDB</div></a><a><div>Next</div><div>Snowflake Cortex Destination</div></a></nav></div><div><ul><li><a>Overview</a><a>Sync Overview</a></li><li><a>Getting Started</a><a>Example:</a></li><a>Changelog</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/add-a-destination.html
+
+Documentation Title:
+Add a Destination | Airbyte Documentation
+
+Documentation Content:
+Because this is a simple Google Sheets destination, there is only one more required field, <strong>Spreadsheet Link</strong>. This is the path to your spreadsheet that can be copied directly from your browser.</p></div><div><p>As an example, we'll be setting up a simple JSON file that will be saved on our local system as the destination. Select <strong>Local JSON</strong>from the list of destinations. This will take you to the destination setup page.</p><p>The left half of the page contains a set of fields that you will have to fill out. In the <strong>Destination name</strong>field, you can enter a name of your choosing to help you identify this instance of the connector. By default, this will be set to the name of the destination (i.e., <code>Local JSON</code>).</p><p>Because this is a simple JSON file, there is only one more required field, <strong>Destination Path</strong>. This is the path in your local filesystem where the JSON file containing your data will be saved. In our example, if we set the path to <code>/my_first_destination</code>, the file will be saved in <code>/tmp/airbyte_local/my_first_destination</code>.</p></div></div></div><p>Each destination will have its own set of required fields to configure during setup. You can refer to your destination's provided setup guide on the right side of the page for specific details on the nature of each field.</p><div><div>tip</div><p>Some destinations will also have an <strong>Optional Fields</strong>tab located beneath the required fields. You can open this tab to view and configure any additional optional parameters that exist for the source. These fields generally grant you more fine-grained control over your data replication, but you can safely ignore them.</p></div><p>Once you've filled out the required fields, select <strong>Set up destination</strong>. A connection check will run to verify that a successful connection can be established.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
+
+Documentation Title:
+Local JSON | Airbyte Documentation
+
+Documentation Content:
+Updates</li><a>Roadmap</a><a>Release Notes</a></ul><div><div><article><ul><span>Connector Catalog</span><span>Destinations</span><span>Local JSON</span></ul><button>On this page</button><div><dl><div><dt>Availability</dt><dd><span><title>Not available</title>Airbyte Cloud</span><span><title>Available</title>Airbyte OSS</span><span><title>Not available</title>PyAirbyte</span></dd></div><div><dt>Support Level</dt><a>Community</a></div><div><dt>Latest Version</dt><a>0.2.11</a></div></dl><div><img/><h1>Local JSON</h1></div><div><div>danger</div><p>This destination is meant to be used on a local workstation and won't work on Kubernetes</p></div><h2>Overview<a>​</a></h2><p>This destination writes data to a directory on the <em>local</em>filesystem on the host running Airbyte. By default, data is written to <code>/tmp/airbyte_local</code>. To change this location, modify the <code>LOCAL_ROOT</code>environment variable for Airbyte.</p><h3>Sync Overview<a>​</a></h3><h4>Output schema<a>​</a></h4><p>Each stream will be output into its own file.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
+
+Documentation Title:
+Local JSON | Airbyte Documentation
+
+Documentation Content:
+Each file will a collections of <code>json</code>objects containing 3 fields:</p><ul><li><code>_airbyte_ab_id</code>: a uuid assigned by Airbyte to each event that is processed.</li><li><code>_airbyte_emitted_at</code>: a timestamp representing when the event was pulled from the data source.</li><li><code>_airbyte_data</code>: a json blob representing with the extracted data.</li></ul><h4>Features<a>​</a></h4><table><tr><th>Feature</th><th>Supported</th></tr><tbody><tr><td>Full Refresh Sync</td><td>Yes</td></tr><tr><td>Incremental - Append Sync</td><td>Yes</td></tr><tr><td>Incremental - Append + Deduped</td><td>No</td></tr><tr><td>Namespaces</td><td>No</td></tr></tbody></table><h4>Performance considerations<a>​</a></h4><p>This integration will be constrained by the speed at which your filesystem accepts writes.</p><h2>Getting Started<a>​</a></h2><p>The <code>destination_path</code>will always start with <code>/local</code>whether it is specified by the user or not. Any directory nesting within local will be mapped onto the local mount.</p><p>By default, the <code>LOCAL_ROOT</code>env variable in the <code>.env</code>file is set <code>/tmp/airbyte_local</code>.</p><p>The local mount is mounted by Docker onto <code>LOCAL_ROOT</code>. This means the <code>/local</code>is substituted by <code>/tmp/airbyte_local</code>by default.</p><div><div>caution</div><p>Please make sure that Docker Desktop has access to <code>/tmp</code>(and <code>/private</code>on a MacOS, as /tmp has a symlink that points to /private. It will not work otherwise).
+
+
+

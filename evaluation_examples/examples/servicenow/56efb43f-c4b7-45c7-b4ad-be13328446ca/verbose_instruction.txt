@@ -1,0 +1,9 @@
+In this task, we want to add 3 sorting methods for the change requests list:
+1. Click the funnel icon under web title "servicenow".
+2. Click "Add Sort" button in the next line.
+3. Under the selection bar "Order results by the following fields", click and type in "Closed by" entry.
+4. Next, click and select the order "z to a" (descending) in the option box next to "Closed by".
+5. Then, repeat steps 2-4, to add the other two sorting methods:
+- sort field: Planned start date ; sort method: a to z ;
+- sort field: Phase state ; sort method: z to a ;
+6. After all these sorting conditions are added, we click the "Run" button in the top menu bar and waiting for the page refreshing.

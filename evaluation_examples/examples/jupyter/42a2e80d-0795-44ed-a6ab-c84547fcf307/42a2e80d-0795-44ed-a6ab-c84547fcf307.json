@@ -1,0 +1,83 @@
+{
+    "id": "42a2e80d-0795-44ed-a6ab-c84547fcf307",
+    "snapshot": "jupyter",
+    "instruction": "I have completed notebook_1. Please help me add the contents of notebook_2 on the desktop to the back of notebook_1 and run them all.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: You need to completed notebook_1, add the contents of notebook_2 on the desktop to the back of notebook_1 and run them all. In detail,\n1. In the left panel, double-click notebook_2, there are 6 cells need to be copied.\n2. Press the hotkey \"Ctrl+A\" to select all cells and \"C\" to copy.\n3. Click \"notebook_1.ipynb\" on the top to switch to the tab.\n4. Select the last cell of this notebook.\n5. Press \"Esc\" to enter command mode.\n6. Press \"V\" to paste.\n7. Click \"Run > Run All Cells\" at the top of the tab.\n8. Press \"Ctrl+S\" to save the file.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://github.com/ozlerhakan/datacamp/tree/master/Working%20with%20Categorical%20Data%20in%20Python"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/42a2e80d-0795-44ed-a6ab-c84547fcf307/adult.csv",
+                "dest": "/home/user/Desktop/adult.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/42a2e80d-0795-44ed-a6ab-c84547fcf307/notebook_1.ipynb",
+                "dest": "/home/user/Desktop/notebook_1.ipynb"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/42a2e80d-0795-44ed-a6ab-c84547fcf307/notebook_2.ipynb",
+                "dest": "/home/user/Desktop/notebook_2.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/42a2e80d-0795-44ed-a6ab-c84547fcf307/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/notebook_1.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/notebook_1.ipynb",
+            "dest": "notebook_1.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/42a2e80d-0795-44ed-a6ab-c84547fcf307/notebook_gold.ipynb",
+            "dest": "notebook_gold.ipynb"
+        }
+    },
+    "counterpart": "58013f69-4764-4c9b-972f-5db3010595d2"
+}

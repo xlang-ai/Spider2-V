@@ -1,0 +1,60 @@
+{
+    "id": "d2f74fe6-0d19-46cc-8fe4-8a62dcd8818b",
+    "snapshot": "airbyte",
+    "instruction": "I want to setup an Airbyte local environment. The github repository has been downloaded in `~/projects/airbyte/`. Could you help me launch the corresponding homepage at port 8000 (any login email and company will suffice)?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To setup and launch Airbyte in a local machine:\n1. In the opened terminal, type in the following command to enter the downloaded airbyte folder:\n`cd ~/projects/airbyte`\n2. start the airbyte server via:\n`bash run-ab-platform.sh`\n3. after waiting for roughly 40 seconds, switch to the chromium browser\n4. navigate to url http://localhost:8000, you may see a setup form collecting user information.\n5. since the server is launched in localhost, we can fill in any email and company name, e.g., anonymous@gmail.com and Google\n6. click the \"submit\" button, and after page re-direction, we have successfully logged into the aribyte homepage\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.airbyte.com/deploying-airbyte/local-deployment?_gl=1*1kq4b3b*_gcl_au*MzAyMjU3NjM5LjE3MDk4NjgzOTU.#setup--launch-airbyte"
+    ],
+    "related_apps": [
+        "chromium",
+        "terminal",
+        "docker",
+        "airbyte"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 6,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/d2f74fe6-0d19-46cc-8fe4-8a62dcd8818b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "airbyte_localhost_page",
+            "url": "http://localhost:8000",
+            "title": "airbyte"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "4a9d08bb-8968-4ddc-9a5b-3fb485f097bb"
+}

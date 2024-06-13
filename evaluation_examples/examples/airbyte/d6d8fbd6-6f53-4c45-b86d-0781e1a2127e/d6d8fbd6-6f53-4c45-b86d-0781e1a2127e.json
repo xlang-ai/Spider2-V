@@ -13,7 +13,8 @@
     ],
     "tags": [
         "cli",
-        "data_ingestion_and_integration"
+        "data_ingestion_and_integration",
+        "abstract"
     ],
     "action_number": 10,
     "config": [
@@ -62,7 +63,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
@@ -81,5 +81,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "a35a36a6-c800-4afd-b532-cc8b14f28290"
 }

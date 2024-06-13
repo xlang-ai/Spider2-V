@@ -45,7 +45,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "airflow",
         "docker",
@@ -54,7 +53,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 10,
     "evaluator": {
@@ -75,5 +75,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "2d13db6e-0c28-4ad0-96d2-02d59bd9009d"
 }

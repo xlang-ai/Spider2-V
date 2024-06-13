@@ -1,0 +1,14 @@
+This is a common dbt-core initialization task. To complete this, you need to:
+1. Switch to the terminal.
+2. Run ``dbt init jaffle_shop`` to initiate a project named "jaffle_shop".
+3. If the terminal asks you which database to use, enter "1" to choose duckdb.
+4. Run ``unzip jaffle-shop-data.zip`` to unzip the data files.
+5. Run ``mv jaffle-shop-data/* jaffle_shop/seeds`` to move the seeds to the folder "/jaffle_shop/seeds".
+6. Run ``vi ~/.dbt/profiles.yml`` to open the project profile in VI editor.
+7. Switch to the insert mode in VI editor by pressing the key "i".
+8. Replace the default values for both ``dev`` and ``prod`` fields to "jaffle_shop.duckdb".
+9. Back to the normal mode by pressing the key "esc".
+10. Enter the command ``:wq`` to save the changes.
+11. Run ``cd jaffle_shop`` to navigate into the project directory.
+12. Run ``dbt debug`` to connect to the database at jaffle_shop.duckdb.
+13. Run ``dbt seed`` to load the seeds.

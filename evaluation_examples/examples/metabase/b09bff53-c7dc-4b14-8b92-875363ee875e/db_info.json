@@ -1,0 +1,9 @@
+{
+    "type": "postgresql",
+    "display_name": "PostgresTomDB",
+    "host": "localhost",
+    "port": 5432,
+    "db_name": "TomDB",
+    "db_user": "Tom",
+    "db_password": "Tom123456"
+}

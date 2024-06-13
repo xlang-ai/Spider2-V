@@ -12,7 +12,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 5,
     "config": [
@@ -69,7 +70,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",
@@ -87,5 +87,6 @@
             "path": "evaluation_examples/examples/snowflake/4fa9b4f4-9e0d-4f94-b04d-c2af7e69479d/customer_gold.csv",
             "dest": "customer_gold.csv"
         }
-    }
+    },
+    "counterpart": "e55524be-dbb0-40d1-a3eb-6f0aa00574fa"
 }

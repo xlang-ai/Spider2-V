@@ -1,0 +1,237 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+"purchases"
+(
+"id"
+float8
+,
+"user_id"
+float8
+,
+"product_id"
+float8
+,
+"purchased_at"
+timestamptz
+,
+"added_to_cart_at"
+timestamptz
+,
+"returned_at"
+timestamptz
+,
+-- "_airbyte_ab_id" varchar,
+-- "_airbyte_emitted_at" timestamptz,
+-- "_airbyte_normalized_at" timestamptz,
+-- "_airbyte_dev_purchases_hashid" text,
+)
+;
+Features
+​
+Feature
+Supported?(Yes/No)
+Notes
+Full Refresh Sync
+Yes
+Incremental Sync
+Yes
+Namespaces
+No
+Of note, if you choose
+Incremental Sync
+, state will be maintained between syncs, and once you hit
+count
+records, no new records will be added.
+You can choose a specific
+seed
+(integer) as an option for this connector which will guarantee that
+the same fake records are generated each time. Otherwise, random data will be created on each
+subsequent sync.
+Requirements
+​
+None!
+Reference
+​
+Config fields reference
+Field
+Type
+Property name
+›
+Count
+integer
+count
+›
+Seed
+integer
+seed
+›
+Records Per Stream Slice
+integer
+records_per_slice
+›
+Always Updated
+boolean
+always_updated
+›
+Parallelism
+integer
+parallelism
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+6.1.0
+2024-04-08
+36898
+Update car prices and years
+6.0.3
+2024-03-15
+36167
+Make 'count' an optional config parameter.
+6.0.2
+2024-02-12
+35174
+Manage dependencies with Poetry.
+6.0.1
+2024-02-12
+35172
+Base image migration: remove Dockerfile and use the python-connector-base image
+6.0.0
+2024-01-30
+34644
+Declare 'id' columns as primary keys.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+
+Documentation Title:
+Faker | Airbyte Documentation
+
+Documentation Content:
+5.0.2
+2024-01-17
+34344
+Ensure unique state messages
+5.0.1
+2023-01-08
+34033
+Add standard entrypoints for usage with AirbyteLib
+5.0.0
+2023-08-08
+29213
+Change all
+*id
+fields and
+products.year
+to be integer
+4.0.0
+2023-07-19
+28485
+Bump to test publication
+3.0.2
+2023-07-07
+27807
+Bump to test publication
+3.0.1
+2023-06-28
+27807
+Fix bug with purchase stream updated_at
+3.0.0
+2023-06-23
+27684
+Stream cursor is now
+updated_at
+& remove
+records_per_sync
+option
+2.1.0
+2023-05-08
+25903
+Add user.address (object)
+2.0.3
+2023-02-20
+23259
+bump to test publication
+2.0.2
+2023-02-20
+23259
+bump to test publication
+2.0.1
+2023-01-30
+22117
+source-faker
+goes beta
+2.0.0
+2022-12-14
+20492
+and
+20741
+Decouple stream states for better parallelism
+1.0.0
+2022-11-28
+19490
+Faker uses the CDK; rename streams to be lower-case (breaking), add determinism to random purchases, and rename
+0.2.1
+2022-10-14
+19197
+Emit
+AirbyteEstimateTraceMessage
+0.2.0
+2022-10-14
+18021
+Move to mimesis for speed!
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.txt
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+261+00
+ 68311abe-9fe4-4831-b529-42c018b00cfc | {"id": 2, "name": "John D"}  | 2022-07-28 12:56:35.261+00
+(12 rows)
+‍
+And look at the normalized data with:
+SELECT * FROM append_full_refresh_demo;
+‍
+Which should respond with something similar to:
+id |  name   |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     | _airbyte_append_full_refresh_demo_hashid 
+----+---------+--------------------------------------+----------------------------+-------------------------------+------------------------------------------
+  1 | Mary X  | 972a8d74-d840-4c43-826e-b0a1042c1681 | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | e20f46dc3a88fcf0ef2101b89d832709
+  2 | John D  | fc5bae3e-cbde-4790-921f-bab7a6dce51f | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | 85aefb77a6bc2acc426eedf5a822b8b3
+  1 | Mary X  | 15264229-8022-415e-8b5a-939f048dc15e | 2022-07-27 17:18:35.355+00 | 2022-07-28 12:19:16.246736+00 | e20f46dc3a88fcf0ef2101b89d832709
+  2 | John D  | f33488c0-ac2b-4c01-b054-7d8534ea0199 | 2022-07-27 17:18:35.355+00 | 2022-07-28 12:19:16.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.txt
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+‍
+Which should respond with a table that looks similar to the following:
+id |  name  |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     | _airbyte_append_full_refresh_demo_hashid 
+----+--------+--------------------------------------+----------------------------+-------------------------------+------------------------------------------
+  1 | Mary X | 972a8d74-d840-4c43-826e-b0a1042c1681 | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | e20f46dc3a88fcf0ef2101b89d832709
+  2 | John D | fc5bae3e-cbde-4790-921f-bab7a6dce51f | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | 85aefb77a6bc2acc426eedf5a822b8b3
+  1 | Mary X | 15264229-8022-415e-8b5a-939f048dc15e | 2022-07-27 17:18:35.355+00 | 2022-07-27 17:24:38.025622+00 | e20f46dc3a88fcf0ef2101b89d832709
+  2 | John D | f33488c0-ac2b-4c01-b054-7d8534ea0199 | 2022-07-27 17:18:35.355+00 | 2022-07-27 17:24:38.025622+00 | 85aefb77a6bc2acc426eedf5a822b8b3
+  3 | Alex M | 8708359b-bad9-4a1f-9172-073cc5469d32 | 2022-07-27 17:18:35.
+
+
+

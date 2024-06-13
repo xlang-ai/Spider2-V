@@ -1,0 +1,129 @@
+{
+    "id": "4f9004f0-1fdf-4720-af29-bf6f35b4153d",
+    "snapshot": "airbyte",
+    "instruction": "My project leader asks me to create an efficient data pipeline for e-commerce analytics. Our goal is to use Airbyte for data integration to transfer raw data from Faker to Snowflake, dbt for data transformation to transform raw data in Snowflake, and Snowflake for data warehousing to store final transformed data. Most codes for dbt have been finished and detailed requirements are provided in README.md of the opened project. Help me complete the remaining work.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we need to finish the data integration and transformation pipeline from Faker to Snowflake using airbyte and dbt. Firstly, we need to create two databases in the Snowflake to store the raw data and transformed data.\n1) Go to the Snowflake Snowsight UI;\n2) Click the \"Data\" menu on the left panel;\n3) On the right panel, click icon \"+ Database\" on the top right of the screen;\n4) Type in the database name \"raw_data\";\n5) Click the button \"Create\". This database is used to accept the original data from Faker source;\n6) Similarly, click the icon \"+ Database\" again to create another database called \"transformed_data\". This database is used to accept the transformed data from dbt.\nNext, we need to configure the connection in Airbyte:\n7) Switch to the Airbyte UI page in the browser;\n8) Click the button \"Create your first connection\" in the main panel;\n9) Type in \"faker\" to search the data source \"Sample Data (Faker)\";\n10) Click this source in the filtered results;\n11) Click button \"Set up source\";\n12) With respect to the Snowflake destination, type in \"Snowflake\" in the search bar;\n13) Click this destination to open the settings window;\n14) Change the default \"Authorization Method\" into \"Username and Passowrd\";\n15) According to the README.md opened in the VS Code editor, we know that some credential information is stored in the environment variables. \n16) Switch to the terminal and type in \"echo $SNOWFLAKE_HOST\". We can see the host address of Snowflake account;\n17) Get back to the web browser and type in this address in the `Host` field;\n18) Similarly, we can retrieve values in $SNOWFLAKE_USER / $SNOWFLAKE_PASSWORD, and fill in the `Username` / `Password` fields respectively;\n19) For the remaining fields, directly fill in values provided in README.md, that is:\nDatabase: raw_data\nWarehouse: COMPUTE_WH\nRole: ACCOUNTADMIN\nDefault Schema: PUBLIC\n20) After that, click the button \"Set up destination\" in the Airbyte UI page;\n21) Regarding the connection configuration, we change the \"Schedule type\" to \"Manual\";\n22) Click the button \"Set up connection\" at the bottom of the page;\n23) In the `status` panel, click the button \"Sync now\" to manually trigger the data transfer;\nNow, we can switch to the VS Code to set up the connection for dbt.\n24) Click the `dbt_project` folder in the left panel of VS Code to unfold the directory tree;\n25) Choose the `profiles.yml` file under `dbt_project` and complete the following configuration:\n```\ndbt_project:\n  outputs:\n    dev:\n      type: snowflake\n      # detailed configuration to Snowflake\n      account: '{{ env_var(\"SNOWFLAKE_ACCOUNT\") }}'\n      user: '{{ env_var(\"SNOWFLAKE_USER\") }}'\n      password: '{{ env_var(\"SNOWFLAKE_PASSWORD\") }}'\n      role: ACCOUNTADMIN\n      database: transformed_data\n      warehouse: COMPUTE_WH\n      schema: PUBLIC\n  target: dev\n```\n26) Press the hot key \"Ctrl+S\" to save the result. This profile specify the data destination of dbt transformation;\n27) With respect to the data source, we open the file with path `dbt_project -> models -> sources -> faker_sources.yml` in the VS Code;\n28) In the opened .yml file, fill in the two fields with `database: raw_data` and `schema: PUBLIC` respectively;\n29) Now, we have finished all connection work. We can change to the terminal and enter the directory `dbt_project`;\n`cd dbt_project`\n30) Type in commands `dbt debug` to check whether the connection is ok. You should see the output prompt `All checks passed!`;\n31) Then, type in commands `dbt run` in the terminal. This will perform the data transformation to convert data in database \"raw_data\" into database \"transformed_data\" on Snowflake. The output should contain the success signal `Completed successfully`.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery"
+    ],
+    "related_apps": [
+        "chromium",
+        "dbt",
+        "snowflake",
+        "terminal",
+        "vscode",
+        "docker",
+        "airbyte"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 31,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/keyfile.json"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/4f9004f0-1fdf-4720-af29-bf6f35b4153d/ecommerce_analytics.zip",
+                "dest": "/home/user/ecommerce_analytics.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/4f9004f0-1fdf-4720-af29-bf6f35b4153d/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "check_include_exclude",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/airbyte/4f9004f0-1fdf-4720-af29-bf6f35b4153d/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "snowflake_database_schema_to_csv",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": [
+                    "raw_data",
+                    "transformed_data"
+                ],
+                "dest": "schema.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/airbyte/4f9004f0-1fdf-4720-af29-bf6f35b4153d/schema.csv",
+                "dest": "schema_gold.csv"
+            }
+        ]
+    },
+    "counterpart": "62266774-3272-4ce1-ba09-2235c22a1b80"
+}

@@ -1,0 +1,90 @@
+{
+    "id": "9eca7bf6-7f93-422b-9596-8894b7c3248f",
+    "snapshot": "excel",
+    "instruction": "Create a clustered column chart showing the Sales and COGS data for each week in a new sheet. Set the chart title as \"Sales & COGS\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create the desired clustered column chart in this excel:\n1. Click the \"create sheet\" button at the bottom (on the left side of sheet panel \"Sheet1\") to create a new sheet \"Sheet2\";\n2. Click menu button \"Insert -> Chart\";\n3. In the pop-up window, for Chart Type, choose \"Column\";\n4. For Data Range, type text \"$Sheet1.$A$1:$C$11\" into the field `Data range:` on the right panel;\n5. Select the radio button \"Data series in columns\";\n6. For Chart Elements, type in \"Sales & COGS\" in the `Title` field on the right panel;\n7. Click button \"Finish\";\n8. Save the file via \"Ctrl+S\" hotkey.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@210"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/9eca7bf6-7f93-422b-9596-8894b7c3248f/WeeklySales.xlsx",
+                "dest": "/home/user/WeeklySales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/WeeklySales.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 8,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "WeeklySales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/9eca7bf6-7f93-422b-9596-8894b7c3248f/13_WeeklySales_gt1.xlsx",
+            "dest": "13_WeeklySales_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/WeeklySales.xlsx",
+            "dest": "WeeklySales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "chart",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "ENSheet2",
+                    "chart_props": [
+                        "type",
+                        "title"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "12382c62-0cd1-4bf2-bdc8-1d20bf9b2371"
+}

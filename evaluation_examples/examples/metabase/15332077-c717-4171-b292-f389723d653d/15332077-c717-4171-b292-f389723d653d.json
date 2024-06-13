@@ -1,0 +1,79 @@
+{
+    "id": "15332077-c717-4171-b292-f389723d653d",
+    "snapshot": "metabase",
+    "instruction": "I am running the Metabase JAR file I previously downloaded in /home/user/projects/metabase. Could you please help me back up my metabase database file at /home/user/Metabase?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we hope to backup the Metabase database file to a specific location. To achieve this goal:\n\n1. Navigate to /home/user/projects/metabase directory where locates the Metabase JAR.\n2. Open the terminal under the directory. \n3. Check if the Metabase is running, you should first stop the Metabase process. To be specific, run \"ps ux | grep java\" to find the PID of running process. Use \"kill -9 `PID`\" to stop the process.\n4. Run \"java -jar metabase.jar\" and wait until the files are generated. \n5. Terminate the process by \"CTRL+C\" or close the terminal.\n6. Copy the application database file (called `metabase.db.mv.db`) and keep that copy to the target directory, which means, creat the directory `/home/user/Metabase`, cd into it, paste the database file there.\n7. Navigate back to /home/user/projects/metabase directory. Restart Metabase: `java -jar metabase.jar`.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/installation-and-operation/backing-up-metabase-application-data"
+    ],
+    "related_apps": [
+        "chromium",
+        "terminal",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/d294bf44-fed3-4958-9740-3960010bcb78/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import os; os.path.isfile('/home/user/Metabase/metabase.db.mv.db')"
+                    ]
+                }
+            }
+        ],
+        "func": "exact_match",
+        "result": {
+            "type": "vm_command_line",
+            "command": [
+                "ls",
+                "/home/user/Metabase"
+            ]
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": "metabase.db.mv.db\n"
+            }
+        }
+    },
+    "counterpart": "6aa7117d-2881-492a-995d-134a163efe23"
+}

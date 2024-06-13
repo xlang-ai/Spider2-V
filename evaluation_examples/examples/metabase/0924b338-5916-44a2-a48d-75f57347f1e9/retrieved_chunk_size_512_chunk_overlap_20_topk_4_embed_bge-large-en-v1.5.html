@@ -1,0 +1,46 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/dashboards/introduction.html
+
+Documentation Title:
+Introduction to dashboards
+
+Documentation Content:
+49
+</a><a>Dashboards</a></ol><article><h1>Introduction to dashboards</h1><img/><h2>What is a dashboard?</h2><p><strong>Dashboards</strong>group a set of questions into tabs on a single page. You can think of dashboards as shareable reports that feature a set of related questions. You can set up <a>subscriptions to dashboards</a>via email or Slack to receive the exported results of the dashboard’s questions.</p><p>A dashboard comprises a set of cards arranged on a grid. These cards can be:</p><ul><li>Questions, such as <a>tables, charts, or maps</a></li><a>Text and header cards</a><a>Link cards</a></ul><p>You can add <a>filter widgets to dashboards</a>that filter data identically across multiple questions, and <a>customize what happens when people click on a chart or a table</a>.</p><p>You can make as many dashboards as you want. Go nuts.</p><h2>How to create a dashboard</h2><p>In the top right of the screen, click the <strong>+ New</strong>&gt; <strong>Dashboard</strong>. Give your new dashboard a name and a description, choose which <a>collections</a>the dashboard should go in, then click <strong>Create</strong>, and Metabase will take you to your shiny new dashboard.</p><h2>Adding questions to a dashboard</h2><p>There are two ways to add questions to a dashboard: from the dashboard, or from the question you want to add.</p><ul><li><strong>From a question</strong>: You can add a newly saved question to a dashboard directly from the modal that pops up after you save the question for the first time. You can also add a question to a dashboard by clicking on the ellipsis (<strong>…</strong>) at the top right of a question and selecting <strong>Add to dashboard</strong>.</li><li><strong>From a dashboard</strong>: Click on the <strong>pencil</strong>icon to <strong>edit the dashboard</strong>.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/query-builder/introduction.html
+
+Documentation Title:
+Asking questions
+
+Documentation Content:
+49
+</a><a>Questions</a></ol><article><h1>Asking questions</h1><p>Metabase’s two core concepts are questions and their corresponding answers. To ask a question in Metabase, click the <strong>+ New</strong>button in the upper right of the main navigation bar, and select either:</p><ul><li>Question</li><a>SQL query</a></ul><p>This page covers how to ask a question using Metabase’s graphical query builder, the “Question” option.</p><h2>Creating a new question with the query builder</h2><p>From the <strong>+ New</strong>dropdown, select <strong>Question</strong>, then pick your starting data:</p><p>You can start a question from:</p><ul><li><strong>A model</strong>. A <a>model</a>is a special kind of saved question meant to be used as a good starting point for questions. Sometimes these are called derived tables, as they usually pull together data from multiple raw tables.</li><li><strong>Raw data</strong>. You’ll need to specify the database and the table in that database as the starting point for your question.</li><li>A <strong>saved question</strong>. You can use the results of any question as the starting point for a new question.</li></ul><p>Note that there are some kinds of saved questions that can’t be used as source data:</p><ul><li>Druid questions</li><li>Mongo questions</li><li>Questions that use <code>Cumulative Sum</code>or <code>Cumulative Count</code>aggregations</li><li>Questions that have columns that are named the same or similar thing, like <code>Count</code>and <code>Count 2</code></li></ul><h2>The query builder</h2><p>Once you select your data, Metabase will take you to the query builder. Say you selected <strong>Raw data</strong>&gt; <strong>Sample database</strong>&gt; <strong>Orders</strong>, then you’ll see something like this:</p><img/><p>This is the query builder’s notebook editor.
+
+
+
+Documentation Source:
+www.metabase.com/learn/dashboards/filters.html
+
+Documentation Title:
+Adding filters to dashboards with SQL questions
+
+Documentation Content:
+To learn more, check out our <a>documentation on metadata editing</a>.</p><h2>Connecting a dashboard filter widget to a field filter variable</h2><p>So we have our SQL question with a Field Filter variable in a <code>WHERE</code>clause, and it’s time to add that question to a dashboard.</p><p>Next, we’ll need to:</p><ul><li>Create a dashboard.</li><li>Add our question to a dashboard.</li><li>Add a filter widget to that dashboard.</li><li>Connect that dashboard filter widget to the field filter variable in our SQL question.</li></ul><p>Let’s <a>create a dashboard</a>(we’ll give our dashboard the wildly unimaginative name <code>Dashboard with filter widgets</code>).</p><p>Then we’ll <a>add our SQL question to the dashboard</a>.</p><p>Next, we’re going to <a>add a filter widget to our dashboard</a>. Click on the <strong>pencil</strong>icon to enter Dashboard edit mode, then:</p><ul><li>Click on the <strong>filter icon</strong>to add a filter widget to the dashboard.</li><li>Under <code>What do we want to filter</code>, we’ll select <code>Time</code>.</li><li>For <code>What kind of filter?</code>, we’ll select <code>Date filter</code>.</li><li>Next, we’ll need to connect our widget to the Field Filter variable in our question. Click on the dropdown menu in the center of our question, and select our <code>Created At</code>Field Filter variable.</li><li>Click the <strong>Done</strong>button at the top of the screen.</li><li>Then <strong>Save</strong>the dashboard.</li></ul><img/><p>Now we’re all wired up, and we’re ready to test out our new Date filter. This particular widget type gives us an abundance of options.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/introduction.html
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+where you’ll store all of your questions, dashboards, and models. You have your own personal collection to store drafts and experiments that aren’t yet ready to share.</li><li><strong>Data</strong>section, which lists all of the data sources your Metabase is connected to.</li><li><strong>Settings</strong>(the <strong>gear</strong>icon in the upper right).</li></ul></li></ul><p>You can also <strong>Bookmark</strong>your favorite items, and they’ll appear toward the top of the navigation sidebar.</p><p>To open and close the navigation sidebar, click on the Metabase logo in the upper left.</p><img/><h2>Asking a new question</h2><p>A <a>question</a>in Metabase is a query, the results of that query, and the visualization and formatting of those results (even if that visualization is just a <a>table</a>). Questions have titles, IDs, and unique URLs you can copy and share with others.</p><p>You can play around with a question by filtering and summarizing its results, save those explorations as new questions, and add questions to dashboards. But we’re getting ahead of ourselves; for the next few examples, we’ll be using the <a>Sample Database</a>that comes with Metabase.</p><p>Click on <strong>+ New</strong>in the main nav, and select <strong>Question</strong>. You can start a new question from:</p><ul><li>A model</li><li>A raw table</li><li>A saved question</li></ul><p>For now, let’s start from <strong>Raw data</strong>&gt; <strong>Sample database</strong>&gt; <strong>Orders</strong>. Metabase will open up the query builder.</p><img/><h2>Filtering data</h2><p>The <code>Orders</code>table has a bunch of fake data in it about product orders from a made-up company.
+
+
+

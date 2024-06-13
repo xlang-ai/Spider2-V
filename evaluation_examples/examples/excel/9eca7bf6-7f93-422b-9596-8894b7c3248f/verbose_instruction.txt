@@ -1,0 +1,9 @@
+To create the desired clustered column chart in this excel:
+1. Click the "create sheet" button at the bottom (on the left side of sheet panel "Sheet1") to create a new sheet "Sheet2";
+2. Click menu button "Insert -> Chart";
+3. In the pop-up window, for Chart Type, choose "Column";
+4. For Data Range, type text "$Sheet1.$A$1:$C$11" into the field `Data range:` on the right panel;
+5. Select the radio button "Data series in columns";
+6. For Chart Elements, type in "Sales & COGS" in the `Title` field on the right panel;
+7. Click button "Finish";
+8. Save the file via "Ctrl+S" hotkey.

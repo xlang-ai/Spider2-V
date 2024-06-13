@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 5,
     "config": [
@@ -50,7 +51,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_ipynb_files",
@@ -64,5 +64,6 @@
             "path": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/submission_gold.ipynb",
             "dest": "submission_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "6e8e092e-a3cc-4812-8ab9-65cb9f161d4b"
 }

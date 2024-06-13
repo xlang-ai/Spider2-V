@@ -1,0 +1,64 @@
+{
+    "id": "df00f559-37b4-44e0-91cd-a6c160afd4fc",
+    "snapshot": "metabase",
+    "instruction": "I need to visualize the data in source column in Accounts table and summarize the data of Count of rows in each Source. Make the percentages display on the chart. Please help me download the visualization as a PNG file, and rename it to \"pie.png\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To complete the visualization, please follow these steps:\n\n1. Click the \"New\" button on the top right;\n2. Choose \"Question\" in the drop-down panel;\n3. Choose \"Accounts\" in the \"Sample Database\" drop-down panel;\n4. Under \"Summarize\" choose \"Pick the metric you want to see\"\n5. Click \"Count of rows\"\n6. After \"by\", Click \"pick a column to group by\"\n7. Click \"Source\";\n8. Click on Visualize;\n9. Click on Visualization -> Pie;\n10. Click on Pie again to pull out the Bar Options panel;\n11. Under Display - Show percentages, choose \"On the chart\";\n12. Click Done;\n13. Click the \"Download full results\" button (cloud icon) on the bottom right;\n14. Choose \".png\" in the panel;\n15. Open the local path \"/home/user/Downloads\";\n16. Rename the visualization file as \"pie.png\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/learn/visualization/bar-charts#stack"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 16,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/df00f559-37b4-44e0-91cd-a6c160afd4fc/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_metabase_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/pie.png",
+            "dest": "pie.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/df00f559-37b4-44e0-91cd-a6c160afd4fc/pie_gold.png",
+            "dest": "pie_gold.png"
+        }
+    },
+    "counterpart": "b96db2ae-552f-49fd-b9a9-9f7f66561e45"
+}

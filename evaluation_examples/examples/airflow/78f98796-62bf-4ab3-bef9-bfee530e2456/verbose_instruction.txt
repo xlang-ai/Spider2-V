@@ -1,0 +1,27 @@
+I am using Astronomer to deploy Airflow
+To create testers to test the settings of the dag file and run the dag, we can follow the steps:
+1. Click the VS Code editor on the left panel or dock;
+2. According to the opened README.md file, we can extract the basic information on completing the test_dag file; 
+3. Switch to the DAG file ‘test_dag.py’ that is opened in VSCode, it suppress unnecessary log, ensures the correctness of the file and extract the information of dags in a variable for further use;
+4. We'll now define "test_dag_schedule_interval" to test the import and schedule correctness of dags. To be concrete, we check whether dag schedule is set to "daily":
+ˋˋˋ
+# ... Keep the original ˋtest_dagˋ code
+def test_dag_schedule_interval():
+    dag = dag_bag.get_dag('activity_suggestion_dag')
+    assert dag.schedule_interval == '@daily', "DAG schedule interval is not set to daily."
+ˋˋˋ
+5. We'll now define "test_task_workflow_order" to test workflow arrangement. To be concrete, we check whether the workflow of tasks in dag is set to ['fetch_activity', 'log_activity', 'analyze_activity']:
+ˋˋˋ
+def test_task_workflow_order():
+    dag = dag_bag.get_dag('activity_suggestion_dag')
+    task_ids = [task.task_id for task in dag.tasks]
+    expected_order = ['fetch_activity', 'log_activity', 'analyze_activity']
+    assert task_ids == expected_order, f"Tasks are not in the expected order: {expected_order}"
+ˋˋˋ
+6. Save the file content and switch to the opened ‘/home/user/projects/today_task’ terminal.
+7. In the terminal, type in the following command to restart the UI:
+`astro dev restart` 
+8. Click Chromium on the left pannel to open the Airflow web page;
+9. Find "task_today" in the DAG list and click the slider to the left of the name to Unpause dag; 
+10. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+11. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"

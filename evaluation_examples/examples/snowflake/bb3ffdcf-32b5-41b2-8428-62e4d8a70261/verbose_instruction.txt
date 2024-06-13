@@ -1,0 +1,31 @@
+We want to perform data analysis on a Snowflake database IMDB. In the Snowsight page,
+1) Firstly, create "+ >> SQL Worksheet" to create a blank worksheet for query.
+2) Type in the command `USE DATABASE IMDB` and `USE SCHEMA PUBLIC;` and run them one-by-one.
+3) There is one table called "MOVIES" in schema "PUBLIC". To select the top 20 dramatic movies since 2000 and satisfy all requirements in `requirements.txt`, type in the following SQL query and execute it:
+```
+SELECT
+  MOVIE_NAME AS "Movie Name",
+  RELEASE_YEAR AS "Release Year",
+  DURATION AS "Duration",
+  RATING AS "Rating",
+  NVL(TO_CHAR(META_SCORE), 'NA') as "Meta Score",
+  TO_NUMBER(REPLACE(VOTES, ',', '')) as "Votes",
+  GENRE AS "Genre",
+  MOVIES.CAST AS "Cast",
+  DIRECTOR AS "Director",
+  NVL(TO_CHAR(GROSS), 'NA') AS "Gross"
+FROM
+  MOVIES
+WHERE MOVIES.GENRE LIKE '%Drama%' AND RELEASE_YEAR >= 2000
+ORDER BY TO_NUMBER(REPLACE(MOVIES.VOTES, ',', '')) DESC
+LIMIT 20;
+```
+Note that, we rename all column headers to satisfy the naming requirement. And convert all null values to special string "NA" for column META_SCORE and GROSS, since only these two rows contain null values that will affect the final results. Regarding column VOTES, the original cells appear as texts like "23,400". Thus, we use the inner function `REPLACE` and `TO_NUMBER` to convert the data format. The results are also sorted by this votes column.
+4) After execution, we can see the resulting table below. Click the download button (with a downward arrow) on the top right in the results panel.
+5) Choose "Download as .csv" option. The default download path is the `Downloads` folder.
+6) We need to perform one more action in order to rename and move the target file. Open the terminal.
+7) In the terminal, check the file name of the resulting .csv file.
+`ls ~/Downloads/`
+8) Based on the file name, move and rename it to `~/Desktop/top20movies.csv`. Here, `{filename}` is the filename of the downloaded .csv file.
+`mv ~/Downloads/{filename}.csv ~/Desktop/top20movies.csv`
+Finally, we have finished the task.

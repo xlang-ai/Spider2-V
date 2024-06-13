@@ -39,14 +39,14 @@
         }
     ],
     "action_number": 2,
-    "trajectory": "trajectories/",
     "related_apps": [
         "airflow",
         "chromium"
     ],
     "tags": [
         "gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_include_exclude",
@@ -67,5 +67,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "425e038b-6965-442d-b9a3-e72f05c1911f"
 }

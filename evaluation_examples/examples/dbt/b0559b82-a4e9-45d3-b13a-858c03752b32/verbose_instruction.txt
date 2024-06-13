@@ -1,0 +1,11 @@
+This task tests the use of dbt job completion trigger. Following the instructions step by step:
+1. Click the "Deploy" button in the upper panel.
+2. Choose "Jobs" in the drop-down panel.
+3. Click the "Create job" button.
+4. Choose "Deploy job" in the drop-down panel.
+5. Now you will see the configuration page of a new job. In "Job settings" section, set the "Job name" to "Sales_Summary".
+6. In "Triggers" section, enable "Run when another job finishes".
+7. Click "Project" selection list, and choose "Christmas" project as the trigger.
+8. Click "Job" selection list, and choose "Sales_Process" as the target job.
+9. Choose "Success" as the only status in the "Completes on" setting.
+10. Click "Save" button on the top right of the page.

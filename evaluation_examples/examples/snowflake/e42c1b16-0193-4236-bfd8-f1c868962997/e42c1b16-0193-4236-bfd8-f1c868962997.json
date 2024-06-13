@@ -12,7 +12,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 31,
     "config": [
@@ -93,5 +94,6 @@
                 }
             }
         ]
-    }
+    },
+    "counterpart": "35833694-a290-4ae1-99d7-4abe11de2067"
 }

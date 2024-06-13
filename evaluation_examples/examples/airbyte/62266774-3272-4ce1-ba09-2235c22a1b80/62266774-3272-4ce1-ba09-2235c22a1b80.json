@@ -17,7 +17,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_ingestion_and_integration"
+        "data_ingestion_and_integration",
+        "abstract"
     ],
     "action_number": 31,
     "config": [
@@ -83,7 +84,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": [
@@ -124,5 +124,6 @@
                 "dest": "schema_gold.csv"
             }
         ]
-    }
+    },
+    "counterpart": "4f9004f0-1fdf-4720-af29-bf6f35b4153d"
 }

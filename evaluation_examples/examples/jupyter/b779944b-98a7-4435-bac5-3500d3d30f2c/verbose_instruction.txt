@@ -1,0 +1,29 @@
+This task requires you to find the best K value for a KNN regressor on the famous California Housing Dataset.
+1. Below the ``#TODO`` comment, first, add a for loop from 1 to 39.
+```python
+for i in range(1, 40):
+```
+2. After that, in the loop body, instantiate a KNN regressor with K = i.
+```python
+    knn = KNeighborsRegressor(n_neighbors=i)
+```
+3, Then, fit the KNN regressor on the training dataset.
+```python
+    knn.fit(X_train, y_train)
+```
+4. Calculate the predict values for the testing dataset.
+```python
+    pred_i = knn.predict(X_test)
+```
+5. Calculate the mean absolute error.
+```python
+    mae = mean_absolute_error(y_test, pred_i)
+```
+6. Append the mean absolute errors to the error list in this iteration.
+```python
+    error.append(mae)
+```
+7. Click the button "Run" in the menu bar on the top.
+8. In the drop-down menu, select and click "Run All Cells". This may take a while.
+9. Wait until all cells completes running, then click the button "File" in the menu bar on the top.
+10. In the drop-down menu, select and click "Save All".

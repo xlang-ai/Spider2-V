@@ -1,0 +1,93 @@
+{
+    "id": "a8a36525-539f-4618-8ef5-8785df2fc950",
+    "snapshot": "dagster",
+    "instruction": "I have finished one dagster asset \"iris_dataset\". Please write another one that generates a duckdb table \"iris_virginica\". This table will extract all entries with species \"Iris-virginica\" from iris_dataset.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I have finished one dagster asset \"iris_dataset\". Please write another one that generates a duckdb table \"iris_virginica\". This table will extract all entries with species \"Iris-virginica\" from iris_dataset. To do this, the steps are:\n1. Go to VS Code and open the folder \"iris_analysis\" in the left navbar.\n2. Open the file \"assets.py\" and add the following asset definition to the end of the file:\n```\n@asset(deps=[iris_dataset])\ndef iris_virginica(duckdb: DuckDBResource) -> None:\n    with duckdb.get_connection() as conn:\n        conn.execute(\n            \"CREATE TABLE iris_virginica AS SELECT * FROM iris_dataset WHERE species = 'Iris-virginica'\"\n        )\n```\n3. Save this file via pressing \"Ctrl+S\".\n4. Change to the opened Chromium or Chrome browser.\n5. Click \"Reload definitions\" at the top-right of the page.\n6. After the asset \"iris-virginica\" is shown in the lineage graph, click \"Materialize all\" at the top-right of the graph.\n7. Wait for the materialization to finish.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/integrations/duckdb/using-duckdb-with-dagster"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "duckdb",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/a8a36525-539f-4618-8ef5-8785df2fc950/iris-analysis.zip",
+                "dest": "/home/user/iris-analysis.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/a8a36525-539f-4618-8ef5-8785df2fc950/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/a8a36525-539f-4618-8ef5-8785df2fc950/gold_iris_virginica.csv",
+                    "dest": "/home/user/iris-analysis/gold_iris_virginica.csv"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/a8a36525-539f-4618-8ef5-8785df2fc950/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "11877023-91e3-4001-84f1-ff187ac98920"
+}

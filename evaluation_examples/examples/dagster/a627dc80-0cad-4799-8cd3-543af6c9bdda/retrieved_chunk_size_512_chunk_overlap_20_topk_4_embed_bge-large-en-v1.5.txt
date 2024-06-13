@@ -1,0 +1,322 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/create-new-project.txt
+
+Documentation Title:
+Creating a new Dagster project | Dagster Docs
+
+Documentation Content:
+Creating a new Dagster project | Dagster Docs
+Ask AI
+Platform
+Dagster+
+New
+Pricing
+Blog
+Community
+Docs
+Sign in
+Join us on Slack
+Star us
+Try Dagster+
+Platform
+Dagster+
+Pricing
+Blog
+Community
+Docs
+Contact Sales
+Sign in
+Try Dagster+
+Search
+the docs
+Press
+Ctrl
+and
+K
+to search
+Getting started
+What's Dagster?
+Quickstart
+Installation
+Creating a new project
+Getting help
+Tutorial
+Concepts
+Deployment
+Integrations
+Guides
+API Reference
+About
+1.7.2
+/ 0.23.2 (libs)
+You are viewing an unreleased or outdated version of the documentation
+View Latest Documentation
+→
+Creating a new Dagster project
+#
+The easiest way to start building a Dagster project is by using the
+dagster project
+CLI. This CLI tool helps generate files and folder structures that enable you to quickly get started with Dagster.
+Step 1: Bootstrap a new project
+#
+If you don't already have Dagster installed, verify you meet the
+installation requirements
+before continuing.
+You can scaffold a new project using the default project skeleton, or start with one of the official Dagster examples.
+To learn more about the default files in a Dagster project, refer to the
+Dagster project file reference
+.
+Default project skeleton
+Official example
+Using the default project skeleton
+#
+To get started, run:
+pip
+install
+dagster
+dagster project scaffold --name my-dagster-project
+The
+dagster project scaffold
+command generates a folder structure with a single Dagster code location and other files, such as
+pyproject.toml
+and
+setup.py
+. This takes care of setting things up with an empty project, enabling you to quickly get started.
+Using an official example
+#
+To get started using an official Dagster example, run:
+pip
+install
+dagster
+dagster project from-example
+\
+--name my-dagster-project
+\
+--example quickstart_etl
+The command
+dagster project from-example
+downloads one of the official Dagster examples to the current directory.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/create-new-project.txt
+
+Documentation Title:
+Creating a new Dagster project | Dagster Docs
+
+Documentation Content:
+Check out the following resources to learn more about deployment options:
+Dagster+
+- Deploy using Dagster-managed infrastructure
+Your own infrastructure
+- Deploy to your infrastructure, such as Docker, Kubernetes, Amazon Web Services, etc.
+Related
+#
+Intro to Dagster tutorial
+Running Dagster locally
+Structuring your Dagster project
+Dagster project file reference
+Dagster example project repository
+On This Page
+Creating a new Dagster project
+Step 1: Bootstrap a new project
+Using the default project skeleton
+Using an official example
+Step 2: Install project dependencies
+Step 3: Start the Dagster UI
+Step 4: Development
+Adding new Python dependencies
+Using environment variables and secrets
+Adding and running unit tests
+Next steps
+Related
+Edit Page on GitHub
+Share Feedback
+Star
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/dagster-plus/getting-started.txt
+
+Documentation Title:
+Getting started with Dagster+ | Dagster+
+
+Documentation Content:
+Use a template
+#
+GitHub
+GitLab
+GitHub
+#
+Click
+Select
+to select a template.
+Sign in to your GitHub account, if prompted.
+In Dagster+, define the following:
+Git scope
+- Select the organization or account to create the new repository in.
+Repository Name
+- Enter a name for the new repository.
+Check the
+Make git repository private
+box to make the repository private.
+When finished, click
+Clone and deploy
+.
+When finished,
+continue to Step 5
+.
+GitLab
+#
+Click
+Select
+to select a template.
+Sign in to your Gitlab account, if prompted.
+In Dagster+, define the following:
+Namespace
+- Select the group or account to create the new project in.
+Project
+- Enter a name for the new project.
+Check the
+Make git project private
+box to make the project private.
+When finished, click
+Clone and deploy
+.
+When finished,
+continue to Step 5
+.
+Import an existing project
+#
+If you have existing Dagster code, you can use Dagster's GitHub / Gitlab app or the
+dagster-cloud
+CLI.
+GitHub
+GitLab
+dagster-plus CLI
+GitHub
+#
+Using the GitHub integration to import an existing GitHub repository also sets up CI/CD for you.
+Before you get started, note that the repository must have a
+dagster_cloud.yaml
+file
+in order for Dagster+ to deploy it. This file defines the
+code locations
+in your Dagster code.
+If this file doesn't currently exist, create it in the root of your repository with the following code:
+# dagster_cloud.yaml
+locations
+:
+-
+location_name
+:
+my_location_name
+# the name of the code location
+code_source
+:
+package_name
+:
+hackernews
+# the name of the python package associated with the code location
+After you've committed the file to the repository, come back to Dagster+ to complete the import process:
+Click the
+Import an existing project
+tab.
+Sign in to your GitHub account, if prompted.
+In Dagster+, define the following:
+Git scope
+- Select the organization or account that the repository is in.
+Repository
+- Select the repository.
+Click
+Deploy
+.
+When finished,
+continue to Step 5
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/cli.txt
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+list
+List all sensors that correspond to a…
+preview
+Preview an existing sensor execution.
+start
+Start an existing sensor.
+stop
+Stop an existing sensor.
+dagster project
+¶
+Commands for bootstrapping new Dagster projects and code locations.
+dagster
+project
+[
+OPTIONS
+]
+COMMAND
+[
+ARGS
+]
+...
+Commands
+from-example
+Download one of the official Dagster examples to the current directory. This CLI enables you to quickly bootstrap your project with an officially maintained example.
+list-examples
+List the examples that available to bootstrap with.
+scaffold
+Create a folder structure with a single Dagster code location and other files such as pyproject.toml. This CLI enables you to quickly start building a new Dagster project with everything set up.
+scaffold-code-location
+Create a folder structure with a single Dagster code location, in the current directory. This CLI helps you to scaffold a new Dagster code location within a folder structure that includes multiple Dagster code locations.
+scaffold-repository
+(DEPRECATED; Use
+dagster project scaffold-code-location
+instead) Create a folder structure with a single Dagster repository, in the current directory. This CLI helps you to scaffold a new Dagster repository within a folder structure that includes multiple Dagster repositories
+dagster-graphql
+¶
+Run a GraphQL query against the dagster interface to a specified repository or pipeline/job.
+Can only use ONE of –workspace/-w, –python-file/-f, –module-name/-m, –grpc-port, –grpc-socket.
+Examples:
+dagster-graphql
+dagster-graphql -y path/to/workspace.yaml
+dagster-graphql -f path/to/file.py -a define_repo
+dagster-graphql -m some_module -a define_repo
+dagster-graphql -f path/to/file.py -a define_pipeline
+dagster-graphql -m some_module -a define_pipeline
+dagster-graphql
+[
+OPTIONS
+]
+Options
+--version
+¶
+Show the version and exit.
+-t
+,
+--text
+<text>
+¶
+GraphQL document to execute passed as a string
+-f
+,
+--file
+<file>
+¶
+GraphQL document to execute passed as a file
+-p
+,
+--predefined
+<predefined>
+¶
+GraphQL document to execute, from a predefined set provided by dagster-graphql.
+
+
+

@@ -1,0 +1,92 @@
+{
+    "id": "858225a1-ffd1-4c94-bf73-e03102ddde6f",
+    "snapshot": "bigquery",
+    "instruction": "I have just uploaded data about Ameraican babies into table `names_2014`. I am curious about the top five names for US babies that were assigned male at birth in that year. Please save the `name` and `count` into another table `top5_male_2014` in the same dataset for me.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Our goal in this task is to 1) find out the top 5 names of male babies in America in 2014, and 2) save the results into a new table in the current google cloud project. To achieve this goal,\n1. In the BigQuery Studio page, click the panel with title \"Untitled query\" on top of the header \"Welcome to BigQuery Studio\". This will switch the window to a blank panel which accepts SQL queries;\n2. In the blank panel, type in the following texts:\n```\nSELECT\n  name,\n  count\nFROM\n  `babynames.names_2014`\nWHERE\n  assigned_sex_at_birth = 'M'\nORDER BY\n  count DESC\nLIMIT\n  5;\n```\n3. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n4. The query results will show below. Click the \"SAVE RESULTS\" button above the execution results;\n5. And in the drop-down menu, further click the option \"BigQuery table\";\n6. A window will pop up on the right. For the `Dataset` field, select `babynames` dataset;\n7. For the `Table` field, type in a new table \"top5_male_2014\";\n8. Click button \"SAVE\" and wait for the job to finish. You can discover this new table in the Explorer panel on the left.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
+    ],
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "babynames",
+                        "table_id": "names_2014",
+                        "schema_from_json": [
+                            {
+                                "name": "name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "assigned_sex_at_birth",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "count",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/858225a1-ffd1-4c94-bf73-e03102ddde6f/yob2014.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 8,
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "babynames",
+            "table_id": "top5_male_2014",
+            "schema": [
+                "name",
+                "count"
+            ],
+            "dest": "output.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/858225a1-ffd1-4c94-bf73-e03102ddde6f/top5_male_2014.csv",
+            "dest": "gold_output.csv"
+        }
+    },
+    "counterpart": "ba3a37bb-df35-5267-9de4-995ea58953a2"
+}

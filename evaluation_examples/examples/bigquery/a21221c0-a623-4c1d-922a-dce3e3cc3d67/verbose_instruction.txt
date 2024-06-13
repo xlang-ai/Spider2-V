@@ -1,0 +1,15 @@
+We need to first find out what the SQL of the recently executed project job is, and then run it.
+1. On the far right of Job History at the bottom of the main interface, there is a pull-up button. Click the upper triangle symbol.
+2. Click 'Project History'
+3. Now you can see the history of all jobs executed, click on the first Job ID。
+4. 'Query job details' pops up from the right side of the page, copy the following SQL
+5. click '+' button on top of the welcome prompt "Welcome to BigQuery Studio!". This will open a blank query panel.
+6. Paste the SQL you just copied
+7. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+8. Wait for a moment. The query results will show below.
+9. Click the "SAVE RESULTS" button above the execution results (on the right side of the same row as panel "Query results");
+10. And in the drop-down menu, further click the option "CSV (local file)";
+11. In the opened terminal, type in the command `ls` to see the downloaded file name;
+12. Then, move and rename this file via typing and executing:
+`mv {file_name}.csv result.csv`
+(Remember to convert the {file_name} above to the real file name in step 12)

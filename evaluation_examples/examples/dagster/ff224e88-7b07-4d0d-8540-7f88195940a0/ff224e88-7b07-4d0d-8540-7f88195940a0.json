@@ -1,0 +1,117 @@
+{
+    "id": "ff224e88-7b07-4d0d-8540-7f88195940a0",
+    "snapshot": "dagster",
+    "instruction": "I have defined some assets with pandas DataFrame as output. Now I want to store them in parquet file format for downstream assets to use. I know I should use an I/O manager but don't really know how to define the \"handle_output\" function to save the asset output to a \".pq\" file in \"base_path\" of \"ParquetIOManager\". Could you help me do it and add the I/O manager to the definitions in \"__init__.py\" with key \"parquet\"? After that, please show the configuration page of the \"parquet\" resource in the Dagster UI for me to check.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I want to configure an I/O manager to save the asset output with pandas DataFrame format as parquet. Please follow these steps:\n1. Go to VS Code and open the file \"assets.py\".\n2. View the file to verify that the io_manager_key of each asset (defined with decorator @asset) is \"parquet\".\n3. Open the file \"parquet_io_manager.py\". Add the following code under the function \"handle_output\". Do not modify other methods:\n```\n    def handle_output(self, context: OutputContext, obj: pd.DataFrame):\n        # Add the following lines\n        path = self._get_path(context)\n        if \"://\" not in self._base_path:\n            os.makedirs(os.path.dirname(path), exist_ok=True)\n\n        if isinstance(obj, pd.DataFrame):\n            row_count = len(obj)\n            context.log.info(f\"Row count: {row_count}\")\n            obj.to_parquet(path=path, index=False)\n        else:\n            raise Exception(f\"Outputs of type {type(obj)} not supported.\")\n\n        context.add_output_metadata({\"row_count\": row_count, \"path\": path})\n```\n3. Press hotkey \"Ctrl+S\" to save the codes for this file.\n4. Change to the file \"__init__.py\" in VS Code.\n5. Modify the original definitions (`defs`) to add the newly defined parquet I/O manager:\n```\nfrom .parquet_io_manager import ParquetIOManager\n\ndefs = Definitions(\n    assets=all_assets,\n    # Add the 3 lines below\n    resources={\n        \"parquet\": ParquetIOManager(),\n    }\n)\n```\n6. Press \"Ctrl+S\" to save __init__.py file.\n7. Switch to Chromium. Make sure the Dagster UI page is opened.\n8. Click \"Reload all\" on the right of the page.\n9. After the project is reloaded, click \"movies\" on the left of the table.\n10. Click the \"Resources\" tab under \"Deployment / movies\".\n11. Click \"parquet\" in the table of the opened page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/concepts/io-management/io-managers"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/ff224e88-7b07-4d0d-8540-7f88195940a0/movies.zip",
+                "dest": "/home/user/movies.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/ff224e88-7b07-4d0d-8540-7f88195940a0/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/ff224e88-7b07-4d0d-8540-7f88195940a0/gold_hollywood_movies.pq",
+                    "dest": "/home/user/movies/gold_hollywood_movies.pq"
+                }
+            },
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/ff224e88-7b07-4d0d-8540-7f88195940a0/gold_imdb_movies.pq",
+                    "dest": "/home/user/movies/gold_imdb_movies.pq"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude",
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/ff224e88-7b07-4d0d-8540-7f88195940a0/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "validate_correct_url",
+                "src": "evaluation_examples/examples/dagster/ff224e88-7b07-4d0d-8540-7f88195940a0/eval_ui.sh",
+                "dest": "/home/user/eval_ui.sh",
+                "goto_prefix": "http://"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "716f8398-cc62-4064-93c7-3748dbdb5e68"
+}

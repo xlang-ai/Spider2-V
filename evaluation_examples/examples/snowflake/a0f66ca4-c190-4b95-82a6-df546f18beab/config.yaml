@@ -1,0 +1,9 @@
+username: snowman
+password: 20!4@sn0wf@ll
+loginname: snowstorm
+first_name: Snow
+last_name: Storm
+email: snow.storm@snowflake.com
+must_change_password: false
+default_warehouse: COMPUTE_WH
+role: SYSADMIN

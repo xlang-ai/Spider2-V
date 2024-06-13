@@ -11,10 +11,11 @@
     ],
     "tags": [
         "gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 22,
-    "counterpart": "xxxxxx-xxxxxx-xxxxxx",
+    "counterpart": "03531319-f875-4489-ae7f-2dc82ed03034",
     "config": [
         {
             "type": "copyfile_from_host_to_guest",
@@ -55,7 +56,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "check_include_exclude",

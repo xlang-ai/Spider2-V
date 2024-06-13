@@ -1,0 +1,91 @@
+{
+    "id": "a9fe9ab2-afe6-4346-a25c-3365dc0043cf",
+    "snapshot": "excel",
+    "instruction": "Help me fill in the Gross profit column. Then under column A named \"Year_Profit\" in a new sheet, display the Year Column in Sheet 1 as text appended by a \"_\" with the corresponding Gross Profit value.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish this task:\n1. Click cell J2;\n2. Type in formula \"=B2-C2-D2-F2-G2-H2\" and press ENTER to calculate it;\n3. Drag, copy this formula and apply it other cells in column J;\n4. Click the \"create sheet\" button at the bottom (on the left side of text panel \"Sheet1\") to create a new sheet named \"Sheet2\";\n5. In the new sheet \"Sheet2\", click cell A1;\n6. Type in text \"Year_Profit\";\n7. Click cell A2;\n8. Type in formula \"=CONCATENATE(Sheet1.A2, \"_\", Sheet1.J2)\" to concatenate the cell values in A2 and J2 in Sheet1 as a string value;\n9. Drag, copy this formula and apply it to column cells from A2 to A10;\n10. Save the file via \"Ctrl+S\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@92"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/a9fe9ab2-afe6-4346-a25c-3365dc0043cf/IncomeStatement2.xlsx",
+                "dest": "/home/user/IncomeStatement2.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/IncomeStatement2.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 10,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "IncomeStatement2.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/a9fe9ab2-afe6-4346-a25c-3365dc0043cf/5_IncomeStatement2_gt1.xlsx",
+            "dest": "5_IncomeStatement2_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/IncomeStatement2.xlsx",
+            "dest": "IncomeStatement2.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RNSheet1",
+                    "sheet_idx1": "ENSheet1"
+                },
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "ENSheet2"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "035f41ba-6653-43ab-aa63-c86d449d62e5"
+}

@@ -1,0 +1,44 @@
+Documentation Source:
+www.metabase.com/learn/getting-started/introduction.html
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+Let’s say we want to know:</p><em>How many orders have been placed with a subtotal (before tax) greater than $40?</em><p>More precisely, this question translates to: “How many records (or rows) are in the <code>Orders</code>table that have a value greater than 40 in the <code>Subtotal</code>column?”</p><p>To find out, we want to filter the data by the field we’re interested in, which in this case is the <code>Subtotal</code>. Then we want to count the filtered rows.</p><img/><p>In the <strong>Filter</strong>step, we’ll click the purple <strong>Add filters to narrow your answer</strong>button, and we’ll select <code>Subtotal</code>as the column to filter on. In the dropdown menu, change “Equal to” to “Greater than”, enter 40 in the input field, then click <strong>Add filter</strong>.</p><h2>Previewing results</h2><p>With each step, you can click on the triangle on the right to preview the results so far.</p><img/><p>As expected, all of the subtotals are over $40 after the filter has been applied.</p><p>To close the preview, you can click on the <strong>X</strong>in the upper right of the preview.</p><h2>Summarizing data</h2><p>When we ask things like “how many,” “what’s the total,” “what’s the average,” etc., we’re talking about summarizing our data. That is, we’re talking about <a>metrics</a>. The metric in this case the number (or count) of orders after we’ve filtered for orders greater than $40. We’ll click the <strong>Pick the metric you want to see</strong>button in the <strong>Summarize</strong>step and select <strong>Count of rows</strong>.</p><p>When we click <strong>Visualize</strong>, Metabase will show us that there were 16,309 orders with a subtotal greater than $40.
+
+
+
+Documentation Source:
+www.metabase.com/learn/questions/custom-expressions.html
+
+Documentation Title:
+Custom expressions in the notebook editor
+
+Documentation Content:
+Let’s see an expression in action. Here is the <strong>Orders</strong>table from the <a>Sample database</a>included with Metabase.</p><img/><p>Let’s say we want to know the discount percentage applied to orders based on the pre-tax subtotal. For example, if we gave a $1 discount on a $10 order, we’d want to see a column show that we had discounted that order by 10%.</p><p>Unfortunately, a quick scan of the columns in the preview tells us that the database does not store that computation (i.e. there is no “discount percentage” column). We only have the subtotal of the order, and the discount total.</p><p>Thanks to math, however, we can use the discount total and order subtotal to compute the percentage. Here’s where expressions come into play: we can use an expression to compute the discount percentage for each row, and store that computed value in a new column.</p><p>Let’s walk through how to create a custom column.</p><p>When in the <strong>query builder</strong>, we select <strong>Custom column</strong>in the <strong>Data section</strong>.</p><p>To calculate the discount percentage, we’ll need we’ll need to divide the discount by the original total (the <code>Subtotal</code>) to get the discount percentage.</p><p>In expressions, we reference columns using brackets. For example, we can refer to the Discount column in the <strong>Orders</strong>table as <code>[Discount]</code>. If we need to reference a column from another table linked by a <a>foreign key</a>, we can use a <code>.</code>between the table and the column, as in <code>[Table.Column]</code>(alternatively you can select <code>[Table → Column]</code>from the dropdown menu that appears when you type an open bracket (<code>[</code>). For example, we could enter <code>[Products.Category]</code>which will resolve to: <code>[Products → Category]</code>.</p><p>For now, we’re just interested in columns in the Orders table, so there’s no need to reference another table.
+
+
+
+Documentation Source:
+www.metabase.com/learn/dashboards/build-a-record-lookup-tool.html
+
+Documentation Title:
+Build a record lookup tool with Metabase
+
+Documentation Content:
+Returning to the <strong>Query Builder</strong>, we’ll select <strong>Summarize</strong>, and select <code>Sum of</code>. Under the joined <code>Orders</code>table, we’ll select <code>Total</code>. And since we want to see the sum for each user, we’ll group by each user’s <code>ID</code>.</p><img/><p>A preview shows us an updated table with just two columns: <code>ID</code>and our new column, <code>Sum of Orders → Total($)</code>. We’ll also sum the discounts (<code>Sum of Orders → Discount($)</code>), just like we did with the order totals.</p><p>Next, we’ll add the columns we want to include in our table by adding them to the <strong>Group by</strong>box of the <strong>Summarize</strong>section. Here’s our full list of columns:</p><ul><code>ID</code><code>Email</code><code>Name</code><code>City</code><code>State</code><code>Zip</code><code>Created_at: Month</code><code>Sum of Orders → Total</code><code>Sum of Orders → Discount</code></ul><img/><p>With our notebook filled out, let’s click on the <strong>Visualize button</strong>, and Metabase will present us with our list.</p><img/><p>So far so good, but let’s see if we can spruce it up a bit.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/introduction.html
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+Said another way, there were 16,309 records in the <code>Orders</code>table that made it through our filter.</p><h2>Grouping our results</h2><p>That count is useful, but it would be even more useful if we knew <em>when</em>our customers placed these big orders—more specifically, if we knew how many greater-than-40 orders people placed each month.</p><p>We can return to the editor by hitting the back button, or by clicking on the <strong>Editor</strong>button in the upper right (the icon looks like a bulleted list). Alternatively, we can also click on the <strong>Filter</strong>and <strong>Summarize</strong>buttons to revise our question while staying on this page.</p><p>Since we want to group our results by month, we’ll click <strong>Summarize</strong>. If we open the <strong>Summarize sidebar</strong>, below where we picked our metric, there’s a list of all the columns that we can use to group our data together. The column we want to group by is <code>Created At</code>, because grouping by the orders’ creation date will give us separate counts of orders over $40 for each month, based on when each order was placed (or <code>Created_at</code>). We’ll select <code>Created At</code>, and Metabase immediately shows us a line chart of the orders over time. The default grouping for <code>Created_At</code>is by month, but if we wanted to group by date, week, year, or something else, we could do that by clicking <strong>by month</strong>next to <code>Created At</code>and selecting a different option from the dropdown.</p><img/><p>We can keep tweaking our question using the sidebar, or return to our notebook by clicking on the <strong>Editor</strong>button. Here’s our updated question with the new summarize step:</p><img/><h2>Changing the visualization</h2><p>Metabase can present the answers to questions in a variety of ways.
+
+
+

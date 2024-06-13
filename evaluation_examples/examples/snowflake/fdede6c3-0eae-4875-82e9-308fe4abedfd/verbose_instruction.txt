@@ -1,0 +1,11 @@
+To find the specific customers in the database, please follow these steps:
+1. Click the "+" button on the top right;
+2. Choose "SQL Worksheet" in the drop-down panel;
+3. Click the icon "⋮" on the worksheet tab on the top left;
+4. Choose "Rename" in the drop-down panel;
+5. Type "Top 10 customers from China with the most account balances" in the input box and press Enter;
+6. Click the database and schema selector (initially shown as "No Database selected");
+7. Choose "SNOWFLAKE_SAMPLE_DATA" in the drop-down panel;
+8. Choose "TPCH_SF1" in the expanded panel;
+9. In the blank worksheet, type in command:
+`SELECT C.* FROM CUSTOMER AS C JOIN NATION AS N ON C.C_NATIONKEY = N.N_NATIONKEY WHERE N.N_NAME = 'CHINA' ORDER BY C.C_ACCTBAL DESC LIMIT 10`

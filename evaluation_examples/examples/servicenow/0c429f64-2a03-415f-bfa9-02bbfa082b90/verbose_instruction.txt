@@ -1,0 +1,7 @@
+In the hardware store, we want to order 8 iPad mini:
+1. Click the "Hardware" panel and wait for page loading.
+2. Click the item panel for "iPad mini" (which should be the seond item) and wait for page response.
+3. In the directed new page, click the box in front of "Purple".
+4. As for storage, click the option starting with "256 GB".
+5. Come to the right panel, for Quantity, click the selection bar and choose "8".
+6. Click the button "Order Now" under it and we will see the order request has been made in the new page.

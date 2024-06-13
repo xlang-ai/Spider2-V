@@ -1,0 +1,16 @@
+To register a new public annotation table in PublicData and set the start_dttm colmn as default datetime, we can follow these steps:
+1. In the opened web page, click the add icon in the top right corner;
+2. Select "Data" menu;
+3. Click the "Create Dataset" in the extended menu;
+4. In the pop-up window "New Dataset", firstly click the "DATABASE" box;
+5. Click "PublicData" in extended menu;
+6. Then click "SCHEMA" box;
+7. Click "Public" in extended menu;
+8. Then click "TABLE" box;
+9. Click "annotation" in extended menu;
+10. Click the "CREATE DATASET AND CREATE CHART" button in the buttom of the window;
+11. Next click the "Datasets" menu in the top and you can see "annotation" table in the main panel;
+12. Then click "edit" action of the "annotation" table on the right;
+13. Click "colmn" in the top of the new pop-up window;
+14. Check the "Default datetime" on the "start_dttm" raw;	
+15. Then, click "Save" and return the main panel.

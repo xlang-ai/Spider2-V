@@ -15,7 +15,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_ingestion_and_integration"
+        "data_ingestion_and_integration",
+        "abstract"
     ],
     "action_number": 20,
     "config": [
@@ -79,7 +80,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
@@ -98,5 +98,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "d520508c-9b4a-4292-a9cd-0d65d6a2244e"
 }

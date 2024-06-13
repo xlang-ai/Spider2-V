@@ -1,0 +1,5 @@
+- local file: .json on desktop
+- target database: USERS
+- target schema: PUBLIC
+- table name: users_information
+- strip outer array: TRUE

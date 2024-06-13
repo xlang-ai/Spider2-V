@@ -1,0 +1,54 @@
+{
+    "id": "b0e9bfa2-3bb0-4f53-ac5b-63a3b3e7056b",
+    "snapshot": "bigquery",
+    "instruction": "The top ten countries with the largest number of patents, only the country code is shown. Save the answer in ~/Downloads/result.csv\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we will use Bigquery Web UI to write code to query `patents-public-data.patents` dataset and save the execution results into a local .csv file. Concretely,\n1. Click the triangle symbol to the left of `patents-public-data.patents` to open the datasets and see what tables the datasets have.\n2. Click `publications` to see the table schema.\n3. Click '+' button at the top of the main panel to **Create SQL query**. This will open a blank query panel.\n4. Write the following code into the blank\n```\nSELECT country_code\nFROM (\n  SELECT ANY_VALUE(country_code) AS country_code\n  FROM `patents-public-data.patents.publications` AS pubs\n  GROUP BY application_number\n)\nGROUP BY country_code\nORDER BY COUNT(*) DESC\nLIMIT 10\n```\n5. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n6. Wait for a moment (about 10 seconds). The query results will show below.\n7. Click the \"SAVE RESULTS\" button above the execution results (on the right side of the same row as panel \"Query results\");\n8. And in the drop-down menu, further click the option \"CSV (local file)\";\n9. Open the terminal and move to the `~/Downloads` folder\n10. Change the name of the csv file to result.csv\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1spatents-public-data!2spatents"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/b0e9bfa2-3bb0-4f53-ac5b-63a3b3e7056b/gold.csv",
+            "dest": "gold.csv"
+        }
+    },
+    "counterpart": "510c96ab-92fc-4a57-955f-d75b2e7d8c24"
+}

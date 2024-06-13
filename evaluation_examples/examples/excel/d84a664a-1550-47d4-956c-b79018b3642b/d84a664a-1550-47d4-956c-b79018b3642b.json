@@ -1,0 +1,86 @@
+{
+    "id": "d84a664a-1550-47d4-956c-b79018b3642b",
+    "snapshot": "excel",
+    "instruction": "Create a new sheet named \"Sheet2\" and merge cells A1:C1 to write the header \"Investment Summary\". Beneath that, merge cells A2:B2 to write \"High Interest Rate\" and merge cells C2:D2 to form \"Low Interest Rate\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To achive this goal, we need to do as below:\n\n1. Click `Add New Sheet` button at the bottom of the page.\n2. Click into the new sheet `Sheet2`.\n3. Select cells A1:C1.\n4. Click the button \"Merge cells\" from the tool panel on top of the page.\n5. Write in the header \\\"Investment Summary\\\". \n6. Select cells A2:B2. \n7. Click the button \"Merge cells\" from the tool panel on top of the page.\n8. Write in \\\"High Interest Rate\\\".\n9. Select cells C2:D2.\n10. Click the button \"Merge cells\" from the tool panel on top of the page.\n11. Write in \\\"Low Interest Rate\\\".\",\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@73"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/d84a664a-1550-47d4-956c-b79018b3642b/FutureValue.xlsx",
+                "dest": "/home/user/FutureValue.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/FutureValue.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 11,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "FutureValue.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/d84a664a-1550-47d4-956c-b79018b3642b/5_FutureValue_gt1.xlsx",
+            "dest": "5_FutureValue_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/FutureValue.xlsx",
+            "dest": "FutureValue.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "ENSheet2"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "1d17d234-e39d-4ed7-b46f-4417922a4e7c"
+}

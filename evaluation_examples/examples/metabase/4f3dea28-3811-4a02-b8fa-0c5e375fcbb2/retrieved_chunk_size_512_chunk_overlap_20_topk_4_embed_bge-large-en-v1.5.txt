@@ -1,0 +1,264 @@
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.txt
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+Getting Started
+Getting started with Metabase
+Sharing your work with others
+Exploring data with Metabase's data browser
+Next steps: advanced Metabase features for data analysts
+Beyond BI: other problems you can solve with Metabase
+A tour of Metabase
+Data fundamentals
+A guide to the data landscape
+A short overview of databases
+Data types and metadata
+Database table relationships
+Measures and dimensions
+Data normalization
+Types of databases
+Data warehouse vs data lake vs data mart
+Data cubes
+Asking questions
+Create interactive charts
+Custom expressions in the notebook editor
+Joins in Metabase
+Multi-level aggregation
+Searching your tables and questions
+Cleaning and formatting text
+Working with SQL
+Best practices for writing SQL queries
+Create filter widgets for charts using SQL variables
+Field Filters: create smart filter widgets for SQL questions
+Working with dates in SQL
+SQL snippets: reuse and share SQL code
+Simplify complex queries with Common Table Expressions (CTEs)
+SQL Snippets vs. Saved Questions vs. Views
+Combining tables with joins
+SQL join types
+SQL trick: ordering bars in a chart
+How to calculate customer lifetime value (LTV) with SQL
+Debugging SQL
+Debugging SQL syntax errors
+Debugging SQL query logic
+Debugging duplicated data in SQL query results
+Debugging missing data in SQL query results
+Visualizing data
+Which chart should you use?
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.txt
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.txt
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+Maps
+When you select the
+Map
+visualization, Metabase will automatically try and pick the best kind of map to use based on the table or result set.
+Formatting data in charts
+While we’re talking about formatting, we thought you should also know that you can access formatting options for the columns used in a chart. Just open the visualization settings and select the
+Data
+tab:
+Then click on the gear icon next to the column that you want to format. Dates, numbers, and currencies tend to have the most useful formatting options.
+Further reading
+Charts with multiple series
+Appearance
+BI dashboard best practices
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/learn/sql-questions/sql-tricks-ordering-charts.txt
+
+Documentation Title:
+SQL trick: ordering bars in a chart
+
+Documentation Content:
+Guide to line charts
+Master the bar chart visualization
+Visualize your data as a histogram
+Visualizing data with maps
+Almost everything you can do with the table visualization
+Creating pivot tables
+Funnel charts
+Building dashboards
+BI dashboard best practices
+Linking filters in dashboards
+Custom destinations: choose what happens when people click on charts in your dashboard
+Cross-filtering: using a chart to update a dashboard filter
+Adding filters to dashboards with SQL questions
+Build a record lookup tool with Metabase
+Why you should regularly edit your dashboards
+Fun with Markdown in your dashboards
+Time series analysis
+Getting insights from time series data
+Comparing time periods
+Visualizing time series comparisons
+Measuring rates of change
+Data modeling
+Models in Metabase
+Analytics engineering for fact tables
+Actions
+Build a basic CRUD app with actions
+Analytics with Metabase
+Which data warehouse should you use?
+
+
+

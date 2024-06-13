@@ -1,0 +1,22 @@
+I want to calculate the revenue of transactions in LibreOffice Calc and create a pivot table and a bar chart to analyze the data. To do this:
+1. Go to cell G1. Input "Revenue" in the cell.
+2. Select cell G2. Enter the formula "=E2*VLOOKUP(C2,$'Retail Price'.$A$2:$B$23,2,0)*(1-F2)".
+3. Move the mouse to the bottom-right of cell G2 (your mouse should look like a cross). Hold and drag the mouse to cell G36.
+4. Select columns A to G. Areas of these columns should be highlighted.
+5. Click "Insert" on the top menu bar. Select "Pivot Table..." in the dropdown menu.
+6. Make sure the selection is "Current selection" and the entire sheet containing data is selected. Then click "OK" on the button-right of the pop-up window.
+7. Drag "Web Site" from the available fields on the right to "Row Fields:" on the bottom-left of the pop-up window.
+8. Drag "Web Site" from the available fields to "Data Fields:" in the middle.
+9. Double-click "Sum - Web Site" in the data fields.
+10. In the "Data Field" pop-up window, select "Count" from the list.
+11. Click "OK" on the bottom-right.
+12.. Click "OK" on the bottom-right of the "Pivot Table Layout" window. A new sheet containing the pivot table will appear.
+13. Right click on the sheet name "Pivot Table_Sheet1_1". Choose "Rename Sheet..." from the menu.
+14. In the "Rename Sheet" window, enter name "Sheet2". Click "OK" on the bottom-right.
+15. Click "Insert" on the top menu bar. Select "Chart..." in the dropdown menu.
+16. Click "Bar" under "Choose a Chart Type".
+17. Click "Next >" on the bottom of the pop-up window.
+18. Input "Sales frequency by website" in the textbox.
+19. Uncheck "Display legend" on the right via click this row.
+20. Click "Finish" on the bottom-right of the pop-up window.
+21. Save the file via hot key "Ctrl+S".

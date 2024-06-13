@@ -1,0 +1,69 @@
+{
+    "id": "54d9869c-3926-4cfb-ba93-4134a5778701",
+    "snapshot": "jupyter",
+    "instruction": "Help me build a linear SVM model and use it to classify over the famous cancer dataset. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to build a SVM model using scikit-learn and print the accuracy score. Follow the steps:\n1. Add the following code below the ``#TODO 1`` comment.\n```python\nfrom sklearn import svm\n```\n2. Add the following code below the ``#TODO 2`` comment.\n```python\nclf = svm.SVC(kernel='linear')\n```\n3. Add the following code below the ``#TODO 3`` comment.\n```python\nclf.fit(X_train, y_train)\n```\n4. Add the following code below the ``#TODO 4`` comment.\n```python\ny_pred = clf.predict(X_test)\n```\n5. Add the following code below the ``#TODO 5`` comment.\n```python\nprint(metrics.accuracy_score(y_test, y_pred))\n```\n6. Click the button \"Run\" in the menu bar on the top.\n7. In the drop-down menu, select and click \"Run All Cells\".\n8. Wait until all cells completes running, then click the button \"File\" in the menu bar on the top.\n9. In the drop-down menu, select and click \"Save All\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.datacamp.com/tutorial/svm-classification-scikit-learn-python"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/54d9869c-3926-4cfb-ba93-4134a5778701/SVM.ipynb",
+                "dest": "/home/user/Desktop/SVM.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/54d9869c-3926-4cfb-ba93-4134a5778701/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/SVM.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/SVM.ipynb",
+            "dest": "SVM.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/54d9869c-3926-4cfb-ba93-4134a5778701/SVM_gold.ipynb",
+            "dest": "SVM_gold.ipynb"
+        }
+    },
+    "counterpart": "999e8736-5291-4acd-bff5-f02d3c5f38d5"
+}

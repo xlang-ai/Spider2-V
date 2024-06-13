@@ -1,0 +1,40 @@
+In this task, we will use VSCode to write code to query a public dataset `austin_bikeshare` and save the execution results into a local .csv file. Concretely,
+1. Click "query.py" in VS Code to see the project code. we can see the code is partially finished, and we need to know the detailed information of austin_bikeshare.
+2. Change to Google Chrome or Chromium, we can see one entry of `austin_bikeshare` database in the Explorer panel on the left side.
+3. Click the toggle node (a triangular icon) on the left of `austin_bikeshare` in the Explorer panel to expand the tables in this public database.
+4. Click row "bikeshare_stations" among the expanded entries, we can see the table schema on the right panel. Among these columns, we are interested in `name`, `footprint_length` and `footprint_width`. Note that, `footprint_length` multiplied by `footprint_width` can be used to calculate the total area.
+5. Click "PREVIEW" tab on the right panel, we can see sample data from `bikeshare_stations`.
+6. Change to application VSCode.
+7. Write the following code into file "query.py"
+```
+import os
+import pandas as pd
+from google.cloud import bigquery
+
+def query_data():
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credential.json"
+    client = bigquery.Client()
+    
+    query = """
+        SELECT name, (footprint_length * footprint_width) AS area
+        FROM `bigquery-public-data.austin_bikeshare.bikeshare_stations`
+        ORDER BY area DESC
+        LIMIT 10;
+    """
+
+    query_job = client.query(query)
+    try:
+      results = query_job.result().to_dataframe() 
+      if results.empty:
+        print("No data found for the specified query.")
+      else:
+        results.to_csv("result.csv", index=False)
+        print("Results saved to result.csv")
+    except Exception as e:
+      print("Error occurred while fetching data: ", e)
+
+if __name__ == "__main__":
+    query_data()
+```
+8. Switch to the opened terminal.
+9. Type in "python query.py" to run the code. Results will be saved to file 'result.csv' in folder `project1`.

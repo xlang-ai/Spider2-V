@@ -12,7 +12,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 4,
     "config": [
@@ -43,7 +44,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": [
@@ -81,5 +81,6 @@
                 }
             }
         ]
-    }
+    },
+    "counterpart": "4538d034-7d97-47d3-9979-4802976fcd5b"
 }

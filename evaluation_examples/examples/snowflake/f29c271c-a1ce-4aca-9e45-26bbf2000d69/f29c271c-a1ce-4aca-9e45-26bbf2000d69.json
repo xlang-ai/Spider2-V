@@ -1,0 +1,83 @@
+{
+    "id": "f29c271c-a1ce-4aca-9e45-26bbf2000d69",
+    "snapshot": "snowflake",
+    "instruction": "Help me create a new table and load data from local file into it. The detailed requirements are in .txt file on desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This job is to create a new table on Snowflake and load local data into it. In the opened Snowsight web page,\n1. Click \"Data >> Databases\" on the left menu panel.\n2. In the middle menu panel, select database called USERS, then select schema PUBLIC on the drop-down menu.\n3. Click \"Create\" button on the right;\n4. In the drop-down menu, select Table » From File.\n5. In the Load Data into Table dialog, select Browse to add a file, and select users_information.json in the folder.\n6. Scroll down to the input field with name \"Name\", type in the table name \"users_information\".\n7. Click \"Next\" button.\n8. On the left of the window, if there is not several options you can choose, click \"View options\" button.\n9. Set \"Strip outer array\" to be TRUE. Note this step is important. If this value is not set to TRUE, the data cannot be loaded.\n10. Click \"Load\" button.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/data-load-web-ui"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "schema": "PUBLIC",
+                        "database": "USERS",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/f29c271c-a1ce-4aca-9e45-26bbf2000d69/users_information.json",
+                "dest": "/home/user/Desktop/users_information.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/f29c271c-a1ce-4aca-9e45-26bbf2000d69/requirements.txt",
+                "dest": "/home/user/Desktop/requirements.txt"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "USERS",
+            "schema": "PUBLIC",
+            "table": "users_information",
+            "include_header": true,
+            "dest": "users_information.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/f29c271c-a1ce-4aca-9e45-26bbf2000d69/users_information_gold.csv",
+            "dest": "users_information_gold.csv"
+        }
+    },
+    "counterpart": "4aa4cebb-d9d6-429f-b9da-547887ac5ce1"
+}

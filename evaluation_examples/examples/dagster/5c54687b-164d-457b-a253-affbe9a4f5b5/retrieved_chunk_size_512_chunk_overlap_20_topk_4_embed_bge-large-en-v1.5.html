@@ -1,0 +1,58 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/partitioning-assets.html
+
+Documentation Title:
+Partitioning assets | Dagster
+
+Documentation Content:
+Materializing partition <code>2023-11-13</code>of this asset would result in fetching data from the URL <code>https://api.nasa.gov/planetary/apod?date=2023-11-13</code>and storing it at the path <code>nasa/2023-11-13.csv</code>. Note that <code>api_key=DEMO_KEY</code>is used but has a limited number of calls:</p><code><span>import</span>os
+<span>import</span>urllib<span>.</span>request
+
+<span># Create a new 'nasa' directory if needed</span>dir_name <span>=</span><span>"nasa"</span><span>if</span><span>not</span>os<span>.</span>path<span>.</span>exists<span>(</span>dir_name<span>)</span><span>:</span>os<span>.</span>makedirs<span>(</span>dir_name<span>)</span><span>from</span>dagster <span>import</span>AssetExecutionContext<span>,</span>DailyPartitionsDefinition<span>,</span>asset
+
+
+<span>@asset</span><span>(</span>partitions_def<span>=</span>DailyPartitionsDefinition<span>(</span>start_date<span>=</span><span>"2023-10-01"</span><span>)</span><span>)</span><span>def</span><span>my_daily_partitioned_asset</span><span>(</span>context<span>:</span>AssetExecutionContext<span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span>partition_date_str <span>=</span>context<span>.</span>partition_key
+
+    url <span>=</span><span><span>f"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&amp;date=</span><span><span>{</span>partition_date_str<span>}</span></span><span>"</span></span>target_location <span>=</span><span><span>f"nasa/</span><span><span>{</span>partition_date_str<span>}</span></span><span>.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/partitioning-assets.html
+
+Documentation Title:
+Partitioning assets | Dagster
+
+Documentation Content:
+<span>@asset</span><span>(</span>partitions_def<span>=</span>DailyPartitionsDefinition<span>(</span>start_date<span>=</span><span>"2022-01-01"</span><span>)</span><span>)</span><span>def</span><span>my_daily_partitioned_asset</span><span>(</span>context<span>:</span>AssetExecutionContext<span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span>partition_date_str <span>=</span>context<span>.</span>partition_key
+    <span>return</span>pd<span>.</span>read_csv<span>(</span><span><span>f"coolweatherwebsite.com/weather_obs&amp;date=</span><span><span>{</span>partition_date_str<span>}</span></span><span>"</span></span><span>)</span></code><p>If using the default I/O manager, materializing partition <code>2022-07-23</code>of this asset would store the output <code>DataFrame</code>in a pickle file at a path like <code>my_daily_partitioned_asset/2022-07-23</code>.</p><h2>Relevant APIs<span>#</span></h2><table><tr><th>Name</th><th>Description</th></tr><tbody><tr><code>PartitionsDefinition</code><td>Superclass - defines the set of partitions that can be materialized for an asset.</td></tr><tr><code>HourlyPartitionsDefinition</code><td>A partitions definition with a partition for each hour.</td></tr><tr><code>DailyPartitionsDefinition</code><td>A partitions definition with a partition for each day.</td></tr><tr><code>WeeklyPartitionsDefinition</code><td>A partitions definition with a partition for each week.</td></tr><tr><code>MonthlyPartitionsDefinition</code><td>A partitions definition with a partition for each month.</td></tr><tr><code>StaticPartitionsDefinition</code><td>A partitions definition with a fixed set of partitions.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/libraries/dagster-airbyte.html
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+</p><p><strong>api_key</strong>(<em>str</em>) – Chartmogul API key</p><p><strong>start_date</strong>(<em>str</em>) – UTC date and time in the format 2017-01-25T00:00:00Z. When feasible, any data before this date will not be replicated.</p><p><strong>interval</strong>(<em>str</em>) – Some APIs such as Metrics require intervals to cluster data.</p></ul></dl></dd></dl></dl><dl><dt><span>class</span><span>dagster_airbyte.managed.generated.sources.</span><span>OrbSource</span><span>(</span><span>name</span>, <span>api_key</span>, <em><span>start_date</span><span>=</span><span>None</span></em>, <em><span>lookback_window_days</span><span>=</span><span>None</span></em>, <em><span>string_event_properties_keys</span><span>=</span><span>None</span></em>, <em><span>numeric_event_properties_keys</span><span>=</span><span>None</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dl><dt><span>__init__</span><span>(</span><span>name</span>, <span>api_key</span>, <em><span>start_date</span><span>=</span><span>None</span></em>, <em><span>lookback_window_days</span><span>=</span><span>None</span></em>, <em><span>string_event_properties_keys</span><span>=</span><span>None</span></em>, <em><span>numeric_event_properties_keys</span><span>=</span><span>None</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dd><p>Airbyte Source for Orb.</p><p>Documentation can be found at <a>https://docs.withorb.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/partitions.html
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+2022-03-19-03:15), (2022-03-19-03:15, 2022-03-26-03:15), .</span></pre></dd></dl><dl><dt><span>class</span><span>dagster.</span><span>MonthlyPartitionsDefinition</span><span>(</span><span>start_date</span>, <em><span>end_date</span><span>=</span><span>None</span></em>, <em><span>minute_offset</span><span>=</span><span>0</span></em>, <em><span>hour_offset</span><span>=</span><span>0</span></em>, <em><span>day_offset</span><span>=</span><span>1</span></em>, <em><span>timezone</span><span>=</span><span>None</span></em>, <em><span>fmt</span><span>=</span><span>None</span></em>, <em><span>end_offset</span><span>=</span><span>0</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dd><p>A set of monthly partitions.</p><p>The first partition in the set will start at the soonest first of the month after start_date
+at midnight. The last partition in the set will end before the current time, unless the
+end_offset argument is set to a positive number. If day_offset is provided, the start and
+end date of each partition will be day_offset. If minute_offset and/or hour_offset are used,
+the start and end times of each partition will be hour_offset:minute_offset of each day.</p><dl><dt>Parameters<span>:</span></dt><ul><p><strong>start_date</strong>(<em>Union</em><em>[</em><em>datetime.datetime</em><em>, </em><em>str</em><em>]</em>) – The first date in the set of partitions will be
+midnight the sonnest first of the month following start_date.
+
+
+

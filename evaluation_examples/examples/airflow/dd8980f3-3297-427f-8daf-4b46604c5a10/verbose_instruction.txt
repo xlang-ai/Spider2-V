@@ -1,0 +1,50 @@
+To integrate the existing dbt project into Airflow. Let's follow these steps:
+1. Click the Visual Studio Code icon on the left application panel.
+2. Click and open the code file with path `dags/jaffle_shop_dag.py`.
+3. In the opened file, type and append the following code into jaffle_shop_dag.py on the right panel:
+```
+... original codes and envs ...
+
+from airflow.decorators import dag
+from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig, ExecutionConfig
+from cosmos.profiles import PostgresUserPasswordProfileMapping
+from pendulum import datetime
+
+profile_config = ProfileConfig(
+    profile_name="default",
+    target_name=TARGET_NAME,
+    profile_mapping=PostgresUserPasswordProfileMapping(
+        conn_id=CONNECTION_ID,
+        profile_args={"schema": SCHEMA_NAME},
+    ),
+)
+
+execution_config = ExecutionConfig(
+    dbt_executable_path=DBT_EXECUTABLE_PATH,
+)
+
+@dag(
+    start_date=datetime(2024, 1, 1),
+    schedule='0 10 * * *',
+    catchup=False
+)
+def jaffle_shop_dag():
+    transform_data = DbtTaskGroup(
+        group_id="transform_data",
+        project_config=ProjectConfig(DBT_PROJECT_PATH),
+        profile_config=profile_config,
+        execution_config=execution_config,
+        default_args={"retries": 2},
+    )
+
+    transform_data
+
+jaffle_shop_dag()
+```
+These code will create an DbtTaskGroup dag called jaffle_shop_dag.
+4. Press Ctrl+S to save the code file.
+5. Now, we switch to the Astro Web UI page in Chromium/Google Chrome browser.
+6. The target DAG may not appear instantly, we need to refresh the DAGs. Click the refresh button on top of the main table (on the right side of the text `Auto-refresh`) in this Astro UI page.
+7. If the target DAG is still not visible on this page, press hot key "Ctrl+R" to refresh the whole web page.
+8. Wait for the reload and we can see a new entry `jaffle_shop_dag` in the main table.
+9. Next, click the button in front of `jaffle_shop_dag` to enable the DAG. The DAG will start to work.

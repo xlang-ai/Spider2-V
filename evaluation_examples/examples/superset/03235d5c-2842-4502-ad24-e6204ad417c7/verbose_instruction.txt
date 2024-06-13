@@ -1,0 +1,15 @@
+To build a connection to an existing Postgres database on Superset, we can follow the setps:
+1. According to the opened .yaml file, we can extract the basic information about the postgres database. Now, switch to the opened web page.
+2. Click the "Settings" button on the top right of the web page;
+3. Select "Database connections" menu;
+4. In the new page, click the button "+ DATABASE" at the top right corner;
+5. In the pop-up window "Connect a database", firstly choose the category "PostgreSQL";
+6. Next, type in values from config.yaml into the corresponding fields in the form:
+HOST: db
+PORT: 5432
+DATABASE NAME: superset
+USERNAME: superset
+PASSWORD: superset
+DISPLAY NAME: MyPostgresConn
+7. After filling these fields, click the button "CONNECT";
+8. Then, click "FINISH", and we will see a new line with name "MyPostgresConn" in the main panel.

@@ -1,0 +1,52 @@
+{
+    "source Postgres": {
+        "host": "localhost",
+        "port": 2000,
+        "schemas": ["public"],
+        "database": "postgres",
+        "password": "password",
+        "ssl_mode":{
+            "mode": "disable"
+        },
+        "username": "postgres",
+        "tunnel_method":{
+            "tunnel_method": "NO_TUNNEL"
+        },
+        "jdbc_url_params": "",
+        "replication_method":{
+            "method": "Standard"
+        }
+    },
+    "destination Postgres": {
+        "ssl": false,
+        "host": "localhost",
+        "port": 3000,
+        "schema": "public",
+        "database": "postgres",
+        "password": "password",
+        "ssl_mode":{
+            "mode": "disable"
+        },
+        "username": "postgres",
+        "tunnel_method":{
+            "tunnel_method": "NO_TUNNEL"
+        },
+        "jdbc_url_params": "",
+        "raw_data_schema": "",
+        "disable_type_dedupe": false
+    },
+    "connection": {
+        "skip_reset": false,
+        "namespace_definition": "source",
+        "namespace_format": "${SOURCE_NAMESPACE}",
+        "prefix": "",
+        "schedule_type": "manual",
+        "streams":{
+            "config":{
+                "destination_sync_mode": "overwrite",
+                "sync_mode": "full_refresh"
+            }
+        }
+
+    }
+}

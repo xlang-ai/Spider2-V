@@ -1,0 +1,69 @@
+{
+    "id": "1f16fbd5-cdf3-4cb2-b02b-9c31f11cc77d",
+    "snapshot": "jupyter",
+    "instruction": "Help me create a new jupyter notebook named tensor.ipynb on the current website and copy the code in the code.py file on the desktop to this notebook. Note that all code should be in one cell and you don't need to run it.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to create jupyter notebook from its website. To finish the task, follow steps below:\n1. In the middle of the Launcher page, click \"Python 3 (ipykernel)\".\n2. On the left side panel, double click code.py.\n3. Copy the code in code.py and return to the previous ipynb file.\n4. Paste the code to the first cell.\n5. Enter \"Ctrl-S\".\n6. In the pop-up window, type in \"tensor\" to the \"Rename file\" field.\n7. Click button \"Rename\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#creating-files-and-activities"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/1f16fbd5-cdf3-4cb2-b02b-9c31f11cc77d/code.py",
+                "dest": "/home/user/Desktop/code.py"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/8259543a-9c3f-4cb4-8b9c-2f44f876869c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_cells",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/tensor.ipynb",
+            "dest": "tensor.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/1f16fbd5-cdf3-4cb2-b02b-9c31f11cc77d/tensor_gold.ipynb",
+            "dest": "tensor_gold.ipynb"
+        }
+    },
+    "counterpart": "a2a9b12c-c428-4673-a9c2-38c24d1c7eef"
+}

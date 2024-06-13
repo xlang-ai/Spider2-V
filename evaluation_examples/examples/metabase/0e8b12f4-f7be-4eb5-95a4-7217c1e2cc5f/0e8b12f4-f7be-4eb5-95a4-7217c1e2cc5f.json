@@ -1,0 +1,79 @@
+{
+    "id": "0e8b12f4-f7be-4eb5-95a4-7217c1e2cc5f",
+    "snapshot": "metabase",
+    "instruction": "Can you help me ask a question in Metabase to achieve the effect of the SQL query in the opened \"question.sql\" file? You don't need to save it.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To ask the question, please follow these steps:\n1. Click the \"New\" button on the top right;\n2. Choose \"Question\" in the drop-down panel;\n3. Choose \"Orders\" in the \"Sample Database\" drop-down panel;\n4. Click \"Pick the metric you want to see\";\n5. Choose \"Average of ...\" in the panel;\n6. Choose \"Total\" in the panel;\n7. Click \"Pick a column to group by\";\n8. Choose \"User ID\" in the panel;\n9. Click \"Sort\";\n10. Choose \"Average of Total\" in the panel;\n11. Click the \"+\" icon on the right of \"Average of Total\";\n12. Choose \"User ID\" in the panel;\n13. Click \"Row limit\";\n14. Input \"10\" in the input box.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/questions/query-builder/introduction"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 14,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/0e8b12f4-f7be-4eb5-95a4-7217c1e2cc5f/question.sql",
+                "dest": "/home/user/question.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/0e8b12f4-f7be-4eb5-95a4-7217c1e2cc5f/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/question.sql"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "exact_match",
+        "result": {
+            "type": "metabase_question_sql"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": "select \"public\".\"orders\".\"user_id\" as \"user_id\", avg(\"public\".\"orders\".\"total\") as \"avg\" from \"public\".\"orders\" group by \"public\".\"orders\".\"user_id\" order by \"avg\" asc, \"public\".\"orders\".\"user_id\" asc limit 10"
+            }
+        }
+    },
+    "counterpart": "0d5695b7-197a-4ab7-9a4b-09bee057f027"
+}

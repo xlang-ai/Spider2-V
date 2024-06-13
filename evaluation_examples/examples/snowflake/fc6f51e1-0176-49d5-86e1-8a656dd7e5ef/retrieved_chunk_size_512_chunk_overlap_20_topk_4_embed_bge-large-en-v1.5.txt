@@ -1,0 +1,290 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.txt
+
+Documentation Title:
+Monitor query activity with Query History | Snowflake Documentation
+
+Documentation Content:
+Note
+You might see incomplete or no results when you use the
+Query History
+page. This is because the page spends a maximum of 15 seconds
+retrieving results and returns whatever query information is available at that time. To retrieve results reliably, use filters to reduce
+the time it takes to retrieve results to under 15 seconds.
+Privileges required to view Query History
+¶
+You can always view history for queries that you have run.
+To view history for other queries, your active role affects what else you can see in
+Query History
+:
+If your active role is the ACCOUNTADMIN role, you can view all query history for the account.
+If your active role has the MONITOR or OPERATE privilege granted on a warehouse, you can view queries run by other users that
+use that warehouse.
+If your active role is granted the GOVERNANCE_VIEWER database role for the SNOWFLAKE database, you can view the query history for all
+users in your account. See
+SNOWFLAKE database roles
+.
+If your active role is granted the READER_USAGE_VIEWER database role for the SNOWFLAKE database, you can view the query history for all
+users in reader accounts associated with your account. See
+SNOWFLAKE database roles
+.
+Considerations for using Query History
+¶
+When reviewing the
+Query History
+for your account, consider the following:
+Details for queries executed more than 7 days ago do not include
+User
+information due to the data retention policy for
+sessions
+. You can use the user filter to retrieve queries run by individual users.
+See
+Filter Query History
+.
+For queries that failed due to syntax or parsing errors, you see
+<redacted>
+instead of the SQL statement that was executed.
+If you are granted a role with appropriate privileges, you can set the
+ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR
+parameter to view
+the full query text.
+Filters and the
+Started
+and
+End Time
+columns use your current time zone. You can’t change this setting.
+Setting the
+TIMEZONE
+parameter for the session doesn’t change the time zone used.
+Filter Query History
+¶
+Note
+You might see incomplete or no results when you use the Query History page. Use filters to help ensure reliable results.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.txt
+
+Documentation Title:
+Monitor query activity with Query History | Snowflake Documentation
+
+Documentation Content:
+Monitor query activity with Query History | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Overview
+Connecting to Snowflake
+Virtual warehouses
+Databases, Tables, & Views
+Data Types
+Data Loading
+Data Unloading
+Queries
+Joins
+Subqueries
+Querying Hierarchical Data
+Common Table Expressions (CTE)
+Querying Semi-structured Data
+Analyzing time-series data
+Window Functions
+Match Recognize
+Sequences
+Persisted Query Results
+Distinct Counts
+Similarity Estimation
+Frequency Estimation
+Estimating Percentile Values
+Monitor query activity with Query History
+Query Profile
+Query Hash
+Cancel Statements
+Data Sharing & Collaboration
+Snowflake AI Features
+Snowflake Cortex
+Alerts & Notifications
+Security
+Data Governance
+Privacy
+Organizations & Accounts
+Business Continuity & Data Recovery
+Performance Optimization
+Cost & Billing
+Guides
+Queries
+Monitor query activity with Query History
+Monitor query activity with Query History
+¶
+To monitor query activity in your account, you can use:
+The
+Query History
+page in Snowsight.
+The
+QUERY_HISTORY View
+in the ACCOUNT_USAGE schema of the SNOWFLAKE database.
+The
+QUERY_HISTORY
+family of table functions in
+INFORMATION_SCHEMA
+.
+With the
+Query History
+page in Snowsight, you can do the following:
+Monitor queries executed by users in your account.
+View details about queries, including performance data. In some cases,
+query details are unavailable
+.
+Explore each step of an executed query in the query profile.
+The Query History page lets you explore queries executed in your Snowflake account over the last 14 days.
+Within a worksheet, you can see the query history for queries that have been run in that worksheet.
+See
+View query history
+.
+Review Query History by using Snowsight
+¶
+To access the
+Query History
+page in Snowsight, do the following:
+Sign in to Snowsight.
+Select
+Monitoring
+»
+Query History
+.
+Filter your view
+to see the most relevant and accurate results.
+Note
+You might see incomplete or no results when you use the
+Query History
+page.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.txt
+
+Documentation Title:
+Monitor query activity with Query History | Snowflake Documentation
+
+Documentation Content:
+Use filters to help ensure reliable results.
+You can filter by the following:
+Status of the query, for example to identify long-running queries, failed queries, and queued queries.
+User who performed the query, including:
+All
+, to see all users for which you have access to view query history.
+The user you are signed in as (default)
+Individual Snowflake users in your account, if your role can view query history for other users.
+Time period during which the query was run, up to 14 days.
+Other filters, including the following:
+SQL Text
+, for example, to view queries that use specific statements, such as GROUP BY.
+Query ID
+, to view details for a specific query.
+Warehouse
+,  to view queries that were run using a specific warehouse.
+Statement Type
+, to view queries that used a specific type of statement, such as DELETE, UPDATE, INSERT, or SELECT.
+Duration
+, for example, to identify especially long-running queries.
+Session ID
+, to view queries run during a specific Snowflake session.
+Query Tag
+, to view queries with a specific query tag set through the
+QUERY_TAG
+session parameter.
+Client generated statements
+, to view internal queries run by a client, driver, or library, including the web interface.
+For example, whenever a user navigates to the
+Warehouses
+page in Snowsight, Snowflake executes a SHOW WAREHOUSES
+statement in the background. That statement would be visible when this filter is enabled. Your account is not billed for
+client-generated statements.
+Queries executed by user tasks
+, to view SQL statements executed or stored procedures called by user tasks.
+Show replication refresh history
+, to view queries used to perform
+replication
+refresh tasks to remote regions and accounts.
+If you want to see near-real-time results, enable
+Auto Refresh
+. When
+Auto Refresh
+is enabled, the table refreshes every ten seconds.
+You can see the following columns in the
+Queries
+table by default:
+SQL Text
+, the text of the executed statement (always shown).
+Query ID
+, the ID of the query (always shown).
+Status
+, the status of the executed statement (always shown).
+User
+, to see the username that executed a statement.
+Warehouse
+, to see the warehouse used to execute a statement.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.txt
+
+Documentation Title:
+Monitor query activity with Query History | Snowflake Documentation
+
+Documentation Content:
+When the query started, in the user’s local timezone.
+When the query ended, in the user’s local timezone.
+The size of the warehouse used to run the query.
+The duration of the query.
+The query ID.
+The query tag for the query, if one exists.
+The driver status. For more details, see
+Viewing Snowflake Client Versions
+.
+The name and version of the client, driver, or library used to submit the query.
+For example,
+Go
+1.1.5
+for queries run using Snowsight.
+The session ID.
+You can see the warehouse used to run the query and the user who ran the query listed above the
+Query Details
+tab.
+Review the
+SQL Text
+section for the actual text of the query. You can hover over the SQL text to open the statement in a worksheet
+or copy the statement. If the query failed, you can review the error details.
+The
+Results
+section displays the results of the query. You can only view the first 10,000 rows of results, and
+only the user who ran the query can view the results. Select
+Export Results
+to export the full set of results as a CSV-formatted file.
+Troubleshoot why query details might be unavailable
+¶
+If a query doesn’t have query details, some possible causes include the following:
+The query is still running. When the query finishes running, you can view the query details and profile.
+Your role does not have privileges to view the query details.
+The query was run more than 14 days ago and query details and profile are no longer available.
+The query failed to run and therefore has no query profile.
+Review Query Profile
+¶
+The
+Query Profile
+tab lets you explore the query execution plan and understand granular details about each step of execution.
+The query profile is a powerful tool for understanding the mechanics of queries. It can be used whenever you need to know more about the
+performance or behavior of a particular query. It is designed to help you spot typical mistakes in SQL query expressions to identify
+potential performance bottlenecks and improvement opportunities.
+This section provides a brief overview of how to navigate and use the query profile.
+
+
+

@@ -1,0 +1,79 @@
+{
+    "id": "ed065f30-6a77-446e-874f-c1175a4d17bc",
+    "snapshot": "superset",
+    "instruction": "My boss want me to draw a chart for table flights with resampling so that we have weekly median trend of sum of cost data rather than having daily sum of cost data. Please create this chart and name it 'resampling'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To draw a chart for table flights with resampling so that we have weekly median trend of sum of cost data rather than having daily sum of cost data. Please create this chart and name it \"resampling\", we can follow these steps:\n1. In the opened web page, select \"Charts\" in the top menu;\n2. Click '+CHART' in the top right corner;\n3. In the pop-up window, click \"Choose a dataset\" box;\n4. Select \"flights\";\n5. In right box, click \"Line Chart\";\n6. Click \"CREATE NEW CHART\" in the bottom;\n7. In the new window, drag the \"Travel Date\" title from left list to the \"X-AXIS\" box ;\n8. Drag the \"Cost\" title from left list to the \"METRICS\" box ;\n9. Click AGGREGATE box;\n10. Select \"SUM\";\n11. Click \"SAVE\";\n12. Scoll down until \"Advanced analytics\" appears;\n13. Click \"Advanced analytics\"\n14. Click \"RULE\" box;\n15. Select \"7 calendar day frequency\";\n16. Click \"FILL METHOD\" box;\n17. Select \"Median value\";\n18. Click \"CREATE CHART\" in the bottom;\n19. Click \"SAVE\" in the top right corner;\n20. Type \"resampling\" in \"CHART NAME\" box;\n21. Click \"SAVE\", and you can see table \"resampling\" in the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#resampling-the-data"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 21,
+    "counterpart": "887abb68-b354-4759-aff8-04e1ca82bcbc",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/ed065f30-6a77-446e-874f-c1175a4d17bc/database_export_20240515T105454.zip",
+                "dest": "/home/user/database_export_20240515T105454.zip"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/all_databases.sql",
+                "dest": "/home/user/all_databases.sql"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/ed065f30-6a77-446e-874f-c1175a4d17bc/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/ed065f30-6a77-446e-874f-c1175a4d17bc/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,284 @@
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.txt
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+get
+(
+"https://www.boredapi.com/api/activity"
+)
+return
+response
+.
+json
+(
+)
+[
+"activity"
+]
+tell_me_what_to_do
+(
+)
+tell_me_what_to_do
+=
+PythonOperator
+(
+task_id
+=
+"tell_me_what_to_do"
+,
+python_callable
+=
+query_api
+,
+doc_md
+=
+doc_md_task
+,
+doc
+=
+doc_monospace_task
+,
+doc_json
+=
+doc_json_task
+,
+doc_yaml
+=
+doc_yaml_task
+,
+doc_rst
+=
+doc_rst_task
+)
+Go to the Airflow UI and run your DAG.
+In the
+Grid
+view, click on the green square for your task instance.
+Click on
+Task Instance Details
+.
+See the docs under their respective attribute:
+Step 5: Add notes to a task instance and DAG run
+​
+You can add notes to task instances and DAG runs from the
+Grid
+view in the Airflow UI. This feature is useful if you need to share contextual information about a DAG or task run with your team, such as why a specific run failed.
+Go to the
+Grid View
+of the
+docs_example_dag
+DAG you created in
+Step 2
+.
+Select a task instance or DAG run.
+Click
+Details
+>
+Task Instance Notes
+or
+DAG Run notes
+>
+Add Note
+.
+Write a note and click
+Save Note
+.
+Conclusion
+​
+Congratulations! You now know how to add fancy documentation to both your DAGs and your Airflow tasks.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-ui.txt
+
+Documentation Title:
+An introduction to the Airflow UI | Astronomer Documentation
+
+Documentation Content:
+Make sure you upgrade your Airflow environment frequently to ensure you are taking advantage of Airflow UI updates as they are released.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Task dependencies
+Next
+Variables
+Assumed knowledge
+DAGs
+Individual DAG view
+Details
+Graph
+Code
+Audit Logs
+Run Duration
+Logs
+Cluster activity tab
+Datasets tab
+Security tab
+Browse tab
+Admin tab
+Docs
+Conclusion
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.txt
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+Edit this page
+Previous
+Use the Astro Python SDK
+Next
+Integrations & connections
+Time to complete
+Assumed knowledge
+Prerequisites
+Step 1: Create an Astro project
+Step 2: Create a new DAG
+Step 3: Add docs to your DAG
+Step 4: Add docs to a task
+Step 5: Add notes to a task instance and DAG run
+Conclusion
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.txt
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+This can be useful if you want to add the same documentation to several of your DAGs.
+Step 4: Add docs to a task
+​
+You can also add docs to specific Airflow tasks using Markdown, Monospace, JSON, YAML or reStructuredText. Note that only Markdown will be rendered and other formats will be displayed as rich content.
+To add documentation to your task, follow these steps:
+Add the following code with a string in Markdown format:
+doc_md_task
+=
+"""
+### Purpose of this task
+This task **boldly** suggests a daily activity.
+"""
+Add the following code with a string written in monospace format:
+doc_monospace_task
+=
+"""
+If you don't like the suggested activity you can always just go to the park instead.
+"""
+Add the following code with a string in JSON format:
+doc_json_task
+=
+"""
+{
+"previous_suggestions": {
+"go to the gym": ["frequency": 2, "rating": 8],
+"mow your lawn": ["frequency": 1, "rating": 2],
+"read a book": ["frequency": 3, "rating": 10],
+}
+}
+"""
+Add the following code with a string written in YAML format:
+doc_yaml_task
+=
+"""
+clothes_to_wear: sports
+gear: |
+- climbing: true
+- swimming: false
+"""
+Add the following code containing reStructuredText:
+doc_rst_task
+=
+"""
+===========
+This feature is pretty neat
+===========
+* there are many ways to add docs
+* luckily Airflow supports a lot of them
+.. note:: `Learn more about rst here! <https://gdal.org/contributing/rst_style.html#>`__
+"""
+Create a task definition as shown in the following snippet. The task definition includes parameters for specifying each of the documentation strings you created. Pick the coding style you're most comfortable with.
+TaskFlow API
+Traditional syntax
+@task
+(
+doc_md
+=
+doc_md_task
+,
+doc
+=
+doc_monospace_task
+,
+doc_json
+=
+doc_json_task
+,
+doc_yaml
+=
+doc_yaml_task
+,
+doc_rst
+=
+doc_rst_task
+)
+def
+tell_me_what_to_do
+(
+)
+:
+response
+=
+requests
+.
+
+
+

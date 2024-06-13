@@ -86,7 +86,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
         "chromium"
@@ -94,7 +93,8 @@
     "tags": [
         "gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "evaluator": {
         "func": "compare_table",
@@ -116,5 +116,6 @@
                 }
             ]
         }
-    }
+    },
+    "counterpart": "ca621e14-5ea6-458f-ba77-e5b44441bbae"
 }

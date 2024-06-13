@@ -1,0 +1,99 @@
+{
+    "name": "File (CSV, JSON, Excel, Feather, Parquet) → Local SQLite",
+    "namespaceDefinition": "destination",
+    "prefix": "",
+    "sourceId": "${source_id}",
+    "destinationId": "${destination_id}",
+    "syncCatalog": {
+        "streams": [
+            {
+                "stream": {
+                "name": "epidemiology",
+                "jsonSchema": {
+                    "type": "object",
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "properties": {
+                        "key": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "date": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "new_tested": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "new_deceased": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_tested": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "new_confirmed": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "new_recovered": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_deceased": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_confirmed": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        },
+                        "total_recovered": {
+                            "type": [
+                                "number",
+                                "null"
+                            ]
+                        }
+                    }
+                },
+                "supportedSyncModes": [
+                    "full_refresh"
+                ],
+                "defaultCursorField": [],
+                "sourceDefinedPrimaryKey": []
+                },
+                "config": {
+                    "syncMode": "full_refresh",
+                    "cursorField": [],
+                    "destinationSyncMode": "overwrite",
+                    "primaryKey": [],
+                    "aliasName": "epidemiology",
+                    "selected": true,
+                    "fieldSelectionEnabled": false
+                }
+            }
+        ]
+    },
+    "scheduleType": "manual",
+    "status": "active",
+    "geography": "auto"
+}

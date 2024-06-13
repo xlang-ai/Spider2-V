@@ -1,0 +1,65 @@
+Documentation Source:
+www.metabase.com/learn/permissions/collection-permissions.html
+
+Documentation Title:
+Working with collection permissions
+
+Documentation Content:
+Toggle on <strong>Also change sub-collections</strong>so that these permissions apply to all sub-collections nested under <strong>Our analytics</strong>.</li></ol><img/><h2>Creating new groups and collections</h2><p>Next, we’ll create groups to match our Canoes and Sailboats teams. Go to <strong>Admin settings</strong>&gt; <strong>People</strong>&gt; <strong>Groups</strong>&gt; <a>Create a group</a>, and call the group “Canoes”.</p><p>To create a new collection, we’ll go to the Metabase homepage and click <strong>+ New</strong>&gt; <strong>Collection</strong>. We’ll create two collections named <a>after our new groups</a>, and save each of those collections inside <strong>Our analytics</strong>.</p><h2>Setting collection permissions</h2><p>We’ll set up collection permissions for the Canoes collection first, so that:</p><ul><li>The Canoes group can view and edit questions, dashboards, and models saved in the Canoes collection.</li><li>The Canoes group can move, re-name, or archive the Canoes collection.</li><li>The Sailboats group can only view the work that’s saved in the Canoes collection.</li></ul><p>You can navigate back to <strong>Admin settings</strong>and go to the collection permissions page for each collection, or you can set up permissions directly from the Metabase homepage.</p><ol><li>Click on the Canoes collection in the sidebar.</li><li>Click on the <strong>lock icon</strong>to open a collection permissions modal.</li><li>Select <strong>Curate</strong>from the dropdown menu for the <strong>Canoes</strong>row and <strong>Collection access</strong>column.</li><li>Select <strong>View</strong>from the dropdown menu for the <strong>Sailboats</strong>row and <strong>Collection access</strong>column.</li><li>Click <strong>Save</strong>.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/serialization.html
+
+Documentation Title:
+Serialization: preloading dashboards in a new Metabase instance
+
+Documentation Content:
+11
+</code><p>After our Metabase instances complete their initialization (patience, this could take a minute or two), we should now have two Metabases up and running:</p><ul><li>metabase-source at <code>http://localhost:5001</code></li><li>metabase-target at <code>http://localhost:5002</code></li></ul><h3>Add users to our source Metabase</h3><p>Let’s add one Admin account, and two basic users to our metabase-source instance.</p><p>You can <a>add users to your Metabase manually</a>(i.e. in the Metabase application), but here’s a quick bash script that creates an Admin user (the initial user) and two basic users:</p><p>You’ll need to have <a>jq</a>installed to handle the JSON in this script.</p><code><span>#!/bin/sh</span><span>ADMIN_EMAIL</span><span>=</span><span>${</span><span>MB_ADMIN_EMAIL</span><span>:-</span><span>admin</span><span>@metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-api.html
+
+Documentation Title:
+Working with the Metabase API
+
+Documentation Content:
+You can even add our trusty <a>Sample Database</a>as a new database to your instance with <code>POST /api/database/sample_database</code>.</p><p>Here’s an example database creation call for a <a>Redshift</a>database.</p><code>curl <span>-s</span><span>-X</span>POST <span>\</span><span>-H</span><span>"Content-type: application/json"</span><span>\</span><span>-H</span><span>'x-api-key: YOUR_API_KEY'</span><span>\</span>http://localhost:3000/api/database <span>\</span><span>-d</span><span>'{
+        "engine": "redshift",
+        "name": "Redshift",
+        "details": {
+            "host": "redshift.aws.com",
+            "port": "5432",
+            "db": "dev",
+            "user": "root",
+            "password": "password"
+        }
+    }'</span></code><h3>Set up users, groups, and permissions</h3><p>You can use the <code>/api/user</code>endpoints to create, update, and disable users, or the <code>/api/permissions</code>endpoints to set up groups or <a>add users to them</a>. Here’s an example curl command to create a user:</p><code>curl <span>-s</span><span>"http://localhost:3000/api/user"</span><span>\</span><span>-H</span><span>'Content-Type: application/json'</span><span>\</span><span>-H</span><span>'x-api-key: YOUR_API_KEY'</span><span>\</span><span>-d</span><span>'{
+    "first_name":"Basic",
+    "last_name":"Person",
+    "email":"basic@somewhere.com",
+    "password":"Sup3rS3cure_:}"
+}'</span></code><h3>Generate reports</h3><p>In Metabase, “reports” are referred to as <a>dashboards</a>. You can interact with dashboards using the <code>/api/dashboard</code>endpoint.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/developers-guide/contributing.html
+
+Documentation Title:
+Contributing to Metabase
+
+Documentation Content:
+But 1) the in-app text is orders of magnitude shorter than our docs, 2) it changes at a slower pace, and 3) we have a lot of people help out. We may consider supporting docs in multiple languages in the future, but for now we need to focus our resources on improving our existing documentation (and expanding it to include all of the new features we’re adding).</p><h3>Working on features</h3><p>Some features, eg Database drivers, don’t have any user facing pixels. These are a great place to start off contributing as they don’t require as much communication, discussions about tradeoffs and process in general.</p><p>In situations where a design has already been done, we can always use some help. Chime in on a pull request or an issue and offer to help.</p><p>Generally speaking, any issue in <a>Help Wanted</a>is fair game.</p><h3>#YOLO JUST SUBMIT A PR</h3><p>If you come up with something really cool, and want to share it with us, just submit a PR. If it hasn’t gone through the above process, we probably won’t merge it as is, but if it’s compelling, we’re more than willing to help you via code review, design review and generally OCD nitpicking so that it fits into the rest of our codebase.</p></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+

@@ -14,7 +14,8 @@
     "tags": [
         "gui",
         "account",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "action_number": 19,
     "config": [
@@ -83,5 +84,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "6d46deeb-f37a-49a9-b2f9-683efa0499e8"
 }

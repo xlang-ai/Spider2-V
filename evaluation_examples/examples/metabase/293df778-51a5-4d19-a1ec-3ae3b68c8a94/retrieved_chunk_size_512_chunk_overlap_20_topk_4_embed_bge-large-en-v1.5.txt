@@ -1,0 +1,341 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/map.txt
+
+Documentation Title:
+Maps
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Questions
+Maps
+When you select the
+Map
+visualization setting, Metabase will automatically try and pick the best kind of map to use based on the table or result set. Here are the maps that Metabase uses:
+Region maps
+There are two region maps included with Metabase:
+World Map
+To visualize your results in the format of a map of the world broken out by country, your result must contain a column with two-letter
+country codes
+.
+United States Map
+Creating a map of the United States from your data requires your results to contain a column that contains names of states or two-letter state codes. This lets you do things like visualize the count of your users broken out by state, with darker states representing more users.
+Pin map
+If your results contains
+latitude and longitude fields
+, Metabase will try to display the results as a pin map of the world. Metabase will put one pin on the map for each row in your table, based on the latitude and longitude fields. You can try this with the Sample Database that’s included in Metabase: start a new question and select the People table, use
+raw data
+for your view, and choose the Map option for your visualization. You’ll see a map of the world, with each dot representing the latitude and longitude coordinates of a single person from the People table.
+When you open up the Map options, you can manually switch between a region map (e.g., United States) and a pin map. If you’re using a region map, you can also choose which field to use as the measurement, and which field to use as the region (e.g., State or Country).
+Custom maps
+Metabase also allows administrators to add
+custom maps via GeoJSON files
+through the Metabase
+Admin Panel
+.
+
+
+
+Documentation Source:
+www.metabase.com/learn/data-modeling/models.txt
+
+Documentation Title:
+Models in Metabase
+
+Documentation Content:
+user_id
+AS
+id
+,
+people
+.
+created_at
+AS
+join_date
+,
+people
+.
+state
+AS
+state
+,
+people
+.
+source
+AS
+source
+,
+Sum
+(
+orders
+.
+total
+)
+AS
+total
+,
+Count
+(
+*
+)
+AS
+order_count
+,
+Sum
+(
+orders
+.
+total
+)
+/
+Count
+(
+*
+)
+AS
+avg_total
+FROM
+orders
+LEFT
+JOIN
+people
+ON
+orders
+.
+user_id
+=
+people
+.
+id
+GROUP
+BY
+id
+,
+city
+,
+state
+,
+zip
+,
+source
+Metabase wouldn’t automatically know what kind of data type the
+state
+or
+total
+or any other column was. If, however, we manually set the type for each result column in the model’s metadata, Metabase will then be able to present the drill-through menu on charts, as well as know which kind of filters it should use for that column (e.g., filters for numbers will have different options than for dates or categories).
+Models can surface individual records in search
+Another neat metadata feature with models: you can opt to
+index values from a model
+so that they show up in Metabase’s search results.
+Here we’re toggling on the option to
+Surface individual records in search by matching against this column
+(bottom right):
+For example, you could index a column in a model with customer names so people can type in a customer like Hudson Borer and jump straight to the detail view for that customer.
+By indexing records in a model, you can also X-ray them. See the
+docs on models for more details
+.
+Skip the SQL variables
+Here is a subtle point worth calling out. If you’re used to creating “models” with saved questions and SQL variables (like
+field filters
+) so that people can take those questions and connect them to dashboard filters, models take a different approach here. Models don’t work with variables, because they don’t need to. Once you tell Metabase the model’s column types, you can start a question from that model, save it, and be able to wire it up to a dashboard filter. There’s no need to put a variable in your SQL code.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/maps.txt
+
+Documentation Title:
+Visualizing data with maps
+
+Documentation Content:
+Region maps
+group data by country or state.
+Grid maps
+distribute a large number of points over a specified area.
+Any of these map types can be used with our two default map options: the United States and the world. For a different map (for example, one that focuses on a specific region of the world), you can upload a
+custom map
+in GeoJSON format.
+If you have a column with two-letter country codes, Metabase will automatically select the world map. If your data contains names of U.S. states, or two-letter state codes, Metabase will select the map of the United States.
+Make your data compatible with mapping
+If you plan on using a map visualization, you’ll need to make sure your data is compatible with map visualizations in two ways:
+Field types in your metadata
+Field types
+Country codes
+To edit metadata, go to your
+Data Model admin settings
+. Confirm that all your field types are set as a
+Location
+data type. For example, the
+State
+and
+Longitude
+fields both have their corresponding field type listed, but
+Latitude
+has no field type. To add the field type, click the dropdown menu in the
+Type
+column and select
+Latitude
+.
+To create a world map or US region map, make sure that your country or state codes match the standardized two-letter format specified by the
+International Organization for Standardization (ISO)
+.
+Matches are case-sensitive; if the country or state codes listed in your database are lowercase or contain extra spaces, Metabase won’t recognize them.
+Pin map
+A pin map represents data geographically using discrete markers, and requires coordinates — latitude and longitude — to generate. Let’s start an example by visualizing the
+People
+table found within the
+Sample Database
+. Once you’re viewing the table, you’ll notice that this table contains four pieces of geographic information: city, state, latitude, and longitude.
+Select
+Visualization
+, and scroll to the
+Map
+icon. With your latitude and longitude fields
+set correctly
+, Metabase will produce a pin map by default, placing markers on the map at those coordinates. The pins are locating customers, but you can also use a pin map to locate businesses partners, company branch locations, or shipping addresses, as long as those records contains coordinates.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/start.txt
+
+Documentation Title:
+People overview
+
+Documentation Content:
+People overview
+Upcoming
+Metabase for advanced users
+Register Now
+×
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Self-service BI in 5 minutes
+Pro
+Advanced tools and controls
+Enterprise
+White-glove treatment
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Watch a 5-minute demo
+to see how to set up and publish a dashboard
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+New
+Metabase 49:
+New tools for dashboard creators, data sharers, and more
+Documentation
+Resources
+Learn
+Guides on working with data
+Blog
+News, updates, and ideas
+Events
+Join a live event or watch on demand
+Customers
+Real companies, real data, real stories
+Discussion
+Share and connect with other users
+Metabase Experts
+Find an expert partner
+Community Stories
+Practical advice from our community
+Startup Guide to Financial Modeling
+New
+Modeling financial data with Metabase
+Community Data Stack Report
+New
+See how others work with data
+Recent Blog Posts
+Set up a basic pipeline for log analysis
+Embed a Metabase dashboard in Zendesk
+Keeping tabs on embedded analytics
+Pricing
+Log in
+Get started
+Product
+Use Cases
+Self-service Analytics
+Business intelligence for everyone
+Embedded Analytics
+Create seamless in-product analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Platform
+Data Sources
+Security
+Cloud
+Professional Services
+New
+Features
+Query builder
+Get answers in a few clicks
+Drill-through
+Pull threads in your data
+Collections and verified items
+Keep things organized
+Usage analytics
+New
+See who did what, when
+Analytics dashboards
+Share insights with anyone,
+
+
+

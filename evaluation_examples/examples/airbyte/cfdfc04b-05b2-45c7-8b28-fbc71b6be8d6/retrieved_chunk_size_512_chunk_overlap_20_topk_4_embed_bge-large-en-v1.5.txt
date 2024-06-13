@@ -1,0 +1,262 @@
+Documentation Source:
+airbyte.com/tutorials/validate-data-replication-postgres-snowflake.txt
+
+Documentation Title:
+Validate data replication pipelines from Postgres to Snowflake with data-diff | Airbyte
+
+Documentation Content:
+First, we are going to start by setting up our Postgres source and Snowflake destination within Airbyte.
+Set up your Postgres source
+On
+Airbyte Cloud
+or
+Airbyte Open Source
+, click “new connection”. This will bring you to a screen where you can select your data source. Choose “
+Postgres
+” as your source type.
+Now you will be brought to a screen where you need to enter some specific information about your Postgres database. This includes host, port, database name, and a list of the schemas you wish to sync.
+I kept the default port and added my database named `development`, `customers` schema, and the login information for my Airbyte user. It is best practice to
+create users specific to the tools
+you are connecting to your database.
+Set up your Snowflake destination
+Now let’s set up our
+Snowflake destination
+where we will be replicating our Postgres data to. Start by clicking on “new destination” in the top right corner. Then select “Snowflake” as your destination type.
+‍
+This is where you will input the information for the Snowflake database that you are copying your Postgres data. Make sure you enter the right location information!
+I also recommend setting up a role that is specific for loading data in your destination as well. This will help keep your environment secure and all you to closely monitor different metrics on the replication process.
+Set up a Postgres to Snowflake connection
+Now that you’ve created both your source in Postgres and your destination in Snowflake, you can set up a connection between the two to replicate your data from Postgres. Select “connections” on the left panel.
+Select your Postgres source you created from the dropdown, then select Snowflake as your destination.
+Now you’ll want to give the connection a good name and choose how often it replicates. I’m going to call mine “postgres_snowflake_replication” and set it t replicate every 24 hours.
+I also recommend selecting “mirror source structure” for the “destination namespace”. This will allow you to easily compare the differences between the source table and the destination table.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/postgres-snowflake-data-integration-stack.txt
+
+Documentation Title:
+Postgres Snowflake Data Integration Stack | Airbyte
+
+Documentation Content:
+Here, you should see your source and destination connectors, as well as the connection between them, set up and ready to go.
+Next Steps
+Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:
+Extend the Project
+:
+The real beauty of this integration is its extensibility. Whether you want to add more data sources, integrate additional tools, or add some transformation logic – the floor is yours. With the foundation set, sky's the limit for how you want to extend and refine your data processes.
+Getting started is easy
+Start breaking your data siloes with Airbyte
+Get Started on Airbyte Cloud
+View repo
+Similar quickstarts
+35 minutes
+Airbyte, dbt, Snowflake and Looker (ADSL) Stack
+15 minutes
+MySQL to PostgreSQL Incremental Data Stack
+20 minutes
+Airbyte, dbt and Airflow (ADA) Stack with Snowflake
+Airbyte is an open-source data integration engine that helps you consolidate your data in your data warehouses, lakes and databases.
+© 2024
+Airbyte, Inc.
+Product
+Features
+Demo App
+Connectors
+Connector Builder and CDK
+PyAirbyte
+Airbyte Open Source
+Airbyte Cloud
+Airbyte Self-Managed
+Compare Airbyte offers
+Pricing
+Changelog
+Roadmap
+Compare top ELT solutions
+RESOURCES
+Documentation
+Blog
+Airbyte API Docs
+Terraform Provider Docs
+Community
+Data Engineering Resources
+Tutorials
+Quickstarts
+PyAirbyte Tutorials
+Resource center
+Community Call
+Top ETL Tools
+"How to Sync" Tutorials
+Connectors Directory
+COMPANY
+Newsletter
+Company Handbook
+About Us
+Careers
+Open employee referral program
+Airbyte YC Startup Program
+Partners
+Press
+Data protection - Trust report
+Terms of Service
+Privacy Policy
+Cookie Preferences
+Do Not Sell/Share My Personal Information
+Contact Sales
+Get answers quick on
+Airbyte Slack
+Hi there! Did you know our Slack is the most active Slack community on data integration? It’s also the easiest way to get help from our vibrant community.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/snowflake.txt
+
+Documentation Title:
+Snowflake | Airbyte Documentation
+
+Documentation Content:
+1.27
+2022-12-14
+20407
+Fix an issue with integer values converted to floats during replication
+0.1.26
+2022-11-10
+19314
+Set application id in JDBC URL params based on OSS/Cloud environment
+0.1.25
+2022-11-10
+15535
+Update incremental query to avoid data missing when new data is inserted at the same time as a sync starts under non-CDC incremental mode
+0.1.24
+2022-09-26
+17144
+Fixed bug with incorrect date-time datatypes handling
+0.1.23
+2022-09-26
+17116
+added connection string identifier
+0.1.22
+2022-09-21
+16766
+Update JDBC Driver version to 3.13.22
+0.1.21
+2022-09-14
+15668
+Wrap logs in AirbyteLogMessage
+0.1.20
+2022-09-01
+16258
+Emit state messages more frequently
+0.1.19
+2022-08-19
+15797
+Allow using role during oauth
+0.1.18
+2022-08-18
+14356
+DB Sources: only show a table can sync incrementally if at least one column can be used as a cursor field
+0.1.17
+2022-08-09
+15314
+Discover integer columns as integers rather than floats
+0.1.16
+2022-08-04
+15314
+(broken, do not use) Discover integer columns as integers rather than floats
+0.1.15
+2022-07-22
+14828
+Source Snowflake: Source/Destination doesn't respect DATE data type
+0.1.14
+2022-07-22
+14714
+Clarified error message when invalid cursor column selected
+0.1.13
+2022-07-14
+14574
+Removed additionalProperties
+:false
+from JDBC source connectors
+0.1.12
+2022-04-29
+12480
+Query tables with adaptive fetch size to optimize JDBC memory consumption
+0.1.11
+2022-04-27
+10953
+Implement OAuth flow
+0.1.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/postgres-snowflake-data-integration-stack.txt
+
+Documentation Title:
+Postgres Snowflake Data Integration Stack | Airbyte
+
+Documentation Content:
+20k+ subscribers
+Support center
+Access our knowledge base
+Community
+Join our 15,000+ data  community
+Community Reward Program
+Leave your mark in the OSS community
+Events & community calls
+Live events by the Airbyte team
+Our Social Platform
+Community forum
+GitHub Discussions for questions, ideas
+Slack
+15,000+  share tips and get support
+Youtube
+Learn more about Airbyte and data engineering
+Discourse (read-only)
+Previous forum (still lots of knowledge)
+Connectors
+Pricing
+Star
+Talk to Sales
+Try it  free
+Back to all quickstarts
+Data engineering
+Postgres Snowflake Data Integration Stack
+Navigate Postgres to Snowflake integrations effortlessly with Airbyte and terraform. Launch into a world of data connectivity with our streamlined template.
+Try Airbyte Cloud free
+View Repo
+TL;DR
+View Repo
+Get your data syncing in minutes
+Try Airbyte free
+Welcome to the
+"Postgres Snowflake Data Integration Stack" repository
+! This repo provides a quickstart template for integrating postgres data to snowflake warehouses using Airbyte powering terraform. We will easily integrate data from Postgres databases with Airbyte using terraform airbyte provider. This template could be act as a starter for integrating and also adding new sources, etc... the limits are endless.
+This quickstart is designed to minimize setup hassles and propel you forward.
+Infrastructure Layout
+Prerequisites
+Before you embark on this integration, ensure you have the following set up and ready:
+Python 3.10 or later
+: If not installed, download and install it from
+Python's official website
+.
+Docker and Docker Compose (Docker Desktop)
+: Install
+Docker
+following the official documentation for your specific OS.
+Airbyte OSS version
+: Deploy the open-source version of Airbyte. Follow the installation instructions from the
+Airbyte Documentation
+.
+Terraform
+: Terraform will help you provision and manage the Airbyte resources. If you haven't installed it, follow the
+official Terraform installation guide
+.
+1. Setting an environment for your project
+Get the project up and running on your local machine by following these steps:
+1.
+
+
+

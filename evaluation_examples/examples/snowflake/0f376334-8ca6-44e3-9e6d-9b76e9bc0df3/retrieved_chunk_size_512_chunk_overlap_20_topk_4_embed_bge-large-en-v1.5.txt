@@ -1,0 +1,303 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.txt
+
+Documentation Title:
+Getting started with worksheets | Snowflake Documentation
+
+Documentation Content:
+Select
++
+and select
+SQL Worksheet
+or
+Python Worksheet
+to create a worksheet.
+The worksheet opens in the same window with the date and time of creation as the default title.
+You can then start writing in your worksheet. For a SQL worksheet,
+start writing queries
+.
+For a Python worksheet,
+start writing code
+.
+Create worksheets from a SQL file
+¶
+To create a SQL worksheet from an existing SQL file, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Select the
+…
+more menu »
+Create Worksheet from SQL File
+.
+Browse to the SQL file to upload.
+A new worksheet opens with a title that matches the file name.
+You can also add a SQL file to an existing SQL worksheet. Refer to
+Append a SQL script to an existing worksheet
+.
+Opening worksheets in tabs
+¶
+You can use tabs to refer to multiple active worksheets and explore the databases and schemas in Snowflake while writing SQL
+statements or Python code in Snowsight. Your scroll position is preserved in each tab, making comparisons across worksheets easier
+to perform. Worksheet tabs are preserved across sessions, so you can pick up your work where you left off.
+To open your Snowsight worksheets in tabs, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+.
+Select an existing worksheet, or select
++ Worksheet
+to open a new worksheet. A worksheet opens in a tab.
+Select a role to run the worksheet as, and select a warehouse to allocate the compute resources for your query.
+In the
+Worksheets
+menu, select an existing worksheet or select
++
+to open a new worksheet tab. By default, the new worksheet
+uses your default role and warehouse.
+(Optional) Make changes to the role or warehouse used to run the new worksheet.
+After you open a worksheet, you can
+update the contents
+,
+run SQL statements
+or
+write Python code
+, and manage the worksheet.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.txt
+
+Documentation Title:
+Getting started with worksheets | Snowflake Documentation
+
+Documentation Content:
+If you don’t see any worksheets, you might need to import
+worksheets from the Classic Console. See
+Import worksheets from the Classic Console
+.
+Using the options, you can view recent worksheets opened by you, worksheets that your colleagues have shared with you,
+worksheets that you created and own, or folders you created or that your colleagues have shared with you.
+For any worksheet or worksheet folder, you can review the title, roughly when the worksheet or folder was last viewed or updated,
+and the role associated with the worksheet or folder. In each row, you can see the initials of the user that owns the worksheet or folder.
+You can sort by any column in the table.
+Use the
+Search
+option to search the titles and contents of worksheets and dashboards that you can access.
+Import worksheets from the Classic Console
+¶
+You can import your SQL worksheets from the Classic Console to Snowsight from within Snowsight.
+Import your SQL worksheets to make it easier to refer to queries and SQL statements that you’ve written in the past,
+without needing to switch to a different web interface and session.
+Note
+You can import your worksheets to Snowsight even if you can no longer access the Classic Console.
+To import your SQL worksheets to Snowsight, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+.
+Select the
+…
+more menu »
+Import Worksheets
+.
+In the confirmation dialog, select
+Import
+.
+Snowflake creates a folder named
+Import YYYY-MM-DD
+and places all worksheets from the Classic Console in that folder.
+Important
+Snowsight has a maximum worksheet size of 1MB. Worksheets larger than 1MB fail to import.
+See
+Troubleshoot issues with upgrading to Snowsight
+.
+After importing worksheets
+¶
+Worksheets are not synced between Snowsight and the Classic Console.
+If you make updates to a SQL worksheet in Snowsight, the changes are not reflected in the Classic Console, and vice versa.
+Create worksheets in Snowsight
+¶
+To create a worksheet in Snowsight, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Select
++
+and select
+SQL Worksheet
+or
+Python Worksheet
+to create a worksheet.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-worksheet.txt
+
+Documentation Title:
+Using Worksheets for Queries / DML / DDL | Snowflake Documentation
+
+Documentation Content:
+To organize your worksheets, double-click on the worksheet label in the tab
+(e.g.
+Worksheet
+2
+) and type a new, more meaningful name for the worksheet (e.g.
+Sales
+Analysis
+).
+To open a closed worksheet, click the down-arrow to the right of the open worksheet tabs, and click
+Open Worksheet
+. The
+Open Worksheet
+dialog opens.
+Search for worksheets by label.
+Delete selected worksheets.
+Click on a row to select a single worksheet.
+Click the
+CMD
+(Mac) or
+CTRL
+(Windows) key once and then click on multiple rows to select multiple worksheets.
+Double-click a label to edit it.
+Open selected worksheets.
+The
+Open Worksheet
+dialog supports the following actions:
+Action
+Steps
+Search for individual worksheets by label.
+Enter text in the
+Search
+field. The list of existing worksheets is filtered automatically.
+Edit worksheet labels.
+Double-click on a worksheet label, and edit the text. Worksheet labels are limited to 255 characters.
+Open or delete one or more worksheets.
+Select a single worksheet by clicking on the table row for the worksheet.
+To select multiple worksheets, click the CMD (Mac) or CTRL (Windows) key once and then click on multiple table rows.
+Click on the
+Open
+button to open the worksheets in separate tabs,
+or
+click on the
+Delete
+button to delete the worksheets.
+Using the Object Browser
+¶
+Preview table data.
+Double-click to insert name into SQL editor.
+The object browser enables users to explore all databases, schemas, tables, and views accessible by the role selected for a worksheet.
+The list of databases and other objects refreshes automatically when the worksheet context is changed. Users can also click the refresh button at the top of the object browser to view object
+changes immediately.
+The object browser can be collapsed at any time to make more room for the SQL editor and results/history panes.
+Exploring Database Objects
+¶
+Click on a database or schema to explore the database objects contained within. You can then drill down to the table and view level.
+Action
+Options
+Notes
+Preview table/view data in the data preview pane
+Click the desired table/view,
+or
+Hover your mouse over the desired table/view and click:
+…
+»
+Preview Data
+Data previews are limited to the first 100 rows.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/2024/ui/2024-02-14.txt
+
+Documentation Title:
+February 15, 2024 — Snowsight Release Notes | Snowflake Documentation
+
+Documentation Content:
+If you have additional questions, please feel free to contact
+Snowflake Support
+.
+New tutorials for trial accounts
+¶
+Snowflake has added new Snowsight worksheets that are available when you create a 30-day trial account. These worksheets contain
+sample SQL statements or Python code. You can execute the statements or run the code in these worksheets to learn how to accomplish a
+specific task.
+The following new tutorials in the documentation walk you through these worksheets:
+Create users and grant roles
+- Create a user and grant a role to it by using SQL commands.
+Load and query sample data using SQL
+- Load and query data for a fictitious food truck brand named Tasty Bytes in Snowflake using SQL.
+Load and query sample data using Snowpark Python
+- Load and query data for a fictitious food truck brand named Tasty Bytes in Snowflake
+using Snowpark Python.
+Load data from cloud storage into Snowflake using SQL. The tutorial for this worksheet is available in two versions:
+Load data from cloud storage: Amazon S3
+Load data from cloud storage: Microsoft Azure
+The worksheet itself also covers the steps and commands for Google Cloud Storage (GCS).
+Larger maximum file size  —–
+General Availability
+¶
+Snowflake has increased the maximum file size from 50 MB to 250 MB for the following use cases:
+Loading data using Snowsight
+.
+Upload files onto a named internal stage
+.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+New tutorials for trial accounts
+Larger maximum file size  —– General Availability
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+

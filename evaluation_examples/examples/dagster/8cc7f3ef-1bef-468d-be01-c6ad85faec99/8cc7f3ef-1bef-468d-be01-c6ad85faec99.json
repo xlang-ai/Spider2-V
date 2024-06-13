@@ -1,0 +1,81 @@
+{
+    "id": "8cc7f3ef-1bef-468d-be01-c6ad85faec99",
+    "snapshot": "dagster",
+    "instruction": "I just built a 3-step Dagster pipeline. Now, I want to run it regularly to keep all assets up to date. Name the target job `hacker_news_pipeline` and schedule it to run every hour.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to define a job to run the complete data pipeline regularly every hour. To achieve this:\n1. Open the VS Code editor on the left panel;\n2. Find and open the file with path 'hacker_news -> __init__.py';\n3. On the right panel, update the code in this file to add the job using the `define_asset_job` function:\n```\nfrom dagster import (\n    AssetSelection,\n    Definitions,\n    define_asset_job,\n    load_assets_from_modules,\n)\n\nfrom . import assets\n\nall_assets = load_assets_from_modules([assets])\n\n# Addition: define a job that will materialize the assets\nhacker_news_pipeline = define_asset_job(\"hacker_news_pipeline\", selection=AssetSelection.all())\n\ndefs = Definitions(\n    assets=all_assets,\n    jobs=[hacker_news_pipeline],  # Addition: add the job to Definitions object\n)\n```\n4. After defining a job, it can be attached to a schedule. To regularly update the assets, add the new `ScheduleDefinition` import, create a new schedule for the `hacker_news_pipeline`, and add the schedule to the code location. The code below is how the `__init__.py` should look after making these changes:\n```\nfrom dagster import (\n    AssetSelection,\n    Definitions,\n    ScheduleDefinition,\n    define_asset_job,\n    load_assets_from_modules,\n)\n\nfrom . import assets\n\nall_assets = load_assets_from_modules([assets])\n\n# Define a job that will materialize the assets\nhacker_news_pipeline = define_asset_job(\"hacker_news_pipeline\", selection=AssetSelection.all())\n\n# Addition: a ScheduleDefinition the job it should run and a cron schedule of how frequently to run it\nhackernews_schedule = ScheduleDefinition(\n    job=hacker_news_pipeline,\n    cron_schedule=\"0 * * * *\",  # every hour\n)\n\ndefs = Definitions(\n    assets=all_assets,\n    schedules=[hackernews_schedule],\n)\n```\n5. Next, we can change to the Web UI;\n6. Reloading the project through the `Reload Definitions` button in the Assets page;\n6. After reloading completed, click the \"Overview\" button on the top menu bar;\n7. Switch to the `Schedules` tab in this page;\n8. We can see on entry called \"hacker_news_pipeline_schedule\" and the schedule has been set to \"Every hour\". Now, activate this schedule by finding and enabling the button under the column \"Running\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/tutorial/writing-your-first-asset"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/8cc7f3ef-1bef-468d-be01-c6ad85faec99/hacker_news.zip",
+                "dest": "/home/user/hacker_news.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/8cc7f3ef-1bef-468d-be01-c6ad85faec99/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    },
+                    {
+                        "type": "materialize_assets",
+                        "timeout": 60000
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/dagster/8cc7f3ef-1bef-468d-be01-c6ad85faec99/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "933b74ab-d240-4c71-bd5c-4b78f81bb48b"
+}

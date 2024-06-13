@@ -1,0 +1,21 @@
+This job is to create a new worksheet on Snowflake and write sql code to complete specific query. In the opened Snowsight web page,
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "+" button on the right;
+3. In the drop-down menu, select "SQL Worksheet".
+4. In the top of the worksheet, there is a button showing "No database selected", click this button.
+5. In the drop-down menu, select "COMPANY" for the database, "PUBLIC" for the schema, then click anywhere to turn off the menu.
+6. Copy the code below to the worksheet:
+
+SELECT e.employee_id, e.first_name, e.last_name, d.department_name, e.salary
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+WHERE (e.department_id, e.salary) IN (
+    SELECT department_id, MAX(salary)
+    FROM employees
+    GROUP BY department_id
+);
+
+7. Click the "Run" button on the right-top of the worksheet.
+8. Click the "Download Results" button on the top-right of the result panel.
+9. In the drop-down menu, click "Download as .csv".
+10. In your virtual machine, navigate to the /home/user/Download directory and rename the downloaded .csv file to "highest_salary.csv".

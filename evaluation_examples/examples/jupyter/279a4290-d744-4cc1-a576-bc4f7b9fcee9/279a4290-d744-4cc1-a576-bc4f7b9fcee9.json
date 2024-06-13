@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 8,
     "config": [
@@ -57,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_jupyterlab_images",
@@ -71,5 +71,6 @@
             "path": "evaluation_examples/examples/jupyter/279a4290-d744-4cc1-a576-bc4f7b9fcee9/gold.png",
             "dest": "gold.png"
         }
-    }
+    },
+    "counterpart": "b5bed2ba-186a-4603-8705-083ad308c8c1"
 }

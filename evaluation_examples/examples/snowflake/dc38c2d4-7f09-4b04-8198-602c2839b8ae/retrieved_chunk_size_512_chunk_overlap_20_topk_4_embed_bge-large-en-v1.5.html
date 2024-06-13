@@ -1,0 +1,53 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/functions/max_by.html
+
+Documentation Title:
+MAX_BY | Snowflake Documentation
+
+Documentation Content:
+</span></pre><span>Copy</span></div><pre><span>+-------------+---------------+--------+</span><span>| EMPLOYEE_ID | DEPARTMENT_ID | SALARY |</span><span>|-------------+---------------+--------|</span><span>|        1001 |            10 |  10000 |</span><span>|        1020 |            10 |   9000 |</span><span>|        1030 |            10 |   8000 |</span><span>|         900 |            20 |  15000 |</span><span>|        2000 |            20 |   NULL |</span><span>|        2010 |            20 |  15000 |</span><span>|        2020 |            20 |   8000 |</span><span>+-------------+---------------+--------+</span></pre><p>The following example returns the ID of the employee with the highest salary:</p><div><pre><span>SELECT</span><span>MAX_BY</span><span>(</span><span>employee_id</span><span>,</span><span>salary</span><span>)</span><span>FROM</span><span>employees</span><span>;</span></pre><span>Copy</span></div><pre><span>+-----------------------------+</span><span>| MAX_BY(EMPLOYEE_ID, SALARY) |</span><span>|-----------------------------|</span><span>|                         900 |</span><span>+-----------------------------+</span></pre><p>Note the following:</p><ul><p>Because more than one row contains the maximum value for the <span>salary</span>column, the function is non-deterministic and might
+return the employee ID for a different row in subsequent executions.</p><p>The function ignores the NULL value in the <span>salary</span>column when determining the rows with the maximum values.</p></ul><p>The following example returns an ARRAY containing the IDs of the employees with the three highest salaries:</p><div><pre><span>SELECT</span><span>MAX_BY</span><span>(</span><span>employee_id</span><span>,</span><span>salary</span><span>,
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/functions/max_by.html
+
+Documentation Title:
+MAX_BY | Snowflake Documentation
+
+Documentation Content:
+</span><span>salary</span><span>,</span><span>3</span><span>)</span><span>from</span><span>employees</span><span>;</span></pre><span>Copy</span></div><pre><span>+--------------------------------+</span><span>| MAX_BY(EMPLOYEE_ID, SALARY, 3) |</span><span>|--------------------------------|</span><span>| [                              |</span><span>|   900,                         |</span><span>|   2010,                        |</span><span>|   1001                         |</span><span>| ]                              |</span><span>+--------------------------------+</span></pre><p>As shown in the example, the values in the ARRAY are sorted by their corresponding values in the <span>salary</span>column. So,
+MAX_BY returns the IDs of employees sorted by their salary in descending order.</p><p>If more than one of these rows contain the same value in the <span>salary</span>column, the order of the returned values for that salary
+is non-deterministic.</p></section></section></article><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Syntax</a><a>Arguments</a><a>Returns</a><a>Usage notes</a><a>Examples</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/queries-hierarchical.html
+
+Documentation Title:
+Querying Hierarchical Data | Snowflake Documentation
+
+Documentation Content:
+</span><span>1</span><span>);</span><span>INSERT</span><span>INTO</span><span>employees</span><span>(</span><span>title</span><span>,</span><span>employee_ID</span><span>,</span><span>manager_ID</span><span>)</span><span>VALUES</span><span>(</span><span>'Vice President Engineering'</span><span>,</span><span>10</span><span>,</span><span>1</span><span>),</span><span>(</span><span>'Vice President HR'</span><span>,</span><span>20</span><span>,</span><span>1</span><span>);</span></pre><span>Copy</span></div></div></section><section><h3>Hierarchical Data in a Single Table<a>¶</a></h3><p>In some situations, the number of levels in the hierarchy might change.</p><p>For example, a company that started with a two-level hierarchy (President and other employees) might increase the
+number of levels as the company grows. The company might expand to include a President, Vice Presidents, and regular
+employees.</p><p>If the number of levels is unknown, so that it is not possible to create a hierarchy with a known number of tables,
+then in some cases the hierarchical data can be stored in one table. For example, a single table can contain all
+employees, and can include a column that stores each employee’s manager_ID, which points to another employee in that
+same table.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/queries-hierarchical.html
+
+Documentation Title:
+Querying Hierarchical Data | Snowflake Documentation
+
+Documentation Content:
+</span><span>employee_ID</span><span>;</span><span>+</span><span>----------------------------+-------------+------------+----------------------------+</span><span>| TITLE                      | EMPLOYEE_ID | MANAGER_ID | MANAGER TITLE              |</span><span>|----------------------------+-------------+------------+----------------------------|</span><span>| President                  |           1 |       NULL | NULL                       |</span><span>| Vice President Engineering |          10 |          1 | President                  |</span><span>| Vice President HR          |          20 |          1 | President                  |</span><span>| Programmer                 |         100 |         10 | Vice President Engineering |</span><span>| QA Engineer                |         101 |         10 | Vice President Engineering |</span><span>| Health Insurance Analyst   |         200 |         20 | Vice President HR          |</span><span>+</span><span>----------------------------+-------------+------------+----------------------------+</span></pre><span>Copy</span></div><p>This concept can be extended to as many levels as needed, as long as you know how many levels are needed. But if
+the number of levels changes, the queries need to change.</p></section><section><h2>Using CONNECT BY or Recursive CTEs to Query Hierarchical Data<a>¶</a></h2><p>Snowflake provides two ways to query hierarchical data in which the number of levels is not known in advance:</p><ul><p>Recursive CTEs (common table expressions).</p><p><code><span>CONNECT</span><span>BY</span></code>clauses.</p></ul><p>A recursive CTE allows you to create a <span>WITH</span>clause that can refer to itself.
+
+
+

@@ -1,0 +1,20 @@
+I would like to copy the "Date" and "Revenue ($)" values to a new sheet for the rows whose "Sales Channel" is "E-mail Coupon". The steps are:
+1. Click the "AutoFilter" button (with a funnel icon) on the toolbar.
+2. Click the triangle on the right of cell E1 with content "Sales Channel" to open the filter menu.
+3. Uncheck the checkbox before "All".
+4. Then check the box before "E-mail Coupon".
+5. Click "OK" on the bottom of the menu. You will see only the header and the entry whose "Sales Channel" is "E-mail Coupon".
+6. Click the "Append sheet" on the left of "Sheet1" on the bottom (its icon is a sheet of paper with a "+" on the bottom-right). A new sheet with name "Sheet2" will be created.
+7. Click "Sheet1" on the bottom to switch back to "Sheet1".
+8. Select column A by clicking "A" on the top of the sheet.
+9. Press "Ctrl+C" to copy.
+10. Go to "Sheet2" by clicking it on the bottom.
+11. Select cell A1.
+12. Press "Ctrl+V" to paste.
+13. Go back to "Sheet1".
+14. Select column G by clicking "G" on the top of the sheet.
+15. Press "Ctrl+C" to copy.
+16. Go to "Sheet2".
+17. Select cell B1.
+18. Press "Ctrl+V" to paste.
+19. Save the file via hotkey "ctrl+s".

@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 9,
     "config": [
@@ -63,5 +64,6 @@
             "path": "evaluation_examples/examples/jupyter/d4b4bde1-84f6-4644-b993-65dccbe15ea0/data_scaling_gold.ipynb",
             "dest": "data_scaling_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "35350c71-4449-46a6-84ce-69612575ef35"
 }

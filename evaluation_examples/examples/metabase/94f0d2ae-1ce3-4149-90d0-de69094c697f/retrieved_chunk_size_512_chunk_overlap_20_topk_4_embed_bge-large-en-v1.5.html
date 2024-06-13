@@ -1,0 +1,60 @@
+Documentation Source:
+www.metabase.com/learn/administration/serialization.html
+
+Documentation Title:
+Serialization: preloading dashboards in a new Metabase instance
+
+Documentation Content:
+["setup-token"]'</span><span>)</span><span>MB_TOKEN</span><span>=</span><span>$(</span>curl <span>-s</span><span>-X</span>POST <span>\</span><span>-H</span><span>"Content-type: application/json"</span><span>\</span>http://<span>${</span><span>METABASE_HOST</span><span>}</span>:<span>${</span><span>METABASE_PORT</span><span>}</span>/api/setup <span>\</span><span>-d</span><span>'{
+    "token": "'</span><span>${</span><span>SETUP_TOKEN</span><span>}</span><span>'",
+    "user": {
+        "email": "'</span><span>${</span><span>ADMIN_EMAIL</span><span>}</span><span>'",
+        "first_name": "Metabase",
+        "last_name": "Admin",
+        "password": "'</span><span>${</span><span>ADMIN_PASSWORD</span><span>}</span><span>'"
+    },
+    "prefs": {
+        "allow_tracking": false,
+        "site_name": "Metawhat"
+    }
+}'</span>| jq <span>-r</span><span>'.id'</span><span>)</span><span>echo</span><span>-e</span><span>"</span><span>\n</span><span>👥 Creating some basic users: "</span>curl <span>-s</span><span>"http://</span><span>${</span><span>METABASE_HOST</span><span>}</span><span>:</span><span>${</span><span>METABASE_PORT</span><span>}</span><span>/api/user"</span><span>\</span><span>-H</span><span>'Content-Type: application/json'</span><span>\</span><span>-H</span><span>"X-Metabase-Session: </span><span>${</span><span>MB_TOKEN</span><span>}</span><span>"</span><span>\</span><span>-d</span><span>'{"first_name":"Basic","last_name":"User",
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-api.html
+
+Documentation Title:
+Working with the Metabase API
+
+Documentation Content:
+such as adding a user or creating a dashboard. Then use the developer tools in your browser to view the request Metabase made to the server when you performed that action.</p><h2>A few things you can do with the Metabase API</h2><h3>Provision a Metabase instance</h3><p>In addition to using <a>environment variables</a>, you can use the Metabase API to setup an instance of Metabase. Once you have installed Metabase using your <a>preferred method</a>, and the Metabase server is up and running, you can create the first user (as an Admin) by posting to a special endpoint, <a>/api/setup</a>. This <code>/api/setup</code>endpoint:</p><ul><li>Creates the first user as an Admin (superuser).</li><li>Logs them in.</li><li>Returns a session ID.</li></ul><p>You can then configure settings using the <code>/api/settings</code>endpoint, set up email using the <code>/api/email</code>endpoint, and use the <code>/api/setup/admin_checklist</code>endpoint to verify your setup progress.</p><img/><h3>Add a data source</h3><p>You can add a new database using the <code>POST /api/database/</code>endpoint, and validate that database’s connection details using the <code>/api/setup/validate</code>endpoint. Once you’ve connected the database to your Metabase instance, you can rescan the database and update the schema metadata.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.html
+
+Documentation Title:
+Setting up Metabase
+
+Documentation Content:
+If you haven’t installed Metabase yet, you can <a>get Metabase here</a>.</p><p>Start Metabase up for the first time and you’ll see this screen:
+<img/></p><p>Go ahead and click <strong>Let’s get started</strong>.</p><h2>Setting up an admin account</h2><p>The first thing you’ll need to do is set up an admin account. The account you create when you first install Metabase is an admin account by default — handy! If you’ve installed Metabase on a production server, you should be really careful to remember the password for this account since it will be used to add other users, connect to databases, set up email, and more. You can also create additional admin accounts later.</p><p>For now, let’s just create an account for ourselves to explore Metabase. Type in your info, and when you’re ready to continue, click the <strong>Next</strong>button.</p><img/><h2>What will you use Metabase for?</h2><p>Let us know your plans with Metabase so that we can best guide you.</p><img/><ul><li>Self-service analytics for my own company</li><li>Embedding analytics into my application</li><li>A bit of both</li><li>Not sure yet</li></ul><p>Don’t worry about picking the wrong option. If you say you’re interested in embedding, Metabase will display a card with a link to the embedding settings when you (the admin) first log in to your instance. Just a little convenience thing, that’s all.</p><h2>Gathering your database info</h2><p>At this point you’ll need to gather some information about the database you want to use with Metabase. We won’t be able to connect to your database without it, but you’d like to deal with all of this later, that’s okay: just click <strong>I’ll add my data later</strong>.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/api/setup.html
+
+Documentation Title:
+Setup
+
+Documentation Content:
+You must be a superuser to see this!</p><code>GET /api/setup/user_defaults</code><p>Returns object containing default user details for initial setup, if configured,
+   and if the provided token value matches the token in the configuration value.</p><h3>PARAMS:</h3><code>token</code><code>POST /api/setup/</code><p>Special endpoint for creating the first user during setup. This endpoint both creates the user AND logs them in and
+  returns a session ID. This endpoint can also be used to add a database, create and invite a second admin, and/or
+  set specific settings from the setup flow.</p><h3>PARAMS:</h3><ul><code>engine</code><p><code>schedules</code>nullable :metabase.sync.schedules/ExpandedSchedulesMap.</p><p><code>allow_tracking</code>nullable boolean, or value must be a valid boolean string (‘true’ or ‘false’).</p><p><code>invited_last_name</code>nullable value must be a non-blank string.</p><p><code>site_locale</code>nullable String must be a valid two-letter ISO language or language-country code e.g.
+
+
+

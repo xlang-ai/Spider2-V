@@ -1,0 +1,8 @@
+In this task, we want to open a jupyter notebook under the Downloads folder in localhost with port 1036. We can:
+1. In the opened terminal, change to the `Downloads` folder:
+`cd ~/Downloads`
+2. Check the filename of the jupyter notebook, which should be "Aragon_Conviction_Voting_Model.ipynb":
+`ls *.ipynb`
+3. Use the following command to open the file in the local browser with specified port 1036:
+`jupyter lab --port 1036 Aragon_Conviction_Voting_Model.ipynb`
+4. Now, switch to the google chrome or chromium browser, the target file has been opened in the web.

@@ -1,0 +1,20 @@
+This tasks requires you to set up a Snowflake connection and use online base64 decoder.
+1. In the "Choose a connection" section, choose "Snowflake".
+2. Click the "Next" button.
+3. Open a new tab in chromium, and navigate to the website at "https://www.base64decode.org/".
+4. Copy the value of "account" field of the opened file "dbt-user-creds.json" at Desktop.
+5. Paste it to the text pad in the online base64 decoder website.
+6. Click the green "DECODE" button, and copy the result in the area below.
+7. Back to dbt cloud page, copy the result into "Account" text bar under "Settings" subtitle.
+8. Adjust the account value to the correct Snowflake account format. For example, "db5261993.eu-central-1.snowflakecomputing.com" is not a valid Snowflake account, but "db5261993.east-us-2" is.
+9. Copy the value of "user" field of the opened file "dbt-user-creds.json" at Desktop.
+10. Paste it to the text pad in the online base64 decoder website.
+11. Click the green "DECODE" button, and copy the result in the area below.
+12. Back to dbt cloud page, copy the result into "Username" text bar under "Development credentials" subtitle.
+13. Copy the value of "password" field of the opened file "dbt-user-creds.json" at Desktop.
+14. Paste it to the text pad in the online base64 decoder website.
+15. Click the green "DECODE" button, and copy the result in the area below.
+16. Back to dbt cloud page, copy the result into "Password" text bar under "Development credentials" subtitle.
+17. Fill in "Database" and "Warehouse" text bar under "Settings" subtitle with arbitrary strings.
+18. Click the "Test connection" button to check whether the connection is successfully established.
+19. Click the "Next" button to save the changes.

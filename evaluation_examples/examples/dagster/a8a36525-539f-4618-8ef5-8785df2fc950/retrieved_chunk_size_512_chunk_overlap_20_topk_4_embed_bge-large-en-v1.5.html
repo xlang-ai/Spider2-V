@@ -1,0 +1,53 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/using-duckdb-with-dagster.html
+
+Documentation Title:
+Using Dagster with DuckDB | Dagster Docs
+
+Documentation Content:
+<span>@asset</span><span>def</span><span>iris_dataset</span><span>(</span>duckdb<span>:</span>DuckDBResource<span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span>iris_df <span>=</span>pd<span>.</span>read_csv<span>(</span><span>"https://docs.dagster.io/assets/iris.csv"</span><span>,</span>names<span>=</span><span>[</span><span>"sepal_length_cm"</span><span>,</span><span>"sepal_width_cm"</span><span>,</span><span>"petal_length_cm"</span><span>,</span><span>"petal_width_cm"</span><span>,</span><span>"species"</span><span>,</span><span>]</span><span>,</span><span>)</span><span>with</span>duckdb<span>.</span>get_connection<span>(</span><span>)</span><span>as</span>conn<span>:</span>conn<span>.</span>execute<span>(</span><span>"CREATE TABLE iris.iris_dataset AS SELECT * FROM iris_df"</span><span>)</span></code><p>In this example, you're defining an asset that fetches the Iris dataset as a Pandas DataFrame and renames the columns.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/using-duckdb-with-dagster.html
+
+Documentation Title:
+Using Dagster with DuckDB | Dagster Docs
+
+Documentation Content:
+Dagster and the DuckDB I/O manager allow you to load the data stored in DuckDB tables into downstream assets.</p><code><span>import</span>pandas <span>as</span>pd
+
+<span>from</span>dagster <span>import</span>asset
+
+<span># this example uses the iris_dataset asset from Step 2</span><span>@asset</span><span>def</span><span>iris_setosa</span><span>(</span>iris_dataset<span>:</span>pd<span>.</span>DataFrame<span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span><span>return</span>iris_dataset<span>[</span>iris_dataset<span>[</span><span>"species"</span><span>]</span><span>==</span><span>"Iris-setosa"</span><span>]</span></code><p>In this asset, you're providing the <code>iris_dataset</code>asset as a dependency to <code>iris_setosa</code>. By supplying <code>iris_dataset</code>as a parameter to <code>iris_setosa</code>, Dagster knows to use the <code>DuckDBPandasIOManager</code>to load this asset into memory as a Pandas DataFrame and pass it as an argument to <code>iris_setosa</code>. Next, a DataFrame that only contains the data for the <em>Iris Setosa</em>species is created and returned. Then the <code>DuckDBPandasIOManager</code>will store the DataFrame as the <code>IRIS.IRIS_SETOSA</code>table in DuckDB.</p><h3>Completed code example<span>#</span></h3><p>When finished, your code should look like the following:</p><code><span>import</span>pandas <span>as</span>pd
+<span>from</span>dagster_duckdb_pandas <span>import</span>DuckDBPandasIOManager
+
+<span>from</span>dagster <span>import</span>Definitions<span>,</span>SourceAsset<span>,
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/using-duckdb-with-dagster.html
+
+Documentation Title:
+Using Dagster with DuckDB | Dagster Docs
+
+Documentation Content:
+<span>@asset</span><span>def</span><span>iris_dataset</span><span>(</span><span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span><span>return</span>pd<span>.</span>read_csv<span>(</span><span>"https://docs.dagster.io/assets/iris.csv"</span><span>,</span>names<span>=</span><span>[</span><span>"sepal_length_cm"</span><span>,</span><span>"sepal_width_cm"</span><span>,</span><span>"petal_length_cm"</span><span>,</span><span>"petal_width_cm"</span><span>,</span><span>"species"</span><span>,</span><span>]</span><span>,</span><span>)</span></code><p>In this example, you're defining an asset that fetches the Iris dataset as a Pandas DataFrame, renames the columns, then returns the DataFrame. The type signature of the function tells the I/O manager what data type it is working with, so it is important to include the return type <code>pd.DataFrame</code>.</p><p>When Dagster materializes the <code>iris_dataset</code>asset using the configuration from <a>Step 1: Configure the DuckDB I/O manager</a>, the DuckDB I/O manager will create the table <code>IRIS.IRIS_DATASET</code>if it does not exist and replace the contents of the table with the value returned from the <code>iris_dataset</code>asset.</p></div></div><h3>Step 3: Load DuckDB tables in downstream assets<span>#</span></h3><p>Once you have created an asset that represents a table in DuckDB, you will likely want to create additional assets that work with the data.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/using-duckdb-with-dagster.html
+
+Documentation Title:
+Using Dagster with DuckDB | Dagster Docs
+
+Documentation Content:
+</span>SourceAsset<span>,</span>asset
+
+iris_harvest_data <span>=</span>SourceAsset<span>(</span>key<span>=</span><span>"iris_harvest_data"</span><span>)</span><span>@asset</span><span>def</span><span>iris_dataset</span><span>(</span><span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span><span>return</span>pd<span>.</span>read_csv<span>(</span><span>"https://docs.dagster.io/assets/iris.csv"</span><span>,</span>names<span>=</span><span>[</span><span>"sepal_length_cm"</span><span>,</span><span>"sepal_width_cm"</span><span>,</span><span>"petal_length_cm"</span><span>,</span><span>"petal_width_cm"</span><span>,</span><span>"species"</span><span>,</span><span>]</span><span>,</span><span>)</span><span>@asset</span><span>def</span><span>iris_setosa</span><span>(</span>iris_dataset<span>:</span>pd<span>.</span>DataFrame<span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span><span>return</span>iris_dataset<span>[</span>iris_dataset<span>[</span><span>"species"</span><span>]</span><span>==</span><span>"Iris-setosa"</span><span>]</span>defs <span>=</span>Definitions<span>(</span>assets<span>=</span><span>[</span>iris_dataset<span>,</span>iris_harvest_data<span>,</span>iris_setosa<span>]</span><span>,</span>resources<span>=</span><span>{</span><span>"io_manager"</span><span>:</span>DuckDBPandasIOManager<span>(</span>database<span>=</span><span>"path/to/my_duckdb_database.
+
+
+

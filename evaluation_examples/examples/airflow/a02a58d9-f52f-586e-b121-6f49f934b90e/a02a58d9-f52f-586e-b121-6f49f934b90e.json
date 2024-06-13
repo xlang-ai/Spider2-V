@@ -45,7 +45,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "dbt",
         "postgresql",
@@ -57,7 +56,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 9,
     "evaluator": {
@@ -78,5 +78,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "dd8980f3-3297-427f-8daf-4b46604c5a10"
 }

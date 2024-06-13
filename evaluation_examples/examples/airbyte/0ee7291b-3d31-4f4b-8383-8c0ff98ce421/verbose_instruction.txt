@@ -1,0 +1,37 @@
+In this task, we want to add 2 rows with specific values to the source database and use `data-diff [Snowflake] [Postgres]` in terminal to check the difference of replicated data in the connection from Postgres to Snowflake: 
+1. Switch to the browser window;
+2. Wait for the syn to finish. Then click this connection row.
+3. We need to figure out the source database name. In the connection configuration page, click the "Postgres" icon (with the Postgres elephant on the left) to enter the source settings.
+4. In the source settings, we can find that the source Postgres database is running locally with the following information:
+Host: localhost
+Port: 5432
+Database Name: development
+Username: postgres
+We will use these information later.
+5. Click the "Destinations" button on the left column panel.
+6. We can see the entry of Snowflake. Click this row.
+7. In the destination settings panel, we can see the detailed configuration like this:
+Host: https://${account}.snowflakecomputing.com
+Role: ACCOUNTADMIN
+Warehouse: COMPUTE_WH
+Database: DEVELOPMENT
+Default Schema: CUSTOMERS
+Username: ...
+From the "Host" field, we can easily extract the Snowflake ${account}. Remember these information, we will use them later.
+8. Switch to the gnome-terminal application.
+9. Type in the following codes: `cat new_values.txt`. We will see the concrete two values to add into the table "users".
+10. Type in `docker ps | grep "postgres"`. We will see the container id for this local postgresql database in the first column of terminal output.
+11. Then, type in the following shell commands to execute:
+```
+docker exec -i ${container_id} psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record4');"
+docker exec -i ${container_id} psql -U postgres -d development -c "INSERT INTO customers.users(col1) VALUES('record5');"
+```
+Remember to replace ${container_id} with concrete container id discovered in previous step.
+12. Type in `echo $POSTGRES_PASSWORD`, we can see the password for Postgres.
+13. Type in `echo $SNOWFLAKE_PASSWORD`, we can see the password for Snowflake.
+14. Enter the data-diff command to record the result in the data_diff.csv file, which looks like this:
+```data-diff DB1_URI TABLE1_NAME DB2_URI TABLE2_NAME > diff_test.csv```
+    (1) "DB1_URI" is in the form of "snowflake://[username]:[password]@[account]/[DATABASE]/[SCHEMA]?warehouse=[WAREHOUSE]&role=[ROLE]". Remember to replace "[xxx]" with concrete values we recorded earlier.
+    (2) "DB2_URI" is in the format of "postgresql://[username]:[password]@localhost:5432/[database]". Remember to replace "[xxx]" with concrete values we recorded earlier.
+    (3) Note that, [DATABASE], [SCHEMA], [WAREHOUSE], [ROLE], and TABLE1_NAME for DB1 Snowflake should be in uppercase. The target table is "USERS" according to the added values;
+    (4) Note that, TABLE2_NAME for DB2 Postgres should also include the schema, that is "customers.users".

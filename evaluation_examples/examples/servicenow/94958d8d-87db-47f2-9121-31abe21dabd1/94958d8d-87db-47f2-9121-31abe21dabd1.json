@@ -1,0 +1,58 @@
+{
+    "id": "94958d8d-87db-47f2-9121-31abe21dabd1",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@SortUserListTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 8,
+    "instruction": "Sort the \"users\" list by the following fields:\n - Enable Multifactor Authentication (descending)\n - Prefix (descending)\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to sort the users list by 2 fields:\n1. Click the funnel icon on the top menu bar (which is the middle icon under page title \"servicenow\"). The filter will show up after loading.\n2. Click the \"Add Sort\" button in the row under the funnel icon.\n3. Find the selection bar under prompt \"Order results by the following fields\", click it and type text \"Enable Multifactor Authentication\" in the search bar. Press enter to confirm the choice.\n4. As for the sorting method, click and choose \"z to a\".\n5. Next, we click the button \"Add Sort\" again to add another condition.\n6. In the second field box, we click and type in \"Prefix\" to filter options. Choose this entry.\n7. About the sort method, we click and choose \"z to a\", that is descending order.\n8. Finally, we click the \"Run\" button to execute the list sorting. Wait for a few seconds, the results will be prepared.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "SortUserListTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "91e6dbc0-c045-4ded-bb21-32e5f45e9bab"
+}

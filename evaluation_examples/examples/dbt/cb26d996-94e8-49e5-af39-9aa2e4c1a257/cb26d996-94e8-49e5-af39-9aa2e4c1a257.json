@@ -1,0 +1,57 @@
+{
+    "id": "cb26d996-94e8-49e5-af39-9aa2e4c1a257",
+    "snapshot": "dbt",
+    "instruction": "I have noticed that the snapshot \"orders_snapshot\" depends on on an undeclared source. Help me add the source declaration and then re-run the entire project, so that \"dbt snapshot\" command could be executed successfully.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to declare sources for dbt snapshot reference.\n1. Open \"models/schema.yml\" in the VSCode editor.\n2. Append the following codes into the YML file.\n```yml\nsources:\n  - name: analytics\n    schema: analytics\n    tables:\n      - name: orders\n```\n3. Switch to the terminal.\n4. Run ``dbt seed`` to load the seeds.\n5. Run ``dbt run`` to execute the models.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/docs/build/snapshots",
+        "https://docs.getdbt.com/docs/build/sources"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/cb26d996-94e8-49e5-af39-9aa2e4c1a257/analytics.zip",
+                "dest": "/home/user/analytics.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/cb26d996-94e8-49e5-af39-9aa2e4c1a257/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "action_number": 5,
+    "related_apps": [
+        "dbt",
+        "duckdb",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "data_transformation",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/dbt/cb26d996-94e8-49e5-af39-9aa2e4c1a257/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "4b331e9f-7fcf-40d6-aa7b-ad468010f334"
+}

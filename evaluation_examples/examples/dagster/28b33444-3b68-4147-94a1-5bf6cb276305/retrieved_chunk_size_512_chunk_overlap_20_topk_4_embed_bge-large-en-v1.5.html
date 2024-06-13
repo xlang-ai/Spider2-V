@@ -1,0 +1,49 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+<span>class</span><span>FileConfig</span><span>(</span>Config<span>)</span><span>:</span>filename<span>:</span><span>str</span><span>@op</span><span>def</span><span>process_file</span><span>(</span>context<span>:</span>OpExecutionContext<span>,</span>config<span>:</span>FileConfig<span>)</span><span>:</span>context<span>.</span>log<span>.</span>info<span>(</span>config<span>.</span>filename<span>)</span><span>@job</span><span>def</span><span>log_file_job</span><span>(</span><span>)</span><span>:</span>process_file<span>(</span><span>)</span></code><p>You can write a sensor that watches for new files in a specific directory and yields a <code>RunRequest</code>for each new file in the directory. By default, this sensor runs every 30 seconds.</p><code><span>import</span>os
+<span>from</span>dagster <span>import</span>sensor<span>,</span>RunRequest<span>,</span>RunConfig
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+<span>@sensor</span><span>(</span>job<span>=</span>log_file_job<span>)</span><span>def</span><span>my_directory_sensor</span><span>(</span><span>)</span><span>:</span><span>for</span>filename <span>in</span>os<span>.</span>listdir<span>(</span>MY_DIRECTORY<span>)</span><span>:</span>filepath <span>=</span>os<span>.</span>path<span>.</span>join<span>(</span>MY_DIRECTORY<span>,</span>filename<span>)</span><span>if</span>os<span>.</span>path<span>.</span>isfile<span>(</span>filepath<span>)</span><span>:</span><span>yield</span>RunRequest<span>(</span>run_key<span>=</span>filename<span>,</span>run_config<span>=</span>RunConfig<span>(</span>ops<span>=</span><span>{</span><span>"process_file"</span><span>:</span>FileConfig<span>(</span>filename<span>=</span>filename<span>)</span><span>}</span><span>)</span><span>,</span><span>)</span></code><p>This sensor iterates through all the files in <code>MY_DIRECTORY</code>and yields a <code>RunRequest</code>for each file.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+The sensor evaluation function can yield a <code>SkipReason</code>with a string description that will be displayed in the UI.</p><p>For example, here is our directory sensor that now provides a <code>SkipReason</code>when no files are encountered:</p><code><span>@sensor</span><span>(</span>job<span>=</span>log_file_job<span>)</span><span>def</span><span>my_directory_sensor_with_skip_reasons</span><span>(</span><span>)</span><span>:</span>has_files <span>=</span><span>False</span><span>for</span>filename <span>in</span>os<span>.</span>listdir<span>(</span>MY_DIRECTORY<span>)</span><span>:</span>filepath <span>=</span>os<span>.</span>path<span>.</span>join<span>(</span>MY_DIRECTORY<span>,</span>filename<span>)</span><span>if</span>os<span>.</span>path<span>.</span>isfile<span>(</span>filepath<span>)</span><span>:</span><span>yield</span>RunRequest<span>(</span>run_key<span>=</span>filename<span>,</span>run_config<span>=</span><span>{</span><span>"ops"</span><span>:</span><span>{</span><span>"process_file"</span><span>:</span><span>{</span><span>"config"</span><span>:</span><span>{</span><span>"filename"</span><span>:</span>filename<span>}</span><span>}</span><span>}</span><span>}</span><span>,</span><span>)</span>has_files <span>=</span><span>True</span><span>if</span><span>not</span>has_files<span>:</span><span>yield</span>SkipReason<span>(</span><span><span>f"No files found in </span><span><span>{</span>MY_DIRECTORY<span>}</span></span><span>.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/partitioning-assets.html
+
+Documentation Title:
+Partitioning assets | Dagster
+
+Documentation Content:
+For example, the following code snippet demonstrates the usage of a <a>sensor</a>to detect the presence of a new partition and then trigger a run for that partition:</p><code>images_job <span>=</span>define_asset_job<span>(</span><span>"images_job"</span><span>,</span>AssetSelection<span>.</span>assets<span>(</span><span>"images"</span><span>)</span><span>,</span>partitions_def<span>=</span>images_partitions_def
+<span>)</span><span>@sensor</span><span>(</span>job<span>=</span>images_job<span>)</span><span>def</span><span>image_sensor</span><span>(</span>context<span>:</span>SensorEvaluationContext<span>)</span><span>:</span>new_images <span>=</span><span>[</span>img_filename
+        <span>for</span>img_filename <span>in</span>os<span>.</span>listdir<span>(</span>os<span>.</span>getenv<span>(</span><span>"MY_DIRECTORY"</span><span>)</span><span>)</span><span>if</span><span>not</span>images_partitions_def<span>.</span>has_partition_key<span>(</span>img_filename<span>,</span>dynamic_partitions_store<span>=</span>context<span>.</span>instance
+        <span>)</span><span>]</span><span>return</span>SensorResult<span>(</span>run_requests<span>=</span><span>[</span>RunRequest<span>(</span>partition_key<span>=</span>img_filename<span>)</span><span>for</span>img_filename <span>in</span>new_images
+        <span>]</span><span>,</span>dynamic_partitions_requests<span>=</span><span>[</span>images_partitions_def<span>.</span>build_add_request<span>(</span>new_images<span>)</span><span>]</span><span>,</span><span>)</span></code><h3>Recommended partition limits<span>#</span></h3><p>We recommend limiting the number of partitions for each asset to 25,000 or fewer.
+
+
+

@@ -1,0 +1,16 @@
+1. Click cell G1;
+2. Type in text "Revenue";
+3. Click cell G2;
+4. Type in formula "=VLOOKUP(C2,'Retail Price'.$A$2:$B$23,2,FALSE)*E2*(1-F2)" and press ENTER to calculate it;
+5. Drag the bottom right corner of cell G2 down to cell G36, such that this formula is applied the other cells in this column;
+6. Choose column from C to G;
+7. Click the menu button "Insert -> Pivot Table";
+8. Click "OK" to use current selection;
+9. For Row Fields, drag "Product" from Available Fields into this box;
+10. For Data Fields, drag "Revenue" from Available Fields into this box;
+11. Click button "OK" and we will see a new sheet starting with "Pivot";
+12. Locate this sheet panel at the bottom and right click it;
+13. Choose "Rename Sheet";
+14. Type in "Sheet2" in the input box with title "Name";
+15. Click OK button in the pop up window;
+16. Save the file with hotkey "Ctrl+S".

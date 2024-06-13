@@ -1,0 +1,52 @@
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTracker.html
+
+Documentation Title:
+NotebookTracker | @jupyterlab
+
+Documentation Content:
+widgetUpdated</p><li>Defined in packages/apputils/lib/widgettracker.d.ts:139</li></aside></li></ul></section></section><section><h2>Methods</h2><section><span>add</span><ul><li><span>add</span><span>(</span><span>panel</span><span>)</span><span>: </span><a>Promise</a><span>&lt;</span><span>void</span><span>&gt;</span></li><li><p>Add a new notebook panel to the tracker.</p><div><h4>Parameters</h4><li><h5><span>panel</span>: <a>NotebookPanel</a></h5><p>The notebook panel being added.</p></li></div><h4>Returns <a>Promise</a><span>&lt;</span><span>void</span><span>&gt;</span></h4><aside><p>Overrides <a>WidgetTracker</a>.<a>add</a></p><li>Defined in packages/notebook/lib/tracker.d.ts:31</li></aside></li></ul></section><section><span>defer</span><ul><li><span>defer</span><span>(</span><span>options</span><span>)</span><span>: </span><span>void</span></li><li><p>Save the restore options for this tracker, but do not restore yet.</p><div><h4>Parameters</h4><li><h5><span>options</span>: <a>IRestorable</a><span>.</span><a>IOptions</a><span>&lt;</span><a>NotebookPanel</a><span>&gt;</span></h5><div><p>The configuration options that describe restoration.</p><a>Notes</a><p>This function is useful when starting the shell in 'single-document' mode,
+to avoid restoring all useless widgets. It should not ordinarily be called
+by client code.
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.Notebook-1.html
+
+Documentation Title:
+Notebook | @jupyterlab
+
+Documentation Content:
+><span>_findHeading</span><span>_onCellsChanged</span><span>activate</span><span>Notes</span><span>addClass</span><span>Notes</span><span>addFooter</span><span>addHeader</span><span>children</span><span>Notes</span><span>clearFlag</span><span>Notes</span><span>close</span><span>Notes</span><span>contains</span><span>deselect</span><span>Notes</span><span>deselectAll</span><span>dispose</span><span>extendContiguousSelectionTo</span><span>Notes</span><span>fit</span><span>N
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.duplicate.html
+
+Documentation Title:
+duplicate | @jupyterlab
+
+Documentation Content:
+<body><div><div><a>GitHub</a><a>Jupyter</a></div><ul><li>Preparing search index...</li><li>The search index is not available</li></ul><a>@jupyterlab</a></div><div><div><div><ul><a>@jupyterlab</a><a>notebook</a><a>NotebookActions</a><a>duplicate</a></ul><h1>Function duplicate</h1></div><ul><li><span>duplicate</span><span>(</span><span>notebook</span>, <span>mode</span><span>?</span><span>)</span><span>: </span><span>void</span></li><li><p>Duplicate selected cells in the notebook without using the application clipboard.</p><div><h4>Parameters</h4><ul><li><h5><span>notebook</span>: <a>Notebook</a></h5><p>The target notebook widget.</p></li><li><h5><code>Optional</code><span>mode</span>: <span>"replace"</span><span>| </span><span>"above"</span><span>| </span><span>"below"</span><span>| </span><span>"belowSelected"</span></h5><div><p>the mode of adding cells:
+  'below' (default) adds cells below the active cell,
+  'belowSelected' adds cells below all selected cells,
+  'above' adds cells above the active cell, and
+  'replace' removes the currently selected cells and adds cells in their place.</p><a>Notes</a><p>The last pasted cell becomes the active cell.
+This is a no-op if there is no cell data on the clipboard.
+This action can be undone.</p></div></li></ul></div><h4>Returns <span>void</span></h4><li>Defined in packages/notebook/lib/actions.d.ts:436</li></li></ul></div><div><div><details><h3>Settings</h3><div><div><h4>Member
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.copy.html
+
+Documentation Title:
+copy | @jupyterlab
+
+Documentation Content:
+/details><details><span>IStatusBar</span><ul><span>IItem</span><span>Alignment</span></ul></details><details><span>Popup</span><span>IOptions</span></details><details><span>ProgressBar</span><span>IProps</span></details><details><span>ProgressCircle</span><span>IProps</span></details><details><span>TextItem</span><span>IProps</span></details><span>Popup</span><span>StatusBar</span><span>IStatusBar</span><span>IStatusBar</span><span>GroupItem</span><span>ProgressBar</span>
+
+
+

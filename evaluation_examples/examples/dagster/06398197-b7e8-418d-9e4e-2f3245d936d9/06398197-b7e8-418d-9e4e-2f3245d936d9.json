@@ -1,0 +1,110 @@
+{
+    "id": "06398197-b7e8-418d-9e4e-2f3245d936d9",
+    "snapshot": "dagster",
+    "instruction": "There is some external code \"external.py\" incorporated into my dagster project \"orders\". I have defined a subprocess asset to execute the code using Dagster Pipes. However, I would like the external code to report its materialization by logging the total number of entries in the DataFrame \"orders_df\". Also, define an asset check called \"no_null_check\" to check all entries in the \"Item_ID\" columns are not null. Materialize the subprocess asset for me. After that, open the asset checks page for me to verify that \"no_null_check\" succeeds.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: 1. Go to VS Code. Open the file \"external.py\" from the navigation column bar.\n2. In \"external.py\", import necessary functions from dagster_pipes:\n```\nimport pandas as pd\nfrom dagster_pipes import PipesContext, open_dagster_pipes # Added\n\n# Keep the other lines\n```\n3. Modify the main function to report asset materialization and asset check:\n```\ndef main():\n    orders_df = pd.read_csv(\"orders_data.csv\")\n    total_orders = len(orders_df)\n    # get the Dagster Pipes context\n    context = PipesContext.get()\n    # send structured metadata back to Dagster\n    context.report_asset_materialization(metadata={\"total_orders\": total_orders})\n    # report data quality check result back to Dagster\n    context.report_asset_check(\n        passed=orders_df[[\"Item_ID\"]].notnull().all().bool(),\n        check_name=\"no_null_check\",\n    )\n```\n4. For the function entrance, wrap the main call with a Dagster Pipes context:\n```\nif __name__ == \"__main__\":\n    # connect to Dagster Pipes\n    with open_dagster_pipes():\n        main()\n```\n5. After these 3 modifications, save the `external.py` file via hotkey \"Ctrl+S\".\n6. Switch to the file \"assets.py\". Modify the \"@asset\" decorator to include the asset check:\n```\n@asset(\n    check_specs=[AssetCheckSpec(name=\"no_null_check\", asset=\"subprocess_asset\")], # Added\n)\ndef subprocess_asset(\n    context: AssetExecutionContext, pipes_subprocess_client: PipesSubprocessClient\n):\n    # Keep the other lines\n```\n7. Remember to save this assets.py file too by pressing \"Ctrl+S\".\n8. Go to Chromium. Make sure the active tab is the Dagster UI and you can see the \"subprocess_asset\" in the lineage graph.\n9. Click \"Reload definitions\" on the top-right corner of the page. Wait for the reload to finish.\n10. Click \"Materialize\" on the top-right of the graph and wait for the materialization to succeed.\n11. Click on the asset \"subprocess_asset\" in the middle of the lineage graph.\n12. In the table under \"Latest materialization\", click the \"View logs\" button on the right.\n13. In the table, find the event type \"ASSET_CHECK_EVALUATION\", click the link \"no_null_check\" in the corresponding info \"Check no_null_check succeeded for materialization of subprocess_asset\".\n14. Wait for the url redirection, and we finally come to the desired page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/guides/dagster-pipes/subprocess"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 14,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/06398197-b7e8-418d-9e4e-2f3245d936d9/orders.zip",
+                "dest": "/home/user/orders.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/06398197-b7e8-418d-9e4e-2f3245d936d9/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/06398197-b7e8-418d-9e4e-2f3245d936d9/orders_data_with_null.csv",
+                    "dest": "/home/user/orders/orders_data_with_null.csv"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude",
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/06398197-b7e8-418d-9e4e-2f3245d936d9/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "validate_correct_url",
+                "src": "evaluation_examples/examples/dagster/06398197-b7e8-418d-9e4e-2f3245d936d9/eval_ui.sh",
+                "dest": "/home/user/eval_ui.sh",
+                "goto_prefix": "http://"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "6664f67f-4366-4017-b270-b01c896be626"
+}

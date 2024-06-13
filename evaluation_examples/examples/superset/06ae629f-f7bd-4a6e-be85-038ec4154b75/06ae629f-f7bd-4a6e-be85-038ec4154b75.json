@@ -1,0 +1,60 @@
+{
+    "id": "06ae629f-f7bd-4a6e-be85-038ec4154b75",
+    "snapshot": "superset",
+    "instruction": "I am a beginner to Superset. Could you help me launch the local server and navigate to the homepage at port 8088? The github repository for Superset has been downloaded in the current folder.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To launch the local web server at port 8088 for superset. We can follow these steps:\n1. In the opened terminal, type in `ls` to check the current folder structure. Based on the output results, we find that the folder `superset` has already existed.\n2. Enter the superset folder:\n`cd superset`\n3. Now, fire up Superset using Docker compose:\n`docker compose -f docker-compose-image-tag.yml up`\n4. Change to the chrome or chromium browser, head over to http://localhost:8088;\n5. Type in the default created account on the login page:\nusername: admin\npassword: admin\n6. Click the button \"SIGN IN\" and you will successfully log into the welcome page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/installation/installing-superset-using-docker-compose"
+    ],
+    "related_apps": [
+        "docker",
+        "terminal",
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 6,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/06ae629f-f7bd-4a6e-be85-038ec4154b75/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "superset_localhost_page",
+            "url": "http://localhost:8088",
+            "title": "superset"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "4217a260-ddf2-4600-9e5f-e3a90b4d862e"
+}

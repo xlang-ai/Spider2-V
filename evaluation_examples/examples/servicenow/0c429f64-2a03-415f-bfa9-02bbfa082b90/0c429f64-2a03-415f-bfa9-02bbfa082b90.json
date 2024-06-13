@@ -1,0 +1,58 @@
+{
+    "id": "0c429f64-2a03-415f-bfa9-02bbfa082b90",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderIpadMiniTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 6,
+    "instruction": "Go to the hardware store and order 8 \"iPad mini\" with configuration {'Choose the colour': 'Purple', 'Choose the storage': '256'}\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In the hardware store, we want to order 8 iPad mini:\n1. Click the \"Hardware\" panel and wait for page loading.\n2. Click the item panel for \"iPad mini\" (which should be the seond item) and wait for page response.\n3. In the directed new page, click the box in front of \"Purple\".\n4. As for storage, click the option starting with \"256 GB\".\n5. Come to the right panel, for Quantity, click the selection bar and choose \"8\".\n6. Click the button \"Order Now\" under it and we will see the order request has been made in the new page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderIpadMiniTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "070b87f5-8a6f-4bb4-a7df-d4e9274fae21"
+}

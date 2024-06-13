@@ -1,0 +1,16 @@
+I have finished one dagster asset "iris_dataset". Please write another one that generates a duckdb table "iris_virginica". This table will extract all entries with species "Iris-virginica" from iris_dataset. To do this, the steps are:
+1. Go to VS Code and open the folder "iris_analysis" in the left navbar.
+2. Open the file "assets.py" and add the following asset definition to the end of the file:
+```
+@asset(deps=[iris_dataset])
+def iris_virginica(duckdb: DuckDBResource) -> None:
+    with duckdb.get_connection() as conn:
+        conn.execute(
+            "CREATE TABLE iris_virginica AS SELECT * FROM iris_dataset WHERE species = 'Iris-virginica'"
+        )
+```
+3. Save this file via pressing "Ctrl+S".
+4. Change to the opened Chromium or Chrome browser.
+5. Click "Reload definitions" at the top-right of the page.
+6. After the asset "iris-virginica" is shown in the lineage graph, click "Materialize all" at the top-right of the graph.
+7. Wait for the materialization to finish.

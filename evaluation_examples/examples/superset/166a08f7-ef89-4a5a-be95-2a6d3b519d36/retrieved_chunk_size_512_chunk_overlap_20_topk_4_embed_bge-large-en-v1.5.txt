@@ -1,0 +1,314 @@
+Documentation Source:
+superset.apache.org/docs/configuration/event-logging/index.txt
+
+Documentation Title:
+Event Logging | Superset
+
+Documentation Content:
+Event Logging | Superset
+Skip to main content
+Documentation
+Getting Started
+FAQ
+Community
+Resources
+GitHub
+Slack
+Mailing List
+Stack Overflow
+Get Started
+Search
+Introduction
+Quickstart
+Installation
+Configuration
+Configuring Superset
+Connecting to Databases
+Alerts and Reports
+Caching
+Async Queries via Celery
+SQL Templating
+Timezones
+Network and Security Settings
+Setup SSH Tunneling
+Event Logging
+Country Map Tools
+Importing and Exporting Datasources
+Using Superset
+Contributing
+Security
+FAQ
+API
+Edit this page on GitHub
+Configuration
+Event Logging
+On this page
+Logging
+Event Logging
+​
+Superset by default logs special action events in its internal database (DBEventLogger). These logs can be accessed
+on the UI by navigating to
+Security > Action Log
+. You can freely customize these logs by
+implementing your own event log class.
+When custom log class is enabled DBEventLogger is disabled and logs
+stop being populated in UI logs view.
+To achieve both, custom log class should extend built-in DBEventLogger log class.
+Here's an example of a simple JSON-to-stdout class:
+def
+log
+(
+self
+,
+user_id
+,
+action
+,
+*
+args
+,
+**
+kwargs
+)
+:
+records
+=
+kwargs
+.
+get
+(
+'records'
+,
+list
+(
+)
+)
+dashboard_id
+=
+kwargs
+.
+get
+(
+'dashboard_id'
+)
+slice_id
+=
+kwargs
+.
+get
+(
+'slice_id'
+)
+duration_ms
+=
+kwargs
+.
+get
+(
+'duration_ms'
+)
+referrer
+=
+kwargs
+.
+get
+(
+'referrer'
+)
+for
+record
+in
+records
+:
+log
+=
+dict
+(
+action
+=
+action
+,
+json
+=
+record
+,
+dashboard_id
+=
+dashboard_id
+,
+slice_id
+=
+slice_id
+,
+duration_ms
+=
+duration_ms
+,
+referrer
+=
+referrer
+,
+user_id
+=
+user_id
+)
+print
+(
+json
+.
+dumps
+(
+log
+)
+)
+End by updating your config to pass in an instance of the logger you want to use:
+EVENT_LOGGER = JSONStdOutEventLogger()
+StatsD Logging
+​
+Superset can be configured to log events to
+StatsD
+if desired.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/index72c9.txt
+
+Documentation Title:
+Index of /docs/configuration
+
+Documentation Content:
+html/
+2024-04-24 21:23
+-
+event-logging.htm/
+2024-04-24 21:23
+-
+country-map-tools.html/
+2024-04-24 21:23
+-
+country-map-tools.htm/
+2024-04-24 21:23
+-
+configuring-superset.html/
+2024-04-24 21:23
+-
+configuring-superset.htm/
+2024-04-24 21:23
+-
+cache.html/
+2024-04-24 21:23
+-
+cache.htm/
+2024-04-24 21:23
+-
+async-queries-celery.html/
+2024-04-24 21:23
+-
+async-queries-celery.htm/
+2024-04-24 21:23
+-
+alerts-reports.html/
+2024-04-24 21:23
+-
+alerts-reports.htm/
+2024-04-24 21:23
+-
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/indexf8a0.txt
+
+Documentation Title:
+Index of /docs/configuration
+
+Documentation Content:
+htm/
+2024-05-01 01:36
+-
+databases.html/
+2024-05-01 01:36
+-
+alerts-reports/
+2024-05-06 16:58
+-
+async-queries-celery/
+2024-05-06 16:58
+-
+cache/
+2024-05-06 16:58
+-
+configuring-superset/
+2024-05-06 16:58
+-
+country-map-tools/
+2024-05-06 16:58
+-
+databases/
+2024-05-06 16:58
+-
+event-logging/
+2024-05-06 16:58
+-
+importing-exporting-datasources/
+2024-05-06 16:58
+-
+networking-settings/
+2024-05-06 16:58
+-
+setup-ssh-tunneling/
+2024-05-06 16:58
+-
+sql-templating/
+2024-05-06 16:58
+-
+timezones/
+2024-05-06 16:58
+-
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/indexad3f.txt
+
+Documentation Title:
+Index of /docs/configuration
+
+Documentation Content:
+html/
+2024-04-24 21:23
+-
+configuring-superset.htm/
+2024-04-24 21:23
+-
+cache/
+2024-05-06 16:58
+-
+cache.html/
+2024-04-24 21:23
+-
+cache.htm/
+2024-04-24 21:23
+-
+async-queries-celery/
+2024-05-06 16:58
+-
+async-queries-celery.html/
+2024-04-24 21:23
+-
+async-queries-celery.htm/
+2024-04-24 21:23
+-
+alerts-reports/
+2024-05-06 16:58
+-
+alerts-reports.html/
+2024-04-24 21:23
+-
+alerts-reports.htm/
+2024-04-24 21:23
+-
+
+
+

@@ -1,0 +1,64 @@
+{
+    "id": "1e1af42c-7625-4cb9-a155-72e104837ee6",
+    "snapshot": "metabase",
+    "instruction": "Please help me follow along with Metabase's Sample Database to create the histogram detailed below. Visualize the data summarizing by Count and Group by Total. Adjust the `bin` options to make the range of y-axis around 1,400. Show value labels for all data points and make the formatting to be 'Compact'. Please download the visualization as a PNG file, and rename it to \"histogram.png\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To complete the visualization, please follow these steps:\n\n1. Click the \"New\" button on the top right;\n2. Choose \"Question\" in the drop-down panel;\n3. Choose \"Orders\" in the \"Sample Database\" drop-down panel;\n4. Click on Visualize;\n5. Click on the \"Summarize\" button at the top right corner.\n6. Under \"Group by\" choose \"Total\" - Add grouping;\n7. Try each option in \"Auto binned\" drop-down menu until find one which makes the y-axis ranging around 1,400;\n8. Click Done;\n9. Click on Visualization -> Bar;\n10. Click on Bar again to pull out the Bar Options panel;\n11. Under Display, open \"Show values on data points\";\n12. Choose \"Values to show - All\";\n13. Choose \"Auto formatting - Compact\";\n14. Click Done;\n15. Click the \"Download full results\" button (cloud icon) on the bottom right;\n16. Choose \".png\" in the panel;\n17. Open the local path \"/home/user/Downloads\";\n18. Rename the visualization file as \"histogram.png\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/learn/visualization/histograms#create-a-histogram"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 18,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/1e1af42c-7625-4cb9-a155-72e104837ee6/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_metabase_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/histogram.png",
+            "dest": "histogram.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/1e1af42c-7625-4cb9-a155-72e104837ee6/histogram_gold.png",
+            "dest": "histogram_gold.png"
+        }
+    },
+    "counterpart": "89ab05f4-5bc5-49d0-8fb9-b7c7a532b9b2"
+}

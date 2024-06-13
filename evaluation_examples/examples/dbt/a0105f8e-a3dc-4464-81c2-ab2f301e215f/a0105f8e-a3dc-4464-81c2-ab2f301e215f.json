@@ -13,7 +13,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "config": [
         {
@@ -66,5 +67,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "ad0a9ee2-676e-4965-8439-5e5201e05d9e"
 }

@@ -1,0 +1,58 @@
+{
+    "id": "5d76cee4-608d-4601-bccf-a975a0e14e54",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@AllMenuTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 4,
+    "instruction": "Navigate to the \"Contracts > Leases\" module of the \"Contract\" application.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we are asked to navigate through the servicenow page and find the \"Contracts > Leases\" module of the \"Contract\" application. To achieve this:\n1. Find and locate the \"All\" button in the top menu bar on the left. Click it!\n2. In the \"Filter\" box, type in the text \"Leases\".\n3. Then, in the drop-down menu, we will see the entry \"Leases\" which is under the parent entry \"Contracts\". Click this entry, the website will navigate to a new page.\n4. Wait for the web loading after which we just finish the task.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "AllMenuTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "f95f676c-65a5-4834-9005-fb6bfaf7514c"
+}

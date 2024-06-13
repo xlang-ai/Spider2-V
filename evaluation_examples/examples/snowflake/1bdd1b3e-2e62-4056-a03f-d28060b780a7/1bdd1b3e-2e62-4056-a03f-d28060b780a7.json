@@ -1,0 +1,73 @@
+{
+    "id": "1bdd1b3e-2e62-4056-a03f-d28060b780a7",
+    "snapshot": "snowflake",
+    "instruction": "In the opened web page, create a new database called \"RANKINGS\" and load data from a local file into it. Here are the detailed requirements:\n- local file: .csv on desktop\n- target schema: PUBLIC\n- table name: university_rankings\n- columns: use header line (replace whitespaces and hyphens into underlines \"_\")\n- column types: use auto-detection\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Today's job is to create a new database on Snowflake and load local data into it. In the opened Snowsight web page,\n1. Click \"Data >> Databases\" on the left menu panel.\n2. In the right panel, click \"+ Database\".\n3. In the Name field of pop-up window, type in the database name \"RANKINGS\"; \n4. Click \"Create\" button;\n5. In the middle panel, choose entry \"RANKINGS >> PUBLIC\" to select this default schema;\n6. In the right panel, click the \"Create >> Table >> From File\" sequentially.\n7. In the pop-up window, click \"Browse\" and select the \"National_Universities_Rankings.csv\" file on Desktop.\n8. Scroll down to the input field with name \"Name\", type in the table name \"university_rankings\".\n9. Click button \"Next\" to firstly upload data into Snowsight.\n10. In this stage, choose \"Delimited Files (CSV or TSV)\" for \"File format\" (on the top left window);\n11. Click \"View options\" in this panel to expand more advanced settings;\n12. For the \"Header\" field, choose \"First line contains header\" to auto-detect the table schema;\n13. In the right panel, for those three headers which raise error messages due to invalid characters, type and replace all whitespaces or hyphens into underscores `_`:\nTuition Fees -> Tuition_Fees\nIn-state -> In_state\nUndergrad Enrollment -> Undergrad_Enrollment\n14. Click the button \"Load\" at the bottom right in this window to load all data.\n15. After waiting for a few seconds, we will see the system message \"Successfully Loaded Data\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/data-load-web-ui#loading-data-using-snowsight"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 15,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/1bdd1b3e-2e62-4056-a03f-d28060b780a7/National_Universities_Rankings.csv",
+                "dest": "/home/user/Desktop/National_Universities_Rankings.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "RANKINGS",
+            "schema": "PUBLIC",
+            "table": "university_rankings",
+            "include_header": true,
+            "dest": "university_rankings.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/1bdd1b3e-2e62-4056-a03f-d28060b780a7/university_rankings_gold.csv",
+            "dest": "university_rankings_gold.csv"
+        }
+    },
+    "counterpart": "7d40baa0-75c8-4aa2-baea-c8007b311b08"
+}

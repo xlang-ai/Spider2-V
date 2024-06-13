@@ -1,0 +1,82 @@
+{
+    "id": "94f0d2ae-1ce3-4149-90d0-de69094c697f",
+    "snapshot": "metabase",
+    "instruction": "Help me finish the metabase login setup with information shown in setup.json.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: When we start up Metabase for the first time, we’ll see the welcome page. To set up and configure the first connection to a database, we can go ahead:\n1. Click \"Let’s get started\";\n2. Choose the language to be \"English\" and click \"Next\";\n3. Fill in the user profile with information provided in setup.json, that is:\nFirst name: John\nLast name: Wilson\nEmail: johnwilson@gmail.com\nCompany or team name: Google\nCreate a password: Spider2.0\nConfirm your password: Spider2.0\n4. Upon completion, click \"Next\";\n5. For the usage, choose any of the options, e.g., \"Not sure yet\";\n6. Next step is to add your data, click the icon \"PostgreSQL\";\n7. And fill all fields according to setup.json into this form, concretely:\nDisplay name: PostgresData\nHost: localhost\nPort: 5432\nDatabase name: metabase\nUsername: user\nPassword: password\n8. After completion, scroll down and click button \"Connect database\";\n9. Since the user do not want to share data, for Usage data preferences, disable Metabase to collect usage events.\n10. Click \"Finish\" button to next step;\n11. Directly click \"Take me to Metabase\" to complete the entire setup.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/configuring-metabase/setting-up-metabase"
+    ],
+    "related_apps": [
+        "chromium",
+        "postgresql",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/94f0d2ae-1ce3-4149-90d0-de69094c697f/setup.json",
+                "dest": "/home/user/setup.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/94f0d2ae-1ce3-4149-90d0-de69094c697f/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/setup.json"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/94f0d2ae-1ce3-4149-90d0-de69094c697f/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "53f051d4-3264-46fa-9598-28fb932f7b6c"
+}

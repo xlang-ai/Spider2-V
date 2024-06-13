@@ -1,0 +1,370 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.txt
+
+Documentation Title:
+Load and query sample data using SQL | Snowflake Documentation
+
+Documentation Content:
+For example, a schema might
+contain the database objects required for a specific application. For more information,
+see
+Databases, Tables and Views - Overview
+.
+In this tutorial, you create a database named
+tasty_bytes_sample_data
+, a
+schema named
+raw_pos
+, and a table named
+menu
+.
+To create the database, schema, and table, do the following:
+In the open worksheet, place your cursor in the CREATE OR REPLACE DATABASE line,
+then select
+Run
+.
+CREATE
+OR
+REPLACE
+DATABASE
+tasty_bytes_sample_data
+;
+Copy
+Place your cursor in the CREATE OR REPLACE SCHEMA line, then select
+Run
+.
+CREATE
+OR
+REPLACE
+SCHEMA
+tasty_bytes_sample_data
+.
+raw_pos
+;
+Copy
+Place your cursor in the CREATE OR REPLACE TABLE lines, then select
+Run
+.
+CREATE
+OR
+REPLACE
+TABLE
+tasty_bytes_sample_data
+.
+raw_pos
+.
+menu
+(
+menu_id
+NUMBER
+(
+19
+,
+0
+),
+menu_type_id
+NUMBER
+(
+38
+,
+0
+),
+menu_type
+VARCHAR
+(
+16777216
+),
+truck_brand_name
+VARCHAR
+(
+16777216
+),
+menu_item_id
+NUMBER
+(
+38
+,
+0
+),
+menu_item_name
+VARCHAR
+(
+16777216
+),
+item_category
+VARCHAR
+(
+16777216
+),
+item_subcategory
+VARCHAR
+(
+16777216
+),
+cost_of_goods_usd
+NUMBER
+(
+38
+,
+4
+),
+sale_price_usd
+NUMBER
+(
+38
+,
+4
+),
+menu_item_health_metrics_obj
+VARIANT
+);
+Copy
+To confirm that the table was created successfully, place your cursor in the SELECT line,
+then select
+Run
+.
+SELECT
+*
+FROM
+tasty_bytes_sample_data
+.
+raw_pos
+.
+menu
+;
+Copy
+Your output shows the columns of the table you created. At this point in the tutorial, the
+table does not have any rows.
+Step 5. Create a stage and load the data
+¶
+A stage is a location that holds data files to load into a Snowflake database. This tutorial creates
+a stage that loads data from an Amazon S3 bucket.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-internal-tutorial.txt
+
+Documentation Title:
+Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
+
+Documentation Content:
+Replace
+query_id
+with the
+Query ID
+value.
+CREATE
+OR
+REPLACE
+TABLE
+save_copy_errors
+AS
+SELECT
+*
+FROM
+TABLE
+(
+VALIDATE
+(
+mycsvtable
+,
+JOB_ID
+=>
+'<query_id>'
+));
+Copy
+Query the
+save_copy_errors
+table.
+SELECT
+*
+FROM
+SAVE_COPY_ERRORS
+;
+Copy
+The query returns the following results:
++
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| ERROR                                                                                                                                                                | FILE                                | LINE | CHARACTER | BYTE_OFFSET | CATEGORY |   CODE | SQL_STATE | COLUMN_NAME                   | ROW_NUMBER | ROW_START_LINE | REJECTED_RECORD                                                                                                                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Number of columns in file (11) does not match that of the corresponding table (10), use file format option error_on_column_count_mismatch=false to ignore this error | mycsvtable/contacts3.csv.gz         |    3 |         1 |         234 | parsing  | 100080 |     22000 | "MYCSVTABLE"[11]              |          1 |              2 | 11|Ishmael|Burnett|Dolor Elit Pellentesque Ltd|vitae.erat@necmollisvitae.ca|1-872|600-7301|1-513-592-6779|P.O. Box 975, 553 Odio, Road|Hulste|63345 |
+| Field delimiter '|' found while expecting record delimiter '\n'                                                                                                      | mycsvtable/contacts3.csv.gz         |    5 |       125 |         625 | parsing  | 100016 |     22000 | "MYCSVTABLE"["POSTALCODE":10] |          4 |              5 | 14|Sophia|Christian|Turpis Ltd|lectus.pede@non.ca|1-962-503-3253|1-157-|850-3602|P.O.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/functions/rank.txt
+
+Documentation Title:
+RANK | Snowflake Documentation
+
+Documentation Content:
++
+--------+---------+--------------------------------------------------------+--------------------------------------------------------------+
+| STATE  | BUSHELS | RANK() OVER (PARTITION BY STATE ORDER BY BUSHELS DESC) | DENSE_RANK() OVER (PARTITION BY STATE ORDER BY BUSHELS DESC) |
+|--------+---------+--------------------------------------------------------+--------------------------------------------------------------|
+| Iowa   |     110 |                                                      1 |                                                            1 |
+| Iowa   |     100 |                                                      2 |                                                            2 |
+| Kansas |     130 |                                                      1 |                                                            1 |
+| Kansas |     120 |                                                      2 |                                                            2 |
++
+--------+---------+--------------------------------------------------------+--------------------------------------------------------------+
+Copy
+The query and output below show how tie values are handled by both RANK() and DENSE_RANK() functions. Note that for DENSE_RANK,
+the ranks are
+1
+,
+2
+,
+3
+,
+3
+,
+4
+. Unlike with the output from the RANK() function, the rank
+4
+is not skipped
+because there was a tie for rank
+3
+.
+SELECT
+state
+,
+bushels
+,
+RANK
+()
+OVER
+(
+ORDER
+BY
+bushels
+DESC
+),
+DENSE_RANK
+()
+OVER
+(
+ORDER
+BY
+bushels
+DESC
+)
+FROM
+corn_production
+;
++
+--------+---------+-------------------------------------+-------------------------------------------+
+| STATE  | BUSHELS | RANK() OVER (ORDER BY BUSHELS DESC) | DENSE_RANK() OVER (ORDER BY BUSHELS DESC) |
+|--------+---------+-------------------------------------+-------------------------------------------|
+| Kansas |     130 |                                   1 |                                         1 |
+| Kansas |     120 |                                   2 |                                         2 |
+| Iowa   |     110 |                                   3 |                                         3 |
+| Iowa   |     110 |                                   3 |                                         3 |
+| Iowa   |     100 |                                   5 |                                         4 |
++
+--------+---------+-------------------------------------+-------------------------------------------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.txt
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+The fully qualified object name appears after your cursor location in the worksheet.
+For database tables and views, you can also add the column names to the worksheet that you’re editing:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open a worksheet.
+Locate the database object in the
+Databases
+explorer.
+Hover over the object name and select
+…
+more menu »
+Add Columns in Editor
+.
+The comma-separated column names appear after your cursor location in the worksheet.
+Format your queries
+¶
+When a worksheet is open, you can select the name of the worksheet to format the queries in your worksheet, and view the keyboard shortcuts.
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open a worksheet.
+Hover over the tab for the worksheet and select
+.
+In the drop-down list, select
+Format query
+to format the query text for readability.
+Load data to a table
+¶
+If you’re using a worksheet and want to add some data to work with, you can load data into a table without leaving your worksheet:
+Sign in to Snowsight.
+In the navigation menu, select
+Projects
+»
+Worksheets
+Open a worksheet.
+Select
+Objects
+to view the object explorer.
+Locate a specific table using search or browsing.
+Hover over a specific table name and select
+»
+Load Data
+.
+Follow the prompts to upload one or more structured or unstructured files of 50MB or less.
+Refer to
+Loading data using the web interface
+for more details.
+Executing and running queries
+¶
+You can run a single query or multiple queries sequentially in the same worksheet.
+To run a single query, in the query editor link, place your cursor in the query, and then select the
+Run
+button.
+To run the entire worksheet, from the
+More options
+dropdown menu next to the
+Run
+button, select
+Run All
+.
+Running worksheets in folders
+¶
+Folders no longer have a role assigned to them. An owner or editor of a worksheet in a folder can change the worksheet to run as any role.
+You can also add
+USE ROLE
+to a worksheet in a folder to run different statements in the worksheet as different roles.
+
+
+

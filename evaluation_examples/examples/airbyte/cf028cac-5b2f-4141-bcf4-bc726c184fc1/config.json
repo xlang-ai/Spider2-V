@@ -1,0 +1,21 @@
+{
+    "source Postgres": {
+        "name": "cdc-source",
+        "host": "localhost",
+        "port": 2000,
+        "db name": "postgres", 
+        "user": "postgres",
+        "password": "password",
+        "replication_slot": "airbyte_slot",
+        "publication": "cdc_pub"
+    },
+    "destination Postgres": {
+        "name": "cdc-destination",
+        "host": "localhost",
+        "port": 3000,
+        "db name": "postgres",
+        "default schema": "public",
+        "user": "postgres",
+        "password": "password"
+    }
+}

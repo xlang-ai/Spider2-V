@@ -1,0 +1,63 @@
+{
+    "id": "19dc930c-4dcd-4cde-9285-21963e043841",
+    "snapshot": "metabase",
+    "instruction": "I want to count the percentage of orders with taxes greater than $5 for each user. Please create a Metabase question to achieve this (name the percentage column as \"tax percentage\"). Note that you don't need to save it.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create the Metabase question, please follow these steps:\n1. Click the \"New\" button on the top right;\n2. Choose \"Question\" in the drop-down panel;\n3. Choose \"Orders\" in the \"Sample Database\" drop-down panel;\n4. Click \"Pick the metric you want to see\";\n5. Choose \"Custom Expression\" in the panel;\n6. Type \"Share([Tax] > 5)\" in the EXPRESSION input box;\n7. Type \"tax percentage\" in the NAME input box;\n8. Click the \"Done\" button;\n9. Click \"Pick a column to group by\";\n10. Choose \"User ID\" in the panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/questions/query-builder/expressions"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/19dc930c-4dcd-4cde-9285-21963e043841/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "exact_match",
+        "result": {
+            "type": "metabase_question_sql"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": "select \"public\".\"orders\".\"user_id\" as \"user_id\", sum( case when \"public\".\"orders\".\"tax\" > 5 then 1 else 0.0 end ) / count(*) as \"tax percentage\" from \"public\".\"orders\" group by \"public\".\"orders\".\"user_id\" order by \"public\".\"orders\".\"user_id\" asc"
+            }
+        }
+    },
+    "counterpart": "b76642ac-e77f-4f7c-b9be-1559ac47bcec"
+}

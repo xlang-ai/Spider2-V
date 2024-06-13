@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 8,
     "config": [
@@ -57,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_notebook_outputs",
@@ -71,5 +71,6 @@
             "path": "evaluation_examples/examples/jupyter/75e61e47-3986-4250-9610-1bc0d77adcc7/logistic_regression_gold.ipynb",
             "dest": "logistic_regression_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "040af931-8371-4765-9908-2a36ff4e4518"
 }

@@ -1,0 +1,80 @@
+{
+    "id": "4f3dea28-3811-4a02-b8fa-0c5e375fcbb2",
+    "snapshot": "metabase",
+    "instruction": "Can you help me visualize the SQL query in the opened \"query.sql\" file? Please use the bar chart type, download the visualization as a PNG file, and rename it to \"visualization.png\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To complete the visualization, please follow these steps:\n1. Click the \"New\" button on the top right;\n2. Choose \"SQL query\" in the drop-down panel;\n3. Copy the SQL query from the opened \"query.sql\" file and paste it into the blank worksheet;\n4. Click the \"Run query\" button on the right side;\n5. Click the \"Visualization\" button on the bottom left;\n6. Choose the \"Bar\" visualization type;\n7. Click the gear icon on the top right of the \"Bar\" button;\n8. Select PRODUCT_ID for the X-axis;\n9. Select AVG(TAX) for the Y-axis;\n10. Click the \"Download full results\" button (cloud icon) on the bottom right;\n11. Choose \".png\" in the panel;\n12. Open the local path \"/home/user/Downloads\";\n13. Rename the visualization file as \"visualization.png\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/questions/sharing/visualizing-results"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 13,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/4f3dea28-3811-4a02-b8fa-0c5e375fcbb2/query.sql",
+                "dest": "/home/user/query.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/4f3dea28-3811-4a02-b8fa-0c5e375fcbb2/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/query.sql"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_images",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/visualization.png",
+            "dest": "visualization.png"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/4f3dea28-3811-4a02-b8fa-0c5e375fcbb2/visualization.png",
+            "dest": "visualization.png"
+        }
+    },
+    "counterpart": "bb1540e7-d558-4c24-81df-4348e089edf6"
+}

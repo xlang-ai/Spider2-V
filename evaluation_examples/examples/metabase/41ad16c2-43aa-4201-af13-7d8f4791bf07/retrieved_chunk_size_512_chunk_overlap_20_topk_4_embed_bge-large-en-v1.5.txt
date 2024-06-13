@@ -1,0 +1,436 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/installing-metabase.txt
+
+Documentation Title:
+Installing Metabase
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Installation and Operation
+Installing Metabase
+Metabase is built and packaged as a Java JAR file and can be run anywhere that Java is available.
+Metabase Cloud
+The easiest way to run Metabase. All you need to do is
+sign up for a free trial
+, and you’re off to the races.
+Self-hosting Metabase
+For an overview on how to self-host Metabase, check out
+how to run Metabase in production
+.
+Running the Jar File
+Metabase can run anywhere Java is available.
+Running on Docker
+If you prefer to use a Docker container, we’ve got you covered.
+Professional services from the Metabase team
+If you want help with:
+Set up
+Training
+Data stack
+Embedding
+Data modeling
+Check out our
+professional services
+.
+Upgrading Metabase
+See
+Upgrading Metabase
+Other installation options
+Running on Podman
+Building Metabase from source
+Running on Azure Web Apps
+Running on Debian as a service
+Connect with a Metabase Expert
+If you’d like more technical resources to set up your data stack with Metabase, connect with a
+Metabase Expert
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/monitoring-metabase.txt
+
+Documentation Title:
+Monitoring your Metabase
+
+Documentation Content:
+Assuming we are
+running Metabase using
+java -jar metabase.jar
+, we’d need change the
+invocation to the below command, which includes the properties:
+java --add-to-start=jmx,jmx-remote \
+     -Dcom.sun.management.jmxremote \
+     -Dcom.sun.management.jmxremote.port=1099 \
+     -Dcom.sun.management.jmxremote.rmi.port=1099 \
+     -Dcom.sun.management.jmxremote.authenticate=false \
+     -Dcom.sun.management.jmxremote.ssl=false \
+     -Dcom.sun.management.jmxremote.local.only=false \
+     -Djava.rmi.server.hostname=<Metabase Hostname> \
+     -jar metabase.jar
+Port
+1099
+is a typical RMI/JMX port, but it can be any accessible port.
+Note:
+The above command opens up your application to monitoring by
+anyone and should only be used when on a trusted network for a short
+period of time. Securing this connection is possible, see
+the Oracle
+docs
+for more information.
+Users running Metabase in a
+docker
+container will need to specify
+the system properties detailed above and will also need to ensure the
+port is open. Docker allows specifying environment variables via a
+separate file that can be passed into the
+docker run
+invocation.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-in-production.txt
+
+Documentation Title:
+How to run Metabase in production
+
+Documentation Content:
+63
+ms
+p
+(
+90
+)
+=
+5.9
+µs
+p
+(
+95
+)
+=
+7.2
+µs
+http_req_connecting
+.:
+avg
+=
+211
+ns
+min
+=
+0
+s
+med
+=
+0
+s
+max
+=
+37.55
+ms
+p
+(
+90
+)
+=
+0
+s
+p
+(
+95
+)
+=
+0
+s
+http_req_duration
+.:
+avg
+=
+41
+ms
+min
+=
+1.21
+ms
+med
+=
+20.28
+ms
+max
+=
+8.1
+s
+p
+(
+90
+)
+=
+84.22
+ms
+p
+(
+95
+)
+=
+125.62
+ms
+{
+expected_response
+:
+true
+}.:
+avg
+=
+41
+ms
+min
+=
+1.21
+ms
+med
+=
+20.28
+ms
+max
+=
+8.1
+s
+p
+(
+90
+)
+=
+84.22
+ms
+p
+(
+95
+)
+=
+125.62
+ms
+http_req_failed
+.:
+0.00
+%
+✓
+0
+✗
+259596
+http_req_receiving
+.:
+avg
+=
+12.02
+ms
+min
+=
+8.64
+µs
+med
+=
+57.34
+µs
+max
+=
+778.49
+ms
+p
+(
+90
+)
+=
+41.43
+ms
+p
+(
+95
+)
+=
+67.33
+ms
+http_req_sending
+.:
+avg
+=
+17.39
+µs
+min
+=
+3.32
+µs
+med
+=
+15.13
+µs
+max
+=
+5.86
+ms
+p
+(
+90
+)
+=
+26.11
+µs
+p
+(
+95
+)
+=
+32.59
+µs
+http_req_tls_handshaking
+.:
+avg
+=
+0
+s
+min
+=
+0
+s
+med
+=
+0
+s
+max
+=
+0
+s
+p
+(
+90
+)
+=
+0
+s
+p
+(
+95
+)
+=
+0
+s
+http_req_waiting
+.:
+avg
+=
+28.96
+ms
+min
+=
+1.18
+ms
+med
+=
+14.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-metabase-on-debian.txt
+
+Documentation Title:
+Running Metabase on Debian as a service with nginx
+
+Documentation Content:
+sudo groupadd -r metabase
+sudo useradd -r -s /bin/false -g metabase metabase
+sudo chown -R metabase:metabase </your/path/to/metabase/directory>
+sudo touch /var/log/metabase.log
+sudo chown syslog:adm /var/log/metabase.log
+sudo touch /etc/default/metabase
+sudo chmod 640 /etc/default/metabase
+Create a Metabase Service
+Every service needs a script that tells
+systemd
+how to manage it, and what capabilities it supports. Services are typically registered at
+/etc/systemd/system/<servicename>
+. So, a Metabase service should live at
+/etc/systemd/system/metabase.service
+.
+The Metabase service file
+Create the
+/etc/systemd/system/metabase.service
+service file and open it in your editor:
+sudo touch /etc/systemd/system/metabase.service
+sudo <your-editor> /etc/systemd/system/metabase.service
+In
+/etc/systemd/system/metabase.service
+, replace configurable items (they look like
+<some-var-name>
+) with values sensible for your system. The Metabase script below has extra comments to help you know what everything is for.
+[Unit]
+Description=Metabase server
+After=syslog.target
+After=network.target
+
+[Service]
+WorkingDirectory=</your/path/to/metabase/directory/>
+ExecStart=/usr/bin/java -jar </your/path/to/metabase/directory/>metabase.jar
+EnvironmentFile=/etc/default/metabase
+User=metabase
+Type=simple
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=metabase
+SuccessExitStatus=143
+TimeoutStopSec=120
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+Create syslog conf
+Next we need to create a syslog conf to make sure systemd can handle the logs properly.
+sudo touch /etc/rsyslog.d/metabase.conf
+sudo <your-editor> /etc/rsyslog.d/metabase.conf
+
+if $programname == 'metabase' then /var/log/metabase.log
+& stop
+Restart the syslog service to load the new config.
+
+
+

@@ -1,0 +1,197 @@
+Documentation Source:
+airbyte.com/tutorials/mysql-change-data-capture-cdc.txt
+
+Documentation Title:
+MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
+
+Documentation Content:
+Step 5: Create an Airbyte connection
+Go to connections and create a new connection. Then, select the existing MySQL source you have just created and then do the same for the Local JSON destination. Once you're done, you can set up the connection as follows.
+As you can see, I set the replication frequency to
+manual
+so I can trigger synchronization on demand. You can change the replication frequency, later on, to sync
+as frequently as every 5 minutes
+.
+Then, it's time to configure the
+streams
+, which in this case are the tables in your database. For now, you only have the
+cars
+table. If you expand it, you can see the columns it has.
+Now, you should select a sync mode. If you want to take full advantage of performing MySQL CDC, you should use
+Incremental | Append
+mode to only look at the rows that have changed in the source and sync them to the destination. Selecting a
+Full Refresh
+mode would sync the whole source table, which is most likely not what you want when using CDC. Learn more about sync modes in
+our documentation
+.
+When using an
+Incremental
+sync mode, you would generally need to provide a
+Cursor field
+, but when using CDC, that's not necessary since the changes in the source are detected via the Debezium connector stream.
+Once you're ready, save the changes. Then, you can run your first sync by clicking on
+Sync now
+. You can check your run logs to verify everything is going well. Just wait for the sync to be completed, and that's it! You've replicated data from MySQL using CDC.
+Step 6: Verify that the sync worked
+From the root directory of the Airbyte project, go to
+<span class="text-style-code-dark">tmp/airbyte_local/json_data/</span>
+, and you will find a file named
+<span class="text-style-code-dark">_airbyte_raw_cars.jsonl</span>
+where the data from the MySQL database was replicated.
+You can check the file's contents in your preferred IDE or run the following command.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/mysql-change-data-capture-cdc.txt
+
+Documentation Title:
+MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
+
+Documentation Content:
+You can check the file's contents in your preferred IDE or run the following command.
+cat _airbyte_raw_cars.jsonl
+‍
+‍
+Step 7: Test CDC in action by creating and deleting an object from the database
+Now, let's test the MySQL CDC setup you have configured. To do that, run the following queries to insert and delete a row from the database.
+INSERT INTO cars VALUES(3, 'tesla');
+DELETE FROM cars WHERE NAME = 'tesla';
+‍
+Launch a sync and, once it finishes, check the local JSON file to verify that CDC has captured the change. The JSON file should now have two new lines, showing the addition and deletion of the row from the database.
+‍
+CDC allows you to see that a row was deleted, which would be impossible to detect when using the regular
+Incremental
+sync mode. The
+<span class="text-style-code-dark">_ab_cdc_deleted_at</span>
+meta field not being
+null
+means id=3 was deleted.
+Wrapping up
+In this tutorial, you have learned what the MySQL binlog is and how Airbyte reads it to implement log-based Change Data Capture (CDC). In addition, you have learned how to configure an Airbyte connection between a MySQL database and a local JSON file.
+Delve deeper into streamlining your data workflows by exploring our comprehensive article on migrating from
+MySQL to PostgreSQL
+using Airbyte. Gain insights into leveraging log-based Change Data Capture (CDC) and configuring Airbyte connections for near real-time ELT pipelines, extending your capabilities to seamlessly integrate with various databases, data warehouses, or data lakes.
+To learn more, you can check out our comprehensive article on
+Salesforce CDC
+and discover how this setup can be leveraged to create a near real-time ELT pipeline, extending the capabilities of CDC into various data destinations!
+If you found Airbyte helpful, you might want to check our fully managed solution:
+Airbyte Cloud
+. We also invite you to
+‍join the conversation
+on our community Slack Channel to share your ideas with thousands of data engineers and help make everyone’s project a success!
+About the Author
+Thalia Barrera is a data engineer and technical writer at Airbyte.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/mysql-change-data-capture-cdc.txt
+
+Documentation Title:
+MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
+
+Documentation Content:
+Although the database can be accessed with the root user, it is advisable to use a less privileged read-only user to read data. The user will be called
+airbyte
+and the password should be updated with a strong password of your choice.
+CREATE USER 'airbyte'@'%' IDENTIFIED BY 'password';
+‍
+For the
+CDC replication method
+, you need to grant SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, and REPLICATION CLIENT permissions to the user.
+GRANT SELECT, RELOAD, SHOW DATABASES, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'airbyte'@'%';
+‍
+That’s it! Your database in MySQL is ready to be used.
+Should you build or buy your data pipelines?
+Download our free guide and discover the best approach for your needs, whether it's building your ELT solution in-house or opting for Airbyte Open Source or Airbyte Cloud.
+Download now
+Step 3: Configure a MySQL source in Airbyte
+To set up a new MySQL Airbyte source, go to Airbyte's UI at
+localhost:8000
+, click on sources and add a new source. As the connector type, select
+MySQL
+. As demonstrated in the subsequent illustrations, fill in the following configuration fields if you used the instructions above to configure your  database in MySQL.
+‍
+‍
+Then click on
+Set up source
+and Airbyte will test the connection. If everything goes well, you should see a successful message.
+Step 4: Configure a local JSON destination in Airbyte
+Now, you’ll configure a local JSON destination in Airbyte. Take into account that I use local JSON as a destination for demonstration purposes – as it’s the easiest to set up. For your actual applications, you can select any destination from our
+ever-growing catalog
+.
+Go to destinations and add a new one. As demonstrated in the following diagram, select
+Local JSON
+as the destination type and fill in with the following details.
+‍
+Then click on
+Set up source
+and let Airbyte test the destination.
+Step 5: Create an Airbyte connection
+Go to connections and create a new connection.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/core-concepts/sync-schedules.txt
+
+Documentation Title:
+Sync Schedules | Airbyte Documentation
+
+Documentation Content:
+For example:
+October 1st, 2pm
+, a user sets up a connection to sync data every 24 hours.
+October 1st, 2:01pm
+: sync job runs
+October 2nd, 2:01pm:
+24 hours have passed since the last sync, so a sync is triggered.
+October 2nd, 5pm
+: The user manually triggers a sync from the UI
+October 3rd, 2:01pm:
+since the last sync was less than 24 hours ago, no sync is run
+October 3rd, 5:01pm:
+It has been more than 24 hours since the last sync, so a sync is run
+Cron Syncs
+​
+If you prefer more precision in scheduling your sync, you can also use CRON scheduling to set a specific time of day or month.
+Airbyte uses the CRON scheduler from
+Quartz
+. We recommend reading their
+documentation
+to understand the required formatting. You can also refer to these examples:
+Cron string
+Sync Timing
+0 0 * * * ?
+Every hour, at 0 minutes past the hour
+0 0 15 * * ?
+At 15:00 every day
+0 0 15 * * MON,TUE
+At 15:00, only on Monday and Tuesday
+0 0 0,2,4,6 * * ?
+At 12:00 AM, 02:00 AM, 04:00 AM and 06:00 AM every day
+0 0 _/15 _ * ?
+At 0 minutes past the hour, every 15 hours
+When setting up the cron expression, you will also be asked to choose a time zone the sync will run in.
+Manual Syncs
+​
+When the connection is set to replicate with
+Manual
+frequency, the sync will not automatically run.
+It can be triggered by clicking the "Sync Now" button at any time through the UI or be triggered through the API.
+Edit this page
+Previous
+Configuring Connections
+Next
+Namespaces
+Sync Considerations
+Scheduled syncs
+Cron Syncs
+Manual Syncs
+Was this page helpful?
+Yes
+No
+
+
+

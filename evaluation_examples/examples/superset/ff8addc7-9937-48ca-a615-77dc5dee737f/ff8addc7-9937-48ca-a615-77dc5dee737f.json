@@ -1,0 +1,72 @@
+{
+    "id": "ff8addc7-9937-48ca-a615-77dc5dee737f",
+    "snapshot": "superset",
+    "instruction": "Please create a table named 'tutorial_flights' in database 'MyDatabase' using Superset by uploading the tutorial_flights.csv in '/home/user' of my local computer and set column 'Travel Date' to be parsed as Dates.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create a table named 'tutorial_flights' in database 'MyDatabase' by uploading the tutorial_flights.csv in '/home/user' of local computer and set column 'Travel Date' to be parsed as Dates, we can follow these steps:\n1. In the opened web page, click the add icon in the top right corner;\n2. Select \"Data\" menu;\n3. Click the \"Upload CSV to database\" in the extended menu;\n4. In the pop-up interface \"CSV to Database configuration\", firstly click the \"Choose File\";\n5. Click home menu in the pop-up windows;\n6. Find the file 'tutorial_flights.csv' and click it;\n7. Click the \"select\" button and return to the \"CSV to Database configuration\" interface;\n8. Type \"tutorial_flights\" in the Table Name input box;\n9. Then click \"File Settings\";\n10. Next, type \"Travel Date\" into the \"Columns To Be Parsed as Dates\" input box;\n11. Then, click \"Save\", and we will see a dataset named \"tutorial_flights\" in the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#loading-csv-data"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/ff8addc7-9937-48ca-a615-77dc5dee737f/tutorial_flights.csv",
+                "dest": "/home/user/tutorial_flights.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/ff8addc7-9937-48ca-a615-77dc5dee737f/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/ff8addc7-9937-48ca-a615-77dc5dee737f/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "52d3a685-df8d-45bf-83d2-1172c6ae09ff"
+}

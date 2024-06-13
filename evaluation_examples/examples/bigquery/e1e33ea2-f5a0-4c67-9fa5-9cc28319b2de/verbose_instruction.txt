@@ -1,0 +1,18 @@
+In this task, we will import the opening google sheet into the 'population' table of BigQuery 'census' dataset
+1. Find the census dataset in the Explorer window and click on the three dots to the right of the text
+2. You will find a list of options, click "Create table".
+3. You will see the "Create table" panel, set "Create table from" to "Drive"
+4. Switch the chrome window to the open google sheet and remember the url at this time. The URI is https://docs.google.com/spreadsheets/d/1eqDu8oLJvT244r5AWPr4kPMnm7qDRpyItonPAbBwElE/edit#gid=0
+5. Switch the chrome window to the Bigquery WebUI.
+6. Set "Select Drive URI" to https://docs.google.com/spreadsheets/d/1eqDu8oLJvT244r5AWPr4kPMnm7qDRpyItonPAbBwElE/edit#gid=0
+7. Set "File format" as "Google Sheet"
+8. Switch the chrome window to the open google sheet and check the range and sheet name of the Google Sheet.
+9. Switch the chrome window to the Bigquery WebUI.
+10. Switch back to Bigquery and set "Sheet Range" to "population!A2:C11"
+11. In "Destination" Part, Set Table as "population"
+12. As for the schema, click the button "+" to add field. Add these fields one-by-one:
+Field name: ZIP; Type: STRING
+Field name: POPULATION; Type: INTEGER
+Field name: PCT_GROWTH; Type: FLOAT;
+13. Then, click the button "CREATE TABLE" at the bottom.
+Eventually, we have completed this task.

@@ -12,7 +12,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 3,
     "config": [
@@ -34,7 +35,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "is_expected_url_pattern_match",
@@ -50,5 +50,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "41ad16c2-43aa-4201-af13-7d8f4791bf07"
 }

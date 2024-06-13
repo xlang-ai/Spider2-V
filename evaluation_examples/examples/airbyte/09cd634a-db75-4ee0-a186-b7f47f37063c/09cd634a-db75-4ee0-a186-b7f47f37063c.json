@@ -1,0 +1,80 @@
+{
+    "id": "09cd634a-db75-4ee0-a186-b7f47f37063c",
+    "snapshot": "airbyte",
+    "instruction": "Could you help me export the detailed configuration of the current connection into file connection.json for me? I want to check the details and transfer it to my colleague.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to export the config information of the current airbyte connection into a local json file. To complete this: \n1. Switch to the browser page.\n2. Click the connection row in the main panel;\n3. In the Airbyte connection page, check the URL and note down the UUID string between \"/connections/\" and \"/status/\". This is the ConnectionId for that connection;\n4. Switch to the terminal;\n5. In the terminal, replace ${connectionId} with the ConnectionId you just noted down and execute:\n```\nconnection_config=$(curl -X POST http://localhost:8000/api/v1/connections/get -H \"Content-Type: application/json\" -d \"{\\\"connectionId\\\": \\\"${connectionId}\\\"}\")\n\n```\n6. Then, in the terminal, execute \n```\necho ${connection_config} > /home/user/Desktop/connection_config.json \n```\nto save the config file.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://airbyte.com/tutorials/create-and-monitor-a-data-pipeline-using-the-airbyte-api"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "postgresql"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 6,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/f82b4771-fdcf-497b-bd69-500e4ce2c1d7/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/09cd634a-db75-4ee0-a186-b7f47f37063c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/09cd634a-db75-4ee0-a186-b7f47f37063c/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "1b9b5bad-0fb4-4645-b13b-6d5119bba11c"
+}

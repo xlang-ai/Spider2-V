@@ -1,0 +1,50 @@
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.html
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+</p><p>10. Follow the prompts to enter your source credentials and configure your sync settings. </p><p>11. When you reach the "Destination" step, select your BigQuery destination from the dropdown menu and choose the dataset and table prefix you want to use. </p><p>12. Review your settings and click the "Create Connection" button to start syncing data from your source to your BigQuery destination.</p></div></div><div><h2>Step 3: Set up a connection to sync your Postgres data to BigQuery</h2><img/><div><p>Once you've successfully connected Postgres as a data source and BigQuery as a destination in Airbyte, you can set up a data pipeline between them with the following steps:</p><ol><li><b>Create a new connection:</b>On the Airbyte dashboard, navigate to the 'Connections' tab and click the '+ New Connection' button.</li><li><b>Choose your source:</b>Select Postgres from the dropdown list of your configured sources.</li><li><b>Select your destination:</b>Choose BigQuery from the dropdown list of your configured destinations.</li><li><b>Configure your sync:</b>Define the frequency of your data syncs based on your business needs. Airbyte allows both manual and automatic scheduling for your data refreshes.</li><li><b>Select the data to sync:</b>Choose the specific Postgres objects you want to import data from towards BigQuery. You can sync all data or select specific tables and fields.</li><li><b>Select the sync mode for your streams:</b>Choose between full refreshes or incremental syncs (with deduplication if you want), and this for all streams or at the stream level. Incremental is only available for streams that have a primary cursor. </li><li><b>Test your connection:</b>Click the 'Test Connection' button to make sure that your setup works. If the connection test is successful, save your configuration.</li><li><b>Start the sync:</b>If the test passes, click 'Set Up Connection'.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.html
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+</p><p>Then, click on <em>Set up source</em>and let Airbyte test the destination.</p><h4>Step 3: Create an Airbyte connection</h4><p>Go to connections and create a new connection. Then, select the existing Postgres source you have just created, and then do the same for the BigQuery destination. The following diagram shows how we set up the connection at Airbyte.</p><img/><p>As you can see, we set the replication frequency to every hour. You can change the replication frequency depending on your needs. </p><p>At Airbyte, we load data from multiple sources to a single BigQuery project. Because we don’t want data to be held in the default dataset specified in the destination configuration (<em>airbyte_raw</em>), we used the “Custom format” option so the data will be stored in the <em>airbyte_prod_configapi</em>dataset. If you want to know more about namespaces, <a>check our documentation</a>.</p><p>Then, it's time to configure the <a>streams</a>. Each stream represents a table that will be created in BigQuery. You can expand each stream to see the fields they contain, their data type, how they will be named in BigQuery, etc. You can select which streams you want to sync using the “Sync” toggle.</p><p>Now, you should select a sync mode for each stream. As shown in the image below, we extract data from Postgres in an <strong>Incremental</strong>way and load it using <strong>Deduped + history mode</strong>. </p><p>We use the <strong>Deduped + history</strong>mode because we want to model our data as Slowly Changing Dimensions of type 2 (<a>SCD</a>). For example, in our dashboards, we want to know when a connection stopped being active (when someone disabled it or deleted it), but we still need it to count for periods when it was active.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.html
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+</p><code>_airbyte_unique_key        |     _airbyte_unique_key_scd      | id |    name    |         updated_at         |     _airbyte_start_at      | _airbyte_end_at | _airbyte_active_row |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     |    _airbyte_table_two_hashid     
+----------------------------------+----------------------------------+----+------------+----------------------------+----------------------------+-----------------+---------------------+--------------------------------------+----------------------------+-------------------------------+----------------------------------
+ c4ca4238a0b923820dcc509a6f75849b | 96a17eccedd409b3b3de3b411d431ab8 |  1 | Eg1 DD+Hst | 2022-09-01 16:18:07.569818 | 2022-09-01 16:18:07.569818 |                 |                   1 | 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | 2022-09-01 16:52:44.103+00 | 2022-09-01 16:53:41.035633+00 | 78812b56ae516cb4bb4278c595c3b20e
+ c81e728d9d4c2f636f067f89cc14862c | 064c6bc6ac9c9956a7188495284d8c07 |  2 | Eg2a DD+Hs | 2022-09-01 16:30:13.93903  | 2022-09-01 16:30:13.93903  |                 |                   1 | 4282344a-62c3-4634-a91a-e6dafb9b253a | 2022-09-01 16:52:44.103+00 | 2022-09-01 16:53:41.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.html
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+</p><code>_airbyte_unique_key        |     _airbyte_unique_key_scd      | id |    name    |         updated_at         |     _airbyte_start_at      |      _airbyte_end_at       | _airbyte_active_row |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     |    _airbyte_table_two_hashid     
+----------------------------------+----------------------------------+----+------------+----------------------------+----------------------------+----------------------------+---------------------+--------------------------------------+----------------------------+-------------------------------+----------------------------------
+ c4ca4238a0b923820dcc509a6f75849b | 96a17eccedd409b3b3de3b411d431ab8 |  1 | Eg1 DD+Hst | 2022-09-01 16:18:07.569818 | 2022-09-01 16:18:07.569818 |                            |                   1 | 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | 2022-09-01 16:52:44.103+00 | 2022-09-01 17:03:37.521659+00 | 78812b56ae516cb4bb4278c595c3b20e
+ c81e728d9d4c2f636f067f89cc14862c | 064c6bc6ac9c9956a7188495284d8c07 |  2 | Eg2a DD+Hs | 2022-09-01 16:30:13.93903  | 2022-09-01 16:30:13.93903  | 2022-09-01 17:02:14.841419 |                   0 | 4282344a-62c3-4634-a91a-e6dafb9b253a | 2022-09-01 16:52:44.103+00 | 2022-09-01 17:03:37.
+
+
+

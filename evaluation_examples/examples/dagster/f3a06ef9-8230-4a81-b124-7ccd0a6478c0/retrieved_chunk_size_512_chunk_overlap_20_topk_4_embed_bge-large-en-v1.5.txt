@@ -1,0 +1,621 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/writing-your-first-asset.txt
+
+Documentation Title:
+Tutorial, part three: Writing your first asset | Dagster Docs
+
+Documentation Content:
+Copy and paste the following code into
+assets.py
+:
+import
+json
+import
+os
+import
+requests
+
+newstories_url
+=
+"https://hacker-news.firebaseio.com/v0/topstories.json"
+top_new_story_ids
+=
+requests
+.
+get
+(
+newstories_url
+)
+.
+json
+(
+)
+[
+:
+100
+]
+os
+.
+makedirs
+(
+"data"
+,
+exist_ok
+=
+True
+)
+with
+open
+(
+"data/topstory_ids.json"
+,
+"w"
+)
+as
+f
+:
+json
+.
+dump
+(
+top_new_story_ids
+,
+f
+)
+This code creates a list of integers representing the IDs for the current top stories on Hacker News and stores them in a file called
+data/topstory_ids.json
+.
+Next, you will work towards making this code into a software-defined asset. The first step is turning it into a function:
+import
+json
+import
+os
+import
+requests
+def
+topstory_ids
+(
+)
+-
+>
+None
+:
+# turn it into a function
+newstories_url
+=
+"https://hacker-news.firebaseio.com/v0/topstories.json"
+top_new_story_ids
+=
+requests
+.
+get
+(
+newstories_url
+)
+.
+json
+(
+)
+[
+:
+100
+]
+os
+.
+makedirs
+(
+"data"
+,
+exist_ok
+=
+True
+)
+with
+open
+(
+"data/topstory_ids.json"
+,
+"w"
+)
+as
+f
+:
+json
+.
+dump
+(
+top_new_story_ids
+,
+f
+)
+Now, add the
+@asset
+decorator from the
+dagster
+library to the function:
+import
+json
+import
+os
+import
+requests
+from
+dagster
+import
+asset
+# import the `dagster` library
+@asset
+# add the asset decorator to tell Dagster this is an asset
+def
+topstory_ids
+(
+)
+-
+>
+None
+:
+newstories_url
+=
+"https://hacker-news.firebaseio.com/v0/topstories.json"
+top_new_story_ids
+=
+requests
+.
+get
+(
+newstories_url
+)
+.
+json
+(
+)
+[
+:
+100
+]
+os
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.txt
+
+Documentation Title:
+Quickstart | Dagster Docs
+
+Documentation Content:
+json
+(
+)
+with
+open
+(
+config
+.
+hn_top_story_ids_path
+,
+"w"
+)
+as
+f
+:
+json
+.
+dump
+(
+top_story_ids
+[
+:
+config
+.
+top_stories_limit
+]
+,
+f
+)
+@asset
+(
+deps
+=
+[
+hackernews_top_story_ids
+]
+)
+def
+hackernews_top_stories
+(
+config
+:
+HNStoriesConfig
+)
+-
+>
+MaterializeResult
+:
+"""Get items based on story ids from the HackerNews items endpoint."""
+with
+open
+(
+config
+.
+hn_top_story_ids_path
+,
+"r"
+)
+as
+f
+:
+hackernews_top_story_ids
+=
+json
+.
+load
+(
+f
+)
+results
+=
+[
+]
+for
+item_id
+in
+hackernews_top_story_ids
+:
+item
+=
+requests
+.
+get
+(
+f"https://hacker-news.firebaseio.com/v0/item/
+{
+item_id
+}
+.json"
+)
+.
+json
+(
+)
+results
+.
+append
+(
+item
+)
+df
+=
+pd
+.
+DataFrame
+(
+results
+)
+df
+.
+to_csv
+(
+config
+.
+hn_top_stories_path
+)
+return
+MaterializeResult
+(
+metadata
+=
+{
+"num_records"
+:
+len
+(
+df
+)
+,
+"preview"
+:
+MetadataValue
+.
+md
+(
+str
+(
+df
+[
+[
+"title"
+,
+"by"
+,
+"url"
+]
+]
+.
+to_markdown
+(
+)
+)
+)
+,
+}
+)
+Next steps
+#
+Congratulations on successfully running your first Dagster pipeline! In this example, we used
+assets
+, which are a cornerstone of Dagster projects. They empower data engineers to:
+Think in the same terms as stakeholders
+Answer questions about data quality and lineage
+Work with the modern data stack (dbt, Airbyte/Fivetran, Spark)
+Create declarative freshness policies instead of task-driven cron schedules
+Dagster also offers
+ops and jobs
+, but we recommend starting with assets.
+To create your own project, consider the following options:
+Scaffold a new project using our
+new project guide
+.
+Begin with an official example, like the
+dbt & Dagster project
+, and explore
+all examples on GitHub
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.txt
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+This will be a supervised model since we have the number of comments for all the previous stories.
+The assets graph will look like this at the end of this guide (click to expand):
+Ingesting data
+#
+First, we will create an asset that retrieves the most recent Hacker News records.
+import
+requests
+from
+dagster
+import
+asset
+import
+pandas
+as
+pd
+@asset
+def
+hackernews_stories
+(
+)
+:
+# Get the max ID number from hacker news
+latest_item
+=
+requests
+.
+get
+(
+"https://hacker-news.firebaseio.com/v0/maxitem.json"
+)
+.
+json
+(
+)
+# Get items based on story ids from the HackerNews items endpoint
+results
+=
+[
+]
+scope
+=
+range
+(
+latest_item
+-
+1000
+,
+latest_item
+)
+for
+item_id
+in
+scope
+:
+item
+=
+requests
+.
+get
+(
+f"https://hacker-news.firebaseio.com/v0/item/
+{
+item_id
+}
+.json"
+)
+.
+json
+(
+)
+results
+.
+append
+(
+item
+)
+# Store the results in a dataframe and filter on stories with valid titles
+df
+=
+pd
+.
+DataFrame
+(
+results
+)
+if
+len
+(
+df
+)
+>
+0
+:
+df
+=
+df
+[
+df
+.
+type
+==
+"story"
+]
+df
+=
+df
+[
+~
+df
+.
+title
+.
+isna
+(
+)
+]
+return
+df
+Transforming data
+#
+Now that we have a dataframe with all valid stories, we want to transform that data into something our machine learning model will be able to use.
+The first step is taking the dataframe and splitting it into a
+training and test set
+. In some of your models, you also might choose to have an additional split for a validation set. The reason we split the data is so that we can have a test and/or a validation dataset that is independent of the training set. We can then use that dataset to see how well our model did.
+from
+sklearn
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.txt
+
+Documentation Title:
+Quickstart | Dagster Docs
+
+Documentation Content:
+dagster dev
+Navigate to
+localhost:3000
+in your web browser.
+Success!
+Option 2: Using GitHub Codespaces
+#
+Fork the
+Dagster Quickstart
+repository
+Select
+Create codespace on main
+from the
+Code
+dropdown menu.
+After the codespace loads, start Dagster by running
+dagster dev
+in the terminal:
+dagster dev
+Click
+Open in Browser
+when prompted.
+Success!
+Navigating the User Interface
+#
+You should now have a running instance of Dagster! From here, we can run our data pipeline.
+To run the pipeline, click the
+Materialize All
+button in the top right. In Dagster,
+materialization
+refers to executing the code associated with an asset to produce an output.
+Congratulations! You have successfully materialized two Dagster assets:
+But wait - there's more. Because the
+hackernews_top_stories
+asset returned some
+metadata
+, you can view the metadata right in the UI:
+Click the asset
+In the sidebar, click the
+Show Markdown
+link in the
+Materialization in Last Run
+section. This opens a preview of the pipeline result, allowing you to view the top 10 HackerNews stories:
+Understanding the Code
+#
+The Quickstart project defines two
+Assets
+using the
+@asset
+decorator:
+hackernews_top_story_ids
+retrieves the top stories from the Hacker News API and saves them as a JSON file.
+hackernews_top_stories
+asset builds upon the first asset, retrieving data for each story as a CSV file, and returns a
+MaterializeResult
+with a markdown preview of the top stories.
+import
+json
+import
+pandas
+as
+pd
+import
+requests
+from
+dagster
+import
+(
+MaterializeResult
+,
+MetadataValue
+,
+asset
+,
+)
+from
+.
+configurations
+import
+HNStoriesConfig
+@asset
+def
+hackernews_top_story_ids
+(
+config
+:
+HNStoriesConfig
+)
+:
+"""Get top stories from the HackerNews top stories endpoint."""
+top_story_ids
+=
+requests
+.
+get
+(
+"https://hacker-news.firebaseio.com/v0/topstories.json"
+)
+.
+json
+(
+)
+with
+open
+(
+config
+.
+
+
+

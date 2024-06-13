@@ -1,0 +1,6 @@
+In this tutorial, we will delete an unused dataset `customer_orders` on BigQuery.
+1. Firstly, click the toggle node "▼" under the "Explorer" panel, which will show all resources in the current project.
+2. Find the entry with name `customer_orders` and click the icon on the right of this row with 3 vertically aligned dots;
+3. In the pop-up window, select the row "Delete" and click it.
+4. There will be a dialogue box. In the input field, type in text "delete" to confirm our choice.
+5. Finally, click the button "DELETE". This will take a few seconds to work.

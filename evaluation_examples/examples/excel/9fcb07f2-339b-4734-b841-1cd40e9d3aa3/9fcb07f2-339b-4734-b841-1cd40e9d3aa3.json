@@ -1,0 +1,92 @@
+{
+    "id": "9fcb07f2-339b-4734-b841-1cd40e9d3aa3",
+    "snapshot": "excel",
+    "instruction": "Summarize the total revenue for each promotion type in a new sheet (Sheet2) with the promotion names as the column headers.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Summarize the total revenue for each promotion type in a new sheet (Sheet2) with the promotion names as the column headers. We can follow these steps:\n1. Press Ctrl+A to select all data.\n2. Click button \"Insert -> Pivot Table...\" in the top menu bar.\n3. Click OK to confirm the data selection.\n4. Press and drag `Promotion` from `Available Fields` to `Column Fields` (top middle box).\n5. Press and drag `Revenue` from `Available Fields` to `Data Fields` (bottom middle box).\n6. Click button OK to create the pivot table.\n7. Right click the new sheet `Pivot Table_Sheet1_1`.\n8. Choose \"Rename Sheet...\" in the pop-up sub-menu.\n9. Type text \"Sheet2\" in the `Name` field.\n10. Click button `OK` to apply the change.\n11. Press Ctrl+S hotkey to save the file.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@55"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/9fcb07f2-339b-4734-b841-1cd40e9d3aa3/EntireSummerSales.xlsx",
+                "dest": "/home/user/EntireSummerSales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/EntireSummerSales.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 11,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "EntireSummerSales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 3.0
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/9fcb07f2-339b-4734-b841-1cd40e9d3aa3/6_EntireSummerSales_gt1.xlsx",
+            "dest": "6_EntireSummerSales_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/EntireSummerSales.xlsx",
+            "dest": "EntireSummerSales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "pivot_table",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "ENSheet2",
+                    "pivot_props": [
+                        "col_fields",
+                        "filter",
+                        "row_fields",
+                        "data_fields"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "1de60575-bb6e-4c3d-9e6a-2fa699f9f197"
+}

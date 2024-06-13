@@ -1,0 +1,79 @@
+{
+    "id": "79b5227b-092d-4630-a20e-c0d2b910e360",
+    "snapshot": "superset",
+    "instruction": "I would like to create a table visualization to show the average cost per department for the 'flights' table. Please save this visualization chart named 'Mychart'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create a table visualization to show the average cost per department for the 'flights' table and save this visualization chart named 'Mychart', we can follow these steps:\n1. In the opened web page, select \"Dataset\" in the top menu;\n2. Click 'flights' name in the list;\n3. In the pop-up window, drag the \"Deparment\" tile from left list to the \"DIMENSIONS\" box;\n4. Drag the \"cost\" tile from left list to the \"METRICS\" box;\n5. In the small pop-up window, click \"AGGREGATE\" box;\n6. Then select \"AVG\" in the extended list;\n7. Click \"CREATE CHART\" in the buttom and you can see a chart in the right side;\n8. Click \"SAVE\" in the top right corner;\n9. Select \"Save as...\";\n10. Type chart name as \"Mychart\";\n11. Click \"Save\";\n12. Click \"Charts\" in the top menu and you can see \"Mychart\" item in the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#table-visualization"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 12,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/79b5227b-092d-4630-a20e-c0d2b910e360/database_export_20240515T105454.zip",
+                "dest": "/home/user/database_export_20240515T105454.zip"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/all_databases.sql",
+                "dest": "/home/user/all_databases.sql"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/79b5227b-092d-4630-a20e-c0d2b910e360/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/79b5227b-092d-4630-a20e-c0d2b910e360/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "97c6dd0b-ed11-4a9f-b48c-f91909fc4426"
+}

@@ -1,0 +1,27 @@
+[{
+    "location": {
+      "city": "Lexington",
+      "zip": "40503"
+      },
+      "sq__ft": "1000",
+      "sale_date": "4-25-16",
+      "price": "75836"
+},
+{
+    "location": {
+      "city": "Belmont",
+      "zip": "02478"
+      },
+      "sq__ft": "1103",
+      "sale_date": "6-18-16",
+      "price": "92567"
+},
+{
+    "location": {
+      "city": "Winchester",
+      "zip": "01890"
+      },
+      "sq__ft": "1122",
+      "sale_date": "1-31-16",
+      "price": "89921"
+}]

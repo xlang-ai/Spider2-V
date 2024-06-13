@@ -1,0 +1,81 @@
+{
+    "id": "d63d3cfa-599f-4caa-8ef7-977f266ff253",
+    "snapshot": "dbt",
+    "instruction": "Here is the typical dbt initialization workflow: first loading local CSV files into database, then executing the pre-defined tests in the project, finally running the models to perform updates. Help me create a job named \"init\" on the given environment using three commands to accomplish the above tasks, and also generate updated project docs each time this job runs.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This tasks requires you to set the execution commands of a job.\n1. Click the \"Deploy\" button in the upper panel.\n2. Choose \"Jobs\" in the drop-down panel.\n3. Click the \"Create job\" button.\n4. Choose \"Deploy job\" in the drop-down panel.\n5. Now you will see the configuration page of a new job. In \"Job settings\" section, set the \"Job name\" to \"init\".\n6. In \"Execution settings\" section, check \"Generate docs on run\" tick box.\n7. In \"Execution settings\" section, replace the default command from \"dbt build\" to \"dbt seed\".\n8. Click \"Add command\" button, add a new command \"dbt test\".\n9. Click \"Add command\" button, add a new command \"dbt run\".\n10. Click \"Save\" button on the top right of the page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/docs/collaborate/build-and-view-your-docs"
+    ],
+    "related_apps": [
+        "dbt-cloud",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_transformation",
+        "verbose"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "Workflow"
+                    },
+                    {
+                        "type": "create_environment",
+                        "env_name": "everyday_init"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_job_info",
+            "name": "init",
+            "fields": [
+                "generate_docs",
+                "execute_steps"
+            ],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "True",
+                    "'dbt seed', 'dbt test', 'dbt run'"
+                ],
+                "exclude": [
+                    "None"
+                ]
+            }
+        }
+    },
+    "counterpart": "914a4215-83f6-443e-baf6-de56d4d53c8d"
+}

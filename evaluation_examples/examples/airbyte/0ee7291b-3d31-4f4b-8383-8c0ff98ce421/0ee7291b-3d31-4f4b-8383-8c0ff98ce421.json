@@ -1,0 +1,115 @@
+{
+    "id": "0ee7291b-3d31-4f4b-8383-8c0ff98ce421",
+    "snapshot": "airbyte",
+    "instruction": "I have created a connection from Postgres to Snowflake. After the current sync finishes, can you help me add 2 entries to the source database with values in the opened .txt file? Then, compare the difference of replicated data with `data-diff [Snowflake] [Postgres]` and save the results into `diff_test.csv` on Desktop? The passwords for Postgres and Snowflake are stored in environment variables POSTGRES_PASSWORD and SNOWFLAKE_PASSWORD, respectively.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to add 2 rows with specific values to the source database and use `data-diff [Snowflake] [Postgres]` in terminal to check the difference of replicated data in the connection from Postgres to Snowflake: \n1. Switch to the browser window;\n2. Wait for the syn to finish. Then click this connection row.\n3. We need to figure out the source database name. In the connection configuration page, click the \"Postgres\" icon (with the Postgres elephant on the left) to enter the source settings.\n4. In the source settings, we can find that the source Postgres database is running locally with the following information:\nHost: localhost\nPort: 5432\nDatabase Name: development\nUsername: postgres\nWe will use these information later.\n5. Click the \"Destinations\" button on the left column panel.\n6. We can see the entry of Snowflake. Click this row.\n7. In the destination settings panel, we can see the detailed configuration like this:\nHost: https://${account}.snowflakecomputing.com\nRole: ACCOUNTADMIN\nWarehouse: COMPUTE_WH\nDatabase: DEVELOPMENT\nDefault Schema: CUSTOMERS\nUsername: ...\nFrom the \"Host\" field, we can easily extract the Snowflake ${account}. Remember these information, we will use them later.\n8. Switch to the gnome-terminal application.\n9. Type in the following codes: `cat new_values.txt`. We will see the concrete two values to add into the table \"users\".\n10. Type in `docker ps | grep \"postgres\"`. We will see the container id for this local postgresql database in the first column of terminal output.\n11. Then, type in the following shell commands to execute:\n```\ndocker exec -i ${container_id} psql -U postgres -d development -c \"INSERT INTO customers.users(col1) VALUES('record4');\"\ndocker exec -i ${container_id} psql -U postgres -d development -c \"INSERT INTO customers.users(col1) VALUES('record5');\"\n```\nRemember to replace ${container_id} with concrete container id discovered in previous step.\n12. Type in `echo $POSTGRES_PASSWORD`, we can see the password for Postgres.\n13. Type in `echo $SNOWFLAKE_PASSWORD`, we can see the password for Snowflake.\n14. Enter the data-diff command to record the result in the data_diff.csv file, which looks like this:\n```data-diff DB1_URI TABLE1_NAME DB2_URI TABLE2_NAME > diff_test.csv```\n    (1) \"DB1_URI\" is in the form of \"snowflake://[username]:[password]@[account]/[DATABASE]/[SCHEMA]?warehouse=[WAREHOUSE]&role=[ROLE]\". Remember to replace \"[xxx]\" with concrete values we recorded earlier.\n    (2) \"DB2_URI\" is in the format of \"postgresql://[username]:[password]@localhost:5432/[database]\". Remember to replace \"[xxx]\" with concrete values we recorded earlier.\n    (3) Note that, [DATABASE], [SCHEMA], [WAREHOUSE], [ROLE], and TABLE1_NAME for DB1 Snowflake should be in uppercase. The target table is \"USERS\" according to the added values;\n    (4) Note that, TABLE2_NAME for DB2 Postgres should also include the schema, that is \"customers.users\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://airbyte.com/tutorials/validate-data-replication-postgres-snowflake"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "postgresql",
+        "terminal",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 14,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "database": "development",
+                        "schema": "customers",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/0ee7291b-3d31-4f4b-8383-8c0ff98ce421/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/settings/snowflake/settings.json",
+                "dest": "/home/user/settings.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/0ee7291b-3d31-4f4b-8383-8c0ff98ce421/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/0ee7291b-3d31-4f4b-8383-8c0ff98ce421/new_value.txt",
+                "dest": "/home/user/Desktop/new_value.txt"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/new_value.txt"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/diff_test.csv",
+            "dest": "diff_test.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/airbyte/0ee7291b-3d31-4f4b-8383-8c0ff98ce421/diff_gold.csv",
+            "dest": "diff_gold.csv"
+        }
+    },
+    "counterpart": "0fa19e8e-efba-42a6-8649-67ff203dbe87"
+}

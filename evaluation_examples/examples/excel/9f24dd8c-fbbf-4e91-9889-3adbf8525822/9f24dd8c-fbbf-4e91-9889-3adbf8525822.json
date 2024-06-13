@@ -1,0 +1,86 @@
+{
+    "id": "9f24dd8c-fbbf-4e91-9889-3adbf8525822",
+    "snapshot": "excel",
+    "instruction": "Copy the \"Date\" and \"Revenue ($)\" values to a new sheet named \"Sheet2\" for the rows whose \"Sales Channel\" is \"E-mail Coupon\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I would like to copy the \"Date\" and \"Revenue ($)\" values to a new sheet for the rows whose \"Sales Channel\" is \"E-mail Coupon\". The steps are:\n1. Click the \"AutoFilter\" button (with a funnel icon) on the toolbar.\n2. Click the triangle on the right of cell E1 with content \"Sales Channel\" to open the filter menu.\n3. Uncheck the checkbox before \"All\".\n4. Then check the box before \"E-mail Coupon\".\n5. Click \"OK\" on the bottom of the menu. You will see only the header and the entry whose \"Sales Channel\" is \"E-mail Coupon\".\n6. Click the \"Append sheet\" on the left of \"Sheet1\" on the bottom (its icon is a sheet of paper with a \"+\" on the bottom-right). A new sheet with name \"Sheet2\" will be created.\n7. Click \"Sheet1\" on the bottom to switch back to \"Sheet1\".\n8. Select column A by clicking \"A\" on the top of the sheet.\n9. Press \"Ctrl+C\" to copy.\n10. Go to \"Sheet2\" by clicking it on the bottom.\n11. Select cell A1.\n12. Press \"Ctrl+V\" to paste.\n13. Go back to \"Sheet1\".\n14. Select column G by clicking \"G\" on the top of the sheet.\n15. Press \"Ctrl+C\" to copy.\n16. Go to \"Sheet2\".\n17. Select cell B1.\n18. Press \"Ctrl+V\" to paste.\n19. Save the file via hotkey \"ctrl+s\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@177"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/9f24dd8c-fbbf-4e91-9889-3adbf8525822/SummerSales.xlsx",
+                "dest": "/home/user/SummerSales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/SummerSales.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 19,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "SummerSales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/9f24dd8c-fbbf-4e91-9889-3adbf8525822/gold_SummerSales.xlsx",
+            "dest": "gold_SummerSales.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/SummerSales.xlsx",
+            "dest": "SummerSales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RNSheet2",
+                    "sheet_idx1": "EI0"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "8909d1cb-5877-44c7-a908-9f1875302441"
+}

@@ -94,6 +94,8 @@
     },
     "tags": [
         "traditional_data_processing",
-        "cli+gui"
-    ]
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "c23e915e-1907-4abc-8ff6-a35334ac79b5"
 }

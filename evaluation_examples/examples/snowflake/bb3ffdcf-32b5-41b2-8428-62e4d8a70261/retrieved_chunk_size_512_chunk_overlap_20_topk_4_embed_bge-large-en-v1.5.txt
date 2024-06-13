@@ -1,0 +1,221 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/querying-metadata.txt
+
+Documentation Title:
+Querying Metadata for Staged Files | Snowflake Documentation
+
+Documentation Content:
+csv
+.
+gz
+(
+file_format
+=>
+myformat
+)
+t
+);
+SELECT
+*
+FROM
+table1
+;
++
+--------------+-----------------+---------------------------+-------------------------+-------------------------------+------+------+
+| FILENAME     | FILE_ROW_NUMBER | FILE_CONTENT_KEY          | FILE_LAST_MODIFIED      |  START_SCAN_TIME              | COL1 | COL2 |
+|
+--------------+-----------------+---------------------------+-------------------------+-------------------------------+------+------+
+| data1.csv.gz | 1               | 39ab11bb2cdeacdcdac1234d9 | 2022-08-03 10:15:26.000 | 2023-02-02 01:31:00.778 +0000 | a    | b    |
+| data1.csv.gz | 2               | 2289aab2abcdeaacaaac348d0 | 2022-09-10 11:15:55.000 | 2023-02-02 01:31:00.778 +0000 | c    | d    |
++
+--------------+-----------------+---------------------------+-------------------------+-------------------------------+------+------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Metadata Columns
+Query Limitations
+Query Examples
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/querying-metadata.txt
+
+Documentation Title:
+Querying Metadata for Staged Files | Snowflake Documentation
+
+Documentation Content:
+METADATA
+$
+FILE_ROW_NUMBER
+,
+METADATA
+$
+FILE_CONTENT_KEY
+,
+METADATA
+$
+FILE_LAST_MODIFIED
+,
+METADATA
+$
+START_SCAN_TIME
+,
+t
+.$
+1
+,
+t
+.$
+2
+FROM
+@
+mystage1
+(
+file_format
+=>
+myformat
+)
+t
+;
++
+-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+----+----+
+| METADATA$FILENAME | METADATA$FILE_ROW_NUMBER | METADATA$FILE_CONTENT_KEY | METADATA$FILE_LAST_MODIFIED |      METADATA$START_SCAN_TIME | $1 | $2 |
+|-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+----+----|
+| data2.csv.gz      |                        1 | aaa11bb2cccccaaaaac1234d9 |     2022-05-01 10:15:57.000 |  2023-02-02 01:31:00.713 +0000| e  | f  |
+| data2.csv.gz      |                        2 | aa387aabb2ccedaaaaac123b8 |     2022-05-01 10:05:35.000 |  2023-02-02 01:31:00.755 +0000| g  | h  |
+| data1.csv.gz      |                        1 | 39ab11bb2cdeacdcdac1234d9 |     2022-08-03 10:15:26.000 |  2023-02-02 01:31:00.778 +0000| a  | b  |
+| data1.csv.gz      |                        2 | 2289aab2abcdeaacaaac348d0 |     2022-09-10 11:15:55.000 |  2023-02-02 01:31:00.778 +0000| c  | d  |
++
+-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+----+----+
+SELECT
+METADATA
+$
+FILENAME
+,
+METADATA
+$
+FILE_ROW_NUMBER
+,
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/querying-metadata.txt
+
+Documentation Title:
+Querying Metadata for Staged Files | Snowflake Documentation
+
+Documentation Content:
+METADATA
+$
+FILE_ROW_NUMBER
+,
+METADATA
+$
+FILE_CONTENT_KEY
+,
+METADATA
+$
+FILE_LAST_MODIFIED
+,
+METADATA
+$
+START_SCAN_TIME
+,
+t
+.$
+1
+,
+t
+.$
+2
+FROM
+@
+mystage1
+t
+;
++
+-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+-----+------+
+| METADATA$FILENAME | METADATA$FILE_ROW_NUMBER | METADATA$FILE_CONTENT_KEY | METADATA$FILE_LAST_MODIFIED |      METADATA$START_SCAN_TIME | $1  | $2   |
+|-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+-----+------|
+| data2.csv.gz      |                        1 | aaa11bb2cccccaaaaac1234d9 |     2022-05-01 10:15:57.000 |  2023-02-02 01:31:00.713 +0000| e|f | NULL |
+| data2.csv.gz      |                        2 | aa387aabb2ccedaaaaac123b8 |     2022-05-01 10:05:35.000 |  2023-02-02 01:31:00.755 +0000| g|h | NULL |
+| data1.csv.gz      |                        1 | 39ab11bb2cdeacdcdac1234d9 |     2022-08-03 10:15:26.000 |  2023-02-02 01:31:00.778 +0000| a|b | NULL |
+| data1.csv.gz      |                        2 | 2289aab2abcdeaacaaac348d0 |     2022-09-10 11:15:55.000 |  2023-02-02 01:31:00.778 +0000| c|d | NULL |
++
+-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+-----+------+
+Copy
+Note
+The file format is required in this example to correctly parse the fields in the staged files.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/streams-examples.txt
+
+Documentation Title:
+Stream Examples | Snowflake Documentation
+
+Documentation Content:
+SELECT
+*
+FROM
+ndf_s
+;
++
+-------+-------------------------------+-----+-----------------+------------------------------------------+
+| U     | TS                            | NUM | METADATA$ACTION | METADATA$ROW_ID                          |
+|-------+-------------------------------+-----+-----------------+------------------------------------------|
+| MARIE | 2021-08-16 12:04:21.768 -0700 |   1 | INSERT          | d200504bf3049a7d515214408d9a804fd03b46cd |
+| MARIE | 2021-08-16 12:04:21.768 -0700 |   2 | INSERT          | d0a551cecbee0f9ad2b8a9e81bcc33b15a525a1e |
+| MARIE | 2021-08-16 12:04:21.768 -0700 |   3 | INSERT          | b98ad609fffdd6f00369485a896c52ca93b92b1f |
+| MARIE | 2021-08-16 12:04:21.768 -0700 |   4 | INSERT          | 62d34abc3fac85c037fb9f47f7758f08d025d9ed |
+| MARIE | 2021-08-16 12:04:21.768 -0700 |   5 | INSERT          | e554e6e68293a51d8e69d68e9b6be991453cc901 |
+| MARIE | 2021-08-16 12:04:21.768 -0700 |   6 | INSERT          | f6fa32c498a28b2349d2c6f6be55c30eb1d5310f |
++
+-------+-------------------------------+-----+-----------------+------------------------------------------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+
+
+

@@ -12,7 +12,8 @@
     "tags": [
         "gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 7,
     "config": [
@@ -60,5 +61,6 @@
             "path": "evaluation_examples/examples/snowflake/606d26c0-a061-4133-84dc-52a0eb68f7fa/result_gold.csv",
             "dest": "result_gold.csv"
         }
-    }
+    },
+    "counterpart": "f079c419-c903-4212-a648-eedf23c5ee92"
 }

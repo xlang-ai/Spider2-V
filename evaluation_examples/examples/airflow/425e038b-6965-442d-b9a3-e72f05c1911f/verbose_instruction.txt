@@ -1,0 +1,4 @@
+I am using Astronomer to deploy Airflow
+To show the DAG dependencies views for checking the DAG dependencies on airflow website, we can follow the steps:
+1. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;
+2. Click the DAG dependencies in the dropdown menu

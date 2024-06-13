@@ -7,7 +7,8 @@
     "tags": [
         "account",
         "it_service_management",
-        "cli+gui"
+        "cli+gui",
+        "abstract"
     ],
     "related_apps": [
         "chromium",
@@ -52,5 +53,6 @@
         },
         "options": {},
         "func": "check_include_exclude"
-    }
+    },
+    "counterpart": "5d76cee4-608d-4601-bccf-a975a0e14e54"
 }

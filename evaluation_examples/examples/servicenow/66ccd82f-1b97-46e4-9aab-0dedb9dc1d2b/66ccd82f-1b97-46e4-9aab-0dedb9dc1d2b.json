@@ -1,0 +1,58 @@
+{
+    "id": "66ccd82f-1b97-46e4-9aab-0dedb9dc1d2b",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderSalesLaptopTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 7,
+    "instruction": "Go to the hardware store and order 3 \"Sales Laptop\" with configuration {'Additional software requirements': 'Salesforce, Zoom, Microsoft Office 365', 'Adobe Acrobat': False, 'Adobe Photoshop': True, 'Microsoft Powerpoint': True, 'Siebel Client': True}\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We want to order 3 \"Sales Laptop\" in the hardware store. To do this:\n1. Click the \"Hardware\" panel and wait for page loading.\n2. In the search bar on the top-right (with text \"Search catalog\"), click it and type in \"Sales Laptop\".\n3. Press Enter to filter the items. We will see the desired item panel. Click it.\n4. Let's fill the detailed configuration. For \"Optional Software\", click all radio boxes except \"Adobe Acrobat\". In other words, only leave the checkbox unchecked for software \"Adobe Acrobat\".\n5. For \"Additional software requirements\", in the wide input box, type in \"Salesforce, Zoom, Microsoft Office 365\".\n6. Come to the right panel, click and choose the \"Quantity\" with value \"3\".\n7. Click the button \"Order Now\". Wait a few seconds, the request has been made.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderSalesLaptopTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "f3527b38-81f9-4abc-9293-cd43217fae9d"
+}

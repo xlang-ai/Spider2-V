@@ -1,0 +1,26 @@
+I would like to create a pivot table and a stacked column chart for my table. The steps to achieve this goal are:
+1. Click the "Append sheet" on the left of "Sheet1" on the bottom (its icon is a sheet of paper with a "+" on the bottom-right). A new sheet with name "Sheet2" will be created.
+2. Select cells A1:B1.
+3. Right click and choose "Merge Cells" in the pop-up menu.
+4. Input text "Summer sales ($)" in the merged cell.
+5. Click "Sheet1" on the bottom to switch to "Sheet1".
+6. Press Ctrl+A to select all data in Sheet1.
+7. Click "Insert" on the top menu bar. Select "Pivot Table..." in the dropdown menu.
+8. Make sure the selection is "Current selection" and the entire sheet containing data is selected. Then click "OK" on the button-right of the pop-up window.
+9. Press and drag "Month" from the available fields on the right to "Row Fields:" on the bottom-left of the pop-up window.
+10. Press and drag "Sales Channel" from the available fields to "Column Fields:" in the upper middle.
+11. Press and drag "Revenue" from the available fields to "Data Fields:" in the lower middle.
+12. Click "Source and Destination" on the bottom to manually choose the output destination.
+13. Under "Destination", choose "Selection" from the options, and click the "Shrink" button on the right of the same row.
+14. Click "Sheet2" on the bottom.
+15. Then select cell A2. You can see "$Sheet2.$A$2" in the textbox on the top.
+16. Click "Expand" button on the right of the textbox (namely the original "Shrink" button) and return to the pop-up window.
+17. Click "OK" on the bottom-right of window "Pivot Table Layout". A pivot table will be generated in "Sheet2".
+18. In "Sheet2", click "Insert" on the top menu bar. Select "Chart..." in the dropdown menu.
+19. Click "Column" under "Choose a Chart Type".
+20. Choose the second graph "Stacked" of the three on the right.
+21. Then click "Next >" on the bottom of the pop-up window.
+22. Input text "Revenue of Each Channel ($)" into the textbox `Title`.
+23. Select the option "Bottom" under checkbox "Display legend" on the right panel.
+24. Click "Finish" button on the bottom-right of the pop-up window.
+25. Press Ctrl+S hot key to save the modification.

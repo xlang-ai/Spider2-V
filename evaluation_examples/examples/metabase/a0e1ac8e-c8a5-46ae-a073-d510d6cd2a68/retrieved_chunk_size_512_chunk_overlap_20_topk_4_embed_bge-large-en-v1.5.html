@@ -1,0 +1,50 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/data-modeling/json-unfolding.html
+
+Documentation Title:
+Working with JSON
+
+Documentation Content:
+You can change the column names in <strong>Admin settings</strong>&gt; <a>Table metadata</a>, or by creating a <a>model</a>and editing the column metadata.</p><h2>Toggling JSON unfolding for a database</h2><p>If you notice a hit to performance from this JSON unfolding, we recommend turning it off.</p><p>To turn off JSON unfolding for a database:</p><ol><li>Click on the <strong>Gear</strong>in the upper right.</li><li>Select <strong>Admin settings</strong></li><li>Visit the <strong>Databases</strong>tab.</li><li>Select the relevant database.</li><li>Click <strong>Show advanced options</strong>.</li><li>Toggle <strong>Allow unfolding of JSON columns</strong>.</li><li>Scroll down and click the <strong>Save changes</strong>button.</li><li>Click <strong>Sync database schema now</strong>.</li><li>Click <strong>Re-scan field values now</strong>.</li></ol><h2>Toggling JSON unfolding for a specific column</h2><p>If performance degrades, or you’d rather keep the JSON contained in the original column, you can turn off unfolding for individual fields in their settings.</p><ol><li>Click on the <strong>Gear</strong>in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Visit the <strong>Table metadata</strong>tab.</li><li>Select the database that contains the field you want to update.</li><li>Select the table that contains the field.</li><li>Select the field containing the original JSON</li><li>Scroll to the <strong>Unfold JSON</strong>option and select <strong>Yes</strong>or <strong>No</strong>.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/databases/connections/postgresql.html
+
+Documentation Title:
+PostgreSQL
+
+Documentation Content:
+JSON unfolding is on by default, but you can turn off JSON unfolding if performance is slow.</p><p>If you turn on JSON unfolding, you can also toggle the unfolding for individual columns in <a>table metadata</a>.</p><h3>Additional JDBC connection string options</h3><p>You can append options to the connection string that Metabase uses to connect to your database. Use the format:</p><code>options=-c%20key=value
+</code><p>PostgreSQL connection URIs expect <a>percent-encoding</a>for whitespaces and symbols.</p><h3>Re-run queries for simple explorations</h3><p>Turn this option <strong>OFF</strong>if people want to click <strong>Run</strong>(the play button) before applying any <a>Summarize</a>or filter selections.</p><p>By default, Metabase will execute a query as soon as you choose an grouping option from the <strong>Summarize</strong>menu or a filter condition from the <a>drill-through menu</a>. If your database is slow, you may want to disable re-running to avoid loading data on each click.</p><h3>Choose when Metabase syncs and scans</h3><p>Turn this option <strong>ON</strong>to manage the queries that Metabase uses to stay up to date with your database. For more information, see <a>Syncing and scanning databases</a>.</p><h4>Database syncing</h4><p>If you’ve selected <strong>Choose when syncs and scans happen</strong>&gt; <strong>ON</strong>, you’ll be able to set:</p><ul><li>The frequency of the <a>sync</a>: hourly (default) or daily.</li><li>The time to run the sync, in the timezone of the server where your Metabase app is running.</li></ul><h3>Scanning for filter values</h3><p>Metabase can scan the values present in each field in this database to enable checkbox filters in dashboards and questions.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/databases/connections/mysql.html
+
+Documentation Title:
+MySQL
+
+Documentation Content:
+JSON unfolding is on by default, but you can turn off JSON unfolding if performance is slow.</p><p>If you turn on JSON unfolding, you can also toggle the unfolding for individual columns in <a>table metadata</a>.</p><h3>Additional JDBC connection string options</h3><p>You can append options to the connection string that Metabase uses to connect to your database.</p><h3>Re-run queries for simple explorations</h3><p>Turn this option <strong>OFF</strong>if people want to click <strong>Run</strong>(the play button) before applying any <a>Summarize</a>or filter selections.</p><p>By default, Metabase will execute a query as soon as you choose an grouping option from the <strong>Summarize</strong>menu or a filter condition from the <a>drill-through menu</a>. If your database is slow, you may want to disable re-running to avoid loading data on each click.</p><h3>Choose when Metabase syncs and scans</h3><p>Turn this option <strong>ON</strong>to manage the queries that Metabase uses to stay up to date with your database. For more information, see <a>Syncing and scanning databases</a>.</p><h4>Database syncing</h4><p>If you’ve selected <strong>Choose when syncs and scans happen</strong>&gt; <strong>ON</strong>, you’ll be able to set:</p><ul><li>The frequency of the <a>sync</a>: hourly (default) or daily.</li><li>The time to run the sync, in the timezone of the server where your Metabase app is running.</li></ul><h4>Scanning for filter values</h4><p>Metabase can scan the values present in each field in this database to enable checkbox filters in dashboards and questions.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/data-modeling/json-unfolding.html
+
+Documentation Title:
+Working with JSON
+
+Documentation Content:
+If the column was unfolded, Metabase will have hidden this JSON columnn from view, so if you want the JSON column to be visible again, you’ll need to change the column’s visibility to <strong>Everywhere</strong>.</li><li>Scroll down and click on the <strong>Re-scan this field</strong>.</li></ol><img/><h2>For JSON unfolding to work, the column’s data type must be JSON</h2><p>For example, if you upload a CSV with JSON in it, you might need to update the data/type in the database. Note that you can’t edit the data type via Metabase; you can only change its field type. So even if the field type in Metabase is <code>Field containing JSON</code>, if the data/type isn’t <code>JSON</code>, Metabase won’t give you the option to unfold the column. You’ll need to change the column type in the database itself.</p><h2>Databases that support JSON unfolding</h2><ul><a>PostgreSQL</a><a>MySQL</a></ul></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+

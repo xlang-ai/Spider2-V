@@ -1,0 +1,77 @@
+In this task, we want to use Airflow to trigger the data transfer of an Airbyte connection. Here are the detailed steps:
+1. In the opened Airbyte UI page, click the connection row in the main panel;
+2. In the new page, we can see the connection details:
+- in the url box, the format is:
+"http://localhost:8000/workspaces/{workspace_id}/connections/{connection_id}/status"
+we can extract the connection id string for later usage (we will use ${connection_id} to represent it)
+- in the "Enabled streams" table, we can see 3 tables will be transferred and there is only table related to products (namely, `products`)
+3. Switch to the `DAGs - Airflow` web tab.
+4. We need to build two connections `airbyte_conn` and `file_conn` first. Click the "Admin -> Connections" button in the top menu bar.
+5. In the new page, click the "+" button under the Search box.
+6. For the following fields, type or select the corresponding values:
+Connection Id: airbyte_conn
+Connection Type: Airbyte
+Host: 172.17.0.1
+Port: 8000
+Note that, for the `Host` field, since both two containers (one for airbyte and one for airflow) are running in the docker environment, we can use the docker0 ip address (try `ifconfig docker0` in the terminal, which should usually be 172.17.0.1) or the ip address of the host (try `hostname -I | awk '{print $1}'` in the terminal) for communication if the special address `host.docker.internal` can not be identified.
+7. Since we disable the Airbyte basic auth in this local development, leave the two fields `Login` and `Password` empty.
+8. Now, we can save this connection `airbyte_conn` via click the "Save" button at the bottom.
+9. After coming back to the "List Connection" page, we click the "+" button again to create another connection `file_conn`.
+10. In this time, we fill in the following contents:
+Connection Id: file_conn
+Connection Type: File (path)
+Just leave the field `Path` empty, since we will specify it in the dag file.
+11. Click the button "Save" to return. We can see that, there are two connection rows in the main table.
+12. Now, click the Visual Studio Code application icon on the left panel of the desktop.
+13. Select and open the file with path `dags/faker_to_json_dag.py`.
+14. Type in the following code to overwrite the original snippets:
+```
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
+from airflow.providers.airbyte.sensors.airbyte import AirbyteJobSensor
+from airflow.sensors.filesystem import FileSensor
+import pendulum, os
+
+AIRBYTE_CONNECTION_ID = '${connection_id}' # replace this with your connection id
+SOURCE_RAW_PRODUCTS_FILE = '/tmp/airbyte_local/json_data/_airbyte_raw_products.jsonl'
+TARGET_RAW_PRODUCTS_FILE = f'{os.environ["AIRFLOW_HOME"]}/data/raw_products.jsonl'
+
+with DAG(dag_id='faker_to_json_dag',
+        start_date=pendulum.today('UTC').add(days=-1)
+    ) as dag:
+
+    trigger_airbyte_sync = AirbyteTriggerSyncOperator(
+        task_id='airbyte_trigger_sync',
+        airbyte_conn_id='airbyte_conn',
+        connection_id=AIRBYTE_CONNECTION_ID,
+        asynchronous=True
+    )
+
+    wait_for_sync_completion = AirbyteJobSensor(
+        task_id='airbyte_check_sync',
+        airbyte_conn_id='airbyte_conn',
+        airbyte_job_id=trigger_airbyte_sync.output
+    )
+
+    raw_products_file_sensor = FileSensor(
+        task_id='check_if_file_exists_task',
+        timeout=5,
+        filepath=SOURCE_RAW_PRODUCTS_FILE,
+        fs_conn_id='file_conn'
+    )
+
+    raw_products_file_ops= BashOperator(
+        task_id='copy_and_rename_raw_file',
+        bash_command=f'cp {SOURCE_RAW_PRODUCTS_FILE} {TARGET_RAW_PRODUCTS_FILE}'
+    )
+
+    trigger_airbyte_sync >> wait_for_sync_completion >>  raw_products_file_sensor >> raw_products_file_ops
+```
+Note that, for the special variable "AIRBYTE_CONNECTION_ID = '${connection_id}'", we need to replace '${connection_id}' with the concrete connection id previously found in the url address of Airbyte UI.
+15. Press Ctrl+S to save the modifications.
+16. Switch back to the Chromium/Chrome browser.
+17. Click the `DAGs` button in the top menu bar on web page `DAGs - Airflow`.
+18. Click the refresh button next to prompt "Auto-refresh" on top of the DAGs table. This will reload our changes to DAG `faker_to_json_dag`.
+19. Then, clcik the running button with icon "▶" under the Actions column in the main table.
+20. The synchronization will soon start and we can check the running details via clicking the text link `faker_to_json_dag` under the DAG column.

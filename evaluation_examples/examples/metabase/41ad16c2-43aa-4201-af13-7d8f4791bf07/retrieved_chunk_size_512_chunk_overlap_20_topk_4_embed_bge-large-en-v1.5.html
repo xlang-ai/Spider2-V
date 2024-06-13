@@ -1,0 +1,83 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-the-metabase-jar-file.html
+
+Documentation Title:
+Running the Metabase JAR file
+
+Documentation Content:
+see <a>Activating your Metabase commercial license</a>.</p><h2>Quick start</h2><p>The quick start is intended for running Metabase locally. See below for instructions on <a>running Metabase in production</a>.</p><p>If you have Java installed:</p><ol><li><a>Download the JAR file for Metabase OSS</a>. If you’re on a <a>Pro</a>or <a>Enterprise</a>plan, download the <a>JAR for the Enterprise Edition</a>.</li><li>Create a new directory and move the Metabase JAR into it.</li><li>Change into your new Metabase directory and run the JAR.</li></ol><code>java -jar metabase.jar
+</code><p>Metabase will log its progress in the terminal as it starts up. Wait until you see “Metabase Initialization Complete” and visit <code>http://localhost:3000/setup</code>.</p><p>If you are using a paid version, be sure to <a>activate your license</a>.</p><h2>Local installation</h2><p>If you just want to try Metabase out, play around with Metabase, or just use Metabase on your local machine, Metabase ships with a default application database that you can use. <strong>This setup is not meant for production</strong>. If you intend to run Metabase for real at your organization, see <a>Production installation</a>.</p><p>The below instructions are the same as the quick start above, just with a little more context around each step.</p><h3>1. Install Java JRE</h3><p>You may already have Java installed. To check the version, open a terminal and run:</p><code>java -version
+</code><p>If Java isn’t installed, you’ll need to install Java before you can run Metabase. We recommend version 11 of JRE from <a>Eclipse Temurin</a>with HotSpot JVM. You can run Metabase wherever Java 11 runs.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/installing-metabase.html
+
+Documentation Title:
+Installing Metabase
+
+Documentation Content:
+All you need to do is <a>sign up for a free trial</a>, and you’re off to the races.</p><h2>Self-hosting Metabase</h2><p>For an overview on how to self-host Metabase, check out <a>how to run Metabase in production</a>.</p><a>Running the Jar File</a><p>Metabase can run anywhere Java is available.</p><a>Running on Docker</a><p>If you prefer to use a Docker container, we’ve got you covered.</p><h2>Professional services from the Metabase team</h2><p>If you want help with:</p><ul><li>Set up</li><li>Training</li><li>Data stack</li><li>Embedding</li><li>Data modeling</li></ul><p>Check out our <a>professional services</a>.</p><h2>Upgrading Metabase</h2><p>See <a>Upgrading Metabase</a></p><h2>Other installation options</h2><ul><a>Running on Podman</a><a>Building Metabase from source</a><a>Running on Azure Web Apps</a><a>Running on Debian as a service</a></ul><h2>Connect with a Metabase Expert</h2><p>If you’d like more technical resources to set up your data stack with Metabase, connect with a <a>Metabase Expert</a>.</p></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-at-scale.html
+
+Documentation Title:
+Metabase at scale
+
+Documentation Content:
+We use Elastic Beanstalk to host our internal Metabase application.</li><li>Docker: See <a>running Metabase on Docker</a>.</li></ul><p><a>Google Cloud Platform</a>, <a>Microsoft Azure</a>, <a>Digital Ocean</a>, and other cloud providers offer other great alternatives for hosting your Metabase application.</p><h2>Hosted Metabase</h2><p>If you don’t want to deal with the care and feeding of a Metabase application, Metabase offers a <a>hosted solution</a>. You still have to ensure your data sources are performant, but you no longer have to manage running the Metabase application.</p><h2>Getting help</h2><p>If you still have questions, chances are someone’s already had the same question. Check out the <a>Metabase discussion forum</a>and search for your issue. If you can’t find a solution, submit a question of your own.</p><div><a>« Previous</a><a>Next »</a></div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p></article></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-metabase-on-debian.html
+
+Documentation Title:
+Running Metabase on Debian as a service with nginx
+
+Documentation Content:
+So, a Metabase service should live at <code>/etc/systemd/system/metabase.service</code>.</p><h3>The Metabase service file</h3><p>Create the <code>/etc/systemd/system/metabase.service</code>service file and open it in your editor:</p><code>sudo touch /etc/systemd/system/metabase.service
+sudo &lt;your-editor&gt; /etc/systemd/system/metabase.service
+</code><p>In <code>/etc/systemd/system/metabase.service</code>, replace configurable items (they look like <code>&lt;some-var-name&gt;</code>) with values sensible for your system. The Metabase script below has extra comments to help you know what everything is for.</p><code>[Unit]
+Description=Metabase server
+After=syslog.target
+After=network.target
+
+[Service]
+WorkingDirectory=&lt;/your/path/to/metabase/directory/&gt;
+ExecStart=/usr/bin/java -jar &lt;/your/path/to/metabase/directory/&gt;metabase.jar
+EnvironmentFile=/etc/default/metabase
+User=metabase
+Type=simple
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=metabase
+SuccessExitStatus=143
+TimeoutStopSec=120
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+</code><h2>Create syslog conf</h2><p>Next we need to create a syslog conf to make sure systemd can handle the logs properly.</p><code>sudo touch /etc/rsyslog.d/metabase.conf
+sudo &lt;your-editor&gt; /etc/rsyslog.d/metabase.conf
+
+if $programname == 'metabase' then /var/log/metabase.log
+&amp; stop
+</code><p>Restart the syslog service to load the new config.</p><code>sudo systemctl restart rsyslog.service
+</code><h2>Environment variables for Metabase</h2><p><a>Environment variables</a>provide a good way to customize and configure your Metabase instance on your server.
+
+
+

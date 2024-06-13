@@ -1,0 +1,4 @@
+Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets. You may do so with the following steps:
+1. In the opened lineage graph, navigate to the asset "top10_story_ids" at the top of the graph and click it.
+2. Click "Materialize selected" on the top-right of the lineage graph.
+3. Wait until the materialization is finished.

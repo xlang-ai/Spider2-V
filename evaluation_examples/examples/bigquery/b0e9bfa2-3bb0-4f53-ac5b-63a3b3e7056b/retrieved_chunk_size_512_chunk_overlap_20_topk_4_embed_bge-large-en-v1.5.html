@@ -1,0 +1,129 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/visualize-jupyter.html
+
+Documentation Title:
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
+
+Documentation Content:
+00:00, 20.21rows/s]
+country_code      country_name    num_regions
+0   TR  Turkey         81
+1   TH  Thailand       77
+2   VN  Vietnam        63
+3   JP  Japan          47
+4   RO  Romania        42
+5   NG  Nigeria        37
+6   IN  India          36
+7   ID  Indonesia      34
+8   CO  Colombia       33
+9   MX  Mexico         32
+10  BR  Brazil         27
+11  EG  Egypt          27
+12  UA  Ukraine        27
+13  CH  Switzerland    26
+14  AR  Argentina      24
+15  FR  France         22
+16  SE  Sweden         21
+17  HU  Hungary        20
+18  IT  Italy          20
+19  PT  Portugal       20
+20  NO  Norway         19
+21  FI  Finland        18
+22  NZ  New Zealand    17
+23  PH  Philippines    17
+.
+</pre><aside><strong>Note:</strong><span>Your results might differ from what is above as the <code>google_trends</code>dataset being queried is refreshed with new data on an ongoing basis.</span></aside></li><li><p>In the next cell (below the output from the previous cell), enter the
+following command to run the same query, but this time save the results to
+a new pandas DataFrame that's named <code>regions_by_country</code>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/vector-search.html
+
+Documentation Title:
+Search embeddings with vector search  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+In this dataset, the <code>publication_number</code>value
+uniquely identifies a patent, so it is used for comparison.</p><pre>WITH approx_results AS (
+  SELECT query.publication_number AS query_publication_number,
+    base.publication_number AS base_publication_number
+  FROM
+    VECTOR_SEARCH(
+      TABLE vector_search.patents,
+      'embedding_v1',
+      TABLE vector_search.patents2,
+      top_k =&gt; 5,
+      distance_type =&gt; 'COSINE',
+      options =&gt; '{"fraction_lists_to_search": 0.005}')
+),
+  exact_results AS (
+  SELECT query.publication_number AS query_publication_number,
+    base.publication_number AS base_publication_number
+  FROM
+    VECTOR_SEARCH(
+      TABLE vector_search.patents,
+      'embedding_v1',
+      TABLE vector_search.patents2,
+      top_k =&gt; 5,
+      distance_type =&gt; 'COSINE',
+      options =&gt; '{"use_brute_force":true}')
+)
+
+SELECT
+  a.query_publication_number,
+  SUM(CASE WHEN a.base_publication_number = e.base_publication_number THEN 1 ELSE 0 END) / 5 AS recall
+FROM exact_results e LEFT JOIN approx_results a
+  ON e.query_publication_number = a.query_publication_number
+GROUP BY a.query_publication_number
+</pre><p>If the recall is lower than you would like, you can increase the
+<code>fraction_lists_to_search</code>value, with the downside of potentially higher
+latency and resource usage. To tune your vector search, you can try multiple
+runs of <code>VECTOR_SEARCH</code>with different argument values, save the results to
+tables, and then compare the results.</p><h2>Clean up</h2><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
+  <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
+      the tasks in this document, when you delete it, you also delete any other work you've
+      done in the project.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/vector-search.html
+
+Documentation Title:
+Search embeddings with vector search  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+and click
+<strong>Create dataset</strong>.</p></ul></li></ol><h2>Create test tables</h2><ol><li><p>Create the <code>patents</code>table that contains patents embeddings, based on a
+subset of the
+<a>Google Patents</a>public dataset:</p><pre>CREATE TABLE vector_search.patents AS
+SELECT * FROM `patents-public-data.google_patents_research.publications`
+WHERE ARRAY_LENGTH(embedding_v1) &gt; 0
+ AND publication_number NOT IN ('KR-20180122872-A')
+LIMIT 1000000;
+</pre></li><li><p>Create the <code>patents2</code>table that contains a patent embedding to find
+nearest neighbors for:</p><pre>CREATE TABLE vector_search.patents2 AS
+SELECT * FROM `patents-public-data.google_patents_research.publications`
+WHERE publication_number = 'KR-20180122872-A';
+</pre></li></ol><h2>Create a vector index</h2><ol><li><p>Create the <code>my_index</code>vector index on the <code>embeddings_v1</code>column of the
+<code>patents</code>table:</p><pre>CREATE VECTOR INDEX my_index ON vector_search.patents(embedding_v1)
+OPTIONS(distance_type='COSINE', index_type='IVF', ivf_options='{"num_lists": 1000}');
+</pre></li><li><p>Wait several minutes for the vector index to be created, then run the
+following query and confirm that the <code>coverage_percentage</code>value is <code>100</code>:</p><pre>SELECT * FROM vector_search.INFORMATION_SCHEMA.VECTOR_INDEXES;
+</pre></li></ol><h2>Use the <code>VECTOR_SEARCH</code>function with an index</h2><p>After the vector index is created and populated, use the <code>VECTOR_SEARCH</code>function to find the nearest neighbor for the embedding in the <code>embedding_v1</code>column in the <code>patents2</code>table. This query uses the vector index in the search,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/rest/v2/models.html
+
+Documentation Title:
+REST Resource: models  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</td></tr><tr><code>AE</code><td>United Arab Emirates</td></tr><tr><code>AR</code><td>Argentina</td></tr><tr><code>AT</code><td>Austria</td></tr><tr><code>AU</code><td>Australia</td></tr><tr><code>BE</code><td>Belgium</td></tr><tr><code>BR</code><td>Brazil</td></tr><tr><code>CA</code><td>Canada</td></tr><tr><code>CH</code><td>Switzerland</td></tr><tr><code>CL</code><td>Chile</td></tr><tr><code>CN</code><td>China</td></tr><tr><code>CO</code><td>Colombia</td></tr><tr><code>CS</code><td>Czechoslovakia</td></tr><tr><code>CZ</code><td>Czech Republic</td></tr><tr><code>DE</code><td>Germany</td></tr><tr><code>DK</code><td>Denmark</td></tr><tr><code>DZ</code><td>Algeria</td></tr><tr><code>EC</code><td>Ecuador</td></tr><tr><code>EE</code><td>Estonia</td></tr><tr><code>EG</code><td>Egypt</td></tr><tr><code>ES</code><td>Spain</td></tr><tr><code>FI</code><td>Finland</td></tr><tr><code>FR</code><td>France</td></tr><tr><code>GB</code><td>Great Britain (United Kingdom)</td></tr><tr><code>GR</code><td>Greece</td></tr><tr><code>HK</code><td>Hong
+
+
+

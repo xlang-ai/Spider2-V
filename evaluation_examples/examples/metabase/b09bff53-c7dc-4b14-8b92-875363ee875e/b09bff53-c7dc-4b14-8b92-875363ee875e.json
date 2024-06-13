@@ -1,0 +1,87 @@
+{
+    "id": "b09bff53-c7dc-4b14-8b92-875363ee875e",
+    "snapshot": "metabase",
+    "instruction": "I have logged in to Metabase. Please help me add a database according to the information provided in the \"db_info.json\" file.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To add the database, please follow these steps:\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click \"Add a database\" in the page;\n4. Fill all fields according to db_info.json into this form, concretely:\nDatabase type: PostgreSQL\nDisplay name: PostgresTomDB\nHost: localhost\nPort: 5432\nDatabase name: TomDB\nUsername: Tom\nPassword: Tom123456\n5. Click the \"Save\" button on the bottom.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/databases/connecting"
+    ],
+    "related_apps": [
+        "chromium",
+        "postgresql",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/b09bff53-c7dc-4b14-8b92-875363ee875e/db_info.json",
+                "dest": "/home/user/db_info.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/b09bff53-c7dc-4b14-8b92-875363ee875e/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/db_info.json"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/b09bff53-c7dc-4b14-8b92-875363ee875e/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "fdeaf4b9-6d03-4090-8b53-9487f38e3a29"
+}

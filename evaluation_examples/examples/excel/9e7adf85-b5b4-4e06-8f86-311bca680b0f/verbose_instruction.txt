@@ -1,0 +1,16 @@
+To finish today's task:
+1. Enter "Total" at the entry A12.
+2. Enter "Total" at the entry H1.
+3. Select the entry B12.
+4. Focus on the input line at the upper panel, and enter the code ``=SUM(B2:B11)``.
+5. Click the green tick icon or press Enter to make it work.
+6. Click the right bottom corner of the entry B12 (you should see a cross at the corner), hold it and drag to the entry G12.
+7. Select the entry H2.
+8. Focus on the input line at the upper panel, and enter the code ``=SUM(B2:G2)``.
+9. Click the green tick icon or press Enter to make it work.
+10. Click the right bottom corner of the entry H2 (you should see a cross at the corner), hold it and drag to the entry H11.
+11. Select the entry A10.
+12. Set the background color of this entry to "Blue". You can use the paint can icon on the menu bar next to icon "A".
+13. Select the entry A4.
+14. Set the background color of this entry to "Red". You can use the paint can icon on the menu bar next to icon "A".
+15. Save the sheet using Excel 2007-365 format.

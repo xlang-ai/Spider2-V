@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 3,
     "config": [
@@ -50,7 +51,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "are_jupyter_outputs_cleared",
@@ -65,5 +65,6 @@
                 "expected": []
             }
         }
-    }
+    },
+    "counterpart": "e316bdce-f76f-4a08-8239-865e55483396"
 }

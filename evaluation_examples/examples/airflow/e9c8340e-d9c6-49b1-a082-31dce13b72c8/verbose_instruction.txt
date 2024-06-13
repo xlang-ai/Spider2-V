@@ -1,0 +1,5 @@
+I am using Astronomer to deploy Airflow.
+To run the dag "workFlow_Echo", we can follow the steps:
+1. On the Airflow web page, find "workFlow_Echo" in the DAG list and click the slider to the left of the name to Unpause dag; 
+2. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+3. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed".

@@ -1,0 +1,86 @@
+{
+    "id": "0924b338-5916-44a2-a48d-75f57347f1e9",
+    "snapshot": "metabase",
+    "instruction": "I want to build my first dashboard in the Metabase application and put a question into it. Help me set up a question with the SQL query in the opened 'question1.sql'. Create a new dashboard and add this question to it, named 'New Dashboard' and 'question1' respectively. Good luck!\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish this task, please follow these steps:\n\n1. Click the \"New\" button on the top right;\n2. Choose \"SQL Query\" in the drop-down panel;\n3. Copy the SQL query in 'question1.sql' file and paste it in input panel.\n4. Click the \"Run query\" button on the right side, and check the output data.\n5. Click on \"Save\" button on the top right corner;\n6. Type in \"question1\" under \"name\", and click \"Save\".\n7. Click on \"Yes please!\".\n8. Click on the button \"Create a new dashboard\";\n9. Type in \"New Dashboard\" under \"name\", and click \"Create\".\n10. Click on \"Save\" button on the top right corner;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/learn/getting-started/sharing-work#creating-a-dashboard"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/0924b338-5916-44a2-a48d-75f57347f1e9/question1.sql",
+                "dest": "/home/user/question1.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/0924b338-5916-44a2-a48d-75f57347f1e9/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/question1.sql"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/0924b338-5916-44a2-a48d-75f57347f1e9/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "88df855a-eab8-4732-bb63-9c907b806cf1"
+}

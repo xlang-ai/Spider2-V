@@ -1,0 +1,29 @@
+This task is to create a custom filter to filter the query results. In the opened Snowsight web page,
+1. On the top-left of the worksheet, click the filter button which has an icon with two horizontal lines.
+2. On the drop-down menu, click "Manage Filters".
+3. On the top-right of the pop-up window, click "+ Filter" button.
+4. Type in "Title_Keyword" to the input field "Display Name".
+5. Type in "title_keyword" to the input field "SQL Keyword".
+6. Select "COMPUTE_WH" for the "Warehouse".
+7. Click the blue button "Write Query" below.
+8. In the pop-up window, Select "DB >> PUBLIC".
+9. Copy the code below to the filter query edit field.
+```
+SELECT distinct job_title from salary;
+```
+10. Click "Run" button on the top-right. There will be several job titles on the result field.
+11. Click "Done" button on the top-left.
+12. Click "Save" button on the bottom-right.
+13. Click "Done" button on the bottom-right.
+14. Copy the query from query.txt on the desktop to the worksheet. The contents of query.txt are also given below.
+```
+SELECT avg(salary) as average_salary from salary where job_title = :title_keyword;
+```
+15. Click "Title_Keyword" button on the top of the worksheet.
+16. In the drop-down menu, Select the second option "Data Analyst".
+17. Click "No Database selected" button on the top of the worksheet, then select "DB >> PUBLIC".
+18. Click "Apply" button just to the right of the "Title_Keyword" button.
+19. Click the "Download Results" button on the top-right of the result panel.
+20. In the drop-down menu, click "Download as .csv".
+21. In your virtual machine, navigate to the /home/user/Download directory.
+22. Rename the downloaded file to "result.csv".

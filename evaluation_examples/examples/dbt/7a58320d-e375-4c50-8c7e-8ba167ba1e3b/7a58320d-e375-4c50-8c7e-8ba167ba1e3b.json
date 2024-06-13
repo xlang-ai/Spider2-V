@@ -1,0 +1,141 @@
+{
+    "id": "7a58320d-e375-4c50-8c7e-8ba167ba1e3b",
+    "snapshot": "dbt",
+    "instruction": "Create a dbt project jaffle_shop in ~/projects, connect it to duckdb at jaffle_shop.duckdb for both dev and prod targets, and load data from jaffle-shop-data.zip with dbt seed.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This is a common dbt-core initialization task. To complete this, you need to:\n1. Switch to the terminal.\n2. Run ``dbt init jaffle_shop`` to initiate a project named \"jaffle_shop\".\n3. If the terminal asks you which database to use, enter \"1\" to choose duckdb.\n4. Run ``unzip jaffle-shop-data.zip`` to unzip the data files.\n5. Run ``mv jaffle-shop-data/* jaffle_shop/seeds`` to move the seeds to the folder \"/jaffle_shop/seeds\".\n6. Run ``vi ~/.dbt/profiles.yml`` to open the project profile in VI editor.\n7. Switch to the insert mode in VI editor by pressing the key \"i\".\n8. Replace the default values for both ``dev`` and ``prod`` fields to \"jaffle_shop.duckdb\".\n9. Back to the normal mode by pressing the key \"esc\".\n10. Enter the command ``:wq`` to save the changes.\n11. Run ``cd jaffle_shop`` to navigate into the project directory.\n12. Run ``dbt debug`` to connect to the database at jaffle_shop.duckdb.\n13. Run ``dbt seed`` to load the seeds.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup#",
+        "https://docs.getdbt.com/guides/manual-install?step=3",
+        "https://docs.getdbt.com/reference/commands/seed"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/7a58320d-e375-4c50-8c7e-8ba167ba1e3b/jaffle-shop-data.zip",
+                "dest": "/home/user/jaffle-shop-data.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/7a58320d-e375-4c50-8c7e-8ba167ba1e3b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "action_number": 13,
+    "related_apps": [
+        "dbt",
+        "duckdb",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "data_transformation",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": [
+            "check_yaml_file",
+            "check_include_exclude",
+            "check_local_database"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "dbt_profiles",
+                "dirs": [
+                    "/home/user/.dbt",
+                    "/home/user/projects/jaffle_shop",
+                    "$DBT_PROFILES_DIR"
+                ],
+                "dest": "profiles.yml"
+            },
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dbt/7a58320d-e375-4c50-8c7e-8ba167ba1e3b/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.duckdb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": [
+                    [
+                        "match",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "dev",
+                            "type"
+                        ],
+                        "duckdb"
+                    ],
+                    [
+                        "match",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "prod",
+                            "type"
+                        ],
+                        "duckdb"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "dev",
+                            "path"
+                        ],
+                        "jaffle_shop.duckdb"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "jaffle_shop",
+                            "outputs",
+                            "prod",
+                            "path"
+                        ],
+                        "jaffle_shop.duckdb"
+                    ]
+                ]
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/dbt/7a58320d-e375-4c50-8c7e-8ba167ba1e3b/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.gold.duckdb"
+            }
+        ],
+        "options": [
+            {},
+            {},
+            {
+                "db_type": "duckdb",
+                "check_type": [
+                    "table-schema-content"
+                ]
+            }
+        ]
+    },
+    "counterpart": "8aa9e870-b0c9-5417-be80-03154e83c7a3"
+}

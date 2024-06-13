@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 14,
     "config": [
@@ -61,7 +62,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "exact_match",
@@ -74,5 +74,6 @@
                 "expected": "select \"public\".\"orders\".\"user_id\" as \"user_id\", avg(\"public\".\"orders\".\"total\") as \"avg\" from \"public\".\"orders\" group by \"public\".\"orders\".\"user_id\" order by \"avg\" asc, \"public\".\"orders\".\"user_id\" asc limit 10"
             }
         }
-    }
+    },
+    "counterpart": "0e8b12f4-f7be-4eb5-95a4-7217c1e2cc5f"
 }

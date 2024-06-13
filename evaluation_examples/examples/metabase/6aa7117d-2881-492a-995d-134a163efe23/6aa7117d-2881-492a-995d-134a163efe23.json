@@ -12,7 +12,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 7,
     "config": [
@@ -46,7 +47,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [
             {
@@ -74,5 +74,6 @@
                 "expected": "metabase.db.mv.db\n"
             }
         }
-    }
+    },
+    "counterpart": "15332077-c717-4171-b292-f389723d653d"
 }

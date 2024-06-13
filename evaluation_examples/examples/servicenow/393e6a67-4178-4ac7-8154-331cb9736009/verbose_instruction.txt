@@ -1,0 +1,26 @@
+In this task, we are required to create a filter in the current Catalog Items. To do this:
+1. Find and locate the funnel icon at the top part (the middle one of 3 icons on the left of text "Catalog Items"). Click it.
+2. Find the input box "-- choose field --", click it.
+3. In the drop-down menu, type the keyword "Short" into the input box to quickly filter the results. Click the entry "Short description" in the filtered list.
+4. Next, we choose the operator for this option, click and choose "is" value
+5. And in the input box on the right, type in text "Request to setup web conferencing"
+6. Click the top bar button "OR" which is on the left of button "Add Sort" to add another condition. You will see prompt text "OR all of these conditions must be met" under the condition we just created. Attention that, do not click the "OR" button in the same row with the added condition (this is wrong).
+7. Again, we repeat the previous steps 2-5, to add another filter condition:
+Choose option: Type
+Choose operator: is
+Select value: Task
+8. Click the button "OR" on the top bar again to add another condition:
+Choose option: Active
+Choose operator: is
+Select value: false
+9. Click the button "OR" on the top bar again to add another condition:
+Choose option: Category
+Choose operator: is
+Input value: Services
+(Note that, when you type in "Services" into the value box, there will appear a drop-down list with two entries "Services". You must click either one to confirm, such that the boundary of the input box will be normal blue or black. Otherwise, the border is red, which means the value is invalid. If you miss the chance to choose one, you can click the search icon on the right of the value box. This will create a dialog window, you can choose the entry in it.)
+10. Click the button "OR" on the top bar again to add the last condition:
+Choose option: Name
+Choose operator: is
+Input value: Web Conferencing
+11. Finally, click the button "Run" to filter the results. You may need to wait for a few seconds for the filter engine to work.
+Till now, we have completed this task.

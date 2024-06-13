@@ -1,0 +1,6 @@
+In this task, we will copy and paste a column to another sheet:
+1. Click the column "A" cell (on the top of cell A1) to choose the entire column;
+2. Press hotkey "Ctrl+C" to copy all contents in this column A;
+3. Click the `create sheet` button at the bottom of the opened file, which looks like a blank document icon and is on the left side of "Sheet1" text panel;
+4. In the new "Sheet2", click cell A1 and press hotkey "Ctrl+V";
+5. Save the file via pressing "Ctrl+S".

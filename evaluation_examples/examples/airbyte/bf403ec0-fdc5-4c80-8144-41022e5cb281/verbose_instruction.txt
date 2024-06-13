@@ -1,0 +1,8 @@
+In this task, we want to sync a existing connection and use command line to retrieve the "cities" stream from the destination database. To complete this:
+1. Click the connection row in the main panel;
+2. In the Airbyte connection page, click the button "Sync now" on the right;
+3. Switch to the terminal window;
+4. Next, in the terminal, run the following command to retrieve the stream and save the file:
+```
+docker exec -it airbyte-destination bash -c "psql -U postgres -c \"\copy (SELECT city, city_code FROM public.cities) TO '/data/cities.csv' WITH CSV HEADER\"";
+```

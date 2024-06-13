@@ -1,0 +1,70 @@
+{
+    "id": "ef62361a-9863-475b-9ee2-497bfe673cea",
+    "snapshot": "snowflake",
+    "instruction": "For some reason, my table CUSTOMERS in snowflake with database as MALL, schema as PUBLIC has been dropped. Please help me to recover this table.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to recover the dropped table. In the opened Snowsight web page,\n1. Click \"Projects >> Worksheets\" on the left menu panel.\n2. Click \"+\" button on the right;\n3. In the drop-down menu, select \"SQL Worksheet\".\n4. Copy the code below to the worksheet.\n```\nUNDROP TABLE MALL.PUBLIC.CUSTOMERS;\n```\n5. Click the \"Run\" button on the top-right of the worksheet.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://quickstarts.snowflake.com/guide/getting_started_with_snowflake/index.html#6"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/ef62361a-9863-475b-9ee2-497bfe673cea/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "MALL",
+            "schema": "PUBLIC",
+            "table": "CUSTOMERS",
+            "include_header": false,
+            "dest": "result.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/ef62361a-9863-475b-9ee2-497bfe673cea/old_gold.csv",
+            "dest": "old_gold.csv"
+        }
+    },
+    "counterpart": "c4783393-8f9a-47d2-a280-7d7820eeb006"
+}

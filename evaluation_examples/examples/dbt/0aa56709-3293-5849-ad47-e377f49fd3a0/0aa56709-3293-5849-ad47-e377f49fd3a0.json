@@ -31,7 +31,8 @@
     ],
     "tags": [
         "cli",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "evaluator": {
         "func": [
@@ -173,5 +174,6 @@
                 }
             }
         ]
-    }
+    },
+    "counterpart": "b80d52e9-6a46-404f-8f79-6f2932bcf8a0"
 }

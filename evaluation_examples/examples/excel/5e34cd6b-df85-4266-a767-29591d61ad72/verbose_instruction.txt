@@ -1,0 +1,13 @@
+The instruction is about net income calculation and data formatting
+1. In the opened NetIncome.xlsx, click C1
+2. In the input field under tool bar, type in "Net Income"
+3. Click enter to confirm the change
+4. Click C2
+5. In the input field under tool bar, type in "=$A2-$B2"
+6. Click enter to confirm the change
+7. Click the bottom right corner and drag until you reach C20
+8. Click on A1 and drag until all data is covered in orange to select all the data
+9. Right click, and choose "Format Cells" at the bottom of pop-up bar
+10. In 'Category' list at the left of window, find and click 'Currency'
+11. Click 'OK' at bottom right of window to confirm format setting
+12. Save the file

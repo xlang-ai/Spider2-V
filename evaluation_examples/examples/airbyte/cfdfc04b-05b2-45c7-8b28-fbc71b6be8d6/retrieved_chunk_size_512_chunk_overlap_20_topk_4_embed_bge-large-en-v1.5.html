@@ -1,0 +1,44 @@
+Documentation Source:
+airbyte.com/tutorials/validate-data-replication-postgres-snowflake.html
+
+Documentation Title:
+Validate data replication pipelines from Postgres to Snowflake with data-diff | Airbyte
+
+Documentation Content:
+First, we are going to start by setting up our Postgres source and Snowflake destination within Airbyte.</p><h3>Set up your Postgres source</h3><p>On <a>Airbyte Cloud</a>or <a>Airbyte Open Source</a>, click “new connection”. This will bring you to a screen where you can select your data source. Choose “<a>Postgres</a>” as your source type.</p><img/><p>Now you will be brought to a screen where you need to enter some specific information about your Postgres database. This includes host, port, database name, and a list of the schemas you wish to sync. </p><p>I kept the default port and added my database named `development`, `customers` schema, and the login information for my Airbyte user. It is best practice to <a>create users specific to the tools</a>you are connecting to your database.</p><img/><h3>Set up your Snowflake destination</h3><p>Now let’s set up our <a>Snowflake destination</a>where we will be replicating our Postgres data to. Start by clicking on “new destination” in the top right corner. Then select “Snowflake” as your destination type.</p><p>‍</p><img/><p>This is where you will input the information for the Snowflake database that you are copying your Postgres data. Make sure you enter the right location information! </p><p>I also recommend setting up a role that is specific for loading data in your destination as well. This will help keep your environment secure and all you to closely monitor different metrics on the replication process.</p><h3>Set up a Postgres to Snowflake connection</h3><p>Now that you’ve created both your source in Postgres and your destination in Snowflake, you can set up a connection between the two to replicate your data from Postgres.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/snowflake.html
+
+Documentation Title:
+Snowflake | Airbyte Documentation
+
+Documentation Content:
+It supports both Full Refresh and Incremental syncs. You can choose if this connector will copy only the new or updated data, or all rows in the tables and columns you set up for replication, every time a sync is run.</p><p>This Snowflake source connector is built on top of the source-jdbc code base and is configured to rely on JDBC 3.14.1 <a>Snowflake driver</a>as described in Snowflake <a>documentation</a>.</p><h4>Resulting schema<a>​</a></h4><p>The Snowflake source does not alter the schema present in your warehouse. Depending on the destination connected to this source, however, the result schema may be altered. See the destination's documentation for more details.</p><h4>Features<a>​</a></h4><table><tr><th>Feature</th><th>Supported?(Yes/No)</th><th>Notes</th></tr><tbody><tr><td>Full Refresh Sync</td><td>Yes</td></tr><tr><td>Incremental - Append Sync</td><td>Yes</td></tr><tr><td>Namespaces</td><td>Yes</td></tr></tbody></table><h2>Getting started<a>​</a></h2><h3>Requirements<a>​</a></h3><ol><li>You'll need the following information to configure the Snowflake source:</li><strong>Host</strong><strong>Role</strong><strong>Warehouse</strong><strong>Database</strong><strong>Schema</strong><strong>Username</strong><strong>Password</strong><li><strong>JDBC URL Params</strong>(Optional)</li><li>Create a dedicated read-only Airbyte user and role with access to all schemas needed for replication.</li></ol><h3>Setup guide<a>​</a></h3><h4>1. Additional information about Snowflake connection parameters could be found <a>here</a>.<a>​</a></h4><h4>2.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/postgres-snowflake-data-integration-stack.html
+
+Documentation Title:
+Postgres Snowflake Data Integration Stack | Airbyte
+
+Documentation Content:
+Launch into a world of data connectivity with our streamlined template.</p><div><a><img/><div>Try Airbyte Cloud free</div></a><div>View Repo</div></div></div><img/></div><div><div><a>TL;DR</a><a>View Repo</a><div><h2>Get your data syncing in minutes</h2><div>Try Airbyte free</div></div></div><div><p>Welcome to the <a>"Postgres Snowflake Data Integration Stack" repository</a>! This repo provides a quickstart template for integrating postgres data to snowflake warehouses using Airbyte powering terraform. We will easily integrate data from Postgres databases with Airbyte using terraform airbyte provider. This template could be act as a starter for integrating and also adding new sources, etc... the limits are endless.</p><p>This quickstart is designed to minimize setup hassles and propel you forward.</p><h2>Infrastructure Layout</h2><img/><h2>Prerequisites</h2><p>Before you embark on this integration, ensure you have the following set up and ready:</p><ol><li><strong>Python 3.10 or later</strong>: If not installed, download and install it from <a>Python's official website</a>.</li><li><strong>Docker and Docker Compose (Docker Desktop)</strong>: Install <a>Docker</a>following the official documentation for your specific OS.</li><li><strong>Airbyte OSS version</strong>: Deploy the open-source version of Airbyte. Follow the installation instructions from the <a>Airbyte Documentation</a>.</li><li><strong>Terraform</strong>: Terraform will help you provision and manage the Airbyte resources. If you haven't installed it, follow the <a>official Terraform installation guide</a>.</li></ol><h2>1. Setting an environment for your project</h2><p>Get the project up and running on your local machine by following these steps:</p><p><strong>1.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/api-to-warehouse-basic-stack-with-airbyte.html
+
+Documentation Title:
+API to Warehouse Basic Stack with Airbyte | Airbyte
+
+Documentation Content:
+You can make your selection from the list of available streams.</li><li>Enjoy 😄, your data loaded into Snowflake data warehouse from Github API.</li></ol><h2>2. Using Terraform to Setup the Connector</h2><p>Airbyte enables you to make connections between different platforms by creating connectors for sources and destinations. In this project, we're using Terraform to automate the setup of these connectors and their connections. Here's how you can do it:</p><p><strong>1. Navigate to the Airbyte Configuration Directory</strong>:</p><p>Change to the relevant directory containing the Terraform configuration for Airbyte:</p><code>cd infra/airbyte</code><p><strong>2. Modify Configuration Files</strong>:</p><p>Within the <em>infra/airbyte</em>directory, you'll find three crucial Terraform files:</p><ul><li><strong>provider.tf:</strong>Defines the Airbyte provider.</li><li><strong>main.tf:</strong>Contains the main configuration for creating Airbyte resources.</li><li><strong>variables.tf:</strong>Holds various variables, including credentials.</li></ul><p>Adjust the configurations in these files to suit your project's needs. Specifically, provide credentials for your Postgres connections. You can utilize the variables.tf file to manage these credentials.</p><p><strong>3. Initialize Terraform</strong>:</p><p>This step prepares Terraform to create the resources defined in your configuration files:</p><code>terraform init</code><p><strong>4. Review the Plan</strong>:</p><p>Before applying any changes, review the plan to understand what Terraform will do:</p><code>terraform plan</code><p><strong>5. Apply Configuration</strong>:</p><p>After reviewing and confirming the plan, apply the Terraform configurations to create the necessary Airbyte resources:</p><code>terraform apply</code><p><strong>6. Verify in Airbyte UI</strong>:</p><p>After Terraform finishes its tasks, go to the Airbyte user interface.
+
+
+

@@ -1,0 +1,115 @@
+{
+    "id": "d245d228-fb5b-44b7-82d3-e2cee3736825",
+    "snapshot": "dagster",
+    "instruction": "In the open dagster project, add one test function \"test_potions_assets\". It aims to ensure all assets are successfully materialized, and the number of potions with advanced difficulty is exactly 14.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We want to add some tests to this project to make sure the materialization of the assets is correct. Please follow these steps:\n1. Open the file \"test_assets.py\" in the VS Code editor.\n2. Add the following code to \"test_assets.py\":\n```\nfrom dagster import materialize\nfrom harry_potter_potions.assets import all_potions, count_advanced_difficulty_potions\n\ndef test_potions_assets():\n    assets = [all_potions, count_advanced_difficulty_potions]\n    result = materialize(assets)\n    assert result.success\n    cnt = result.output_for_node(\"count_advanced_difficulty_potions\")\n    assert cnt == 14\n```\n3. Save the current file.\n4. Switch to the terminal. Go to the directory /home/user/harry-potter-potions/.\n5. Run the command \"pytest harry_potter_potions_tests\" to ensure that the tests are added correctly.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/guides/dagster/testing-assets"
+    ],
+    "related_apps": [
+        "dagster",
+        "vscode",
+        "terminal",
+        "chromium"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/d245d228-fb5b-44b7-82d3-e2cee3736825/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/d245d228-fb5b-44b7-82d3-e2cee3736825/raw_potions.json",
+                "dest": "/home/user/harry-potter-potions/data/raw_potions.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/d245d228-fb5b-44b7-82d3-e2cee3736825/assets.py",
+                "dest": "/home/user/harry-potter-potions/harry_potter_potions/assets.py"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/d245d228-fb5b-44b7-82d3-e2cee3736825/raw_potions_negative.json",
+                    "dest": "/home/user/harry-potter-potions/data/raw_potions_negative.json"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude",
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/d245d228-fb5b-44b7-82d3-e2cee3736825/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/d245d228-fb5b-44b7-82d3-e2cee3736825/eval_negative.sh",
+                "dest": "/home/user/eval_negative.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "passed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "failed"
+                    ],
+                    "exclude": []
+                }
+            }
+        ]
+    },
+    "counterpart": "e0796d19-945b-434f-8c25-708a667e021e"
+}

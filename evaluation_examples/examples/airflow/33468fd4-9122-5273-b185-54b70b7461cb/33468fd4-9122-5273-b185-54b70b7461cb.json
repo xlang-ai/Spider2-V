@@ -25,7 +25,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "action_number": 9,
     "related_apps": [
         "docker",
@@ -35,7 +34,8 @@
     ],
     "tags": [
         "cli",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_include_exclude",
@@ -55,5 +55,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "28096b5c-4d8c-485a-a1ec-7e54d41dd636"
 }

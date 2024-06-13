@@ -1,0 +1,113 @@
+{
+    "id": "a264fb06-1957-44c6-b3da-e9a6df93536a",
+    "snapshot": "snowflake",
+    "instruction": "My work today is to load data from a remote Amazon S3 bucket into a snowflake database. The concrete tasks are introduced in the opened file on Desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Given the to-do list, we will finish all tasks following these detailed steps:\n1. Click the \"+ >> SQL Worksheet\" button on the top right of the main page.\n2. In the opened blanked page, first set the role to \"accountadmin\" via typing:\n`USE ROLE accountadmin;`\n3. Click the button with icon \"►\" in the upper-right corner of the worksheet;\n4. Next, select the warehouse and run it:\n`USE WAREHOUSE compute_wh;`\n5. The first task is to create a Snowflake database \"tasty_bytes\" with schema \"food\", we type in:\n`CREATE OR REPLACE DATABASE tasty_bytes;`\nand run it to construct the database;\n6. As for the schema, similarly, we write down and run the following code in the worksheet:\n`CREATE OR REPLACE SCHEMA tasty_bytes.food;`\n7. Then, we create the target table \"menu\" in schema \"food\" to store the source data. Copy the following codes into the opened worksheet and run it:\n```\nCREATE OR REPLACE TABLE tasty_bytes.food.menu\n(\n    menu_id NUMBER,\n    menu_type_id NUMBER,\n    menu_type STRING,\n    truck_brand_name STRING,\n    menu_item_id NUMBER,\n    menu_item_name STRING,\n    item_category STRING,\n    item_subcategory STRING,\n    cost_of_goods_usd NUMBER,\n    sale_price_usd NUMBER,\n    menu_item_health_metrics_obj OBJECT\n);\n```\n8. Now, we have created the database, schema and table to store the data. We are going to create a stage that holds data files from Amazon S3. Type in:\n`CREATE OR REPLACE STAGE tasty_bytes.food.awsstage\nurl = 's3://sfquickstarts/tastybytes/raw_pos/menu/menu.csv.gz'\nfile_format = (type = csv);`\nRemember to execute it via clicking \"Run\" button in the upper-right corner of this worksheet.\n9. To load the data into the target table, we will use the COPY INTO command\n`COPY INTO tasty_bytes.food.menu\nFROM @tasty_bytes.food.awsstage;`\n, then select Run.\n10. After waiting for some seconds, we will see the results table with status \"LOADED\" and 100 rows loaded.\nTill now, we have finished all jobs in the to-do list.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/a264fb06-1957-44c6-b3da-e9a6df93536a/tasks.md",
+                "dest": "/home/user/Desktop/tasks.md"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/a264fb06-1957-44c6-b3da-e9a6df93536a/columns.json",
+                "dest": "/home/user/Desktop/columns.json"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/tasks.md"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "check_include_exclude",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "snowflake_execution_result",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "sql_command": "LIST @tasty_bytes.food.awsstage;",
+                "return_string": true
+            },
+            {
+                "type": "snowflake_table_to_csv",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "tasty_bytes",
+                "schema": "food",
+                "table": "menu",
+                "include_header": true,
+                "dest": "menu.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "s3://sfquickstarts/tastybytes/raw_pos/menu/menu.csv.gz"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/a264fb06-1957-44c6-b3da-e9a6df93536a/menu.csv",
+                "dest": "menu.csv"
+            }
+        ]
+    },
+    "counterpart": "07a5f2ae-3f2d-4ec5-9ebf-2607ff607f4a"
+}

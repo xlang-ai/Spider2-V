@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 7,
     "config": [
@@ -50,7 +51,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_notebook_cells",
@@ -64,5 +64,6 @@
             "path": "evaluation_examples/examples/jupyter/a2a9b12c-c428-4673-a9c2-38c24d1c7eef/tensor_gold.ipynb",
             "dest": "tensor_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "1f16fbd5-cdf3-4cb2-b02b-9c31f11cc77d"
 }

@@ -1,0 +1,63 @@
+{
+    "id": "bbaa03ef-d598-4433-bdef-21ac64d62106",
+    "snapshot": "dbt",
+    "instruction": "Adding dbt test to the jaffle_shop project by editing models/schema.yml. 1) Add tests into this file according to requirements.md in the working directory. 2) Run dbt test, and confirm that all tests passed.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to add dbt tests according to the requirements.\n1. Open the file ``models/schema.yml`` in the VSCode editor.\n2. Add dbt tests for the model \"customers\". Your codes for this part should be like this:\n```yml\n- name: customers\n    columns:\n      - name: customer_id\n        tests:\n          - unique\n          - not_null\n```\n3. Add dbt tests for the model \"stg_customers\". Your codes for this part should be like this:\n```yml\n- name: stg_customers\n    columns:\n      - name: customer_id\n        tests:\n          - unique\n          - not_null\n```\n4. Add dbt tests for the model \"stg_orders\". Your codes for this part should be like this:\n```yml\n- name: stg_orders\n    columns:\n      - name: order_id\n        tests:\n          - unique\n          - not_null\n      - name: status\n        tests:\n          - accepted_values:\n              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']\n      - name: customer_id\n        tests:\n          - not_null\n          - relationships:\n              to: ref('stg_customers')\n              field: customer_id\n```\n5. Switch to the terminal.\n6. Run ``dbt test`` and confirm that all tests are passed.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=12"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/bbaa03ef-d598-4433-bdef-21ac64d62106/jaffle_shop.zip",
+                "dest": "/home/user/jaffle_shop.zip"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/bbaa03ef-d598-4433-bdef-21ac64d62106/jaffle_shop_test.zip",
+                "dest": "/home/user/jaffle_shop_test.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/bbaa03ef-d598-4433-bdef-21ac64d62106/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "action_number": 6,
+    "related_apps": [
+        "dbt",
+        "duckdb",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "data_transformation",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/dbt/bbaa03ef-d598-4433-bdef-21ac64d62106/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "49f981ee-f793-5e27-9a53-083d66934ea1"
+}

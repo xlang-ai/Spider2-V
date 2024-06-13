@@ -1,0 +1,54 @@
+{
+    "id": "53d0c844-371e-4d3c-9ad9-b24bd10d3184",
+    "snapshot": "bigquery",
+    "instruction": "Using Bigquery WebUI, check the covid19_open_data, calculate the total number of confirmed COVID-19 cases in the world on April 15, 2020. Save the answer in ~/Downloads/result.csv \nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we will use Bigquery Web UI to write code to query `covid19_open_data` public dataset and save the execution results into a local .csv file. Concretely,\n1. Click the triangle symbol to the left of covid19_open_data to open the datasets and see what tables the datasets have.\n2. Click `covid19_open_data` to see the table schema.\n3. Click '+' button at the top of the main panel to **Create SQL query**. This will open a blank query panel.\n4. Write the following code into the blank\n```\nSELECT\n  SUM(cumulative_confirmed) AS total_cases_worldwide\nFROM\n  `bigquery-public-data.covid19_open_data.covid19_open_data`\nWHERE\n  date = \"2020-04-15\"\n```\n5. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n6. Wait for a moment. The query results will show below.\n7. Click the \"SAVE RESULTS\" button above the execution results (on the right side of the same row as panel \"Query results\");\n8. And in the drop-down menu, further click the option \"CSV (local file)\";\n9. Open the terminal and move to the `~/Downloads` folder\n10. Change the name of the csv file to result.csv\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/bigquery-web-ui"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1sbigquery-public-data!2scovid19_open_data"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/result.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/53d0c844-371e-4d3c-9ad9-b24bd10d3184/gold.csv",
+            "dest": "gold.csv"
+        }
+    },
+    "counterpart": "8e4f7588-0aac-477e-9cc9-f63148024e45"
+}

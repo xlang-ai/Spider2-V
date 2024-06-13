@@ -1,0 +1,69 @@
+{
+    "id": "6e8e092e-a3cc-4812-8ab9-65cb9f161d4b",
+    "snapshot": "jupyter",
+    "instruction": "I have finished editing this JupyterLab. Please help me save this opened file as submission.ipynb on the Desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish this task, follow the steps below:\n\n1. In the opened web page, on the left side panel right click on the opened file sports-products.ipynb.\n2. Click Download.\n3. Switch to /home/user/Downloads in file manager.\n4. Rename the downloaded file as submission.ipynb.\n5. Cut and paste it to Desktop.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#uploading-and-downloading"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/6e8e092e-a3cc-4812-8ab9-65cb9f161d4b/sports.zip",
+                "dest": "/home/user/sports.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/6e8e092e-a3cc-4812-8ab9-65cb9f161d4b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/sports-products.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_ipynb_files",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/submission.ipynb",
+            "dest": "submission.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/6e8e092e-a3cc-4812-8ab9-65cb9f161d4b/submission_gold.ipynb",
+            "dest": "submission_gold.ipynb"
+        }
+    },
+    "counterpart": "8259543a-9c3f-4cb4-8b9c-2f44f876869c"
+}

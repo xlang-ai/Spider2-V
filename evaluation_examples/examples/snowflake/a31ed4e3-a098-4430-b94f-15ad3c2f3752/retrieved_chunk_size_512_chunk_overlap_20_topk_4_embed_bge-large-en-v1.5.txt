@@ -1,0 +1,358 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.txt
+
+Documentation Title:
+Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+
+Documentation Content:
+Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Tutorial: Bulk loading from Amazon S3 using COPY
+Getting Started
+Tutorials
+Bulk Loading
+Bulk Loading from Amazon S3 Using COPY
+Tutorial: Bulk loading from Amazon S3 using COPY
+¶
+Introduction
+¶
+This tutorial describes how to load data from files in an existing Amazon Simple Storage Service (Amazon S3) bucket into a table. In this tutorial, you will learn how to:
+Create named file formats that describe your data files.
+Create named stage objects.
+Load data located in your S3 bucket into Snowflake tables.
+Resolve errors in your data files.
+The tutorial covers loading of both CSV and JSON data.
+Prerequisites
+¶
+The tutorial assumes the following:
+You have a Snowflake account that is configured to use Amazon Web Services (AWS) and a user with a role that grants the necessary
+privileges to create a database, tables, and virtual warehouse objects.
+You have SnowSQL installed.
+Refer to the
+Snowflake in 20 minutes
+for instructions to meet these requirements.
+Snowflake provides sample data files in a public Amazon S3 bucket for use in this tutorial.
+But before you start, you need to create a database, tables, and a virtual warehouse for
+this tutorial. These are the basic Snowflake objects needed for most Snowflake activities.
+About the sample data files
+¶
+Snowflake provides sample data files staged in a public S3 bucket.
+Note
+In regular use, you would stage your own data files using the AWS Management Console, AWS Command
+Line Interface, or an equivalent client application. See the
+Amazon Web Services
+documentation for instructions.
+The sample data files include sample contact information in the following formats:
+CSV files that contain a header row and five records. The field delimiter is the pipe (
+|
+) character.
+The following example shows a header row and one record:
+ID
+|
+lastname
+|
+firstname
+|
+company
+|
+email
+|
+workphone
+|
+cellphone
+|
+streetaddress
+|
+city
+|
+postalcode
+6
+|
+Reed
+|
+Moses
+|
+Neque
+Corporation
+|
+eget
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.txt
+
+Documentation Title:
+Load data from cloud storage: Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+For details,
+see
+DDL (Data Definition Language) Commands
+.
+Summary and key points
+¶
+In summary, you used a pre-loaded template worksheet in Snowsight to complete the following steps:
+Set the role and warehouse to use.
+Create a database, schema, and table.
+Create a storage integration and configure permissions on cloud storage.
+Create a stage and load the data from the stage into the table.
+Query the data.
+Here are some key points to remember about loading and querying data:
+You need the required permissions to create and manage objects in your account. In this tutorial,
+you use the ACCOUNTADMIN system role for these privileges.
+This role is not normally used to create objects. Instead, we recommend creating a hierarchy of
+roles aligned with business functions in your organization. For more information, see
+Using the ACCOUNTADMIN Role
+.
+You need a warehouse for the resources required to create and manage objects and run SQL commands.
+This tutorial uses the
+compute_wh
+warehouse included with your trial account.
+You created a database to store the data and a schema to group the database objects logically.
+You created a storage integration and a stage to load data from a CSV file stored in an AWS S3 bucket.
+After the data was loaded into your database, you queried it using a SELECT statement.
+What’s next?
+¶
+Continue learning about Snowflake using the following resources:
+Complete the other tutorials provided by Snowflake:
+Snowflake Tutorials
+Familiarize yourself with key Snowflake concepts and features, as well as the SQL commands used to
+load tables from cloud storage:
+Introduction to Snowflake
+Load Data into Snowflake
+Data Loading and Unloading Commands
+Try the Tasty Bytes Quickstarts provided by Snowflake:
+Tasty Bytes Quickstarts
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/data-load-s3.txt
+
+Documentation Title:
+Bulk loading from Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+As illustrated in the diagram below, loading data from an S3 bucket is performed in two steps:
+Step 1
+:
+Snowflake assumes the data files have already been staged in an S3 bucket. If they haven’t been staged yet, use the upload interfaces/utilities provided by AWS to stage the files.
+Step 2
+:
+Use the
+COPY INTO <table>
+command to load the contents of the staged file(s) into a Snowflake database table. You can load directly from the bucket, but
+Snowflake recommends creating an external stage that references the bucket and using the external stage instead.
+Regardless of the method you use, this step requires a running, current virtual warehouse for the session if you execute the command
+manually or within a script. The warehouse provides the compute resources to perform the actual insertion of rows into the table.
+Note
+Snowflake uses Amazon S3 Gateway Endpoints in each of its Amazon Virtual Private Clouds.
+If the S3 bucket referenced by your external stage is in the same region as your Snowflake account, your network traffic does not traverse the public Internet. The Amazon S3 Gateway Endpoints ensure that regional traffic stays within the AWS network.
+Tip
+The instructions in this set of topics assume you have read
+Preparing to load data
+and have created a named file format, if desired.
+Before you begin, you may also want to read
+Data loading considerations
+for best practices, tips, and other guidance.
+Next Topics:
+Configuration tasks (complete as needed):
+Allowing the Virtual Private Cloud IDs
+Configuring secure access to Amazon S3
+AWS data file encryption
+Creating an S3 stage
+Data loading tasks (complete for each set of files you load):
+Copying data from an S3 stage
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+Related content
+Unloading into Amazon S3
+Snowpipe
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.txt
+
+Documentation Title:
+Load and query sample data using SQL | Snowflake Documentation
+
+Documentation Content:
+This tutorial creates
+a stage that loads data from an Amazon S3 bucket. This tutorial uses an existing bucket with
+a CSV file that contains the data. You load the data from this CSV file into the table you created
+previously. For information, see
+Bulk loading from Amazon S3
+.
+To create a stage, do the following:
+In the open worksheet, place your cursor in the CREATE OR REPLACE STAGE lines, then select
+Run
+.
+CREATE
+OR
+REPLACE
+STAGE
+tasty_bytes_sample_data
+.
+public
+.
+blob_stage
+url
+=
+'s3://sfquickstarts/tastybytes/'
+file_format
+=
+(
+type
+=
+csv
+);
+Copy
+To confirm that the stage was created successfully, place your cursor in the LIST line,
+then select
+Run
+.
+LIST
+@
+tasty_bytes_sample_data
+.
+public
+.
+blob_stage
+/
+raw_pos
+/
+menu
+/;
+Copy
+Your output looks similar to the following image.
+To load the data into the table, place your cursor in the COPY INTO lines, then select
+Run
+.
+COPY
+INTO
+tasty_bytes_sample_data
+.
+raw_pos
+.
+menu
+FROM
+@
+tasty_bytes_sample_data
+.
+public
+.
+blob_stage
+/
+raw_pos
+/
+menu
+/;
+Copy
+Step 6. Query the data
+¶
+Now that the data is loaded, you can run queries on the
+menu
+table.
+To run a query in the open worksheet, select the line or lines of the SELECT command,
+and then select
+Run
+.
+For example, to return the number of rows in the table, run the following query:
+SELECT
+COUNT
+(*)
+AS
+row_count
+FROM
+tasty_bytes_sample_data
+.
+raw_pos
+.
+menu
+;
+Copy
+Your output looks similar to the following image.
+Run this query to return the top ten rows in the table:
+SELECT
+TOP
+10
+*
+FROM
+tasty_bytes_sample_data
+.
+raw_pos
+.
+menu
+;
+Copy
+Your output looks similar to the following image.
+For more information about running a query that returns the specified number of rows,
+see
+TOP <n>
+.
+You can run other queries in the worksheet to explore the data in the
+menu
+table.
+Step 7.
+
+
+

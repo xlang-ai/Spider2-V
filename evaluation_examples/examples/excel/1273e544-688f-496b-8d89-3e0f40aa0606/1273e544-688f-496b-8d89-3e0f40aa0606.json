@@ -20,7 +20,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/1273e544-688f-496b-8d89-3e0f40aa0606",
     "related_apps": [
         "excel"
     ],
@@ -80,6 +79,8 @@
     },
     "tags": [
         "traditional_data_processing",
-        "cli+gui"
-    ]
+        "cli+gui",
+        "abstract"
+    ],
+    "counterpart": "e7f961bb-26b9-414b-9250-7c5e56e1a6fb"
 }

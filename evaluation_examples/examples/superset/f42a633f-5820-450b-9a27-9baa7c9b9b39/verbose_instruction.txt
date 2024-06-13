@@ -1,0 +1,27 @@
+To create a pivot table 'TravelPrivot' for the dataset 'flight' to see the sum of cost in each mouth from 2011-1-1:00:00:00 to 2011-6-30:00:00:00 and keep 3 level of column: department, travel class and mouth, we can follow these steps:
+1. In the opened web page, select "Charts" in the top menu;
+2. Click '+CHART' in the top right corner;
+3. In the pop-up window, click "Choose a dataset" box;
+4. Select "flights";
+5. In right box, click "Pivot Table";
+6. Click "CREATE NEW CHART" in the bottom;
+7. In the new window, drag the "Travel Class","department" and "Travel Date" title from left list to the "COLUMNS" box ;
+8. Click "TIME GRAIN" box;
+9. Select "Month";
+10. Drag the "Cost" title from left list to the "METRICS" box ;
+11. Click "SAVE" in the small pop-up window;
+12. Click "Travel Date(No filter)" in the FILTERS box;
+13. Click "TIME RANGE" box in the small pop-up window;
+14. Click "RANGE TYPE" box;
+15. Select "custum";
+16. Click "START (INCLUSIVE)" box;
+17. select "Specific Date/Time";
+18. Select time "2011-01-01:00:00:00" in the left time box and click "Ok";
+19. Select time "2011-06-30:00:00:00" in the right time box and click "Ok";
+20. Click "APPLY";
+21. Click "CREATE CHART" in the bottom;
+22. Click "SAVE" in the top right corner;
+23. Type "TravelPrivot" in "CHART NAME" box;
+24. Click "SAVE", and you can see table "TravelPrivot" in the main panel.
+
+

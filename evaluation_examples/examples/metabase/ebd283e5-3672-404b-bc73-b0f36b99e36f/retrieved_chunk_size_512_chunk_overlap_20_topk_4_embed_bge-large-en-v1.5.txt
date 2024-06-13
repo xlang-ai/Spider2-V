@@ -1,0 +1,319 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/databases/connecting.txt
+
+Documentation Title:
+Adding and managing databases
+
+Documentation Content:
+See
+Database roles, users, and privileges
+.
+Syncing and scanning databases
+See
+Syncing and scanning
+.
+Deleting databases
+Caution: Deleting a database is irreversible! All saved questions and dashboard cards based on the database will be deleted as well!
+Go to
+Admin settings
+>
+Databases
+> your database and click
+Remove this database
+.
+Restoring the Sample Database
+If you’ve deleted the Metabase
+Sample Database
+, go to
+Admin settings
+>
+Databases
+and click
+Bring the Sample Database back
+.
+Troubleshooting
+Troubleshooting database connections
+Troubleshooting syncs, scans, and fingerprinting
+Search or ask the
+Metabase community
+.
+Search for
+known bugs or limitations
+.
+Further reading
+Metadata editing
+.
+Setting data access permissions
+.
+Metabase at scale
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-metabase-on-docker.txt
+
+Documentation Title:
+Running Metabase on Docker
+
+Documentation Content:
+and we are mounting that folder from our local filesystem into the container.
+Getting your config back if you stopped your container
+If you’ve previously run and configured your Metabase using the local Database and then stopped the container, your data will still be there unless you deleted the container with the
+docker rm
+command. To recover your previous configuration:
+1. Find the stopped container using the
+docker ps -a
+command. It will look something like this:
+docker ps -a | grep metabase
+    ca072cd44a49        metabase/metabase        "/app/run_metabase.sh"   About an hour ago   Up About an hour          0.0.0.0:3000->3000/tcp   metabase
+    02e4dff057d2        262aa3d0f714             "/app/run_metabase.sh"   23 hours ago        Exited (0) 23 hours ago                            pedantic_hypatia
+    0d2170d4aa4a        262aa3d0f714             "/app/run_metabase.sh"   23 hours ago        Exited (0) 23 hours ago                            stoic_lumiere
+Once you have identified the stopped container with your configuration in it, save the container ID from the left most column for the next step.
+2. Use
+docker commit
+to create a new custom docker image from the stopped container containing your configuration.
+docker commit ca072cd44a49 mycompany/metabase-custom
+sha256:9ff56186de4dd0b9bb2a37c977c3a4c9358647cde60a16f11f4c05bded1fe77a
+3. Run your new image using
+docker run
+to get up and running again.
+docker run -d -p 3000:3000 --name metabase mycompany/metabase-custom
+430bb02a37bb2471176e54ca323d0940c4e0ee210c3ab04262cb6576fe4ded6d
+You should have your previously configured Metabase Installation back.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.txt
+
+Documentation Title:
+Setting up Metabase
+
+Documentation Content:
+We won’t be able to connect to your database without it, but you’d like to deal with all of this later, that’s okay: just click
+I’ll add my data later
+. Metabase comes with a
+Sample Database
+that you can play around with to get a feel for how Metabase works.
+If you’re ready to connect, here’s what you’ll need:
+The
+hostname
+of the server where your database lives
+The
+port
+the database server uses
+The
+database name
+The
+username
+you use for the database
+The
+password
+you use for the database
+If you don’t have this information handy, the person responsible for administering the database should have it.
+Connect to your database
+Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click
+Next
+.
+For more on connecting to databases, see
+Adding and managing databases
+.
+Usage data preferences
+One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:
+Metabase never collects anything about your data or question results.
+All collection is completely anonymous.
+Collection can be turned off at any point in your admin settings.
+If you’re ready to start using Metabase, go ahead and click
+Next
+.
+Staying in touch
+At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!
+Once you’re done here simply follow the link to
+Take me to Metabase
+. And if you decided to skip the newsletter sign-up, it’s cool, we still like you :)
+Getting started with Metabase
+For a tutorial on getting up and running with questions and dashboards, head over to
+Learn Metabase
+.
+If you’d like more technical resources to set up your data stack with Metabase, connect with a
+Metabase Expert
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.txt
+
+Documentation Title:
+People can't log in to Metabase
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Troubleshooting Guide
+People can’t log in to Metabase
+No access to Metabase login page
+If you’re not a Metabase admin, you’ll have to tag them for help here.
+Check that you have the correct
+site URL
+from
+Settings
+>
+Admin settings
+>
+General
+.
+Check if the
+account is deactivated
+.
+No access to Metabase Cloud account
+The admin password for
+store.metabase.com
+(where you can find payment and subscription info) is not necessarily the same as the password for your Metabase instance (where you log in to look at data).
+If you’ve forgotten your Metabase Cloud admin password, you can
+contact support
+to reset the password.
+Related topics
+Troubleshooting SAML
+.
+Troubleshooting LDAP
+.
+Resetting someone’s password
+.
+Resetting the admin password
+.
+Deleting an account that’s set up incorrectly
+.
+Are you still stuck?
+If you can’t solve your problem using the troubleshooting guides:
+Search or ask the
+Metabase community
+.
+Search for
+known bugs or limitations
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+

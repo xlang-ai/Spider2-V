@@ -1,0 +1,6 @@
+To order 5 "Apple Watch" in the hardware store, we need to:
+1. Click the "Hardware" panel and wait for page loading.
+2. In the search bar on the top-right (with text "Search catalog"), click it and type in "Apple Watch".
+3. Press Enter to filter the items. We will see the desired item panel. Click it.
+4. Come to the right panel, click and choose the "Quantity" with value "5".
+5. Click the button "Order Now". Wait a few seconds, the request has been made.

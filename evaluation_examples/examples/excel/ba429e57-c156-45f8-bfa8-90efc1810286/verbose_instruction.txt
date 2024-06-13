@@ -1,0 +1,8 @@
+To calculate the due date in this excel:
+1. Click cell C1;
+2. Type in text "Maturity Date" and press Enter;
+3. Click cell C2;
+4. Type in "=A2+B2" and press ENTER;
+5. Click the bottom right corner of cell C2 (you should see a cross symbol);
+6. Hold the mouse and drag it to cell C10, then release the mouse;
+7. Save the result via Ctrl+S.

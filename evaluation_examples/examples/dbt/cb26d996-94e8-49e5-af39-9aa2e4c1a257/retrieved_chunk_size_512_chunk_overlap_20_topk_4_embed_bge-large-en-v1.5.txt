@@ -1,0 +1,499 @@
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.txt
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+You can also configure your snapshot from your
+dbt_project.yml
+file (
+docs
+).
+snapshots/orders_snapshot.sql
+{
+%
+snapshot
+orders_snapshot
+%
+}
+{{
+config
+(
+target_database
+=
+'analytics'
+,
+target_schema
+=
+'snapshots'
+,
+unique_key
+=
+'id'
+,
+strategy
+=
+'timestamp'
+,
+updated_at
+=
+'updated_at'
+,
+)
+}}
+select
+*
+from
+{{ source
+(
+'jaffle_shop'
+,
+'orders'
+)
+}}
+{
+%
+endsnapshot
+%
+}
+Run the
+dbt snapshot
+command
+— for our example a new table will be created at
+analytics.snapshots.orders_snapshot
+. You can change the
+target_database
+configuration, the
+target_schema
+configuration and the name of the snapshot (as defined in
+{% snapshot .. %}
+) will change how dbt names this table.
+$ dbt snapshot
+Running with dbt=0.16.0
+15:07:36 | Concurrency: 8 threads (target='dev')
+15:07:36 |
+15:07:36 | 1 of 1 START snapshot snapshots.orders_snapshot...... [RUN]
+15:07:36 | 1 of 1 OK snapshot snapshots.orders_snapshot..........[SELECT 3 in 1.82s]
+15:07:36 |
+15:07:36 | Finished running 1 snapshots in 0.68s.
+Completed successfully
+Done. PASS=2 ERROR=0 SKIP=0 TOTAL=1
+Inspect the results by selecting from the table dbt created. After the first run, you should see the results of your query, plus the
+snapshot meta fields
+as described below.
+Run the
+snapshot
+command again, and inspect the results. If any records have been updated, the snapshot should reflect this.
+Select from the
+snapshot
+in downstream models using the
+ref
+function.
+models/changed_orders.sql
+select
+*
+from
+{{ ref
+(
+'orders_snapshot'
+)
+}}
+Schedule the
+snapshot
+command to run regularly — snapshots are only useful if you run them frequently.
+Detecting row changes
+​
+Snapshot "strategies" define how dbt knows if a row has changed. There are two strategies built-in to dbt —
+timestamp
+and
+check
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.txt
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+That same record will now look like:
+id
+status
+updated_at
+1
+shipped
+2019-01-02
+This order is now in the "shipped" state, but we've lost the information about when the order was last in the "pending" state. This makes it difficult (or impossible) to analyze how long it took for an order to ship. dbt can "snapshot" these changes to help you understand how values in a row change over time. Here's an example of a snapshot table for the previous example:
+id
+status
+updated_at
+dbt_valid_from
+dbt_valid_to
+1
+pending
+2019-01-01
+2019-01-01
+2019-01-02
+1
+shipped
+2019-01-02
+2019-01-02
+null
+In dbt, snapshots are
+select
+statements, defined within a snapshot block in a
+.sql
+file (typically in your
+snapshots
+directory). You'll also need to configure your snapshot to tell dbt how to detect record changes.
+snapshots/orders_snapshot.sql
+{
+%
+snapshot
+orders_snapshot
+%
+}
+{{
+config
+(
+target_database
+=
+'analytics'
+,
+target_schema
+=
+'snapshots'
+,
+unique_key
+=
+'id'
+,
+strategy
+=
+'timestamp'
+,
+updated_at
+=
+'updated_at'
+,
+)
+}}
+select
+*
+from
+{{ source
+(
+'jaffle_shop'
+,
+'orders'
+)
+}}
+{
+%
+endsnapshot
+%
+}
+Preview or Compile Snapshots in IDE
+It is not possible to "preview data" or "compile sql" for snapshots in dbt Cloud. Instead, run the
+dbt snapshot
+command in the IDE by completing the following steps.
+When you run the
+dbt snapshot
+command
+:
+On the first run:
+dbt will create the initial snapshot table — this will be the result set of your
+select
+statement, with additional columns including
+dbt_valid_from
+and
+dbt_valid_to
+. All records will have a
+dbt_valid_to = null
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/sources.txt
+
+Documentation Title:
+Add sources to your DAG | dbt Developer Hub
+
+Documentation Content:
+This is useful for understanding if your data pipelines are in a healthy state, and is a critical component of defining SLAs for your warehouse.
+Declaring source freshness
+​
+To configure sources to snapshot freshness information, add a
+freshness
+block to your source and
+loaded_at_field
+to your table declaration:
+models/<filename>.yml
+version
+:
+2
+sources
+:
+-
+name
+:
+jaffle_shop
+database
+:
+raw
+freshness
+:
+# default freshness
+warn_after
+:
+{
+count
+:
+12
+,
+period
+:
+hour
+}
+error_after
+:
+{
+count
+:
+24
+,
+period
+:
+hour
+}
+loaded_at_field
+:
+_etl_loaded_at
+tables
+:
+-
+name
+:
+orders
+freshness
+:
+# make this a little more strict
+warn_after
+:
+{
+count
+:
+6
+,
+period
+:
+hour
+}
+error_after
+:
+{
+count
+:
+12
+,
+period
+:
+hour
+}
+-
+name
+:
+customers
+# this will use the freshness defined above
+-
+name
+:
+product_skus
+freshness
+:
+null
+# do not check freshness for this table
+In the
+freshness
+block, one or both of
+warn_after
+and
+error_after
+can be provided. If neither is provided, then dbt will not calculate freshness snapshots for the tables in this source.
+Additionally, the
+loaded_at_field
+is required to calculate freshness for a table. If a
+loaded_at_field
+is not provided, then dbt will not calculate freshness for the table.
+These configs are applied hierarchically, so
+freshness
+and
+loaded_at_field
+values specified for a
+source
+will flow through to all of the
+tables
+defined in that source. This is useful when all of the tables in a source have the same
+loaded_at_field
+, as the config can just be specified once in the top-level source definition.
+Checking source freshness
+​
+To snapshot freshness information for your sources, use the
+dbt source freshness
+command (
+reference docs
+):
+$ dbt source freshness
+Behind the scenes, dbt uses the freshness properties to construct a
+select
+query, shown below. You can find this query in the
+query logs
+.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.txt
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+Consider using a
+surrogate key
+to condense many columns into a single column.
+Example Usage
+snapshots/orders_snapshot_check.sql
+{
+%
+snapshot
+orders_snapshot_check
+%
+}
+{{
+config
+(
+target_schema
+=
+'snapshots'
+,
+strategy
+=
+'check'
+,
+unique_key
+=
+'id'
+,
+check_cols
+=
+[
+'status'
+,
+'is_cancelled'
+]
+,
+)
+}}
+select
+*
+from
+{{ source
+(
+'jaffle_shop'
+,
+'orders'
+)
+}}
+{
+%
+endsnapshot
+%
+}
+Hard deletes (opt-in)
+​
+Rows that are deleted from the source query are not invalidated by default. With the config option
+invalidate_hard_deletes
+, dbt can track rows that no longer exist. This is done by left joining the snapshot table with the source table, and filtering the rows that are still valid at that point, but no longer can be found in the source table.
+dbt_valid_to
+will be set to the current snapshot time.
+This configuration is not a different strategy as described above, but is an additional opt-in feature. It is not enabled by default since it alters the previous behavior.
+For this configuration to work with the
+timestamp
+strategy, the configured
+updated_at
+column must be of timestamp type. Otherwise, queries will fail due to mixing data types.
+Example Usage
+snapshots/orders_snapshot_hard_delete.sql
+{
+%
+snapshot
+orders_snapshot_hard_delete
+%
+}
+{{
+config
+(
+target_schema
+=
+'snapshots'
+,
+strategy
+=
+'timestamp'
+,
+unique_key
+=
+'id'
+,
+updated_at
+=
+'updated_at'
+,
+invalidate_hard_deletes
+=
+True
+,
+)
+}}
+select
+*
+from
+{{ source
+(
+'jaffle_shop'
+,
+'orders'
+)
+}}
+{
+%
+endsnapshot
+%
+}
+Configuring snapshots
+​
+Snapshot configurations
+​
+There are a number of snapshot-specific configurations:
+Config
+Description
+Required?
+Example
+target_database
+The database that dbt should render the snapshot table into
+No
+analytics
+target_schema
+The schema that dbt should render the snapshot table into
+Yes
+snapshots
+strategy
+The snapshot strategy to use.
+
+
+

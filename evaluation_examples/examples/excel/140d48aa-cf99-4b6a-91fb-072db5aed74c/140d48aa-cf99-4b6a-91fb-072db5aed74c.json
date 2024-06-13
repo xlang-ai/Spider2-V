@@ -1,0 +1,86 @@
+{
+    "id": "140d48aa-cf99-4b6a-91fb-072db5aed74c",
+    "snapshot": "excel",
+    "instruction": "In a new column named \"Week Sales COGS Summary\", concatenate each cell value in Week, Sales, and COGS columns into the pattern \"Week: [Week Value], Sales: [Sales Value], COGS: [COGS Value]\". Do this for all rows.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: The instruction is about data summary\n1. In the opened WeeklySales.xlsx, click D1\n2. In the input field under tool bar, type in \"Week Sales COGS Summary\"\n3. Click enter to confirm the change\n4. Click D2\n5. In the input field under tool bar, type in following content：\n=$A$1&\": \"&$A2&\", \"&$B$1&\": \"&$B2&\", \"&$C$1&\": \"&$C2\n6. Click enter to confirm the change\n7. Click the bottom right corner and drag until you reach D11\n8. Save the file\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@206"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/140d48aa-cf99-4b6a-91fb-072db5aed74c/WeeklySales.xlsx",
+                "dest": "/home/user/WeeklySales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/WeeklySales.xlsx"
+            }
+        }
+    ],
+    "action_number": 8,
+    "related_apps": [
+        "excel"
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "WeeklySales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/140d48aa-cf99-4b6a-91fb-072db5aed74c/9_WeeklySales_gt1.xlsx",
+            "dest": "9_WeeklySales_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/WeeklySales.xlsx",
+            "dest": "WeeklySales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "852527e8-1b97-466c-a12f-b6b095df59bc"
+}

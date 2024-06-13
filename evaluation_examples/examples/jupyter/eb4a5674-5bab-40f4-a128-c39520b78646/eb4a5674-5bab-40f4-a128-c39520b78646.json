@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 9,
     "config": [
@@ -50,7 +51,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_text_file",
@@ -67,5 +67,6 @@
         "options": {
             "ignore_blanks": true
         }
-    }
+    },
+    "counterpart": "224009fd-5d6b-460e-9dbc-abdb2e9d6676"
 }

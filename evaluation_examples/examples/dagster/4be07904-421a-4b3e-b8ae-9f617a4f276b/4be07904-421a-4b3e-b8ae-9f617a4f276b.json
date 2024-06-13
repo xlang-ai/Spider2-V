@@ -1,0 +1,83 @@
+{
+    "id": "4be07904-421a-4b3e-b8ae-9f617a4f276b",
+    "snapshot": "dagster",
+    "instruction": "Modify the current Dagster machine learning pipeline by adding two features \"Age\" and \"Fare\" to the Logistic Regression model from the data (you should fill in the NaN values by the mean of the column). Launch a run of the job \"sklearn_job\", and schedule it to run at every hour on weekdays.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I want to modify my Dagster machine learning pipeline by adding a few features and a schedule. Please follow these steps:\n1. Go to VS Code application. Select the file \"sklearn_ops.py\" from the tabs on the top.\n2. Find the function \"get_features\". Add two features \"Age\" and \"Fare\" by changing the definition of \"cols\":\n```\n@op(description=\"Get features columns from dataframe\")\ndef get_features(context, df: pd.DataFrame) -> pd.DataFrame:\n    cols = [\"Parch\", \"Embarked\", \"Sex\", \"Name\", \"Age\", \"Fare\"]\n\n    return df[cols]\n```\n3. You can see the function \"encode_features\" before \"get_features\". Add a SimpleImputer and apply it to the features \"Age\" and \"Fare\" to fill in the missing values by the mean of the column.\n```\n@op(description=\"Define required encoding and return column transformer\")\ndef encode_features(context):\n    imp_constant = SimpleImputer(strategy=\"constant\", fill_value=\"missing\")\n    ohe = OneHotEncoder()\n\n    imp_ohe = make_pipeline(imp_constant, ohe)\n    vect = CountVectorizer()\n    imp = SimpleImputer()\n\n    ct = make_column_transformer(\n        (imp_ohe, [\"Embarked\", \"Sex\"]),\n        (vect, \"Name\"),\n        (imp, [\"Age\", \"Fare\"]),\n        remainder=\"passthrough\",\n    )\n\n    return ct\n```\n4. Press Ctrl+S to save the file \"sklearn_ops.py\".\n5. Switch to the file \"sklearn_schedule.py\" from the tabs on the top.\n6. Add the schedule definition \"every_weekday_hour\" below to run the job \"sklearn_job\" every hour on weekdays:\n```\nfrom dagster import schedule\n\n\n@schedule(\n    cron_schedule=\"0 * * * 1-5\",\n    job_name='sklearn_job',\n)\ndef every_weekday_hour():\n    return {}\n```\n7. Don't forget to press Ctrl+S to save the file.\n8. Head to the file \"sklearn_repository.py\". Add the schedule \"every_weekday_hour\" to the repository:\n```\nfrom dagster import repository\nfrom jobs.sklearn_job import sklearn_job\nfrom schedules.sklearn_schedule import every_weekday_hour\n\n\n@repository\ndef sklearn_repo():\n    return {\n        \"jobs\": {\n            \"sklearn_job\": lambda: sklearn_job \n        },\n        \"schedules\": {\n            \"every_weekday_hour\": lambda: every_weekday_hour\n        }\n    }\n```\n9. Save the file by Ctrl+S.\n10. Go to Chromium.\n11. Click the reload button on the right of \"Job in sklearn_repo@sklearn_repository.py\" at the top of the page.\n12. Select \"Launchpad\" under the title \"sklearn_job\".\n13. Click the button \"Launch Run\" on the bottom right corner of the page. Wait for the job to finish. Make sure it succeeds.\n14. Select \"Overview\" on the top.\n15. Click \"Schedules\" under the title \"Overview\". You will see the schedule \"every_weekday_hour\" in the table.\n16. Toggle the switch on the middle of the page under \"Running\" to set the schedule to the running state.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/guides/dagster/ml-pipeline"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 16,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/4be07904-421a-4b3e-b8ae-9f617a4f276b/sklearn-dagster.zip",
+                "dest": "/home/user/sklearn-dagster.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/4be07904-421a-4b3e-b8ae-9f617a4f276b/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/4be07904-421a-4b3e-b8ae-9f617a4f276b/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "0da85c2f-db82-4b7b-bf1a-ee72071d84af"
+}

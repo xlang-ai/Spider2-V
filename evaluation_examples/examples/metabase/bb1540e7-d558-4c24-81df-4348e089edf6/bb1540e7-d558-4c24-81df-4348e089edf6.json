@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 13,
     "config": [
@@ -61,7 +62,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_images",
@@ -75,5 +75,6 @@
             "path": "evaluation_examples/examples/metabase/bb1540e7-d558-4c24-81df-4348e089edf6/visualization.png",
             "dest": "visualization.png"
         }
-    }
+    },
+    "counterpart": "4f3dea28-3811-4a02-b8fa-0c5e375fcbb2"
 }

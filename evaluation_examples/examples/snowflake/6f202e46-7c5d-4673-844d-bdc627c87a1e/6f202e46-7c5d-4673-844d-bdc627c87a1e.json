@@ -13,7 +13,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 10,
     "config": [
@@ -68,5 +69,6 @@
             "path": "evaluation_examples/examples/snowflake/6f202e46-7c5d-4673-844d-bdc627c87a1e/highest_salary_gold.csv",
             "dest": "highest_salary_gold.csv"
         }
-    }
+    },
+    "counterpart": "dc38c2d4-7f09-4b04-8198-602c2839b8ae"
 }

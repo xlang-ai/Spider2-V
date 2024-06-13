@@ -1,0 +1,65 @@
+{
+    "id": "a954c45e-fb59-4231-a052-a7f74dc16bf1",
+    "snapshot": "bigquery",
+    "instruction": "I want to know how many austin bike stations are active? Save the query results into '/home/user/Downloads/answer.csv'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we will query a public dataset `austin_bikeshare` and save the execution results into a local .csv file. Concretely,\n1. click '+' button on top of the welcome prompt \"Welcome to BigQuery Studio!\". This will open a blank query panel.\n2. write the following SQL into the blank panel \"Untitled query\":\n```\nSELECT COUNT(*) AS active_stations_count\nFROM `bigquery-public-data.austin_bikeshare.bikeshare_stations`\nWHERE status = 'active';\n```\n3. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n4. Wait for a moment. The query results will show below.\n5. Click the \"SAVE RESULTS\" button above the execution results (on the right side of the same row as panel \"Query results\");\n6. And in the drop-down menu, further click the option \"CSV (local file)\";\n7. The default download path is folder `~/Downloads`. Next, we open the terminal via clicking the terminal icon on the vertical application panel of the desktop or via pressing hot key \"Ctrl+Alt+T\";\n8. In the opened terminal, type in the command `ls ~/Downloads` to see the downloaded file name;\n9. Then, move and rename this file via typing and executing:\n`mv ~/Downloads{file_name}.csv ~/Downloads/answer.csv`\n(Remember to convert the {file_name} above to the real file name in step 8)\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Downloads/answer.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/a954c45e-fb59-4231-a052-a7f74dc16bf1/answer.csv",
+            "dest": "gold_output.csv"
+        }
+    },
+    "counterpart": "3363a913-d3e9-42c2-9d76-9cd9e9bafec7"
+}

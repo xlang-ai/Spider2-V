@@ -1,0 +1,208 @@
+Documentation Source:
+www.metabase.com/learn/visualization/line-charts.txt
+
+Documentation Title:
+Guide to line charts
+
+Documentation Content:
+Next, we’ll want to group our order totals by month. In the
+Group by
+section, under
+Order
+, mouse over the
+Created At
+field click on the
++
+button to add the grouping.
+As soon as you add the grouping, Metabase updates the chart:
+This chart is a lot easier to read. And, of course, we can always select a section of the line to filter the results for that time period, and drill through to see those individual, unaggregated records.
+Customizing your line chart
+To customize your line chart, you can click on the
+Settings
+button in the bottom left. There are too many settings to cover here without boring you, so we’ll just give you some highlights.
+Display tab
+The
+Display tab
+lets you change the line color and style, handle missing values, and so on. If you plan on embedding your chart in your app, check out our
+white labeling option
+for even more customization.
+Trend lines and goal lines
+You can add a
+trend line
+from the display settings of a time series chart. You’ll see the toggle if you’ve chosen exactly one time field from
+Summarize
+>
+Group by
+. In the example below, we’ve chosen the grouping field “Created At: Month”:
+You can also add a goal line to plot a horizontal line at your goal value. Goal lines are especially useful when paired with alerts. For example, if you’re monitoring sales, and you only want to get notified if a metric dips below a certain threshold, you can add a goal line to specify that threshold and get an email or have a Slack message sent when the line goes under it.
+Line, area, or bar chart?
+We’ve been talking strictly about line charts so far, but
+bar charts
+and area charts are similar, and there are good reasons to choose them instead of a line chart, depending on what you’re trying to communicate:
+Area charts are typically used to compare values over time. If you don’t have that many values plotted over time, consider a bar chart. If you want to see the composition of values over time, use a stacked bar chart.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/line-charts.txt
+
+Documentation Title:
+Guide to line charts
+
+Documentation Content:
+How to create a line chart
+Let’s take a look at the
+Orders
+table in the
+Sample Database
+that ships with Metabase. From the main navigation bar, click on
++ New
+>
+Question
+, which will take you to Metabase’s query builder. Choose
+Raw Data
+>
+Sample Database
+, then pick the
+Orders
+table. Click
+Visualize
+, then click the
+Visualization button
+in the bottom right to bring up the
+Visualization sidebar
+.
+Let’s start with how
+not
+to create a line chart. If you select
+line chart
+, Metabase will present you with an empty line chart.
+Metabase can’t read minds (yet), so it doesn’t know which columns from the
+Orders
+table to use for the x and y axes. To create a line chart, you’ll need to pick a metric for Metabase to plot over time. For example, you could show order totals over time by setting the x axis to
+created_at
+and the y axis to
+total
+. Metabase will automatically plot the line chart:
+That’s technically a line chart, but it looks more like the cardiograph of a startled hummingbird, and that’s even after Metabase has truncated the results shown. (If you hover over the gray warning triangle in the upper right, you’ll see that Metabase has only plotted 2,000 rows.)
+To make the chart more legible, we can summarize the data, so each point on the line chart is an aggregate of rows—“buckets” of records. (It’s much more common to plot unaggregated rows in visualizations like
+pin maps
+, or a
+scatterplot
+, e.g., to show each product plotted by price and rating.)
+As an example of an aggregated metric, let’s plot the sum of order totals for each month. Click on the green
+Summarize button
+to pull up the
+Summarize sidebar
+. Metabase defaults to counting the records, but we’re not interested in the number of orders, so we’ll click on
+Count
+and change it to
+Sum of
+and select the
+Total
+column from
+Order
+.
+Next, we’ll want to group our order totals by month.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.txt
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+Next, summarize the count of rows and group by Product -> Category.
+Click
+Visualize
+, and Metabase will present the data as a bar chart:
+Bar chart settings
+To customize the chart, click on the
+gear
+icon at the bottom left of the chart to open the settings sidebar, within the settings, you’ll find the following tabs:
+Data
+Display
+Axes
+Data
+Here we can format and style our bar chart by clicking the
+...
+under Y-axis.
+To change bar colors, click the color swatch and choose from the palette.
+Customize your chart in the
+Formatting tab
+by adjusting numbers, separators, decimals, and scale. You can also add Prefix/Suffix as needed. In the
+Style tab
+, select colors, modify labels, choose a chart type (line, area, or bar), and position the Y-axis according to your chart preferences.
+Display settings
+In the Settings > Display section, you can customize your chart in several ways:
+Add a goal line
+This specifies where you want the values to be. Metabase can
+alert
+you when the values exceed (or drop below) that goal. For example, you can add a goal line at 5500 and name it ‘Arbitrary Sales Goal’.
+Show values
+Toggling on ‘Show values’ places the count values above each column.
+Add a trend line
+When your data is summarized and grouped by a datetime field, you can add a trend lie. The trend line shows the general direction that your data is heading in over time. To add a trend line, simply toggle on the ‘Trend line’ option.
+Stacking options
+When creating bar or area charts with multiple series, you can choose how the series are displayed with the stacking options. You can choose not to stack the series, stack them, or stack them at 100%.
+We can also set the display to a
+stacked bar chart
+, which we’ll get into in a bit.
+Axes
+Select
+Axes
+in the
+Settings sidebar
+.
+Here we can specify how we want our table organized.
+Label
+Here we can hide or customize axes labels.
+Show lines and marks
+With the
+Show lines and marks
+options we can change the way the categories and quantities are represented on each axis.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/chart-guide.txt
+
+Documentation Title:
+Which chart should you use?
+
+Documentation Content:
+Two charts to rule them all
+Before we get into it, we should note: you don’t have to use every chart type to do proper analysis. Most of the time you’ll only need the old standbys: tables and line charts.
+Tables
+Often you’ll want to see a lot of measures at once, list their exact values, and be able to sort those measures. Maybe you simply want to add or remove a few columns, or add a couple of filters to make it easy for people to look up certain values. And that’s what tables are for. Tables in Metabase are one of the most versatile visualization types, so check out our article on
+Everything you can do with the table visualization
+.
+If you additionally want to summarize groupings of rows (like seeing the annual subtotal in a grouping of quarterly results), or switch up the columns and rows, you’ll want to use a
+pivot table
+. Check out
+How to create a pivot table to summarize your data
+.
+Line charts
+You’re also often going to want to present data as a time series to see how a particular measure changes over time (like a rolling 7-day average), and that’s when you reach for the line chart. Line charts give a simple shape to the data, making it easy to see if the numbers are trending up, or if they’re cyclical, or what the maximum value was for the past X weeks, and so on.
+With that out of the way, let’s walk through some common scenarios to help you pick the right viz to communicate your findings.
+When you only have one value
+You have a few options in this scenario.
+Static numbers
+For static numbers, or at least a number that doesn’t change too frequently, use the (appropriately named)
+number
+visualization, which is good for at-a-glance values like the count of respondents in a survey. Keep in mind that a single number may lack context, so it’s best used on a dashboard that provides that, such as the number of surveys sent out or how many respondents we had last year.
+But even then, you should consider using the
+trend
+visualization if your number can be broken out by time (see
+comparing one measure over time
+below).
+But even
+then
+, would a
+line chart
+be better?
+
+
+

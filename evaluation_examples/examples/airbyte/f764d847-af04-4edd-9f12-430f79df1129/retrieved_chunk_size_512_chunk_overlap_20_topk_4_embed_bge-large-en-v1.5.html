@@ -1,0 +1,54 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/operator-guides/browsing-output-logs.html
+
+Documentation Title:
+Browsing logs | Airbyte Documentation
+
+Documentation Content:
+To search across all attempts, download the logs locally.</p><h2>Link to a sync job<a>​</a></h2><p>To help others quickly find your job, copy the link to the logs to your clipboard, select the three grey dots next to a sync and select <code>Copy link to job</code>.</p><p>You can also access the link to a sync job from the in-app log viewer.</p><h2>Download the logs<a>​</a></h2><p>To download a copy of the logs locally, select the three grey dots next to a sync and select <code>Download logs</code>.</p><p>You can also access the download log button from the in-app log viewer.</p><div><div>note</div><p>If a sync was completed across multiple attempts, downloading the logs will union all the logs for all attempts for that job.</p></div><h2>Exploring Local Logs<a>​</a></h2><div><span>Open Sourceonly</span><div>The following documentation only applies to Open Source.</div></div><h3>Establish the folder directory<a>​</a></h3><p>In the UI, you can discover the Attempt ID within the sync job. Most jobs will complete in the first attempt, so your folder directory will look like <code>/tmp/workspace/9/0</code>. If you sync job completes in multiple attempts, you'll need to define which attempt you're interested in, and note this.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/operator-guides/browsing-output-logs.html
+
+Documentation Title:
+Browsing logs | Airbyte Documentation
+
+Documentation Content:
+Enterprise</span></span></div><p>Airbyte records the full logs as a part of each sync. These logs can be used to understand the underlying operations Airbyte performs to read data from the source and write to the destination as a part of the <a>Airbyte Protocol</a>. The logs includes many details, including any errors that can be helpful when troubleshooting sync errors.</p><div><div>info</div><p>When using Airbyte Open Source, you can also access additional logs outside of the UI. This is useful if you need to browse the Docker volumes where extra output files of Airbyte server and workers are stored.</p></div><p>To find the logs for a connection, navigate to a connection's <code>Job History</code>tab to see the latest syncs.</p><h2>View the logs in the UI<a>​</a></h2><p>To open the logs in the UI, select the three grey dots next to a sync and select <code>View logs</code>. This will open our full screen in-app log viewer.</p><div><div>tip</div><p>If you are troubleshooting a sync error, you can search for <code>Error</code>, <code>Exception</code>, or <code>Fail</code>to find common errors.</p></div><p>The in-app log viewer will only search for instances of the search term within that attempt.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/review-sync-history.html
+
+Documentation Title:
+Review the sync history | Airbyte Documentation
+
+Documentation Content:
+The latest rules can be read about <a>here</a>.</p></div><p>On this page, you can also view the complete logs and find any relevant errors, find a link to the job to share with Support, or download a copy of the logs locally.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Review the connection status</div></a><a><div>Next</div><div>Browsing logs</div></a></nav></div><div><a>Sync summary</a><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+
+
+
+Documentation Source:
+airbyte.com/blog/manage-and-orchestrate-airbyte-connections-using-python.html
+
+Documentation Title:
+You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
+
+Documentation Content:
+Document] = my_dataset.to_documents()
+
+# Retrieve SQL table for data stream
+my_sql_table: sqlalchemy.Table = my_dataset.to_sql_table()
+</code><p>When accessing data through the &lt;span class="text-style-code"&gt;streams&lt;/span&gt; dataset, you are directly accessing data from the backend SQL data store. If you are retrieving data using a past &lt;span class="text-style-code"&gt;SyncResult&lt;/span&gt;, note that this method will also include the latest data and is not necessarily specific to a certain execution.</p><h2>Advanced Options</h2><h3>Submitting Jobs Asynchronously </h3><p>By default, PyAirbyte will wait for completion when you call &lt;span class="text-style-code"&gt;run_sync()&lt;/span&gt;. You can instead return immediately by setting &lt;span class="text-style-code"&gt;wait=False&lt;/span&gt;. Then you can check on the connection yourself by calling &lt;span class="text-style-code"&gt;get_status()&lt;/span&gt; or  &lt;span class="text-style-code"&gt;is_complete()&lt;/span&gt; on the &lt;span class="text-style-code"&gt;SyncResult&lt;/span&gt; object:</p><code>sync_result = workspace.run_sync(wait=False)
+
+while not sync_result.is_complete():
+# Do other things while we wait...
+sleep(5)
+
+print(f"Sync was completed. Status is {sync_result.get_status()}.")</code><h3>Opening up Hybrid Use Cases</h3><p>Now you can harness the Power of Airbyte running locally and remotely, here as some example use cases for the “hybrid” deployment options.</p><h4>PyAirbyte as a Mini-Orchestrator</h4><p>Now with the latest version of PyAirbyte, you can use PyAirbyte as a mini-orchestrator. For instance, you can run a sequence of jobs in a specific order, and you can trigger Airbyte jobs in response to custom business logic and custom features.
+
+
+

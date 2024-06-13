@@ -1,0 +1,58 @@
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.html
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+</h3></header><ul><a>Create a bar chart</a><li><a>Bar chart settings</a><ul><a>Data</a><li><a>Display settings</a><ul><a>Add a goal line</a><a>Show values</a><a>Add a trend line</a><a>Stacking options</a></ul></li><li><a>Axes</a><ul><a>Label</a><a>Show lines and marks</a><a>Scale</a></ul></li></ul></li><li><a>Stacked bar charts</a><ul><a>Don’t stack</a><a>Stack</a><a>Stack-100%</a></ul></li><a>Further reading</a></ul><p>We’ll walk through <a>creating a bar chart</a>and <a>editing that bar chart’s settings</a>, then talk about <a>stacked bar charts</a>and when we might want to use them.</p><h2>Create a bar chart</h2><p>You can follow along using Metabase’s <a>Sample Database</a>. Select <strong>+ New</strong>&gt; <strong>Question</strong>&gt; <strong>Raw data</strong>&gt; <strong>Sample database</strong>. Choose the Sample Database’s <code>Orders</code>table as your data. Next, summarize the count of rows and group by Product -&gt; Category.</p><img/><p>Click <strong>Visualize</strong>, and Metabase will present the data as a bar chart:</p><img/><h2>Bar chart settings</h2><p>To customize the chart, click on the <strong>gear</strong>icon at the bottom left of the chart to open the settings sidebar, within the settings, you’ll find the following tabs:</p><ul><a>Data</a><a>Display</a><a>Axes</a></ul><h2>Data</h2><p>Here we can format and style our bar chart by clicking the <code>...</code>under Y-axis.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/bar-charts.html
+
+Documentation Title:
+Master the bar chart visualization
+
+Documentation Content:
+Here’s that example displayed in three different bar chart styles:</p><h3>Don’t stack</h3><img/><h3>Stack</h3><img/><h3>Stack-100%</h3><img/><p>Explore different display settings to tailor the visualization to your data and team preferences.</p><h2>Further reading</h2><ul><a>Visualization options</a><a>Setting default formatting for your data</a><a>Create charts with explorable data</a></ul><div><a>« Previous</a><a>Next »</a></div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p></article></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase. No spam, ever.</p></div><div><div><h6>Product</h6><a>Watch Demo</a><a>Data Sources</a><a>Security</a><a>Cloud</a><a>Roadmap</a><a>What's New</a><h6>Pricing</h6><a>Plans</a><a>Open Source</a></div><div><h6>Use Cases</h6><a>Self-Service Business Analytics
+        </a><a>Embedded Analytics
+        </a><h6>Metabase Plans</h6><a>Starter and Open Source</a><a>Pro</a><a>Enterprise</a></div><div><h6>Features</h6><a>Query Builder</a><a>Drill Through</a><a>Collections</a><a>Usage analytics
+          <span>New
+          </span></a><a>Analytics dashboards</a><a>SQL editor</a><a>Sandboxing</a><a>Models</a><a>Permissions</a><a>CSV upload</a></div><div><h6>Company</h6><a>Jobs
+          <div>We're hiring!
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.html
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+how many dollars they’ve spent on your products.</p><img/><h2>Pie chart or donut charts</h2><p>A <a>pie chart or donut chart</a>can be used when breaking out a metric by a single dimension, especially when the number of possible breakouts is small, like users by gender.</p><img/><h2>Funnel charts</h2><p><a>Funnels</a>are commonly used in e-commerce or sales to visualize how many customers are present within each step of a checkout flow or sales cycle. At their most general, funnels show you values broken out by steps, and the percent decrease between each successive step.</p><img/><h2>Maps</h2><p>When you select the <a>Map</a>visualization, Metabase will automatically try and pick the best kind of map to use based on the table or result set.</p><img/><h2>Formatting data in charts</h2><p>While we’re talking about formatting, we thought you should also know that you can access formatting options for the columns used in a chart. Just open the visualization settings and select the <code>Data</code>tab:</p><img/><p>Then click on the gear icon next to the column that you want to format. Dates, numbers, and currencies tend to have the most useful formatting options.</p><img/><h2>Further reading</h2><ul><a>Charts with multiple series</a><a>Appearance</a><a>BI dashboard best practices</a></ul></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/line-charts.html
+
+Documentation Title:
+Guide to line charts
+
+Documentation Content:
+To create a line chart, you’ll need to pick a metric for Metabase to plot over time. For example, you could show order totals over time by setting the x axis to <code>created_at</code>and the y axis to <code>total</code>. Metabase will automatically plot the line chart:</p><img/><p>That’s technically a line chart, but it looks more like the cardiograph of a startled hummingbird, and that’s even after Metabase has truncated the results shown. (If you hover over the gray warning triangle in the upper right, you’ll see that Metabase has only plotted 2,000 rows.)</p><p>To make the chart more legible, we can summarize the data, so each point on the line chart is an aggregate of rows—“buckets” of records. (It’s much more common to plot unaggregated rows in visualizations like <a>pin maps</a>, or a <a>scatterplot</a>, e.g., to show each product plotted by price and rating.)</p><p>As an example of an aggregated metric, let’s plot the sum of order totals for each month. Click on the green <strong>Summarize button</strong>to pull up the <strong>Summarize sidebar</strong>. Metabase defaults to counting the records, but we’re not interested in the number of orders, so we’ll click on <code>Count</code>and change it to <code>Sum of</code>and select the <code>Total</code>column from <code>Order</code>.</p><p>Next, we’ll want to group our order totals by month. In the <strong>Group by</strong>section, under <code>Order</code>, mouse over the <code>Created At</code>field click on the <code>+</code>button to add the grouping.</p><img/><p>As soon as you add the grouping, Metabase updates the chart:</p><img/><p>This chart is a lot easier to read.
+
+
+

@@ -1,0 +1,9 @@
+We will add one new column in the current excel table. To do this:
+1. Click cell D1;
+2. Type in "Profit" and press ENTER;
+3. Click cell D2;
+4. Type in text "=$B2-$C2" and press ENTER;
+5. Click the bottom right corner of cell D2 (you will see a cross symbol);
+6. Keep the mouse down and drage it to cell D11;
+7. Release the mouse and you will see contents from cell D2 to D11;
+8. Save the results via pressing hotkey "Ctrl+S".

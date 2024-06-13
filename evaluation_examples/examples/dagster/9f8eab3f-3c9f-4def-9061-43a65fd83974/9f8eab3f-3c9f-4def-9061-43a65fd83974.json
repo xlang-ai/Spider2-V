@@ -12,7 +12,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 3,
     "config": [
@@ -46,7 +47,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [
             {
@@ -91,5 +91,6 @@
                 "dest": "golden_story_ids.json"
             }
         ]
-    }
+    },
+    "counterpart": "f3a06ef9-8230-4a81-b124-7ccd0a6478c0"
 }

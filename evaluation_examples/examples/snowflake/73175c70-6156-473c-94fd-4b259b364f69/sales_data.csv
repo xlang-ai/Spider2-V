@@ -1,0 +1,11 @@
+order_id,order_date,region,product_category,product_name,quantity,unit_price
+1,2023-01-01,North,Electronics,Smartphone,2,499.99
+2,2023-01-02,East,Clothing,T-Shirt,3,19.99
+3,2023-01-03,West,Furniture,Chair,1,149.99
+4,2023-01-04,South,Electronics,Headphones,2,99.99
+5,2023-01-05,East,Clothing,Jeans,1,59.99
+6,2023-01-06,North,Furniture,Table,1,249.99
+7,2023-01-07,West,Electronics,Laptop,1,999.99
+8,2023-01-08,South,Clothing,Hoodie,2,39.99
+9,2023-01-09,North,Furniture,Sofa,1,499.99
+10,2023-01-10,East,Electronics,Smartwatch,1,199.99

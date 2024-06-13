@@ -16,7 +16,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_ingestion_and_integration"
+        "data_ingestion_and_integration",
+        "abstract"
     ],
     "action_number": 14,
     "config": [
@@ -96,7 +97,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",
@@ -110,5 +110,6 @@
             "path": "evaluation_examples/examples/airbyte/0fa19e8e-efba-42a6-8649-67ff203dbe87/diff_gold.csv",
             "dest": "diff_gold.csv"
         }
-    }
+    },
+    "counterpart": "0ee7291b-3d31-4f4b-8383-8c0ff98ce421"
 }

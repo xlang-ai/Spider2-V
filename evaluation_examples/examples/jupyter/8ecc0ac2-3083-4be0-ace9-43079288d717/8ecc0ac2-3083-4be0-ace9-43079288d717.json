@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 3,
     "config": [
@@ -50,7 +51,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [
             {
@@ -89,5 +89,6 @@
                 "expected": []
             }
         }
-    }
+    },
+    "counterpart": "4f9794ae-d508-416f-af3b-10e449ebd083"
 }

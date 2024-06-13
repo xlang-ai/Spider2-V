@@ -1,0 +1,20 @@
+In this task, we will create our first Dagster asset `top10_story_ids` in the opened project, which will download the top 10 story ids from Hacker News. Specifically,
+1. Switch to the VS Code editor and open the python file `hacker_news/assets.py`;
+2. Type in the following code into this empty file:
+```
+import json
+import os
+
+import requests
+from dagster import asset # import the `dagster` library
+
+@asset # add the asset decorator to tell Dagster this is an asset
+def top10_story_ids() -> None:
+    newstories_url = "https://hacker-news.firebaseio.com/v0/topstories.json"
+    top_story_ids = requests.get(newstories_url).json()[:10]
+
+    os.makedirs("data", exist_ok=True)
+    with open("data/story_ids.json", "w") as f:
+        json.dump(top_story_ids, f)
+```
+3. Press the hot key "Ctrl+S" to save the file content. Now, the first asset has been created.

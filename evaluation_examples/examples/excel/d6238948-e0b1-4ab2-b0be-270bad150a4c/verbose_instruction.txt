@@ -1,0 +1,11 @@
+To finish the task:
+1. Select the entry J2 under cell "Gross Profit".
+2. Focus on the input line at the upper panel, and enter the code ``=SUM(B2:D2)-SUM(F2:H2)``.
+3. Press "Enter" to make it work.
+4. Press the right bottom corner of the entry J2 (you should see a cross), drag it to the entry J10.
+5. Click the "create sheet" icon at the bottom panel (on the left side of "Sheet1") to create a new sheet "Sheet2".
+6. Input "Year" at the entry A1, "Gross Profit" at the entry B1.
+7. Copy the entries from A2 to A10 in Sheet1 and paste it to A2 to A10 in Sheet2.
+8. Copy the entries from J2 to J10 in Sheet1 and paste it to B2 to B10 in Sheet2.
+Notice that at this time, when pasting, right click cell B2 and choose "Paste Special", then choose the format of "Number".
+9. Save the sheet using Excel 2007-365 format.

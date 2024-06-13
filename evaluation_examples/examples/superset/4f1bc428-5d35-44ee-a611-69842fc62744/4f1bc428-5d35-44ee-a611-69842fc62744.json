@@ -1,0 +1,80 @@
+{
+    "id": "4f1bc428-5d35-44ee-a611-69842fc62744",
+    "snapshot": "superset",
+    "instruction": "I would like to view my 'Statistics' dashboard with both the top navigation and title hidden. Additionally, please render the dashboard without the filter bar. Show me it!\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To  show the 'Statistics' dashboard with both the top navigation and title hidden, also without the filter bar, we can follow these steps:\n1. In the opened web page, select \"Dashboard\" in the top menu;\n2. Click 'Statistics' name in the list;\n3. In the new window, clear the string behind the \"/\" in the URL bar of Chrome;\n4. Type \"?standalone=2&show_filters=0\" after the \"/\" in the URL bar of the Chrome;\n5. Type \"ENTER\" in the keyboard, and you can see the 'Statistics' dashboard with both the top navigation and title hidden, also without the filter bar.;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#customizing-dashboard"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/4f1bc428-5d35-44ee-a611-69842fc62744/dashboard_export_20240517T153219.zip",
+                "dest": "/home/user/dashboard_export_20240517T153219.zip"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/all_databases.sql",
+                "dest": "/home/user/all_databases.sql"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/4f1bc428-5d35-44ee-a611-69842fc62744/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/superset/4f1bc428-5d35-44ee-a611-69842fc62744/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "6749d85d-b57c-4f27-9b2d-8c0d12658cf2"
+}

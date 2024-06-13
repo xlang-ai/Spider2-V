@@ -1,0 +1,16 @@
+In this task, you need to complete the declaration of a model and then execute it.
+1. Switch to the terminal.
+2. Run ``dbt debug`` to connect to the database.
+3. Run ``dbt seed`` to load the seeds ``raw_customers.csv`` and ``raw_orders.csv`` used in the model ``customers.sql``.
+4. Switch to the VSCode editor.
+5. Open the file "models/customers.sql" in the VSCode editor.
+6. Notice the columns to be selected are missing. Copy and paste the following codes into the select block:
+```sql
+customers.customer_id,
+customers.first_name,
+customers.last_name,
+customer_orders.first_order_date,
+customer_orders.most_recent_order_date,
+coalesce(customer_orders.number_of_orders, 0) as number_of_orders
+```
+7. Switch to the terminal again, and run ``dbt run`` to execute the model.

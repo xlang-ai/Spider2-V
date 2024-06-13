@@ -1,0 +1,59 @@
+{
+    "id": "fc6f51e1-0176-49d5-86e1-8a656dd7e5ef",
+    "snapshot": "snowflake",
+    "instruction": "I am exploring the Snowsight website. Could you navigate to the query history page, and show me all failed queries for all users in the last 3 days?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: The user wants to check out the failed query history on Snowsight. To achieve this goal:\n1. Click \"Monitoring >> Query History\" on the left panel.\n2. On the right panel, change the \"Status\" filter on the top menu to value \"Failed\".\n3. For the \"User\" selector, choose value \"All\".\n4. For the third filter w.r.t. Date range, choose the entry \"Last 3 days\".\nNow, all queries satisfy the user intents are showing up.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-activity"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 4,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://app.snowflake.com"
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "active_url_from_accessTree",
+            "goto_prefix": "https://app.snowflake.com/"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "compute/history/queries",
+                    "user=ALL",
+                    "subset=FAILED",
+                    "PRESET_LAST_3_DAYS"
+                ]
+            }
+        }
+    },
+    "counterpart": "6ced40b9-7bd3-42c5-9ff6-cb9097a30dde"
+}

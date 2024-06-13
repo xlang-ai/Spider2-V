@@ -1,0 +1,69 @@
+{
+    "id": "9d0df982-fa73-464a-a9bc-01c29a244aa5",
+    "snapshot": "bigquery",
+    "instruction": "Open MLB 2016 Pitch-by-Pitch dataset public dataset (also known as baseball), add it to the explorer and view the information.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: BigQuery provides many wonderful open datasets for free access. Today, we will explore one related to baseball. To achieve this goal:\n1. In the Explorer pane, click +Add.\n2. In the **Add** dialog, search `public datasets`\n3. Then click \"Public Datasets\".\n4. In the search bar next to header \"Marketplace\", type in \"baseball\" and click Enter.\n5. There should be only one dataset called \"MLB 2016 Pitch-by-Pitch\". Just click it.\n6. After loading, click the button \"VIEW DATASET\".\n7. Switch to the new opened web tab. It exhibits the dataset info about baseball. This is exactly what we want.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console"
+    ],
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "action_number": 7,
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "active_url_from_accessTree",
+            "config": {
+                "goto_prefix": "https://console.cloud.google.com/bigquery"
+            }
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "baseball"
+                ]
+            }
+        }
+    },
+    "counterpart": "21a6bf31-717d-41f3-8a6d-d5f35d97d678"
+}

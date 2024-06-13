@@ -1,0 +1,9 @@
+To enable data upload functionality for the database SpiderDatabase, we can follow these steps:
+1. Click the "Settings" button on the top right of the web page;
+2. Select "Database connections" menu;
+3. In the new page, click the edit button on the right of the database "SpiderDatabase";
+4. In the pop-up window "Edit database", firstly click the "ADVANCED";
+5. Next, click the "Security";
+6. Scroll down until text "Allow file uploads to database" appears;
+7. Check the box in front of this text;
+8. Then, click "FINISH", and we will see a check mark in the CSV upload column of SpiderDatabase.

@@ -1,0 +1,130 @@
+I have a dbt project "jaffle_shop". Please help me integrate this project into dagster and create a downstream asset. The steps are provided below.
+1. Switch to VS Code.
+2. Use the "EXPLORER" to open the folder "jaffle_shop/jaffle_shop_dagster/jaffle_shop_dagster".
+3. Open "assets.py" file on the right panel.
+4. Modify some parts of the code file `assets.py` to import necessary libraries for later use:
+```
+import os
+
+import duckdb # modified
+import pandas as pd # modified
+from dagster import MetadataValue, AssetExecutionContext, asset # modified
+from dagster_dbt import DbtCliResource, dbt_assets, get_asset_key_for_model # modified
+
+from .constants import dbt_manifest_path, dbt_project_dir
+
+duckdb_database_path = dbt_project_dir.joinpath("tutorial.duckdb") # modified
+
+@dbt_assets(manifest=dbt_manifest_path)
+def jaffle_shop_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
+    yield from dbt.cli(["build"], context=context).stream()
+```
+5. Add the following asset definition to the end of "assets.py":
+```
+@asset(
+    compute_kind="python",
+    deps=[get_asset_key_for_model([jaffle_shop_dbt_assets], "stg_customers"),
+            get_asset_key_for_model([jaffle_shop_dbt_assets], "stg_orders"),
+            get_asset_key_for_model([jaffle_shop_dbt_assets], "stg_payments")]
+)
+def customers(context: AssetExecutionContext):
+    connection = duckdb.connect(os.fspath(duckdb_database_path))
+    customers = connection.sql("""
+    with customers as (
+
+        select * from stg_customers
+
+    ),
+
+    orders as (
+
+        select * from stg_orders
+
+    ),
+
+    payments as (
+
+        select * from stg_payments
+
+    ),
+
+    customer_orders as (
+
+            select
+            customer_id,
+
+            min(order_date) as first_order,
+            max(order_date) as most_recent_order,
+            count(order_id) as number_of_orders
+        from orders
+
+        group by customer_id
+
+    ),
+
+    customer_payments as (
+
+        select
+            orders.customer_id,
+            sum(amount) as total_amount
+
+        from payments
+
+        left join orders on
+             payments.order_id = orders.order_id
+
+        group by orders.customer_id
+
+    ),
+
+    final as (
+
+        select
+            customers.customer_id,
+            customers.first_name,
+            customers.last_name,
+            customer_orders.first_order,
+            customer_orders.most_recent_order,
+            customer_orders.number_of_orders,
+            customer_payments.total_amount as customer_lifetime_value
+
+        from customers
+
+        left join customer_orders
+            on customers.customer_id = customer_orders.customer_id
+
+        left join customer_payments
+            on  customers.customer_id = customer_payments.customer_id
+
+    )
+
+    select * from final
+    """).df()
+    
+    context.add_output_metadata({"num_rows": customers.shape[0]})
+    return customers
+```
+6. Save `assets.py` via pressing hotkey "Ctrl+S".
+7. Open "definitions.py" in the same folder and modify the definitions to include the "customers" asset:
+```
+import os
+
+from dagster import Definitions
+from dagster_dbt import DbtCliResource
+
+from .assets import jaffle_shop_dbt_assets, customers # modified
+from .constants import dbt_project_dir
+from .schedules import schedules
+
+defs = Definitions(
+    assets=[jaffle_shop_dbt_assets, customers], # modified
+    schedules=schedules,
+    resources={
+        "dbt": DbtCliResource(project_dir=os.fspath(dbt_project_dir)),
+    },
+)
+```
+8. Go to Chromium. Make sure you are in the "Assets" tab of the Dagster UI.
+9. Click "Reload definitions" on the top-right of the page.
+10. Click "Materialize" all under "Reload definitions" to materialize all assets, including the one you just created.
+11. Wait until materialization is finished.

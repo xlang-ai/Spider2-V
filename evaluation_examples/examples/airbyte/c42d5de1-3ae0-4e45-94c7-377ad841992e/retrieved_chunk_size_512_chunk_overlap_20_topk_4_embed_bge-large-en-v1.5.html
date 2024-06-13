@@ -1,0 +1,47 @@
+Documentation Source:
+airbyte.com/tutorials/mysql-change-data-capture-cdc.html
+
+Documentation Title:
+MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
+
+Documentation Content:
+Once you're done, you can set up the connection as follows.</p><img/><p>As you can see, I set the replication frequency to <em>manual </em>so I can trigger synchronization on demand. You can change the replication frequency, later on, to sync <strong>as frequently as every 5 minutes</strong>.</p><p>Then, it's time to configure the <a>streams</a>, which in this case are the tables in your database. For now, you only have the <em>cars</em>table. If you expand it, you can see the columns it has.</p><p>Now, you should select a sync mode. If you want to take full advantage of performing MySQL CDC, you should use <em>Incremental | Append</em>mode to only look at the rows that have changed in the source and sync them to the destination. Selecting a <em>Full Refresh</em>mode would sync the whole source table, which is most likely not what you want when using CDC. Learn more about sync modes in <a>our documentation</a>.</p><p>When using an <em>Incremental</em>sync mode, you would generally need to provide a <em>Cursor field</em>, but when using CDC, that's not necessary since the changes in the source are detected via the Debezium connector stream.</p><p>Once you're ready, save the changes. Then, you can run your first sync by clicking on <em>Sync now</em>. You can check your run logs to verify everything is going well. Just wait for the sync to be completed, and that's it!
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/core-concepts/sync-schedules.html
+
+Documentation Title:
+Sync Schedules | Airbyte Documentation
+
+Documentation Content:
+We recommend reading their <a>documentation</a>to understand the required formatting. You can also refer to these examples:</p><table><tr><th>Cron string</th><th>Sync Timing</th></tr><tbody><tr><td>0 0 * * * ?</td><td>Every hour, at 0 minutes past the hour</td></tr><tr><td>0 0 15 * * ?</td><td>At 15:00 every day</td></tr><tr><td>0 0 15 * * MON,TUE</td><td>At 15:00, only on Monday and Tuesday</td></tr><tr><td>0 0 0,2,4,6 * * ?</td><td>At 12:00 AM, 02:00 AM, 04:00 AM and 06:00 AM every day</td></tr><tr><td>0 0 _/15 _ * ?</td><td>At 0 minutes past the hour, every 15 hours</td></tr></tbody></table><p>When setting up the cron expression, you will also be asked to choose a time zone the sync will run in.</p><h2>Manual Syncs<a>​</a></h2><p>When the connection is set to replicate with <code>Manual</code>frequency, the sync will not automatically run.</p><p>It can be triggered by clicking the "Sync Now" button at any time through the UI or be triggered through the API.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Configuring Connections</div></a><a><div>Next</div><div>Namespaces</div></a></nav></div><div><ul><a>Sync Considerations</a><a>Scheduled syncs</a><a>Cron Syncs</a><a>Manual Syncs</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/my-hours.html
+
+Documentation Title:
+My Hours | Airbyte Documentation
+
+Documentation Content:
+(Yes/No)</th><th>Notes</th></tr><tbody><tr><td>Full Refresh Sync</td><td>Yes</td></tr><tr><td>Incremental Sync</td><td>No</td></tr></tbody></table><p>This source syncs data from the <a>My Hours API</a>.</p><h2>Supported Tables<a>​</a></h2><p>This source allows you to synchronize the following data tables:</p><ul><li>Time logs</li><li>Clients</li><li>Projects</li><li>Team members</li><li>Tags</li></ul><h2>Getting started<a>​</a></h2><strong>Requirements</strong><li>In order to use the My Hours API you need to provide the credentials to an admin My Hours account.</li><h3>Performance Considerations (Airbyte Open Source)<a>​</a></h3><p>Depending on the amount of team members and time logs the source provides a property to change the pagination size for the time logs query. Typically a pagination of 30 days is a correct balance between reliability and speed. But if you have a big amount of monthly entries you might want to change this value to a lower value.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/mysql-change-data-capture-cdc.html
+
+Documentation Title:
+MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
+
+Documentation Content:
+Just wait for the sync to be completed, and that's it! You've replicated data from MySQL using CDC.</p></div><h2>Step 6: Verify that the sync worked</h2><div><p>From the root directory of the Airbyte project, go to <em>&lt;span class="text-style-code-dark"&gt;tmp/airbyte_local/json_data/&lt;/span&gt;</em>, and you will find a file named <em>&lt;span class="text-style-code-dark"&gt;_airbyte_raw_cars.jsonl&lt;/span&gt;</em>where the data from the MySQL database was replicated.</p><p>You can check the file's contents in your preferred IDE or run the following command.</p><code>cat _airbyte_raw_cars.jsonl
+</code><p>‍</p><img/><p>‍</p></div><h2>Step 7: Test CDC in action by creating and deleting an object from the database</h2><div><p>Now, let's test the MySQL CDC setup you have configured. To do that, run the following queries to insert and delete a row from the database.</p><code>INSERT INTO cars VALUES(3, 'tesla');
+DELETE FROM cars WHERE NAME = 'tesla';
+</code><p>‍</p><p>Launch a sync and, once it finishes, check the local JSON file to verify that CDC has captured the change. The JSON file should now have two new lines, showing the addition and deletion of the row from the database.</p><p>‍</p><img/><p>CDC allows you to see that a row was deleted, which would be impossible to detect when using the regular <em>Incremental</em>sync mode. The <em>&lt;span class="text-style-code-dark"&gt;_ab_cdc_deleted_at&lt;/span&gt;</em>meta field not being <em>null</em>means id=3 was deleted.</p></div><h2>Wrapping up</h2><div><p>In this tutorial, you have learned what the MySQL binlog is and how Airbyte reads it to implement log-based Change Data Capture (CDC).
+
+
+

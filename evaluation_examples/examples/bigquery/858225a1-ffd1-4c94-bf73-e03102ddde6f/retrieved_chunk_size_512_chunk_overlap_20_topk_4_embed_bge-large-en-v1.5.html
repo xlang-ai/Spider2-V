@@ -1,0 +1,176 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-bq.html
+
+Documentation Title:
+Load and query data with the bq tool  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+'
+</code><p>The output is similar to the following:</p><code>+----------+-------+
+|   name   | count |
++----------+-------+
+| Isabella | 22925 |
+| Sophia   | 20648 |
+| Emma     | 17354 |
+| Olivia   | 17030 |
+| Ava      | 15436 |
++----------+-------+
+</code></li><li><p>Determine the least popular boys' names in the data:</p><code>bq query --use_legacy_sql=false \
+    'SELECT
+      name,
+      count
+    FROM
+      `babynames.names2010`
+    WHERE
+      assigned_sex_at_birth = "M"
+    ORDER BY
+      count ASC
+    LIMIT 5;'
+</code><p>The output is similar to the following:</p><code>+----------+-------+
+|   name   | count |
++----------+-------+
+| Aamarion |     5 |
+| Aarian   |     5 |
+| Aaqib    |     5 |
+| Aaidan   |     5 |
+| Aadhavan |     5 |
++----------+-------+
+</code><p>The minimum count is 5 because the source data omits names with fewer than
+5 occurrences.</p></li></ol></section><section><h2>Clean up</h2><p>To avoid incurring charges to your Google Cloud account for
+          the resources used on this page, delete the Google Cloud project with the
+          resources.
+        </p><h3>Delete the project</h3>If you used the <a>BigQuery sandbox</a>to query
+the public dataset, then billing is not enabled for your project.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>The easiest way to eliminate billing is to delete the project that you
+  created for the tutorial.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-console.html
+
+Documentation Title:
+Load and query data with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+It's provided by the US Social Security Administration.
+
+<p>For more information about the dataset, see the
+<a>Social Security Administration's dataset information page</a>.</p><ol><li><p>Download the US Social Security Administration's dataset by opening the
+following URL in a new browser tab:</p><code>https://www.ssa.gov/OACT/babynames/names.zip
+</code></li><li><p>Extract the file.</p><p>For more information about the dataset schema, see the zip file's
+<code>NationalReadMe.pdf</code>file.</p></li><p>To see what the data looks like, open the <code>yob2014.txt</code>file. This file
+contains comma-separated values for name, assigned sex at birth, and number
+of children with that name. The file has no header row.</p><p>Note the location of the <code>yob2014.txt</code>file so that you can find it later.</p></ol><h2>Load data into a table</h2><p>Next, load the data into a new table.</p><ol><li>In the
+    <b>Explorer</b>panel, click your project name.</li><li>Next to the <b>babynames</b>dataset, click
+    <b>More actions</b><span>more_vert</span>and select <b>Open</b>.</li><li>In the details panel, click
+   <span>add_box</span><b>Create
+   table</b>. <p>Unless otherwise indicated, use the default values for all settings.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-console.html
+
+Documentation Title:
+Load and query data with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+For example, the
+<strong>Preview</strong>tab is not displayed for external tables or views.
+
+
+<h2>Query table data</h2><p>Next, query the table. The process is identical to the previous example,
+except that this time, you're querying your table instead of a public table.</p><ol><li>Click <span>add_box</span><b>Compose new query</b>. A new <b>Editor</b>tab opens.</li><li>In the <b>Editor
+    tab</b>, paste the following query. This query
+    retrieves the top five names for US babies that were assigned male at birth
+    in 2014.  <code>SELECT
+      name,
+      count
+    FROM
+      `babynames.names_2014`
+    WHERE
+      assigned_sex_at_birth = 'M'
+    ORDER BY
+      count DESC
+    LIMIT
+      5;
+    </code></li><li>Click <b>Run</b>. The results are displayed
+  in the <b>Query results</b>section.  <img/></li></ol><p>You have successfully queried a table in a public dataset and then loaded your
+sample data into BigQuery using the Cloud console.</p></section><section><h2>Clean up</h2><p>To avoid incurring charges to your Google Cloud account for
+          the resources used on this page, follow these steps.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/legacy-sql.html
+
+Documentation Title:
+Legacy SQL Functions and Operators  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+'NC', 'VA', 'WV',
+                   'MD', 'DC', 'DE')
+      THEN 'South'
+    WHEN state IN ('ND', 'SD', 'NE', 'KS', 'MN', 'IA',
+                   'MO', 'WI', 'IL', 'IN', 'MI', 'OH')
+      THEN 'Midwest'
+    WHEN state IN ('NY', 'PA', 'NJ', 'CT',
+                   'RI', 'MA', 'VT', 'NH', 'ME')
+      THEN 'Northeast'
+    ELSE 'None'
+  END as region,
+  average_mother_age,
+  average_father_age,
+  state, year
+FROM
+  (SELECT
+     year, state,
+     SUM(mother_age)/COUNT(mother_age) as average_mother_age,
+     SUM(father_age)/COUNT(father_age) as average_father_age
+   FROM
+     [bigquery-public-data:samples.natality]
+   WHERE
+     father_age &lt; 99
+   GROUP BY
+     year, state)
+ORDER BY
+  year
+LIMIT 5;
+</pre><strong>Returns:</strong><pre>+--------+--------------------+--------------------+-------+------+
+| region | average_mother_age | average_father_age | state | year |
++--------+--------------------+--------------------+-------+------+
+| South  | 24.342600163532296 | 27.683769419460344 | AR    | 1969 |
+| West   | 25.185041908446163 | 28.268214055448098 | AK    | 1969 |
+| West   | 24.780776677578217 | 27.831181063905248 | CA    | 1969 |
+| West   | 25.005834769924412 | 27.942978384829598 | AZ    | 1969 |
+| South  | 24.541730952905738 | 27.
+
+
+

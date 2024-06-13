@@ -1,0 +1,92 @@
+{
+    "id": "0aacc0e5-4d64-4afa-9bc6-52157c8597e2",
+    "snapshot": "snowflake",
+    "instruction": "Help me write a python worksheet in snowsight to read the contents of a CSV-formatted file containing student scores data from the students.public.stage named stage and writes the contents to a table called scores. The details of the database and requirements are in the .txt on desktop. You need to create a python file code.py on the desktop and copy your python worksheet code to this file.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This job is to create a new python worksheet on Snowflake and write python code to create a table with data in stage. In the opened Snowsight web page,\n1. Click \"Projects >> Worksheets\" on the left menu panel.\n2. Click \"+\" button on the right;\n3. In the drop-down menu, select \"Python Worksheet\".\n4. In the top of the worksheet, there is a button showing \"No database selected\", click this button.\n5. In the drop-down menu, select \"STUDENTS\" for the database, \"PUBLIC\" for the schema, then click anywhere to turn off the menu.\n6. Copy the code below to the worksheet.\n```\nimport snowflake.snowpark as snowpark\nfrom snowflake.snowpark.types import *\n\nschema_for_file = StructType([\n    StructField(\"id\", IntegerType()),\n    StructField(\"first_name\", StringType()),\n    StructField(\"last_name\", StringType()), \n    StructField(\"email\", StringType()),\n    StructField(\"absence_days\", IntegerType()),\n    StructField(\"weekly_self_study_hours\", IntegerType()),\n    StructField(\"math_score\", IntegerType()),\n    StructField(\"history_score\", IntegerType()),\n    StructField(\"physics_score\", IntegerType()),\n    StructField(\"chemistry_score\", IntegerType())\n])\n\nfileLocation = \"@STUDENTS.PUBLIC.stage/data.csv\"\noutputTableName = \"SCORES\"\n\ndef main(session: snowpark.Session):\n  df_reader = session.read.schema(schema_for_file)\n  df = df_reader.csv(fileLocation)\n  df.write.mode(\"overwrite\").save_as_table(outputTableName)\n\n  return outputTableName + \" table successfully written from stage\"\n```\n7. Click the \"Run\" button on the right-top of the worksheet.\n8. Open Terminal on your virtual machine.\n9. Run the following commands.\n```\ncd Desktop\ncode code.py\n```\n10. Copy the code in your python worksheet to code.py.\n11. Save code.py.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets#label-snowsight-py-worksheet-ex-read-stage"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake",
+        "terminal",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/0aacc0e5-4d64-4afa-9bc6-52157c8597e2/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/0aacc0e5-4d64-4afa-9bc6-52157c8597e2/details.txt",
+                "dest": "/home/user/Desktop/details.txt"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": [
+            "compare_csv",
+            "check_file_existence"
+        ],
+        "result": [
+            {
+                "type": "snowflake_table_to_csv",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "database": "STUDENTS",
+                "schema": "PUBLIC",
+                "table": "scores",
+                "include_header": false,
+                "dest": "data.csv"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/Desktop/code.py",
+                "dest": "code.py"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/snowflake/0aacc0e5-4d64-4afa-9bc6-52157c8597e2/data_gold.csv",
+                "dest": "data_gold.csv"
+            },
+            {}
+        ]
+    },
+    "counterpart": "fcf1d05c-2028-4d9b-b1a8-d81fe11fd0c8"
+}

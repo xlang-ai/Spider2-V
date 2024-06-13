@@ -1,0 +1,86 @@
+{
+    "id": "ba429e57-c156-45f8-bfa8-90efc1810286",
+    "snapshot": "excel",
+    "instruction": "I want to work out the maturity date for all the loans. Please do it for me in a new column with header \"Maturity Date\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To calculate the due date in this excel:\n1. Click cell C1;\n2. Type in text \"Maturity Date\" and press Enter;\n3. Click cell C2;\n4. Type in \"=A2+B2\" and press ENTER;\n5. Click the bottom right corner of cell C2 (you should see a cross symbol);\n6. Hold the mouse and drag it to cell C10, then release the mouse;\n7. Save the result via Ctrl+S.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@113"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/ba429e57-c156-45f8-bfa8-90efc1810286/MaturityDate.xlsx",
+                "dest": "/home/user/MaturityDate.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/MaturityDate.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 7,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "MaturityDate.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/ba429e57-c156-45f8-bfa8-90efc1810286/1_MaturityDate_gt1.xlsx",
+            "dest": "1_MaturityDate_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/MaturityDate.xlsx",
+            "dest": "MaturityDate.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "4172ea6e-6b77-4edb-a9cc-c0014bd1603b"
+}

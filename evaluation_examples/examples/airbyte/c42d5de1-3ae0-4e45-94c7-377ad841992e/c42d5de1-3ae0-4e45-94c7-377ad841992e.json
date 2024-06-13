@@ -1,0 +1,96 @@
+{
+    "id": "c42d5de1-3ae0-4e45-94c7-377ad841992e",
+    "snapshot": "airbyte",
+    "instruction": "I hope to synchronize data regularly from a MySQL database to a local json file \"/json_data\". Since the database is frequently updated, please set the schedule to every 12 hours. By the way, to reduce streaming traffic, only transfer the minimal data changes each time. The detailed configuration is provided in the opened file on desktop. Could you help me finish this task?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this data transfer task, we want to transfer data from a MySQL database to a local json file. We can follow the steps below:\n1. Go to the Airbyte UI page, and click \"Create your first connection\";\n2. In the search bar, type in \"MySQL\", and you should see one certified source connector;\n3. Click this source item, and the new pop-up window will ask you to fill in the concrete connection information;\n4. According to the opened config.json file, we need to fill in the form with key-values below.\nhost: localhost\nport: 3306\nuser: alice\npassword: xbCad9dg\ndatabase: CARS\n5. Leave the other fields unchanged, and scroll down to the bottom;\n6. Click the button \"Set up source\", it will cost some time for Airbyte to check the connection;\n7. Next, we need to configure the destination. In the search box, type in \"local json\";\n8. Select and click the filtered item \"Local JSON\";\n9. Type in value \"/json_data\" for the field \"destination_path\";\n10. Click the button \"Set up destination\" and wait for the system response;\n11. Now, we come to the configuration page for the connection. Firstly, replace the value in \"Replication frequency\" from \"Every 24 hours\" to a shorter period \"Every 12 hours\", such that the connection can handle more frequent data changes;\n12. Besides, scroll down to the bottom of the web page, and pinpoint the data stream called \"cars_info\";\n13. In the selector called \"Sync mode\", select a value \"Incremental | Append\" such that only the data changes will be transferred. This incremental mode will greatly reduce the total volume of transferred data;\n14. Eventually, click the button \"Set up connection\" to finish the entire task.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://airbyte.com/tutorials/mysql-change-data-capture-cdc"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "mysql"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 14,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/c42d5de1-3ae0-4e45-94c7-377ad841992e/mysql_init.sql",
+                "dest": "/home/user/mysql_init.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/c42d5de1-3ae0-4e45-94c7-377ad841992e/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/c42d5de1-3ae0-4e45-94c7-377ad841992e/config.json",
+                "dest": "/home/user/Desktop/config.json"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/config.json"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/c42d5de1-3ae0-4e45-94c7-377ad841992e/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "65e4b98e-a51f-4dd4-a75a-d292f4ed4afc"
+}

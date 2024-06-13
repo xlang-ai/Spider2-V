@@ -1,0 +1,88 @@
+{
+    "id": "39eec0cf-35bb-4d2a-bf1f-02236de04b1c",
+    "snapshot": "bigquery",
+    "instruction": "The customer_orders dataset is not used anymore. Help me delete it.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this tutorial, we will delete an unused dataset `customer_orders` on BigQuery.\n1. Firstly, click the toggle node \"▼\" under the \"Explorer\" panel, which will show all resources in the current project.\n2. Find the entry with name `customer_orders` and click the icon on the right of this row with 3 vertically aligned dots;\n3. In the pop-up window, select the row \"Delete\" and click it.\n4. There will be a dialogue box. In the input field, type in text \"delete\" to confirm our choice.\n5. Finally, click the button \"DELETE\". This will take a few seconds to work.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "customer_orders",
+                        "table_id": "orders",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/39eec0cf-35bb-4d2a-bf1f-02236de04b1c/orders.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "is_not_in_list",
+        "result": {
+            "type": "bigquery_datasets",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "exclude": [
+                    "customer_orders"
+                ]
+            }
+        }
+    },
+    "counterpart": "950f4d46-c41c-49d0-b120-33ba722d82fd"
+}

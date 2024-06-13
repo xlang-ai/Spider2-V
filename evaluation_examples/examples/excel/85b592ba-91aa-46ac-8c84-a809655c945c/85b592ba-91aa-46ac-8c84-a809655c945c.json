@@ -1,0 +1,100 @@
+{
+    "id": "85b592ba-91aa-46ac-8c84-a809655c945c",
+    "snapshot": "excel",
+    "instruction": "Calculate the total revenue for each month as a pivot table in a new sheet and draw a bar chart for the results.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to create a pivot table and a bar chart.\n1. Select all columns from column A to G.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Month\" into \"Raw Fields\", and drag \"Revenue\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Bar chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@61"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/85b592ba-91aa-46ac-8c84-a809655c945c/EntireSummerSales.xlsx",
+                "dest": "/home/user/EntireSummerSales.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/EntireSummerSales.xlsx"
+            }
+        }
+    ],
+    "action_number": 8,
+    "related_apps": [
+        "excel"
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "EntireSummerSales.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/85b592ba-91aa-46ac-8c84-a809655c945c/12_EntireSummerSales_gt1.xlsx",
+            "dest": "12_EntireSummerSales_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/EntireSummerSales.xlsx",
+            "dest": "EntireSummerSales.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "chart",
+                    "sheet_idx0": "RI1",
+                    "sheet_idx1": "EI1",
+                    "chart_props": [
+                        "type"
+                    ]
+                },
+                {
+                    "type": "pivot_table",
+                    "sheet_idx0": "RI1",
+                    "sheet_idx1": "EI1",
+                    "pivot_props": [
+                        "col_fields",
+                        "filter",
+                        "row_fields",
+                        "data_fields"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "fe29cdf3-d317-47b3-a657-d61f97f00b88"
+}

@@ -1,0 +1,7 @@
+In this task, we want to change the sync mode of the existing connection from "full_refresh | Overwrite" to "full_refresh | Append": 
+1. Switch to the browser window;
+2. In the opened connection page of Airbyte, click the link of the existing connection from Postgres to Postgres on the right;
+3. Click the "Replication" button which is the third button in the menu on the top of the window.
+4. After that, in the connection configuration page, locate the "Sync Mode" column in the "activate the streams you want to sync" table, and change the "full_refresh | Overwrite" choice to "full_refresh | Append" for all streams.
+5. Click the "Save changes" button in the bottom right corner to complete the setting changes.
+6. On the pop-up window, click the "Save connection" button.

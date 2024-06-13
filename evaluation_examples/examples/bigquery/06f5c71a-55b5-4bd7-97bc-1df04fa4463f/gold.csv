@@ -1,0 +1,4 @@
+1,John,Doe,1968-01-22,"[{'status': 'current', 'address': '123 First Avenue', 'city': 'Seattle', 'state': 'WA', 'zip': '11111', 'numberOfYears': '1'}
+ {'status': 'previous', 'address': '456 Main Street', 'city': 'Portland', 'state': 'OR', 'zip': '22222', 'numberOfYears': '5'}]"
+2,Jane,Doe,1980-10-16,"[{'status': 'current', 'address': '789 Any Avenue', 'city': 'New York', 'state': 'NY', 'zip': '33333', 'numberOfYears': '2'}
+ {'status': 'previous', 'address': '321 Main Street', 'city': 'Hoboken', 'state': 'NJ', 'zip': '44444', 'numberOfYears': '3'}]"

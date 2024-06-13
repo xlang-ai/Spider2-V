@@ -1,0 +1,51 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/deployment/dagster-daemon.html
+
+Documentation Title:
+Dagster daemon | Dagster
+
+Documentation Content:
+</p><h2>Starting the daemon<span>#</span></h2><ul><a>Running locally</a><a>Deploying the daemon</a></ul><h3>Running locally<span>#</span></h3><div><div><button>Running the daemon and webserver</button><button>Running only the daemon</button></div><div><p>The easiest way to run the Dagster daemon locally is to run the <code>dagster dev</code>command:</p><code>dagster dev
+</code><p>This command launches both the <a>Dagster webserver/UI</a>and the Dagster daemon, allowing you to start a full local deployment of Dagster from the command line. Refer to the <a>Running Dagster locally guide</a>for more information about <code>dagster dev</code>.</p></div></div><h3>Deploying the daemon<span>#</span></h3><p>For information on deploying the daemon to environments like Docker or Kubernetes, refer to the <a>deployment guides</a>.</p><h2>Available daemons<span>#</span></h2><p>The <code>dagster-daemon</code>process reads from your <a>Dagster instance</a>file to determine which daemons should be included.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/webserver/ui.html
+
+Documentation Title:
+Dagster UI | Dagster
+
+Documentation Content:
+jobs, schedules), launch runs, view launched runs, and view assets produced by those runs.</p><h2>Launching the UI<span>#</span></h2><p>The easiest way to launch the UI from the command line during local development is to run:</p><code>dagster dev
+</code><p>This command launches both the Dagster webserver (which serves the UI) and the <a>Dagster daemon</a>, allowing you to start a full local deployment of Dagster from the command line.</p><p>The command will print out the URL you can access the UI from in the browser, usually on port 3000.</p><p>When invoked, the UI will fetch definitions - such as assets, jobs, schedules, sensors, and resources - from a <code>Definitions</code>object in a Python module or package or the code locations configured in an open source deployment's <a>workspace files</a>. Refer to the <a>Code location documentation</a>for more info.</p><p>You can also launch the webserver by itself from the command line by running:</p><code>dagster-webserver
+</code><p>Note that several Dagster features, like schedules and sensors, require the Dagster daemon to be running in order to function.</p><h2>Overview<span>#</span></h2><ul><p><strong>Description</strong>: This page, also known as the "factory floor", provides a high-level look at the activity in your Dagster deployment, across all code locations.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/running-dagster-locally.html
+
+Documentation Title:
+Running Dagster locally | Dagster Docs
+
+Documentation Content:
+</p><h2>Understanding the dagster dev command<span>#</span></h2><p>The <code>dagster dev</code>command launches <a>the Dagster webserver/UI</a>and the <a>Dagster daemon</a>, allowing you to start a full deployment of Dagster from the command line.</p><p>This command should be run in a Python environment where the <code>dagster</code>and <code>dagster-webserver</code>packages are installed. <strong>Once started, the process should be kept running.</strong></p><h2>Locating your code<span>#</span></h2><p>Before you can start developing, you need to tell Dagster how to find the Python code containing your assets and jobs. There are a few ways to do this, which are outlined in the tabs below.</p><p><strong>Note</strong>: If using an example Dagster project, or if you used the <a><code>dagster</code>CLI to create a project</a>, you can run the <code>dagster dev</code>command in the same folder as the project to load the project code.</p><div><div><button>From a file</button><button>From a module</button><button>Without command line arguments</button></div><div><p>Dagster can load a file directly as a code location.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/community/contributing.html
+
+Documentation Title:
+Contributing | Dagster
+
+Documentation Content:
+Note that the first time you run this, it will take several minutes because a new virtualenv will be constructed.</li></ul></li><li><strong>Line Width</strong>: We use a line width of 100.</li><li><strong>IDE</strong>: We recommend setting up your IDE to format and check with ruff on save, but you can always run <code>make ruff</code>in the root Dagster directory before submitting a pull request. If you're also using VS Code, you can see what we're using for our <code>settings.json</code><a>here</a>.</li><li><strong>Docker</strong>: Some tests require <a>Docker Desktop</a>to be able to run them locally.</li></ul><h2>Developing the Dagster webserver/UI<span>#</span></h2><p>For development, run an instance of the webserver providing GraphQL service on a different port than the webapp, with any pipeline. For example:</p><code><span>cd</span>dagster/examples/docs_snippets/docs_snippets/intro_tutorial/basics/connecting_ops/
+dagster-webserver -p <span>3333</span>-f complex_job.py
+</code><p>Keep this running. Then, in another terminal, run the local development (autoreloading, etc.) version of the webapp:</p><code><span>cd</span>dagster/js_modules/dagster-ui
+<span>make</span>dev_webapp
+</code><p>During development, you might find these commands useful.
+
+
+

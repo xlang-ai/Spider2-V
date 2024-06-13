@@ -1,0 +1,8 @@
+We want to order 10 "Development Laptop (PC)" in the hardware store. To do this:
+1. Click the "Hardware" panel and wait for page loading.
+2. In the search bar on the top-right (with text "Search catalog"), click it and type in "Development Laptop (PC)".
+3. Press Enter to filter the items. We will see the desired item panel. Click it.
+4. Let's fill the detailed configuration. For "What size solid state drive do you want?", click the radio box starting with value "250".
+5. For "Please specify an operating system", select "Ubuntu".
+6. Come to the right panel, click and choose the "Quantity" with value "10".
+7. Click the button "Order Now". Wait a few seconds, the request has been made.

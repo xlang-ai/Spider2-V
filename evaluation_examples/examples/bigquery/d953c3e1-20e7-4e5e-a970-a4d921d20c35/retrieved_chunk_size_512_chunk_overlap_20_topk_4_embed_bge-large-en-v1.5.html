@@ -1,0 +1,149 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/materialized-views-create.html
+
+Documentation Title:
+Create materialized views  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Add a date range filter in
+the materialized view that covers expected date ranges in the query:</p><pre>CREATE MATERIALIZED VIEW ...
+  ...
+  WHERE date &gt; '2019-01-01'
+  GROUP BY date
+</pre><h3>Joins</h3><p>The following recommendations apply to materialized views with JOINs.</p><h4>Put the most frequently changing table first</h4><p>Ensure that the largest or most frequently changing table is the first/leftmost
+table referenced in the view query. Materialized views with joins support
+incremental queries and refresh when the first or left-most table in the query
+is appended, but changes to other tables fully invalidate the view cache. In
+star or snowflake schemas the first or leftmost table should generally be the
+fact table.</p><h4>Avoid joining on clustering keys</h4><p>Materialized views with joins work best in cases where the data is heavily
+aggregated or the original join query is expensive. For selective queries,
+BigQuery is often already able to perform the join efficiently
+and no materialized view is needed. For example consider the following
+materialized view definitions.</p><pre>CREATE MATERIALIZED VIEW dataset.mv
+  CLUSTER BY s_market_id
+AS (
+  SELECT
+    s_market_id,
+    s_country,
+    SUM(ss_net_paid) AS sum_sales,
+    COUNT(*) AS cnt_sales
+  FROM dataset.store_sales
+  INNER JOIN dataset.store
+    ON ss_store_sk = s_store_sk
+  GROUP BY s_market_id, s_country
+);
+</pre><p>Suppose <code>store_sales</code>is clustered on <code>ss_store_sk</code>and you often run queries
+like the following:</p><pre>SELECT
+  SUM(ss_net_paid)
+FROM dataset.store_sales
+INNER JOIN dataset.store
+ON ss_store_sk = s_store_sk
+WHERE s_country = 'Germany';
+</pre><p>The materialized view might not be as efficient as the original query.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/data-canvas.html
+
+Documentation Title:
+Analyze with data canvas  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For this example, we are going to
+select the <code>bigquery-public-data.usa_names.usa_1910_current</code>table.</p><p>Click <strong>Query</strong>to query the data. Enter a prompt to query the data.</p><strong>Potential result</strong><p>BigQuery data canvas generates the following query:</p><pre>SELECT
+  state,
+  gender,
+  year,
+  name,
+  number
+FROM
+  `bigquery-public-data.usa_names.usa_1910_current`
+</pre><p>BigQuery data canvas generates the results of the query. We are going to ask an
+additional query to filter this data. Click <strong>Query these results</strong>.</p><strong>Prompt 2</strong><pre>Get me the top 10 most popular names in 1980</pre><strong>Potential result</strong><p>BigQuery data canvas generates the following query:</p><pre>SELECT
+  name,
+  SUM(number) AS total_count
+FROM
+  `bigquery-public-data`.usa_names.usa_1910_current
+WHERE
+  year = 1980
+GROUP BY
+  name
+ORDER BY
+  total_count DESC
+LIMIT
+  10;
+</pre><p>After running the query, we get a table with the ten most common names of
+children born in 1980.</p><p>For this example, we are going to visualize these results. Click <strong>Visualize</strong>.
+BigQuery data canvas suggests several visualization options, including bar chart, pie
+chart, line graph, and custom visualization. Click <strong>Create bar chart</strong>.</p><p>BigQuery data canvas creates a bar chart similar to the following:</p><img/><p>Along with providing a chart, BigQuery data canvas summarizes some of the key details
+of the data backing the visualization.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/standard-sql/window-function-calls.html
+
+Documentation Title:
+Window function calls  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+The window frame analyzes up to three
+rows at a time. Take a close look at the <code>most_popular</code>column for vegetables.
+Instead of getting the most popular item in a specific category, it gets the
+most popular item in a specific range in that category.</p><ul><li>fruit
+<ul><li>(<mark>banana</mark>, <strong>apple</strong>) = apple is most popular</li><li>(<strong>banana</strong>, <mark>apple</mark>) = apple is most popular</li></ul></li><li>vegetable
+<ul><li>(<mark>leek</mark>, <strong>cabbage</strong>, lettuce, kale) = cabbage is most popular</li><li>(<strong>leek</strong>, <mark>cabbage</mark>, <strong>lettuce</strong>, kale) = lettuce is most popular</li><li>(leek, <strong>cabbage</strong>, <mark>lettuce</mark>, <strong>kale</strong>) = kale is most popular</li><li>(leek, cabbage, <strong>lettuce</strong>, <mark>kale</mark>) = kale is most popular</li></ul></li></ul><code>SELECT item, purchases, category, LAST_VALUE(item)
+  OVER (
+    PARTITION BY category
+    ORDER BY purchases
+    ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+  ) AS most_popular
+FROM Produce
+
+/*----------------------------------------------------*
+ | item      | purchases  | category   | most_popular |
+ +----------------------------------------------------+
+ | banana    | 2          | fruit      | apple        |
+ | apple     | 8          | fruit      | apple        |
+ | leek      | 2          | vegetable  | cabbage      |
+ | cabbage   | 9          | vegetable  | lettuce      |
+ | lettuce   | 10         | vegetable  | kale         |
+ | kale      | 23         | vegetable  | kale         |
+ *----------------------------------------------------*/
+</code><p>This example returns the same results as the preceding example, but it includes
+a named window called <code>item_window</code>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/legacy-nested-repeated.html
+
+Documentation Title:
+Querying nested and repeated fields in legacy SQL  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+place) WITHIN RECORD AS numberOfPlacesLived,
+  citiesLived.place,
+  COUNT(citiesLived.yearsLived) WITHIN citiesLived AS numberOfTimesInEachCity,
+FROM [dataset.tableId];</pre><pre>+---------------+---------------------+-------------------+-------------------------+
+|   fullName    | numberOfPlacesLived | citiesLived_place | numberOfTimesInEachCity |
++---------------+---------------------+-------------------+-------------------------+
+| John Doe      |                   2 | Seattle           |                       1 |
+| John Doe      |                   2 | Stockholm         |                       1 |
+| Mike Jones    |                   4 | Los Angeles       |                       4 |
+| Mike Jones    |                   4 | Washington DC     |                       4 |
+| Mike Jones    |                   4 | Portland          |                       4 |
+| Mike Jones    |                   4 | Austin            |                       4 |
+| Anna Karenina |                   3 | Stockholm         |                       4 |
+| Anna Karenina |                   3 | Moscow            |                       3 |
+| Anna Karenina |                   3 | Austin            |                       2 |
++---------------+---------------------+-------------------+-------------------------+</pre><p>This query does the following:</p><ul><li>Performs a <code>WITHIN RECORD</code>on <code>citiesLived.place</code>and counts the number of
+  places each person has lived in</li><li>Performs a <code>WITHIN</code>on <code>citiesLived.yearsLived</code>and counts the number of
+  times each person has lived in each city (counting just across <code>citiesLived</code>).</li></ul><p>Using scoped aggregation over nested and repeated fields is one of BigQuery's most
+  powerful features, which can often eliminate expensive joins in queries.</p></div><button>Send feedback
+  
+  </button></article><devsite-content-footer><p>Except as otherwise noted, the content of this page is licensed under the <a>Creative Commons Attribution 4.0 License</a>, and code samples are licensed under the <a>Apache 2.
+
+
+

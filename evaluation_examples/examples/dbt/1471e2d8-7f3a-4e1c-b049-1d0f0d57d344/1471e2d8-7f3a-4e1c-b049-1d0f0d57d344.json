@@ -30,7 +30,8 @@
     ],
     "tags": [
         "cli",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_local_database",
@@ -54,5 +55,6 @@
             ],
             "schema_name": "email_address"
         }
-    }
+    },
+    "counterpart": "d325c7f4-8527-438c-80e0-e8111983fef2"
 }

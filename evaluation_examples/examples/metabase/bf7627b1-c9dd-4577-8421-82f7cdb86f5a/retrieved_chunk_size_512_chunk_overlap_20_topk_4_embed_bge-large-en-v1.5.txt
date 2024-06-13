@@ -1,0 +1,365 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/databases/connecting.txt
+
+Documentation Title:
+Adding and managing databases
+
+Documentation Content:
+See
+Database roles, users, and privileges
+.
+Syncing and scanning databases
+See
+Syncing and scanning
+.
+Deleting databases
+Caution: Deleting a database is irreversible! All saved questions and dashboard cards based on the database will be deleted as well!
+Go to
+Admin settings
+>
+Databases
+> your database and click
+Remove this database
+.
+Restoring the Sample Database
+If you’ve deleted the Metabase
+Sample Database
+, go to
+Admin settings
+>
+Databases
+and click
+Bring the Sample Database back
+.
+Troubleshooting
+Troubleshooting database connections
+Troubleshooting syncs, scans, and fingerprinting
+Search or ask the
+Metabase community
+.
+Search for
+known bugs or limitations
+.
+Further reading
+Metadata editing
+.
+Setting data access permissions
+.
+Metabase at scale
+.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/exploration-and-organization/history.txt
+
+Documentation Title:
+History
+
+Documentation Content:
+Deleting multiple items permanently
+You can delete multiple items at once from the same collection:
+Go to the collection.
+Hover over the icon beside the name of the item and click the checkbox that appears.
+When you’re done selecting your items, click
+Delete
+at the bottom of the page.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+Privacy Policy
+Terms of Service
+License
+Brand Guidelines
+Support
+Documentation
+Help
+Professional Services
+Onboarding
+New
+Status
+Github
+Resources
+Case Studies
+Blog
+Learn
+Community Stories
+Data and Business Intelligence Glossary
+Partners
+The Startup's Guide to Financial Modeling
+The 2023 Metabase Community Data Stack Report
+More Resources
+Example Dashboards
+SQL Best Practices
+Choosing a Data Warehouse
+How to Create Pivot Tables
+Types of SQL Joins
+SQL Cheat Sheet
+Data Bias Examples
+Modern Data Stack
+Dashboard for Marketing Teams
+Dashboards for Sales Teams
+Dashboards for Engineering Teams
+© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/serialization.txt
+
+Documentation Title:
+Serialization: preloading dashboards in a new Metabase instance
+
+Documentation Content:
+The user ID is
+admin@metabase.local
+and the password is
+Metapass123
+.
+You should see a fresh instance of Metabase.
+Once you log in,
+activate your license key
+.
+Step 3 - Create dashboards and collections in the source Metabase
+We’ll need some application data to export, so let’s create some dashboards using the
+Sample Database
+included with Metabase. Or rather, let’s let Metabase create some dashboards for us!
+In the
+Try These X-Rays Based On Your Data
+section, click on the card with a
+yellow lightning bolt
+that says something like
+A look at Products
+. Metabase will generate a set of questions for you that you can save as a dashboard.
+Click on the
+Save this
+button, and Metabase will save the dashboard and its questions in a
+collection
+titled something like
+A look at Products
+.
+This collection will be saved to a parent collection titled
+Automatically Generated Dashboards
+. You can find this collection by clicking on the Metabase logo in the upper left of the navigation bar to return to the home screen. From the home page, in the
+Our Analytics
+section, click on the
+Automatically Generated Dashboards
+section. From there you should see the collection
+A look at your Products table
+.
+Next, create a new collection. You can call it whatever you like; we’ll use the exciting name
+Default collection
+, and save it to the
+Our Analytics
+collection.
+Then we’ll move the
+A look at Products
+collection to our newly created
+Default collection
+. On the
+A look at Products
+collection page, click on the ellipses
+…
+and select
+Move
+.
+Step 4 - Export from source Metabase
+Here’s where we actually start using Metabase’s
+serialization
+feature.
+With our
+metabase-source
+instance set up with some questions, now it’s time to export this data and import it into our
+metabase-target
+. That way we don’t have to manually recreate our Default Collection in the target Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/data-browser.txt
+
+Documentation Title:
+Exploring data with Metabase's data browser
+
+Documentation Content:
+The Databases page
+The
+Databases
+page in the
+Admin Panel
+displays connection information about your databases:
+The database type
+How Metabase is connected to your Metabase instance
+Sync settings
+Metabase does a lightweight sync every hour to keep your in-app data current, but you can use this page to manually
+sync your database
+, manage sync frequency, and with some databases, determine which schemas to sync.
+Editing metadata in Table Metadata
+Picking clear names and adding descriptions will help people find the data they’re looking for, and provide important context for analysis. Metabase can automatically try to create human-readable names of your tables and columns for you, but if Metabase misses the mark, you can always disable the
+Friendly Table and Field Names
+feature.
+Admins can make changes to your metadata in Metabase, by clicking on the
+gear
+icon in the upper right and going to
+Admin settings
+>
+Table metadata
+. The Table metadata tab displays options to
+edit metadata
+for the database, tables, and columns. For example, you can edit a column’s name, visibility, type, and description. You can also
+remap foreign keys
+to give human readable names to foreign key columns!
+Some tips for making life easier for people:
+When column names are confusing, you can
+change their names
+or
+add a description
+.
+You can
+hide
+unused columns to make tables easier to digest.
+You can pick your preferred
+filter interface
+from three options (search box, list of values, or plain input box).
+Perhaps the
+most important
+piece of metadata you can change is the
+field type
+. There is a long list of
+field types
+to choose from. Selecting the correct type for a column can connect information across multiple tables, and give context to Metabase so it can choose visualizations appropriate for your data. For example, once you’ve accurately identified latitude and longitude columns in your table, you will be able to use
+map visualizations
+.
+Further reading
+Models
+« Previous
+Next »
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+

@@ -1,0 +1,14 @@
+In this task, we are going to create a new change request and complete it with pre-defined slots.
+1. Firstly, in the ServiceNow web page, locate the "Short description" input box, which appears at the top.
+2. Type in text "Switch Sales over to the new 555 prefix"
+3. Then, we click the large input box "Description" below "Short description", and type in text "Sales has their own private dialing prefix now so they'll            always have an open outside line even if the PBX is full.".
+(Note that, please input exactly the same text above and preserve the blank spaces and trailing period)
+4. Next, we click the input box with field name "Number" under "Description" and replace the original text with "CHG0000002".
+5. For the selection field "Category" on the right of field "Number", we click the input box and select the entry "Telecom" in the drop-down menu.
+6. For the selection field "Risk" under "Category", click and select the entry "High" in the drop-down menu.
+7. For the selection field "Impact" under "Risk", ensure that the value "3 - Low" is selected.
+8. Next, we click the button "Planning" in the block below and scroll down to the bottom of the web page.
+9. For the first field "Justification" in this panel, input text "unbigged didelphoid gigantology unimprovableness fistula"
+10. For the second field "Implementation plan", we input text "unfrocked pedunculus tensive pharmacodynamic immunology"
+11. For the last two fields "Backout plan" and "Test plan" in the panel, we type in text "nonproportional reassurance inchoateness pericementum wandoo" and "strette cupriferous polylinguist unambitious Ganodonta", respectively.
+12. As for other fields, leave them as they are. Finally, we click the "Submit" button at the bottom left of the page to create this Change request. Attention that, after page loading, all filled contents will be flushed without error message. Do not worry. This means that the request has been successfully made.

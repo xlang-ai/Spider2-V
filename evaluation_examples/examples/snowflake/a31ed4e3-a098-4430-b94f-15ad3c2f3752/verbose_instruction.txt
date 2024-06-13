@@ -1,0 +1,38 @@
+This job is to create a new python worksheet on Snowflake and write python code to load data from Amazon S3 bucket and complete specific query task. In the opened Snowsight web page,
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "+" button on the right;
+3. In the drop-down menu, select "Python Worksheet".
+4. Copy the code below to the worksheet.
+```
+import snowflake.snowpark as snowpark
+from snowflake.snowpark.functions import col
+from snowflake.snowpark.types import *
+def main(session: snowpark.Session):
+    session.sql('CREATE OR REPLACE DATABASE tasty_food;').collect()
+    session.sql('CREATE OR REPLACE SCHEMA tasty_food.raw_pos;').collect()
+    session.sql('CREATE OR REPLACE STAGE tasty_food.public.stage url = "s3://sfquickstarts/tastybytes/raw_pos/country/" file_format = (type = csv);').collect()
+    country_schema = StructType([StructField("country_id",IntegerType()),\
+                     StructField("country_name",StringType()),\
+                     StructField("country_code1",StringType()),\
+                     StructField("country_code2",StringType()),\
+                     StructField("postal_code",StringType()),\
+                     StructField("city_name",StringType()),\
+                     StructField("size",IntegerType())])
+    df_stage_read = session.read.schema(country_schema).csv('@tasty_food.public.stage')
+    df_stage_read.write.mode("overwrite").save_as_table("tasty_food.raw_pos.country")
+    df_country_query_result = session.table("tasty_food.raw_pos.country").filter(col('country_name') == 'France')
+    return df_country_query_result
+```
+5. Click the "Run" button on the right-top of the worksheet.
+6. Click the "Download Results" button on the top-right of the result panel.
+7. In the drop-down menu, click "Download as .csv".
+8. In your virtual machine, navigate to the /home/user/Download directory.
+9. Rename the downloaded file to "result.csv".
+10. Open Terminal on your virtual machine.
+11. Run the following commands.
+```
+cd Desktop
+code code.py
+```
+12. Copy the code in your python worksheet to code.py.
+13. Save code.py.

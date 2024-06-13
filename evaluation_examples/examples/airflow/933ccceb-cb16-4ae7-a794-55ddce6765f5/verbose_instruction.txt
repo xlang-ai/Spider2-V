@@ -1,0 +1,71 @@
+I am using Astronomer to deploy Airflow
+To build a connection on Airflow, create testers to test sql data quality and trigger the dag, we can follow the steps:
+1. Click the VS Code editor on the left panel or dock;
+2. According to the opened README.md file, we can extract the basic information about the connection; 
+3. Now, click the Chromium on the left panel to switch to the opened airflow web page;
+4. Click the "Admin" button in the top menu bar of the web page;
+5. Select "Connections" from the drop-down menu;
+6. In the new page, click the blue button "+" below the search bar to create new Connection;
+7. In the window "Add Connection", firstly set the category to "SQLite";
+8. Next, type in values from config.yaml into the corresponding fields in the form:
+   Connection id: sqlite_conn, 
+   Host: '/tmp/sqlite.db'
+9. After filling these fields, click the button "Save" at the bottom of the web page;
+10. Then, we will see a new line with name "sqlite_conn" in the connection panel;
+11. After the Connection build is completed, click the VS Code editor on the left panel or dock; 
+12. According to the opened README.md file, we can extract the instructions on completing the DAG file;
+13. Switch to the DAG file 'sql_data_quality.py' that is opened in VSCode, it defines the details of the dag, create a task "sql_data_quality" to define a sql database and insert several data for data quality check;
+14. With the sql database and given dataset, we'll now define a SQLColumnCheckOperator to check the details of each data by asset. Concretely, we'll first select data with bird_name not equal to Null,
+then we'll check whether "bird name" has no "Null", and the these datas have distinct names, "year of observation" is from year 2018 to 2023 and whether "bird happiness" are valid (min 1 and max 10) accordingly:
+ˋˋˋ
+# ... Keep the original ˋsql_data_qualityˋ codes
+
+column_checks = SQLColumnCheckOperator(
+        task_id="column_checks",
+        conn_id=_CONN_ID,
+        table=_TABLE_NAME,
+        partition_clause="bird_name IS NOT NULL",
+        column_mapping={
+                "bird_name": {
+                "null_check": {"equal_to": 0},
+                "distinct_check": {"geq_to": 5},
+                },
+                "observation_year": {"min":{"geq_to": 2018}, "max": {"less_than": 2024}},
+                "bird_happiness": {"min": {"greater_than": 0}, "max": {"leq_to": 10}},
+        },
+    )
+ˋˋˋ
+15. We will now define  we'll now define a SQLTableCheckOperator to check the details of each data by the table. Concretely, we'll check whether the "average bird happiness" after 2018(excluded) are greater or equal to 8:
+ˋˋˋ
+# ... Keep the original ˋsql_data_qualityˋ codes
+
+table_checks = SQLTableCheckOperator(
+        task_id="table_checks",
+        conn_id=_CONN_ID,
+        table=_TABLE_NAME,
+        checks={
+            "average_happiness_check": {
+                "check_statement": "AVG(bird_happiness) >= 8",
+                "partition_clause": "observation_year >= 2019",
+            },
+        },
+    )
+ˋˋˋ
+16. Save the file content and switch to the opened ‘/home/user/projects/SQL_Check’ terminal.
+17. In the terminal, type in the following command to restart the UI:
+`astro dev restart` 
+18. Click the Chromium on the left pannel
+19. On the Airflow web page, find "sql_data_quality" in the DAG list and click the slider to the left of the name to Unpause dag; 
+20. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+21. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed";
+22. Click sql_data_quality in the Dag column to enter task details page of the dag;
+23. In the dag details page, click the rightmost box in the column_checks task row under the histogram on the left side of the UI to enter the corresponding task instance;
+24. Click logs in the details row on the right to enter the log page;
+25. Click Download above the log content box to download the log; 
+26. Under the histogram on the left side of the UI, click the rightmost box in the table_checks task row to enter the corresponding task instance;
+27. Click logs in the details row on the right to enter the log page;
+28. Click Download above the log content box to download the log;
+29. Switch to the opened ‘/home/user/Downloads’ terminal,  type in the following command to get the file list:
+`ls` 
+30. Then, type in the following command  to rename the log files containing column_checks and table_checks in their file names to column_checks.log and table_checks.log respectively:
+`mv "old_name" "new_name"`

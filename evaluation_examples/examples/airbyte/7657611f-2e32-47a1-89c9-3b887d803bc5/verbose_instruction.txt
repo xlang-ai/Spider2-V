@@ -1,0 +1,7 @@
+In this task, we aim to change the original data transfer scheduler. To finish this task, we need to navigate to the settings page and then change the value of the scheduler. Concretely,
+1) Click the connection row whose name is "Sample Data (Faker) -> Local CSV" in the main panel;
+2) Next, click the "Replication" item on the right of "Status" and "Job History";
+3) We can see a panel with name "Configuration". Click this panel, we will see two rows called "Schedule type" and "Replication frequency";
+4) To set the schedule as 18:00 p.m. every day, firstly we need to change the schedule type. In the drop-down options on the right, select the schedule type "Cron" instead of "Scheduled";
+5) One more thing is to input the value "0 0 18 * * ?" into the cron expression box. After that, you should also find there is one phrase "At 06:00 PM" under the input box;
+6) Finally, click the button called "Save changes" at the bottom right of this web page. The schedule is successfully altered.

@@ -1,0 +1,49 @@
+1. Go to VS Code. Open the file "external.py" from the navigation column bar.
+2. In "external.py", import necessary functions from dagster_pipes:
+```
+import pandas as pd
+from dagster_pipes import PipesContext, open_dagster_pipes # Added
+
+# Keep the other lines
+```
+3. Modify the main function to report asset materialization and asset check:
+```
+def main():
+    orders_df = pd.read_csv("orders_data.csv")
+    total_orders = len(orders_df)
+    # get the Dagster Pipes context
+    context = PipesContext.get()
+    # send structured metadata back to Dagster
+    context.report_asset_materialization(metadata={"total_orders": total_orders})
+    # report data quality check result back to Dagster
+    context.report_asset_check(
+        passed=orders_df[["Item_ID"]].notnull().all().bool(),
+        check_name="no_null_check",
+    )
+```
+4. For the function entrance, wrap the main call with a Dagster Pipes context:
+```
+if __name__ == "__main__":
+    # connect to Dagster Pipes
+    with open_dagster_pipes():
+        main()
+```
+5. After these 3 modifications, save the `external.py` file via hotkey "Ctrl+S".
+6. Switch to the file "assets.py". Modify the "@asset" decorator to include the asset check:
+```
+@asset(
+    check_specs=[AssetCheckSpec(name="no_null_check", asset="subprocess_asset")], # Added
+)
+def subprocess_asset(
+    context: AssetExecutionContext, pipes_subprocess_client: PipesSubprocessClient
+):
+    # Keep the other lines
+```
+7. Remember to save this assets.py file too by pressing "Ctrl+S".
+8. Go to Chromium. Make sure the active tab is the Dagster UI and you can see the "subprocess_asset" in the lineage graph.
+9. Click "Reload definitions" on the top-right corner of the page. Wait for the reload to finish.
+10. Click "Materialize" on the top-right of the graph and wait for the materialization to succeed.
+11. Click on the asset "subprocess_asset" in the middle of the lineage graph.
+12. In the table under "Latest materialization", click the "View logs" button on the right.
+13. In the table, find the event type "ASSET_CHECK_EVALUATION", click the link "no_null_check" in the corresponding info "Check no_null_check succeeded for materialization of subprocess_asset".
+14. Wait for the url redirection, and we finally come to the desired page.

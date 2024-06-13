@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 2,
     "config": [
@@ -33,7 +34,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": [
             "check_include_exclude",
@@ -69,5 +69,6 @@
                 "dest": "pyproject_gold.toml"
             }
         ]
-    }
+    },
+    "counterpart": "a627dc80-0cad-4799-8cd3-543af6c9bdda"
 }

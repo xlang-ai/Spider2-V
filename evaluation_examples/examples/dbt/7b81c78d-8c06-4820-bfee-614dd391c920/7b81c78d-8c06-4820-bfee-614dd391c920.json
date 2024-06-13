@@ -37,7 +37,8 @@
     ],
     "tags": [
         "cli",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_local_database",
@@ -61,5 +62,6 @@
             ],
             "schema_name": "snapshots"
         }
-    }
+    },
+    "counterpart": "2e79b094-6a67-462e-aecc-6f2067a1f611"
 }

@@ -1,0 +1,7 @@
+The data source and destination have been configured, now we want to build one connection. To complete this:
+1. In the Airbyte homepage, click the button "Create your first connection" at the bottom;
+2. Next, we click to select the existing source "Sample Data (Faker)" shown in the middle of the web page;
+3. As for the destination, we can also find one item row with title "Local SQLite". Click it;
+4. In the directed page, we can find that the engine is fetching the data schema. Just wait for some time;
+5. Now, we come to the page for connection configuration. For this moment, it is ok to keep all values by default. Thus, we directly scroll down to the bottom of the page without any modification;
+6. Click the button "Set up connection" at the bottom right. The connection will be successfully set up.

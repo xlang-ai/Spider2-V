@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/learn/debugging-dags.html
+
+Documentation Title:
+Debug DAGs | Astronomer Documentation
+
+Documentation Content:
+See <a>Troubleshooting connections</a>.</li><li>Is the issue with all DAGs, or is it isolated to one DAG?</li><li>Can you collect the relevant logs? For more information on log location and configuration, see the <a>Airflow logging</a>guide.</li><li>Which versions of Airflow and Airflow providers are you using? Make sure that you're using the correct version of the <a>Airflow documentation</a>.</li><li>Can you reproduce the problem in a new local Airflow instance using the <a>Astro CLI</a>?</li></ul><p>Answering these questions will help you narrow down what kind of issue you're dealing with and inform your next steps.</p><div><div>info</div><p>You can debug your DAG code with IDE debugging tools using the <code>dag.test()</code>method. See <a>Debug interactively with dag.test()</a>.</p></div><h2>Airflow is not starting on the Astro CLI<a>​</a></h2><p>The 3 most common ways to run Airflow locally are using the <a>Astro CLI</a>, running a <a>standalone instance</a>, or running <a>Airflow in Docker</a>. This guide focuses on troubleshooting the Astro CLI, which is an open source tool for quickly running Airflow on a local machine.</p><p>The most common issues related to the Astro CLI are:</p><ul><li>The Astro CLI was not correctly installed. Run <code>astro version</code>to confirm that you can successfully run Astro CLI commands. If a newer version is available, consider upgrading.</li><li>The Docker Daemon is not running. Make sure to start Docker Desktop before starting the Astro CLI.</li><li>There are errors caused by custom commands in the Dockerfile, or dependency conflicts with the packages in <code>packages.txt</code>and <code>requirements.txt</code>.</li><li>Airflow components are in a crash-loop because of errors in custom plugins or XCom backends.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-architecture.html
+
+Documentation Title:
+About Astro | Astronomer Documentation
+
+Documentation Content:
+Astronomer recommends that you create a dedicated Git repository for each Astro project. To run a DAG, you add the DAG to your Astro project and deploy your Astro project to Astro.</p><p>See <a>Run your first DAG with the Astro CLI</a>to create your first Astro project.</p><h3>Astro UI<a>​</a></h3><p>The Astro UI, hosted at <code>https://cloud.astronomer.io</code>, is the primary interface for accessing and managing Astro from your web browser. You can use the Astro UI to:</p><ul><li>Manage users, teams, and permissions.</li><li>Create and configure Deployments, including infrastructure resources and compute.</li><li>View all of your organization's Deployments, DAGs, and tasks in a single place.</li><li>Monitor the health of your Airflow environments with a variety of alerts, logs, and analytics interfaces.</li><li>Stay up to date with the latest Astro features.</li><li>Create and edit DAGs in the Astro Cloud IDE.</li></ul><h3>Deployment<a>​</a></h3><p>An Astro <em>Deployment</em>is an Airflow environment hosted on Astro. It encompasses all core Airflow components, including the Airflow webserver, scheduler, and workers, along with additional tools for reliability and observability. It runs in an isolated Kubernetes namespace in an <a>Astro cluster</a>and has a set of attached resources to run your Airflow tasks.</p><p>Compared to an open source Airflow environment, an Astro Deployment is easy to create, delete, and modify through either the Astro UI or with the Astro CLI. You can <a>fine-tune resources and settings</a>directly from the Astro UI, see metrics and analytics for your DAGs, review your deploy history, and more. The infrastructure required to run a Deployment is managed by Astronomer.</p><p>To run DAGs in a Deployment, you must either deploy an Astro project manually from your local machine or configure an automated deploy process using a third-party CI/CD tool with the Astro CLI. Then, you can open the Airflow UI from the Astro UI and view your DAGs.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.html
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+This command is useful for testing full DAGs by creating manual DAG runs from the command line.</li><li><code>airflow tasks test</code>: This command tests one specific task instance without checking for dependencies or recording the outcome in the metadata database.</li></ul><p>With the Astro CLI, you can run all Airflow CLI commands using <code>astro dev run</code>. For example, to run <code>airflow dags test</code>on the DAG <code>my_dag</code>for the execution date of <code>2023-01-29</code>run:</p><span><span>astro dev run dags </span><span>test</span><span>my_dag </span><span>'2023-01-29'</span></span><h3>The Astro CLI<a>​</a></h3><p>The Astro CLI includes a suite of commands to help simplify common testing workflows. See <a>Test your Astro project locally</a>.</p><h3>Test DAGs in a CI/CD pipeline<a>​</a></h3><p>You can use CI/CD tools to test and deploy your Airflow code. By installing the Astro CLI into your CI/CD process, you can test your DAGs before deploying them to a production environment. See <a>set up CI/CD</a>for example implementations.</p><div><div>info</div><p>Astronomer customers can use the Astro GitHub integration, which allows you to automatically deploy code from a GitHUb repository to an Astro deployment, viewing Git metadata in the Astro UI. See <a>Deploy code with the Astro GitHub integration</a>.</p></div><h2>Add test data or files for local testing<a>​</a></h2><p>Use the <code>include</code>folder of your Astro project to store files for testing locally, such as test data or a dbt project file. The files in your <code>include</code>folder are included in your deploys to Astro, but they are not parsed by Airflow.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/astro-architecture.html
+
+Documentation Title:
+About Astro | Astronomer Documentation
+
+Documentation Content:
+Then, you can open the Airflow UI from the Astro UI and view your DAGs. See <a>Run your first DAG</a>to get started with examples of either workflow.</p><h3>Astro Runtime<a>​</a></h3><p><em>Astro Runtime</em>is a <a>debian-based Docker image</a>that bundles Apache Airflow with optimized configurations and add-ons that make your Airflow experience reliable, fast, and scalable. Astronomer releases an Astro Runtime distribution for each version of Apache airflow.</p><p>Every Deployment and Astro project uses Astro Runtime at its core. Astronomer provides <a>extended support and bug fixes</a>to Astro Runtime versions, so that you can keep your DAGs running for longer without disruption.</p><p>See <a>Astro Runtime Architecture and features</a>for a complete feature list.</p><h3>Workspace<a>​</a></h3><p>A <em>Workspace</em>is a collection of Deployments that can be accessed by a specific group of users. You can use a Workspace to group Deployments that share a business use case or environment trait. For example, your data science team might have a dedicated Workspace with two Deployments within it. Workspaces don't require any resources to run and are only an abstraction for grouping Deployments and configuring user access to them. All Deployments must belong to a Workspace.</p><p>You can assign new users <a>Workspace roles</a>that include varying levels of access to your Deployments.</p><h3>Cluster<a>​</a></h3><p>A <em>cluster</em>in Astro is a Kubernetes cluster that hosts the infrastructure required to run your Airflow environments, also known as <a>Deployments</a>in Astro. There are two types of clusters in Astro:</p><ul><p>A <em>standard cluster</em>is a multi-tenant cluster that's pre-configured by Astronomer. It's the default cluster type and the quickest way to get an Airflow environment up and running on Astro. Each Deployment in a standard cluster exists in its own isolated Kubernetes namespace.
+
+
+

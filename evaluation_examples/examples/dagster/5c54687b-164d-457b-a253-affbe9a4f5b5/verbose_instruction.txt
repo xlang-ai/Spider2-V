@@ -1,0 +1,43 @@
+I want to create a partitioned dagster asset to retrieve information of the Astronomy Picture of the Day. Please follow these steps:
+1. Switch to VS Code application.
+2. Click the folder "apod_proj" in the left EXPLORER panel and open the file "assets.py" in that folder.
+3. Define an asset in "asset.py" with the following code:
+```
+import os
+import urllib.request
+import json
+
+dir_name = "data"
+if not os.path.exists(dir_name):
+    os.makedirs(dir_name)
+
+from dagster import AssetExecutionContext, DailyPartitionsDefinition, asset
+
+@asset(partitions_def=DailyPartitionsDefinition(start_date="2024-04-01"))
+def apod_asset(context: AssetExecutionContext) -> None:
+    partition_date_str = context.partition_key
+
+    url = f"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date={partition_date_str}"
+    target_location = f"data/{partition_date_str}.json"
+
+    urllib.request.urlretrieve(url, target_location)
+
+    with open(target_location) as f:
+        data = json.load(f)
+
+    with open(f"data/apod_url_{partition_date_str}.txt", "w") as f:
+        f.write(data["hdurl"])
+```
+4. Save the asset file by pressing Ctrl+S.
+5. Go to Chromium and choose the tab with the Dagster UI.
+6. Click "Reload all" on the right part of the page.
+7. Click the link "apod_proj" in the table to open the project.
+8. If the asset `apod_asset` is not visible, click the row with text "default" to expand the asset list in the assets tab.
+9. Click "apod_asset" under the "default" table.
+10. You can now see the asset page of "apod_asset". Click "Materialize..." button at the top-right.
+11. Under "Partition selection" in the pop-up window, type in text "[2024-04-10...2024-04-13]" to overwrite the input box below.
+12. Click button "Launch backfill" at the bottom-right of the pop-up window to launch the runs.
+13. Navigate to Overview page via clicking button "Overview" on the top menu bar.
+14. Then, click button "Backfills" to explore the backfill table.
+15. Wait until the most recent entry in the table changes its "Backfill status" from "In progress" to "Completed".
+16. If there are any run errors, navigate to the "Deployment" page via clicking the button "Deployment" on the top menu bar, and then repeat steps 6-15 to launch the runs again.

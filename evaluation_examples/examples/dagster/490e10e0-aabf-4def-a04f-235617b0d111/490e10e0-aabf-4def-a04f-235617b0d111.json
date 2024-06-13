@@ -1,0 +1,68 @@
+{
+    "id": "490e10e0-aabf-4def-a04f-235617b0d111",
+    "snapshot": "dagster",
+    "instruction": "I heard dagster can start a local server. Could you launch the web page on port 8004?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I heard dagster can start a local server. Could you launch the web page on port 8004? To do this, please\n1. open the terminal and make sure you are in the folder \"~/dagster-proj\".\n2. Enter the command \"dagster dev -p 8004\".\n3. Wait until we see the output message \"Serving dagster-webserver on http://127.0.0.1:8004\" on the terminal.\n4. Switch to chrome/chromium browser.\n5. Type \"http://127.0.0.1:8004\" in the url box and press ENTER.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/concepts/webserver/ui"
+    ],
+    "related_apps": [
+        "dagster",
+        "terminal",
+        "chromium"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/490e10e0-aabf-4def-a04f-235617b0d111/dagster-proj.zip",
+                "dest": "/home/user/dagster-proj.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/490e10e0-aabf-4def-a04f-235617b0d111/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/490e10e0-aabf-4def-a04f-235617b0d111/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "0dff0011-afff-4ab8-ae07-83f5ab95d215"
+}

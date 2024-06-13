@@ -1,0 +1,72 @@
+{
+    "id": "7a485891-146b-481a-9dfc-42b2c8596b7a",
+    "snapshot": "superset",
+    "instruction": "Help me upload the csv in 'home/user/video_game_sales.csv to the database 'Games' with table name 'games', then create the chart to see max global sales of each genre and save it to dashboard 'MyDashborad' with chart name 'games'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To upload the csv in 'home/user/video_game_sales.csv to the database 'Games' with table name 'games', then create the chart to see max global sales of each genre and save it to dashboard 'MyDashborad' with chart name 'games', we can follow these steps:\n1. In the opened web page, click the add icon in the top right corner;\n2. Select \"Data\" menu;\n3. Click the \"Upload CSV to database\" in the extended menu;\n4. In the pop-up interface \"CSV to Database configuration\", firstly click the \"Choose File\";\n5. Click home menu in the pop-up windows;\n6. Find the file 'video_game_sales.csv' and click it;\n7. Click the \"select\" button and return to the \"CSV to Database configuration\" interface;\n8. Type \"games\" in the Table Name input box;\n9. Then, click \"Save\", and we will see a dataset named \"games\" in the main panel,\n10. Click 'games' name in the list;\n11. In the pop-up window, drag the \"genre\" tile from left list to the \"DIMENSIONS\" box;\n12. Drag the \"global_sales\" tile from left list to the \"METRICS\" box;\n13. In the small pop-up window, Click \"AGGREGATE\" box;\n14. Then select \"MAX\" in the extended list;\n15. Click \"CREATE CHART\" in the buttom and you can see a chart in the right side;\n16. Click \"SAVE\" in the top right corner;\n17. Select \"Save as...\";\n18. Type chart name as \"games\";\n19. Type \"MyDashboard\" in \"ADD TO DASHBOARD\" box;\n20. Click \"MyDashboard\" in the extended pop-up windows;\n21. Click \"Save&GO TO DASHBOARD\" and you can see the created dashboard in the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#dashboard-basics"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 21,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/7a485891-146b-481a-9dfc-42b2c8596b7a/video_game_sales.csv",
+                "dest": "/home/user/video_game_sales.csv"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/7a485891-146b-481a-9dfc-42b2c8596b7a/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/7a485891-146b-481a-9dfc-42b2c8596b7a/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "86d91add-e9c8-416f-b385-38c9934afa7a"
+}

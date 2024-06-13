@@ -1,0 +1,293 @@
+Documentation Source:
+superset.apache.org/docs/installation/docker-compose/index.txt
+
+Documentation Title:
+Docker Compose | Superset
+
+Documentation Content:
+Log in with the default username and password:
+username: admin
+password: admin
+4. Connecting Superset to your local database instance
+​
+When running Superset using
+docker
+or
+docker compose
+it runs in its own docker container, as if
+the Superset was running in a separate machine entirely. Therefore attempts to connect to your local
+database with the hostname
+localhost
+won't work as
+localhost
+refers to the docker container
+Superset is running in, and not your actual host machine. Fortunately, docker provides an easy way
+to access network resources in the host machine from inside a container, and we will leverage this
+capability to connect to our local database instance.
+Here the instructions are for connecting to postgresql (which is running on your host machine) from
+Superset (which is running in its docker container). Other databases may have slightly different
+configurations but gist would be same and boils down to 2 steps -
+(Mac users may skip this step)
+Configuring the local postgresql/database instance to accept
+public incoming connections. By default, postgresql only allows incoming connections from
+localhost
+and under Docker, unless you use
+--network=host
+,
+localhost
+will refer to different
+endpoints on the host machine and in a docker container respectively. Allowing postgresql to accept
+connections from the Docker involves making one-line changes to the files
+postgresql.conf
+and
+pg_hba.conf
+; you can find helpful links tailored to your OS / PG version on the web easily for
+this task. For Docker it suffices to only whitelist IPs
+172.0.0.0/8
+instead of
+*
+, but in any
+case you are
+warned
+that doing this in a production database
+may
+have disastrous consequences as
+you are opening your database to the public internet.  2. Instead of
+localhost
+, try using
+host.docker.internal
+(Mac users, Ubuntu) or
+172.18.0.1
+(Linux users) as the hostname when
+attempting to connect to the database.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+For Postgres this is
+{"sslmode": "require"}
+.
+In addition, the DB engine spec must implement these class methods:
+build_sqlalchemy_uri(cls, parameters, encrypted_extra)
+: this method receives the distinct parameters and builds the URI from them.
+get_parameters_from_uri(cls, uri, encrypted_extra)
+: this method does the opposite, extracting the parameters from a given URI.
+validate_parameters(cls, parameters)
+: this method is used for
+onBlur
+validation of the form. It should return a list of
+SupersetError
+indicating which parameters are missing, and which parameters are definitely incorrect (
+example
+).
+For databases like MySQL and Postgres that use the standard format of
+engine+driver://user:password@host:port/dbname
+all you need to do is add the
+BasicParametersMixin
+to the DB engine spec, and then define the parameters 2-4 (
+parameters_schema
+is already present in the mixin).
+For other databases you need to implement these methods yourself. The BigQuery DB engine spec is a good example of how to do that.
+Extra Database Settings
+​
+Deeper SQLAlchemy Integration
+​
+It is possible to tweak the database connection information using the parameters exposed by
+SQLAlchemy. In the
+Database edit
+view, you can edit the
+Extra
+field as a JSON blob.
+This JSON string contains extra configuration elements. The
+engine_params
+object gets unpacked
+into the
+sqlalchemy.create_engine
+call, while the
+metadata_params
+get unpacked into the
+sqlalchemy.MetaData
+call. Refer to the SQLAlchemy docs for more information.
+Schemas
+​
+Databases like Postgres and Redshift use the
+schema
+as the logical entity on top of the
+database
+. For Superset to connect to a specific schema, you can set the
+schema
+parameter in
+the
+Edit Tables
+form (Sources > Tables > Edit record).
+External Password Store for SQLAlchemy Connections
+​
+Superset can be configured to use an external store for database passwords. This is useful if you a
+running a custom secret distribution framework and do not wish to store secrets in Superset’s meta
+database.
+Example: Write a function that takes a single argument of type
+sqla.engine.url
+and returns the
+password for the given connection string.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+The expected connection string is formatted as follows:
+pinot+http://<pinot-broker-host>:<pinot-broker-port>/query?controller=http://<pinot-controller-host>:<pinot-controller-port>/``
+The expected connection string using username and password is formatted as follows:
+pinot://<username>:<password>@<pinot-broker-host>:<pinot-broker-port>/query/sql?controller=http://<pinot-controller-host>:<pinot-controller-port>/verify_ssl=true``
+Postgres
+​
+Note that, if you're using docker compose, the Postgres connector library
+psycopg2
+comes out of the box with Superset.
+Postgres sample connection parameters:
+User Name
+: UserName
+Password
+: DBPassword
+Database Host
+:
+For Localhost: localhost or 127.0.0.1
+For On Prem: IP address or Host name
+For AWS Endpoint
+Database Name
+: Database Name
+Port
+: default 5432
+The connection string looks like:
+postgresql://{username}:{password}@{host}:{port}/{database}
+You can require SSL by adding
+?sslmode=require
+at the end:
+postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=require
+You can read about the other SSL modes that Postgres supports in
+Table 31-1 from this documentation
+.
+More information about PostgreSQL connection options can be found in the
+SQLAlchemy docs
+and the
+PostgreSQL docs
+.
+Presto
+​
+The
+pyhive
+library is the recommended way to connect to Presto through SQLAlchemy.
+The expected connection string is formatted as follows:
+presto://{hostname}:{port}/{database}
+You can pass in a username and password as well:
+presto://{username}:{password}@{hostname}:{port}/{database}
+Here is an example connection string with values:
+presto://datascientist:securepassword@presto.example.com:8080/hive
+By default Superset assumes the most recent version of Presto is being used when querying the
+datasource. If you’re using an older version of Presto, you can configure it in the extra parameter:
+{
+"version": "0.123"
+}
+SSL Secure extra add json config to extra connection information.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+Connecting to Databases | Superset
+Skip to main content
+Documentation
+Getting Started
+FAQ
+Community
+Resources
+GitHub
+Slack
+Mailing List
+Stack Overflow
+Get Started
+Search
+Introduction
+Quickstart
+Installation
+Configuration
+Configuring Superset
+Connecting to Databases
+Alerts and Reports
+Caching
+Async Queries via Celery
+SQL Templating
+Timezones
+Network and Security Settings
+Setup SSH Tunneling
+Event Logging
+Country Map Tools
+Importing and Exporting Datasources
+Using Superset
+Contributing
+Security
+FAQ
+API
+Edit this page on GitHub
+Configuration
+Connecting to Databases
+On this page
+Connecting to Databases
+Superset does not ship bundled with connectivity to databases. The main step in connecting
+Superset to a database is to
+install the proper database driver(s)
+in your environment.
+note
+You’ll need to install the required packages for the database you want to use as your metadata database
+as well as the packages needed to connect to the databases you want to access through Superset.
+For information about setting up Superset's metadata database, please refer to
+installation documentation
+This documentation tries to keep pointer to the different drivers for commonly used database
+engine.
+Installing Database Drivers
+​
+Superset requires a Python
+DB-API database driver
+and a
+SQLAlchemy dialect
+to be installed for
+each database engine you want to connect to.
+You can read more
+here
+about how to
+install new database drivers into your Superset configuration.
+Supported Databases and Dependencies
+​
+Some of the recommended packages are shown below. Please refer to
+pyproject.toml
+for the versions that
+are compatible with Superset.
+Database
+PyPI package
+Connection String
+AWS Athena
+pip install pyathena[pandas]
+,
+pip install PyAthenaJDBC
+awsathena+rest://{access_key_id}:{access_key}@athena.{region}.amazonaws.com/{schema}?s3_staging_dir={s3_staging_dir}&...
+AWS DynamoDB
+pip install pydynamodb
+dynamodb://{access_key_id}:{secret_access_key}@dynamodb.{region_name}.amazonaws.
+
+
+

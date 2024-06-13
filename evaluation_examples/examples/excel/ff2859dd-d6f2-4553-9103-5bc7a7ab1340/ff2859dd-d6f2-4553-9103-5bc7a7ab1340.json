@@ -1,0 +1,94 @@
+{
+    "id": "ff2859dd-d6f2-4553-9103-5bc7a7ab1340",
+    "snapshot": "excel",
+    "instruction": "Work out the monthly total sales in a new row called \"Total\" and then create a line chart to show the calculated results (x-axis be Months). I want a Lines Only chart, with 'Total' as the title. Do not display Legend, and leave other settings untouched.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish the `Total` row in the table and insert the chart, we do as follow:\n\n1. CLick on the cell $A$12.\n2. Type \"Total\", and press Enter.\n3. Click on the cell $B$12.\n4. Click on the input line on top of the Excel table.\n5. Type \"=SUM()\", and select the cells $B$2:$B$11. Press `Enter`.\n6. Move the cursor to the right-bottom corner of cell $B$12 to see the cursor turns into a cross. Then drag the cursor from $B$12 to $G$12. Now we complete the `Total` row of the table.\n7. Start making the chart. Press `Ctrl` and select the cells $A$12:$G$12, $B$1:$G$1.\n8. Click on the botton `Insert` from the top of the page.\n9. In the drop down selector, select `Chart...`.\n10. Click on `Line` under \"Choose a chart type\".\n11. Click on the graph `Lines Only` at the right side.\n12. Click `Next`.\n13. Click `Next`.\n14. Click on the `Title` input box.\n15. Type \"Total\".\n16. Uncheck the check box before \"Display Legend\".\n17. Click `Finish`.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@154"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/ff2859dd-d6f2-4553-9103-5bc7a7ab1340/SalesRep.xlsx",
+                "dest": "/home/user/SalesRep.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/SalesRep.xlsx"
+            }
+        }
+    ],
+    "related_apps": [
+        "excel"
+    ],
+    "action_number": 17,
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "SalesRep.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/ff2859dd-d6f2-4553-9103-5bc7a7ab1340/5_SalesRep_gt1.xlsx",
+            "dest": "gold_SalesRep_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/SalesRep.xlsx",
+            "dest": "SalesRep.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                },
+                {
+                    "type": "chart",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0",
+                    "chart_props": [
+                        "type"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "0a2e43bf-b26c-4631-a966-af9dfa12c9e5"
+}

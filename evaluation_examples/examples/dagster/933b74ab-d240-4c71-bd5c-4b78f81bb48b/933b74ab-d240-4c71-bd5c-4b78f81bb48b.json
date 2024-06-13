@@ -12,7 +12,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 8,
     "config": [
@@ -57,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
@@ -76,5 +76,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "8cc7f3ef-1bef-468d-be01-c6ad85faec99"
 }

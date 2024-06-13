@@ -1,0 +1,375 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/create-user.txt
+
+Documentation Title:
+CREATE USER | Snowflake Documentation
+
+Documentation Content:
+See also:
+DROP USER
+,
+ALTER USER
+,
+DESCRIBE USER
+,
+SHOW PARAMETERS
+Syntax
+¶
+CREATE
+[
+OR
+REPLACE
+]
+USER
+[
+IF
+NOT
+EXISTS
+]
+<name>
+[
+objectProperties
+]
+[
+objectParams
+]
+[
+sessionParams
+]
+[
+[
+WITH
+]
+TAG
+(
+<tag_name>
+=
+'
+<tag_value>
+'
+[
+,
+<tag_name>
+=
+'
+<tag_value>
+'
+,
+.
+]
+)
+]
+Copy
+Where:
+objectProperties
+::=
+PASSWORD
+=
+'
+<string>
+'
+LOGIN_NAME
+=
+<string>
+DISPLAY_NAME
+=
+<string>
+FIRST_NAME
+=
+<string>
+MIDDLE_NAME
+=
+<string>
+LAST_NAME
+=
+<string>
+EMAIL
+=
+<string>
+MUST_CHANGE_PASSWORD
+=
+TRUE
+|
+FALSE
+DISABLED
+=
+TRUE
+|
+FALSE
+DAYS_TO_EXPIRY
+=
+<integer>
+MINS_TO_UNLOCK
+=
+<integer>
+DEFAULT_WAREHOUSE
+=
+<string>
+DEFAULT_NAMESPACE
+=
+<string>
+DEFAULT_ROLE
+=
+<string>
+D
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/create-user.txt
+
+Documentation Title:
+CREATE USER | Snowflake Documentation
+
+Documentation Content:
+LT_ROLE
+=
+<string>
+DEFAULT_SECONDARY_ROLES
+=
+(
+'
+ALL
+'
+)
+MINS_TO_BYPASS_MFA
+=
+<integer>
+RSA_PUBLIC_KEY
+=
+<string>
+RSA_PUBLIC_KEY_FP
+=
+<string>
+RSA_PUBLIC_KEY_2
+=
+<string>
+RSA_PUBLIC_KEY_2_FP
+=
+<string>
+COMMENT
+=
+'
+<string_literal>
+'
+Copy
+objectParams
+::=
+ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR
+=
+TRUE
+|
+FALSE
+NETWORK_POLICY
+=
+<string>
+Copy
+sessionParams
+::=
+ABORT_DETACHED_QUERY
+=
+TRUE
+|
+FALSE
+AUTOCOMMIT
+=
+TRUE
+|
+FALSE
+BINARY_INPUT_FORMAT
+=
+<string>
+BINARY_OUTPUT_FORMAT
+=
+<string>
+DATE_I
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/admin-user-management.txt
+
+Documentation Title:
+User management | Snowflake Documentation
+
+Documentation Content:
+Optionally specify an email address for the user in the
+Email
+field.
+In the
+Password
+and
+Confirm Password
+fields, enter the password for the user.
+Optionally add a comment explaining why you created the user.
+Leave the
+Force user to change password on first time login
+checkbox selected to force the user to change their password when they
+sign in.
+Optionally select
+Advanced User Options
+to specify additional details about the user:
+Login Name
+to use instead of the
+User Name
+when signing in to Snowflake.
+Display Name
+that appears after signing in.
+First Name
+and
+Last Name
+to complete the user profile.
+Default Role
+,
+Default Warehouse
+, and
+Default Namespace
+.
+Select
+Create User
+.
+Using Classic Console
+¶
+Select
+Account
+»
+Users
+.
+Select
+Create
+.
+In the
+User Name
+field, enter a unique identifier for the user.
+Note
+User name is the unique identifier for the user in Snowflake. It is
+not
+the user’s login name (i.e. the name the user enters when logging into Snowflake). Snowflake allows users to have different user names and login names, if desired. You specify a login name for the user on the next screen.
+In the
+Password
+and
+Confirm Password
+fields, enter the password for the user.
+Leave the
+Force Password Change
+checkbox selected to force the user to change their password on their next login; otherwise, clear the checkbox.
+Select
+Next
+. The
+Advanced
+screen opens.
+Optionally enter the
+Login Name
+,
+Display Name
+, and personal information for the user.
+Note
+Users require a login name to log into Snowflake; if you don’t explicitly provide a login name, Snowflake uses their user name as the login name.
+Select
+Next
+. The
+Preferences
+screen opens.
+Optionally enter defaults for the user:
+Virtual warehouse
+Namespace in the form of
+db_name
+or
+db_name
+.
+schema_name
+Role
+Select
+Finish
+. Snowflake displays a success message.
+Using SQL
+¶
+Use the
+CREATE USER
+command to create a user.
+Important
+When creating a user, if you assign a default role to the user, you must then explicitly grant this role to the user.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.txt
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+Create users and grant roles | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Create users and grant roles
+Getting Started
+Tutorials
+Load and Query Data with a Trial Account
+Create users and grant roles
+Create users and grant roles
+¶
+Introduction
+¶
+This tutorial shows you how to create a user and grant a role to it by using SQL commands.
+You use a template worksheet in Snowsight to follow and complete these tasks.
+Note
+Snowflake bills a minimal amount for the on-disk storage used for the sample data in
+this tutorial. The tutorial provides steps to drop the database and minimize storage
+cost.
+Snowflake requires a
+virtual warehouse
+to load the
+data and execute queries. A running virtual warehouse consumes Snowflake credits.
+In this tutorial, you will be using a
+30-day trial account
+,
+which provides free credits, so you won’t incur any costs.
+What you will learn
+¶
+In this tutorial you will learn how to:
+Use a role that has the privileges to create and use the Snowflake objects required by this tutorial.
+Create a user.
+Grant a role to the user and grant access to a warehouse.
+Explore the users and roles in your account.
+Drop the user you created.
+Prerequisites
+¶
+This tutorial assumes the following:
+You have a
+supported browser
+.
+You have a trial account. If you do not have a trial account yet, you can sign up
+for a
+free trial
+. You can choose any
+Snowflake Cloud Region
+.
+Your user is the account administrator and is granted the ACCOUNTADMIN system role. For more information, see
+Using the ACCOUNTADMIN Role
+.
+Note
+This tutorial is only available to users with a trial account. The sample worksheet is not available
+for other types of accounts.
+Step 1. Sign in using Snowsight
+¶
+To access Snowsight over the public Internet, do the following:
+In a supported web browser, navigate to
+https://app.snowflake.com
+.
+Provide your
+account identifier
+or account URL.
+If you’ve previously signed in to Snowsight, you might see an account name that you can select.
+Sign in using your Snowflake account credentials.
+Step 2.
+
+
+

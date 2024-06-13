@@ -1,0 +1,386 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/generate-text.txt
+
+Documentation Title:
+Generate text by using the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Go to project selector
+Make sure that billing is enabled for your Google Cloud project
+.
+Enable the BigQuery, BigQuery Connection, and Vertex AI APIs.
+Enable the APIs
+If you want to use
+ML.GENERATE_TEXT
+with a
+gemini-pro-vision
+model in order
+to analyze visual content in an object table, you must have an
+Enterprise or Enterprise Plus reservation
+.
+For more information, see
+Create reservations
+.
+Create a connection
+Create a
+Cloud resource connection
+and get the connection's service account.
+Select one of the following options:
+Console
+Go to the
+BigQuery
+page.
+Go to BigQuery
+To create a connection, click
+add
+Add
+, and then click
+Connections to external data sources
+.
+In the
+Connection type
+list, select
+Vertex AI remote models,
+remote functions and BigLake (Cloud Resource)
+.
+In the
+Connection ID
+field, enter a name for your
+connection.
+Click
+Create connection
+.
+Click
+Go to connection
+.
+In the
+Connection info
+pane, copy the service account ID for use in a
+later step.
+bq
+In a command-line environment, create a connection:
+bq mk --connection --location=
+REGION
+--project_id=
+PROJECT_ID
+\
+    --connection_type=CLOUD_RESOURCE
+CONNECTION_ID
+The
+--project_id
+parameter overrides the default project.
+Replace the following:
+REGION
+: your
+connection region
+PROJECT_ID
+: your Google Cloud project ID
+CONNECTION_ID
+: an ID for your
+connection
+When you create a connection resource, BigQuery creates a
+unique system service account and associates it with the connection.
+Troubleshooting
+: If you get the following connection error,
+update the Google Cloud SDK
+:
+Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of...
+Retrieve and copy the service account ID for use in a later
+step:
+bq show --connection
+PROJECT_ID
+.
+REGION
+.
+CONNECTION_ID
+The output is similar to the following:
+name                          properties
+1234.
+REGION
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/generate-text-tutorial.txt
+
+Documentation Title:
+Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+To generate a cost estimate based on your projected usage,
+      use the
+pricing calculator
+.
+New Google Cloud users might be eligible for a
+free trial
+.
+For more information about BigQuery pricing, see
+BigQuery pricing
+in
+the BigQuery documentation.
+For more information about Vertex AI pricing, see the
+Vertex AI pricing
+page.
+Before you begin
+In the Google Cloud console, on the project selector page,
+        select or
+create a Google Cloud project
+.
+Note
+: If you don't plan to keep the
+    resources that you create in this procedure, create a project instead of
+    selecting an existing project. After you finish these steps, you can
+    delete the project, removing all resources associated with the project.
+Go to project selector
+Make sure that billing is enabled for your Google Cloud project
+.
+Enable the BigQuery, BigQuery Connection, and Vertex AI APIs.
+Enable the APIs
+Create a dataset
+Create a BigQuery dataset to store your ML model:
+In the Google Cloud console, go to the BigQuery page.
+Go to the BigQuery page
+In the
+Explorer
+pane, click your project name.
+Click
+more_vert
+View actions > Create dataset
+.
+On the
+Create dataset
+page, do the following:
+For
+Dataset ID
+, enter
+bqml_tutorial
+.
+For
+Location type
+, select
+Multi-region
+, and then select
+US (multiple regions in United States)
+.
+The public datasets are stored in the
+US
+multi-region
+. For simplicity,
+store your dataset in the same location.
+Leave the remaining default settings as they are, and click
+Create dataset
+.
+Create a connection
+Create a
+Cloud resource connection
+and get the connection's service account. Create the connection in
+the same
+location
+as the dataset you created in the
+previous step.
+Select one of the following options:
+Console
+Go to the
+BigQuery
+page.
+Go to BigQuery
+To create a connection, click
+add
+Add
+, and then click
+Connections to external data sources
+.
+In the
+Connection type
+list, select
+Vertex AI remote models,
+remote functions and BigLake (Cloud Resource)
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/vector-index-text-search-tutorial.txt
+
+Documentation Title:
+Perform semantic search and retrieval-augmented generation  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+REGION
+.
+CONNECTION_ID
+{"serviceAccountId": "connection-1234-9u56h9@gcp-sa-bigquery-condel.iam.gserviceaccount.com"}
+Terraform
+Append the following section into your
+main.tf
+file.
+## This creates a cloud resource connection.
+ ## Note: The cloud resource nested object has only one output only field - serviceAccountId.
+ resource "google_bigquery_connection" "connection" {
+    connection_id = "
+CONNECTION_ID
+"
+    project = "
+PROJECT_ID
+"
+    location = "
+REGION
+"
+    cloud_resource {}
+}
+Replace the following:
+CONNECTION_ID
+: an ID for your
+connection
+PROJECT_ID
+: your Google Cloud project ID
+REGION
+: your
+connection region
+Grant the service account access
+To grant the connection's service account an appropriate role to access the
+Vertex AI service, follow these steps:
+Go to the
+IAM & Admin
+page.
+Go to IAM & Admin
+Click
+person_add
+Grant Access
+.
+In the
+New principals
+field, enter the service account ID that you
+copied earlier.
+In the
+Select a role
+field, choose
+Vertex AI
+, and then
+select
+Vertex AI User role
+.
+Click
+Save
+.
+Create the remote model for text embedding generation
+Create a remote model that represents a hosted Vertex AI
+text embedding generation model:
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the query editor, run the following statement:
+CREATE OR REPLACE MODEL `bqml_tutorial.embedding_model`
+  REMOTE WITH CONNECTION `
+LOCATION
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/generate-text-tutorial.txt
+
+Documentation Title:
+Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+In the
+Connection ID
+field, enter a name for your
+connection.
+Click
+Create connection
+.
+Click
+Go to connection
+.
+In the
+Connection info
+pane, copy the service account ID for use in a
+later step.
+bq
+In a command-line environment, create a connection:
+bq mk --connection --location=
+REGION
+--project_id=
+PROJECT_ID
+\
+    --connection_type=CLOUD_RESOURCE
+CONNECTION_ID
+The
+--project_id
+parameter overrides the default project.
+Replace the following:
+REGION
+: your
+connection region
+PROJECT_ID
+: your Google Cloud project ID
+CONNECTION_ID
+: an ID for your
+connection
+When you create a connection resource, BigQuery creates a
+unique system service account and associates it with the connection.
+Troubleshooting
+: If you get the following connection error,
+update the Google Cloud SDK
+:
+Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of...
+Retrieve and copy the service account ID for use in a later
+step:
+bq show --connection
+PROJECT_ID
+.
+REGION
+.
+CONNECTION_ID
+The output is similar to the following:
+name                          properties
+1234.
+REGION
+.
+CONNECTION_ID
+{"serviceAccountId": "connection-1234-9u56h9@gcp-sa-bigquery-condel.iam.gserviceaccount.com"}
+Terraform
+Append the following section into your
+main.tf
+file.
+## This creates a cloud resource connection.
+ ## Note: The cloud resource nested object has only one output only field - serviceAccountId.
+ resource "google_bigquery_connection" "connection" {
+    connection_id = "
+CONNECTION_ID
+"
+    project = "
+PROJECT_ID
+"
+    location = "
+REGION
+"
+    cloud_resource {}
+}
+Replace the following:
+CONNECTION_ID
+: an ID for your
+connection
+PROJECT_ID
+: your Google Cloud project ID
+REGION
+: your
+connection region
+Grant permissions to the connection's service account
+To grant the connection's service account an appropriate role to access the
+Vertex AI service, follow these steps:
+Go to the
+IAM & Admin
+page.
+Go to IAM & Admin
+Click
+person_add
+Grant Access
+.
+
+
+

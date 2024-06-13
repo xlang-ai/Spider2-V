@@ -1,0 +1,297 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-load-from-file.txt
+
+Documentation Title:
+Import a local file  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+# table_id = "your-project.your_dataset.your_table_name"
+
+job_config = bigquery.LoadJobConfig(
+    source_format=bigquery.SourceFormat.CSV,
+    skip_leading_rows=1,
+    autodetect=True,
+)
+
+with open(file_path, "rb") as source_file:
+    job = client.load_table_from_file(source_file, table_id, job_config=job_config)
+
+job.result()  # Waits for the job to complete.
+
+table = client.get_table(table_id)  # Make an API request.
+print(
+    "Loaded {} rows and {} columns to {}".format(
+        table.num_rows, len(table.schema), table_id
+    )
+)
+Ruby
+Before trying this sample, follow the
+Ruby
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Ruby
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+require "google/cloud/bigquery"
+
+def load_from_file dataset_id = "your_dataset_id",
+                   file_path  = "path/to/file.csv"
+
+  bigquery = Google::Cloud::Bigquery.new
+  dataset  = bigquery.dataset dataset_id
+  table_id = "new_table_id"
+
+  # Infer the config.location based on the location of the referenced dataset.
+  load_job = dataset.load_job table_id, file_path do |config|
+    config.skip_leading = 1
+    config.autodetect   = true
+  end
+  load_job.wait_until_done! # Waits for table load to complete.
+
+  table = dataset.table table_id
+  puts "Loaded #{table.rows_count} rows into #{table.id}"
+end
+What's next
+To search and filter code samples for other Google Cloud products, see the
+Google Cloud sample browser
+.
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-load-table-gcs-parquet.txt
+
+Documentation Title:
+Load a Parquet file  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+*
+ * @param string $projectId The project Id of your Google Cloud Project.
+ * @param string $datasetId The BigQuery dataset ID.
+ * @param string $tableId The BigQuery table ID.
+ */
+function import_from_storage_parquet(
+    string $projectId,
+    string $datasetId,
+    string $tableId = 'us_states'
+): void {
+    // instantiate the bigquery table service
+    $bigQuery = new BigQueryClient([
+      'projectId' => $projectId,
+    ]);
+    $dataset = $bigQuery->dataset($datasetId);
+    $table = $dataset->table($tableId);
+
+    // create the import job
+    $gcsUri = 'gs://cloud-samples-data/bigquery/us-states/us-states.parquet';
+    $loadConfig = $table->loadFromStorage($gcsUri)->sourceFormat('PARQUET');
+    $job = $table->runJob($loadConfig);
+
+    // check if the job is complete
+    $job->reload();
+    if (!$job->isComplete()) {
+        throw new \Exception('Job has not yet completed', 500);
+    }
+    // check if the job has errors
+    if (isset($job->info()['status']['errorResult'])) {
+        $error = $job->info()['status']['errorResult']['message'];
+        printf('Error running job: %s' . PHP_EOL, $error);
+    } else {
+        print('Data imported successfully' . PHP_EOL);
+    }
+}
+Python
+Before trying this sample, follow the
+Python
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Python
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+from google.cloud import bigquery
+
+# Construct a BigQuery client object.
+client = bigquery.Client()
+
+# TODO(developer): Set table_id to the ID of the table to create.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-youtubechannel-transfer.txt
+
+Documentation Title:
+Load data from YouTube Channel reports  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Create a dataset with a customer-managed encryption key
+Create a job
+Create a model
+Create a regression model with BigQuery DataFrames
+Create a routine
+Create a routine with DDL
+Create a table
+Create a table using a template
+Create a view
+Create a view with DDL
+Create an authorized view
+Create an integer-range partitioned table
+Create credentials with scopes
+Create external table with hive partitioning
+Create IAM policy
+Create materialized view
+Create table with schema
+Delete a dataset
+Delete a dataset and its contents
+Delete a label from a dataset
+Delete a label from a table
+Delete a model
+Delete a routine
+Delete a table
+Delete materialized view
+Deploy and apply a remote function using BigQuery DataFrames
+Disable query cache
+Download public table data to DataFrame
+Download public table data to DataFrame from the sandbox
+Download query results to a GeoPandas GeoDataFrame
+Download query results to DataFrame
+Download table data to DataFrame
+Dry run query
+Enable large results
+Export a model
+Export a table to a compressed file
+Export a table to a CSV file
+Export a table to a JSON file
+Generate text with the BigQuery DataFrames API
+Get a model
+Get a routine
+Get dataset labels
+Get dataset properties
+Get job properties
+Get table labels
+Get table properties
+Get view properties
+Grant view access
+Import a local file
+Insert GeoJSON data
+Insert rows with no IDs
+Insert WKT data
+List by label
+List datasets
+List jobs
+List models
+List models using streaming
+List routines
+List tables
+Load a CSV file
+Load a CSV file to replace a table
+Load a CSV file with autodetect schema
+Load a DataFrame to BigQuery with pandas-gbq
+Load a JSON file
+Load a JSON file to replace a table
+Load a JSON file with autodetect schema
+Load a Parquet file
+Load a Parquet to replace a table
+Load a table in JSON format
+Load an Avro file
+Load an Avro file to replace a table
+Load an ORC file
+Load an ORC file to replace a table
+Load data from DataFrame
+Load data into a column-based time partitioning table
+Migration Guide: pandas-gbq
+Migration
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/batch-loading-data.txt
+
+Documentation Title:
+Batch loading data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+The following code demonstrates how to load a local CSV file to a new
+BigQuery table. To load a local file of another format,
+set the
+format
+parameter of the
+Table#load_job
+method to the appropriate format.
+require "google/cloud/bigquery"
+
+def load_from_file dataset_id = "your_dataset_id",
+                   file_path  = "path/to/file.csv"
+
+  bigquery = Google::Cloud::Bigquery.new
+  dataset  = bigquery.dataset dataset_id
+  table_id = "new_table_id"
+
+  # Infer the config.location based on the location of the referenced dataset.
+  load_job = dataset.load_job table_id, file_path do |config|
+    config.skip_leading = 1
+    config.autodetect   = true
+  end
+  load_job.wait_until_done! # Waits for table load to complete.
+
+  table = dataset.table table_id
+  puts "Loaded #{table.rows_count} rows into #{table.id}"
+end
+Limitations
+Loading data from a local data source is subject to the following limitations:
+Wildcards and comma-separated lists are not supported when you load files from
+a local data source. Files must be loaded individually.
+When using the Google Cloud console, files loaded from a local data source
+cannot exceed 100 MB. For larger files, load the file from Cloud Storage.
+Load jobs by default use a shared pool of slots. BigQuery doesn't guarantee the available capacity of this shared pool or the throughput you will see. Alternatively, you can purchase dedicated slots to run load jobs. For more information, see
+Data ingestion pricing
+.
+## Loading compressed and uncompressed data
+For Avro, Parquet, and ORC formats, BigQuery supports
+loading files where the file data has been compressed using a
+supported codec. However, BigQuery doesn't support loading files
+in these formats that have themselves been compressed, for example by using
+the
+gzip
+utility.
+The Avro binary format is the preferred format for loading both compressed and
+uncompressed data. Avro data is faster to load because the data can be read in
+parallel, even when the data blocks are compressed.
+
+
+

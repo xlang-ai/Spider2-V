@@ -1,0 +1,203 @@
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.txt
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+This is easiest to see for yourself via a hands-on example, as presented below.
+Create a full refresh append connection
+Set up a new connection that will demonstrate
+full refresh | append
+functionality, using the connectors that you created earlier in this tutorial.
+First, select
+Postgres-source
+as the source for this connection.
+‍
+Then select
+Postgres-destination
+as the destination for this connection.
+‍
+Then create a new connection and name it
+full-refresh-append
+, set the prefix to
+append
+_ ,
+and select
+full refresh | append
+as the sync mode, as shown below.
+A sync should automatically start after you create the connection. Wait for the sync to complete, and you should see a message like the following:
+‍
+Open a Postgres terminal on the destination
+If you don’t already have a shell open to your Postgres destination, execute the following commands:
+docker exec -it airbyte-destination /bin/bash
+psql --username=postgres
+‍
+You can view the tables in the destination Postgres database by executing the following command from the Postgres shell that you have just opened .
+\dt;
+‍
+Which should respond with the following:
+List of relations
+ Schema |                   Name                   | Type  |  Owner   
+--------+------------------------------------------+-------+----------
+ public | _airbyte_raw_append_full_refresh_demo    | table | postgres
+ public | _airbyte_raw_overwrite_full_refresh_demo | table | postgres
+ public | append_full_refresh_demo                 | table | postgres
+ public | overwrite_full_refresh_demo              | table | postgres
+(4 rows)
+‍
+Two new tables have been created,
+_airbyte_raw_append_full_refresh_demo
+and
+append_full_refresh_demo
+.
+You can look at the raw data as follows:
+SELECT * FROM  _airbyte_raw_append_full_refresh_demo;
+‍
+Which should respond with a table that looks very similar to the raw table that you saw created with
+full refresh | overwrite
+replication, as follows:
+_airbyte_ab_id            |        _airbyte_data        |    _airbyte_emitted_at     
+--------------------------------------+-----------------------------+----------------------------
+ 972a8d74-d840-4c43-826e-b0a1042c1681 | {"id": 1,
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.txt
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+Create a connection between the source and destination
+In this section you will create a connection that will be used for demonstrating the functionality of database replication with
+Incremental Sync | Append
+.
+This new connection will make use of the connectors that you have just created.
+Create a new connection by clicking on
+Connections
+and then on
++ New connection
+as shown below (Note that this button may appear in the top right corner if you already have some connections instantiated):
+‍
+Then select the
+Incremental-source
+source as follows:
+‍
+Select the
+Incremental-destination
+as follows:
+‍
+You will see a set up page as shown below. Set the name of the connection to
+incremental-sync-demo
+, and configure it as shown below:
+‍
+There are a few areas that are annotated in the above configuration:
+Define the name which will identify this connection - in this case I have called it
+incremental-sync-demo
+.
+Select the
+incremental append
+replication mode for the table called
+table_one
+.
+Select
+updated_at
+as the cursor for the
+table_one
+table.
+After you click on
+Set up connection
+,
+the initial sync will start. Once it completes you should see the following status in the
+Sync History
+:
+‍
+Make a note of the
+job ID
+and the
+attempt ID
+which in this case are 149 and 0 respectively, as can be seen in the path to the
+logs.log
+(/tmp/workspace/149/0/logs.log) in the screenshot above. You will need these values to find the SQL code used for the first
+incremental append
+sync.
+Initial creation: Overview
+In the first synchronization, Airbyte replicates all of the records from the source table into a raw table in the destination database. Then, dbt-generated SQL commands are executed to normalize the raw data into the final destination table as shown below:
+‍
+Initial creation: Look at the Postgres destination
+After the first sync has completed you can take a look at the Postgres destination to see how the replicated data looks.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.txt
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+7. Test the connection to ensure that Airbyte can successfully connect to your PostgreSQL database.
+8. Select the tables or views you want to replicate and configure any necessary settings, such as the replication frequency and the replication method.
+9. Save your configuration and start the replication process.
+10. Monitor the replication process to ensure that it is running smoothly and troubleshoot any issues that arise.
+Step 2: Set up BigQuery as a destination connector
+1. First, navigate to the Airbyte dashboard and select the "Destinations" tab on the left-hand side of the screen.
+2. Scroll down until you find the "BigQuery" destination connector and click on it.
+3. Click the "Create Destination" button to begin setting up your BigQuery destination.
+4. Enter your Google Cloud Platform project ID and service account credentials in the appropriate fields.
+5. Next, select the dataset you want to use for your destination and enter the table prefix you want to use.
+6. Choose the schema mapping for your data, which will determine how your data is organized in BigQuery.
+7. Finally, review your settings and click the "Create Destination" button to complete the setup process.
+8. Once your destination is created, you can begin configuring your source connectors to start syncing data to BigQuery.
+9. To do this, navigate to the "Sources" tab on the left-hand side of the screen and select the source connector you want to use.
+10. Follow the prompts to enter your source credentials and configure your sync settings.
+11. When you reach the "Destination" step, select your BigQuery destination from the dropdown menu and choose the dataset and table prefix you want to use.
+12. Review your settings and click the "Create Connection" button to start syncing data from your source to your BigQuery destination.
+Step 3: Set up a connection to sync your Postgres data to BigQuery
+Once you've successfully connected Postgres as a data source and BigQuery as a destination in Airbyte, you can set up a data pipeline between them with the following steps:
+Create a new connection:
+On the Airbyte dashboard, navigate to the 'Connections' tab and click the '+ New Connection' button.
+Choose your source:
+Select Postgres from the dropdown list of your configured sources.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.txt
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+Choose your source:
+Select Postgres from the dropdown list of your configured sources.
+Select your destination:
+Choose BigQuery from the dropdown list of your configured destinations.
+Configure your sync:
+Define the frequency of your data syncs based on your business needs. Airbyte allows both manual and automatic scheduling for your data refreshes.
+Select the data to sync:
+Choose the specific Postgres objects you want to import data from towards BigQuery. You can sync all data or select specific tables and fields.
+Select the sync mode for your streams:
+Choose between full refreshes or incremental syncs (with deduplication if you want), and this for all streams or at the stream level. Incremental is only available for streams that have a primary cursor.
+Test your connection:
+Click the 'Test Connection' button to make sure that your setup works. If the connection test is successful, save your configuration.
+Start the sync:
+If the test passes, click 'Set Up Connection'. Airbyte will start moving data from Postgres to BigQuery according to your settings.
+Remember, Airbyte keeps your data in sync at the frequency you determine, ensuring your BigQuery data warehouse is always up-to-date with your Postgres data.
+Use Cases to transfer your Postgres data to BigQuery
+Integrating data from Postgres to BigQuery provides several benefits. Here are a few use cases:
+Advanced Analytics:
+BigQuery’s powerful data processing capabilities enable you to perform complex queries and data analysis on your Postgres data, extracting insights that wouldn't be possible within Postgres alone.
+Data Consolidation:
+If you're using multiple other sources along with Postgres, syncing to BigQuery allows you to centralize your data for a holistic view of your operations, and to set up a change data capture process so you never have any discrepancies in your data again.
+Historical Data Analysis:
+Postgres has limits on historical data. Syncing data to BigQuery allows for long-term data retention and analysis of historical trends over time.
+Data Security and Compliance:
+BigQuery provides robust data security features. Syncing Postgres data to BigQuery ensures your data is secured and allows for advanced data governance and compliance management.
+Scalability:
+BigQuery can handle large volumes of data without affecting performance, providing an ideal solution for growing businesses with expanding Postgres data.
+
+
+

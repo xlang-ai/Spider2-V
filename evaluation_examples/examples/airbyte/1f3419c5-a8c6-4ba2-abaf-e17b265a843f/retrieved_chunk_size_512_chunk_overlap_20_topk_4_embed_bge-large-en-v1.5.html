@@ -1,0 +1,76 @@
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.html
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+</p><img/><p>‍</p><h3>Update: Modify a record in the source</h3><p>Go back to the Postgres shell in the <em>airbyte-source</em>container that you opened earlier in this tutorial, and update a record in <em>table_two</em>and view the table as follows:</p><code>UPDATE table_two SET name='Eg2b DD+Hs' WHERE id=2;
+SELECT * FROM table_two;
+</code><p>‍</p><p>And the source <em>table_two</em>table should now look as follows:</p><code>id |    name    |         updated_at         
+----+------------+----------------------------
+  1 | Eg1 DD+Hst | 2022-09-01 16:18:07.569818
+  2 | Eg2b DD+Hs | 2022-09-01 17:02:14.841419
+(2 rows)
+</code><p>‍</p><p>The <em>name</em>and the <em>updated_at</em>values have been updated as expected. Execute a new sync by clicking on<em>Sync Now </em>in the connections UI and wait for the sync to complete. You should see a response indicating that one record has been emitted, as follows: </p><p>‍</p><img/><h3>Update: View the raw table in the destination</h3><p>Look at the <strong>incremental dedupe history</strong>raw table called <em>_airbyte_raw_table_two</em>with the following command on the destination Postgres database.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.html
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+</blockquote><img/><p>‍</p><h3>Update: Modify a record in the source</h3><p>Go back to the Postgres shell in the<em>airbyte-source </em>container that you opened earlier in this tutorial, and update a record in <em>table_one</em>and view the table as follows:</p><code>UPDATE table_one SET name='Eg2b IncAp' WHERE id=2;
+SELECT * FROM table_one;
+</code><p>‍</p><p>And the source <em>table_one</em>table should now look as follows:</p><code>id |    name    |         updated_at         
+----+------------+----------------------------
+  1 | Eg1 IncApp | 2022-09-01 11:01:41.666004
+  2 | Eg2b IncAp | 2022-09-01 11:16:38.093877
+(2 rows)
+</code><p>‍</p><p>The <em>name</em>and the <em>updated_at</em>values have been updated as expected. Execute a new sync by clicking on<em>Sync Now</em>in the connections UI and wait for the sync to complete. You should see a response indicating that one record has been emitted, as follows: </p><p>‍</p><img/><p>‍</p><blockquote>ℹ️  Note that opposed to the full sync modes discussed in the <a>previous tutorial</a>which would emit all of the records in the source on each sync, in the incremental sync modes only new or modified records are emitted – this is handled in the source connector logic, which only selects new documents in the source for replication to the destination.</blockquote><p>A single record has been emitted, which corresponds to the record that was just updated. Additionally, make a note of the<em>job ID </em>and the <em>attempt ID </em>which in this case are 150 and 0. You will use these values later to view the SQL that has been used for normalization.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.html
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+</p><h3>Update a record on the source</h3><p>Update a record on the <strong>full_refresh_demo</strong>table on the source Postgres database, and view the source table by running the following commands:</p><code>UPDATE full_refresh_demo SET name='New Jane' WHERE id=3;
+SELECT * FROM full_refresh_demo;
+</code><p>‍</p><p>And the source <strong>full_refresh_demo</strong>table should now look as follows: </p><code>id |   name   
+----+----------
+  1 | Mary X
+  2 | John D
+  3 | New Jane
+(3 rows)
+</code><p>‍</p><p>As before, execute a new sync by clicking on <strong>Sync Now</strong>in the connection pane and wait for it to complete.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.html
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+I will discuss this in more detail after the next sync. </p><h3>Insert a new record on the source</h3><p>If you don’t have a terminal open on the Postgres source database, open one as follows: </p><code>docker exec -it airbyte-source /bin/bash
+psql --username=postgres
+</code><p>‍</p><p>Add a new record to the source Postgres database as follows:</p><code>INSERT INTO full_refresh_demo(id, name) VALUES(3, 'Alex M');
+</code><p>‍</p><p>And view the source table by executing: </p><code>SELECT * FROM full_refresh_demo;
+</code><p>‍</p><p>The source table should look as follows:</p><code>id |  name  
+----+--------
+  1 | Mary X
+  2 | John D
+  3 | Alex M
+(3 rows)
+</code><p>Execute a new sync by clicking on <strong>Sync Now</strong>in the connection pane and wait for the sync to complete. </p><p>‍</p><img/><p>‍</p><p>Once complete, you should see that three records have been emitted.
+
+
+

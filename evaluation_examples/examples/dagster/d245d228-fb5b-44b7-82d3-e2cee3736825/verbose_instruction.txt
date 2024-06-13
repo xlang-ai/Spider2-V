@@ -1,0 +1,17 @@
+We want to add some tests to this project to make sure the materialization of the assets is correct. Please follow these steps:
+1. Open the file "test_assets.py" in the VS Code editor.
+2. Add the following code to "test_assets.py":
+```
+from dagster import materialize
+from harry_potter_potions.assets import all_potions, count_advanced_difficulty_potions
+
+def test_potions_assets():
+    assets = [all_potions, count_advanced_difficulty_potions]
+    result = materialize(assets)
+    assert result.success
+    cnt = result.output_for_node("count_advanced_difficulty_potions")
+    assert cnt == 14
+```
+3. Save the current file.
+4. Switch to the terminal. Go to the directory /home/user/harry-potter-potions/.
+5. Run the command "pytest harry_potter_potions_tests" to ensure that the tests are added correctly.

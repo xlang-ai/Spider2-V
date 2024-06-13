@@ -1,0 +1,74 @@
+{
+    "id": "32c8531c-fc63-41fb-a766-9fb2578d14de",
+    "snapshot": "dbt",
+    "instruction": "The current dbt cloud project named \"DesktopEnv\" is staled, help me update its name to \"OSWorld\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task aims to update the name of an existing project.\n1. Click the gear icon at upper-right corner of the page.\n2. Click \"Account settings\" in the drop-down panel.\n3. Click \"Projects\" in the left sidebar.\n4. Click the only project \"DesktopEnv\", the detailed information of this project will pop up from the right.\n5. Click the green \"Edit\" button at bottom.\n6. Change the \"Project name\" under \"Overview\" subtitle to \"OSWorld\".\n7. Click the green \"Save\" button at bottom.\n8. If dbt warns you about the potential effects of this update, click the \"Continue\" button.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/docs/build/projects"
+    ],
+    "related_apps": [
+        "dbt-cloud",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_transformation",
+        "verbose"
+    ],
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "DesktopEnv"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "action_number": 8,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_project_info",
+            "fields": [
+                "name"
+            ],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "OSWorld"
+                ],
+                "exclude": [
+                    "None"
+                ]
+            }
+        }
+    },
+    "counterpart": "cac4f956-2fd7-46f7-bab6-2e2df1d0d9e1"
+}

@@ -1,0 +1,20 @@
+To complete the visualization, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose "Orders" in the "Sample Database" drop-down panel;
+4. Click on Visualize;
+5. Click on the "Summarize" button at the top right corner.
+6. Under "Group by" choose "Total" - Add grouping;
+7. Try each option in "Auto binned" drop-down menu until find one which makes the y-axis ranging around 1,400;
+8. Click Done;
+9. Click on Visualization -> Bar;
+10. Click on Bar again to pull out the Bar Options panel;
+11. Under Display, open "Show values on data points";
+12. Choose "Values to show - All";
+13. Choose "Auto formatting - Compact";
+14. Click Done;
+15. Click the "Download full results" button (cloud icon) on the bottom right;
+16. Choose ".png" in the panel;
+17. Open the local path "/home/user/Downloads";
+18. Rename the visualization file as "histogram.png".

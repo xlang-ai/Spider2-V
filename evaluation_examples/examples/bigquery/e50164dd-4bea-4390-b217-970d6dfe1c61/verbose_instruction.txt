@@ -1,0 +1,20 @@
+Now we have some files on the desktop. Our job is to upload a specific file onto BigQuery. To do this:
+1) Switch to the terminal.
+2) Unzip the .zip file on desktop via typing and executing:
+`unzip -q names.zip -d names`
+3) After that, we will see a file "yob2014.txt" with keyword 2014 indicating the year information. Try:
+`ls names | grep 2014`
+4) Change to the web browser, which resides in the BigQuery page.
+5) Click the "+ ADD" button next to the "Explorer" panel.
+6) Click the "Local file" panel on the pop-up window.
+7) In the input box "Select file", browse the local file system and select the file "yob2014.txt" under folder `~/Desktop/names`.
+8) For file format, click and choose "CSV" in the drop-down panel.
+9) For Destination, firstly click "CREATE NEW DATASET".
+10) Type in "babynames" in the `Dataset ID` field and click button "CERATE DATASET".
+11) For the `Table` field, type in text "names_2014".
+12) As for the schema, click the button "+" to add field. Add these fields one-by-one:
+Field name: name; Type: STRING
+Field name: assigned_sex_at_birth; Type: STRING
+Field name: count; Type: INTEGER;
+13) Then, click the button "CREATE TABLE" at the bottom.
+Eventually, we have completed this task.

@@ -1,0 +1,131 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.html
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Data Transfer Service Samples</span><ul><span>Copy a dataset</span><span>Create a scheduled query</span><span>Create a scheduled query with a service account</span><span>Create a transfer configuration with run notifications</span><span>Delete a scheduled query</span><span>Delete a transfer configuration</span><span>Disable a transfer configuration</span><span>Get configuration metadata</span><span>Get transfer run metadata</span><span>List run history</span><span>List supported data sources</span><span>List transfer configurations</span><span>Load data from Amazon Redshift</span><span>Load data from Amazon S3</span><span>Load data from Campaign Manager</span><span>Load data from Cloud Storage</span><span>Load data from Google Ad Manager</span><span>Load data from Google Ads</span><span>Load data from Google Play</span><span>Load data from Teradata</span><span>Load data from YouTube Channel reports</span><span>Load data from YouTube Content Owner reports</span><span>Re-enable a transfer configuration</span><span>Schedule a backfill run</span><span>Update configuration metadata</span><span>Update transfer configuration credentials</span></ul></div><div><span>BigQuery Migration Samples</span><span>Demonstrate batch query translation</span></div><div><span>BigQuery Reservation Samples</span><span>Report capacity commitments and reservations</span></div><div><span>BigQuery Storage Samples</span><ul><span>Append buffered records</span><span>Append committed records</span><span>Append data for a complex schema</span><span>Append pending records</span><span>Append records using default client</span><span>Append rows with a static protocol buffer</span><span>Download table data in the Arrow data format</span><span>Download table data in the Avro data format</span></ul></div></ul><ul><span>AI solutions, generative AI, and ML
+   </span><span>Application development
+   </span><span>Application hosting
+   </span><span>Compute
+   </span><span>Data analytics and pipelines
+   </span><span>Databases
+   </span><span>Distributed,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.html
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><code>from google.cloud import bigquery
+
+# Construct a BigQuery client object.
+client = bigquery.Client()
+
+# TODO(developer): Set table_id to the ID of the table
+#                  to add an empty column.
+# table_id = "your-project.your_dataset.your_table_name"
+
+table = client.get_table(table_id)  # Make an API request.
+
+original_schema = table.schema
+new_schema = original_schema[:]  # Creates a copy of the schema.
+new_schema.append(bigquery.SchemaField("phone", "STRING"))
+
+table.schema = new_schema
+table = client.update_table(table, ["schema"])  # Make an API request.
+
+if len(table.schema) == len(original_schema) + 1 == len(new_schema):
+    print("A new column has been added.")
+else:
+    print("The column has not been added.")</code></section></div></section><section><h2>What's next</h2><p>To search and filter code samples for other Google Cloud products, see the
+        <a>Google Cloud sample browser</a>.
+      </p></section></div></article><p>Except as otherwise noted, the content of this page is licensed under the <a>Creative Commons Attribution 4.0 License</a>, and code samples are licensed under the <a>Apache 2.0 License</a>. For details, see the <a>Google Developers Site Policies</a>. Java is a registered trademark of Oracle and/or its affiliates.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.html
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><code>import com.google.cloud.bigquery.BigQuery;
+import com.google.cloud.bigquery.BigQueryException;
+import com.google.cloud.bigquery.BigQueryOptions;
+import com.google.cloud.bigquery.Field;
+import com.google.cloud.bigquery.FieldList;
+import com.google.cloud.bigquery.LegacySQLTypeName;
+import com.google.cloud.bigquery.Schema;
+import com.google.cloud.bigquery.StandardTableDefinition;
+import com.google.cloud.bigquery.Table;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AddEmptyColumn {
+
+  public static void main(String[] args) {
+    // TODO(developer): Replace these variables before running the sample.
+    String datasetName = "MY_DATASET_NAME";
+    String tableId = "MY_TABLE_NAME";
+    String newColumnName = "NEW_COLUMN_NAME";
+    addEmptyColumn(newColumnName, datasetName, tableId);
+  }
+
+  public static void addEmptyColumn(String newColumnName, String datasetName, String tableId) {
+    try {
+      // Initialize client that will be used to send requests. This client only needs to be created
+      // once, and can be reused for multiple requests.
+      BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
+
+      Table table = bigquery.getTable(datasetName, tableId);
+      Schema schema = table.getDefinition().getSchema();
+      FieldList fields = schema.getFields();
+
+      // Create the new field/column
+      Field newField = Field.of(newColumnName, LegacySQLTypeName.STRING);
+
+      // Create a new schema adding the current fields, plus the new one
+      List&lt;Field&gt; fieldList = new ArrayList&lt;Field&gt;();
+      fields.forEach(fieldList::add);
+      fieldList.add(newField);
+      Schema newSchema = Schema.of(fieldList);
+
+      // Update the table with the new schema
+      Table updatedTable =
+          table.toBuilder().setDefinition(StandardTableDefinition.of(newSchema)).build();
+      updatedTable.update();
+      System.out.println("Empty column successfully added to table");
+    } catch (BigQueryException e) {
+      System.out.println("Empty column was not added.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.html
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Join Google Cloud!
+          
+          </a><a>Google Cloud Community
+          
+          </a></ul></li></ul><nav><ul><a>About Google
+        </a><a>Privacy
+        </a><a>Site terms
+        </a><a>Google Cloud terms
+        </a><a>Manage cookies
+        </a><a>Our third decade of climate action: join us
+        </a><li><span>Sign up for the Google Cloud newsletter</span><a>Subscribe
+        </a></li></ul><ul><a>English</a><a>Deutsch</a><a>Español – América Latina</a><a>Français</a><a>Indonesia</a><a>Italiano</a><a>Português – Brasil</a><a>中文 – 简体</a><a>日本語</a><a>한국어</a></ul></nav></section></section>
+
+
+

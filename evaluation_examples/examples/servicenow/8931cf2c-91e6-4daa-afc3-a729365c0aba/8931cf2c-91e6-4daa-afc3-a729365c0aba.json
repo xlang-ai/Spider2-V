@@ -1,0 +1,58 @@
+{
+    "id": "8931cf2c-91e6-4daa-afc3-a729365c0aba",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@CreateIncidentTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 7,
+    "instruction": "Create a new incident with a value of \"Issue with a web page on wiki\" for field \"Short description\" and a value of \"Fred Luddy\" for field \"Caller\" and a value of \"\" for field \"Service\" and a value of \"3 - Low\" for field \"Impact\" and a value of \"\" for field \"Caused by Change\" and a value of \"\" for field \"Parent Incident\" and a value of \"\" for field \"Change Request\" and a value of \"3 - Low\" for field \"Urgency\" and a value of \"\" for field \"Problem\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We will create a new incident in the opened web page:\n1. Firstly, find and click the input box of field \"Caller\". There should be a red star in front of it, indicating that this field must be filled in.\n2. Type in the text \"Fred Luddy\".\n3. Next, find the third selection box on the right column named \"Impact\", click it and select the entry \"3 - Low\". (If the field value is already \"3 - Low\", you can just skip this step)\n4. For the selection box \"Urgency\" which is exactly under \"Impact\", ensure that it has value \"3 - Low\" too.\n5. Find and click the wide field box \"Short description\" which spans across two columns and has a red start in front of it too.\n6. Input text \"Issue with a web page on wiki\" into this input field.\n7. Leave other fields as they are and click the \"Submit\" button at the top-right of this web page to complete our task.\n(Attention that, after the refresh of the page, our filled contents will be flushed. But do not worry, if there is no error message, it means our new record has been submitted.)\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "CreateIncidentTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "18d34d98-3b7d-4fb1-a144-b0f2ca6c22d2"
+}

@@ -1,0 +1,72 @@
+{
+    "id": "425e038b-6965-442d-b9a3-e72f05c1911f",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo show the DAG dependencies views for checking the DAG dependencies on airflow website, we can follow the steps:\n1. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;\n2. Click the DAG dependencies in the dropdown menu\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-ui"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/425e038b-6965-442d-b9a3-e72f05c1911f/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 2,
+    "related_apps": [
+        "airflow",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/425e038b-6965-442d-b9a3-e72f05c1911f/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "13d420b9-b685-4afb-ac98-997cbbd266d9"
+}

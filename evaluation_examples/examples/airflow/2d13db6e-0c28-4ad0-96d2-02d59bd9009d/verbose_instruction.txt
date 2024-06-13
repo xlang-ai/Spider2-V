@@ -1,0 +1,54 @@
+In this task, we want to change the schedule of the consumer DAG `cocktail_consumer_dag`, such that each time the output files of the producer DAG `cocktail_producer_dag` are updated, `cocktail_consumer_dag` be be automatically triggered. We can implement this via airflow Datasets. The detailed steps are as follows:
+1. Click the application icon for Visual Studio Code on the left menu.
+2. Open the file `dags/cocktail_producer_dag.py`.
+3. Firstly, define two Datasets with respect to the output files `include/cocktail_instructions.txt` and `include/cocktail_info.txt`:
+```
+... previous import statements ...
+
+from airflow.datasets import Dataset # use Dataset
+
+INSTRUCTIONS = Dataset("file://localhost/airflow/include/cocktail_instructions.txt")
+INFO = Dataset("file://localhost/airflow/include/cocktail_info.txt")
+
+API = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
+... other code ...
+```
+4. Next, add the `outlets` parameter for each write task in `cocktail_producer_dag`:
+```
+def cocktail_producer_dag():
+    @task
+    def get_cocktail(api):
+        ...
+
+    @task(outlets=[INSTRUCTIONS])
+    def write_instructions_to_file(response):
+        ...
+
+    @task(outlets=[INFO])
+    def write_info_to_file(response):
+        ...
+```
+5. Save this file via hotkey Ctrl+S.
+6. Open the consumer DAG file `dags/cocktail_consumer_dag.py`.
+7. Revise the code by integrating two datasets into the schedule:
+```
+... previous import statements ...
+
+from airflow.datasets import Dataset
+
+INSTRUCTIONS = Dataset("file://localhost/airflow/include/cocktail_instructions.txt")
+INFO = Dataset("file://localhost/airflow/include/cocktail_info.txt")
+
+@dag(
+    dag_id="cocktail_consumer_dag",
+    start_date=datetime(2024, 1, 1),
+    schedule=[INSTRUCTIONS, INFO],  # Scheduled on both Datasets
+    catchup=False,
+)
+def cocktail_consumer_dag():
+    ...
+```
+8. Save this file too.
+9. Switch to the web browser.
+10. Refresh the web page via "Ctrl+R". We can see that the value under the column "Schedule" for DAG `cocktail_consumer_dag` has changed to "Dataset". This means that each time the defined two datasets are updated (namely the two output files of the producer DAG), the consumer DAG will be automatically triggered.
+(There may exist some time delay in step 10, we can refresh the web page multiple times and wait for the changes to work.)

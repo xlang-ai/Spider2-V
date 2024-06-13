@@ -1,0 +1,48 @@
+Documentation Source:
+superset.apache.org/docs/configuration/event-logging/index.html
+
+Documentation Title:
+Event Logging | Superset
+
+Documentation Content:
+<div><a>Skip to main content</a><div><div><div><img/><img/></div><div><a>Documentation</a><ul><a>Getting Started</a><a>FAQ</a></ul></div><div><a>Community</a><ul><a>Resources</a><a>GitHub</a><a>Slack</a><a>Mailing List</a><a>Stack Overflow</a></ul></div></div><div><a>Get Started</a><span>Search</span></div></div><div><ul><a>Introduction</a><a>Quickstart</a><a>Installation</a><li><a>Configuration</a><ul><a>Configuring Superset</a><a>Connecting to Databases</a><a>Alerts and Reports</a><a>Caching</a><a>Async Queries via Celery</a><a>SQL Templating</a><a>Timezones</a><a>Network and Security Settings</a><a>Setup SSH Tunneling</a><a>Event Logging</a><a>Country Map Tools</a><a>Importing and Exporting Datasources</a></ul></li><a>Using Superset</a><a>Contributing</a><a>Security</a><a>FAQ</a><a>API</a></ul><div><a>Edit this page on GitHub</a><div><div><article><ul><span>Configuration</span><span>Event Logging</span></ul><button>On this page</button><div><h1>Logging</h1><h2>Event Logging<a>​</a></h2><p>Superset by default logs special action events in its internal database (DBEventLogger). These logs can be accessed
+on the UI by navigating to <strong>Security &gt; Action Log</strong>. You can freely customize these logs by
+implementing your own event log class.
+<strong>When custom log class is enabled DBEventLogger is disabled and logs
+stop being populated in UI logs view.</strong>To achieve both, custom log class should extend built-in DBEventLogger log class.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/alerts-reports/index.html
+
+Documentation Title:
+Alerts and Reports | Superset
+
+Documentation Content:
+prune_log"</span><span>,</span></span><span><span>"schedule"</span><span>:</span><span>crontab</span><span>(</span><span>minute</span><span>=</span><span>0</span><span>,</span><span>hour</span><span>=</span><span>0</span><span>)</span><span>,</span></span><span><span>}</span><span>,</span></span><span>}</span><span><span>CELERY_CONFIG </span><span>=</span><span>CeleryConfig</span></span><span><span>SCREENSHOT_LOCATE_WAIT </span><span>=</span><span>100</span></span><span><span>SCREENSHOT_LOAD_WAIT </span><span>=</span><span>600</span></span><span># Slack configuration</span><span><span>SLACK_API_TOKEN </span><span>=</span><span>"xoxb-"</span></span><span># Email configuration</span><span><span>SMTP_HOST </span><span>=</span><span>"smtp.sendgrid.net"</span><span># change to your host</span></span><span><span>SMTP_PORT </span><span>=</span><span>2525</span><span># your port, e.g. 587</span></span><span><span>SMTP_STARTTLS </span><span>=</span><span>True</span></span><span><span>SMTP_SSL_SERVER_AUTH </span><span>=</span><span>True</span><span># If your using an SMTP server with a valid certificate</span></span><span><span>SMTP_SSL </span><span>=</span><span>False</span></span><span><span>SMTP_USER </span><span>=</span><span>"your_user"</span><span># use the empty string "" if using an unauthenticated SMTP server</span></span><span><span>SMTP_PASSWORD </span><span>=</span><span>"your_password"</span><span># use the empty string "" if using an unauthenticated SMTP server</span></span><span><span>SMTP_MAIL_FROM </span><span>=</span><span>"noreply@youremail.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/event-logging/index.html
+
+Documentation Title:
+Event Logging | Superset
+
+Documentation Content:
+</span></span><span><span>json</span><span>=</span><span>record</span><span>,</span></span><span><span>dashboard_id</span><span>=</span><span>dashboard_id</span><span>,</span></span><span><span>slice_id</span><span>=</span><span>slice_id</span><span>,</span></span><span><span>duration_ms</span><span>=</span><span>duration_ms</span><span>,</span></span><span><span>referrer</span><span>=</span><span>referrer</span><span>,</span></span><span><span>user_id</span><span>=</span><span>user_id</span></span><span>)</span><span><span>print</span><span>(</span><span>json</span><span>.</span><span>dumps</span><span>(</span><span>log</span><span>)</span><span>)</span></span></code><p>End by updating your config to pass in an instance of the logger you want to use:</p><span>EVENT_LOGGER = JSONStdOutEventLogger()</span><h2>StatsD Logging<a>​</a></h2><p>Superset can be configured to log events to <a>StatsD</a>if desired.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/index72c9.html
+
+Documentation Title:
+Index of /docs/configuration
+
+Documentation Content:
+htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>event-logging.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>event-logging.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>country-map-tools.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>country-map-tools.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>configuring-superset.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>configuring-superset.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>cache.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>cache.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>async-queries-celery.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>async-queries-celery.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>alerts-reports.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>alerts-reports.
+
+
+

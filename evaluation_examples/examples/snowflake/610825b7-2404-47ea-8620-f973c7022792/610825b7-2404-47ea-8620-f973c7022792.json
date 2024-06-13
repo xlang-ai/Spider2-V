@@ -12,7 +12,8 @@
     "tags": [
         "gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 5,
     "config": [
@@ -44,7 +45,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "exact_match",
@@ -57,5 +57,6 @@
                 "expected": "SELECT S_SUPPKEY, S_NAME, S_ACCTBAL FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.SUPPLIER WHERE S_ACCTBAL > 5000"
             }
         }
-    }
+    },
+    "counterpart": "25f4c9ac-24e9-42a4-bd87-59aa4a71e2de"
 }

@@ -1,0 +1,58 @@
+{
+    "id": "36a4a249-26f5-4da9-a9ae-28ebf2db9403",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderLoanerLaptopTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 7,
+    "instruction": "Go to the hardware store and order 9 \"Loaner Laptop\" with configuration {'How long do you need it for ?': '1 day', 'When do you need it ?': 'By the end of the month'}\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We want to order 9 \"Loaner Laptop\" in the hardware store. To do this:\n1. Click the \"Hardware\" panel and wait for page loading.\n2. In the search bar on the top-right (with text \"Search catalog\"), click it and type in \"Loaner Laptop\".\n3. Press Enter to filter the items. We will see the desired item panel. Click it.\n4. Let's fill the detailed configuration. For the input box under \"When do you need it ?\", type in the text value \"By the end of the month\".\n5. For the selection option \"How long do you need it for ?\", click and choose \"1 day\".\n6. Come to the right panel, click and choose the \"Quantity\" with value \"9\".\n7. Click the button \"Order Now\". Wait a few seconds, the request has been made.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderLoanerLaptopTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "3b9da56c-4e9f-455f-b91b-6147cafe44e3"
+}

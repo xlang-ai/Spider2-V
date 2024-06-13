@@ -1,0 +1,533 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.txt
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+When you create a worksheet inside a folder, the worksheet is created with the role of your current session.
+Note
+To run a worksheet in a folder that was shared with you, even if you have
+View and Run
+or
+Edit
+permissions on the folder,
+you must use the same role as the worksheet. If you do not have the same role, duplicate the worksheet and run it as one of your own roles.
+Exploring the worksheet results
+¶
+Note
+Available to most accounts. Accounts in U.S. government regions, accounts using Virtual Private Snowflake (VPS), and accounts
+that use Private Connectivity to access Snowflake continue to see query results limited to 10,000 rows.
+When you run one query or all queries in a worksheet, you see the query results.
+The query results display as a table. You can navigate the query results with the arrow keys on your keyboard, as you would with a
+spreadsheet. You can select columns, cells, rows, or ranges in the results table. You can copy and paste any selection.
+For up to 1 million rows of results, you can review generated statistics that display contextual information for any selection,
+as well as overall statistics. See
+Automatic contextual statistics
+for more details.
+If you want to view your results as a chart, select
+Chart
+. For more details about charts, see
+Visualizing worksheet data
+.
+Query results are cached. For more details, see
+Stored results for past worksheet versions
+and
+Managing worksheet history and versions
+.
+Cost considerations for transforming query results
+¶
+Note
+Available to most accounts. Accounts in U.S. government regions, accounts using Virtual Private Snowflake (VPS), and accounts
+that use Private Connectivity to access Snowflake are not charged when transforming query results.
+Note that some column transformation activities performed on the query results of Snowsight worksheets incur
+compute cost. The compute cost is billed against the same warehouse used to run the query.
+For example, when you sort a column by ascending or descending order using the column options, the changes affect all of your results,
+instead of just the first 10,000 rows returned, and you incur compute cost.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/constructs/where.txt
+
+Documentation Title:
+WHERE | Snowflake Documentation
+
+Documentation Content:
+Before executing the queries, create and load the tables to use in the joins:
+create
+table
+departments
+(
+department_ID
+INTEGER
+,
+department_name
+VARCHAR
+,
+location
+VARCHAR
+);
+insert
+into
+departments
+(
+department_id
+,
+department_name
+,
+location
+)
+values
+(
+10
+,
+'CUSTOMER SUPPORT'
+,
+'CHICAGO'
+),
+(
+40
+,
+'RESEARCH'
+,
+'BOSTON'
+),
+(
+80
+,
+'Department with no employees yet'
+,
+'CHICAGO'
+),
+(
+90
+,
+'Department with no projects or employees yet'
+,
+'EREHWON'
+)
+;
+create
+table
+projects
+(
+project_id
+integer
+,
+project_name
+varchar
+,
+department_id
+integer
+);
+insert
+into
+projects
+(
+project_id
+,
+project_name
+,
+department_id
+)
+values
+(
+4000
+,
+'Detect fake product reviews'
+,
+40
+),
+(
+4001
+,
+'Detect false insurance claims'
+,
+10
+),
+(
+9000
+,
+'Project with no employees yet'
+,
+80
+),
+(
+9099
+,
+'Project with no department or employees yet'
+,
+NULL
+)
+;
+create
+table
+employees
+(
+employee_ID
+INTEGER
+,
+employee_name
+VARCHAR
+,
+department_id
+INTEGER
+,
+project_id
+INTEGER
+);
+insert
+into
+employees
+(
+employee_id
+,
+employee_name
+,
+department_id
+,
+project_id
+)
+values
+(
+1012
+,
+'May Aidez'
+,
+10
+,
+NULL
+),
+(
+1040
+,
+'Devi Nobel'
+,
+40
+,
+4000
+),
+(
+1041
+,
+'Alfred Mendeleev'
+,
+40
+,
+4001
+)
+;
+Copy
+Execute a 3-way inner join. This does not use
+(+)
+(or the OUTER keyword) and is therefore an inner join. The
+output includes only rows for which there is a department, project, and employee:
+SELECT
+d
+.
+department_name
+,
+p
+.
+project_name
+,
+e
+.
+employee_name
+FROM
+departments
+d
+,
+projects
+p
+,
+employees
+e
+WHERE
+p
+.
+department_id
+=
+d
+.
+department_id
+AND
+e
+.
+project_id
+=
+p
+.
+project_id
+ORDER
+BY
+d
+.
+department_id
+,
+p
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/queries-hierarchical.txt
+
+Documentation Title:
+Querying Hierarchical Data | Snowflake Documentation
+
+Documentation Content:
+For example:
+CREATE
+OR
+REPLACE
+TABLE
+employees
+(
+title
+VARCHAR
+,
+employee_ID
+INTEGER
+,
+manager_ID
+INTEGER
+);
+Copy
+INSERT
+INTO
+employees
+(
+title
+,
+employee_ID
+,
+manager_ID
+)
+VALUES
+(
+'President'
+,
+1
+,
+NULL
+),
+-- The President has no manager.
+(
+'Vice President Engineering'
+,
+10
+,
+1
+),
+(
+'Programmer'
+,
+100
+,
+10
+),
+(
+'QA Engineer'
+,
+101
+,
+10
+),
+(
+'Vice President HR'
+,
+20
+,
+1
+),
+(
+'Health Insurance Analyst'
+,
+200
+,
+20
+);
+Copy
+Storing an entire hierarchy of data in one table works best if all levels
+of the hierarchy store the same data – in our example, employee ID, title, etc.
+If the data at different levels doesn’t fit the same record structure, then
+storing all the data in one table might not be practical.
+Using Joins to Query Hierarchical Data
+¶
+In a two-level hierarchy (for example, managers and employees), the data can be queried with a two-way join:
+SELECT
+employees
+.
+title
+,
+employees
+.
+employee_ID
+,
+managers
+.
+employee_ID
+AS
+MANAGER_ID
+,
+managers
+.
+title
+AS
+"MANAGER TITLE"
+FROM
+employees
+,
+managers
+WHERE
+employees
+.
+manager_ID
+=
+managers
+.
+employee_ID
+ORDER
+BY
+employees
+.
+title
+;
++
+----------------------------+-------------+------------+---------------+
+| TITLE                      | EMPLOYEE_ID | MANAGER_ID | MANAGER TITLE |
+|----------------------------+-------------+------------+---------------|
+| Vice President Engineering |          10 |          1 | President     |
+| Vice President HR          |          20 |          1 | President     |
++
+----------------------------+-------------+------------+---------------+
+Copy
+In a three-level hierarchy, you can use a 3-way join:
+SELECT
+emps
+.
+title
+,
+emps
+.
+employee_ID
+,
+mgrs
+.
+employee_ID
+AS
+MANAGER_ID
+,
+mgrs
+.
+title
+AS
+"MANAGER TITLE"
+FROM
+employees
+AS
+emps
+LEFT
+OUTER
+JOIN
+employees
+AS
+mgrs
+ON
+emps
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/constructs/where.txt
+
+Documentation Title:
+WHERE | Snowflake Documentation
+
+Documentation Content:
+department_id
+(+)
+=
+d
+.
+department_id
+AND
+e
+.
+project_id
+(+)
+=
+p
+.
+project_id
+ORDER
+BY
+d
+.
+department_id
+,
+p
+.
+project_id
+,
+e
+.
+employee_id
+;
++
+----------------------------------------------+-------------------------------+------------------+
+| DEPARTMENT_NAME                              | PROJECT_NAME                  | EMPLOYEE_NAME    |
+|----------------------------------------------+-------------------------------+------------------|
+| CUSTOMER SUPPORT                             | Detect false insurance claims | Alfred Mendeleev |
+| RESEARCH                                     | Detect fake product reviews   | Devi Nobel       |
+| Department with no employees yet             | Project with no employees yet | NULL             |
+| Department with no projects or employees yet | NULL                          | NULL             |
++
+----------------------------------------------+-------------------------------+------------------+
+Copy
+(Remember, however, that Snowflake recommends using the
+OUTER
+keyword in the
+FROM
+clause rather than using
+the
+(+)
+operator in the
+WHERE
+clause.)
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Syntax
+Usage notes
+Joins in the WHERE clause
+Examples
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+

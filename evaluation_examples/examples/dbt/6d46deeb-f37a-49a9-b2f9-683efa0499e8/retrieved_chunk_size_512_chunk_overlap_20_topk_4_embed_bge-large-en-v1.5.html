@@ -1,0 +1,54 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.html
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+For DEFAULT_WAREHOUSE, use <span>COMPUTE_WH</span>.</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>USER</span><span>snowman</span><span>PASSWORD</span><span>=</span><span>'sn0wf@ll'</span><span>LOGIN_NAME</span><span>=</span><span>'snowstorm'</span><span>FIRST_NAME</span><span>=</span><span>'Snow'</span><span>LAST_NAME</span><span>=</span><span>'Storm'</span><span>EMAIL</span><span>=</span><span>'snow.storm@snowflake.com'</span><span>MUST_CHANGE_PASSWORD</span><span>=</span><span>true</span><span>DEFAULT_WAREHOUSE</span><span>=</span><span>COMPUTE_WH</span><span>;</span></pre><span>Copy</span></div><p>This command returns the following output:</p><span>User SNOWMAN successfully created.</span><p>If you were creating a real user in a real Snowflake account, you would now send the
+following information in a secure manner to the person who would need to access
+this new account:</p><ul><p>Snowflake Account URL: the Snowflake account link where the user will log in.
+You can find this link at the top of your browser
+(for example: <a>https://app.snowflake.com/myorg/myaccount/</a>,
+where <span>myorg</span>is the Snowflake organization ID, and <span>myaccount</span>is the account ID).</p><p>LOGIN_NAME, as specified in the CREATE USER command.</p><p>PASSWORD, as specified in the CREATE USER command.</p></ul></section><section><h2>Step 5.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/python-connector/sqlalchemy.html
+
+Documentation Title:
+Using the Snowflake SQLAlchemy toolkit with the Python Connector | Snowflake Documentation
+
+Documentation Content:
+Snowflake
+automatically appends the domain name to your account identifier to create the required connection.</p></div></li></ul></section><section><h4>Additional connection parameters<a>¶</a></h4><p>You can optionally include the following additional information at the end of the connection string (after <span>&lt;account_name&gt;</span>):</p><div><span>'snowflake://&lt;user_login_name&gt;:&lt;password&gt;@&lt;account_identifier&gt;/&lt;database_name&gt;/&lt;schema_name&gt;?warehouse=&lt;warehouse_name&gt;&amp;role=&lt;role_name&gt;'</span><span>Copy</span></div><p>Where:</p><ul><p><span>&lt;database_name&gt;</span>and <span>&lt;schema_name&gt;</span>are the initial database and schema for the Snowflake session, separated by forward slashes (<span>/</span>).</p><p><span>warehouse=&lt;warehouse_name&gt;</span>and <span>role=&lt;role_name&gt;'</span>are the initial warehouse and role for the session, specified as parameter strings, separated by question marks (<span>?</span>).</p></ul><div><p>Note</p><p>After login, the initial database, schema, warehouse, and role specified in the connection string can always be changed for the session.</p></div></section><section><h4>Proxy server configuration<a>¶</a></h4><p>Proxy server parameters are not supported. Instead, use the supported environment variables to configure a proxy server.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowflake-python-api/reference/latest/index.html
+
+Documentation Title:
+Snowflake API Reference (Python) | Snowflake Documentation
+
+Documentation Content:
+These instructions
+will change before the public release of SnowAPI.</p></div><p>You can define your connection information in a dictionary in your code <a><span>[</span>1<span>]</span></a>like so:</p><div><pre><span>&gt;&gt;&gt; </span><span>CONNECTION_PARAMETERS</span><span>=</span><span>dict</span><span>(</span><span>... </span><span>account</span><span>=</span><span>'your account name'</span><span>,</span><span>... </span><span>user</span><span>=</span><span>'your user name'</span><span>,</span><span>... </span><span>password</span><span>=</span><span>'your password'</span><span>,</span><span>... </span><span>database</span><span>=</span><span>'database name'</span><span>,</span><span>... </span><span>schema</span><span>=</span><span>'schema name'</span><span>,</span><span>... </span><span>role</span><span>=</span><span>'role if needed'</span><span>,</span><span>... </span><span>warehouse</span><span>=</span><span>'warehouse name'</span><span>,</span><span>... </span><span>)</span></pre><span>Copy</span></div><p>You then use this connection information to create a session:</p><div><pre><span>&gt;&gt;&gt; </span><span>session</span><span>=</span><span>Session</span><span>.</span><span>builder</span><span>.</span><span>configs</span><span>(</span><span>connection_parameters</span><span>)</span><span>.</span><span>create</span><span>()</span></pre><span>Copy</span></div></section><section><h3>The root resource<a>¶</a></h3><p>The SnowAPI is organized as a tree of resources, modeling the resources
+available in the Snowflake REST API <a><span>[</span>2<span>]</span></a>.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowflake-cli-v2/connecting/specify-credentials.html
+
+Documentation Title:
+Specifying your Snowflake credentials | Snowflake Documentation
+
+Documentation Content:
+connection-name&gt;</span>is the name of a connection in the configuration file, such as <span>MYCONNECTION</span></p><li><p><span>&lt;key&gt;</span>is one of the following:</p><ul><p>ACCOUNT</p><p>USER</p><p>PASSWORD</p><p>DATABASE</p><p>SCHEMA</p><p>ROLE</p><p>WAREHOUSE</p><p>MFA_PASSCODE</p></ul></li></ul><p>For example, to set the account for the <span>MYCONNECTION</span>connection defined in the <span>config.toml</span>file, set
+an environment variable similar to the following:</p><div><pre><span>export</span><span>SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT</span><span>=</span><span>"myaccount"</span></pre><span>Copy</span></div><p>You can specify some credentials, such as account and user, in the configuration file, and specify the password in an
+environment variable as follows:</p><ol><li><p>Define the following connection configuration, as appropriate for your Snowflake account:</p><div><pre><span>[connections]</span><span>[connections.myconnection]</span><span>account</span><span>=</span><span>"myaccount"</span><span>user</span><span>=</span><span>"jdoe"</span></pre><span>Copy</span></div></li><li><p>Create a generic system environment variable for the password as follows:</p><div><pre><span>export</span><span>SNOWFLAKE_PASSWORD</span><span>=</span><span>"xyz2000"</span></pre><span>Copy</span></div></li></ol><p>You can also override a value in the configuration file by using a system environment variable.
+
+
+

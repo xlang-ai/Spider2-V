@@ -1,0 +1,49 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/map.html
+
+Documentation Title:
+Maps
+
+Documentation Content:
+49
+</a><a>Questions</a></ol><article><h1>Maps</h1><p>When you select the <strong>Map</strong>visualization setting, Metabase will automatically try and pick the best kind of map to use based on the table or result set. Here are the maps that Metabase uses:</p><h2>Region maps</h2><p>There are two region maps included with Metabase:</p><h3>World Map</h3><p>To visualize your results in the format of a map of the world broken out by country, your result must contain a column with two-letter <a>country codes</a>.</p><img/><h3>United States Map</h3><img/><p>Creating a map of the United States from your data requires your results to contain a column that contains names of states or two-letter state codes. This lets you do things like visualize the count of your users broken out by state, with darker states representing more users.</p><h2>Pin map</h2><p>If your results contains <a>latitude and longitude fields</a>, Metabase will try to display the results as a pin map of the world. Metabase will put one pin on the map for each row in your table, based on the latitude and longitude fields. You can try this with the Sample Database that’s included in Metabase: start a new question and select the People table, use <code>raw data</code>for your view, and choose the Map option for your visualization. You’ll see a map of the world, with each dot representing the latitude and longitude coordinates of a single person from the People table.</p><img/><p>When you open up the Map options, you can manually switch between a region map (e.g., United States) and a pin map.
+
+
+
+Documentation Source:
+www.metabase.com/learn/data-modeling/models.html
+
+Documentation Title:
+Models in Metabase
+
+Documentation Content:
+</span><span>user_id</span><span>AS</span><span>id</span><span>,</span><span>people</span><span>.</span><span>created_at</span><span>AS</span><span>join_date</span><span>,</span><span>people</span><span>.</span><span>state</span><span>AS</span><span>state</span><span>,</span><span>people</span><span>.</span><span>source</span><span>AS</span><span>source</span><span>,</span><span>Sum</span><span>(</span><span>orders</span><span>.</span><span>total</span><span>)</span><span>AS</span><span>total</span><span>,</span><span>Count</span><span>(</span><span>*</span><span>)</span><span>AS</span><span>order_count</span><span>,</span><span>Sum</span><span>(</span><span>orders</span><span>.</span><span>total</span><span>)</span><span>/</span><span>Count</span><span>(</span><span>*</span><span>)</span><span>AS</span><span>avg_total</span><span>FROM</span><span>orders</span><span>LEFT</span><span>JOIN</span><span>people</span><span>ON</span><span>orders</span><span>.</span><span>user_id</span><span>=</span><span>people</span><span>.</span><span>id</span><span>GROUP</span><span>BY</span><span>id</span><span>,</span><span>city</span><span>,</span><span>state</span><span>,</span><span>zip</span><span>,</span><span>source</span></code><p>Metabase wouldn’t automatically know what kind of data type the <code>state</code>or <code>total</code>or any other column was.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/maps.html
+
+Documentation Title:
+Visualizing data with maps
+
+Documentation Content:
+If your data contains names of U.S. states, or two-letter state codes, Metabase will select the map of the United States.</p><h2>Make your data compatible with mapping</h2><p>If you plan on using a map visualization, you’ll need to make sure your data is compatible with map visualizations in two ways:</p><ul><li>Field types in your metadata</li><a>Field types</a><a>Country codes</a></ul><p>To edit metadata, go to your <a>Data Model admin settings</a>. Confirm that all your field types are set as a <code>Location</code>data type. For example, the <code>State</code>and <code>Longitude</code>fields both have their corresponding field type listed, but <code>Latitude</code>has no field type. To add the field type, click the dropdown menu in the <code>Type</code>column and select <code>Latitude</code>.</p><img/><p>To create a world map or US region map, make sure that your country or state codes match the standardized two-letter format specified by the <a>International Organization for Standardization (ISO)</a>.</p><p>Matches are case-sensitive; if the country or state codes listed in your database are lowercase or contain extra spaces, Metabase won’t recognize them.</p><h2>Pin map</h2><p>A pin map represents data geographically using discrete markers, and requires coordinates — latitude and longitude — to generate. Let’s start an example by visualizing the <code>People</code>table found within the <code>Sample Database</code>. Once you’re viewing the table, you’ll notice that this table contains four pieces of geographic information: city, state, latitude, and longitude.</p><p>Select <strong>Visualization</strong>, and scroll to the <strong>Map</strong>icon. With your latitude and longitude fields <a>set correctly</a>, Metabase will produce a pin map by default, placing markers on the map at those coordinates.
+
+
+
+Documentation Source:
+www.metabase.com/learn/permissions/impersonation.html
+
+Documentation Title:
+Use Impersonation to get row-level permissions with both GUI and SQL queries
+
+Documentation Content:
+If you click on the <strong>People</strong>table, you should only be able to see people who live in Vermont.</p><p>The same permissions apply when someone in the “Vermont sales team” group writes a SQL question.</p><code><span>select</span><span>*</span><span>from</span><span>people</span><span>;</span></code><img/><p>The results should only include people from Vermont. Subscriptions and alerts should also have these permissions applied.</p><div><a>« Previous</a><a>Next »</a></div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p></article></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+

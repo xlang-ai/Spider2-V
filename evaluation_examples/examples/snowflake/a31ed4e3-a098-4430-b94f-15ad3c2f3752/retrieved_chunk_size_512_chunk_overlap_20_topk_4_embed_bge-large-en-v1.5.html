@@ -1,0 +1,55 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.html
+
+Documentation Title:
+Load data from cloud storage: Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+For example, a schema might contain the database objects required for a
+specific application. For more information, see <span>Databases, Tables and Views - Overview</span>.</p><p>To create a database, a schema, and a table that you can load, do the following:</p><ol><li><p>In the open worksheet, place your cursor in the CREATE OR REPLACE DATABASE line,
+enter a name for your database and an optional comment, then select <span>Run</span>. For
+example:</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>DATABASE</span><span>cloud_data_db</span><span>COMMENT</span><span>=</span><span>'Database for loading cloud data'</span><span>;</span></pre><span>Copy</span></div></li><li><p>Place your cursor in the CREATE OR REPLACE SCHEMA line, enter a name for your schema
+and an optional comment, then select <span>Run</span>. For example:</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>SCHEMA</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>COMMENT</span><span>=</span><span>'Schema for tables loaded from S3'</span><span>;</span></pre><span>Copy</span></div></li><li><p>Place your cursor in the CREATE OR REPLACE TABLE lines, complete the table
+definition, add an optional comment, and select <span>Run</span>.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.html
+
+Documentation Title:
+Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+
+Documentation Content:
+For this tutorial, you are using Snowflake provided sample data, which you do not correct.</p></section><section><h3>Verify the loaded data<a>¶</a></h3><p>Execute a <span>SELECT</span>statement to verify that the data was loaded successfully.</p><section><h4>CSV<a>¶</a></h4><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>mycsvtable</span><span>;</span></pre><span>Copy</span></div><p>The query returns the following results:</p><div><pre><span>+</span><span>----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+--------------------------------+------------------+------------+</span><span>| ID | LAST_NAME | FIRST_NAME | COMPANY                          | EMAIL                                  | WORKPHONE      | CELLPHONE      | STREETADDRESS                  | CITY             | POSTALCODE |</span><span>|----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+--------------------------------+------------------+------------|</span><span>|  6 | Reed      | Moses      | Neque Corporation                | eget.lacus@facilisis.com               | 1-449-871-0780 | 1-454-964-5318 | Ap #225-4351 Dolor Ave         | Titagarh         |      62631 |</span><span>|  7 | Audrey    | Franks     | Arcu Eu Limited                  | eu.dui@aceleifendvitae.org             | 1-527-945-8935 | 1-263-127-1173 | Ap #786-9241 Mauris Road       | Bergen           |      81958 |</span><span>|  8 | Jakeem    | Erickson   | A Ltd                            | Pellentesque.habitant@liberoProinmi.ca | 1-381-591-9386 | 1-379-391-9490 | 319-1703 Dis Rd.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.html
+
+Documentation Title:
+Load data from cloud storage: Amazon S3 | Snowflake Documentation
+
+Documentation Content:
+For example, the following
+table contains six columns:</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>TABLE</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>calendar</span><span>(</span><span>full_date</span><span>DATE</span><span>,</span><span>day_name</span><span>VARCHAR</span><span>(</span><span>10</span><span>)</span><span>,</span><span>month_name</span><span>VARCHAR</span><span>(</span><span>10</span><span>)</span><span>,</span><span>day_number</span><span>VARCHAR</span><span>(</span><span>2</span><span>)</span><span>,</span><span>full_year</span><span>VARCHAR</span><span>(</span><span>4</span><span>)</span><span>,</span><span>holiday</span><span>BOOLEAN</span><span>)</span><span>COMMENT</span><span>=</span><span>'Table to be loaded from S3 calendar data file'</span><span>;</span></pre><span>Copy</span></div></li><li><p>To confirm that the table was created successfully, place your cursor in the SELECT line,
+then select <span>Run</span>.</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>calendar</span><span>;</span></pre><span>Copy</span></div><p>The output shows the columns of the table you created. Currently, the table does not have any rows.</p></li></ol></section><section><h2>Step 5. Create a storage integration<a>¶</a></h2><p>Before you can load data from cloud storage, you must configure a storage integration that is
+specific to your cloud provider.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.html
+
+Documentation Title:
+Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+
+Documentation Content:
+<div><div><nav><div><span>DOCUMENTATION</span><span>/</span></div><div><a>Getting Started</a><a>Guides</a><a>Developer</a><a>Reference</a><a>Releases</a><a>Tutorials</a><a>Status</a></div></nav><main><h3>Tutorial: Bulk loading from Amazon S3 using COPY </h3><div><nav><a>Getting Started</a><a>Tutorials</a><span>Bulk Loading</span><span>Bulk Loading from Amazon S3 Using COPY</span></nav><section><h1>Tutorial: Bulk loading from Amazon S3 using COPY<a>¶</a></h1><section><h2>Introduction<a>¶</a></h2><p>This tutorial describes how to load data from files in an existing Amazon Simple Storage Service (Amazon S3) bucket into a table. In this tutorial, you will learn how to:</p><ul><p>Create named file formats that describe your data files.</p><p>Create named stage objects.</p><p>Load data located in your S3 bucket into Snowflake tables.</p><p>Resolve errors in your data files.</p></ul><p>The tutorial covers loading of both CSV and JSON data.</p></section><section><h2>Prerequisites<a>¶</a></h2><p>The tutorial assumes the following:</p><ul><p>You have a Snowflake account that is configured to use Amazon Web Services (AWS) and a user with a role that grants the necessary
+privileges to create a database, tables, and virtual warehouse objects.</p><p>You have SnowSQL installed.</p></ul><p>Refer to the <span>Snowflake in 20 minutes</span>for instructions to meet these requirements.</p><p>Snowflake provides sample data files in a public Amazon S3 bucket for use in this tutorial.
+But before you start, you need to create a database, tables, and a virtual warehouse for
+this tutorial.
+
+
+

@@ -1,0 +1,9 @@
+This task aims to update the name of an existing project.
+1. Click the gear icon at upper-right corner of the page.
+2. Click "Account settings" in the drop-down panel.
+3. Click "Projects" in the left sidebar.
+4. Click the only project "DesktopEnv", the detailed information of this project will pop up from the right.
+5. Click the green "Edit" button at bottom.
+6. Change the "Project name" under "Overview" subtitle to "OSWorld".
+7. Click the green "Save" button at bottom.
+8. If dbt warns you about the potential effects of this update, click the "Continue" button.

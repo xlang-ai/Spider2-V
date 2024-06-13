@@ -16,7 +16,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 22,
     "config": [
@@ -82,5 +83,6 @@
         "options": {
             "ignore_blanks": true
         }
-    }
+    },
+    "counterpart": "97450dd3-9673-47ae-bc64-0a6252ae8797"
 }

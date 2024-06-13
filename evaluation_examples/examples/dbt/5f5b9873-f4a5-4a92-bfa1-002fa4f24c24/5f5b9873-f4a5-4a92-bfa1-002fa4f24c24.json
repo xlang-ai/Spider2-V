@@ -1,0 +1,90 @@
+{
+    "id": "5f5b9873-f4a5-4a92-bfa1-002fa4f24c24",
+    "snapshot": "dbt",
+    "instruction": "I've created an empty dbt cloud project named \"test_connection\". Could you help me set up the connection to a BigQuery GCP? You don't need to configure the repository for the project, and the credential file is provided at desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to connect dbt cloud to an Bigquery project.\n1. In the \"Choose a connection\" section, choose \"BigQuery\".\n2. Click the \"Next\" button.\n3. Now the \"Configure your environment\" section will expand. Click the \"Upload a Service Account JSON file\" button under \"Settings\" subtitle.\n4. Navigate to \"Desktop\" in the pop-up browser window.\n5. Double-click the file \"dbt-user-creds.json\" and upload it.\n6. Click the \"Test connection\" button to confirm whether the connection is successfully established.\n7. If the connection succeeds, click the \"Next\" button to save the changes.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/guides/bigquery?step=5"
+    ],
+    "related_apps": [
+        "dbt-cloud",
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_transformation",
+        "verbose"
+    ],
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "copy_keyfile",
+                        "dest": "/home/user/Desktop/dbt-user-creds.json"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "test_connection"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "action_number": 7,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_project_info",
+            "fields": [
+                "connection_type"
+            ],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "bigquery"
+                ],
+                "exclude": [
+                    "None"
+                ]
+            }
+        }
+    },
+    "counterpart": "2933cfd3-1ab2-4a00-8ec5-acbbb11fb593"
+}

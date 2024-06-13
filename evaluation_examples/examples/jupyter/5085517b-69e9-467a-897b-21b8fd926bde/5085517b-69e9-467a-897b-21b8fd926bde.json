@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 8,
     "config": [
@@ -57,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_notebook_outputs",
@@ -71,5 +71,6 @@
             "path": "evaluation_examples/examples/jupyter/5085517b-69e9-467a-897b-21b8fd926bde/decision_tree_gold.ipynb",
             "dest": "decision_tree_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "99a0ef1f-7415-477b-8c85-5f3671761ab6"
 }

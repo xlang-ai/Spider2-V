@@ -1,0 +1,9 @@
+To setup and launch Airbyte in a local machine:
+1. In the opened terminal, type in the following command to enter the downloaded airbyte folder:
+`cd ~/projects/airbyte`
+2. start the airbyte server via:
+`bash run-ab-platform.sh`
+3. after waiting for roughly 40 seconds, switch to the chromium browser
+4. navigate to url http://localhost:8000, you may see a setup form collecting user information.
+5. since the server is launched in localhost, we can fill in any email and company name, e.g., anonymous@gmail.com and Google
+6. click the "submit" button, and after page re-direction, we have successfully logged into the aribyte homepage

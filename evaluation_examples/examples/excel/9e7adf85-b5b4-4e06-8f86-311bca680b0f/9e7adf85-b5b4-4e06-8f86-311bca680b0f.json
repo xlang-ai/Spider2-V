@@ -1,0 +1,99 @@
+{
+    "id": "9e7adf85-b5b4-4e06-8f86-311bca680b0f",
+    "snapshot": "excel",
+    "instruction": "Calculate the total sales for each employee in a new column named \"Total\" and the total for each month in a new row named \"Total\". Then highlight the employee with the largest total sales with blue fill while the lowest with red fill.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish today's task:\n1. Enter \"Total\" at the entry A12.\n2. Enter \"Total\" at the entry H1.\n3. Select the entry B12.\n4. Focus on the input line at the upper panel, and enter the code ``=SUM(B2:B11)``.\n5. Click the green tick icon or press Enter to make it work.\n6. Click the right bottom corner of the entry B12 (you should see a cross at the corner), hold it and drag to the entry G12.\n7. Select the entry H2.\n8. Focus on the input line at the upper panel, and enter the code ``=SUM(B2:G2)``.\n9. Click the green tick icon or press Enter to make it work.\n10. Click the right bottom corner of the entry H2 (you should see a cross at the corner), hold it and drag to the entry H11.\n11. Select the entry A10.\n12. Set the background color of this entry to \"Blue\". You can use the paint can icon on the menu bar next to icon \"A\".\n13. Select the entry A4.\n14. Set the background color of this entry to \"Red\". You can use the paint can icon on the menu bar next to icon \"A\".\n15. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@150"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/9e7adf85-b5b4-4e06-8f86-311bca680b0f/SalesRep.xlsx",
+                "dest": "/home/user/SalesRep.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/SalesRep.xlsx"
+            }
+        }
+    ],
+    "action_number": 15,
+    "related_apps": [
+        "excel"
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "SalesRep.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/9e7adf85-b5b4-4e06-8f86-311bca680b0f/1_SalesRep_gt1.xlsx",
+            "dest": "1_SalesRep_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/SalesRep.xlsx",
+            "dest": "SalesRep.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0"
+                },
+                {
+                    "type": "style",
+                    "sheet_idx0": 0,
+                    "sheet_idx1": "EI0",
+                    "props": [
+                        "font_bold",
+                        "font_color",
+                        "bgcolor",
+                        "font_name",
+                        "font_italic",
+                        "font_underline"
+                    ]
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "97dd78c1-4ba3-4bfd-bbd4-c938532dbcc6"
+}

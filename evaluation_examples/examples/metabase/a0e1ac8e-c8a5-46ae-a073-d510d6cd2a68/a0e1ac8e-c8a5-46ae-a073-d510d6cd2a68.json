@@ -1,0 +1,82 @@
+{
+    "id": "a0e1ac8e-c8a5-46ae-a073-d510d6cd2a68",
+    "snapshot": "metabase",
+    "instruction": "Please turn off JSON unfolding for the database named PostgresData.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To turn off JSON unfolding, please follow these steps:\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click the \"Databases\" tab on the top bar;\n4. Click the \"PostgresData\" database;\n5. Click \"Show advanced options\" on the bottom;\n6. Toggle \"Allow unfolding of JSON columns\" to turn off it;\n7. Click the \"Save changes\" button on the bottom;\n8. Click the \"Sync database schema now\" button on the right side;\n9. Click the \"Re-scan field values now\" button on the right side.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/data-modeling/json-unfolding"
+    ],
+    "related_apps": [
+        "chromium",
+        "postgresql",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/a0e1ac8e-c8a5-46ae-a073-d510d6cd2a68/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup",
+                        "config": {
+                            "add_data": {
+                                "type": "PostgreSQL",
+                                "display_name": "PostgresData",
+                                "host": "localhost",
+                                "port": "5432",
+                                "db_name": "metabase",
+                                "db_user": "user",
+                                "db_password": "password"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/a0e1ac8e-c8a5-46ae-a073-d510d6cd2a68/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "d71943f6-8ee1-4836-9536-fd0e3436cec4"
+}

@@ -38,7 +38,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "action_number": 2,
     "related_apps": [
         "airflow",
@@ -46,7 +45,8 @@
     ],
     "tags": [
         "gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_include_exclude",
@@ -67,5 +67,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "f74d87d5-8ea0-4ade-aeab-45eb3173f9bb"
 }

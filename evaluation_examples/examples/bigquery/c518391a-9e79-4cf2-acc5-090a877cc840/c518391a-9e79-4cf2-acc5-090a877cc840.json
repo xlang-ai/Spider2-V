@@ -1,0 +1,117 @@
+{
+    "id": "c518391a-9e79-4cf2-acc5-090a877cc840",
+    "snapshot": "bigquery",
+    "instruction": "I provide you the code to build the Bigquery ML model. You need to modify the code and create an ML model named `logistic_model` in ml_project in your Bigquery UI and go to this model for me to check it.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Our goal is to create an ML model named logistic_model in ml_project in Bigquery UI.\n1. First, we need to open the ml.sql file and click ml.sql\n2. We saw the specific information of SQL\n3. Change to the web browser, which resides in the BigQuery page.\n4. In the BigQuery Studio page, click the panel with title \"Untitled query\" on top of the header \"Welcome to BigQuery Studio\". This will switch the window to a blank panel which accepts SQL queries;\n5. Copy the contents of ml.sql into the Bigquery window\n6. Change the SQL to meet task requirements, change\n`bqml_tutorial.sample_model` to `ml_project.logistic_model`\n7. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n8. You need to wait for roughly one minute without performing any operation.\n9. After waiting, we found that the code ran successfully and the model was created successfully. Click 'GO TO MODEL'.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/create-machine-learning-model"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "ml_project",
+                        "table_id": "information",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/c518391a-9e79-4cf2-acc5-090a877cc840/information.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/c518391a-9e79-4cf2-acc5-090a877cc840/ml.sql",
+                "dest": "/home/user/Desktop/ml.sql"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "nautilus",
+                    "/home/user/Desktop/ml.sql"
+                ]
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "active_url_from_accessTree",
+            "config": {
+                "goto_prefix": "https://console.cloud.google.com/bigquery"
+            }
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "logistic_model"
+                ]
+            }
+        }
+    },
+    "counterpart": "3d202784-082d-4392-9a50-dc0db57cada7"
+}

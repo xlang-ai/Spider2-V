@@ -13,7 +13,8 @@
     ],
     "tags": [
         "gui",
-        "data_ingestion_and_integration"
+        "data_ingestion_and_integration",
+        "abstract"
     ],
     "action_number": 6,
     "config": [
@@ -53,7 +54,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": "check_include_exclude",
         "result": {
@@ -72,5 +72,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "c2b1cf83-68de-4b55-8b64-cf82c8fe8963"
 }

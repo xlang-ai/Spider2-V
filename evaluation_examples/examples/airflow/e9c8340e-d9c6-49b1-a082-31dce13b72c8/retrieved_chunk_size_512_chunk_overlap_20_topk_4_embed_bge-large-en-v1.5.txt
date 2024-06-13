@@ -1,0 +1,334 @@
+Documentation Source:
+docs.astronomer.io/astro/alerts.txt
+
+Documentation Title:
+Set up Astro alerts | Astronomer Documentation
+
+Documentation Content:
+note
+: By default, this is
+Triggering DAG on Airflow <url>
+.
+The following is an example alert payload that would be passed through the API:
+{
+"dagName"
+:
+"fail_dag"
+,
+"alertType"
+:
+"PIPELINE_FAILURE"
+,
+"alertId"
+:
+"d75e7517-88cc-4bab-b40f-660dd79df216"
+,
+"message"
+:
+"[Astro Alerts] Pipeline failure detected on DAG fail_dag. \\nStart time: 2023-11-17 17:32:54 UTC. \\nFailed at: 2023-11-17 17:40:10 UTC. \\nAlert notification time: 2023-11-17 17:40:10 UTC. \\nClick link to investigate in Astro UI: https://cloud.astronomer.io/clkya6zgv000401k8zafabcde/dags/clncyz42l6957401bvfuxn8zyxw/fail_dag/c6fbe201-a3f1-39ad-9c5c-817cbf99d123?utm_source=alert\"\\n"
+}
+These parameters are accessible in the triggered DAG using
+DAG params
+.
+Create a DAG that you want to run when the alert is triggered. For example, you can use the following DAG to run arbitrary Python code when the alert is triggered:
+import
+datetime
+from
+typing
+import
+Any
+from
+airflow
+.
+models
+.
+dag
+import
+DAG
+from
+airflow
+.
+operators
+.
+python
+import
+PythonOperator
+with
+DAG
+(
+dag_id
+=
+"register_incident"
+,
+start_date
+=
+datetime
+.
+datetime
+(
+2023
+,
+1
+,
+1
+)
+,
+schedule
+=
+None
+,
+)
+:
+def
+_register_incident
+(
+params
+:
+dict
+[
+str
+,
+Any
+]
+)
+:
+failed_dag
+=
+params
+[
+"dagName"
+]
+print
+(
+f"Register an incident in my system for DAG
+{
+failed_dag
+}
+."
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/rerunning-dags.txt
+
+Documentation Title:
+Rerun Airflow DAGs and tasks | Astronomer Documentation
+
+Documentation Content:
+If you have a small number of DAG runs to backfill, you can trigger them manually from the Airflow UI via
+Trigger DAG w/ config
+and choose the desired logical date as shown in the following image:
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Pass data between tasks
+Next
+SubDAGs
+Assumed knowledge
+Automatically retry tasks
+Automatically pause a failing DAG
+Manually rerun tasks or DAGs
+Add notes to cleared tasks and DAGs
+Clear all tasks
+Catchup
+Backfill
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/view-logs.txt
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+Click the
+Logs
+tab to switch from
+Graph
+view.
+View task logs in the Airflow UI
+​
+Access the Airflow UI.
+To access the Airflow UI for a Deployment, open the Deployment in the Astro UI and click
+Open Airflow
+.
+To access the Airflow UI in a local environment, open a browser and go to
+http://localhost:8080
+.
+Click a DAG.
+Click
+Graph
+.
+Click a task run.
+Click
+Instance Details
+.
+Click
+Log
+.
+See also
+​
+Export task logs and metrics to Datadog
+Export task logs to AWS Cloudwatch
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Deployment API keys (Deprecated)
+Next
+DAGs
+Airflow Component Logs
+Airflow component log levels
+View Airflow component logs in the Astro UI
+View Airflow component logs locally
+Airflow task logs
+Airflow task log levels
+View task logs on the Astro UI
+View task logs in the Airflow UI
+See also
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.txt
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+num_people_in_space
+=
+context
+[
+"ti"
+]
+.
+xcom_pull
+(
+dag_id
+=
+"example_astronauts"
+,
+task_ids
+=
+"get_astronauts"
+,
+key
+=
+"number_of_people_in_space"
+,
+include_prior_dates
+=
+True
+,
+)
+print
+(
+f"There are currently
+{
+num_people_in_space
+}
+people in space."
+)
+print_reaction
+=
+BashOperator
+(
+task_id
+=
+"print_reaction"
+,
+bash_command
+=
+"echo This is awesome!"
+,
+)
+chain
+(
+print_num_people_in_space
+(
+)
+,
+print_reaction
+)
+# print_num_people_in_space() >> print_reaction
+my_astronauts_dag
+(
+)
+Step 7: Run the new DAG
+​
+Go back to the Airflow UI to view your new DAG. Airflow parses the
+/dags
+directory for changes to existing files every 30 seconds and new files every 5 minutes.
+tip
+You can manually trigger a full parse of your DAGs by running the following command in your terminal:
+astro dev run dags reserialize
+When your new DAG appears in the Airflow UI, you can run it to test it.
+Start the new DAG and trigger a run like you did in
+Step 4
+.
+Click the name of your new DAG and open the
+Grid
+view. After your DAG runs, there should be a green bar representing a successful run of the DAG.
+The
+my_astronauts_dag
+is scheduled to run whenever the
+current_astronauts
+dataset is updated by a successful run of the
+get_astronauts
+task in the
+example_astronauts
+DAG. Trigger another manual run of the
+example_astronauts
+DAG to see the
+my_astronauts_dag
+run again after the
+get_astronauts
+task completes.
+Step 8: View task logs
+​
+When one of your tasks prints something, the output appears in Airflow task logs. Task logs are an important feature for troubleshooting DAGs. If a task in your DAG fails, task logs are the best place to investigate why.
+In the Airflow UI, open the
+Grid
+view.
+
+
+

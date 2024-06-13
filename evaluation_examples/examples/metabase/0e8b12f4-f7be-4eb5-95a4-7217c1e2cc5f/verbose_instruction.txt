@@ -1,0 +1,15 @@
+To ask the question, please follow these steps:
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose "Orders" in the "Sample Database" drop-down panel;
+4. Click "Pick the metric you want to see";
+5. Choose "Average of ..." in the panel;
+6. Choose "Total" in the panel;
+7. Click "Pick a column to group by";
+8. Choose "User ID" in the panel;
+9. Click "Sort";
+10. Choose "Average of Total" in the panel;
+11. Click the "+" icon on the right of "Average of Total";
+12. Choose "User ID" in the panel;
+13. Click "Row limit";
+14. Input "10" in the input box.

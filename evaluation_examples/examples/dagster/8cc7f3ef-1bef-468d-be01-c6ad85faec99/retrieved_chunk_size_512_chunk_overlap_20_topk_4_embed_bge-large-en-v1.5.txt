@@ -1,0 +1,465 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.txt
+
+Documentation Title:
+Tutorial, part five: Scheduling your pipeline | Dagster Docs
+
+Documentation Content:
+import
+assets
+
+all_assets
+=
+load_assets_from_modules
+(
+[
+assets
+]
+)
+# Define a job that will materialize the assets
+hackernews_job
+=
+define_asset_job
+(
+"hackernews_job"
+,
+selection
+=
+AssetSelection
+.
+all
+(
+)
+)
+# Addition: a ScheduleDefinition the job it should run and a cron schedule of how frequently to run it
+hackernews_schedule
+=
+ScheduleDefinition
+(
+job
+=
+hackernews_job
+,
+cron_schedule
+=
+"0 * * * *"
+,
+# every hour
+)
+defs
+=
+Definitions
+(
+assets
+=
+all_assets
+,
+schedules
+=
+[
+hackernews_schedule
+]
+,
+)
+Go to the UI, click
+Overview > Schedules tab
+, and observe your new schedule with the attached job.
+To test the change, click the schedule's name to view its details. Click the
+Test Schedule
+button on the top right corner of the page to trigger the schedule immediately.
+Schedules are just one way to start jobs. Jobs can also be run by using the CLI, a Python function, or the UI. Refer to the
+Jobs documentation
+to learn more.
+Other ways to automate your pipelines
+#
+You've used a schedule to update your data on a regular cadence. However, there are other ways to trigger jobs. For example, sensors can trigger a job after routinely polling a source. Check out the
+Automation guide
+to learn more.
+Next steps
+#
+By now, you've:
+Grouped your objects with a code location
+Defined a sequence of materializations with a job
+Run the job on a schedule
+In the next section, you'll learn how to build more robustness, reusability, and flexibility when
+connecting to external services
+by using resources.
+On This Page
+Tutorial, part five: Scheduling your pipeline
+Step 1: Defining what assets to update
+About definitions
+Step 2: Scheduling the materializations
+Other ways to automate your pipelines
+Next steps
+Edit Page on GitHub
+Share Feedback
+Star
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.txt
+
+Documentation Title:
+Tutorial, part five: Scheduling your pipeline | Dagster Docs
+
+Documentation Content:
+Tutorial, part five: Scheduling your pipeline | Dagster Docs
+Ask AI
+Platform
+Dagster+
+New
+Pricing
+Blog
+Community
+Docs
+Sign in
+Join us on Slack
+Star us
+Try Dagster+
+Platform
+Dagster+
+Pricing
+Blog
+Community
+Docs
+Contact Sales
+Sign in
+Try Dagster+
+Search
+the docs
+Press
+Ctrl
+and
+K
+to search
+Getting started
+What's Dagster?
+Quickstart
+Installation
+Creating a new project
+Getting help
+Tutorial
+Concepts
+Deployment
+Integrations
+Guides
+API Reference
+About
+1.7.2
+/ 0.23.2 (libs)
+You are viewing an unreleased or outdated version of the documentation
+View Latest Documentation
+→
+Tutorial, part five: Scheduling your pipeline
+#
+Now that you've written an entire pipeline in Dagster, you will need to run it regularly to keep your assets up to date.
+By the end of this part of the tutorial, you'll be able to:
+Structure your project with code locations and jobs
+Refresh your assets periodically with schedules
+Step 1: Defining what assets to update
+#
+A
+job
+lets you target a selection of assets to materialize them together as a single action. Assets can belong to multiple jobs.
+Your Dagster repository has a file called
+tutorial/__init__.py
+that is used as a top-level definition for your project. Update the code in this file to add the job using the
+define_asset_job
+function:
+from
+dagster
+import
+(
+AssetSelection
+,
+Definitions
+,
+define_asset_job
+,
+load_assets_from_modules
+,
+)
+from
+.
+import
+assets
+
+all_assets
+=
+load_assets_from_modules
+(
+[
+assets
+]
+)
+# Addition: define a job that will materialize the assets
+hackernews_job
+=
+define_asset_job
+(
+"hackernews_job"
+,
+selection
+=
+AssetSelection
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.txt
+
+Documentation Title:
+Tutorial, part five: Scheduling your pipeline | Dagster Docs
+
+Documentation Content:
+all
+(
+)
+)
+defs
+=
+Definitions
+(
+assets
+=
+all_assets
+,
+jobs
+=
+[
+hackernews_job
+]
+,
+# Addition: add the job to Definitions object (see below)
+)
+Dagster's
+AssetSelection
+module lets you choose which assets to attach to a job. In the example above,
+AssetSelection.all
+selects all assets.
+Once you have a job, you can execute it on a schedule, by clicking a button in the Dagster UI, the CLI, or via Dagster's GraphQL endpoints. Confirm that your job was defined by:
+Going to the UI
+Reloading your project through the
+Reload Definitions
+button in the asset graph or on the
+Deployments
+page
+Navigating to
+Overview > Jobs
+Clicking on the job
+Seeing your assets selected for the job
+About definitions
+#
+Up until this point, you defined assets using the
+@asset
+decorator. Dagster definitions are entities that Dagster learns about by importing your code. Just now, you used a different kind of definition: a job definition.
+Managing one type of definition, such as assets, is easy. However, it can quickly become unruly as your project grows to have a variety of definitions (ex. schedules, jobs, sensors). To combine definitions and have them aware of each other, Dagster provides a utility called the
+Definitions
+object.
+Step 2: Scheduling the materializations
+#
+After defining a job, it can be attached to a schedule. A schedule's responsibility is to start a run of the assigned job at a specified time. Schedules are added with the
+ScheduleDefinition
+class.
+To regularly update the assets, add the new
+ScheduleDefinition
+import, create a new schedule for the
+hackernews_job
+, and add the schedule to the code location. The code below is how your
+__init__.py
+should look after making these changes:
+from
+dagster
+import
+(
+AssetSelection
+,
+Definitions
+,
+ScheduleDefinition
+,
+define_asset_job
+,
+load_assets_from_modules
+,
+)
+from
+.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/partitions.txt
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+build_schedule_from_partitioned_job
+(
+job
+,
+description
+=
+None
+,
+name
+=
+None
+,
+minute_of_hour
+=
+None
+,
+hour_of_day
+=
+None
+,
+day_of_week
+=
+None
+,
+day_of_month
+=
+None
+,
+default_status
+=
+DefaultScheduleStatus.STOPPED
+,
+tags
+=
+None
+,
+cron_schedule
+=
+None
+,
+execution_timezone
+=
+None
+)
+[source]
+Creates a schedule from a time window-partitioned job a job that targets
+time window-partitioned or statically-partitioned assets. The job can also be
+multipartitioned, as long as one of the partitions dimensions is time-partitioned.
+The schedule executes at the cadence specified by the time partitioning of the job or assets.
+Examples
+######################################
+# Job that targets partitioned assets
+######################################
+from
+dagster
+import
+(
+DailyPartitionsDefinition
+,
+asset
+,
+build_schedule_from_partitioned_job
+,
+define_asset_job
+,
+)
+@asset
+(
+partitions_def
+=
+DailyPartitionsDefinition
+(
+start_date
+=
+"2020-01-01"
+))
+def
+asset1
+():
+...
+asset1_job
+=
+define_asset_job
+(
+"asset1_job"
+,
+selection
+=
+[
+asset1
+])
+# The created schedule will fire daily
+asset1_job_schedule
+=
+build_schedule_from_partitioned_job
+(
+asset1_job
+)
+defs
+=
+Definitions
+(
+assets
+=
+[
+asset1
+],
+schedules
+=
+[
+asset1_job_schedule
+])
+################
+# Non-asset job
+################
+from
+dagster
+import
+DailyPartitionsDefinition
+,
+build_schedule_from_partitioned_job
+,
+jog
+@job
+(
+partitions_def
+=
+DailyPartitionsDefinition
+(
+start_date
+=
+"2020-01-01"
+))
+def
+do_stuff_partitioned
+():
+...
+# The created schedule will fire daily
+do_stuff_partitioned_schedule
+=
+build_schedule_from_partitioned_job
+(
+do_stuff_partitioned
+,
+)
+defs
+=
+Definitions
+(
+schedules
+=
+[
+do_stuff_partitioned_schedule
+])
+Partition Mapping
+¶
+class
+dagster.
+PartitionMapping
+[source]
+¶
+Defines a correspondence between the partitions in an asset and the partitions in an asset
+that it depends on.
+
+
+

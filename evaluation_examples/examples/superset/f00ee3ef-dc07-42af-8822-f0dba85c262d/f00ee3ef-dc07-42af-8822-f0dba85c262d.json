@@ -1,0 +1,72 @@
+{
+    "id": "f00ee3ef-dc07-42af-8822-f0dba85c262d",
+    "snapshot": "superset",
+    "instruction": "Could you please help me add a new virtual metric named SumCost to calculate the sum of Cost for the table flights and add one virtual calculated column named IntCost to cast cost as Integer.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create a table visualization to show the cost per department for the 'flights' table and save this visualization chart named 'Mychart', we can follow these steps:\n1. In the opened web page, select \"Dataset\" in the top menu;\n2. Click edit icon in the 'flights' row;\n3. In the pop-up window, select \"METRICS\";\n4. Click \"ADD ITEM\" botton;\n5. Click \"Metric Key\" of the created item;\n6. Type \"SumCost\" in the box;\n7. Type \"SUM(\"Cost\")\" in the \"SQL expression\" box;\n8. Select \"CALCULATED COLUMN\" in the menu;\n9. Click \"ADD ITEM\" botton;\n10. Type colmn name \"IntCost\" in the <new colmn> box;\n11. Type \"CAST(\"Cost\" as INTEGER)\" in the \"SQL EXPRESSION\" box;\n12.  Click \"Save\" and back to the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#superset-semantic-layer"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 12,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/f00ee3ef-dc07-42af-8822-f0dba85c262d/database_export_20240515T105454.zip",
+                "dest": "/home/user/database_export_20240515T105454.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/f00ee3ef-dc07-42af-8822-f0dba85c262d/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/f00ee3ef-dc07-42af-8822-f0dba85c262d/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "77df6495-2dd5-4318-a358-eb9b5ffb6671"
+}

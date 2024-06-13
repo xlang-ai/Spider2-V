@@ -11,7 +11,8 @@
     ],
     "tags": [
         "gui",
-        "data_analysis_and_visualization"
+        "data_analysis_and_visualization",
+        "abstract"
     ],
     "action_number": 15,
     "config": [
@@ -47,7 +48,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "check_include_exclude",
@@ -67,5 +67,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "9771b80c-81e3-4d5e-873a-0c66d1a12d0b"
 }

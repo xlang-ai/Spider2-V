@@ -1,0 +1,15 @@
+We want to create a new user by filling the forms in the opened web page. To achieve this:
+1. Find the unique user id to add in the opened .txt file. It should have the format "User ID: {user_id}". Copy the {user_id} part, we will use it later.
+2. Switch to the chrome/chromium browser, which should be in the service now web page.
+3. Firstly, click the input box "User ID", paste the value {user_id} we just copied.
+4. For the two requested field under "User ID", type in text "Robyn" for field "First name" and text "Christophel" for field "Last name", respectively.
+5. Click the field box for "Title", input the value "surquidry tassie Physostegia snootiness heterotopous"
+6. In the check box with name "Locked out" on the left column, please ensure that it is not checked.
+7. Next, we come to the right column of this form. In the must-filled box "Email", click it and type in the email "robyn.christophel@example.com"
+8. For "Language" selection under field "Email", click it and select "English"
+9. For "Calendar integration", ensure that the value "Outlook" is chosen.
+10. For the "Time zone", click the input box and select the entry "GMT" in the drop-down menu.
+11. For the "Date format", click the input box and select the entry "dd-MM-yyyy"
+12. As for the two remaining fields "Business phone" and "Mobile phone" on the right column, please input text values "(514) 386-6086" and "(514) 703-5913", respectively.
+13. Finally, click the "Submit" button at the top-right of this web page.
+(Attention that, after the reloading of the page, all filled contents will be reset. But do not worry, if there is no error message, it means the new record for user has been created.)

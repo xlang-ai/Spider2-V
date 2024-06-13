@@ -44,7 +44,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
         "chromium"
@@ -52,7 +51,8 @@
     "tags": [
         "gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "evaluator": {
         "func": "compare_csv",
@@ -68,5 +68,6 @@
             "path": "evaluation_examples/examples/bigquery/df2ed595-2627-47e8-be9a-920b8eaa64c8/gold.csv",
             "dest": "gold.csv"
         }
-    }
+    },
+    "counterpart": "b4728a38-35cf-48ba-9711-620363df7eed"
 }

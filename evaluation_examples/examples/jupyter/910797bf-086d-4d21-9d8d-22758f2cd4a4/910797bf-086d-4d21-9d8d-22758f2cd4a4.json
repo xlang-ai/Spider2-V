@@ -12,7 +12,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 4,
     "config": [
@@ -41,7 +42,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "is_expected_url_pattern_match",
@@ -58,5 +58,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "e85047db-a5c5-4153-a6cb-4c272b11411c"
 }

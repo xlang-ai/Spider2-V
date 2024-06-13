@@ -1,0 +1,41 @@
+This task requires you to add dbt tests according to the requirements.
+1. Open the file ``models/schema.yml`` in the VSCode editor.
+2. Add dbt tests for the model "customers". Your codes for this part should be like this:
+```yml
+- name: customers
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+```
+3. Add dbt tests for the model "stg_customers". Your codes for this part should be like this:
+```yml
+- name: stg_customers
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+```
+4. Add dbt tests for the model "stg_orders". Your codes for this part should be like this:
+```yml
+- name: stg_orders
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+```
+5. Switch to the terminal.
+6. Run ``dbt test`` and confirm that all tests are passed.

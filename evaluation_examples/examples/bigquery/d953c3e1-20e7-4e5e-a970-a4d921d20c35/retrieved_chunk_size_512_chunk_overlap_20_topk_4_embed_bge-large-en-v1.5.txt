@@ -1,0 +1,179 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-table-storage-usage.txt
+
+Documentation Title:
+TABLE_STORAGE_USAGE_TIMELINE view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  usage_date,
+  table_schema,
+  table_name,
+  billable_total_physical_usage
+FROM
+  (
+    SELECT
+      *,
+      ROW_NUMBER()
+        OVER (PARTITION BY project_id, table_schema, table_name ORDER BY usage_date DESC) AS rank
+    FROM
+      `region-
+REGION
+`.INFORMATION_SCHEMA.TABLE_STORAGE_USAGE_TIMELINE
+  )
+WHERE
+  rank = 1
+  AND project_id = '
+PROJECT_ID
+'
+  AND table_schema ='
+DATASET_NAME
+'
+ORDER BY
+  usage_date;
+The result is similar to the following:
++--------------+--------------+------------+-------------------------------+
+| usage_date   | table_schema | table_name | billable_total_physical_usage |
++--------------+--------------+------------+-------------------------------+
+|  2023-04-12  | dataset_A    | table_4    |  345788341123                 |
++--------------+--------------+------------+-------------------------------+
+|  2023-04-12  | dataset_A    | table_1    |             0                 |
++--------------+--------------+------------+-------------------------------+
+|  2023-04-12  | dataset_A    | table_3    | 9123481400212                 |
++--------------+--------------+------------+-------------------------------+
+|  2023-04-12  | dataset_A    | table_2    |    1451334553                 |
++--------------+--------------+------------+-------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-table-storage-usage-by-organization.txt
+
+Documentation Title:
+TABLE_STORAGE_USAGE_TIMELINE_BY_ORGANIZATION view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+INFORMATION_SCHEMA.TABLE_STORAGE_USAGE_TIMELINE_BY_ORGANIZATION
+  )
+WHERE rank = 1;
+The result is similar to the following:
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+| usage_date   | project_id | table_schema | table_name | billable_total_logical_usage | billable_total_physical_usage |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+|  2023-04-03  | project1   | dataset_A    | table_x    | 734893409201                 |           0                   |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+|  2023-04-03  | project1   | dataset_A    | table_z    | 110070445455                 |           0                   |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+|  2023-04-03  | project1   | dataset_B    | table_y    |            0                 | 52500873256                   |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+|  2023-04-03  | project1   | dataset_B    | table_t    |            0                 | 32513713981                   |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+|  2023-04-03  | project2   | dataset_C    | table_m    |   8894535352                 |           0                   |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+|  2023-04-03  | project2   | dataset_C    | table_n    |   4183337201                 |           0                   |
++--------------+------------+--------------+------------+------------------------------+-------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tables.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/information-schema-tablesd41d.txt
+
+Documentation Title:
+TABLES view  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+The result is similar to the following:
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|       table_name       |                                                                                                            ddl                                                                                                             |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
+|                        | (                                                                                                                                                                                                                          |
+|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
+|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
+|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
+|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
+|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
+|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
+|                        | )                                                                                                                                                                                                                          |
+|                        | OPTIONS(                                                                                                                                                                                                                   |
+|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
+|                        | );                                                                                                                                                                                                                         |
++------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2024-05-13 UTC.
+
+
+

@@ -1,0 +1,79 @@
+{
+    "id": "251cc894-0fe8-4759-9747-b76757bcf711",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. My boss told me to check all DAG with owner 'Astro', please show me these DAGs and sort them by ascending order of dag id. I would like to check the result on airflow website.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow.\nTo filter the dags with owner 'Astro' and order the result in ascending order, we can follow the steps:\n1. On the opened airflow UI webpage, find a DAG with owner 'Astro' in the dag list;\n2. Then, click the button ‘Astro’ in the 'Owner' column to filter all DAGs with owner 'Astro';\n3. Next, click the header 'Dag' of the dag list to arrange the DAGs in ascending order\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/get-started-with-airflow"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/251cc894-0fe8-4759-9747-b76757bcf711/Dag_Explorer.zip",
+                "dest": "/home/user/Dag_Explorer.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/251cc894-0fe8-4759-9747-b76757bcf711/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 3,
+    "related_apps": [
+        "airflow",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/251cc894-0fe8-4759-9747-b76757bcf711/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "0d3ffd3a-2034-47fb-b33f-1a849b641484"
+}

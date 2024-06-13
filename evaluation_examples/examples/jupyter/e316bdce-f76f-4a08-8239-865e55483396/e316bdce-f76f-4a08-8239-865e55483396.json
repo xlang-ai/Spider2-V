@@ -1,0 +1,70 @@
+{
+    "id": "e316bdce-f76f-4a08-8239-865e55483396",
+    "snapshot": "jupyter",
+    "instruction": "This is a jupyter notebook that has been run and I want to clear all its output. Please help me with this task.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to clear all outputs in the current jupyter notebook. On the opened web ui:\n1. Click the button \"Edit\" in the menu bar on the top.\n2. In the drop-down menu, select and click \"Clear Outputs of All Cells\".\n3. Wait for a short time and all outputs will be cleared.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.geeksforgeeks.org/keyboard-shortcuts-to-clear-cell-output-in-jupyter-notebook/"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 3,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/e316bdce-f76f-4a08-8239-865e55483396/linear_regression.ipynb",
+                "dest": "/home/user/Desktop/linear_regression.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/e316bdce-f76f-4a08-8239-865e55483396/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/linear_regression.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "are_jupyter_outputs_cleared",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/linear_regression.ipynb",
+            "dest": "linear_regression.ipynb"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "expected": []
+            }
+        }
+    },
+    "counterpart": "575a50fd-5608-4d68-897f-256478a2d0f1"
+}

@@ -1,0 +1,97 @@
+{
+    "id": "d953c3e1-20e7-4e5e-a970-a4d921d20c35",
+    "snapshot": "bigquery",
+    "instruction": "For the census data in 2012, select the top 5 records with the highest ANNUAL_RANK and build a View named 2012_best\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we will get a view of top 5 records with highest ANNUAL_RANK. Concretely,\n1. click '+' button on top of the welcome prompt \"Welcome to BigQuery Studio!\". This will open a blank query panel.\n2. write the following SQL into the blank panel \"Untitled query\":\n```\nCREATE VIEW `census.2012_best`\nAS\nSELECT *\nFROM `census.2012`\nORDER BY ANNUAL_RANK\nLIMIT 5\n```\n3. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n4. Wait for a moment. The query results will show below.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "census",
+                        "table_id": "2012",
+                        "data_from_csv": "evaluation_examples/examples/bigquery/d953c3e1-20e7-4e5e-a970-a4d921d20c35/2012.csv"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": [
+            "compare_csv",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "bigquery_sql_result_to_csv",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "sql": "evaluation_examples/examples/bigquery/d953c3e1-20e7-4e5e-a970-a4d921d20c35/get_view.sql",
+                "dest": "pred_view.csv"
+            },
+            {
+                "type": "bigquery_table_to_csv",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "dataset_id": "census",
+                "table_id": "2012_best",
+                "schema": [
+                    "*"
+                ],
+                "dest": "pred_answer.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/bigquery/d953c3e1-20e7-4e5e-a970-a4d921d20c35/gold_view.csv",
+                "dest": "gold_view.csv"
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/bigquery/d953c3e1-20e7-4e5e-a970-a4d921d20c35/gold_answer.csv",
+                "dest": "gold_answer.csv"
+            }
+        ],
+        "conj": "and"
+    },
+    "counterpart": "ac312309-d501-493b-9c1b-fac7f4b568a6"
+}

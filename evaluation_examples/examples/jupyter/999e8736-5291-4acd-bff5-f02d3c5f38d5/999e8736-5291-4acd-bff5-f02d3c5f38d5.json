@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 9,
     "config": [
@@ -63,5 +64,6 @@
             "path": "evaluation_examples/examples/jupyter/999e8736-5291-4acd-bff5-f02d3c5f38d5/SVM_gold.ipynb",
             "dest": "SVM_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "54d9869c-3926-4cfb-ba93-4134a5778701"
 }

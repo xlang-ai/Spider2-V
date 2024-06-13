@@ -1,0 +1,48 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-resnet.html
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+data quality</span><span>Monitor Data Transfer Service</span><span>Monitor materialized views</span><span>Monitor reservations</span><span>Dashboards, charts and alerts</span></ul></div><div><span>Audit workloads</span><ul><span>Introduction</span><span>Audit policy tags</span><span>View Data Policy audit logs</span><span>Data Transfer Service audit logs</span><span>Analytics Hub audit logging</span><span>BigQuery audit logs reference</span><span>Migrate audit logs</span><span>BigLake API audit logs</span></ul></div><div><span>Optimize resources</span><ul><div><span>Control costs</span><ul><span>Estimate and control query costs</span><span>Custom cost controls</span></ul></div><div><span>Optimize with recommendations</span><ul><span>View cluster and partition recommendations</span><span>Apply cluster and partition recommendations</span><span>Manage materialized view recommendations</span></ul></div><div><span>Organize with labels</span><ul><span>Introduction</span><span>Add labels</span><span>View labels</span><span>Update labels</span><span>Filter using labels</span><span>Delete labels</span></ul></div><div><span>Manage data quality</span><ul><span>Monitor data quality with scans</span><span>Data Catalog overview</span><span>Work with Data Catalog</span></ul></div></ul></div><span>Govern</span><span>Introduction</span><div><span>Control access to resources</span><ul><span>Introduction</span><span>Control access to resources with IAM</span><div><span>Control access with authorization</span><ul><span>Authorized datasets</span><span>Authorized routines</span><span>Authorized views</span></ul></div><span>Control access with VPC service controls</span><span>Control table and dataset access with tags</span><span>Control access with conditions</span></ul></div><div><span>Control column and row access</span><ul><div><span>Control access to table
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-resnet.html
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+saved queries</span></ul></div><span>Use cached results</span><span>Run parameterized queries</span><span>Query with wildcard tables</span><span>Access historical data</span><span>Schedule queries</span><span>Troubleshoot queries</span><div><span>Optimize queries</span><ul><span>Introduction</span><span>Use the query plan explanation</span><span>Get query performance insights</span><span>Optimize query computation</span><span>Use history-based optimizations</span><span>Optimize storage</span><span>Use BI Engine</span><span>Use nested and repeated data</span><span>Optimize functions</span></ul></div></ul></div><div><span>Query external data sources</span><ul><span>Manage open source metadata</span><div><span>Use external tables and datasets</span><ul><div><span>Amazon S3 data</span><ul><span>Query Amazon S3 data</span><span>Export query results to Amazon S3</span></ul></div><span>Query Apache Iceberg data</span><span>Query open table formats with manifests</span><div><span>Azure Blob Storage data</span><ul><span>Query Azure Blob Storage data</span><span>Export query results to Azure Blob Storage</span></ul></div><span>Query Cloud Bigtable data</span><div><span>Cloud Storage data</span><ul><span>Query Cloud Storage data in BigLake tables</span><span>Query Cloud Storage data in external tables</span></ul></div><span>Work with Salesforce Data Cloud data</span><span>Query Google Drive data</span><span>Create AWS Glue federated datasets</span></ul></div><div><span>Run federated queries</span><ul><span>Federated queries</span><span>Query SAP Datasphere data</span><span>Query Cloud Spanner data</span><span>Query Cloud SQL data</span></ul></div></ul></div><div><span>Analyze unstructured data</span><ul><span>Run inference</span><span>Analyze with remote
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-mobilenet.html
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a feature vector model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Analytics Hub listings</span><span>Monitor BI Engine</span><span>Monitor data quality</span><span>Monitor Data Transfer Service</span><span>Monitor materialized views</span><span>Monitor reservations</span><span>Dashboards, charts and alerts</span></ul></div><div><span>Audit workloads</span><ul><span>Introduction</span><span>Audit policy tags</span><span>View Data Policy audit logs</span><span>Data Transfer Service audit logs</span><span>Analytics Hub audit logging</span><span>BigQuery audit logs reference</span><span>Migrate audit logs</span><span>BigLake API audit logs</span></ul></div><div><span>Optimize resources</span><ul><div><span>Control costs</span><ul><span>Estimate and control query costs</span><span>Custom cost controls</span></ul></div><div><span>Optimize with recommendations</span><ul><span>View cluster and partition recommendations</span><span>Apply cluster and partition recommendations</span><span>Manage materialized view recommendations</span></ul></div><div><span>Organize with labels</span><ul><span>Introduction</span><span>Add labels</span><span>View labels</span><span>Update labels</span><span>Filter using labels</span><span>Delete labels</span></ul></div><div><span>Manage data quality</span><ul><span>Monitor data quality with scans</span><span>Data Catalog overview</span><span>Work with Data Catalog</span></ul></div></ul></div><span>Govern</span><span>Introduction</span><div><span>Control access to resources</span><ul><span>Introduction</span><span>Control access to resources with IAM</span><div><span>Control access with authorization</span><ul><span>Authorized datasets</span><span>Authorized routines</span><span>Authorized views</span></ul></div><span>Control access with VPC service controls</span><span>Control table and dataset access with tags</span><span>Control access with
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/inference-tutorial-resnet.html
+
+Documentation Title:
+Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</pre><p>Replace <var>PROJECT_ID</var>with your project ID.</p></li></ol></section><section><h3>bq </h3><ol><li><p>In the Google Cloud console, activate Cloud Shell.</p><a>Activate Cloud Shell</a></li><li><p>Run the
+<a><code>bq mk</code>command</a>to create the dataset:</p><pre>bq mk --dataset --location=us <var>PROJECT_ID</var>:resnet_inference_test
+</pre><p>Replace <var>PROJECT_ID</var>with your project ID.</p></li></ol></section></div><h2>Create a connection</h2><p>Create a connection named <code>lake-connection</code>:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add</span><strong>Add data</strong>, and then click <strong>External data source</strong>.</p><p>In the <strong>Connection type</strong>list, select <strong>BigLake and remote functions
+(Cloud Resource)</strong>.</p><p>In the <strong>Connection ID</strong>field, type <code>lake-connection</code>.</p><p>Click <strong>Create connection</strong>.</p><p>In the <strong>Connection info</strong>pane, copy the value from the
+<strong>Service account id</strong>field and save it somewhere.
+
+
+

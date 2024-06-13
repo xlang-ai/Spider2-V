@@ -55,7 +55,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
         "chromium",
@@ -64,7 +63,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "evaluator": {
         "func": "compare_csv",
@@ -86,5 +86,6 @@
             "path": "evaluation_examples/examples/bigquery/21b70cc4-9dd2-57a2-a831-1fb67aa6ba9d/yob2014.csv",
             "dest": "gold_output.csv"
         }
-    }
+    },
+    "counterpart": "e50164dd-4bea-4390-b217-970d6dfe1c61"
 }

@@ -1,0 +1,22 @@
+Our goal in this task is to 1) find out the top 5 names of male babies in America in 2014, and 2) save the results into a new table in the current google cloud project. To achieve this goal,
+1. In the BigQuery Studio page, click the panel with title "Untitled query" on top of the header "Welcome to BigQuery Studio". This will switch the window to a blank panel which accepts SQL queries;
+2. In the blank panel, type in the following texts:
+```
+SELECT
+  name,
+  count
+FROM
+  `babynames.names_2014`
+WHERE
+  assigned_sex_at_birth = 'M'
+ORDER BY
+  count DESC
+LIMIT
+  5;
+```
+3. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+4. The query results will show below. Click the "SAVE RESULTS" button above the execution results;
+5. And in the drop-down menu, further click the option "BigQuery table";
+6. A window will pop up on the right. For the `Dataset` field, select `babynames` dataset;
+7. For the `Table` field, type in a new table "top5_male_2014";
+8. Click button "SAVE" and wait for the job to finish. You can discover this new table in the Explorer panel on the left.

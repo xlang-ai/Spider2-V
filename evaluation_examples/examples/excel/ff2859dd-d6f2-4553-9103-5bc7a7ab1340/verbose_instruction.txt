@@ -1,0 +1,19 @@
+To finish the `Total` row in the table and insert the chart, we do as follow:
+
+1. CLick on the cell $A$12.
+2. Type "Total", and press Enter.
+3. Click on the cell $B$12.
+4. Click on the input line on top of the Excel table.
+5. Type "=SUM()", and select the cells $B$2:$B$11. Press `Enter`.
+6. Move the cursor to the right-bottom corner of cell $B$12 to see the cursor turns into a cross. Then drag the cursor from $B$12 to $G$12. Now we complete the `Total` row of the table.
+7. Start making the chart. Press `Ctrl` and select the cells $A$12:$G$12, $B$1:$G$1.
+8. Click on the botton `Insert` from the top of the page.
+9. In the drop down selector, select `Chart...`.
+10. Click on `Line` under "Choose a chart type".
+11. Click on the graph `Lines Only` at the right side.
+12. Click `Next`.
+13. Click `Next`.
+14. Click on the `Title` input box.
+15. Type "Total".
+16. Uncheck the check box before "Display Legend".
+17. Click `Finish`.

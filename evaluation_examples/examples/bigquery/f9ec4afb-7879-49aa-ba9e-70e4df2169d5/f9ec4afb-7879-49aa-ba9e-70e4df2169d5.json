@@ -1,0 +1,92 @@
+{
+    "id": "f9ec4afb-7879-49aa-ba9e-70e4df2169d5",
+    "snapshot": "bigquery",
+    "instruction": "Use Bigquery WebUI to check how many crime cases were solved and resulted in an arrest in the Austin crime database. Save answers in 'arrest' table in my_dataset.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we will use BigQuery WebUI to write SQL and check how many crime cases were solved and resulted in an arrest in the Austin crime database. The executed answers will be saved in 'arrest' table in dataset 'my_dataset'. Concretely,\n1. Click entry austin_crime > crime in the Explorer panel to investigate the schema of table `crime`. We will use the column `clearance_status`.\n2. Click '+' button at the top of the main panel to **Create SQL query**. This will open a blank query panel.\n3. Write the following SQL into the blank panel \"Untitled query\":\n```\nselect count(*) from `bigquery-public-data.austin_crime.crime` where clearance_status='Cleared by Arrest'\n```\n4. Click the \"> RUN\" button in the menu bar of this panel to execute this SQL;\n5. Wait for a moment. The query results will show below.\n6. Click the \"SAVE RESULTS\" button above the execution results (on the right side of the same row as panel \"Query results\");\n7. And in the drop-down menu, further click the option \"BigQuery table\";\n8. A window will pop up on the right. For the `Dataset` field, click and select `my_dataset` dataset;\n9. For the `Table` field, type in a new table \"arrest\";\n10. Click button \"SAVE\" and wait for the job to finish. You can discover this new table in the Explorer panel on the left.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "my_dataset",
+                        "table_id": "information",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/f9ec4afb-7879-49aa-ba9e-70e4df2169d5/information.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "ws": "!1m4!1m3!3m2!1sbigquery-public-data!2saustin_crime"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "my_dataset",
+            "table_id": "arrest",
+            "schema": [
+                "*"
+            ],
+            "dest": "output.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/f9ec4afb-7879-49aa-ba9e-70e4df2169d5/arrest.csv",
+            "dest": "gold_output.csv"
+        }
+    },
+    "counterpart": "b3f47e09-f4f4-47d0-b3a8-d663a34757aa"
+}

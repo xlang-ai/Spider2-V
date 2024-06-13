@@ -1,0 +1,166 @@
+import numpy as np
+Z = np.zeros(10)
+print(Z)
+Z = np.zeros((10,10))
+print("%d bytes" % (Z.size * Z.itemsize))
+Z = np.zeros(10)
+Z[4] = 1
+print(Z)
+Z = np.arange(10,50)
+print(Z)
+Z = np.arange(50)
+Z = Z[::-1]
+print(Z)
+Z = np.arange(9).reshape(3,3)
+print(Z)
+nz = np.nonzero([1,2,0,0,4,0])
+print(nz)
+Z = np.eye(3)
+print(Z)
+Z = np.random.random((3,3,3))
+print(Z)
+Z = np.random.random((10,10))
+Zmin, Zmax = Z.min(), Z.max()
+print(Zmin, Zmax)
+Z = np.random.random(30)
+m = Z.mean()
+print(m)
+Z = np.ones((10,10))
+Z[1:-1,1:-1] = 0
+print(Z)
+Z = np.ones((5,5))
+Z = np.pad(Z, pad_width=1, mode='constant', constant_values=0)
+print(Z)
+Z = np.diag(1+np.arange(4),k=-1)
+print(Z)
+Z = np.zeros((8,8),dtype=int)
+Z[1::2,::2] = 1
+Z[::2,1::2] = 1
+print(Z)
+print(np.unravel_index(100,(6,7,8)))
+Z = np.tile( np.array([[0,1],[1,0]]), (4,4))
+print(Z)
+Z = np.dot(np.ones((5,3)), np.ones((3,2)))
+print(Z)
+
+# Alternative solution, in Python 3.5 and above
+Z = np.ones((5,3)) @ np.ones((3,2))
+# Author: Evgeni Burovski
+
+Z = np.arange(11)
+Z[(3 < Z) & (Z <= 8)] *= -1
+print(Z)
+# Author: Charles R Harris
+
+Z = np.random.uniform(-10,+10,10)
+print (np.copysign(np.ceil(np.abs(Z)), Z))
+Z1 = np.random.randint(0,10,10)
+Z2 = np.random.randint(0,10,10)
+print(np.intersect1d(Z1,Z2))
+yesterday = np.datetime64('today', 'D') - np.timedelta64(1, 'D')
+today     = np.datetime64('today', 'D')
+tomorrow  = np.datetime64('today', 'D') + np.timedelta64(1, 'D')
+Z = np.arange('2016-07', '2016-08', dtype='datetime64[D]')
+print(Z)
+Z = np.zeros((5,5))
+Z += np.arange(5)
+print(Z)
+def generate():
+    for x in range(10):
+        yield x
+Z = np.fromiter(generate(),dtype=float,count=-1)
+print(Z)
+Z = np.linspace(0,1,11,endpoint=False)[1:]
+print(Z)
+Z = np.random.random(10)
+Z.sort()
+print(Z)
+# Author: Evgeni Burovski
+
+Z = np.arange(10)
+np.add.reduce(Z)
+Z = np.random.random((10,2))
+X,Y = Z[:,0], Z[:,1]
+R = np.sqrt(X**2+Y**2)
+T = np.arctan2(Y,X)
+print(R)
+print(T)
+Z = np.random.random(10)
+Z[Z.argmax()] = 0
+print(Z)
+Z = np.zeros((5,5), [('x',float),('y',float)])
+Z['x'], Z['y'] = np.meshgrid(np.linspace(0,1,5),
+                             np.linspace(0,1,5))
+print(Z)
+# Author: Evgeni Burovski
+
+X = np.arange(8)
+Y = X + 0.5
+C = 1.0 / np.subtract.outer(X, Y)
+print(np.linalg.det(C))
+Z = np.arange(100)
+v = np.random.uniform(0,100)
+index = (np.abs(Z-v)).argmin()
+print(Z[index])
+Z = np.arange(10, dtype=np.float32)
+Z = Z.astype(np.int32, copy=False)
+print(Z)
+# Author: Steve Tjoa
+
+Z = np.random.randint(0,10,(3,3))
+print(Z)
+print(Z[Z[:,1].argsort()])
+# Author: Warren Weckesser
+
+Z = np.random.randint(0,3,(3,10))
+print((~Z.any(axis=0)).any())
+Z = np.random.uniform(0,1,10)
+z = 0.5
+m = Z.flat[np.abs(Z - z).argmin()]
+print(m)
+A = np.arange(3).reshape(3,1)
+B = np.arange(3).reshape(1,3)
+it = np.nditer([A,B,None])
+for x,y,z in it: z[...] = x + y
+print(it.operands[2])
+# Author: Alan G Isaac
+
+X = [1,2,3,4,5,6]
+I = [1,3,9,3,4,1]
+F = np.bincount(I,X)
+print(F)
+# Author: Warren Weckesser
+
+Z = np.array([1,2,3,4,5])
+nz = 3
+Z0 = np.zeros(len(Z) + (len(Z)-1)*(nz))
+Z0[::nz+1] = Z
+print(Z0)
+A = np.ones((5,5,3))
+B = 2*np.ones((5,5))
+print(A * B[:,:,None])
+# Author: Eelco Hoogendoorn
+
+A = np.arange(25).reshape(5,5)
+A[[0,1]] = A[[1,0]]
+print(A)
+# Author: Jaime Fernández del Río
+
+C = np.bincount([1,1,2,3,4,4,6])
+A = np.repeat(np.arange(len(C)), C)
+print(A)
+# Author: Stefan van der Walt
+
+Z = np.random.uniform(0,1,(10,10))
+U, S, V = np.linalg.svd(Z) # Singular Value Decomposition
+rank = np.sum(S > 1e-10)
+print(rank)
+Z = np.random.randint(0,10,50)
+print(np.bincount(Z).argmax())
+# Author: Robert Kern
+
+Z = np.ones((16,16))
+k = 4
+S = np.add.reduceat(np.add.reduceat(Z, np.arange(0, Z.shape[0], k), axis=0),
+                                       np.arange(0, Z.shape[1], k), axis=1)
+print(S)

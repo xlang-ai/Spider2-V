@@ -1,0 +1,204 @@
+Documentation Source:
+airbyte.com/blog/manage-and-orchestrate-airbyte-connections-using-python.txt
+
+Documentation Title:
+You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
+
+Documentation Content:
+This corresponds to your workspace in Airbyte Cloud.
+from airbyte import cloud
+
+
+workspace = cloud.CloudWorkspace(
+    workspace_id="...",
+    api_key="...",
+)
+If you instead want to connect to an OSS or Enterprise workspace, simply override the <span class="text-style-code">api_root</span> to match your hosted environment:
+from airbyte import cloud
+
+workspace = cloud.CloudWorkspace(
+    workspace_id="...",
+    api_key="...",
+    api_root="https://airbyte.internal.adventureworks.com",
+)
+Running a Sync Job Remotely Using PyAirbyte
+Once you’ve created a workspace object, you can trigger a sync remotely by passing the connection ID of the connection you want to sync:
+sync_result = workspace.run_sync(connection_id="...")
+print(f"Sync was completed. Status is {sync_result.get_status()}.")
+That’s it!
+You’ve successfully executed the connection that is hosted on Airbyte Cloud.PyAirbyte takes care of executing the job and waiting for completion, and it makes it easy for you to check the latest job status.
+Working with SyncResult Objects
+Once you have a <span class="text-style-code">SyncResult</span> object, you can check status directly as shown above.
+Other helpful things you can do with a SyncResult object include the following:
+<span class="text-style-code">get_job_status()</span> - Returns the latest status. (This is cached after the job is complete, for better performance.)
+<span class="text-style-code">is_job_complete()</span> - Check if the job is in a completed status. (Also cached after completion, for performance.)
+<span class="text-style-code">wait_for_completion()</span> - Wait for a completed status to be reached. You can optionally include a specific maximum time to wait (default timeout is 30 minutes).
+<span class="text-style-code">raise_failure_status()</span> - Raises an exception if the job status is failed; Otherwise, does nothing.
+Getting Sync Results from Prior Executions
+You can use <span class="text-style-code">get_sync_history()</span> to get a SyncResult object from a previously run job, or <span class="text-style-code">get_sync_job()</span> if you already know the job ID.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/operator-guides/browsing-output-logs.txt
+
+Documentation Title:
+Browsing logs | Airbyte Documentation
+
+Documentation Content:
+Browsing logs | Airbyte Documentation
+Skip to main content
+About Airbyte
+Tutorials
+Support
+Cloud Status
+Try Airbyte Cloud
+Search
+Airbyte Connectors
+Connector Catalog
+Build a Connector
+Connector Support Levels
+Using Airbyte
+Getting Started
+Configuring Connections
+Managing Syncs
+Review the connection status
+Review the sync history
+Browsing logs
+Clearing your data
+Modifying connection state
+Managing Airbyte
+Deploy Airbyte
+Self-Managed Enterprise
+Upgrading Airbyte
+Configuring Airbyte
+Access Management
+Airbyte at Scale
+Security
+Integrating with Airbyte
+Account Management
+Developer Guides
+API documentation
+Terraform Documentation
+Using PyAirbyte
+Understand Airbyte
+Contribute to Airbyte
+Licenses
+Community
+Getting Support
+Code of Conduct
+Product Updates
+Roadmap
+Release Notes
+Managing Syncs
+Browsing logs
+On this page
+Browsing logs
+Available
+Cloud
+Available
+Self-Managed Community (OSS)
+Available
+Self-Managed Enterprise
+Airbyte records the full logs as a part of each sync. These logs can be used to understand the underlying operations Airbyte performs to read data from the source and write to the destination as a part of the
+Airbyte Protocol
+. The logs includes many details, including any errors that can be helpful when troubleshooting sync errors.
+info
+When using Airbyte Open Source, you can also access additional logs outside of the UI. This is useful if you need to browse the Docker volumes where extra output files of Airbyte server and workers are stored.
+To find the logs for a connection, navigate to a connection's
+Job History
+tab to see the latest syncs.
+View the logs in the UI
+​
+To open the logs in the UI, select the three grey dots next to a sync and select
+View logs
+. This will open our full screen in-app log viewer.
+tip
+If you are troubleshooting a sync error, you can search for
+Error
+,
+Exception
+, or
+Fail
+to find common errors.
+The in-app log viewer will only search for instances of the search term within that attempt. To search across all attempts, download the logs locally.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.txt
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+351+00
+ fc5bae3e-cbde-4790-921f-bab7a6dce51f | {"id": 2, "name": "John D"}  | 2022-07-27 16:46:44.351+00
+ 15264229-8022-415e-8b5a-939f048dc15e | {"id": 1, "name": "Mary X"}  | 2022-07-27 17:18:35.355+00
+ f33488c0-ac2b-4c01-b054-7d8534ea0199 | {"id": 2, "name": "John D"}  | 2022-07-27 17:18:35.355+00
+ 8708359b-bad9-4a1f-9172-073cc5469d32 | {"id": 3, "name": "Alex M"}  | 2022-07-27 17:18:35.355+00
+ 282ea34c-3b69-4c0b-a3e0-f581c4f351a3 | {"id": 1, "name": "Mary X"}  | 2022-07-28 12:17:01.493+00
+ 6a0e706f-4e94-422f-abd0-e6635678840c | {"id": 2, "name": "John D"}  | 2022-07-28 12:17:01.493+00
+ 4b0eeaf6-499c-41f7-9aff-0c134c8e0ac4 | {"id": 3, "name": "Brett D"} | 2022-07-28 12:17:01.493+00
+ 2145fa8f-c6e5-4b74-8ffb-a8323f77fa00 | {"id": 1, "name": "Mary X"}  | 2022-07-28 12:34:29.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/operator-guides/browsing-output-logs.txt
+
+Documentation Title:
+Browsing logs | Airbyte Documentation
+
+Documentation Content:
+To search across all attempts, download the logs locally.
+Link to a sync job
+​
+To help others quickly find your job, copy the link to the logs to your clipboard, select the three grey dots next to a sync and select
+Copy link to job
+.
+You can also access the link to a sync job from the in-app log viewer.
+Download the logs
+​
+To download a copy of the logs locally, select the three grey dots next to a sync and select
+Download logs
+.
+You can also access the download log button from the in-app log viewer.
+note
+If a sync was completed across multiple attempts, downloading the logs will union all the logs for all attempts for that job.
+Exploring Local Logs
+​
+Open Source
+only
+The following documentation only applies to
+Open Source
+.
+Establish the folder directory
+​
+In the UI, you can discover the Attempt ID within the sync job. Most jobs will complete in the first attempt, so your folder directory will look like
+/tmp/workspace/9/0
+. If you sync job completes in multiple attempts, you'll need to define which attempt you're interested in, and note this. For example, for the third attempt, it will look like
+/tmp/workspace/9/2/
+.
+Understanding the Docker run commands
+​
+We can also read the different docker commands being used internally are starting with:
+docker run --rm -i -v airbyte_workspace:/data -v /tmp/airbyte_local:/local -w /data/9/2 --network host ...
+From there, we can observe that Airbyte is calling the
+-v
+option to use a docker named volume called
+airbyte_workspace
+that is mounted in the container at the location
+/data
+.
+Following
+Docker Volume documentation
+, we can inspect and manipulate persisted configuration data in these volumes.
+Opening a Unix shell prompt to browse the Docker volume
+​
+For example, we can run any docker container/image to browse the content of this named volume by mounting it similarly. In the example below, the
+busybox
+image is used.
+
+
+

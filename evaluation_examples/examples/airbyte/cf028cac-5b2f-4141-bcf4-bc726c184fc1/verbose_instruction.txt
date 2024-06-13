@@ -1,0 +1,21 @@
+In this task, we want to create a connection from Postgres to Postgres with CDC sync mode with given configuration: 
+1. Switch to the browser window;
+2. In the opened homepage of Airbyte, click the "Sources" link on the left panel;
+3. Then, in the search bar on the right, type in "Postgres" and you should see one panel with name "Postgres" below;
+4. Click this panel;
+5. After that, based on the "source Postgres" details in the desktop config.json file, enter the configuration parameters in the appropriate fields, and select Logical Replication (CDC). Enter the parameters that will be used for CDC replication, which are also provided in the config.json file;
+6. Then click on the "Set up source" button to create the source connector;
+7. Once "all tests passed" is displayed, click the "Destinations" link on the left panel;
+8. Then, in the search bar on the right, type in "Postgres" and you should see a panel with the name "Postgres" below;
+9. Click this panel;
+10. Based on the "destination Postgres" details in the desktop config.json file, enter the configuration parameters in the appropriate fields;
+11. Note that, for private field "Password" whose input box may not be visible, you need to click the toggle link with text "Optional fields" in order to expand the hidden fields.
+12. After finishing all content, click the "Set up destination" button to create the destination connector;
+13. Once "all tests passed" is displayed, click the "Connections" link on the left panel;
+14. Then, click the "Create your first connection" button on the right;
+15. In the "Define source" step, choose "select an existing source";
+16. Click on the "Postgres" source link below;
+17. After that, in the "Define destination" step, choose "select an existing destination";
+18. Click on the "Postgres" destination link below. You may need to wait for some time;
+19. In the "Connection configuration" step, enter the parameters in the appropriate fields based on the "connection" details in the config.json file;
+20. Click the "Set up connection" button at the bottom right of the page to complete the connection setup.

@@ -1,0 +1,10 @@
+In this task, we want to download the sync log of the current airbyte connection. To complete this: 
+1. Click the connection row in the main panel;
+2. In the Airbyte connection page, click the "Job History" button to see the sync history;
+3. When you see the current sync status display as "Sync Succeeded", click the three dots button on the rightmost side of this sync record;
+4. In the pop-up menu, click "Download logs" to download the sync logs to your local machine. In the prompt that appears, note down the name of the file;
+5. Click on "Files" in the left toolbar of the desktop;
+6. Click to enter the "Downloads" folder;
+7. Find the log file you just downloaded, right-click on it, select "Rename", and enter "airbyte_log.txt" as the new file name;
+8. Right-click on the file again, select "Move to" from the menu.
+9. After that, in the pop-up window, click "Desktop" on the left menu, then click the green "select" button in the top right corner of the pop-up window to complete the file move.

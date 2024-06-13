@@ -1,0 +1,55 @@
+To finish this job, we need to do as follows:
+
+1. Click the "create sheet" button at the bottom (on the left side of sheet panel "Sheet1") to create a new sheet "Sheet2";
+2. Select the cells A1:C1.
+3. Click the button `Merge Cells` from the tool panel.
+4. Click on the drop down button of `Background Color`.
+5. Choose `Custom Color...`.
+6. Change the color code into (0,0,255) and press Enter.
+7. Type \"Demographic Profile\" in the cell A1:C1.
+8. Make it White color and bold the text.
+9. Switch to Sheet1 and click on column B.
+10. Insert > Pivot Table...
+11. Click `OK`.
+12. Drag the label `Sex` from `Available Fields` to `Row Fields`. 
+13. Drag the label `Sex` from `Available Fields` to `Data Fields`. 
+14. Double click on the `Sum - Sex` tag.
+15. Under the `Function`, choose `Count`.
+16. Click `OK`.
+17. Expand `Options`.
+18. Tick the check box before `Ignore empty rows` and `Identify categories`.
+19. Expand `Source and Destination`.
+20. Under `Destination`, choose `selection`.
+21. Click on the `Shrink` button on the right side.
+22. Switch to Sheet2, and click in the cell A2.
+23. Click `OK`.
+24. Switch to Sheet1 and click on column C.
+25. Insert > Pivot Table...
+26. Click `OK`.
+27. Drag the label `Civil Status` from `Available Fields` to `Row Fields`. 
+28. Drag the label `Civil Status` from `Available Fields` to `Data Fields`. 
+29. Double click on the `Sum - Civil Status` tag.
+30. Under the `Function`, choose `Count`.
+31. Click `OK`.
+32. Expand `Options`.
+33. Tick the check box before `Ignore empty rows` and `Identify categories`.
+34. Expand `Source and Destination`.
+35. Under `Destination`, choose `selection`.
+36. Click on the `Shrink` button on the right side.
+37. Switch to Sheet2, and click in the cell A7.
+38. Click `OK`.
+39. Switch to Sheet1 and click on column D.
+40. Insert > Pivot Table...
+41. Click `OK`.
+42. Drag the label `Highest Educational Attainment` from `Available Fields` to `Row Fields`. 
+43. Drag the label `Highest Educational Attainment` from `Available Fields` to `Data Fields`. 
+44. Double click on the `Sum - Highest Educational Attainment` tag.
+45. Under the `Function`, choose `Count`.
+46. Click `OK`.
+47. Expand `Options`.
+48. Tick the check box before `Ignore empty rows` and `Identify categories`.
+49. Expand `Source and Destination`.
+50. Under `Destination`, choose `selection`.
+51. Click on the `Shrink` button on the right side.
+52. Switch to Sheet2, and click in the cell A13.
+53. Click `OK`.

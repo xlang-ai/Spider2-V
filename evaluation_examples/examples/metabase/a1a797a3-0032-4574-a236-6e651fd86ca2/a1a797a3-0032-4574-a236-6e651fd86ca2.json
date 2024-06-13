@@ -1,0 +1,70 @@
+{
+    "id": "a1a797a3-0032-4574-a236-6e651fd86ca2",
+    "snapshot": "metabase",
+    "instruction": "I accidentally forgot my password for Metabase. Please reset my password and update it as \"metabase123\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To reset and update the password, please follow these steps:\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click the \"People\" tab on the top bar;\n4. Click the three dots (...) on the right of the John Wilson account;\n5. Choose \"Reset password\" in the drop-down panel;\n6. Click the \"Reset password\" button;\n7. Click the icon on the right side of the \"Show\" button to copy the temporary password;\n8. Click the \"Done\" button;\n9. Click the \"Exit admin\" button on the top right;\n10. Click the gear icon on the top right;\n11. Choose \"Account settings\" in the drop-down panel;\n12. Click the \"Password\" tab in the center of the page;\n13. Paste the temporary password in the \"Current password\" input box;\n14. Type \"metabase123\" in the \"Create a password\" input box;\n15. Type \"metabase123\" in the \"Confirm your password\" input box;\n16. Click the \"Save\" button.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/docs/latest/people-and-groups/managing"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 16,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/a1a797a3-0032-4574-a236-6e651fd86ca2/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/metabase/a1a797a3-0032-4574-a236-6e651fd86ca2/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "b7ead5fd-b37c-4d78-bc60-06e26f0da93a"
+}

@@ -1,0 +1,9 @@
+I am using Astronomer to deploy Airflow
+To initialize an airflow project and run the project with designated local port, we can follow the setps:
+1. In the opened terminal, type in the following command to initialize an airflow project:
+ˋastro dev initˋ
+2. Then, type in the following command to set the webserver port to 8002:
+ˋastro config set webserver.port 8002ˋ 
+3. Then, type in the following command to run the dag project:
+ˋastro dev start`
+4. Wait for some time such that the web server can be launched.

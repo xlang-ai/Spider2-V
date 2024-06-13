@@ -1,0 +1,26 @@
+I am using Astronomer to deploy Airflow
+To fix the dag according to given test log, we can follow the steps:
+1. Click the VS Code editor on the left panel or dock;
+2. According to the opened README.md file, we can extract the test log to alter the dag file accordingly;
+3. Switch to the dag file 'task_today.py' that is opened in VSCode;
+4. We'll now alter the dag file. Concretely, we will change the "schedule" in @dag field to "daily" and rearrange the tasks in order "activity >> logged_activity >>  analyzed_activity ":
+ˋˋˋ
+# ... Keep the original ˋtask_todayˋ codes
+@dag(
+    start_date=datetime(2024, 4, 1),
+    schedule="@daily",
+    catchup=False,
+    tags=['bored_api', 'daily_activity']
+)
+
+# ... after the task definition codes
+
+activity = fetch_activity()
+logged_activity = log_activity(activity)
+analyzed_activity = analyze_activity(activity)
+activity >> logged_activity >>  analyzed_activity 
+ˋˋˋ
+5. Save the file content and click the Chromium on the left panel to switch to the opened airflow web page;
+6. On the Airflow web page, find "task_today" in the DAG list and click the slider to the left of the name to Unpause dag; 
+7. Click the triangle under the Action column on the far right of the row to trigger the dag; 
+8. Wait until the status of all tasks in the 'Runs' column to change to "success" or "failed"

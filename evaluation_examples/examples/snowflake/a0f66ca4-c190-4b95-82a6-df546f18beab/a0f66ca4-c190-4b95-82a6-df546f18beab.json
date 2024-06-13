@@ -1,0 +1,90 @@
+{
+    "id": "a0f66ca4-c190-4b95-82a6-df546f18beab",
+    "snapshot": "snowflake",
+    "instruction": "Help me create a new user with information in config.yaml for Snowflake.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create a new user in Snowflake Snowsight, please follow these steps:\n1. Click the \"+\" button on the top right;\n2. Choose \"SQL Worksheet\" in the drop-down panel;\n3. In the opened blank worksheet, type in command:\n`USE ROLE USERADMIN;`\nand place the cursor in the USE ROLE line.\n4. In the upper-right corner of the worksheet, select \"Run\" (icon ►) to execute the current command.\n5. Next, copy the following lines into the worksheet and execute it via clicking \"Run\" again:\n```\nCREATE OR REPLACE USER snowman\nPASSWORD = '20!4@sn0wf@ll'\nLOGIN_NAME = 'snowstorm'\nFIRST_NAME = 'Snow'\nLAST_NAME = 'Storm'\nEMAIL = 'snow.storm@snowflake.com'\nMUST_CHANGE_PASSWORD = false\nDEFAULT_WAREHOUSE = COMPUTE_WH;\n```\nIn the Results panel, we shall see \"User SNOWMAN\" successfully created.\n6. Afterwards, change the current role via typing and executing:\n`USE ROLE SECURITYADMIN;`\n7. And copy this command to grant a role `SYSADMIN` to the new user:\n`GRANT ROLE SYSADMIN TO USER snowman;`\nAfter running this command, we have finished all tasks.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/snowflake/a0f66ca4-c190-4b95-82a6-df546f18beab/config.yaml",
+                "dest": "/home/user/Desktop/config.yaml"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_user",
+                        "username": "snowman"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/Desktop/config.yaml"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "is_snowflake_user_created",
+        "result": {
+            "type": "snowflake_user_info",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "username": "snowman"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "NAME": "SNOWMAN",
+                "LOGIN_NAME": "SNOWSTORM",
+                "FIRST_NAME": "Snow",
+                "LAST_NAME": "Storm",
+                "EMAIL": "snow.storm@snowflake.com",
+                "MUST_CHANGE_PASSWORD": "false",
+                "DISABLED": "false",
+                "SNOWFLAKE_LOCK": "false",
+                "DEFAULT_WAREHOUSE": "COMPUTE_WH",
+                "PASSWORD": "20!4@sn0wf@ll",
+                "ROLE": "SYSADMIN"
+            }
+        },
+        "options": {
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+        }
+    },
+    "counterpart": "e34f8f1f-3b5c-45af-b76b-b643ae09f055"
+}

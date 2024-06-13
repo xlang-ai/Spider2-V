@@ -54,7 +54,8 @@
     ],
     "tags": [
         "cli+gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_include_exclude",
@@ -74,5 +75,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "933ccceb-cb16-4ae7-a794-55ddce6765f5"
 }

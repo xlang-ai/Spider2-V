@@ -1,0 +1,35 @@
+This job is to connect Hasura to the existing snowflake database and write GraphQL queries on Hasura. In the opened Hasura Cloud web page,
+1. Click the blue button on the middle of the panel named "New Project".
+2. On the right panel, scroll down and click the button "Create Free Project".
+3. Click "Launch Console" on the top-right of the window.
+4. On the new web page, click the "DATA" button on the top of the page.
+5. On the bottom of the window, select "Snowflake".
+6. On the right-bottom of the window, click the "Connect Existing Database" button.
+7. Type in "videos" to the input field "Database Name".
+8. Open the information.txt file on the desktop of virtual machine.
+9. Replace the placeholders in the JDBC format with values provided by information.txt to get the JDBC string "jdbc:snowflake://HTEVMCF-AZ36651.snowflakecomputing.com/?user=XLANG&password=Spider2.0&warehouse=compute_wh&db=videos&schema=public"
+10. Return to the Chromium.
+11. Fill in the input field "JDBC Connection URL" with the JDBC string you got previously.
+12. Click "Connect Database" button on the right-bottom.
+13. On the left panel, Click "videos" button under "Databases".
+14. Select all checkboxes on the middle of the window.
+15. Click the yellow button "Track Selected".
+16. Click the "API" button on the top of the page.
+17. In the input field of "GraphiQL", type in the following code in the input box with the "# Try out GraphQL queries here" prompt.
+```
+query AllCustomers {
+  SUBSCRIPTIONS(offset: 50, where: {WAS_SUBSCRIPTION_PAID: {_eq: "Yes"}}, limit: 100) {
+    CUSTOMER_ID
+    CREATED_DATE
+  }
+}
+```
+18. Click the "Execute Query" button(With triangle symbol) just above the input box.
+19. Open Terminal on your virtual machine.
+20. Run the following commands.
+```
+cd Desktop
+code result.txt
+```
+21. Copy the query results on the right of the Chromium window to the result.txt.
+22. Save result.txt

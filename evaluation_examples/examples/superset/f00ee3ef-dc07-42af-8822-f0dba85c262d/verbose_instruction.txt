@@ -1,0 +1,15 @@
+To create a table visualization to show the cost per department for the 'flights' table and save this visualization chart named 'Mychart', we can follow these steps:
+1. In the opened web page, select "Dataset" in the top menu;
+2. Click edit icon in the 'flights' row;
+3. In the pop-up window, select "METRICS";
+4. Click "ADD ITEM" botton;
+5. Click "Metric Key" of the created item;
+6. Type "SumCost" in the box;
+7. Type "SUM("Cost")" in the "SQL expression" box;
+8. Select "CALCULATED COLUMN" in the menu;
+9. Click "ADD ITEM" botton;
+10. Type colmn name "IntCost" in the <new colmn> box;
+11. Type "CAST("Cost" as INTEGER)" in the "SQL EXPRESSION" box;
+12.  Click "Save" and back to the main panel.
+
+

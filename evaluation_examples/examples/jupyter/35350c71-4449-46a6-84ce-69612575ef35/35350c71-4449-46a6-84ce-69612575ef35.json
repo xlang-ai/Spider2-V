@@ -1,0 +1,69 @@
+{
+    "id": "35350c71-4449-46a6-84ce-69612575ef35",
+    "snapshot": "jupyter",
+    "instruction": "Help me apply Data Scaling to the famous California Housing dataset. Follow the instructions specified in the jupyter notebook. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to apply some data preprocessing techniques, especially data scaling, to the famous California Housing Datasets.\n1. Add the following code below the ``#TODO 1`` comment.\n```python\ndf.head()\n```\n2. Add the following code below the ``#TODO 2`` comment.\n```python\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=SEED)\n```\n3. Add the following code below the ``#TODO 3`` comment. First, instantiate a standard scaler.\n```python\nscaler = StandardScaler()\n```\n4. Next, fit the scaler according to our training dataset.\n```python\nscaler.fit(X_train)\n```\n5. Finally, transform both training dataset and testing dataset.\n```python\nX_train = scaler.transform(X_train)\nX_test = scaler.transform(X_test)\n```\n6. Click the button \"Run\" in the menu bar on the top.\n7. In the drop-down menu, select and click \"Run All Cells\".\n8. Wait until all cells completes running, then click the button \"File\" in the menu bar on the top.\n9. In the drop-down menu, select and click \"Save All\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/35350c71-4449-46a6-84ce-69612575ef35/data_scaling.ipynb",
+                "dest": "/home/user/Desktop/data_scaling.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/35350c71-4449-46a6-84ce-69612575ef35/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/data_scaling.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/data_scaling.ipynb",
+            "dest": "data_scaling.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/35350c71-4449-46a6-84ce-69612575ef35/data_scaling_gold.ipynb",
+            "dest": "data_scaling_gold.ipynb"
+        }
+    },
+    "counterpart": "d4b4bde1-84f6-4644-b993-65dccbe15ea0"
+}

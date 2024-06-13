@@ -1,0 +1,44 @@
+Documentation Source:
+docs.getdbt.com/guides/manual-install.html
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install121c.html
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install0c17.html
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install8722.html
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+
+
+

@@ -1,0 +1,13 @@
+To create a table visualization to show the average cost per department for the 'flights' table and save this visualization chart named 'Mychart', we can follow these steps:
+1. In the opened web page, select "Dataset" in the top menu;
+2. Click 'flights' name in the list;
+3. In the pop-up window, drag the "Deparment" tile from left list to the "DIMENSIONS" box;
+4. Drag the "cost" tile from left list to the "METRICS" box;
+5. In the small pop-up window, click "AGGREGATE" box;
+6. Then select "AVG" in the extended list;
+7. Click "CREATE CHART" in the buttom and you can see a chart in the right side;
+8. Click "SAVE" in the top right corner;
+9. Select "Save as...";
+10. Type chart name as "Mychart";
+11. Click "Save";
+12. Click "Charts" in the top menu and you can see "Mychart" item in the main panel.

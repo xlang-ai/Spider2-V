@@ -1,0 +1,15 @@
+This task requires you to utilize dbt snapshot to reflex the update of tables.
+1. Open ``snapshots/orders_snapshot.sql`` in VSCode editor.
+2. Add the following codes inside ``config()`` function to specify the snapshots.
+```sql
+target_schema='snapshots',
+unique_key='order_id',
+strategy='timestamp',
+updated_at='updated_at'
+```
+3. Switch to the terminal.
+4. Run ``dbt seed`` and ``dbt run`` to load the seeds, and execute the models.
+5. Run ``dbt snapshot`` to take a snapshot.
+6. Run ``mv /home/user/Desktop/raw_orders.csv seeds/raw_orders.csv`` to update the staled seed.
+7. Run ``dbt seed`` and ``dbt run`` to reload the seeds, and re-execute the models.
+8. Run ``dbt snapshot`` to take a new snapshot.

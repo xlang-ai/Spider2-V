@@ -1,0 +1,11 @@
+This tasks requires you to set the execution commands of a job.
+1. Click the "Deploy" button in the upper panel.
+2. Choose "Jobs" in the drop-down panel.
+3. Click the "Create job" button.
+4. Choose "Deploy job" in the drop-down panel.
+5. Now you will see the configuration page of a new job. In "Job settings" section, set the "Job name" to "init".
+6. In "Execution settings" section, check "Generate docs on run" tick box.
+7. In "Execution settings" section, replace the default command from "dbt build" to "dbt seed".
+8. Click "Add command" button, add a new command "dbt test".
+9. Click "Add command" button, add a new command "dbt run".
+10. Click "Save" button on the top right of the page.

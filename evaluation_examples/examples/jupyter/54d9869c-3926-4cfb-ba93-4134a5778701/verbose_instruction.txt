@@ -1,0 +1,25 @@
+This task requires you to build a SVM model using scikit-learn and print the accuracy score. Follow the steps:
+1. Add the following code below the ``#TODO 1`` comment.
+```python
+from sklearn import svm
+```
+2. Add the following code below the ``#TODO 2`` comment.
+```python
+clf = svm.SVC(kernel='linear')
+```
+3. Add the following code below the ``#TODO 3`` comment.
+```python
+clf.fit(X_train, y_train)
+```
+4. Add the following code below the ``#TODO 4`` comment.
+```python
+y_pred = clf.predict(X_test)
+```
+5. Add the following code below the ``#TODO 5`` comment.
+```python
+print(metrics.accuracy_score(y_test, y_pred))
+```
+6. Click the button "Run" in the menu bar on the top.
+7. In the drop-down menu, select and click "Run All Cells".
+8. Wait until all cells completes running, then click the button "File" in the menu bar on the top.
+9. In the drop-down menu, select and click "Save All".

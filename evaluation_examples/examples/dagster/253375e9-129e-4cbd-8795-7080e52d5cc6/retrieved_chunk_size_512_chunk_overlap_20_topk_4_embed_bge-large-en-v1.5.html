@@ -1,0 +1,50 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/from-airflow-to-dagster.html
+
+Documentation Title:
+Learning Dagster from Airlfow
+
+Documentation Content:
+Below we define a schedule that will run the <code>tutorial_job</code>daily:</p><code>schedule <span>=</span>ScheduleDefinition<span>(</span>job<span>=</span>tutorial_job<span>,</span>cron_schedule<span>=</span><span>"@daily"</span><span>)</span></code><h2>Step 4: Run Dagster locally<span>#</span></h2><p>In order to run our newly defined Dagster job we'll need to add it and the schedule to our project's <a>Definitions</a>.</p><code>defs <span>=</span>Definitions<span>(</span>jobs<span>=</span><span>[</span>tutorial_job<span>]</span><span>,</span>schedules<span>=</span><span>[</span>schedule<span>]</span><span>,</span><span>)</span></code><p>We can now load this file with the UI:</p><code>dagster dev -f <span>&lt;</span>your_dagster_file<span>&gt;</span>.py
+</code><h2>Completed code example<span>#</span></h2><p>That's it!
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.html
+
+Documentation Title:
+Migrating Airflow to Dagster | Dagster Docs
+
+Documentation Content:
+When finished, continue to the next step.</p><h2>Step 3: Convert DAGS into Dagster definitions<span>#</span></h2><p>In this step, you'll start writing Python!</p><p>In the <code>dagster_migration.py</code>file you created in <a>Step 1</a>, use <code>make_dagster_definitions_from_airflow_dags_path</code>and pass in the file path of your Airflow DagBag. Dagster will load the DagBag and convert all DAGs into Dagster jobs and schedules.</p><code><span>import</span>os
+
+<span>from</span>dagster_airflow <span>import</span><span>(</span>make_dagster_definitions_from_airflow_dags_path<span>,</span><span>)</span>migrated_airflow_definitions <span>=</span>make_dagster_definitions_from_airflow_dags_path<span>(</span>os<span>.</span>path<span>.</span>abspath<span>(</span><span>"./dags/"</span><span>)</span><span>,</span><span>)</span></code><h2>Step 4: Verify the DAGs are loading<span>#</span></h2><p>In this step, you'll spin up Dagster's web-based UI, and verify that your migrated DAGs are loading. <strong>Note</strong>: Unless the migrated DAGs depend on no Airflow configuration state or permissions, it's unlikely they'll execute correctly at this point. That's okay - we'll fix it in a bit. Starting the Dagster UI is the first step in our development loop, allowing you to make a local change, view it in the UI, and debug any errors.</p><ol><li><p>Run the following to start the UI:</p><code>dagster dev -f ./migrate_repo.py
+</code></li><p>In your browser, navigate to <a>http://localhost:3001</a>.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.html
+
+Documentation Title:
+Migrating Airflow to Dagster | Dagster Docs
+
+Documentation Content:
+You should see a list of Dagster jobs that correspond to the DAGs in your Airflow DagBag.</p><p>Run one of the simpler jobs, ideally one where you're familiar with the business logic. Note that it's likely to fail due to a configuration or permissions issue.</p><p>Using logs to identify and making configuration changes to fix the cause of the failure.</p></ol><p>Repeat these steps as needed until the jobs run successfully.</p><h3>Containerized operator considerations<span>#</span></h3><p>There are a variety of Airflow Operator types that are used to launch compute in various external execution environments, for example Kubernetes or Amazon ECS. When getting things working locally we'd recommend trying to execute those containers locally unless it's either unrealistic or impossible to emulate the cloud environment. For example if you use the K8sPodOperator, it likely means that you will need to have a local Kubernetes cluster running, and in that case we recommend docker's built-in Kubernetes environment. You also need to be able to pull down the container images that will be needed for execution to your local machine.</p><p>If local execution is impossible, we recommend using Branch Deployments in Dagster+, which is a well-supported workflow for cloud-native development.</p><h2>Step 5: Transfer your Airflow configuration<span>#</span></h2><p>To port your Airflow configuration, we recommend using <a>environment variables</a>as much as possible. Specifically, we recommend using a <code>.env</code>file containing Airflow variables and/or a secrets backend configuration in the root of your project.</p><p>You'll also need to configure the <a>Airflow connections</a>that your DAGs depend on.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.html
+
+Documentation Title:
+Migrating Airflow to Dagster | Dagster Docs
+
+Documentation Content:
+If deploying to your infrastructure, refer to the <a>Deployment guides</a>for more info.Additionally, until your Airflow DAGs execute successfully in your local environment, we recommend waiting to move to production.</span><p>In this step, you'll set up your project for use with Dagster+.</p><ol><p>Complete the steps in the <a>Dagster+ Getting Started guide</a>, if you haven't already. Proceed to the next step when your account is set up and you have the <code>dagster-cloud</code>CLI installed.</p><li><p>In the root of your project, create or modify the <a><code>dagster_cloud.yaml</code>file</a>with the following code:</p><code><span>locations</span><span>:</span><span>-</span><span>location_name</span><span>:</span>dagster_migration
+    <span>code_source</span><span>:</span><span>python_file</span><span>:</span>dagster_migration.py
+</code></li><p>Push your code and let the CI/CD for Dagster+ run out a deployment of your migrated DAGs to cloud.</p></ol><h2>Step 8: Migrate permissions to Dagster<span>#</span></h2><p>Your Airflow instance likely had specific IAM or Kubernetes permissions that allowed it to successfully run your Airflow DAGs. To run the migrated Dagster jobs, you'll need to duplicate these permissions for Dagster.</p><ul><p><strong>We recommend using <a>Airflow connections</a>or <a>environment variables</a></strong>to define permissions whenever possible.</p><p><strong>If you're unable to use Airflow connections or environment variables,</strong>you can attach permissions directly to the infrastructure where you're deploying Dagster.</p><p><strong>If your Airflow DAGs used <code>KubernetesPodOperators</code></strong>, it's possible that you loaded a <code>kube_config</code>file or used the <code>in_cluster</code>config.
+
+
+

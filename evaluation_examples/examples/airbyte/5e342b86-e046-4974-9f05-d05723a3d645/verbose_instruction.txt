@@ -1,0 +1,19 @@
+In this task, we want to create an airbyte connection from Faker to a local JSON file in the Airbyte local UI with only 'products' stream enabled. To complete this: 
+1. Switch to the browser window;
+2. In the opened homepage of Airbyte, click the "Sources" link on the left panel;
+3. Then, in the search bar on the right, type in "Faker" and you should see one panel with name "Sample Data (Faker)" below;
+4. Click this panel;
+5. After that, click on the "Set up source" button to create the source;
+6. Once "all tests passed" is displayed, click the "Destinations" link on the left panel;
+7. In the search bar on the right, type in "local json";
+8. Choose the filtered item below;
+9. In the pop-up window, find the input box with name "Destination Path", and type in the target path "/local/json_destination"
+10. Click "Set up destination" button at the bottom and wait for the success signal.
+11. Once "all tests passed" is displayed, click the "Connections" link on the left panel;
+12. Then, click the "Create your first connection" button on the right;
+13. In the "Define source" step, choose "select an existing source";
+14. Click on the "Sample Data (Faker)" source link below;
+15. After that, in the "Define destination" step, choose "select an existing destination";
+16. Click on the "Local JSON" destination link below. You may need to wait for some time;
+17. In the "Connection configuration" step, click the open button on the left side of the "products" stream in the "streams" table, and set the other streams to closed without changing any other default parameters;
+18. Click the "Set up connection" button at the bottom right of the page to complete the connection setup.

@@ -1,0 +1,9 @@
+To show the action log of user "Superset Admin" in ascending order of time, we can follow these steps:
+1. In the opened web page, click "Settings" in the top right corner;
+2. Select "Action Logs";
+3. In the new window, click "FELTER LIST";
+4. Select "USER";
+5. Click "Select Value" box;
+6. Select "Superset Admin";
+7. Click "Search",
+8. Click "dttm" in the list and  you will see the action log of user "Superset Admin" in ascending order of logical date.

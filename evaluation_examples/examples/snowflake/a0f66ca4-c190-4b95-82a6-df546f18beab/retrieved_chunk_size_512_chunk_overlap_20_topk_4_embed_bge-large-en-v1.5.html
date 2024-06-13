@@ -1,0 +1,51 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.html
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+For DEFAULT_WAREHOUSE, use <span>COMPUTE_WH</span>.</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>USER</span><span>snowman</span><span>PASSWORD</span><span>=</span><span>'sn0wf@ll'</span><span>LOGIN_NAME</span><span>=</span><span>'snowstorm'</span><span>FIRST_NAME</span><span>=</span><span>'Snow'</span><span>LAST_NAME</span><span>=</span><span>'Storm'</span><span>EMAIL</span><span>=</span><span>'snow.storm@snowflake.com'</span><span>MUST_CHANGE_PASSWORD</span><span>=</span><span>true</span><span>DEFAULT_WAREHOUSE</span><span>=</span><span>COMPUTE_WH</span><span>;</span></pre><span>Copy</span></div><p>This command returns the following output:</p><span>User SNOWMAN successfully created.</span><p>If you were creating a real user in a real Snowflake account, you would now send the
+following information in a secure manner to the person who would need to access
+this new account:</p><ul><p>Snowflake Account URL: the Snowflake account link where the user will log in.
+You can find this link at the top of your browser
+(for example: <a>https://app.snowflake.com/myorg/myaccount/</a>,
+where <span>myorg</span>is the Snowflake organization ID, and <span>myaccount</span>is the account ID).</p><p>LOGIN_NAME, as specified in the CREATE USER command.</p><p>PASSWORD, as specified in the CREATE USER command.</p></ul></section><section><h2>Step 5.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/create-user.html
+
+Documentation Title:
+CREATE USER | Snowflake Documentation
+
+Documentation Content:
+<span>ALTER USER</span>, <span>DESCRIBE USER</span>, <span>SHOW PARAMETERS</span></p></dl><section><h2>Syntax<a>¶</a></h2><div><pre><span>CREATE</span><span>[</span><span>OR</span><span>REPLACE</span><span>]</span><span>USER</span><span>[</span><span>IF</span><span>NOT</span><span>EXISTS</span><span>]</span><span>&lt;name&gt;</span><span>[</span><span>objectProperties</span><span>]</span><span>[</span><span>objectParams</span><span>]</span><span>[</span><span>sessionParams</span><span>]</span><span>[</span><span>[</span><span>WITH</span><span>]</span><span>TAG</span><span>(</span><span>&lt;tag_name&gt;</span><span>=</span><span>'</span><span>&lt;tag_value&gt;</span><span>'</span><span>[</span><span>,</span><span>&lt;tag_name&gt;</span><span>=</span><span>'</span><span>&lt;tag_value&gt;</span><span>'</span><span>,</span><span>.</span><span>]</span><span>)</span><span>]</span></pre><span>Copy</span></div><p>Where:</p><div><div><pre><span>objectProperties</span><span>::=</span><span>PASSWORD</span><span>=</span><span>'</span><span>&lt;string&gt;</span><span>'</span><span>LOGIN_NAME</span><span>=</span><span>&lt;string&gt;</span><span>DISPLAY_NAME</span><span>=</span><span>&lt;string&gt;</span><span>FIRST_NAME</span><span>=</span><span>&lt;string&gt;</span><span>MIDDLE_NAME</span><span>=</span><span>&lt;string&gt;</span><span>LAST_NAME</span><span>=</span><span>&lt;
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/cleanrooms/getting-started.html
+
+Documentation Title:
+Getting started with Snowflake Data Clean Rooms | Snowflake Documentation
+
+Documentation Content:
+last name, and email defined for their user object. To verify whether
+these properties are defined, execute the <span>DESCRIBE USER</span>command.</p></div><p>Configuring the Snowflake account consists of the following:</p><ul><p>Creating a service account user that represents the clean room environment so clean rooms can access the Snowflake account.</p><p>Installing a Snowflake Native App that allows clean rooms to interact with data in a Snowflake account.</p><p>Registering the databases that contain the data that collaborators can access in clean rooms.</p></ul><p>To configure the Snowflake account for a clean room environment:</p><ol><li><p>Access the <span>Snowflake Admin</span>console in the clean room environment. Do the following:</p><ol><p>Navigate to the <a>sign in page</a>.</p><p>Enter your email address, and select <span>Continue</span>.</p><p>Enter your password.</p><p>If you are associated with multiple clean room environments, select the Snowflake account that you are configuring.</p><p>In the left navigation, select <span>Snowflake Admin</span>.</p><p>Select <span>Login to Snowflake</span>, and authenticate as a Snowflake user with the ACCOUNTADMIN role.</p></ol></li><li><p>Specify the details for the service account user that clean rooms use to interact with Snowflake. Be sure to remember these details as
+you will need them in a subsequent step. Do the following:</p><ol><p>Enter the email address associated with the service account user.</p><p>In the <span>New Snowflake Username</span>field, specify a name that is unique to the Snowflake account.</p><p>Specify a password.</p><p>Select <span>Create</span>to create the service account user.</p></ol></li><li><p>Verify the email of the new service account user. Do the following:</p><ol><p>Select <span>Log into your Snowflake account</span>.</p><p>Sign in to Snowsight using the credentials of the service account user.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/admin-user-management.html
+
+Documentation Title:
+User management | Snowflake Documentation
+
+Documentation Content:
+Snowflake allows users to have different user names and login names, if desired. You specify a login name for the user on the next screen.</p></div></li><p>In the <span>Password</span>and <span>Confirm Password</span>fields, enter the password for the user.</p><p>Leave the <span>Force Password Change</span>checkbox selected to force the user to change their password on their next login; otherwise, clear the checkbox.</p><p>Select <span>Next</span>. The <span>Advanced</span>screen opens.</p><li><p>Optionally enter the <span>Login Name</span>, <span>Display Name</span>, and personal information for the user.</p><div><p>Note</p><p>Users require a login name to log into Snowflake; if you don’t explicitly provide a login name, Snowflake uses their user name as the login name.</p></div></li><p>Select <span>Next</span>. The <span>Preferences</span>screen opens.</p><li><p>Optionally enter defaults for the user:</p><ul><p>Virtual warehouse</p><p>Namespace in the form of <span>db_name</span>or <code><span>db_name</span><span>.</span><span>schema_name</span></code></p><p>Role</p></ul></li><p>Select <span>Finish</span>. Snowflake displays a success message.</p></ol></section><section><h3>Using SQL<a>¶</a></h3><p>Use the <span>CREATE USER</span>command to create a user.</p><div><p>Important</p><p>When creating a user, if you assign a default role to the user, you must then explicitly grant this role to the user.
+
+
+

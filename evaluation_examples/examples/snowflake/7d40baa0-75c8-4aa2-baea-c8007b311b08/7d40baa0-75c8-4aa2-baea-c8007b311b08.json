@@ -12,7 +12,8 @@
     "tags": [
         "gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 15,
     "config": [
@@ -50,7 +51,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",
@@ -68,5 +68,6 @@
             "path": "evaluation_examples/examples/snowflake/7d40baa0-75c8-4aa2-baea-c8007b311b08/university_rankings_gold.csv",
             "dest": "university_rankings_gold.csv"
         }
-    }
+    },
+    "counterpart": "1bdd1b3e-2e62-4056-a03f-d28060b780a7"
 }

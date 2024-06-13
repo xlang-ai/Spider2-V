@@ -1,0 +1,102 @@
+{
+    "id": "0814b61e-e421-41d1-9d16-897c33057d29",
+    "snapshot": "dagster",
+    "instruction": "Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets. You may do so with the following steps:\n1. In the opened lineage graph, navigate to the asset \"top10_story_ids\" at the top of the graph and click it.\n2. Click \"Materialize selected\" on the top-right of the lineage graph.\n3. Wait until the materialization is finished.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/tutorial/writing-your-first-asset#step-2-materialize-your-asset"
+    ],
+    "related_apps": [
+        "dagster",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 3,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/0814b61e-e421-41d1-9d16-897c33057d29/hacker_news.zip",
+                "dest": "/home/user/hacker_news.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/0814b61e-e421-41d1-9d16-897c33057d29/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/0814b61e-e421-41d1-9d16-897c33057d29/golden_hacker_news.zip",
+                    "dest": "/home/user/golden_hacker_news.zip"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude",
+            "compare_json_file"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/0814b61e-e421-41d1-9d16-897c33057d29/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/hacker_news/data/story_ids.json",
+                "dest": "story_ids.json"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/golden_hacker_news/data/story_ids.json",
+                "dest": "golden_story_ids.json"
+            }
+        ]
+    },
+    "counterpart": "22ef9058-6188-422a-9c12-e6934e4ed936"
+}

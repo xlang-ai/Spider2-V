@@ -1,0 +1,44 @@
+This job is to create a new python worksheet on Snowflake and write python code to create a table with data in stage. In the opened Snowsight web page,
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "+" button on the right;
+3. In the drop-down menu, select "Python Worksheet".
+4. In the top of the worksheet, there is a button showing "No database selected", click this button.
+5. In the drop-down menu, select "STUDENTS" for the database, "PUBLIC" for the schema, then click anywhere to turn off the menu.
+6. Copy the code below to the worksheet.
+```
+import snowflake.snowpark as snowpark
+from snowflake.snowpark.types import *
+
+schema_for_file = StructType([
+    StructField("id", IntegerType()),
+    StructField("first_name", StringType()),
+    StructField("last_name", StringType()), 
+    StructField("email", StringType()),
+    StructField("absence_days", IntegerType()),
+    StructField("weekly_self_study_hours", IntegerType()),
+    StructField("math_score", IntegerType()),
+    StructField("history_score", IntegerType()),
+    StructField("physics_score", IntegerType()),
+    StructField("chemistry_score", IntegerType())
+])
+
+fileLocation = "@STUDENTS.PUBLIC.stage/data.csv"
+outputTableName = "SCORES"
+
+def main(session: snowpark.Session):
+  df_reader = session.read.schema(schema_for_file)
+  df = df_reader.csv(fileLocation)
+  df.write.mode("overwrite").save_as_table(outputTableName)
+
+  return outputTableName + " table successfully written from stage"
+```
+7. Click the "Run" button on the right-top of the worksheet.
+8. Open Terminal on your virtual machine.
+9. Run the following commands.
+```
+cd Desktop
+code code.py
+```
+10. Copy the code in your python worksheet to code.py.
+11. Save code.py.
+

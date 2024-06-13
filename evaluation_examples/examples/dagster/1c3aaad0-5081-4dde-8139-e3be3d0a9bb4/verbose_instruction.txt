@@ -1,0 +1,8 @@
+Help me test the sensor "math_sensor" with cursor value "123" in the opened dagster UI, with these steps:
+1. Open Chromium to view the UI and click the "math_sensor" on the top of the page. This link in on the right of title "math_job" and link "Job in math_proj".
+2. In the sensor page, click "Test Sensor" at the top-right.
+3. Enter value "123" in the cursor field of the pop-up window.
+4. Click "Evaluate" at the bottom-right.
+5. You should see "1 run requests" as the result and a table with a job. Click the "Open in Launchpad" button in the table.
+6. A new tab will open for you. Click the "Launch Run" button at the bottom-right.
+7. Then, wait for the run to succeed.

@@ -1,0 +1,12 @@
+To finish this task, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "SQL Query" in the drop-down panel;
+3. Copy the SQL query in 'question1.sql' file and paste it in input panel.
+4. Click the "Run query" button on the right side, and check the output data.
+5. Click on "Save" button on the top right corner;
+6. Type in "question1" under "name", and click "Save".
+7. Click on "Yes please!".
+8. Click on the button "Create a new dashboard";
+9. Type in "New Dashboard" under "name", and click "Create".
+10. Click on "Save" button on the top right corner;

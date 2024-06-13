@@ -1,0 +1,328 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-ads-transfer.txt
+
+Documentation Title:
+Load data from Google Ads  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Load data from Google Ads  |  BigQuery  |  Google Cloud
+Documentation
+Technology areas
+close
+AI solutions, generative AI, and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Networking
+Observability and monitoring
+Security
+Storage
+Cross-product tools
+close
+Access and resources management
+Cloud SDK, languages, frameworks, and tools
+Costs and usage management
+Infrastructure as code
+Migration
+Related sites
+close
+Google Cloud Home
+Free Trial and Free Tier
+Architecture Center
+Blog
+Contact Sales
+Google Cloud Developer Center
+Google Developer Center
+Google Cloud Marketplace (in console)
+Google Cloud Marketplace Documentation
+Google Cloud Skills Boost
+Google Cloud Solution Center
+Google Cloud Support
+Google Cloud Tech Youtube Channel
+English
+Deutsch
+Español – América Latina
+Français
+Indonesia
+Italiano
+Português – Brasil
+中文 – 简体
+日本語
+한국어
+Sign in
+BigQuery
+Guides
+Reference
+Samples
+Resources
+Contact Us
+Start free
+Documentation
+Guides
+Reference
+Samples
+Resources
+Technology areas
+More
+Cross-product tools
+More
+Related sites
+More
+Console
+Contact Us
+Start free
+BigQuery
+All BigQuery code samples
+Analytics Hub Samples
+Create a data exchange and listing using Analytics Hub
+BigQuery Samples
+Create a BigQuery DataFrame from a CSV file in GCS
+Create a BigQuery DataFrame from a finished query job
+Add a column using a load job
+Add a column using a query job
+Add a label
+Add an empty column
+Array parameters
+Authorize a BigQuery Dataset
+Cancel a job
+Check dataset existence
+Clustered table
+Column-based time partitioning
+Copy a single-source table
+Copy a table
+Copy multiple tables
+Create a BigQuery DataFrame from a table
+Create a client with a service account key file
+Create a client with application default credentials
+Create a clustered table
+Create a clustering model with BigQuery DataFrames
+Create a dataset and grant access to it
+Create a dataset in BigQuery.
+Create a dataset with a customer-managed encryption key
+Create a job
+Create a model
+Create a
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-ads-transfer.txt
+
+Documentation Title:
+Load data from Google Ads  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+hybrid, and multicloud
+Industry solutions
+Networking
+Observability and monitoring
+Security
+Storage
+Access and resources management
+Cloud SDK, languages, frameworks, and tools
+Costs and usage management
+Infrastructure as code
+Migration
+Google Cloud Home
+Free Trial and Free Tier
+Architecture Center
+Blog
+Contact Sales
+Google Cloud Developer Center
+Google Developer Center
+Google Cloud Marketplace (in console)
+Google Cloud Marketplace Documentation
+Google Cloud Skills Boost
+Google Cloud Solution Center
+Google Cloud Support
+Google Cloud Tech Youtube Channel
+Home
+BigQuery
+Documentation
+Samples
+Load data from Google Ads
+Stay organized with collections
+Save and categorize content based on your preferences.
+Schedule recurring load jobs from Google Ads (formerly known as Google AdWords) into BigQuery.
+Explore further
+For detailed documentation that includes this code sample, see the following:
+Google Ads transfers
+Code sample
+Java
+Before trying this sample, follow the
+Java
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Java
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+import com.google.api.gax.rpc.ApiException;
+import com.google.cloud.bigquery.datatransfer.v1.CreateTransferConfigRequest;
+import com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceClient;
+import com.google.cloud.bigquery.datatransfer.v1.ProjectName;
+import com.google.cloud.bigquery.datatransfer.v1.TransferConfig;
+import com.google.protobuf.Struct;
+import com.google.protobuf.Value;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+// Sample to create ads(formerly AdWords) transfer config
+public class CreateAdsTransfer {
+
+  public static void main(String[] args) throws IOException {
+    // TODO(developer): Replace these variables before running the sample.
+    final String projectId = "MY_PROJECT_ID";
+    String datasetId = "MY_DATASET_ID";
+    // the customer_id only allows digits and hyphen ('-').
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv.txt
+
+Documentation Title:
+Loading CSV data from Cloud Storage  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For more information, see
+Set up authentication for client libraries
+.
+import com.google.cloud.bigquery.BigQuery;
+import com.google.cloud.bigquery.BigQueryException;
+import com.google.cloud.bigquery.BigQueryOptions;
+import com.google.cloud.bigquery.CsvOptions;
+import com.google.cloud.bigquery.Field;
+import com.google.cloud.bigquery.Job;
+import com.google.cloud.bigquery.JobInfo;
+import com.google.cloud.bigquery.LoadJobConfiguration;
+import com.google.cloud.bigquery.Schema;
+import com.google.cloud.bigquery.StandardSQLTypeName;
+import com.google.cloud.bigquery.TableId;
+
+// Sample to load CSV data from Cloud Storage into a new BigQuery table
+public class LoadCsvFromGcs {
+
+  public static void runLoadCsvFromGcs() throws Exception {
+    // TODO(developer): Replace these variables before running the sample.
+    String datasetName = "MY_DATASET_NAME";
+    String tableName = "MY_TABLE_NAME";
+    String sourceUri = "gs://cloud-samples-data/bigquery/us-states/us-states.csv";
+    Schema schema =
+        Schema.of(
+            Field.of("name", StandardSQLTypeName.STRING),
+            Field.of("post_abbr", StandardSQLTypeName.STRING));
+    loadCsvFromGcs(datasetName, tableName, sourceUri, schema);
+  }
+
+  public static void loadCsvFromGcs(
+      String datasetName, String tableName, String sourceUri, Schema schema) {
+    try {
+      // Initialize client that will be used to send requests. This client only needs to be created
+      // once, and can be reused for multiple requests.
+      BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
+
+      // Skip header row in the file.
+      CsvOptions csvOptions = CsvOptions.newBuilder().setSkipLeadingRows(1).build();
+
+      TableId tableId = TableId.of(datasetName, tableName);
+      LoadJobConfiguration loadConfig =
+          LoadJobConfiguration.newBuilder(tableId, sourceUri, csvOptions).setSchema(schema).build();
+
+      // Load data from a GCS CSV file into the table
+      Job job = bigquery.create(JobInfo.of(loadConfig));
+      // Blocks until this load table job completes its execution, either failing or succeeding.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv.txt
+
+Documentation Title:
+Loading CSV data from Cloud Storage  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+// Import the Google Cloud client libraries
+const {BigQuery} = require('@google-cloud/bigquery');
+const {Storage} = require('@google-cloud/storage');
+
+// Instantiate clients
+const bigquery = new BigQuery();
+const storage = new Storage();
+
+/**
+ * This sample loads the CSV file at
+ * https://storage.googleapis.com/cloud-samples-data/bigquery/us-states/us-states.csv
+ *
+ * TODO(developer): Replace the following lines with the path to your file.
+ */
+const bucketName = 'cloud-samples-data';
+const filename = 'bigquery/us-states/us-states.csv';
+
+async function loadCSVFromGCSTruncate() {
+  /**
+   * Imports a GCS file into a table and overwrites
+   * table data if table already exists.
+   */
+
+  /**
+   * TODO(developer): Uncomment the following lines before running the sample.
+   */
+  // const datasetId = 'my_dataset';
+  // const tableId = 'my_table';
+
+  // Configure the load job. For full list of options, see:
+  // https://cloud.google.com/bigquery/docs/reference/rest/v2/Job#JobConfigurationLoad
+  const metadata = {
+    sourceFormat: 'CSV',
+    skipLeadingRows: 1,
+    schema: {
+      fields: [
+        {name: 'name', type: 'STRING'},
+        {name: 'post_abbr', type: 'STRING'},
+      ],
+    },
+    // Set the write disposition to overwrite existing table data.
+    writeDisposition: 'WRITE_TRUNCATE',
+    location: 'US',
+  };
+
+  // Load data from a Google Cloud Storage file into the table
+  const [job] = await bigquery
+    .dataset(datasetId)
+    .table(tableId)
+    .load(storage.bucket(bucketName).file(filename), metadata);
+  // load() waits for the job to finish
+  console.log(`Job ${job.id} completed.`);
+
+  // Check the job's status for errors
+  const errors = job.status.errors;
+  if (errors && errors.length > 0) {
+    throw errors;
+  }
+}
+Before trying this sample, follow the
+PHP
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+
+
+

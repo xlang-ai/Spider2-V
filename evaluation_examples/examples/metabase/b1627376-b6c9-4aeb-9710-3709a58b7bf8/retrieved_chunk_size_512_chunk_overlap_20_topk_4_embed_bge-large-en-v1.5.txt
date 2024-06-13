@@ -1,0 +1,358 @@
+Documentation Source:
+www.metabase.com/learn/getting-started/introduction.txt
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+Then we want to count the filtered rows.
+In the
+Filter
+step, we’ll click the purple
+Add filters to narrow your answer
+button, and we’ll select
+Subtotal
+as the column to filter on. In the dropdown menu, change “Equal to” to “Greater than”, enter 40 in the input field, then click
+Add filter
+.
+Previewing results
+With each step, you can click on the triangle on the right to preview the results so far.
+As expected, all of the subtotals are over $40 after the filter has been applied.
+To close the preview, you can click on the
+X
+in the upper right of the preview.
+Summarizing data
+When we ask things like “how many,” “what’s the total,” “what’s the average,” etc., we’re talking about summarizing our data. That is, we’re talking about
+metrics
+. The metric in this case the number (or count) of orders after we’ve filtered for orders greater than $40. We’ll click the
+Pick the metric you want to see
+button in the
+Summarize
+step and select
+Count of rows
+.
+When we click
+Visualize
+, Metabase will show us that there were 16,309 orders with a subtotal greater than $40. Said another way, there were 16,309 records in the
+Orders
+table that made it through our filter.
+Grouping our results
+That count is useful, but it would be even more useful if we knew
+when
+our customers placed these big orders—more specifically, if we knew how many greater-than-40 orders people placed each month.
+We can return to the editor by hitting the back button, or by clicking on the
+Editor
+button in the upper right (the icon looks like a bulleted list). Alternatively, we can also click on the
+Filter
+and
+Summarize
+buttons to revise our question while staying on this page.
+Since we want to group our results by month, we’ll click
+Summarize
+. If we open the
+Summarize sidebar
+, below where we picked our metric, there’s a list of all the columns that we can use to group our data together.
+
+
+
+Documentation Source:
+www.metabase.com/learn/questions/formatting.txt
+
+Documentation Title:
+Cleaning and formatting text
+
+Documentation Content:
+Create the
+Injera
+custom column:
+regexextract([Side], "(?i)injera")
+and the
+Vegetables
+custom column:
+regexextract([Side], "(?i)(grilled vegetables)")
+to get the output:
+| Response ID | Side               | Injera | Vegetables         |
+|-------------|--------------------|--------|--------------------|
+| 1           | injera             | injera |                    |
+| 2           | grilled vegetables |        | grilled vegetables |
+| 3           |                    |        |                    |
+| 4           | Grilled Vegetables |        | Grilled Vegetables |
+| 5           |                    |        |                    |
+Then, use the
+coalesce
+function
+with the
+lower
+function
+to handle cases where people have put partial, multiple, or no valid side options, and convert all the values to lowercase:
+Create the
+Side (Clean)
+custom column:
+lower(coalesce([Injera],[Vegetables], ""))
+to get:
+| Response ID | Side               | Injera | Vegetables         | Side
+(
+Clean
+)
+|
+|-------------|--------------------|--------|--------------------|--------------------|
+| 1           | injera             | injera |                    | injera             |
+| 2           | grilled vegetables |        | grilled vegetables | grilled vegetables |
+| 3           |                    |        |                    |                    |
+| 4           | Grilled Vegetables |        | Grilled Vegetables | grilled vegetables |
+| 5           |                    |        |                    |                    |
+Combining values from different columns
+Finally, we want to generate complete orders by checking each scenario:
+If
+Main (Clean)
+and
+Side (Clean)
+both contain a valid option, then return “main with side”.
+If there’s only one valid option, then return “main only” or “side only”.
+If there’s no valid options, leave the order blank (return an empty string).
+To check whether a column is non-empty, we’ll use the
+isempty
+function
+.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-api.txt
+
+Documentation Title:
+Working with the Metabase API
+
+Documentation Content:
+encoding
+=
+'UTF-8'
+)
+%>%
+fromJSON
+()
+rows
+<-
+data
+$
+data
+$
+rows
+colnames
+(
+rows
+)
+<-
+c
+(
+'Category'
+,
+'Average'
+)
+rows
+<-
+rows
+%>%
+as_tibble
+()
+rows
+$
+Average
+<-
+as.numeric
+(
+rows
+$
+Average
+)
+glue
+(
+'First data'
+)
+rows
+First data
+# A tibble: 4 x 2
+  Category  Average
+  <chr>       <dbl>
+1 Doohickey    115.
+2 Gadget       124.
+3 Gizmo        121.
+4 Widget       122.
+JavaScript on Node.js
+JavaScript is an increasingly popular language for server-side scripting, but unlike Python and R, JavaScript lacks a single predominant library for data tables. For large projects we are fond of
+data-forge
+, but for small examples we stick to
+Dataframe-js
+. We also use
+got
+for HTTP requests instead of the older
+request
+package, as the latter has now been deprecated. Finally, since we find
+async
+/
+await
+syntax a lot easier to read than promises or callbacks, we put all of our code in an
+async
+function that we then call immediately:
+const
+got
+=
+require
+(
+"
+got
+"
+);
+const
+DataFrame
+=
+require
+(
+"
+dataframe-js
+"
+).
+DataFrame
+;
+const
+main
+=
+async
+()
+=>
+{
+// ...program goes here...
+};
+main
+();
+Once again we start by authenticating ourselves:
+headers
+=
+{
+"
+x-api-key
+"
+:
+YOUR_API_KEY
+};
+We then ask for the complete list of questions and filter them to select the public ones:
+response
+=
+await
+got
+.
+get
+(
+"
+http://localhost:3000/api/card
+"
+,
+{
+responseType
+:
+"
+json
+"
+,
+headers
+:
+headers
+,
+});
+// filter for public questions
+questions
+=
+response
+.
+body
+.
+filter
+((
+q
+)
+=>
+q
+.
+public_uuid
+);
+console
+.
+log
+(
+`
+${
+questions
+.
+length
+}
+public of
+${
+response
+.
+body
+.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/introduction.txt
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+A navigation sidebar that lists:
+Home
+button to return to your Metabase home page.
+Collections
+, where you’ll store all of your questions, dashboards, and models. You have your own personal collection to store drafts and experiments that aren’t yet ready to share.
+Data
+section, which lists all of the data sources your Metabase is connected to.
+Settings
+(the
+gear
+icon in the upper right).
+You can also
+Bookmark
+your favorite items, and they’ll appear toward the top of the navigation sidebar.
+To open and close the navigation sidebar, click on the Metabase logo in the upper left.
+Asking a new question
+A
+question
+in Metabase is a query, the results of that query, and the visualization and formatting of those results (even if that visualization is just a
+table
+). Questions have titles, IDs, and unique URLs you can copy and share with others.
+You can play around with a question by filtering and summarizing its results, save those explorations as new questions, and add questions to dashboards. But we’re getting ahead of ourselves; for the next few examples, we’ll be using the
+Sample Database
+that comes with Metabase.
+Click on
++ New
+in the main nav, and select
+Question
+. You can start a new question from:
+A model
+A raw table
+A saved question
+For now, let’s start from
+Raw data
+>
+Sample database
+>
+Orders
+. Metabase will open up the query builder.
+Filtering data
+The
+Orders
+table has a bunch of fake data in it about product orders from a made-up company. Let’s say we want to know:
+How many orders have been placed with a subtotal (before tax) greater than $40?
+More precisely, this question translates to: “How many records (or rows) are in the
+Orders
+table that have a value greater than 40 in the
+Subtotal
+column?”
+To find out, we want to filter the data by the field we’re interested in, which in this case is the
+Subtotal
+. Then we want to count the filtered rows.
+
+
+

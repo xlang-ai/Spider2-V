@@ -1,0 +1,63 @@
+{
+    "id": "0f376334-8ca6-44e3-9e6d-9b76e9bc0df3",
+    "snapshot": "snowflake",
+    "instruction": "Please help me create a new snowflake folder named \"Online shopping\". Please also create two SQL worksheets in the folder: \"Books products\" and \"Electronics products\".\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create the snowflake folder and the corresponding worksheets, please follow these steps:\n1. Click the \"+\" button on the top right;\n2. Choose \"Folder\" in the drop-down panel;\n3. Type \"Online shopping\" in the input box;\n4. Click the \"Create Folder\" button on the bottom right of the panel;\n5. Click the \"+\" button on the top right;\n6. Choose \"SQL Worksheet\" in the drop-down panel;\n7. Move the curser on the corresponding worksheet tab amd click the emerged icon \"⋮\";\n8. Choose \"Rename\" in the drop-down panel;\n9. Type \"Books products\" in the input box and press Enter;\n10. Click the icon \"✕\" on the worksheet tab to close the worksheet;\n11. Find the \"Online shopping\" folder in the project list and click it;\n12. Click the \"+\" button on the top right;\n13. Choose \"SQL Worksheet\" in the drop-down panel;\n14. Move the curser on the corresponding worksheet tab amd click the emerged icon \"⋮\";\n15. Choose \"Rename\" in the drop-down panel;\n16. Type \"Electronics products\" in the input box and press Enter;\n17. Click the icon \"✕\" on the worksheet tab to close the worksheet.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 17,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "snowflake_delete_folder",
+            "parameters": {
+                "listening_port": 9222,
+                "folder_name": "Online shopping"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "literal_match",
+        "result": {
+            "type": "snowflake_worksheet_names_in_folder",
+            "folder_name": "Online shopping"
+        },
+        "expected": {
+            "type": "list",
+            "list": [
+                "Books products",
+                "Electronics products"
+            ]
+        },
+        "options": {
+            "type": "list",
+            "ignore_order": true
+        }
+    },
+    "counterpart": "b8a3addd-3044-41fd-b25d-f690302637d6"
+}

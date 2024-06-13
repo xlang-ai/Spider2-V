@@ -1,0 +1,69 @@
+{
+    "id": "81b9e3bb-47aa-4265-b400-d08a6e4f50bb",
+    "snapshot": "airbyte",
+    "instruction": "Help me set up the destination of data transfer to a local JSON file in the Airbyte local UI. The target file path is /local/json_destination.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: The goal is to set the target of data transfer as a local path. We can follow the steps below:\n1. Click the \"Destinations\" icon on the menu bar on the left;\n2. In the search bar on the right, type in \"local json\";\n3. Choose the filtered item below;\n4. In the pop-up window, find the input box with name \"Destination Path\", and type in the target path \"/local/json_destination\"\n5. Click \"Set up destination\" button at the bottom and wait for the success signal.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.airbyte.com/using-airbyte/getting-started/add-a-destination"
+    ],
+    "related_apps": [
+        "chromium",
+        "docker",
+        "airbyte"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/81b9e3bb-47aa-4265-b400-d08a6e4f50bb/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/81b9e3bb-47aa-4265-b400-d08a6e4f50bb/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "22edb3d6-9700-48e8-80fe-6a9650186aca"
+}

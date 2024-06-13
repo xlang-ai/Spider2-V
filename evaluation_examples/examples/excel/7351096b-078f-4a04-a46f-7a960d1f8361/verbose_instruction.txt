@@ -1,0 +1,14 @@
+To achieve this goal, we need to do as follows:
+
+1. Click `Add New Sheet` button at the bottom of the page.
+2. Click into the new sheet `Sheet2`.
+3. Type the two headers \"Total Revenue\" and \"Total Expenses\" in the $A$1, $B$1 cells.
+4. Click on the cell $A$2.
+5. Click on the input line on top of the Excel table.
+6. Type "=SUM()".
+7. Switch to Sheet1, and select the cells $A$2:$A$20. Press `Enter`.
+8. Click into the new sheet `Sheet2`.
+9. Click on the cell $B$2.
+10. Click on the input line on top of the Excel table.
+11. Type "=SUM()".
+12. Switch to Sheet1, and select the cells $B$2:$B$20. Press `Enter`.

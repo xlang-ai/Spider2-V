@@ -1,0 +1,201 @@
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/query-builder/introduction.txt
+
+Documentation Title:
+Asking questions
+
+Documentation Content:
+Unlike other steps, the row limit step can only be added at the end of your question.
+Viewing the SQL that powers your question
+Under the hood, all Metabase questions are SQL (gasp!). If you’re curious to see the SQL that will get run when you ask your question, you can click the little console icon in the top-right of the notebook editor. In the modal that opens up, you’ll also be given the option to start a new query in the SQL editor using this generated SQL as a starting point (assuming you have
+SQL permissions
+to that database). It’s a nice little shortcut to have Metabase write some boilerplate SQL for you, but then allows you to tweak and customize the query.
+Play around with saved questions
+Each time you start modifying a saved question, Metabase will create a new question for you. The query builder will display the name of your starting question under
+Data
+.
+Feel free to play around with any saved question, as you won’t have any effect on the existing question. When you hit
+Save
+on the question, you can choose either to save as a new question (the default), or you can overwrite the existing question you started from.
+If you find yourself using the same saved question as a starting point for multiple questions, you may want to turn it into a
+model
+to let others know it’s a good starting place.
+Question version history
+For questions,
+dashboards
+, and
+models
+, Metabase keeps a version history for the previous fifteen versions of that item.
+See
+History
+.
+Further reading
+Visualize results
+.
+Sharing answers
+.
+Asking questions
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/native-editor/writing-sql.txt
+
+Documentation Title:
+The SQL editor
+
+Documentation Content:
+Running query selections
+You can run your SQL query by pressing
+ctrl + enter
+on Windows and Linux, or
+⌘ + return
+on a Mac. You can also run only part of a query by highlighting the part you’d like to run before clicking the run button or using the run shortcut key.
+Questions asked using SQL can be saved, downloaded, converted to models, and added to dashboards just like questions asked using the query builder.
+You can also
+refer to models and saved questions
+in your SQL queries.
+Using SQL filters
+If you or someone else wrote a SQL query that includes
+variables
+, that question might have filter widgets at the top of the screen above the editor. Filter widgets let you modify the SQL query before it’s run, changing the results you might get.
+Writing SQL queries that use variables or parameters can be very powerful, but it’s also a bit more advanced, so that topic has its own page if you’d like to
+learn more
+.
+SQL snippets
+You can use
+SQL snippets
+to save, reuse, and share SQL code across multiple questions that are composed using the SQL editor.
+How Metabase executes SQL queries
+When you run a query from the SQL editor, Metabase sends the query to your database exactly as it is written. Any results or errors displayed in Metabase are the same as the results or errors that you would get if you ran the query directly against your database. If the SQL syntax of your query doesn’t match the SQL dialect used by your database, your database won’t be able to run the query.
+Question version history
+For questions,
+dashboards
+, and
+models
+, Metabase keeps a version history for the previous fifteen versions of that item.
+See
+History
+.
+Your SQL syntax must match the dialect used by the database
+Make sure your SQL dialect matches the database you’ve selected. Common errors:
+Database
+Do this
+Avoid
+BigQuery
+FROM `dataset.table`
+FROM dataset.table
+Oracle
+FROM "schema"."table"
+FROM schema.table
+For more help, see
+Troubleshooting SQL error messages
+.
+Explore SQL question results using the Query Builder
+On saved SQL questions without
+parameters
+, you’ll get the
+Explore results
+button.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/tour-of-metabase.txt
+
+Documentation Title:
+A tour of Metabase
+
+Documentation Content:
+Plus, people who don’t know SQL can duplicate your question and use it as a starting point for another question.
+Query builder questions automatically get a drill-through menu applied to their visualizations, allowing people to click on a table or chart to
+drill through the data
+.
+Questions asked with the query builder can start with a
+model
+, a raw table, or with the results of a saved question, and you can convert them to native SQL at any time.
+Native queries
+Use the
+native query editor
+to compose questions in the database’s native query languages (typically SQL for relational databases, but also other query languages for data sources like MongoDB). For questions written in SQL, you can use variables in your code to create
+SQL templates
+, including
+field filter
+variables that can create smart dropdown filters.
+Like query builder questions, you can use the results of models or
+saved questions
+as starting points for new questions, just as you would a table or view. For example, to reference question 123 like so:
+WITH
+gizmo_orders
+AS
+#
+{
+123
+}
+Create models to use as starting data for new questions
+Models
+are built with questions from either the query builder or the SQL editor. You can use them to pull together data from multiple tables, with custom, calculated columns, and column descriptions and other metadata, to create great starting data for people to ask new questions. For example, you could build a model for “Active users”, or “Priority orders”, or however you want to model your business.
+If you find that you’re using the same saved question over and over as your starting data for new questions, you may want to convert that saved question to a model, which will let you add metadata like column descriptions and column types. You can also refer to models in SQL queries, just like we did above with saved questions.
+Upload spreadsheets
+You can
+upload CSVs
+to query and visualize in Metabase. This feature is handy for quick ad hoc analysis of spreadsheet data.
+Visualize results
+When you ask a question, Metabase will guess at the most appropriate visualization type for the results, but you can select from sixteen different visualization options.
+Additionally, each visualization type has their own set of options to customize.
+
+
+
+Documentation Source:
+www.metabase.com/learn/sql-questions/sql-best-practices.txt
+
+Documentation Title:
+Best practices for writing SQL queries
+
+Documentation Content:
+Part of SQL’s beauty is its declarative nature. Instead of telling the database how to retrieve records, you need only tell the database which records you need, and the database should figure out the most efficient way to get that information. Consequently, much of the advice about improving the efficiency of queries is simply about showing people how to use the tools in SQL to articulate their needs with more precision.
+We’ll review the general order of query execution, and include tips along the way to reduce your search space. Then we’ll talk about three essential tools to add to your utility belt:
+INDEX
+,
+EXPLAIN
+, and
+WITH
+.
+First, get to know your data
+Familiarize yourself with your data before your write a single line of code by studying the metadata to make sure that a column really does contain the data you expect. The
+SQL editor
+in Metabase features a handy data reference tab (accessible via the
+book icon
+), where you can browse through the tables in your database, and view their columns and connections:
+You can also view sample values for specific columns:
+Metabase gives you many different ways to explore your data: you can
+X-ray
+tables,
+compose questions
+using the query builder, convert a saved question to SQL code, or build from an existing SQL query. We cover this in other articles; for now, let’s go through the general workflow of a query.
+Developing your query
+Everyone’s method will differ, but here’s an example workflow to follow when developing a query.
+As above, study the column and table metadata. If you’re using Metabase’s native (SQL) editor, you can also search for
+SQL snippets
+that contain SQL code for the table and columns you’re working with. Snippets allow you to see how other analysts have been querying the data. Or you can
+start a query from an existing SQL question
+.
+To get a feel for a table’s values, SELECT * from the tables you’re working with and LIMIT your results. Keep the LIMIT applied as you refine your columns (or add more columns via joins).
+Narrow down the columns to the minimal set required to answer your question.
+Apply any filters to those columns.
+If you need to aggregate data, aggregate a small number of rows and confirm that the aggregations are as you expect.
+
+
+

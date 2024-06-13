@@ -1,0 +1,76 @@
+{
+    "id": "040af931-8371-4765-9908-2a36ff4e4518",
+    "snapshot": "jupyter",
+    "instruction": "I want to use Logistic Regression to predict whether a student will be admitted to a college or not, and have now built the code framework in this opened jupyter notebook. Please read the framework code and complete all the #TODO sections. Note that you can just add code to the current cells. Finally, you need to run the code and save it.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to use jupyter notebook to finish a small ML task by implementing the function with #TODO prefix. On the opened ipynb file:\n1. For the 1st TODO, copy the code below to this cell:\n```\ndata = pd.read_csv(path, header=None, names=['Exam1', 'Exam2', 'Admitted'])\n```\n2. For the 2nd TODO, copy the code below to replace \"return None\":\n```\nreturn 1 / (1 + np.exp(-z))\n```\n3. For the 3rd TODO, copy the code below to this cell:\n```\ndata.insert(0, 'Ones', 1)\n```\n4. For the 4th TODO, copy the code below to replace \"return None\":\n```\nreturn (1/len(X) * X.T @ (sigmoid(X @ theta.T) - Y))\n```\n5. For the 5th TODO, copy the code below to replace \"return None\":\n```\nprobability = sigmoid(X @ theta.T)\nreturn [1 if x >= 0.5 else 0 for x in probability]\n```\n6. Click the button \"Run\" in the menu bar on the top.\n7. In the drop-down menu, select and click \"Run All Cells\".\n8. Enter \"Ctrl-S\" to save the ipynb file.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://towardsdatascience.com/logistic-regression-in-python-f66aeb15e83e"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/040af931-8371-4765-9908-2a36ff4e4518/data.csv",
+                "dest": "/home/user/Desktop/data.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/040af931-8371-4765-9908-2a36ff4e4518/logistic_regression.ipynb",
+                "dest": "/home/user/Desktop/logistic_regression.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/040af931-8371-4765-9908-2a36ff4e4518/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/logistic_regression.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/logistic_regression.ipynb",
+            "dest": "logistic_regression.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/040af931-8371-4765-9908-2a36ff4e4518/logistic_regression_gold.ipynb",
+            "dest": "logistic_regression_gold.ipynb"
+        }
+    },
+    "counterpart": "75e61e47-3986-4250-9610-1bc0d77adcc7"
+}

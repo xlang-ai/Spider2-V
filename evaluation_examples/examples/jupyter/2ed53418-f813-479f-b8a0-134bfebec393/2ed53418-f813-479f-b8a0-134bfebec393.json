@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 2,
     "config": [
@@ -33,7 +34,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "check_include_exclude",
@@ -53,5 +53,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "c0e9c1bc-ee78-446c-bba4-e5407c4372cb"
 }

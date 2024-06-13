@@ -1,0 +1,72 @@
+{
+    "id": "f74d87d5-8ea0-4ade-aeab-45eb3173f9bb",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. Show me the first DAG project in graph view. I need to check it now.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy airflow\nTo show the first DAG project in graph view, we can follow the steps:\n1. In the DAG list, click the first DAG item' name\n2. In the detailed information box of DAG(the largest box in the middle of the webpage), click the \"Graph\" bottom in the top of the box\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/airflow-ui"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/f74d87d5-8ea0-4ade-aeab-45eb3173f9bb/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        }
+    ],
+    "action_number": 2,
+    "related_apps": [
+        "airflow",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/f74d87d5-8ea0-4ade-aeab-45eb3173f9bb/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "33c8ce09-de8b-4432-8308-603b98513fdc"
+}

@@ -1,0 +1,136 @@
+{
+    "id": "06f5c71a-55b5-4bd7-97bc-1df04fa4463f",
+    "snapshot": "bigquery",
+    "instruction": "Load the data from the Google drive Spider002 folder into Bigquery's 'data1' table of 'information' datasets\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We need to load the json in Google Drive into the BigQuery, and Google Drive provides the schema.\n1. First, we double click \"Spider002\" to see which files in this folder need us to operate.\n2. We see that there are two files, data.jsonl and schema.txt. We can know that they represent the data and the schema of the data respectively. So we check the data and click \"schema.txt\" to preview.\n3. Switch the page to Bigquery WebUI\n4. Find the information dataset in the Explorer window and click on the three dots to the right of the text\n5. You will find a list of options, click \"Create table\".\n6. You will see the \"Create table\" panel, set \"Create table from\" to \"Drive\"\n7. Switch the chrome window to google drive. Click on the three rightmost dots of data.jsonl\n8. Move the mouse to Share and click the \"Share\"\n9. Click \"Restricted\"\n10. Click \"Anyone with the link\" in the drop-down menu that opens.\n11. Click \"Copy link\"\n12. Click \"Done\".\n13. Switch the chrome window to the Bigquery WebUI.\n14. Paste what you just copied in \"Select Drive URI\".\n15. We see that this format does not meet the standards and needs to be changed. Change https://drive.google.com/file/d/[file id]/view?usp=drive_link to https://drive.google.com/open?id=[file id]'\n16. Change the Format to jsonl\n17. In \"Destination\" Part, Set Dataset as \"information\"\n18. In \"Destination\" Part, Set Table as \"data1\"\n19. Click \"Edit as text\" to set the schema information\n20. Switch the chrome window to google drive.\n21. Double click the file \"schema.txt\" to preview the schema.\n22. Copy the entire \"schema.txt\" information via Ctrl+C (you may need to select all content in this file firstly by clicking Ctrl+A).\n23. Switch the chrome window to the Bigquery WebUI.\n24. Paste the content (via Ctrl+V) into the text box with title `Press Alt+F1 for Accessibility Options` under the `Edit as text` button.\n25. Then, click the button \"CREATE TABLE\" at the bottom.\nEventually, we have completed this task.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 23,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "information",
+                        "table_id": "history",
+                        "schema_from_json": [
+                            {
+                                "name": "customer_name",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_date",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_amount",
+                                "type": "INTEGER"
+                            }
+                        ],
+                        "data_from_csv": "evaluation_examples/examples/bigquery/06f5c71a-55b5-4bd7-97bc-1df04fa4463f/information.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        },
+        {
+            "type": "googledrive_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/googledrive/settings.yml",
+                "actions": [
+                    {
+                        "type": "delete",
+                        "path": [
+                            "Spider002"
+                        ],
+                        "trash": false
+                    },
+                    {
+                        "type": "mkdirs",
+                        "path": [
+                            "Spider002"
+                        ],
+                        "exist_ok": true
+                    },
+                    {
+                        "type": "upload",
+                        "src": "evaluation_examples/examples/bigquery/06f5c71a-55b5-4bd7-97bc-1df04fa4463f/data.jsonl",
+                        "path": [
+                            "Spider002",
+                            "data.jsonl"
+                        ]
+                    },
+                    {
+                        "type": "upload",
+                        "src": "evaluation_examples/examples/bigquery/06f5c71a-55b5-4bd7-97bc-1df04fa4463f/schema.txt",
+                        "path": [
+                            "Spider002",
+                            "schema.txt"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "googledrive_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "need_login": false
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "information",
+            "table_id": "data1",
+            "schema": [
+                "*"
+            ],
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/06f5c71a-55b5-4bd7-97bc-1df04fa4463f/gold.csv",
+            "dest": "gold.csv"
+        }
+    },
+    "counterpart": "360b165b-49d2-4b9b-b2fd-3def1b848312"
+}

@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 6,
     "config": [
@@ -63,5 +64,6 @@
             "path": "evaluation_examples/examples/jupyter/e1da7d3d-2830-4376-a994-36cf53852303/AdaBoost_gold.ipynb",
             "dest": "AdaBoost_gold.ipynb"
         }
-    }
+    },
+    "counterpart": "1fe7d03d-d0d5-465b-987d-4583af499387"
 }

@@ -1,0 +1,9 @@
+We want to set default column values for the 2012 table in the census dataset.
+1. First, you need to view the project first, click toggle node on the personal project name in Explorer
+2. Click the Toggle node of census dataset
+3. Click 2012 Table
+4. In the schema interface of the 2012 table, click the blue button of 'EDIT SCHEMA'
+5. Now we need to set the Default Value for the three columns, YEAR, ABSOLUTE_CHANGE, and ANNUAL_RANK. First, for the YEAR row (the first row), fill in '2012' in the Default Value
+6. For the ABSOLUTE_CHANGE line (the penultimate line), fill '0' into the Default Value.
+7. For the ANNUAL_RANK line (the first line from the bottom), fill '1' into the Default Value
+8. Click the blue button "SAVE" below

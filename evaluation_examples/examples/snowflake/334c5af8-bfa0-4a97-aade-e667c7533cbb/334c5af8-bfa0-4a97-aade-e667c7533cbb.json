@@ -13,7 +13,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 8,
     "config": [
@@ -67,7 +68,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "compare_csv",
@@ -81,5 +81,6 @@
             "path": "evaluation_examples/examples/snowflake/334c5af8-bfa0-4a97-aade-e667c7533cbb/top20movies.csv",
             "dest": "gold_top20movies.csv"
         }
-    }
+    },
+    "counterpart": "bb3ffdcf-32b5-41b2-8428-62e4d8a70261"
 }

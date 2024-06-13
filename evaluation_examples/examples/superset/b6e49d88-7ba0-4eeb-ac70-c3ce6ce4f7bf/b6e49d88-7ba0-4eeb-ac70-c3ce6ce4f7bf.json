@@ -1,0 +1,79 @@
+{
+    "id": "b6e49d88-7ba0-4eeb-ac70-c3ce6ce4f7bf",
+    "snapshot": "superset",
+    "instruction": "I want to use the dataset game_sales to draw a line chart. This line chart should reflect the trend of the average global sales per year. This chart should be saved with name 'linechart'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To use the dataset game_sales to draw a line chart to reflect the trend of the average global sales per year and saved with name 'linechart', we can follow these steps:\n1. In the opened web page, select \"Charts\" in the top menu;\n2. Click '+CHART' in the top right corner;\n3. In the pop-up window, click \"Choose a dataset\" box;\n4. Select \"game_sales\";\n5. In right box, click \"Line Chart\";\n6. Click \"CREATE NEW CHART\" in the bottom;\n7. In the new window, drag the \"year\" title from left list to the \"X-AXIS\" box ;\n8. Drag the \"global_sales\" title from left list to the \"METRICS\" box ;\n9. Click AGGREGATE box;\n10. Select \"AVG\";\n11. Click \"SAVE\";\n12. Click \"CREATE CHART\" in the bottom;\n13. Click \"SAVE\" in the top right corner;\n14. Type \"linechart\" in \"CHART NAME\" box;\n15. Click \"SAVE\", and you can see table \"linechart\" in the main panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data/#line-chart"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 15,
+    "counterpart": "b093ad68-7779-404f-99a4-9bf1ddc04418",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/b6e49d88-7ba0-4eeb-ac70-c3ce6ce4f7bf/database_export_20240523T204001.zip",
+                "dest": "/home/user/database_export_20240523T204001.zip"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/all_databases.sql",
+                "dest": "/home/user/all_databases.sql"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/b6e49d88-7ba0-4eeb-ac70-c3ce6ce4f7bf/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/b6e49d88-7ba0-4eeb-ac70-c3ce6ce4f7bf/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

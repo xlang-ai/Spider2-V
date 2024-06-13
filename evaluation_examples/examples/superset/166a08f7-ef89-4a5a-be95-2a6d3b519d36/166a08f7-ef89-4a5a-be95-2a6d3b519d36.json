@@ -1,0 +1,72 @@
+{
+    "id": "166a08f7-ef89-4a5a-be95-2a6d3b519d36",
+    "snapshot": "superset",
+    "instruction": "My leader wants to see the action log of user 'Superset Admin' in ascending order of time, please show it to him.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To show the action log of user \"Superset Admin\" in ascending order of time, we can follow these steps:\n1. In the opened web page, click \"Settings\" in the top right corner;\n2. Select \"Action Logs\";\n3. In the new window, click \"FELTER LIST\";\n4. Select \"USER\";\n5. Click \"Select Value\" box;\n6. Select \"Superset Admin\";\n7. Click \"Search\",\n8. Click \"dttm\" in the list and  you will see the action log of user \"Superset Admin\" in ascending order of logical date.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/creating-your-first-dashboard/#customizing-dashboard"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 8,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/166a08f7-ef89-4a5a-be95-2a6d3b519d36/dashboard_export_20240517T153219.zip",
+                "dest": "/home/user/dashboard_export_20240517T153219.zip"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/166a08f7-ef89-4a5a-be95-2a6d3b519d36/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/superset/166a08f7-ef89-4a5a-be95-2a6d3b519d36/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "03039241-75d5-409d-9676-b1306b17871d"
+}

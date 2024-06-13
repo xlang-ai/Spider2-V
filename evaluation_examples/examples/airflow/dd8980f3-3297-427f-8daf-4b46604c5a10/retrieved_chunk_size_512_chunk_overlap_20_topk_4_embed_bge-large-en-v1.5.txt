@@ -1,0 +1,314 @@
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.txt
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+{
+SCHEMA_NAME
+}
+.
+{
+MODEL_TO_QUERY
+}
+"
+,
+)
+transform_data
+>>
+query_table
+my_simple_dbt_dag
+(
+)
+This DAG uses the
+DbtTaskGroup
+class from the Cosmos package to create a task group from the models in your dbt project. Dependencies between your dbt models are automatically turned into dependencies between Airflow tasks. Make sure to add your own values for
+YOUR_NAME
+,
+DB_NAME
+, and
+SCHEMA_NAME
+.
+Using the
+vars
+keyword in the dictionary provided to the
+operator_args
+parameter, you can inject variables into the dbt project. This DAG injects
+YOUR_NAME
+for the
+my_name
+variable. If your dbt project contains dbt tests, they will be run directly after a model has completed. Note that it is a best practice to set
+retries
+to at least 2 for all tasks that run dbt models.
+tip
+In some cases, especially in larger dbt projects, you might run into a
+DagBag import timeout
+error.
+This error can be resolved by increasing the value of the Airflow configuration
+core.dagbag_import_timeout
+.
+Run the DAG manually by clicking the play button and view the DAG in the graph view. Double click the task groups in order to expand them and see all tasks.
+Check the
+XCom
+returned by the
+query_table
+task to see your name in the
+model2
+table.
+info
+The DbtTaskGroup class populates an Airflow task group with Airflow tasks created from dbt models inside of a normal DAG. To directly define a full DAG containing only dbt models use the
+DbtDag
+class, as shown in the
+Cosmos documentation
+.
+Congratulations! You've run a DAG using Cosmos to automatically create tasks from dbt models. You can learn more about how to configure Cosmos in the
+Cosmos documentation
+.
+Alternative ways to run dbt Core with Airflow
+​
+While using Cosmos is recommended, there are several other ways to run dbt Core with Airflow.
+Using the BashOperator
+​
+You can use the
+BashOperator
+to execute specific dbt commands.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.txt
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+Start Airflow by running
+astro dev start
+.
+In the Airflow UI, go to
+Admin
+->
+Connections
+and click
++
+.
+Create a new connection named
+db_conn
+. Select the connection type and supplied parameters based on the data warehouse you are using. For a Postgres connection, enter the following information:
+Connection ID
+:
+db_conn
+.
+Connection Type
+:
+Postgres
+.
+Host
+: Your Postgres host address.
+Schema
+: Your Postgres database.
+Login
+: Your Postgres login username.
+Password
+: Your Postgres password.
+Port
+: Your Postgres port.
+info
+If a connection type for your database isn't available, you might need to make it available by adding the
+relevant provider package
+to
+requirements.txt
+and running
+astro dev restart
+.
+Step 4: Write your Airflow DAG
+​
+The DAG you'll write uses Cosmos to create tasks from existing dbt models and the
+PostgresOperator
+to query a table that was created. You can add more upstream and downstream tasks to embed the dbt project within other actions in your data ecosystem.
+In your
+dags
+folder, create a file called
+my_simple_dbt_dag.py
+.
+Copy and paste the following DAG code into the file:
+"""
+### Run a dbt Core project as a task group with Cosmos
+Simple DAG showing how to run a dbt project as a task group, using
+an Airflow connection and injecting a variable into the dbt project.
+"""
+from
+airflow
+.
+decorators
+import
+dag
+from
+airflow
+.
+providers
+.
+postgres
+.
+operators
+.
+postgres
+import
+PostgresOperator
+from
+cosmos
+import
+DbtTaskGroup
+,
+ProjectConfig
+,
+ProfileConfig
+,
+ExecutionConfig
+# adjust for other database types
+from
+cosmos
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.txt
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+If you are using a different data warehouse, replace
+apache-airflow-providers-postgres
+with the provider package for your data warehouse. You can find information on all provider packages on the
+Astronomer registry
+.
+astronomer-cosmos==1.0.4
+apache-airflow-providers-postgres==5.6.0
+Step 2: Prepare your dbt project
+​
+To integrate your dbt project with Airflow, you need to add the project folder to your Airflow environment. For this step you can either add your own project in a new
+dbt
+folder in your
+dags
+directory, or follow the steps below to create a simple project using two models.
+Create a folder called
+dbt
+in your
+dags
+folder.
+In the
+dbt
+folder, create a folder called
+my_simple_dbt_project
+.
+In the
+my_simple_dbt_project
+folder add your
+dbt_project.yml
+. This configuration file needs to contain at least the name of the project. This tutorial additionally shows how to inject a variable called
+my_name
+from Airflow into your dbt project.
+name
+:
+'my_simple_dbt_project'
+vars
+:
+my_name
+:
+"No entry"
+Add your dbt models in a subfolder called
+models
+in the
+my_simple_dbt_project
+folder. You can add as many models as you want to run. This tutorial uses the following two models:
+model1.sql
+:
+SELECT
+'{{ var("my_name") }}'
+as
+name
+model2.sql
+:
+SELECT
+*
+FROM
+{{ ref
+(
+'model1'
+)
+}}
+model1.sql
+selects the variable
+my_name
+.
+model2.sql
+depends on
+model1.sql
+and selects everything from the upstream model.
+You should now have the following structure within your Astro project:
+.
+└── dags
+└── dbt
+└── my_simple_dbt_project
+├── dbt_project.yml
+└── models
+├── model1.sql
+└── model2.sql
+Step 3: Create an Airflow connection to your data warehouse
+​
+Cosmos allows you to apply Airflow connections to your dbt project.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/airflow-and-dbt-cloud.txt
+
+Documentation Title:
+Airflow and dbt Cloud | dbt Developer Hub
+
+Documentation Content:
+​
+Because the Airflow DAG references dbt Cloud jobs, your analytics engineers can take responsibility for configuring the jobs in dbt Cloud.
+For example, to run some models hourly and others daily, there will be jobs like
+Hourly Run
+or
+Daily Run
+using the commands
+dbt run --select tag:hourly
+and
+dbt run --select tag:daily
+respectively. Once configured in dbt Cloud, these can be added as steps in an Airflow DAG as shown in this guide. Refer to our full
+node selection syntax docs here
+.
+How can I re-run models from the point of failure?
+​
+You can trigger re-run from point of failure with the
+rerun
+API endpoint. See the docs on
+retrying jobs
+for more information.
+Should Airflow run one big dbt job or many dbt jobs?
+​
+dbt jobs are most effective when a build command contains as many models at once as is practical. This is because dbt manages the dependencies between models and coordinates running them in order, which ensures that your jobs can run in a highly parallelized fashion. It also streamlines the debugging process when a model fails and enables re-run from point of failure.
+As an explicit example, it's not recommended to have a dbt job for every single node in your DAG. Try combining your steps according to desired run frequency, or grouping by department (finance, marketing, customer success...) instead.
+We want to kick off our dbt jobs after our ingestion tool (such as Fivetran) / data pipelines are done loading data. Any best practices around that?
+​
+Astronomer's DAG registry has a sample workflow combining Fivetran, dbt Cloud and Census
+here
+.
+How do you set up a CI/CD workflow with Airflow?
+​
+Check out these two resources for accomplishing your own CI/CD pipeline:
+Continuous Integration with dbt Cloud
+Astronomer's CI/CD Example
+Can dbt dynamically create tasks in the DAG like Airflow can?
+​
+As discussed above, we prefer to keep jobs bundled together and containing as many nodes as are necessary. If you must run nodes one at a time for some reason, then review
+this article
+for some pointers.
+
+
+

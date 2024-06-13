@@ -1,0 +1,17 @@
+In this task, we will query a public dataset `austin_bikeshare` and save the execution results into a local .csv file. Concretely,
+1. click '+' button on top of the welcome prompt "Welcome to BigQuery Studio!". This will open a blank query panel.
+2. write the following SQL into the blank panel "Untitled query":
+```
+SELECT COUNT(*) AS active_stations_count
+FROM `bigquery-public-data.austin_bikeshare.bikeshare_stations`
+WHERE status = 'active';
+```
+3. Click the "> RUN" button in the menu bar of this panel to execute this SQL;
+4. Wait for a moment. The query results will show below.
+5. Click the "SAVE RESULTS" button above the execution results (on the right side of the same row as panel "Query results");
+6. And in the drop-down menu, further click the option "CSV (local file)";
+7. The default download path is folder `~/Downloads`. Next, we open the terminal via clicking the terminal icon on the vertical application panel of the desktop or via pressing hot key "Ctrl+Alt+T";
+8. In the opened terminal, type in the command `ls ~/Downloads` to see the downloaded file name;
+9. Then, move and rename this file via typing and executing:
+`mv ~/Downloads{file_name}.csv ~/Downloads/answer.csv`
+(Remember to convert the {file_name} above to the real file name in step 8)

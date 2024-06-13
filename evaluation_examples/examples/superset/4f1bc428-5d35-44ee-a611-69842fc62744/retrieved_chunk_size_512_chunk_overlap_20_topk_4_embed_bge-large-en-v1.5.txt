@@ -1,0 +1,159 @@
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.txt
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+Congrats! You’ve successfully linked, analyzed, and visualized data in Superset. There are a wealth
+of other table configuration and visualization options, so please start exploring and creating
+slices and dashboards of your own
+ֿ
+Manage access to Dashboards
+​
+Access to dashboards is managed via owners (users that have edit permissions to the dashboard)
+Non-owner users access can be managed two different ways:
+Dataset permissions - if you add to the relevant role permissions to datasets it automatically grants implicit access to all dashboards that uses those permitted datasets
+Dashboard roles - if you enable
+DASHBOARD_RBAC
+feature flag
+then you be able to manage which roles can access the dashboard
+Granting a role access to a dashboard will bypass dataset level checks. Having dashboard access implicitly grants read access to all the featured charts in the dashboard, and thereby also all the associated datasets.
+If no roles are specified for a dashboard, regular
+Dataset permissions
+will apply.
+Customizing dashboard
+​
+The following URL parameters can be used to modify how the dashboard is rendered:
+standalone
+:
+0
+(default): dashboard is displayed normally
+1
+: Top Navigation is hidden
+2
+: Top Navigation + title is hidden
+3
+: Top Navigation + title + top level tabs are hidden
+show_filters
+:
+0
+: render dashboard without Filter Bar
+1
+(default): render dashboard with Filter Bar if native filters are enabled
+expand_filters
+:
+(default): render dashboard with Filter Bar expanded if there are native filters
+0
+: render dashboard with Filter Bar collapsed
+1
+: render dashboard with Filter Bar expanded
+For example, when running the local development build, the following will disable the
+Top Nav and remove the Filter Bar:
+http://localhost:8088/superset/dashboard/my-dashboard/?standalone=1&show_filters=0
+Edit this page
+Previous
+Importing and Exporting Datasources
+Next
+Exploring Data in Superset
+Creating Your First Dashboard
+Connecting to a new database
+Registering a new table
+Customizing column properties
+Superset semantic layer
+Creating charts in Explore view
+Creating a slice and dashboard
+Manage access to Dashboards
+Customizing dashboard
+We use
+Copyright © 2024,
+          The
+Apache Software Foundation
+,
+          Licensed under the Apache
+License
+.
+
+
+
+Documentation Source:
+superset.apache.org/docs/creating-charts-dashboards/indexf8a0.txt
+
+Documentation Title:
+Index of /docs/creating-charts-dashboards
+
+Documentation Content:
+Index of /docs/creating-charts-dashboards
+Index of /docs/creating-charts-dashboards
+Name
+Last modified
+Size
+Description
+Parent Directory
+-
+first-dashboard/
+2024-04-24 21:23
+-
+creating-your-first-dashboard/
+2024-04-28 01:04
+-
+exploring-data/
+2024-04-28 01:04
+-
+
+
+
+Documentation Source:
+superset.apache.org/docs/creating-charts-dashboards/indexc052.txt
+
+Documentation Title:
+Index of /docs/creating-charts-dashboards
+
+Documentation Content:
+Index of /docs/creating-charts-dashboards
+Index of /docs/creating-charts-dashboards
+Name
+Last modified
+Size
+Description
+Parent Directory
+-
+first-dashboard/
+2024-04-24 21:23
+-
+exploring-data/
+2024-04-28 01:04
+-
+creating-your-first-dashboard/
+2024-04-28 01:04
+-
+
+
+
+Documentation Source:
+superset.apache.org/docs/creating-charts-dashboards/index30b5.txt
+
+Documentation Title:
+Index of /docs/creating-charts-dashboards
+
+Documentation Content:
+Index of /docs/creating-charts-dashboards
+Index of /docs/creating-charts-dashboards
+Name
+Last modified
+Size
+Description
+Parent Directory
+-
+creating-your-first-dashboard/
+2024-04-28 01:04
+-
+exploring-data/
+2024-04-28 01:04
+-
+first-dashboard/
+2024-04-24 21:23
+-
+
+
+

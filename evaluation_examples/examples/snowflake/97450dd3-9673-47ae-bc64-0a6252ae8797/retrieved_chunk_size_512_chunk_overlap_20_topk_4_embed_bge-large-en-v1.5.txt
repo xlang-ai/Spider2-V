@@ -1,0 +1,708 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/spark-connector-use.txt
+
+Documentation Title:
+Using the Spark Connector | Snowflake Documentation
+
+Documentation Content:
+import
+java.sql.Connection
+;
+import
+java.sql.DriverManager
+;
+import
+java.sql.ResultSet
+;
+import
+java.sql.ResultSetMetaData
+;
+import
+java.sql.SQLException
+;
+import
+java.sql.Statement
+;
+import
+java.util.Properties
+;
+public
+class
+SnowflakeJDBCExample
+{
+public
+static
+void
+main
+(
+String
+[]
+args
+)
+throws
+Exception
+{
+String
+jdbcUrl
+=
+"jdbc:snowflake://myorganization-myaccount.snowflakecomputing.com/"
+;
+Properties
+properties
+=
+new
+Properties
+();
+properties
+.
+put
+(
+"user"
+,
+"peter"
+);
+properties
+.
+put
+(
+"password"
+,
+"test"
+);
+properties
+.
+put
+(
+"account"
+,
+"myorganization-myaccount"
+);
+properties
+.
+put
+(
+"warehouse"
+,
+"mywh"
+);
+properties
+.
+put
+(
+"db"
+,
+"mydb"
+);
+properties
+.
+put
+(
+"schema"
+,
+"public"
+);
+// get connection
+System
+.
+out
+.
+println
+(
+"Create JDBC connection"
+);
+Connection
+connection
+=
+DriverManager
+.
+getConnection
+(
+jdbcUrl
+,
+properties
+);
+System
+.
+out
+.
+println
+(
+"Done creating JDBC connection\n"
+);
+// create statement
+System
+.
+out
+.
+println
+(
+"Create JDBC statement"
+);
+Statement
+statement
+=
+connection
+.
+createStatement
+();
+System
+.
+out
+.
+println
+(
+"Done creating JDBC statement\n"
+);
+// create a table
+System
+.
+out
+.
+println
+(
+"Create my_variant_table table"
+);
+statement
+.
+executeUpdate
+(
+"create or replace table my_variant_table(json VARIANT)"
+);
+statement
+.
+close
+();
+System
+.
+out
+.
+println
+(
+"Done creating demo table\n"
+);
+connection
+.
+close
+();
+System
+.
+out
+.
+println
+(
+"Close connection\n"
+);
+}
+}
+Copy
+Instead of using
+SaveMode.Overwrite
+, use
+SaveMode.Append
+, to reuse the existing table. When the string value representing JSON is loaded into Snowflake, because the target column is of type VARIANT, it is parsed as JSON. For example:
+df
+.
+write
+.
+format
+(
+SNOWFLAKE_SOURCE_NAME
+)
+.
+options
+(
+sfOptions
+)
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/jdbc/jdbc-using.txt
+
+Documentation Title:
+Using the JDBC Driver | Snowflake Documentation
+
+Documentation Content:
+close
+();
+System
+.
+out
+.
+println
+(
+"INFO: Re-opening connection."
+);
+connection
+=
+create_connection
+(
+args
+);
+use_warehouse_db_and_schema
+(
+connection
+);
+resultSet
+=
+connection
+.
+unwrap
+(
+SnowflakeConnection
+.
+class
+).
+createResultSet
+(
+queryID
+);
+// Assume that the query isn't done yet.
+QueryStatus
+queryStatus
+=
+QueryStatus
+.
+RUNNING
+;
+while
+(
+queryStatus
+==
+QueryStatus
+.
+RUNNING
+)
+{
+Thread
+.
+sleep
+(
+2000
+);
+// 2000 milliseconds.
+queryStatus
+=
+resultSet
+.
+unwrap
+(
+SnowflakeResultSet
+.
+class
+).
+getStatus
+();
+}
+if
+(
+queryStatus
+==
+QueryStatus
+.
+FAILED_WITH_ERROR
+)
+{
+System
+.
+out
+.
+format
+(
+"ERROR %d: %s%n"
+,
+queryStatus
+.
+getErrorMessage
+(),
+queryStatus
+.
+getErrorCode
+());
+}
+else
+if
+(
+queryStatus
+!=
+QueryStatus
+.
+SUCCESS
+)
+{
+System
+.
+out
+.
+println
+(
+"ERROR: unexpected QueryStatus: "
++
+queryStatus
+);
+}
+else
+{
+boolean
+result_exists
+=
+resultSet
+.
+next
+();
+if
+(
+!
+result_exists
+)
+{
+System
+.
+out
+.
+println
+(
+"ERROR: No rows returned."
+);
+}
+else
+{
+float
+pi_result
+=
+resultSet
+.
+getFloat
+(
+1
+);
+System
+.
+out
+.
+println
+(
+"pi = "
++
+pi_result
+);
+}
+}
+Copy
+Upload data files directly from a stream to an internal stage
+¶
+You can upload data files using the PUT command. However, sometimes it makes sense to transfer data directly from a
+stream to an internal (i.e. Snowflake) stage as a file. (The
+stage
+can be any internal stage type: table stage, user stage, or named stage. The JDBC driver does not support uploading to an external
+stage.) Here is the method exposed in the
+SnowflakeConnection
+class:
+/**
+* Method to compress data from a stream and upload it at a stage location.
+* The data will be uploaded as one file. No splitting is done in this method.
+*
+* Caller is responsible for releasing the inputStream after the method is
+* called.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/jdbc/jdbc-using.txt
+
+Documentation Title:
+Using the JDBC Driver | Snowflake Documentation
+
+Documentation Content:
+RESUMING_WAREHOUSE
+)
+{
+Thread
+.
+sleep
+(
+2000
+);
+// 2000 milliseconds.
+queryStatus
+=
+resultSet
+.
+unwrap
+(
+SnowflakeResultSet
+.
+class
+).
+getStatus
+();
+}
+if
+(
+queryStatus
+==
+QueryStatus
+.
+FAILED_WITH_ERROR
+)
+{
+// Print the error code to stdout
+System
+.
+out
+.
+format
+(
+"Error code: %d%n"
+,
+queryStatus
+.
+getErrorCode
+());
+System
+.
+out
+.
+format
+(
+"Error message: %s%n"
+,
+queryStatus
+.
+getErrorMessage
+());
+}
+else
+if
+(
+queryStatus
+!=
+QueryStatus
+.
+SUCCESS
+)
+{
+System
+.
+out
+.
+println
+(
+"ERROR: unexpected QueryStatus: "
++
+queryStatus
+);
+}
+else
+{
+boolean
+result_exists
+=
+resultSet
+.
+next
+();
+if
+(
+!
+result_exists
+)
+{
+System
+.
+out
+.
+println
+(
+"ERROR: No rows returned."
+);
+}
+else
+{
+float
+pi_result
+=
+resultSet
+.
+getFloat
+(
+1
+);
+System
+.
+out
+.
+println
+(
+"pi = "
++
+pi_result
+);
+}
+}
+Copy
+This example stores the query ID, closes the connection, re-opens the connection, and uses the query ID to
+retrieve the data:
+String
+sql_command
+=
+""
+;
+ResultSet
+resultSet
+;
+String
+queryID
+=
+""
+;
+System
+.
+out
+.
+println
+(
+"Create JDBC statement."
+);
+Statement
+statement
+=
+connection
+.
+createStatement
+();
+sql_command
+=
+"SELECT PI() * 2"
+;
+System
+.
+out
+.
+println
+(
+"Simple SELECT query: "
++
+sql_command
+);
+resultSet
+=
+statement
+.
+unwrap
+(
+SnowflakeStatement
+.
+class
+).
+executeAsyncQuery
+(
+sql_command
+);
+queryID
+=
+resultSet
+.
+unwrap
+(
+SnowflakeResultSet
+.
+class
+).
+getQueryID
+();
+System
+.
+out
+.
+println
+(
+"INFO: Closing statement."
+);
+statement
+.
+close
+();
+System
+.
+out
+.
+println
+(
+"INFO: Closing connection."
+);
+connection
+.
+close
+();
+System
+.
+out
+.
+println
+(
+"INFO: Re-opening connection."
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/spark-connector-qubole.txt
+
+Documentation Title:
+Configuring Snowflake for Spark in Qubole | Snowflake Documentation
+
+Documentation Content:
+Database Type
+: Select ‘Snowflake’.
+Catalog Name
+: Enter the name of the Snowflake catalog.
+Database Name
+: Enter the name of the database in Snowflake where the data is stored.
+Warehouse Name
+: Enter the name of the Snowflake virtual warehouse to use for queries.
+Host Address
+: Enter the base URL of your Snowflake account (e.g.
+myorganization-myaccount.snowflakecomputing.com
+). See
+Account identifiers
+for details on
+specifying your account identifier in this URL.
+Username
+: Enter the login name for your Snowflake user (used to connect to the host).
+Password
+: Enter the password for your Snowflake user (used to connect to the host).
+Note that all the values are
+case-sensitive
+, except for
+Host Address
+.
+Click
+Save
+to create the data store.
+Repeat these steps for each Snowflake database that you want to add as a data store. Or you can edit the data store to change the Snowflake database or any other properties for the data store (e.g.
+change the virtual warehouse used for queries).
+Note
+After adding a Snowflake data store, restart the Spark cluster (if you are using an already-running Spark cluster). Restarting the Spark cluster installs the
+.jar
+files for the Snowflake
+Connector for Spark and the Snowflake JDBC Driver.
+Verifying the Snowflake Data Store in Qubole
+¶
+To verify that the Snowflake data store was created and has been activated, click on the dropdown list in the upper-left of the
+Explore
+page. A green dot indicates that the data store has
+been activated.
+You should also verify that the table explorer widget in the left pane of the
+Explore
+page displays all of the tables in the Snowflake database specified in the data store.
+Query Pushdown in Qubole
+¶
+Spark queries benefit from Snowflake’s automatic query pushdown optimization, which improves performance. By default, Snowflake query pushdown is enabled in Qubole.
+For more details about query pushdown, see
+Pushing Spark Query Processing to Snowflake
+(Snowflake Blog).
+Was this page helpful?
+
+
+

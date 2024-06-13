@@ -1,0 +1,53 @@
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/managing-ml.html
+
+Documentation Title:
+Managing machine learning models with Dagster | Dagster Docs
+
+Documentation Content:
+For example, setting up a <a>cron schedule on a daily basis</a>.</p><p>This can be useful if you have data that is also being scheduled on a cron schedule and want to add your machine model jobs to run on a schedule as well.</p><code><span>from</span>dagster <span>import</span>AssetSelection<span>,</span>define_asset_job<span>,</span>ScheduleDefinition
+
+ml_asset_job <span>=</span>define_asset_job<span>(</span><span>"ml_asset_job"</span><span>,</span>AssetSelection<span>.</span>groups<span>(</span><span>"ml_asset_group"</span><span>)</span><span>)</span>basic_schedule <span>=</span>ScheduleDefinition<span>(</span>job<span>=</span>ml_asset_job<span>,</span>cron_schedule<span>=</span><span>"0 9 * * *"</span><span>)</span></code><h3>Monitoring<span>#</span></h3><p>Integrating your machine learning models into Dagster allows you to see when the model and its data dependencies were refreshed, or when a refresh process has failed. By using Dagster to monitor performance changes and process failures on your ML model, it becomes possible to set up remediation paths, such as automated model retraining, that can help resolve issues like model drift.</p><p>In this example, the model is being evaluated against the previous model’s accuracy. If the model’s accuracy has improved, the model is returned for use in downstream steps, such as inference or deploying to production.</p><code><span>from</span>sklearn <span>import</span>linear_model
+<span>from</span>dagster <span>import</span>asset<span>,</span>Output<span>,</span>AssetKey<span>,</span>AssetExecutionContext
+<span>import</span>numpy <span>as</span>np
+<span>from</span>sklearn<span>.</span>model_selection <span>import</span>train_test_split
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+</span>array<span>(</span>y_test<span>)</span>y_test <span>=</span>y_test<span>.</span>fillna<span>(</span><span>0</span><span>)</span>transformed_y_test <span>=</span>np<span>.</span>array<span>(</span>y_test<span>)</span><span>return</span>transformed_X_test<span>,</span>transformed_y_test
+</code><p>We also transformed the dataframes into NumPy arrays and removed <code>nan</code>values to prepare the data for training.</p><h3>Training the model<span>#</span></h3><p>At this point, we have <code>X_train</code>, <code>y_train</code>, <code>X_test</code>, and <code>y_test</code>ready to go for our model. To train our model, we can use any number of models from libraries like <a>sklearn</a>, <a>TensorFlow</a>, and <a>PyTorch</a>.</p><p>In our example, we will train an <a>XGBoost model</a>to predict a numerical value.</p><code><span>import</span>xgboost <span>as</span>xg
+<span>from</span>sklearn<span>.</span>metrics <span>import</span>mean_absolute_error
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/managing-ml.html
+
+Documentation Title:
+Managing machine learning models with Dagster | Dagster Docs
+
+Documentation Content:
+<span>@asset</span><span>def</span><span>my_other_data</span><span>(</span><span>)</span><span>:</span><span>.</span><span>.</span><span>.</span><span>@asset</span><span>(</span>auto_materialize_policy<span>=</span>AutoMaterializePolicy<span>.</span>lazy<span>(</span><span>)</span><span>,</span>freshness_policy<span>=</span>FreshnessPolicy<span>(</span>maximum_lag_minutes<span>=</span><span>7</span><span>*</span><span>24</span><span>*</span><span>60</span><span>)</span><span>,</span><span>)</span><span>def</span><span>my_other_ml_model</span><span>(</span>my_other_data<span>)</span><span>:</span><span>.</span><span>.</span><span>.</span></code><p>This can be useful if you know that you want your machine learning model retrained at least once a week. While Dagster allows you to refresh a machine learning model as often as you like, best practice is to re-train as seldomly as possible. Model retraining can be costly to compute and having a minimal number of model versions can reduce the complexity of reproducing results at a later point in time. In this case, the model is updated once a week for <code>predictions</code>, ensuring that <code>my_ml_model</code>is retrained before it is used.</p><code><span>from</span>dagster <span>import</span>AutoMaterializePolicy<span>,</span>FreshnessPolicy<span>,</span>asset
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.html
+
+Documentation Title:
+Tutorial, part five: Scheduling your pipeline | Dagster Docs
+
+Documentation Content:
+The code below is how your <code>__init__.py</code>should look after making these changes:</p><code><span>from</span>dagster <span>import</span><span>(</span>AssetSelection<span>,</span>Definitions<span>,</span>ScheduleDefinition<span>,</span>define_asset_job<span>,</span>load_assets_from_modules<span>,</span><span>)</span><span>from</span><span>.</span><span>import</span>assets
+
+all_assets <span>=</span>load_assets_from_modules<span>(</span><span>[</span>assets<span>]</span><span>)</span><span># Define a job that will materialize the assets</span>hackernews_job <span>=</span>define_asset_job<span>(</span><span>"hackernews_job"</span><span>,</span>selection<span>=</span>AssetSelection<span>.</span><span>all</span><span>(</span><span>)</span><span>)</span><span># Addition: a ScheduleDefinition the job it should run and a cron schedule of how frequently to run it</span>hackernews_schedule <span>=</span>ScheduleDefinition<span>(</span>job<span>=</span>hackernews_job<span>,</span>cron_schedule<span>=</span><span>"0 * * * *"</span><span>,</span><span># every hour</span><span>)</span>defs <span>=</span>Definitions<span>(</span>assets<span>=</span>all_assets<span>,</span>schedules<span>=</span><span>[</span>hackernews_schedule<span>]</span><span>,</span><span>)</span></code><p>Go to the UI, click <strong>Overview &gt; Schedules tab</strong>, and observe your new schedule with the attached job.</p><img/><p>To test the change, click the schedule's name to view its details. Click the <strong>Test Schedule</strong>button on the top right corner of the page to trigger the schedule immediately.</p><img/><span>Schedules are just one way to start jobs.
+
+
+

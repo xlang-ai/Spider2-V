@@ -1,0 +1,80 @@
+{
+    "id": "c222739a-fd53-4c5e-910a-818466eaad8b",
+    "snapshot": "dbt",
+    "instruction": "Please help me schedule a new deploy job named \"Thanksgiving_Day\" on the given environment \"Thanksgiving_Sales\". This job should be triggered only at 12:00 PM on every year's Thanksgiving Day.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to create a job, and come up with a date representation using cron syntax,\n1. Click the \"Deploy\" button in the upper panel.\n2. Choose \"Jobs\" in the drop-down panel.\n3. Click the \"Create job\" button.\n4. Choose \"Deploy job\" in the drop-down panel.\n5. Now you will see the configuration page of a new job. In \"Job settings\" section, set the \"Job name\" to \"Thanksgiving_Day\".\n6. In \"Triggers\" section, enable \"Run on schedule\".\n7. Click \"Timing\" selection list, and choose \"Cron schedule\" as the timing scheme.\n8. Enter \"0 12 22-28 11 4\" in \"Custom cron schedule (UTC)\" text bar.\n9. Click \"Save\" button on the top right of the page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/docs/deploy/deploy-jobs",
+        "https://www.geeksforgeeks.org/crontab-in-linux-with-examples/"
+    ],
+    "related_apps": [
+        "dbt-cloud",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_transformation",
+        "verbose"
+    ],
+    "action_number": 9,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "Thanksgiving"
+                    },
+                    {
+                        "type": "create_environment",
+                        "env_name": "Thanksgiving_Sales"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_job_info",
+            "name": "Thanksgiving_Day",
+            "fields": [
+                "cron_humanized"
+            ],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "At 12:00 PM, between day 22 and 28 of the month, only on Thursday, only in November"
+                ],
+                "exclude": [
+                    "None"
+                ]
+            }
+        }
+    },
+    "counterpart": "9cc2b6ac-f488-483a-a768-47ecffb2f8dd"
+}

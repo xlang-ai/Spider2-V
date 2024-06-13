@@ -1,0 +1,7 @@
+This task requires you to edit the model materialization settings.
+1. Open ``dbt_project.yml`` file in the VSCode editor.
+2. Replace the code ``+materialized: view`` with ``+materialized: table``.
+3. Open ``models/test/my_first_dbt_model.sql`` file in the VSCode editor,
+4. Replace the code ``{{ config(materialized='view') }}`` with ``{{ config(materialized='table') }}``.
+5. Switch to the terminal.
+6. Run ``dbt run`` to execute models.

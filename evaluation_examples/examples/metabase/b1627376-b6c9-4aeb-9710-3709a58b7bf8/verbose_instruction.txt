@@ -1,0 +1,16 @@
+To finish this task, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose "Orders" in the "Sample Database" drop-down panel;
+4. Click "Add filters to narrow your answer";
+5. Choose "# Subtotal" in the panel;
+6. In the dropdown menu, change "Equal to" to "Greater than".
+7. Enter 40 in the input field, then click Add filter.
+8. Click on the button "Row limit";
+9. Enter "20" in the input box.
+10. Click on "Visualize".
+11. Click on the button to the right bottom corner "Download full results".
+12. Click on ".json".
+13. Switch to "/home/user/Downloads" folder, and rename the json file as "res.json".
+14. Copy and Paste it to the Desktop.

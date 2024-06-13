@@ -1,0 +1,83 @@
+{
+    "id": "9116c216-5e9a-4c31-b48b-f56bac88648a",
+    "snapshot": "dagster",
+    "instruction": "I already have some training and test data prepared by the current dagster assets. Please help me complete the pipeline by building a Linear Regression model and testing it according to README.md.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I would like to complete a Linear Regression pipeline using dagster. To do this:\n1. Switch to VS Code application.\n2. Check the opened file README.md for requirements on each asset.\n3. Switch the file \"assets.py\" from the tabs on the top.\n4. Find the definition of \"linear_regression_model\" and replace that part with the following:\n```\n# Keep the code above\n\n@asset\ndef linear_regression_model(transformed_training_data):\n    transformed_X_train, transformed_y_train = transformed_training_data\n    # Train Linear Regression model\n    model = LinearRegression()\n    model.fit(transformed_X_train, transformed_y_train)\n    return model\n```\n5. Replace the next two functions, \"model_test_set_score\" and \"latest_story_comment_predictions\", by\n```\n# Keep the code above\n\n@asset\ndef model_test_set_score(transformed_test_data, linear_regression_model):\n    transformed_X_test, transformed_y_test = transformed_test_data\n    # Use the test set data to get a score of the Linear Regression model\n    score = linear_regression_model.score(transformed_X_test, transformed_y_test)\n    return score\n\n\n@asset\ndef latest_story_comment_predictions(linear_regression_model, latest_story_data):\n    return linear_regression_model.predict(latest_story_data)\n```\n6. Press Ctrl+S to save the file.\n7. Change to Chromium to view the Dagster web UI.\n8. Click the \"Assets\" tab on the top of the page.\n9. Reload the project through the \"Reload definitions\" button in the Assets page.\n10. Click the link \"View global asset lineage\" on the left of \"Reload definitions\". You will see the dependency graph of the assets created in this project.\n11. Click the magic button \"Materialize all\" on the top right. Wait a few seconds for the run to finish.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/guides/dagster/ml-pipeline"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/9116c216-5e9a-4c31-b48b-f56bac88648a/hacker-news-ml-pipeline.zip",
+                "dest": "/home/user/hacker-news-ml-pipeline.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/9116c216-5e9a-4c31-b48b-f56bac88648a/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "dagster_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "close_popups"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/9116c216-5e9a-4c31-b48b-f56bac88648a/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "b8614458-2d9f-47fc-b98c-7ebf2a388781"
+}

@@ -1,0 +1,31 @@
+This task requires you to separate the logic of a model.
+1. Open three files, "models/customers.sql", "models/stg_customers.sql" and "models/stg_orders.sql" in the VSCode editor.
+2. Cut the following codes from "models/customers.sql".
+```sql
+select
+    id as customer_id,
+    first_name,
+    last_name
+
+from jaffle_shop.raw_customers
+```
+3. Paste the codes to "models/stg_customers.sql".
+4. Back to "models/customers.sql", and add the following reference codes at where the codes just been cut.
+```sql
+select * from {{ ref('stg_customers') }}
+```
+5. Cut the following codes from "models/customers.sql".
+```sql
+select
+    id as order_id,
+    user_id as customer_id,
+    order_date,
+    status
+
+from jaffle_shop.raw_orders
+```
+6. Paste the codes to "models/stg_orders.sql".
+7. Back to "models/customers.sql", and add the following reference codes at where the codes just been cut.
+```sql
+select * from {{ ref('stg_orders') }}
+```

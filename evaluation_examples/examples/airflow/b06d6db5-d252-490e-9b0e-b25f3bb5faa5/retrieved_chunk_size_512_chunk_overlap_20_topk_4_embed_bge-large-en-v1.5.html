@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/astro/cli/test-your-astro-project-locally.html
+
+Documentation Title:
+Test your Astro project | Astronomer Documentation
+
+Documentation Content:
+For more information about this command, see the <a>CLI command reference</a>.</p><h3>Run tests with pytest<a>​</a></h3><p>To run unit tests on your Astro project, run:</p><span>astro dev pytest</span><p>This command runs all tests in your project's <code>tests</code>directory with <a>pytest</a>, a testing framework for Python. With pytest, you can test custom Python code and operators locally without having to start a local Airflow environment.</p><p>The <code>tests</code>directory in your Astro project includes an example DAG test called <code>test_dag_example.py</code>. This test checks that:</p><ul><li>All Airflow tasks have required arguments.</li><li>DAG IDs are unique across the Astro project.</li><li>DAGs have no cycles.</li><li>There are no general import or syntax errors.</li></ul><p>This test is just an example of the kinds of pytests one could run to test thier DAGs. You may want to alter this test or create new ones that better fit the context of your DAGs. <code>astro dev pytest</code>will run any pytest file that you add to the <code>tests</code>directory. For more information about this command, see the <a>CLI command reference</a>.</p><h2>Test before an Astro Runtime upgrade<a>​</a></h2><p>You can use <code>astro dev upgrade-test</code>to test your local Astro project against a new version of Astro Runtime to prepare for an upgrade.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.html
+
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
+
+Documentation Content:
+</span></span><span>)</span><span><span>def</span><span>my_dag</span><span>(</span><span>)</span><span>:</span></span><span><span>t1 </span><span>=</span><span>EmptyOperator</span><span>(</span><span>task_id</span><span>=</span><span>"t1"</span><span>)</span></span><span><span>dag_object </span><span>=</span><span>my_dag</span><span>(</span><span>)</span></span><span><span>if</span><span>__name__ </span><span>==</span><span>"__main__"</span><span>:</span></span><span><span>dag_object</span><span>.</span><span>test</span><span>(</span><span>)</span></span></code></div></div><p>You can run the <code>.test()</code>method with popular debugging tools such as:</p><ul><li><a>VSCode</a>.</li><li><a>PyCharm</a>.</li><li>Tools like <a>The Python Debugger</a>and the built-in <code>breakpoint()</code>function. These allow you to run <code>dag.test()</code>from the command line by running <code>python &lt;path-to-dag-file&gt;</code>.</li></ul><h3>Use <code>dag.test()</code>with the Astro CLI<a>​</a></h3><p>If you use the Astro CLI exclusively and do not have the <code>airflow</code>package installed locally, you can still debug using <code>dag.test()</code>by running <code>astro dev start</code>, entering the scheduler container with <code>astro dev bash -s</code>, and executing <code>python &lt;path-to-dag-file&gt;</code>from within the Docker container.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/first-dag-cli.html
+
+Documentation Title:
+Run your first DAG with the Astro CLI | Astronomer Documentation
+
+Documentation Content:
+py # Example DAG that showcases more advanced Airflow features, such as the TaskFlow API</span><span>├── Dockerfile # For the Astro Runtime Docker image, environment variables, and overrides</span><span>├── include # For any other files you'd like to include</span><span>├── plugins # For any custom or community Airflow plugins</span><span>│   └── example-plugin.py</span><span>├── tests # For any DAG unit test files to be run with pytest</span><span>│   └── test_dag_example.py # Example test that checks for basic errors in your DAGs</span><span>├── airflow_settings.yaml # For your Airflow connections, variables and pools (local only)</span><span>├── packages.txt # For OS-level packages</span><span>└── requirements.txt # For Python packages</span></code></li></ol><h2>Step 4: Deploy example DAGs to your Astro Deployment<a>​</a></h2><p>DAG-only deploys are an Astro feature that you can use to quickly update your Astro Deployment by only deploying the <code>dags</code>folder of your Astro project. You'll now trigger a DAG-only deploy to push your example DAGs to Astro.</p><ol><li><p>Run the following command to authenticate to Astro on the CLI:</p><span>astro login astronomer.io</span><p>After running this command, you are prompted to open your web browser and enter your credentials to the Astro UI. The Astro UI then automatically authenticates you to the CLI. The next time you log in, you can run <code>astro login</code>without specifying a domain. If you run into issues logging in, check to make sure that you have the latest version of the Astro CLI.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/release-notes.html
+
+Documentation Title:
+Astro CLI release notes | Astronomer Documentation
+
+Documentation Content:
+For more information and guiding examples, see <a>CI/CD</a>.</p><h3>New command to run DAG unit tests with pytest<a>​</a></h3><p>You can now run custom unit tests for all DAGs in your Astro project with <code>astro dev pytest</code>, a new Astro CLI command that uses <a>pytest</a>, a common testing framework for Python. As part of this change, new Astro projects created via <code>astro dev init</code>now include a <code>tests</code>directory, which includes one example pytest built by Astronomer.</p><p>When you run this command, the Astro CLI creates a local Python environment that includes your DAG code, dependencies, and Astro Runtime Docker image. The CLI then runs any pytests in the <code>tests</code>directory and shows you the results of those tests in your terminal. You can add as many custom tests to this directory as you'd like.</p><p>For example, you can use this command to run tests that check for:</p><ul><li>Python and Airflow syntax errors.</li><li>Import errors.</li><li>Dependency conflicts.</li><li>Unique DAG IDs.</li></ul><p>These tests don't require a fully functional Airflow environment in order to execute, which makes this Astro CLI command the fastest and easiest way to test DAGs locally.</p><p>In addition to running tests locally, you can also run pytest as part of the Astro deploy process. To do so, specify the <code>--pytest</code>flag when running <code>astro deploy</code>. This ensures that your code push to Astro automatically fails if any DAGs do not pass all pytests specified in the <code>tests</code>directory of your Astro project.
+
+
+

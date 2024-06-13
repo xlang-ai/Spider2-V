@@ -1,0 +1,49 @@
+This task is to see 2019 products with an above average price. On the opened jupyter notebook:
+1. Double-click "result.csv" to see the predefined format
+2. Double-click "products.csv" to preview the us baby data.
+3. Double-click "notebook.ipynb" to see the partial finished code.
+4. Scroll down to the bottom, hover your mouse over the blank space at the bottom.
+5. Click button "Click to add a cell."
+6. Copy the code below to this cell:
+```
+
+connection = sqlite3.connect('bike_store.db')
+
+categories.to_sql('categories', connection, if_exists='replace', index=False)
+customers.to_sql('customers', connection, if_exists='replace', index=False)
+order_items.to_sql('order_items', connection, if_exists='replace', index=False)
+orders.to_sql('orders', connection, if_exists='replace', index=False)
+products.to_sql('products', connection, if_exists='replace', index=False)
+stocks.to_sql('stocks', connection, if_exists='replace', index=False)
+stores.to_sql('stores', connection, if_exists='replace', index=False)
+
+```
+7. Click button "Click to add a cell."
+8. Copy the code below to this cell:
+
+```
+query = """
+SELECT 
+    *
+FROM 
+    products
+WHERE
+    model_year = 2019
+AND
+    list_price > (
+                  SELECT
+                      AVG(list_price)
+                  FROM
+                      products
+                  WHERE
+                      model_year = 2019
+                 );
+"""
+
+df = pd.read_sql_query(query, connection)
+df.to_csv('result.csv', index=False)
+
+```
+9. Click the button "Run" in the menu bar on the top.
+10. In the drop-down menu, select and click "Run All Cells".
+11. Wait for about 10 seconds, the data will be inserted in to "result.csv"

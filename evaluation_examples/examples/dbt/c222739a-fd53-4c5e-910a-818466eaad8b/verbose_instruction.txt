@@ -1,0 +1,10 @@
+This task requires you to create a job, and come up with a date representation using cron syntax,
+1. Click the "Deploy" button in the upper panel.
+2. Choose "Jobs" in the drop-down panel.
+3. Click the "Create job" button.
+4. Choose "Deploy job" in the drop-down panel.
+5. Now you will see the configuration page of a new job. In "Job settings" section, set the "Job name" to "Thanksgiving_Day".
+6. In "Triggers" section, enable "Run on schedule".
+7. Click "Timing" selection list, and choose "Cron schedule" as the timing scheme.
+8. Enter "0 12 22-28 11 4" in "Custom cron schedule (UTC)" text bar.
+9. Click "Save" button on the top right of the page.

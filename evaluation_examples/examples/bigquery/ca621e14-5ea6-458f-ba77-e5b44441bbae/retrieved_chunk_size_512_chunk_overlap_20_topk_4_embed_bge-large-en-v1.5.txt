@@ -1,0 +1,336 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-query-external-sheets-perm.txt
+
+Documentation Title:
+Query Sheets with a permanent table  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+# dataset_id = "your-project.your_dataset"
+
+# Configure the external data source.
+dataset = client.get_dataset(dataset_id)
+table_id = "us_states"
+schema = [
+    bigquery.SchemaField("name", "STRING"),
+    bigquery.SchemaField("post_abbr", "STRING"),
+]
+table = bigquery.Table(dataset.table(table_id), schema=schema)
+external_config = bigquery.ExternalConfig("GOOGLE_SHEETS")
+# Use a shareable link or grant viewing access to the email address you
+# used to authenticate with BigQuery (this example Sheet is public).
+sheet_url = (
+    "https://docs.google.com/spreadsheets"
+    "/d/1i_QCL-7HcSyUZmIbP9E6lO_T5u3HnpLe7dnpHaijg_E/edit?usp=sharing"
+)
+external_config.source_uris = [sheet_url]
+options = external_config.google_sheets_options
+assert options is not None
+options.skip_leading_rows = 1  # Optionally skip header row.
+options.range = (
+    "us-states!A20:B49"  # Optionally set range of the sheet to query from.
+)
+table.external_data_configuration = external_config
+
+# Create a permanent table linked to the Sheets file.
+table = client.create_table(table)  # Make an API request.
+
+# Example query to find states starting with "W".
+sql = 'SELECT * FROM `{}.{}` WHERE name LIKE "W%"'.format(dataset_id, table_id)
+
+results = client.query_and_wait(sql)  # Make an API request.
+
+# Wait for the query to complete.
+w_states = list(results)
+print(
+    "There are {} states with names starting with W in the selected range.".format(
+        len(w_states)
+    )
+)
+What's next
+To search and filter code samples for other Google Cloud products, see the
+Google Cloud sample browser
+.
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connected-sheets.txt
+
+Documentation Title:
+Using Connected Sheets  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+If you do not yet have a Google Cloud project that is set up for billing, follow
+these steps:
+Sign in to your Google Cloud account. If you're new to
+        Google Cloud,
+create an account
+to evaluate how our products perform in
+        real-world scenarios. New customers also get $300 in free credits to
+        run, test, and deploy workloads.
+In the Google Cloud console, on the project selector page,
+        select or
+create a Google Cloud project
+.
+Note
+: If you don't plan to keep the
+    resources that you create in this procedure, create a project instead of
+    selecting an existing project. After you finish these steps, you can
+    delete the project, removing all resources associated with the project.
+Go to project selector
+Make sure that billing is enabled for your Google Cloud project
+.
+In the Google Cloud console, on the project selector page,
+        select or
+create a Google Cloud project
+.
+Note
+: If you don't plan to keep the
+    resources that you create in this procedure, create a project instead of
+    selecting an existing project. After you finish these steps, you can
+    delete the project, removing all resources associated with the project.
+Go to project selector
+Make sure that billing is enabled for your Google Cloud project
+.
+BigQuery is automatically enabled in new projects.
+  To activate BigQuery in a preexisting project, go to
+Enable the BigQuery API.
+Enable the API
+When you finish this topic, you can avoid continued billing by deleting the
+resources you created. See
+Cleaning up
+for more detail.
+Open BigQuery datasets from Connected Sheets
+The following example uses a public dataset to show you how to connect to
+BigQuery from Google Sheets.
+Create or open a Google Sheets spreadsheet.
+Click
+Data
+, click
+Data connectors
+, and then click
+Connect to
+BigQuery
+.
+Note:
+If you do not see the
+Data connectors
+option, see
+Before you begin
+.
+Click
+Get connected
+.
+Select a Google Cloud project that has billing enabled.
+Click
+Public datasets
+.
+In the search box, type
+chicago
+and then select the
+chicago_taxi_trips
+dataset.
+Select the
+taxi_trips
+table and then click
+Connect
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connected-sheets.txt
+
+Documentation Title:
+Using Connected Sheets  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+data quality
+Monitor Data Transfer Service
+Monitor materialized views
+Monitor reservations
+Dashboards, charts and alerts
+Audit workloads
+Introduction
+Audit policy tags
+View Data Policy audit logs
+Data Transfer Service audit logs
+Analytics Hub audit logging
+BigQuery audit logs reference
+Migrate audit logs
+BigLake API audit logs
+Optimize resources
+Control costs
+Estimate and control query costs
+Custom cost controls
+Optimize with recommendations
+View cluster and partition recommendations
+Apply cluster and partition recommendations
+Manage materialized view recommendations
+Organize with labels
+Introduction
+Add labels
+View labels
+Update labels
+Filter using labels
+Delete labels
+Manage data quality
+Monitor data quality with scans
+Data Catalog overview
+Work with Data Catalog
+Govern
+Introduction
+Control access to resources
+Introduction
+Control access to resources with IAM
+Control access with authorization
+Authorized datasets
+Authorized routines
+Authorized views
+Control access with VPC service controls
+Control table and dataset access with tags
+Control access with conditions
+Control column and row access
+Control access to table columns
+Introduction to column-level access control
+Restrict access with column-level access control
+Impact on writes
+Manage policy tags
+Manage policy tags across locations
+Best practices for using policy tags
+Control access to table rows
+Introduction to row-level security
+Work with row-level security
+Use row-level security with other BigQuery features
+Best practices for row-level security
+Protect sensitive data
+Mask data in table columns
+Introduction to data masking
+Mask column data
+Anonymize data with differential privacy
+Use differential privacy
+Extend differential privacy
+Restrict data access using analysis rules
+Use Sensitive Data Protection
+Manage encryption
+Encryption at rest
+Customer-managed encryption keys
+Column-level encryption with Cloud KMS
+AEAD encryption
+Develop
+Introduction
+BigQuery code samples
+BigQuery API basics
+BigQuery APIs and libraries overview
+Authentication
+Introduction
+Get started
+Authenticate as an end user
+Authenticate with JSON Web Tokens
+Run jobs programmatically
+Paginate with BigQuery API
+API performance tips
+Batch requests
+Choose a Python library
+BigQuery DataFrames
+Introduction
+Use BigQuery DataFrames
+Use ODBC and JDBC drivers
+AI solutions, generative AI, and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/managing-table-data.txt
+
+Documentation Title:
+Managing table data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+rows_iter = client.list_rows(table_id, max_results=10)
+rows = list(rows_iter)
+print("Downloaded {} rows from table {}".format(len(rows), table_id))
+
+# Specify selected fields to limit the results to certain columns.
+table = client.get_table(table_id)  # Make an API request.
+fields = table.schema[:2]  # First two columns.
+rows_iter = client.list_rows(table_id, selected_fields=fields, max_results=10)
+rows = list(rows_iter)
+print("Selected {} columns from table {}.".format(len(rows_iter.schema), table_id))
+print("Downloaded {} rows from table {}".format(len(rows), table_id))
+
+# Print row data in tabular format.
+rows = client.list_rows(table, max_results=10)
+format_string = "{!s:<16} " * len(rows.schema)
+field_names = [field.name for field in rows.schema]
+print(format_string.format(*field_names))  # Prints column headers.
+for row in rows:
+    print(format_string.format(*row))  # Prints row data.
+Ruby
+Before trying this sample, follow the
+Ruby
+setup instructions in the
+BigQuery quickstart using
+            client libraries
+.
+        
+      
+      
+  For more information, see the
+BigQuery
+Ruby
+API
+    reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+Set up authentication for client libraries
+.
+Pagination happens automatically in the
+Cloud Client Libraries for Ruby
+using
+Table#data
+and
+Data#next
+.
+require "google/cloud/bigquery"
+
+def browse_table
+  bigquery = Google::Cloud::Bigquery.new project_id: "bigquery-public-data"
+  dataset  = bigquery.dataset "samples"
+  table    = dataset.table "shakespeare"
+
+  # Load all rows from a table
+  rows = table.data
+
+  # Load the first 10 rows
+  rows = table.data max: 10
+
+  # Print row data
+  rows.each { |row| puts row }
+end
+Querying table data
+After you load your data into BigQuery, you can
+query the data
+using one of the following query job types:
+Interactive query jobs
+.
+By
+default, BigQuery runs interactive (on-demand) query jobs as
+soon as possible.
+
+
+

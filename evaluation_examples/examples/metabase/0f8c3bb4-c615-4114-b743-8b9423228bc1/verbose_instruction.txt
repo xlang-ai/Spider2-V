@@ -1,0 +1,12 @@
+To create the group and add the member, please follow these steps:
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click the "People" tab on the top bar;
+4. Click the "Groups" tab on the left side;
+5. Click the "Create a group" button on the top right;
+6. Type "Project Users" in the input box;
+7. Click the "Add" button on the right side;
+8. Click the "Project Users" to enter the group page;
+9. Click the "Add members" button on the top right;
+10. Type "J" in the input box and select "John Wilson" from the drop-down list;
+11. Click the "Add" button on the right side.

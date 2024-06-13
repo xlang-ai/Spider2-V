@@ -31,7 +31,8 @@
     ],
     "tags": [
         "cli",
-        "data_transformation"
+        "data_transformation",
+        "abstract"
     ],
     "evaluator": {
         "func": "check_include_exclude",
@@ -51,5 +52,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "cb26d996-94e8-49e5-af39-9aa2e4c1a257"
 }

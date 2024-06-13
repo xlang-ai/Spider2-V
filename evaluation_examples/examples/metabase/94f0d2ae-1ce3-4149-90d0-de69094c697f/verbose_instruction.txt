@@ -1,0 +1,24 @@
+When we start up Metabase for the first time, we’ll see the welcome page. To set up and configure the first connection to a database, we can go ahead:
+1. Click "Let’s get started";
+2. Choose the language to be "English" and click "Next";
+3. Fill in the user profile with information provided in setup.json, that is:
+First name: John
+Last name: Wilson
+Email: johnwilson@gmail.com
+Company or team name: Google
+Create a password: Spider2.0
+Confirm your password: Spider2.0
+4. Upon completion, click "Next";
+5. For the usage, choose any of the options, e.g., "Not sure yet";
+6. Next step is to add your data, click the icon "PostgreSQL";
+7. And fill all fields according to setup.json into this form, concretely:
+Display name: PostgresData
+Host: localhost
+Port: 5432
+Database name: metabase
+Username: user
+Password: password
+8. After completion, scroll down and click button "Connect database";
+9. Since the user do not want to share data, for Usage data preferences, disable Metabase to collect usage events.
+10. Click "Finish" button to next step;
+11. Directly click "Take me to Metabase" to complete the entire setup.

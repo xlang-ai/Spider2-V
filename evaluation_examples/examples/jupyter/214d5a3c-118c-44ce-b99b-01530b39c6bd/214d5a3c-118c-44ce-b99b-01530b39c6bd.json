@@ -11,7 +11,8 @@
     ],
     "tags": [
         "cli+gui",
-        "traditional_data_processing"
+        "traditional_data_processing",
+        "abstract"
     ],
     "action_number": 7,
     "config": [
@@ -57,7 +58,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": [
@@ -89,5 +89,6 @@
             }
         ],
         "conj": "or"
-    }
+    },
+    "counterpart": "40f8424e-a7dd-47ac-a397-47d5e4ca5a2d"
 }

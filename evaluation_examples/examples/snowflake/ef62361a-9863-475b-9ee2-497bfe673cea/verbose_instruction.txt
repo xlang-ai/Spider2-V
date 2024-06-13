@@ -1,0 +1,9 @@
+This task is to recover the dropped table. In the opened Snowsight web page,
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "+" button on the right;
+3. In the drop-down menu, select "SQL Worksheet".
+4. Copy the code below to the worksheet.
+```
+UNDROP TABLE MALL.PUBLIC.CUSTOMERS;
+```
+5. Click the "Run" button on the top-right of the worksheet.

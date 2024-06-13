@@ -57,7 +57,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "bigquery",
         "chromium"
@@ -65,7 +64,8 @@
     "tags": [
         "cli+gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 8,
     "evaluator": {
@@ -87,5 +87,6 @@
             "path": "evaluation_examples/examples/bigquery/ba3a37bb-df35-5267-9de4-995ea58953a2/top5_male_2014.csv",
             "dest": "gold_output.csv"
         }
-    }
+    },
+    "counterpart": "858225a1-ffd1-4c94-bf73-e03102ddde6f"
 }

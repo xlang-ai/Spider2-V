@@ -1,0 +1,77 @@
+{
+    "id": "73175c70-6156-473c-94fd-4b259b364f69",
+    "snapshot": "snowflake",
+    "instruction": "I want to find the latest worksheet contains \"orders\". Please use the universal search provided by snowflake to help me find this worksheet and create a .sql file on the desktop to save the sql commands in this worksheet. The name of file should be result.sql.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This job is to use universal search on Snowflake to find the latest worksheet contains \"orders\". In the opened Snowsight web page,\n1. Click \"Projects >> Worksheets\" on the left menu panel.\n2. Click \"Search\" button on the right;\n3. In the search box, input \"orders\".\n4. Click the first worksheet from the search results.\n5. Copy the sql commands in this worksheet.\n6. Open terminal, input the following command line:\n\ncd Desktop/\ncode result.sql\n\n7. Paste the sql commands to result.sql and save the file.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/ui-snowsight-universal-search"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake",
+        "terminal"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_database"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_script": "evaluation_examples/examples/snowflake/73175c70-6156-473c-94fd-4b259b364f69/snowflake_init.sql"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "snowflake_write_sqls_in_new_worksheet",
+            "parameters": {
+                "listening_port": 9222,
+                "sqls": [
+                    "USE DATABASE SALES;",
+                    "SELECT region, SUM(quantity * unit_price) as total_sales FROM orders GROUP BY region ORDER BY total_sales DESC;"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_sql",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/result.sql",
+            "dest": "result.sql"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/73175c70-6156-473c-94fd-4b259b364f69/result_gold.sql",
+            "dest": "result_gold.csv"
+        }
+    },
+    "counterpart": "b31539d0-734c-4af1-ab1e-9601df8f873f"
+}

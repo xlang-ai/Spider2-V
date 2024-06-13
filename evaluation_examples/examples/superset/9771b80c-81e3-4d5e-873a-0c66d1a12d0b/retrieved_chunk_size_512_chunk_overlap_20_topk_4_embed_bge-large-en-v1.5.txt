@@ -1,0 +1,339 @@
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.txt
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+Click the
+Test Connection
+button to confirm things work end to end. If the connection looks good, save the configuration
+by clicking the
+Connect
+button in the bottom right corner of the modal window:
+Congratulations, you've just added a new data source in Superset!
+Registering a new table
+​
+Now that you’ve configured a data source, you can select specific tables (called
+Datasets
+in Superset)
+that you want exposed in Superset for querying.
+Navigate to
+Data ‣ Datasets
+and select the
++ Dataset
+button in the top right corner.
+A modal window should pop up in front of you. Select your
+Database
+,
+Schema
+, and
+Table
+using the drop downs that appear. In the following example,
+we register the
+cleaned_sales_data
+table from the
+examples
+database.
+To finish, click the
+Add
+button in the bottom right corner. You should now see your dataset in the list of datasets.
+Customizing column properties
+​
+Now that you've registered your dataset, you can configure column properties
+for how the column should be treated in the Explore workflow:
+Is the column temporal? (should it be used for slicing & dicing in time series charts?)
+Should the column be filterable?
+Is the column dimensional?
+If it's a datetime column, how should Superset parse
+the datetime format? (using the
+ISO-8601 string pattern
+)
+Superset semantic layer
+​
+Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+The Superset semantic layer can store 2 types of computed data:
+Virtual metrics: you can write SQL queries that aggregate values
+from multiple column (e.g.
+SUM(recovered) / SUM(confirmed)
+) and make them
+available as columns for (e.g.
+recovery_rate
+) visualization in Explore.
+Aggregate functions are allowed and encouraged for metrics.
+You can also certify metrics if you'd like for your team in this view.
+Virtual calculated columns: you can write SQL queries that
+customize the appearance and behavior
+of a specific column (e.g.
+CAST(recovery_rate) as float
+).
+Aggregate functions aren't allowed in calculated columns.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.txt
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+INTEGER
+name: VARCHAR(250)
+type: VARCHAR(12)
+AnnotationLayer (annotation_layer)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+descr: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+name: VARCHAR(250)
+UserAttribute (user_attribute)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+user_id: INTEGER
+welcome_dashboard_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+avatar_url: VARCHAR(100)
+Dashboard (dashboards)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+position_json: TEXT
+description: TEXT
+css: TEXT
+certified_by: TEXT
+certification_details: TEXT
+json_metadata: TEXT
+published: BOOLEAN
+is_managed_externally: BOOLEAN
+external_url: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+uuid: BINARY(16)
+dashboard_title: VARCHAR(500)
+slug: VARCHAR(255)
+Annotation (annotation)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+start_dttm: DATETIME
+end_dttm: DATETIME
+layer_id: INTEGER
+long_descr: TEXT
+json_metadata: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+short_descr: VARCHAR(500)
+TaggedObject (tagged_object)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+tag_id: INTEGER
+object_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+object_type: VARCHAR(9)
+CssTemplate (css_templates)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+css: TEXT
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+template_name: VARCHAR(250)
+FavStar (favstar)
+id: INTEGER
+user_id: INTEGER
+obj_id: INTEGER
+dttm: DATETIME
+class_name: VARCHAR(50)
+Slice (slices)
+created_on: DATETIME
+changed_on: DATETIME
+id: INTEGER
+datasource_id: INTEGER
+params: TEXT
+query_context: TEXT
+description: TEXT
+cache_timeout: INTEGER
+last_saved_at: DATETIME
+last_saved_by_fk: INTEGER
+certified_by: TEXT
+certification_details: TEXT
+is_managed_externally:
+
+
+
+Documentation Source:
+superset.apache.org/docs/faq/index.txt
+
+Documentation Title:
+FAQ | Superset
+
+Documentation Content:
+To get Superset to discover your new columns,
+all you have to do is to go to
+Data -> Datasets
+, click the edit icon next to the dataset
+whose schema has changed, and hit
+Sync columns from source
+from the
+Columns
+tab.
+Behind the scene, the new columns will get merged. Following this, you may want to re-edit the
+table afterwards to configure the Columns tab, check the appropriate boxes and save again.
+What database engine can I use as a backend for Superset?
+​
+To clarify, the database backend is an OLTP database used by Superset to store its internal
+information like your list of users and dashboard definitions. While Superset supports a
+variety of databases as data
+sources
+,
+only a few database engines are supported for use as the OLTP backend / metadata store.
+Superset is tested using MySQL, PostgreSQL, and SQLite backends. It’s recommended you install
+Superset on one of these database servers for production.  Installation on other OLTP databases
+may work but isn’t tested.  It has been reported that
+Microsoft SQL Server does
+not
+work as a Superset backend
+. Column-store,
+non-OLTP databases are not designed for this type of workload.
+How can I configure OAuth authentication and authorization?
+​
+You can take a look at this Flask-AppBuilder
+configuration example
+.
+Is there a way to force the dashboard to use specific colors?
+​
+It is possible on a per-dashboard basis by providing a mapping of labels to colors in the JSON
+Metadata attribute using the
+label_colors
+key.
+{
+"label_colors": {
+"Girls": "#FF69B4",
+"Boys": "#ADD8E6"
+}
+}
+Does Superset work with
+[insert database engine here]
+?
+​
+The
+Connecting to Databases section
+provides the best
+overview for supported databases. Database engines not listed on that page may work too. We rely on
+the community to contribute to this knowledge base.
+For a database engine to be supported in Superset through the SQLAlchemy connector, it requires
+having a Python compliant
+SQLAlchemy dialect
+as well
+as a
+DBAPI driver
+defined. Database that have limited
+SQL support may work as well.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/resources/index.txt
+
+Documentation Title:
+Resources | Superset
+
+Documentation Content:
+TEXT
+report_schedule_id: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+type: VARCHAR(50)
+ReportSchedule (report_schedule)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+description: TEXT
+context_markdown: TEXT
+active: BOOLEAN
+sql: TEXT
+chart_id: INTEGER
+dashboard_id: INTEGER
+database_id: INTEGER
+last_eval_dttm: DATETIME
+last_value: FLOAT
+last_value_row_json: TEXT
+validator_config_json: TEXT
+log_retention: INTEGER
+grace_period: INTEGER
+working_timeout: INTEGER
+force_screenshot: BOOLEAN
+custom_width: INTEGER
+custom_height: INTEGER
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+type: VARCHAR(50)
+name: VARCHAR(150)
+crontab: VARCHAR(1000)
+creation_method: VARCHAR(255)
+timezone: VARCHAR(100)
+report_format: VARCHAR(50)
+last_state: VARCHAR(50)
+validator_type: VARCHAR(100)
+ReportExecutionLog (report_execution_log)
+id: INTEGER
+scheduled_dttm: DATETIME
+start_dttm: DATETIME
+end_dttm: DATETIME
+value: FLOAT
+value_row_json: TEXT
+error_message: TEXT
+report_schedule_id: INTEGER
+uuid: BINARY(16)
+state: VARCHAR(50)
+Apache Superset ERD
+SQL Lab
+Data Assets
+Core
+System
+Inherited from Flask App Builder (FAB)
+Alerts & Reports
+TableSchema (table_schema)
+created_on: DATETIME
+changed_on: DATETIME
+extra_json: TEXT
+id: INTEGER
+tab_state_id: INTEGER
+database_id: INTEGER
+description: TEXT
+expanded: BOOLEAN
+created_by_fk: INTEGER
+changed_by_fk: INTEGER
+schema: VARCHAR(256)
+catalog: VARCHAR(256)
+table: VARCHAR(256)
+Query (query)
+tracking_url: TEXT
+extra_json: TEXT
+id: INTEGER
+database_id: INTEGER
+user_id: INTEGER
+sql: TEXT
+select_sql: TEXT
+executed_sql: TEXT
+limit: INTEGER
+select_as_cta: BOOLEAN
+select_as_cta_used: BOOLEAN
+progress: INTEGER
+rows: INTEGER
+error_message: TEXT
+changed_on: DATETIME
+client_id: VARCHAR(11)
+tmp_table_name: VARCHAR(256)
+tmp_schema_name:
+
+
+

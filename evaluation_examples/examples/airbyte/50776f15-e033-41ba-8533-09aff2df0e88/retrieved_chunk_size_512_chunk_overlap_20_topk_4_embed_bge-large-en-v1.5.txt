@@ -1,0 +1,167 @@
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.txt
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Create a source:
+Go to the Sources tab and click on "+ New source".
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+Look fo Faker source connector
+Create a Faker source
+2. Create a destination:
+Go to the Destinations tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select "BigQuery".
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
+Click on "Set up destination".
+Look for BigQuery destination connector
+Create a BigQuery destination
+3. Create a connection:
+Go to the Connections tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+‍
+Establish a connector between Faker and BigQuery
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
+1. Navigate to the dbt Project Directory:
+Move to the dbt project directory in your project's file structure.
+cd ../../dbt_project
+This directory contains all the dbt-related configurations and SQL models.
+2. Update Connection Details:
+Within this directory, you'll find a <span class="text-style-code">profiles.yml file</span>. This file holds the configuration for dbt to connect to BigQuery.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/e-commerce-analytics-with-airbyte-dbt-dagster-and-bigquery.txt
+
+Documentation Title:
+E-commerce Analytics Stack with Airbyte, dbt, Dagster and BigQuery | Airbyte
+
+Documentation Content:
+Setting Up Airbyte Connectors Using the UI
+Start by launching the Airbyte UI by going to
+http://localhost:8000/
+in your browser. Then:
+1. Create a source
+:
+Go to the Sources tab and click on "+ New source".
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+2. Create a destination
+:
+Go to the Destinations tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select "BigQuery".
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
+Click on "Set up destination".
+3. Create a connection
+:
+Go to the Connections tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
+1. Navigate to the dbt Project Directory
+:
+Move to the directory containing the dbt configuration:
+cd ../../dbt_project
+2. Update Connection Details
+:
+You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform. Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path and your BigQuery project ID.
+Provide your BigQuery project ID in the database field of the <span class="text-style-code">dbt_project/models/sources/faker_sources.yml</span> file.
+
+
+
+Documentation Source:
+airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.txt
+
+Documentation Title:
+E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
+
+Documentation Content:
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+2. Create a destination
+:
+Go to the "Destinations" tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select BigQuery.
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the Service Account Key JSON field, enter the contents of the JSON file. Yes, the full JSON.
+Click on Set up destination.
+3. Create a connection
+:
+Go to the "Connections" tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
+1. Navigate to the dbt Project Directory
+:
+Move to the directory containing the dbt configuration:
+cd ../../dbt_project
+‍
+2. Update Connection Details
+:
+You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform.
+Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path, the dataset location and your BigQuery project ID.
+Provide your BigQuery project ID in the database field of the <span class="text-style-code">/models/ecommerce/sources/faker_sources.yml</span> file.
+3. Test the Connection (Optional)
+:
+You can test the connection to your BigQuery instance using the following command.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.txt
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+7. Test the connection to ensure that Airbyte can successfully connect to your PostgreSQL database.
+8. Select the tables or views you want to replicate and configure any necessary settings, such as the replication frequency and the replication method.
+9. Save your configuration and start the replication process.
+10. Monitor the replication process to ensure that it is running smoothly and troubleshoot any issues that arise.
+Step 2: Set up BigQuery as a destination connector
+1. First, navigate to the Airbyte dashboard and select the "Destinations" tab on the left-hand side of the screen.
+2. Scroll down until you find the "BigQuery" destination connector and click on it.
+3. Click the "Create Destination" button to begin setting up your BigQuery destination.
+4. Enter your Google Cloud Platform project ID and service account credentials in the appropriate fields.
+5. Next, select the dataset you want to use for your destination and enter the table prefix you want to use.
+6. Choose the schema mapping for your data, which will determine how your data is organized in BigQuery.
+7. Finally, review your settings and click the "Create Destination" button to complete the setup process.
+8. Once your destination is created, you can begin configuring your source connectors to start syncing data to BigQuery.
+9. To do this, navigate to the "Sources" tab on the left-hand side of the screen and select the source connector you want to use.
+10. Follow the prompts to enter your source credentials and configure your sync settings.
+11. When you reach the "Destination" step, select your BigQuery destination from the dropdown menu and choose the dataset and table prefix you want to use.
+12. Review your settings and click the "Create Connection" button to start syncing data from your source to your BigQuery destination.
+Step 3: Set up a connection to sync your Postgres data to BigQuery
+Once you've successfully connected Postgres as a data source and BigQuery as a destination in Airbyte, you can set up a data pipeline between them with the following steps:
+Create a new connection:
+On the Airbyte dashboard, navigate to the 'Connections' tab and click the '+ New Connection' button.
+Choose your source:
+Select Postgres from the dropdown list of your configured sources.
+
+
+

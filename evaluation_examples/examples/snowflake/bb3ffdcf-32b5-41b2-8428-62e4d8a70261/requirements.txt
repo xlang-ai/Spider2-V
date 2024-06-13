@@ -1,0 +1,8 @@
+# Detailed requirements:
+
+1. Sort the result according to people votes. I expect movies with higher votes come first
+2. Add headers. But replace all special symbols into whitespaces and first characters into upper cases.
+For example, "from_city" is changed to "From City"
+3. For the special field `votes`, replace the original text values into numbers
+5. For other fields, if the output result is empty or null, use `NA` instead in the output
+6. Preserve the default order of all columns

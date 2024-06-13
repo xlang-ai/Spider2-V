@@ -1,0 +1,20 @@
+{
+    "source Postgres": {
+        "name": "postgres",
+        "host": "localhost",
+        "port": 2000,
+        "db name": "postgres", 
+        "user": "postgres",
+        "password": "password",
+        "update method": "Scan Changes with User Defined Cursor"
+    },
+    "destination Local SQLite": {
+        "destination name": "Local SQLite",
+        "destination_path": "/local/obesity.sqlite"
+    },
+    "connection config": {
+        "schedule type": "Scheduled",
+        "replication namespace": "every 24 hour",
+        "detect and propagate schema changes": "Propagate field changes only"
+    }
+}

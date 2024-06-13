@@ -1,0 +1,44 @@
+Documentation Source:
+docs.astronomer.io/astro/airflow-api.html
+
+Documentation Title:
+Make requests to the Airflow REST API | Astronomer Documentation
+
+Documentation Content:
+This is sometimes necessary when you have interdependent workflows across multiple Deployments. On Astro, you can do this for any Deployment in any Workspace or cluster.</p><p>This topic has guidelines on how to trigger a DAG run, but you can modify the example DAG provided to trigger any request that's supported in the Airflow REST API.</p><ol><p>Create a <a>Deployment API token</a>for the Deployment that contains the DAG you want to trigger.</p><li><p>In the Deployment that contains the triggering DAG, create an <a>Airflow HTTP connection</a>with the following values:</p><ul><li><strong>Connection Id</strong>: <code>http_conn</code></li><li><strong>Connection Type</strong>: HTTP</li><li><strong>Host</strong>: <code>&lt;your-deployment-url&gt;</code></li><li><strong>Schema</strong>: <code>https</code></li><li><strong>Extras</strong>:</li></ul><code><span>{</span><span><span>"Content-Type"</span><span>:</span><span>"application/json"</span><span>,</span></span><span><span>"Authorization"</span><span>:</span><span>"Bearer &lt;your-deployment-api-token&gt;"</span></span><span>}</span></code><p>See <a>Manage connections in Apache Airflow</a>.</p></li></ol><div><div>info</div><p>If the <code>HTTP</code>connection type is not available, double check that the <a>HTTP provider</a>is installed in your Airflow environment. If it's not, add <code>apache-airflow-providers-http</code>to the <code>requirements.txt</code>file of our Astro project and redeploy it to Astro.</p></div><li><p>In your triggering DAG, add the following task. It uses the <a>SimpleHttpOperator</a>to make a request to the <code>dagRuns</code>endpoint of the Deployment that contains the DAG to trigger.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/airflow-api.html
+
+Documentation Title:
+Make requests to the Airflow REST API | Astronomer Documentation
+
+Documentation Content:
+For example, you can externally trigger a DAG run without accessing your Deployment directly by making an HTTP request in Python or cURL to the <a>dagRuns endpoint</a>in the Airflow REST API.</p><p>To test Airflow API calls in a local Airflow environment running with the Astro CLI, see <a>Troubleshoot your local Airflow environment</a>.</p><div><div>info</div><p>Updates to the Airflow REST API are released in new Airflow versions and new releases don’t have a separate release cycle or versioning scheme. To take advantage of specific Airflow REST API functionality, you might need to upgrade Astro Runtime. See <a>Upgrade Runtime</a>and the <a>Airflow release notes</a>.</p></div><h2>Prerequisites<a>​</a></h2><ul><li>A Deployment on Astro.</li><li>A <a>Deployment API token</a>, <a>Workspace API token</a>, or an <a>Organization API token</a>.</li><li><a>cURL</a>or, if using Python, the <a>Requests library</a>.</li><li>The <a>Astro CLI</a>.</li></ul><h2>Step 1: Retrieve your access token<a>​</a></h2><div><ul><li>Workspace token</li><li>Organization token</li><li>Deployment API token</li></ul><div><p>Follow the steps in <a>Create a Workspace API token</a>to create your token. Make sure to save the token on creation in order to use it later in this setup.</p><p>Follow the steps in <a>Create a Orgaization API token</a>to create your token. Make sure to save the token on creation in order to use it later in this setup.</p><p>Follow the steps in <a>Create a Deployment API token</a>to create your token.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/best-practices/cross-deployment-dependencies.html
+
+Documentation Title:
+Cross-deployment dependencies | Astronomer Documentation
+
+Documentation Content:
+See <a>Introduction to Airflow DAGs</a>.</li><li><a>Airflow Datasets</a>.</li><li>The <a>Airflow API</a>.</li></ul><h3>Implementation<a>​</a></h3><p>This section explains how to use the <a>Airflow API's Datasets endpoint</a>to trigger the downstream DAG in another deployment when a dataset is updated. Typical dataset implementation only works for DAGs in the same Airflow deployment, but by using the Airflow API, you can implement this pattern across deployments.</p><p>While you can also use the HttpOperator or a custom Python function in an <code>@task</code>decorated task to make the API request to update the dataset, an advantage of using a listener is that the dataset is updated and the downstream DAG runs whenever <em>any</em>DAG updates the dataset. This means you don't need to implement an API call in every upstream DAG that updates the same dataset.</p><h4>Prerequisites<a>​</a></h4><ul><li>Two <a>Astro Deployments</a>.</li><li>A <a>Deployment API token</a>, <a>Workspace API token</a>, or <a>Organization API token</a>for one of your deployments. This deployment will host your downstream DAG.</li><li>Two <a>Astro projects</a>.</li></ul><h4>Process<a>​</a></h4><ol><li>In your upstream Deployment, which is the Deployment for which you did <strong>not</strong>create an API Token, use <strong>Variables</strong>in the Astro UI to create an environment variable for your API token, and use <code>API_TOKEN</code>for the key.</li><li>For your downstream Deployment, follow the guidance in <a>Make requests to the Airflow REST API - Step 2</a>to obtain the Deployment URL for your downstream Deployment.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.html
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+It contains information about your DAGs and is the best place to create and update Airflow connections to third-party data services.</p><p>To access the Airflow UI, open <code>http://localhost:8080/</code>in a browser and log in with <code>admin</code>for both your username and password.</p><p>The default page in the Airflow UI is the <strong>DAGs</strong>page, which shows an overview of all DAGs in your Airflow environment:</p><img/><p>Each DAG is listed with a few of its properties, including tags, owner, previous runs, schedule, timestamp of the last and next run, and the states of recent tasks. Because you haven't run any DAGs yet, the <strong>Runs</strong>and <strong>Recent Tasks</strong>sections are empty. Let's fix that!</p><h2>Step 4: Trigger a DAG run<a>​</a></h2><p>The <code>example_astronauts</code>DAG in your Astro project is a simple ETL pipeline with two tasks:</p><ul><li><code>get_astronauts</code>queries the <a>Open Notify API</a>for information about astronauts currently in space. The task returns the list of dictionaries containing the name and the spacecraft of all astronauts currently in space, which is passed to the second task in the DAG. This tutorial does not explain how to pass data between tasks, but you can learn more about it in the <a>Pass data between tasks</a>guide.</li><li><code>print_astronaut_craft</code>is a task that uses dynamic mapping to create and run a task instance for each Astronaut in space. Each of these tasks prints a statement about its mapped astronaut. Dynamic task mapping is a versatile feature of Airflow that allows you to create a variable number of tasks at runtime. This feature is covered in more depth in the <a>Create dynamic Airflow tasks</a>guide.</li></ul><p>A <strong>DAG run</strong>is an instance of a DAG running on a specific date.
+
+
+

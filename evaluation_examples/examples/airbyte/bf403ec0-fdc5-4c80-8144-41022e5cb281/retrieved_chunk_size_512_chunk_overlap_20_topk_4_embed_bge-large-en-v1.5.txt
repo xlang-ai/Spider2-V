@@ -1,0 +1,124 @@
+Documentation Source:
+airbyte.com/tutorials/postgres-replication.txt
+
+Documentation Title:
+Postgres Replication: Data Transfer Efficiency | Airbyte
+
+Documentation Content:
+Destination Stream Prefix:
+I added the prefix
+tutorial_
+so my table will be created as
+tutorial_users.
+Then, it’s time to configure the streams, which in this case are the tables in our database. If we expand the tables, we can see the columns they have. We can also see they’re part of the
+public
+namespace or schema. The destination schema will be also
+public
+.
+Now, you should select a sync mode. I chose
+Full refresh | Overwrite
+to sync the
+cities
+table and
+Incremental | Append
+for the
+users
+table since it has an
+id
+column (primary key) suitable for the incremental cursor field. The most important thing to note is that you can have different sync modes for each table! Learn more about sync modes in
+our documentation
+.
+Once you’re ready, save the changes. Then, you can run your first sync by clicking on “Sync now.” You can check your run logs to verify everything is going well. Just wait for the sync to be completed, and that’s it! You’ve synchronized two Postgres databases.
+Step 4: Verify that the sync worked
+Now, let's verify that this worked. Let's output the contents of the destination database:
+docker exec airbyte-destination psql -U postgres -c "SELECT * FROM public.tutorial_users;"
+docker exec airbyte-destination psql -U postgres -c "SELECT * FROM public.tutorial_cities;"
+You should see the rows from the source database inside the destination database. Note that Airbyte added extra columns which contain metadata used to support synchronization.
+Wrapping up
+In this tutorial, you learned about PostgreSQL native replication and how to synchronize two Postgres databases with Airbyte. Apart from being straightforward, Airbyte is also highly flexible when it comes to selecting different synchronization methods for your replication.
+If you enjoyed using Airbyte, you might want to check our fully managed solution:
+Airbyte Cloud
+.
+We also invite you to
+‍join the conversation
+on our community Slack Channel to share your ideas with thousands of data engineers and help make everyone’s project a success. With Airbyte, the integration possibilities are endless, and we can't wait to see what you will build.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.txt
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+Choose your source:
+Select Postgres from the dropdown list of your configured sources.
+Select your destination:
+Choose BigQuery from the dropdown list of your configured destinations.
+Configure your sync:
+Define the frequency of your data syncs based on your business needs. Airbyte allows both manual and automatic scheduling for your data refreshes.
+Select the data to sync:
+Choose the specific Postgres objects you want to import data from towards BigQuery. You can sync all data or select specific tables and fields.
+Select the sync mode for your streams:
+Choose between full refreshes or incremental syncs (with deduplication if you want), and this for all streams or at the stream level. Incremental is only available for streams that have a primary cursor.
+Test your connection:
+Click the 'Test Connection' button to make sure that your setup works. If the connection test is successful, save your configuration.
+Start the sync:
+If the test passes, click 'Set Up Connection'. Airbyte will start moving data from Postgres to BigQuery according to your settings.
+Remember, Airbyte keeps your data in sync at the frequency you determine, ensuring your BigQuery data warehouse is always up-to-date with your Postgres data.
+Use Cases to transfer your Postgres data to BigQuery
+Integrating data from Postgres to BigQuery provides several benefits. Here are a few use cases:
+Advanced Analytics:
+BigQuery’s powerful data processing capabilities enable you to perform complex queries and data analysis on your Postgres data, extracting insights that wouldn't be possible within Postgres alone.
+Data Consolidation:
+If you're using multiple other sources along with Postgres, syncing to BigQuery allows you to centralize your data for a holistic view of your operations, and to set up a change data capture process so you never have any discrepancies in your data again.
+Historical Data Analysis:
+Postgres has limits on historical data. Syncing data to BigQuery allows for long-term data retention and analysis of historical trends over time.
+Data Security and Compliance:
+BigQuery provides robust data security features. Syncing Postgres data to BigQuery ensures your data is secured and allows for advanced data governance and compliance management.
+Scalability:
+BigQuery can handle large volumes of data without affecting performance, providing an ideal solution for growing businesses with expanding Postgres data.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.txt
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+SELECT * FROM _airbyte_raw_table_two;
+‍
+Which should respond with a table that looks as follows:
+_airbyte_ab_id            |                                _airbyte_data                                |    _airbyte_emitted_at     
+--------------------------------------+-----------------------------------------------------------------------------+----------------------------
+ 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | {"id": 1, "name": "Eg1 DD+Hst", "updated_at": "2022-09-01T16:18:07.569818"} | 2022-09-01 16:52:44.103+00
+ 4282344a-62c3-4634-a91a-e6dafb9b253a | {"id": 2, "name": "Eg2a DD+Hs", "updated_at": "2022-09-01T16:30:13.939030"} | 2022-09-01 16:52:44.103+00
+ 89377204-7801-49c8-a779-91da45a86cc3 | {"id": 2, "name": "Eg2b DD+Hs", "updated_at": "2022-09-01T17:02:14.841419"} | 2022-09-01 17:02:39.894+00
+(3 rows)
+Update: View the normalized tables in the destination
+View the history table called
+table_two_scd
+by executing the following:
+SELECT * FROM  table_two_scd;
+‍
+Which looks as follows.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.txt
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+_airbyte_unique_key        |     _airbyte_unique_key_scd      | id |    name    |         updated_at         |     _airbyte_start_at      |      _airbyte_end_at       | _airbyte_active_row |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     |    _airbyte_table_two_hashid     
+----------------------------------+----------------------------------+----+------------+----------------------------+----------------------------+----------------------------+---------------------+--------------------------------------+----------------------------+-------------------------------+----------------------------------
+ c4ca4238a0b923820dcc509a6f75849b | 96a17eccedd409b3b3de3b411d431ab8 |  1 | Eg1 DD+Hst | 2022-09-01 16:18:07.569818 | 2022-09-01 16:18:07.569818 |                            |                   1 | 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | 2022-09-01 16:52:44.103+00 | 2022-09-01 17:03:37.521659+00 | 78812b56ae516cb4bb4278c595c3b20e
+ c81e728d9d4c2f636f067f89cc14862c | 064c6bc6ac9c9956a7188495284d8c07 |  2 | Eg2a DD+Hs | 2022-09-01 16:30:13.93903  | 2022-09-01 16:30:13.93903  | 2022-09-01 17:02:14.841419 |                   0 | 4282344a-62c3-4634-a91a-e6dafb9b253a | 2022-09-01 16:52:44.103+00 | 2022-09-01 17:03:37.
+
+
+

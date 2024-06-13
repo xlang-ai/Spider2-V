@@ -1,0 +1,69 @@
+{
+    "id": "b779944b-98a7-4435-bac5-3500d3d30f2c",
+    "snapshot": "jupyter",
+    "instruction": "Help me find the best K value for a KNN regressor on the California Housing Dataset. Add codes only to the existing cells, and in the end run all the cells and save the jupyter notebook.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to find the best K value for a KNN regressor on the famous California Housing Dataset.\n1. Below the ``#TODO`` comment, first, add a for loop from 1 to 39.\n```python\nfor i in range(1, 40):\n```\n2. After that, in the loop body, instantiate a KNN regressor with K = i.\n```python\n    knn = KNeighborsRegressor(n_neighbors=i)\n```\n3, Then, fit the KNN regressor on the training dataset.\n```python\n    knn.fit(X_train, y_train)\n```\n4. Calculate the predict values for the testing dataset.\n```python\n    pred_i = knn.predict(X_test)\n```\n5. Calculate the mean absolute error.\n```python\n    mae = mean_absolute_error(y_test, pred_i)\n```\n6. Append the mean absolute errors to the error list in this iteration.\n```python\n    error.append(mae)\n```\n7. Click the button \"Run\" in the menu bar on the top.\n8. In the drop-down menu, select and click \"Run All Cells\". This may take a while.\n9. Wait until all cells completes running, then click the button \"File\" in the menu bar on the top.\n10. In the drop-down menu, select and click \"Save All\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://stackabuse.com/k-nearest-neighbors-algorithm-in-python-and-scikit-learn/"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 10,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/b779944b-98a7-4435-bac5-3500d3d30f2c/KNN.ipynb",
+                "dest": "/home/user/Desktop/KNN.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/b779944b-98a7-4435-bac5-3500d3d30f2c/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop/KNN.ipynb"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_notebook_outputs",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/KNN.ipynb",
+            "dest": "KNN.ipynb"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/b779944b-98a7-4435-bac5-3500d3d30f2c/KNN_gold.ipynb",
+            "dest": "KNN_gold.ipynb"
+        }
+    },
+    "counterpart": "30f3108a-0432-46b4-88cf-49acb42ad39b"
+}

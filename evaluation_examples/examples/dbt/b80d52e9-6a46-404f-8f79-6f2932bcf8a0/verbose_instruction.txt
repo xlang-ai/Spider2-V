@@ -1,0 +1,13 @@
+This task focuses on adding description to models and generate documents.
+1. Open "models/schema.yml" in the VSCode editor.
+2. Notice that there are 7 comments in the code. Replace each comment with the following text strings:
+* enter ``One record per customer`` for ``# 1``
+* enter ``Primary key`` for ``# 2``
+* enter ``NULL when a customer has not yet placed an order.`` for ``# 3``
+* enter ``This model cleans up customer data`` for ``# 4``
+* enter ``Primary key`` for ``# 5``
+* enter ``This model cleans up order data`` for ``# 6``
+* enter ``Primary key`` for ``# 7``
+3. Switch to the terminal.
+4. Run ``dbt docs generate`` to generate the documentation website.
+5. Run ``dbt docs serve --port 8020`` to serve the website on port 8020.

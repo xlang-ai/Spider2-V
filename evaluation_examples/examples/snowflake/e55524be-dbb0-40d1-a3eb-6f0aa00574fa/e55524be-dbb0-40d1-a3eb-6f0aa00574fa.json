@@ -1,0 +1,92 @@
+{
+    "id": "e55524be-dbb0-40d1-a3eb-6f0aa00574fa",
+    "snapshot": "snowflake",
+    "instruction": "I accidentally removed a record from the CUSTOMER.PUBLIC.CUSTOMER table. Fortunately, I found the SQL query ID that deleted it in the opened query_id.txt file. Can you help me restore the table?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To restore the table, please follow these steps:\n1. Copy the query ID in the opened \"query_id.txt\" file.\n2. Switch to the webpage and click the \"+\" button on the top right;\n3. Choose \"SQL Worksheet\" in the drop-down panel;\n4. In the opened blank worksheet, type in command:\n`CREATE OR REPLACE TABLE CUSTOMER.PUBLIC.CUSTOMER AS SELECT * FROM CUSTOMER.PUBLIC.CUSTOMER BEFORE(STATEMENT => '$query_id')`,\nwhere `$query_id` should be replaced with the copied one;\n5. In the upper-right corner of the worksheet, select \"Run\" (icon ►) to execute the command.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.snowflake.com/en/user-guide/data-time-travel"
+    ],
+    "related_apps": [
+        "chromium",
+        "snowflake"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "action_number": 5,
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "delete_first": true,
+                        "database": "CUSTOMER"
+                    },
+                    {
+                        "type": "create_table",
+                        "database": "CUSTOMER",
+                        "table": "CUSTOMER",
+                        "sql": "SELECT * FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER ORDER BY C_CUSTKEY LIMIT 10"
+                    },
+                    {
+                        "type": "execute_script",
+                        "sql_command": "DELETE FROM CUSTOMER.PUBLIC.CUSTOMER WHERE C_CUSTKEY = 6",
+                        "query_ids_path": "query_ids.txt"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "cache/e55524be-dbb0-40d1-a3eb-6f0aa00574fa/query_ids.txt",
+                "dest": "/home/user/Desktop/query_id.txt"
+            }
+        },
+        {
+            "type": "snowflake_login",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "https://app.snowflake.com",
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/Desktop/query_id.txt"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_csv",
+        "result": {
+            "type": "snowflake_table_to_csv",
+            "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+            "database": "CUSTOMER",
+            "schema": "PUBLIC",
+            "table": "CUSTOMER",
+            "include_header": true,
+            "dest": "customer.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/snowflake/e55524be-dbb0-40d1-a3eb-6f0aa00574fa/customer_gold.csv",
+            "dest": "customer_gold.csv"
+        }
+    },
+    "counterpart": "4fa9b4f4-9e0d-4f94-b04d-c2af7e69479d"
+}

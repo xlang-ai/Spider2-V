@@ -1,0 +1,89 @@
+{
+    "id": "00b43a0a-b17b-475d-a482-302efe94d4cc",
+    "snapshot": "jupyter",
+    "instruction": "Determine the total number of Games held for both the Summer and Winter Olympics, and record this information in 'allGames.csv'.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Determine the total number of Games held for both the Summer and Winter Olympics, and record this information in \"allGames.csv\". In details,\n1. First, we need to check the predefined \"allGames.csv\", which displays the target format, double-click \"allGames.csv\".\n2. Double-click \"Athletes_summer_games.csv\", to preview the data.\n3. Double-click \"Athletes_winter_games.csv\", to preview the data.\n4. Double-click \"notebook.ipynb\".\n5. Keep scrolling down to the blank area.\n5. Click button \"Click to add a cell.\"\n6. Copy the code to this cell:\n```\ndf_winter = pd.read_csv('./Athletes_winter_games.csv')\ndf_sum_win = pd.concat([df_summer, df_winter])\ntotal_games = pd.DataFrame(columns=['Total # of Games'])\ntotal_games.loc['Winter'] = len(df_winter['Games'].drop_duplicates())\ntotal_games.loc['Summer'] = len(df_summer['Games'].drop_duplicates())\n\ntotal_games = total_games.reset_index().rename(columns={'index':'Season'})\ntotal_games_path = './allGames.csv'\ntotal_games.to_csv(total_games_path, index=False)\n```\n7. Click \"Run this cell and advance\"\n8. If fails, click \"Run > Restart the kernel and run all cells\".\n9. Click \"Restart\" in the pop-up window.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.kaggle.com/datasets/nitishsharma01/olympics-124-years-datasettill-2020/code"
+    ],
+    "related_apps": [
+        "chromium",
+        "jupyter"
+    ],
+    "tags": [
+        "cli+gui",
+        "traditional_data_processing",
+        "verbose"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/00b43a0a-b17b-475d-a482-302efe94d4cc/Athletes_summer_games.csv",
+                "dest": "/home/user/Desktop/Athletes_summer_games.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/00b43a0a-b17b-475d-a482-302efe94d4cc/Athletes_winter_games.csv",
+                "dest": "/home/user/Desktop/Athletes_winter_games.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/00b43a0a-b17b-475d-a482-302efe94d4cc/allGames.csv",
+                "dest": "/home/user/Desktop/allGames.csv"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/00b43a0a-b17b-475d-a482-302efe94d4cc/notebook.ipynb",
+                "dest": "/home/user/Desktop/notebook.ipynb"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/jupyter/00b43a0a-b17b-475d-a482-302efe94d4cc/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "bash",
+                    "-c",
+                    "source /home/user/anaconda3/etc/profile.d/conda.sh && conda activate jupyter && jupyter lab /home/user/Desktop"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/allGames.csv",
+            "dest": "pred.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/jupyter/00b43a0a-b17b-475d-a482-302efe94d4cc/gold.csv",
+            "dest": "gold.csv"
+        }
+    },
+    "counterpart": "cad93c85-d12d-4ba3-83d7-ba4e3ec3bfcc"
+}

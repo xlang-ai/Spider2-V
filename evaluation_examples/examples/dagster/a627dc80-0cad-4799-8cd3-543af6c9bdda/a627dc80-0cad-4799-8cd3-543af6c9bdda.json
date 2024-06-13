@@ -1,0 +1,74 @@
+{
+    "id": "a627dc80-0cad-4799-8cd3-543af6c9bdda",
+    "snapshot": "dagster",
+    "instruction": "I want to create a scaffold dagster project called \"dagster-proj\" at the current directory.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I want to create a scaffold dagster project called \"dagster-proj\" at the current directory. Please run the following commands in the terminal:\n1. pip install dagster dagster-webserver # to install dagster\n2. dagster project scaffold --name dagster-proj # to create a scaffold project\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/getting-started/create-new-project"
+    ],
+    "related_apps": [
+        "dagster",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 2,
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/a627dc80-0cad-4799-8cd3-543af6c9bdda/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude",
+            "diff_text_file"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/a627dc80-0cad-4799-8cd3-543af6c9bdda/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/dagster-proj/pyproject.toml",
+                "dest": "pyproject.toml"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/dagster/a627dc80-0cad-4799-8cd3-543af6c9bdda/pyproject.toml",
+                "dest": "pyproject_gold.toml"
+            }
+        ]
+    },
+    "counterpart": "1a57b227-d047-4dc9-8a33-2d4d02788667"
+}

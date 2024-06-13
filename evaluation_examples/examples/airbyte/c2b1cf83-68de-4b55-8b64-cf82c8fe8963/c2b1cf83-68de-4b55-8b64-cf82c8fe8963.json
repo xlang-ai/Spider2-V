@@ -1,0 +1,77 @@
+{
+    "id": "c2b1cf83-68de-4b55-8b64-cf82c8fe8963",
+    "snapshot": "airbyte",
+    "instruction": "There is already an airbyte connection from Postgres to Postgres created. Please help me change the connection sync mode from full refresh | Overwrite to full refresh | append.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to change the sync mode of the existing connection from \"full_refresh | Overwrite\" to \"full_refresh | Append\": \n1. Switch to the browser window;\n2. In the opened connection page of Airbyte, click the link of the existing connection from Postgres to Postgres on the right;\n3. Click the \"Replication\" button which is the third button in the menu on the top of the window.\n4. After that, in the connection configuration page, locate the \"Sync Mode\" column in the \"activate the streams you want to sync\" table, and change the \"full_refresh | Overwrite\" choice to \"full_refresh | Append\" for all streams.\n5. Click the \"Save changes\" button in the bottom right corner to complete the setting changes.\n6. On the pop-up window, click the \"Save connection\" button.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://airbyte.com/tutorials/full-data-synchronization"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "postgresql"
+    ],
+    "tags": [
+        "gui",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 6,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/c2b1cf83-68de-4b55-8b64-cf82c8fe8963/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/c2b1cf83-68de-4b55-8b64-cf82c8fe8963/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/c2b1cf83-68de-4b55-8b64-cf82c8fe8963/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "f82b4771-fdcf-497b-bd69-500e4ce2c1d7"
+}

@@ -1,0 +1,12 @@
+This job is to use universal search on Snowflake to find the latest worksheet contains "orders". In the opened Snowsight web page,
+1. Click "Projects >> Worksheets" on the left menu panel.
+2. Click "Search" button on the right;
+3. In the search box, input "orders".
+4. Click the first worksheet from the search results.
+5. Copy the sql commands in this worksheet.
+6. Open terminal, input the following command line:
+
+cd Desktop/
+code result.sql
+
+7. Paste the sql commands to result.sql and save the file.

@@ -38,7 +38,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "related_apps": [
         "postgresql",
         "airflow",
@@ -47,7 +46,8 @@
     ],
     "tags": [
         "gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 9,
     "evaluator": {
@@ -68,5 +68,6 @@
                 ]
             }
         }
-    }
+    },
+    "counterpart": "28467077-983e-4848-9ba3-75848872ee1e"
 }

@@ -1,0 +1,80 @@
+{
+    "id": "9ff0eb70-31b8-4093-9f8f-b8fbd6dc55c6",
+    "snapshot": "dbt",
+    "instruction": "Separate the logic of model \"customers\" out into two separate staged models, \"stg_customers\" and \"stg_orders\". These staged models capture the corresponding CTE in the original query, and being referenced by the original query using ``ref``.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to separate the logic of a model.\n1. Open three files, \"models/customers.sql\", \"models/stg_customers.sql\" and \"models/stg_orders.sql\" in the VSCode editor.\n2. Cut the following codes from \"models/customers.sql\".\n```sql\nselect\n    id as customer_id,\n    first_name,\n    last_name\n\nfrom jaffle_shop.raw_customers\n```\n3. Paste the codes to \"models/stg_customers.sql\".\n4. Back to \"models/customers.sql\", and add the following reference codes at where the codes just been cut.\n```sql\nselect * from {{ ref('stg_customers') }}\n```\n5. Cut the following codes from \"models/customers.sql\".\n```sql\nselect\n    id as order_id,\n    user_id as customer_id,\n    order_date,\n    status\n\nfrom jaffle_shop.raw_orders\n```\n6. Paste the codes to \"models/stg_orders.sql\".\n7. Back to \"models/customers.sql\", and add the following reference codes at where the codes just been cut.\n```sql\nselect * from {{ ref('stg_orders') }}\n```\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=11"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/9ff0eb70-31b8-4093-9f8f-b8fbd6dc55c6/jaffle_shop.zip",
+                "dest": "/home/user/jaffle_shop.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/9ff0eb70-31b8-4093-9f8f-b8fbd6dc55c6/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "action_number": 7,
+    "related_apps": [
+        "dbt",
+        "duckdb",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "data_transformation",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": [
+            "check_include_exclude",
+            "check_local_database"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dbt/9ff0eb70-31b8-4093-9f8f-b8fbd6dc55c6/eval.sh",
+                "dest": "/home/user/eval.sh"
+            },
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.duckdb"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/dbt/9ff0eb70-31b8-4093-9f8f-b8fbd6dc55c6/jaffle_shop.duckdb",
+                "dest": "jaffle_shop.gold.duckdb"
+            }
+        ],
+        "options": [
+            {},
+            {
+                "db_type": "duckdb"
+            }
+        ]
+    },
+    "counterpart": "492c2c87-b04a-544a-b5dd-eb808036bf85"
+}

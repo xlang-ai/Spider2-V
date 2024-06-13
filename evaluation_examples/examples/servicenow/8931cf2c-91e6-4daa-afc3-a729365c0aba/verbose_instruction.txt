@@ -1,0 +1,9 @@
+We will create a new incident in the opened web page:
+1. Firstly, find and click the input box of field "Caller". There should be a red star in front of it, indicating that this field must be filled in.
+2. Type in the text "Fred Luddy".
+3. Next, find the third selection box on the right column named "Impact", click it and select the entry "3 - Low". (If the field value is already "3 - Low", you can just skip this step)
+4. For the selection box "Urgency" which is exactly under "Impact", ensure that it has value "3 - Low" too.
+5. Find and click the wide field box "Short description" which spans across two columns and has a red start in front of it too.
+6. Input text "Issue with a web page on wiki" into this input field.
+7. Leave other fields as they are and click the "Submit" button at the top-right of this web page to complete our task.
+(Attention that, after the refresh of the page, our filled contents will be flushed. But do not worry, if there is no error message, it means our new record has been submitted.)

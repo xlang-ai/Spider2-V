@@ -1,0 +1,86 @@
+{
+    "id": "d6238948-e0b1-4ab2-b0be-270bad150a4c",
+    "snapshot": "excel",
+    "instruction": "Copy the Year column to column A of a new sheet. Calculate the corresponding gross profits for the years in column B named \"Gross Profit\" of this new sheet.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish the task:\n1. Select the entry J2 under cell \"Gross Profit\".\n2. Focus on the input line at the upper panel, and enter the code ``=SUM(B2:D2)-SUM(F2:H2)``.\n3. Press \"Enter\" to make it work.\n4. Press the right bottom corner of the entry J2 (you should see a cross), drag it to the entry J10.\n5. Click the \"create sheet\" icon at the bottom panel (on the left side of \"Sheet1\") to create a new sheet \"Sheet2\".\n6. Input \"Year\" at the entry A1, \"Gross Profit\" at the entry B1.\n7. Copy the entries from A2 to A10 in Sheet1 and paste it to A2 to A10 in Sheet2.\n8. Copy the entries from J2 to J10 in Sheet1 and paste it to B2 to B10 in Sheet2.\nNotice that at this time, when pasting, right click cell B2 and choose \"Paste Special\", then choose the format of \"Number\".\n9. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "SheetCopilot@90"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/excel/d6238948-e0b1-4ab2-b0be-270bad150a4c/IncomeStatement2.xlsx",
+                "dest": "/home/user/IncomeStatement2.xlsx"
+            }
+        },
+        {
+            "type": "open",
+            "parameters": {
+                "path": "/home/user/IncomeStatement2.xlsx"
+            }
+        }
+    ],
+    "action_number": 9,
+    "related_apps": [
+        "excel"
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "activate_window",
+                "parameters": {
+                    "window_name": "IncomeStatement2.xlsx - LibreOffice Calc",
+                    "strict": true
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            },
+            {
+                "type": "execute",
+                "parameters": {
+                    "command": [
+                        "python",
+                        "-c",
+                        "import pyautogui; pyautogui.hotkey(\"ctrl\", \"s\");"
+                    ]
+                }
+            },
+            {
+                "type": "sleep",
+                "parameters": {
+                    "seconds": 0.5
+                }
+            }
+        ],
+        "func": "compare_table",
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/excel/d6238948-e0b1-4ab2-b0be-270bad150a4c/3_IncomeStatement2_gt1.xlsx",
+            "dest": "3_IncomeStatement2_gt1.xlsx"
+        },
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/IncomeStatement2.xlsx",
+            "dest": "IncomeStatement2.xlsx"
+        },
+        "options": {
+            "rules": [
+                {
+                    "type": "sheet_data",
+                    "sheet_idx0": "RI1",
+                    "sheet_idx1": "EI1"
+                }
+            ]
+        }
+    },
+    "tags": [
+        "traditional_data_processing",
+        "cli+gui",
+        "verbose"
+    ],
+    "counterpart": "65551792-4c32-4904-983d-7c68c189b474"
+}

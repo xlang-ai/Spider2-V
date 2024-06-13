@@ -1,0 +1,91 @@
+{
+    "id": "e7eb4da0-e296-4d45-889f-455d431ec9f5",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to deploy Airflow. Open the log page of the task 'processing' of my most recent DAG 'workFlow_Echo' run for me to debug.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to place Airflow\nTo open the log file of the last run of a task, we can follow the steps:\n1. Click \"workFlow_Echo\" in the Dag column to enter task details page of the dag;\n2. In the dag details page, click the rightmost box in the \"processing\" task row under the histogram on the left side of the UI to enter the corresponding task instance;\n3. Click logs in the details row on the right to enter the log page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/astro/view-logs"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/e7eb4da0-e296-4d45-889f-455d431ec9f5/workFlow.zip",
+                "dest": "/home/user/workFlow.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/e7eb4da0-e296-4d45-889f-455d431ec9f5/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "astro_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8080",
+                "actions": [
+                    {
+                        "type": "login",
+                        "username": "admin",
+                        "password": "admin"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/e7eb4da0-e296-4d45-889f-455d431ec9f5/run.sh",
+                "dest": "/home/user/run.sh"
+            }
+        },
+        {
+            "type": "astro_refresh_page",
+            "parameters": {}
+        }
+    ],
+    "action_number": 3,
+    "related_apps": [
+        "airflow",
+        "chromium",
+        "docker"
+    ],
+    "tags": [
+        "gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "validate_correct_url",
+            "src": "evaluation_examples/examples/airflow/e7eb4da0-e296-4d45-889f-455d431ec9f5/eval.sh",
+            "dest": "/home/user/eval.sh",
+            "goto_prefix": "https://"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "67ee22b5-caf1-4aa9-92c5-57546b3d823c"
+}

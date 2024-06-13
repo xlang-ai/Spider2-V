@@ -1,0 +1,179 @@
+{
+    "id": "b80d52e9-6a46-404f-8f79-6f2932bcf8a0",
+    "snapshot": "dbt",
+    "instruction": "Update models/schema.yml to add descriptions. The description requirements are specified in description.md in the working directory. Then, generate documentation for this project and launch the website on port 8020.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task focuses on adding description to models and generate documents.\n1. Open \"models/schema.yml\" in the VSCode editor.\n2. Notice that there are 7 comments in the code. Replace each comment with the following text strings:\n* enter ``One record per customer`` for ``# 1``\n* enter ``Primary key`` for ``# 2``\n* enter ``NULL when a customer has not yet placed an order.`` for ``# 3``\n* enter ``This model cleans up customer data`` for ``# 4``\n* enter ``Primary key`` for ``# 5``\n* enter ``This model cleans up order data`` for ``# 6``\n* enter ``Primary key`` for ``# 7``\n3. Switch to the terminal.\n4. Run ``dbt docs generate`` to generate the documentation website.\n5. Run ``dbt docs serve --port 8020`` to serve the website on port 8020.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/guides/manual-install?step=13"
+    ],
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/b80d52e9-6a46-404f-8f79-6f2932bcf8a0/jaffle_shop.zip",
+                "dest": "/home/user/jaffle_shop.zip"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dbt/b80d52e9-6a46-404f-8f79-6f2932bcf8a0/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "action_number": 5,
+    "related_apps": [
+        "dbt",
+        "duckdb",
+        "chromium",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli",
+        "data_transformation",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": [
+            "check_yaml_file",
+            "check_include_exclude"
+        ],
+        "conj": "and",
+        "result": [
+            {
+                "type": "vm_file",
+                "path": "/home/user/projects/jaffle_shop/models/schema.yml",
+                "dest": "schema.yml"
+            },
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dbt/b80d52e9-6a46-404f-8f79-6f2932bcf8a0/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": [
+                    [
+                        "not_null",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "customers"
+                            ],
+                            "description"
+                        ],
+                        ""
+                    ],
+                    [
+                        "not_null",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_customers"
+                            ],
+                            "description"
+                        ],
+                        ""
+                    ],
+                    [
+                        "not_null",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_orders"
+                            ],
+                            "description"
+                        ],
+                        ""
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "customers"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "customer_id"
+                            ],
+                            "description"
+                        ],
+                        "Primary key"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_customers"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "customer_id"
+                            ],
+                            "description"
+                        ],
+                        "Primary key"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "stg_orders"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "order_id"
+                            ],
+                            "description"
+                        ],
+                        "Primary key"
+                    ],
+                    [
+                        "contain",
+                        [
+                            "models",
+                            [
+                                "name",
+                                "customers"
+                            ],
+                            "columns",
+                            [
+                                "name",
+                                "first_order_date"
+                            ],
+                            "description"
+                        ],
+                        "NULL when a customer has not yet placed an order"
+                    ]
+                ]
+            },
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "succeed"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "0aa56709-3293-5849-ad47-e377f49fd3a0"
+}

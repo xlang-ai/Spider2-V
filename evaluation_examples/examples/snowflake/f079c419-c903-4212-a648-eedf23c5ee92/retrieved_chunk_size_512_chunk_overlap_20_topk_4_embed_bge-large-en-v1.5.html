@@ -1,0 +1,53 @@
+Documentation Source:
+docs.snowflake.com/en/release-notes/bcr-bundles/2022_04_bundle.html
+
+Documentation Title:
+2022_04 Bundle | Snowflake Documentation
+
+Documentation Content:
+</p></section></section><section><h2>Data Privacy Changes<a>¶</a></h2><section><h3>Classification: Updates to Data Classification Model and Revised Output<a>¶</a></h3><p>Data classification is now generally available (GA) in all Enterprise Edition (or higher) accounts on AWS and Azure.</p><p>For the GA of the feature, the data classification model has been updated to generate improved prediction model and data pattern results.
+In addition, the data classification process now includes output for every table column specified in the input, including:</p><ul><p>Columns with data types that were previously unable to be classified.</p><p>Columns with only NULL values.</p></ul><p>These improvements were introduced through the behavior change process because they likely return better, but potentially different,
+results when re-classifying data that was classified using the previous data classification model. During the opt-out phase
+for the 2022_04 bundle, you can enable/disable the bundle to test the classification improvements while also minimizing their impact
+on your production accounts until you are familiar with the new results.</p></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data.html
+
+Documentation Title:
+Sample Data Sets | Snowflake Documentation
+
+Documentation Content:
+Executing queries requires a running, current warehouse
+for your session, which consumes credits.</p><strong>Next Topics:</strong><ul><a>Using the Sample Database</a><a>Sample Data: TPC-DS</a><a>Sample Data: TPC-H</a><a>Sample Data: OpenWeatherMap — <em>Deprecated</em></a></ul></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>Related content</p><ol><a>Query Data in Snowflake</a><a>Query Syntax</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/bcr-bundles/2024_02/bcr-1516.html
+
+Documentation Title:
+SHOW/DESC SERVICE commands and Information Schema and Account Usage SERVICES views: New IS_JOB column | Snowflake Documentation
+
+Documentation Content:
+DYNAMIC_TABLE_REFRESH_HISTORY, and SHOW DYNAMIC TABLES </span><span>Data Lake</span><span>GET_DDL function: Return source Iceberg data types</span><span>Iceberg tables: Updates to metadata retention period</span><span>Replication</span><span>Replication: Stages, pipes, storage integrations, and load history</span><span>Replication: Skip external and Iceberg tables during refresh operation</span><span>Replication: Changes to refresh operations that fail with dangling reference errors</span><span>Extensibility &amp; Developer</span><span>Python Snowpark Stored Procedures and UDFs: Tracing improvements in Event table</span><span>Snowpark Container Services: Error if image is not found when creating service or job</span><span>Virtual Warehouses</span><span>Query Acceleration Service: Expanded support for INSERT statements</span></div></li><li><span>Previous Bundles</span><div><span>2024_01 Bundle (Generally Enabled)</span><span>2023_08 Bundle (Generally Enabled)</span><span>2023_07 Bundle</span><span>2023_06 Bundle</span><span>2023_05 Bundle</span><span>2023_04 Bundle</span><span>2023_03 Bundle</span><span>2023_02 Bundle</span><span>2023_01 Bundle</span><span>2022_08 Bundle</span><span>2022_07 Bundle</span><span>2022_06 Bundle</span><span>2022_05 Bundle</span><span>2022_04 Bundle</span><span>2022_03 Bundle</span><span>2022_02 Bundle</span><span>2022_01 Bundle</span><span>Earlier Bundles</span></div></li><span>Unbundled Changes</span></div></li><span>Deprecated Features</span><span>Preview Features</span><span>Performance Improvements</span><li><span>Clients, Drivers, and Libraries</span><div><span>Monthly Releases</span><span>Client versions &amp;
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data.html
+
+Documentation Title:
+Sample Data Sets | Snowflake Documentation
+
+Documentation Content:
+<div><div><nav><div><span>DOCUMENTATION</span><span>/</span></div><div><a>Getting Started</a><a>Guides</a><a>Developer</a><a>Reference</a><a>Releases</a><a>Tutorials</a><a>Status</a></div></nav><main><ol><span>Overview</span><span>Concepts</span><span>Tutorials</span><li><span>Sample Data</span><div><span>Usage</span><span>TPC-DS</span><span>TPC-H</span></div></li></ol><div><div><nav><a>Getting Started</a><span>Sample Data</span></nav><section><h1>Sample Data Sets<a>¶</a></h1><p>Snowflake provides sample data sets, such as the industry-standard TPC-DS and TPC-H benchmarks, for evaluating and testing a broad range of Snowflake’s SQL support.</p><p>Sample data sets are provided in a database named SNOWFLAKE_SAMPLE_DATA that has been
+<span>shared with your account</span>from the Snowflake SFC_SAMPLES account.
+If you do not see the database, you can create it yourself. Refer to <span>Using the Sample Database</span>.</p><p>The database contains a schema for each data set, with the sample data stored in the tables in each schema. The database and schemas
+do not use any data storage so they do <span>not</span>incur storage charges for your account. You can execute queries on the tables in
+these databases just as you would with any other databases in your account.
+
+
+

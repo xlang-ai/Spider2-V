@@ -1,0 +1,72 @@
+{
+    "id": "35c4ad79-092b-4306-a4f7-192c24931474",
+    "snapshot": "superset",
+    "instruction": "I don't need to use the chart Mychart, delete it right now.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To delete the chart Mychart right now, we can follow these steps:\n1. In the opened web page, select \"Charts\" in the top menu;\n2. Click the action icon 'delete' for the chart \"Mychart\";\n3. In the new pop-up window, type \"DELETE\" in the typing box;\n4. Click \"DELETE\" buttom and back to the main panel;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://superset.apache.org/docs/using-superset/exploring-data"
+    ],
+    "related_apps": [
+        "chromium",
+        "superset"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 4,
+    "counterpart": "fc08281a-ae88-436e-845f-2260ff49fe94",
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/all_databases.sql",
+                "dest": "/home/user/all_databases.sql"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.google.com"
+                ]
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/superset/35c4ad79-092b-4306-a4f7-192c24931474/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "superset_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8088"
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/superset/35c4ad79-092b-4306-a4f7-192c24931474/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    }
+}

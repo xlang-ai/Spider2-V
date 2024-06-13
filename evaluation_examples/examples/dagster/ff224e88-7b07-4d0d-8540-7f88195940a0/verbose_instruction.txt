@@ -1,0 +1,40 @@
+I want to configure an I/O manager to save the asset output with pandas DataFrame format as parquet. Please follow these steps:
+1. Go to VS Code and open the file "assets.py".
+2. View the file to verify that the io_manager_key of each asset (defined with decorator @asset) is "parquet".
+3. Open the file "parquet_io_manager.py". Add the following code under the function "handle_output". Do not modify other methods:
+```
+    def handle_output(self, context: OutputContext, obj: pd.DataFrame):
+        # Add the following lines
+        path = self._get_path(context)
+        if "://" not in self._base_path:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+
+        if isinstance(obj, pd.DataFrame):
+            row_count = len(obj)
+            context.log.info(f"Row count: {row_count}")
+            obj.to_parquet(path=path, index=False)
+        else:
+            raise Exception(f"Outputs of type {type(obj)} not supported.")
+
+        context.add_output_metadata({"row_count": row_count, "path": path})
+```
+3. Press hotkey "Ctrl+S" to save the codes for this file.
+4. Change to the file "__init__.py" in VS Code.
+5. Modify the original definitions (`defs`) to add the newly defined parquet I/O manager:
+```
+from .parquet_io_manager import ParquetIOManager
+
+defs = Definitions(
+    assets=all_assets,
+    # Add the 3 lines below
+    resources={
+        "parquet": ParquetIOManager(),
+    }
+)
+```
+6. Press "Ctrl+S" to save __init__.py file.
+7. Switch to Chromium. Make sure the Dagster UI page is opened.
+8. Click "Reload all" on the right of the page.
+9. After the project is reloaded, click "movies" on the left of the table.
+10. Click the "Resources" tab under "Deployment / movies".
+11. Click "parquet" in the table of the opened page.

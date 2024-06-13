@@ -1,0 +1,469 @@
+Documentation Source:
+docs.astronomer.io/learn/operator-extra-link-tutorial.txt
+
+Documentation Title:
+Customize Operator Extra Links | Astronomer Documentation
+
+Documentation Content:
+See
+the official Python documentation
+.
+Prerequisites
+​
+The
+Astro CLI
+.
+Step 1: Create an Astro project
+​
+Set up Airflow by creating a new Astro project:
+$
+mkdir
+astro-extra-link-tutorial
+&&
+cd
+astro-extra-link-tutorial
+$ astro dev init
+Step 2: Create a DAG using the SimpleHttpOperator
+​
+You'll first add a static link to the SimpleHttpOperator which goes to the
+Mozilla HTTP documentation
+. This link will appear on every task instance created by this operator.
+Create a new Python file named
+plugin_test_dag.py
+in the
+dags
+folder of your Airflow project.
+Copy and paste the following DAG code into your file:
+from
+airflow
+.
+models
+.
+dag
+import
+DAG
+from
+airflow
+.
+providers
+.
+http
+.
+operators
+.
+http
+import
+SimpleHttpOperator
+from
+pendulum
+import
+datetime
+with
+DAG
+(
+dag_id
+=
+"plugin_test_dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+11
+,
+1
+)
+,
+schedule
+=
+None
+,
+catchup
+=
+False
+)
+:
+call_api_simple
+=
+SimpleHttpOperator
+(
+task_id
+=
+"call_api_simple"
+,
+http_conn_id
+=
+"random_user_api_conn"
+,
+method
+=
+"GET"
+)
+This DAG has one SimpleHttpOperator task that posts a GET request to an API as defined in the
+random_user_api_conn
+connection.
+Step 3: Add a static operator extra link
+​
+Create an
+Airflow plugin
+to add an extra link to the operator.
+Create a new Python file named
+my_extra_link_plugin.py
+in the
+plugins
+folder of your Airflow project.
+Copy paste the following code into your file.
+from
+airflow
+.
+plugins_manager
+import
+AirflowPlugin
+from
+airflow
+.
+models
+.
+baseoperator
+import
+BaseOperatorLink
+from
+airflow
+.
+providers
+.
+http
+.
+operators
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/operator-extra-link-tutorial.txt
+
+Documentation Title:
+Customize Operator Extra Links | Astronomer Documentation
+
+Documentation Content:
+Update the
+operator_extra_links
+list in the
+AirflowExtraLinkPlugin
+class with the new
+CatLink()
+. The class should look like this:
+class
+AirflowExtraLinkPlugin
+(
+AirflowPlugin
+)
+:
+name
+=
+"extra_link_plugin"
+operator_extra_links
+=
+[
+CatLink
+(
+)
+,
+# add this line
+HTTPDocsLink
+(
+)
+]
+Save the file and restart your Airflow instance with
+astro dev restart
+.
+Step 10: See your new extra link in action
+​
+Your second extra link has now been added to the CatHttpOperator.
+In the Airflow UI, run
+plugins_test_dag
+again.
+Navigate to the Graph View and click on the
+call_api_cat
+task.
+Click the HTTP Cat button to find the response of your last API call illustrated with a fitting cat.
+(Optional) See all your plugins listed under
+Admin
+->
+Plugins
+.
+Conclusion
+​
+Congratulations! You added two operator extra links as an Airflow plugin. On the way you also learned how to modify an existing operator to pass an additional value to XCom.
+tip
+Extra links can be also be added to operators when creating an
+Airflow provider
+. If you want to add an operator extra link to a custom operator as part of a provider package, make sure you install it with the rest of the package using a setup.py file or
+wheels
+.
+In general, adding an operator extra link via plugin as described in this tutorial is easier for use in a limited number of Airflow instances. However, if you are planning to use the extra link in a large number of deployments, consider adding them to an Airflow provider instead.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/create-and-link-connections.txt
+
+Documentation Title:
+Create Airflow connections in the Astro UI | Astronomer Documentation
+
+Documentation Content:
+Click
+Edit
+to open the connection configurations for a specific linked Deployment.
+Add the override values to the fields you want to edit. You might need to open
+More options
+to find the full list of available fields.
+Click
+Update connection link
+.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Manage connections and variables
+Next
+Import and export connections and variables
+How connections are stored
+Fetching environment secrets
+Prerequisites
+Create a connection
+Link connections to Deployments
+Step 1: Link the connection
+Step 2: (Optional) Add provider packages to your Deployment
+Configure connection sharing for a Workspace
+Override connection fields
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/cross-dag-dependencies.txt
+
+Documentation Title:
+Cross-DAG dependencies | Astronomer Documentation
+
+Documentation Content:
+external_task
+import
+ExternalTaskSensor
+from
+airflow
+.
+operators
+.
+empty
+import
+EmptyOperator
+from
+pendulum
+import
+datetime
+,
+duration
+def
+downstream_function_branch_1
+(
+)
+:
+print
+(
+"Upstream DAG 1 has completed. Starting tasks of branch 1."
+)
+def
+downstream_function_branch_2
+(
+)
+:
+print
+(
+"Upstream DAG 2 has completed. Starting tasks of branch 2."
+)
+def
+downstream_function_branch_3
+(
+)
+:
+print
+(
+"Upstream DAG 3 has completed. Starting tasks of branch 3."
+)
+default_args
+=
+{
+"owner"
+:
+"airflow"
+,
+"depends_on_past"
+:
+False
+,
+"email_on_failure"
+:
+False
+,
+"email_on_retry"
+:
+False
+,
+"retries"
+:
+1
+,
+"retry_delay"
+:
+duration
+(
+minutes
+=
+5
+)
+,
+}
+with
+DAG
+(
+"external-task-sensor-dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+8
+,
+1
+)
+,
+max_active_runs
+=
+3
+,
+schedule
+=
+"*/1 * * * *"
+,
+catchup
+=
+False
+,
+)
+as
+dag
+:
+start
+=
+EmptyOperator
+(
+task_id
+=
+"start"
+)
+end
+=
+EmptyOperator
+(
+task_id
+=
+"end"
+)
+ets_branch_1
+=
+ExternalTaskSensor
+(
+task_id
+=
+"ets_branch_1"
+,
+external_dag_id
+=
+"upstream_dag_1"
+,
+external_task_id
+=
+"my_task"
+,
+allowed_states
+=
+[
+"success"
+]
+,
+failed_states
+=
+[
+"failed"
+,
+"skipped"
+]
+,
+)
+task_branch_1
+=
+PythonOperator
+(
+task_id
+=
+"task_branch_1"
+,
+python_callable
+=
+downstream_function_branch_1
+,
+)
+ets_branch_2
+=
+ExternalTaskSensor
+(
+task_id
+=
+"ets_branch_2"
+,
+external_dag_id
+=
+"upstream_dag_2"
+,
+external_task_id
+=
+"my_task"
+,
+
+
+

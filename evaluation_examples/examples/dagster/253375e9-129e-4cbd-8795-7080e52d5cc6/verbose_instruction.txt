@@ -1,0 +1,35 @@
+I want to migrate a DAG from Airflow to Dagster. To do this:
+1. Open the file "README.md" from the EXPLORER panel in VS Code.
+2. Check the connection information to the MySQL server.
+3. Open "dagster_migration.py". Add the following code for migration and connection:
+```
+import os
+
+from airflow.models import Connection
+from dagster_airflow import (
+    make_dagster_definitions_from_airflow_dags_path,
+)
+
+migrated_airflow_definitions = make_dagster_definitions_from_airflow_dags_path(
+    os.path.abspath("./dags/"),
+    connections=[
+        Connection(conn_id="mysql_conn", conn_type="mysql", description="MySQL connection", host="localhost", login="user", password="password", port=3306)
+    ]
+)
+```
+4. Save this file via Ctrl+S.
+5. Open the terminal. Make sure you are in the directory "~/wikipediaPageViews".
+6. Start the Dagster UI by the command `dagster dev -f dagster_migration.py`.
+7. Right click on the link "http://127.0.0.1:3000" in the output of the command.
+8. Click "Open Link" in the menu.
+9. A Chromium tab of the Dagster UI will open in existing web browser. Skip or dismiss the pop-up windows.
+10. In this web page, click "Deployment" on the top.
+11. Click "dagster_migration.py" on the left of the table.
+12. Click "Schedules" in the middle.
+13. In the table, enable the toggle button under column "Running" to start the schedule.
+14. To test the schedule, click "wikipediaPageViews_schedule" in the table.
+15. Click "Test Schedule" on the top-right of the page.
+16. A pop-up window will show up. Click "Evaluate" on the bottom-right of the pop-up window.
+17. Click "Open in Launchpad" on the right part of the table.
+18. Click "Launch Run" button on the bottom-right of the newly opened page.
+19. Wait for the run to complete. You should see "RUN SUCCESS | Finished execution of run for ..." under column "EVENT TYPE". Try to debug if the run fails.

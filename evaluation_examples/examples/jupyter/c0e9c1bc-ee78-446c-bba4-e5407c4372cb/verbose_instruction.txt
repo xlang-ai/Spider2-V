@@ -1,0 +1,6 @@
+This task is to remove the kernel on a Jupyter Notebook. You need to:
+1. In the opened terminal, use the following command to remove the jupyterlab kernel:
+```
+jupyter kernelspec remove jupyterlab
+```
+2. Type in "y" to confirm the remove action.

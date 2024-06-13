@@ -1,0 +1,102 @@
+{
+    "id": "94c2d4f3-64b1-4a0f-b469-d6185e719ee5",
+    "snapshot": "airbyte",
+    "instruction": "The connection from a cloud file to snowflake is not used any more. Just delete it as well as the source and destination in the Airbyte UI.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To completely delete one connection, we need to perform the following steps:\n1. We can find one connection from File to Snowflake in the main panel. Click this row;\n2. In the new window, choose the \"Settings\" button in the menu bar;\n3. Then, click the button \"Delete this connection\";\n4. A dialogue window will pop up. In the input box, type in the name of this connection \"File (CSV, JSON, Excel, Feather, Parquet) → Snowflake\";\n5. Only if the value is exactly correct, the \"Delete\" button will be enabled. Click it to delete the connection.\n6. Till now, the connection has been deleted. We still need to delete the data source and data destination. Click the \"Sources\" button on the left panel;\n7. Choose the configured data source \"File\";\n8. Scroll down to the bottom of the settings window;\n9. Click the button \"Delete this source\" at the bottom left;\n10. Similarly, we need to type in the correct source name in the pop-up window, that is \"File (CSV, JSON, Excel, Feather, Parquet)\";\n11. Click the \"Delete\" button;\n12. As for the data destination Snowflake, click the \"Destinations\" button on the menu bar;\n13. Choose and click the row with \"Snowflake\";\n14. Scroll down to the bottom of the new page;\n15. Click the button \"Delete this destination\";\n16. In the pop-up window, again, we need to type in the destination name \"Snowflake\" to confirm our decision;\n17. Click the \"Delete\" button. Now, we have completely deleted the connection as well as both the data source and destination.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections"
+    ],
+    "related_apps": [
+        "chromium",
+        "airbyte",
+        "docker",
+        "snowflake"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_ingestion_and_integration",
+        "verbose"
+    ],
+    "action_number": 17,
+    "config": [
+        {
+            "type": "snowflake_init",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/snowflake/settings.json",
+                "actions": [
+                    {
+                        "type": "create_database",
+                        "database": "COVID19",
+                        "delete_first": true
+                    }
+                ]
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/94c2d4f3-64b1-4a0f-b469-d6185e719ee5/connection.json",
+                "dest": "/home/user/connection.json"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/settings/snowflake/settings.json",
+                "dest": "/home/user/settings.json"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airbyte/94c2d4f3-64b1-4a0f-b469-d6185e719ee5/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "airbyte_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:8000",
+                "actions": [
+                    {
+                        "type": "login",
+                        "email": "anonym@gmail.com",
+                        "company": "ANONYM"
+                    }
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airbyte/94c2d4f3-64b1-4a0f-b469-d6185e719ee5/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "65bf1d55-6c9b-49ec-9455-91b376f48cb4"
+}

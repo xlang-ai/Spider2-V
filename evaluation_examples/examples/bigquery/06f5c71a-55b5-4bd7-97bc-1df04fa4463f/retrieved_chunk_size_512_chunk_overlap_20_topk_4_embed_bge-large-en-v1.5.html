@@ -1,0 +1,90 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-youtubechannel-transfer.html
+
+Documentation Title:
+Load data from YouTube Channel reports  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+table properties</span><span>Get view properties</span><span>Grant view access</span><span>Import a local file</span><span>Insert GeoJSON data</span><span>Insert rows with no IDs</span><span>Insert WKT data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized view</span><span>Query
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/batch-loading-data.html
+
+Documentation Title:
+Batch loading data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p>The following code demonstrates how to load a local CSV file to a new
+BigQuery table. To load a local file of another format, set
+the <a>LoadJobConfig.source_format
+property</a>to the appropriate format.</section><code>from google.cloud import bigquery
+
+# Construct a BigQuery client object.
+client = bigquery.Client()
+
+# TODO(developer): Set table_id to the ID of the table to create.
+# table_id = "your-project.your_dataset.your_table_name"
+
+job_config = bigquery.LoadJobConfig(
+    source_format=bigquery.SourceFormat.CSV, skip_leading_rows=1, autodetect=True,
+)
+
+with open(file_path, "rb") as source_file:
+    job = client.load_table_from_file(source_file, table_id, job_config=job_config)
+
+job.result()  # Waits for the job to complete.
+
+table = client.get_table(table_id)  # Make an API request.
+print(
+    "Loaded {} rows and {} columns to {}".format(
+        table.num_rows, len(table.schema), table_id
+    )
+)</code></section><section><h3>Ruby </h3><section><p>Before trying this sample, follow the <span>Ruby</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Ruby</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p>The following code demonstrates how to load a local CSV file to a new
+BigQuery table.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-list-datasets.html
+
+Documentation Title:
+List datasets  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized view</span><span>Query pagination</span><span>Query script</span><span>Query Sheets with a permanent table</span><span>Query Sheets with a temporary table</span><span>Query with the BigQuery API</span><span>Relax a column</span><span>Relax a column in a load append
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-youtubecontentowner-transfer.html
+
+Documentation Title:
+Load data from YouTube Content Owner reports  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+table labels</span><span>Get table properties</span><span>Get view properties</span><span>Grant view access</span><span>Import a local file</span><span>Insert GeoJSON data</span><span>Insert rows with no IDs</span><span>Insert WKT data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized
+
+
+

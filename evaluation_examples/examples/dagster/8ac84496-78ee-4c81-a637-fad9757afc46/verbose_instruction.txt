@@ -1,0 +1,18 @@
+In the current dagster project, write an asset `iris_kmeans_notebook` to integrate the opened jupyter notebook. By the way, configure the data input of this notebook to be the existing asset \"iris_data\". Then, materialize all to conduct K-means classification on the Iris dataset. To achieve this:
+1. Switch to VS Code editor. Open the folder "iris_classification/assets" in the left navbar.
+2. Open the file "__init__.py". Add the following code to the end of the file:
+```
+iris_kmeans_notebook = define_dagstermill_asset(
+    name="iris_kmeans_notebook",
+    notebook_path=file_relative_path(__file__, "../notebooks/iris-kmeans-notebook.ipynb"),
+    ins={"iris": AssetIn("iris_data")},
+    group_name="classification",
+)
+```
+3. Change to Chromium. Open the tab of the Jupyter Notebook "iris-kmeans-notebook". Select the block with comments "# fetch the Iris dataset".
+4. In the menu on the top, click "View > Right Sidebar > Show Notebook Tools" to open the notebook tools.
+5. Click "COMMON TOOLS" on the right sidebar to view the list of tools. Make sure the selected block is "# fetch the Iris dataset".
+6. Under "Cell Tags", click "Add Tag", and input "parameters" in the textbox. Press Enter to add the tag.
+7. Press Ctrl+S save the notebook. Then switch to the Dagster UI tab "Asset Group: classification".
+8. Click "Reload definitions" on the top-right of the page.
+9. After the asset "iris_kmeans_notebook" to appears in the lineage graph, click "Materialize all" on the top-right of the graph to materialize all assets. Wait for the run to complete.

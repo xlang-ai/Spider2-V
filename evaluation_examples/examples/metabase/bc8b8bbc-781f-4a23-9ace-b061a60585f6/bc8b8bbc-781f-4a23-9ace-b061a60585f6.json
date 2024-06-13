@@ -1,0 +1,80 @@
+{
+    "id": "bc8b8bbc-781f-4a23-9ace-b061a60585f6",
+    "snapshot": "metabase",
+    "instruction": "Please help me set up a data model with the SQL query in the opened 'model_query.sql'. Then download the Metadata modeling results as \"model.json\" on the Desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish this task, please follow these steps:\n\n1. Click the \"New\" button on the top right;\n2. Choose \"Model\" in the drop-down panel;\n3. Click on the \"Use a native query\" card.\n4. Copy the SQL query in 'model_query.sql' file and paste it in input panel.\n5. Click the \"Run query\" button on the right side, and check the output data.\n6. Click on \"Save\" button on the top right corner;\n7. Type in \"model1\" under \"name\", and click \"Save\".\n8. Click on the button to the right bottom corner \"Download full results\".\n9. Click on \".json\".\n10. Switch to \"/home/user/Downloads\" folder, and rename the json file as \"model.json\".\n11. Copy and Paste it to the Desktop.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://www.metabase.com/learn/data-modeling/models#a-model-example"
+    ],
+    "related_apps": [
+        "chromium",
+        "metabase"
+    ],
+    "tags": [
+        "gui",
+        "data_analysis_and_visualization",
+        "verbose"
+    ],
+    "action_number": 11,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/bc8b8bbc-781f-4a23-9ace-b061a60585f6/model_query.sql",
+                "dest": "/home/user/model_query.sql"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/metabase/bc8b8bbc-781f-4a23-9ace-b061a60585f6/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "metabase_webui_init",
+            "parameters": {
+                "listening_port": 9222,
+                "url": "http://localhost:3000",
+                "actions": [
+                    {
+                        "type": "setup"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/model_query.sql"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "func": "compare_json_file",
+        "result": {
+            "type": "vm_file",
+            "path": "/home/user/Desktop/model.json",
+            "dest": "model.json"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/metabase/bc8b8bbc-781f-4a23-9ace-b061a60585f6/model_gold.json",
+            "dest": "model_gold.json"
+        }
+    },
+    "counterpart": "d67bab11-ca3b-4981-9d41-e67b03ac1d55"
+}

@@ -1,0 +1,51 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.html
+
+Documentation Title:
+Visualizing worksheet data | Snowflake Documentation
+
+Documentation Content:
+To generate the examples in this topic, use the following query based
+on the Snowflake sample data:</p><div><pre><span>SELECT</span><span>COUNT</span><span>(</span><span>O_ORDERDATE</span><span>)</span><span>as</span><span>orders</span><span>,</span><span>O_ORDERDATE</span><span>as</span><span>date</span><span>FROM</span><span>SNOWFLAKE_SAMPLE_DATA</span><span>.</span><span>TPCH_SF1</span><span>.</span><span>ORDERS</span><span>WHERE</span><span>O_ORDERDATE</span><span>=</span><span>:daterange</span><span>GROUP</span><span>BY</span><span>:datebucket</span><span>(</span><span>O_ORDERDATE</span><span>),</span><span>O_ORDERDATE</span><span>ORDER</span><span>BY</span><span>O_ORDERDATE</span><span>LIMIT</span><span>10</span><span>;</span></pre><span>Copy</span></div></section><section><h2>Charts and new query results<a>¶</a></h2><p>Your chart updates automatically as long as the columns used by the chart are available in the query results. If a column name changes, you
+must update the chart to use the new column name. Charts indicate any columns that cannot be found.</p></section><section><h2>Aggregate and bucket data<a>¶</a></h2><p>Charts simplify grouping numbers, dates, and timestamps of more or less continuous values into various <em>buckets</em>. For example, suppose your
+query retrieves per-day data over a period of time. Without modifying your query, you can easily select a different bucket of time (e.g.
+weekly or monthly data) in the inspector panel to change the time dimension of the results displayed in the chart.</p><p>Charts can bucket by date, week, month, and year for date columns. For numeric columns, charts can bucket by integer values.</p><p>Charts use aggregation functions to determine a single value from multiple data points in a bucket.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.html
+
+Documentation Title:
+Visualizing worksheet data | Snowflake Documentation
+
+Documentation Content:
+These functions are as follows:</p><ul><p>average</p><p>count</p><p>minimum</p><p>maximum</p><p>median</p><p>mode</p><p>sum</p></ul></section><section><h2>Download charts<a>¶</a></h2><p>Snowsight provides PNG-formatted files of charts.</p><p>To download a chart, select <span>Download chart</span>(<img/>).</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><aside><div><p>On this page</p><ol><a>Create a chart</a><a>Modify a chart</a><a>Charts and new query results</a><a>Aggregate and bucket data</a><a>Download charts</a></ol></div><div><p>Related content</p><ol><a>Getting started with Snowsight</a><a>Managing and using worksheets in Snowsight</a><a>Getting started with worksheets</a><a>Querying data using worksheets</a><a>Visualizing data with dashboards</a></ol></div></aside></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.html
+
+Documentation Title:
+Visualizing worksheet data | Snowflake Documentation
+
+Documentation Content:
+Notifications</span><span>Security</span><span>Data Governance</span><span>Privacy</span><span>Organizations &amp; Accounts</span><span>Business Continuity &amp; Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Connecting to Snowflake</a><a>Snowsight</a><span>Visualizing worksheet results</span></nav><section><h1>Visualizing worksheet data<a>¶</a></h1><p>This topic describes how to visualize your SQL worksheet results using charts in <span>Snowsight</span>.
+Charts transform your query results into visualizations that communicate logical relationships and lead to more informed decision making. Charts let you quickly identify and understand patterns and outliers in data.</p><p>Snowsight supports the following types of charts:</p><ul><p>Bar charts</p><p>Line charts</p><p>Scatterplots</p><p>Heat grids</p><p>Scorecards</p></ul><p>You can also visualize your data <span>using dashboards</span>.</p><section><h2>Create a chart<a>¶</a></h2><p>When you run a query in a worksheet, you can display a chart based on the results.</p><ol><p><span>Open a worksheet</span>.</p><p>Run the worksheet.</p><p>Above the results table for the query, select <span>Chart</span>.</p></ol></section><section><h2>Modify a chart<a>¶</a></h2><p>When you select a chart to visualize your worksheet results, Snowsight automatically generates a chart for you based on the
+query results. Each query supports one type of chart at a time.</p><p>Hover over the chart to view details about each data point.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.html
+
+Documentation Title:
+Visualizing worksheet data | Snowflake Documentation
+
+Documentation Content:
+For example, you can view your results as a line chart:</p><img/><p>You can modify the type of chart used to display your query results.</p><li><p>Select the chart type to choose a different type, for example, <span>Bar</span>.</p><img/></li><p>You can manage the columns in your chart with the <span>Data</span>section:</p><img/><p>Select a column to modify the column attributes:</p><ul><p>Add or remove columns.</p><p>Choose a different column in the query results to use in the chart.</p><li><p>Modify how column data is represented in the chart. For example, change the bucketing for a time column from day to minutes.</p><img/><p>You can modify the column attributes to configure how data in that column is rendered in the chart. See <span>Aggregate and bucket data</span>for more details about managing aggregate data.</p></li></ul><p>Style your chart in the <span>Appearance</span>section. The available settings depend on the type of chart. For example, for a heatgrid
+chart:</p><img/><p>The exact content of your charts depends on your query results.
+
+
+

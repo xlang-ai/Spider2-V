@@ -1,0 +1,92 @@
+{
+    "id": "aa012184-9223-4dba-b1f3-f18ed7cbd33d",
+    "snapshot": "dagster",
+    "instruction": "In the current folder, help me write 4 dagster ops and 1 job in file `file_sizes_job.py`. See README.md for detailed requirements. Also, visualize the job in the dagster UI at port 3000.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We need to create some Dagster operations and jobs in this project. To do so:\n1. Go to the VS Code editor and open the file \"file_sizes_job.py\".\n2. In the file, add an operation (with decorator \"@op\") to get the file sizes in the directory \"./files\" and a job (with decorator \"@job\") to perform the operation:\n```\nimport os\nfrom dagster import job, op, get_dagster_logger\n\n@op\ndef get_file_sizes():\n    files = [f for f in os.listdir(\"./files\") if os.path.isfile(\"./files/\" + f)]\n    return {f: os.path.getsize(\"./files/\" + f) for f in files}\n\n@job\ndef file_sizes_job():\n    file_sizes = get_file_sizes()\n```\n3. Switch to the terminal, and make sure that you are in the directory \"~/file-ops-and-jobs/\".\n4. Use the command \"dagster dev -f file_sizes_job.py\" to start the Dagster UI.\n5. Switch to the application Chromium or Chrome browser.\n6. Navigate to \"localhost:3000\", and here you can see the job \"file_sizes_job\" with \"get_file_sizes\" operation in the graph.\n7. Go back to VS Code.\n8. In file `file_sizes_job.py`, we include more dagster operations and revise the job:\n```\nimport os\nfrom dagster import job, op, get_dagster_logger\n\n@op\ndef get_file_sizes():\n    files = [f for f in os.listdir(\"./files\") if os.path.isfile(\"./files/\" + f)]\n    return {f: os.path.getsize(\"./files/\" + f) for f in files}\n\n# Add this op\n@op\ndef get_total_file_size(file_sizes):\n    return sum(file_sizes.values())\n\n# Add this op\n@op\ndef get_max_file_size(file_sizes):\n    return max(file_sizes.values())\n\n# Add this op\n@op\ndef report_file_stats(total_size, max_size):\n    get_dagster_logger().info(f\"Total size: {total_size}, max size: {max_size}\")\n        \n@job\ndef file_sizes_job():\n    file_sizes = get_file_sizes()\n    # Add the lines below\n    report_file_stats(\n        get_total_file_size(file_sizes),\n        get_max_file_size(file_sizes)\n    )\n```\n9. Go to the Dagster UI page in Chromium or Chrome browser.\n10. Click the \"Deployment\" button on the menu bar.\n11. Click the \"Reload\" button in the same row of text \"__repository__file_sizes_job@file_sizes_job.py\".\n12. Wait for the reload to finish.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.dagster.io/guides/dagster/intro-to-ops-jobs/connecting-ops"
+    ],
+    "related_apps": [
+        "chromium",
+        "dagster",
+        "vscode",
+        "terminal"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "action_number": 12,
+    "config": [
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/aa012184-9223-4dba-b1f3-f18ed7cbd33d/README.md",
+                "dest": "/home/user/README.md"
+            }
+        },
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/dagster/aa012184-9223-4dba-b1f3-f18ed7cbd33d/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/file-ops-and-jobs/"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [
+            {
+                "type": "copyfile_from_host_to_guest",
+                "parameters": {
+                    "src": "evaluation_examples/examples/dagster/aa012184-9223-4dba-b1f3-f18ed7cbd33d/test_file_sizes_job.py",
+                    "dest": "/home/user/file-ops-and-jobs/test_file_sizes_job.py"
+                }
+            }
+        ],
+        "func": [
+            "check_include_exclude"
+        ],
+        "result": [
+            {
+                "type": "vm_script_output",
+                "src": "evaluation_examples/examples/dagster/aa012184-9223-4dba-b1f3-f18ed7cbd33d/eval.sh",
+                "dest": "/home/user/eval.sh"
+            }
+        ],
+        "expected": [
+            {
+                "type": "rule",
+                "rules": {
+                    "include": [
+                        "1 passed",
+                        "succeeded"
+                    ],
+                    "exclude": [
+                        "failed"
+                    ]
+                }
+            }
+        ]
+    },
+    "counterpart": "8a8b875d-1f10-40fa-b998-8fd8ebb3515b"
+}

@@ -1,0 +1,22 @@
+To upload the csv in 'home/user/video_game_sales.csv to the database 'Games' with table name 'games', then create the chart to see max global sales of each genre and save it to dashboard 'MyDashborad' with chart name 'games', we can follow these steps:
+1. In the opened web page, click the add icon in the top right corner;
+2. Select "Data" menu;
+3. Click the "Upload CSV to database" in the extended menu;
+4. In the pop-up interface "CSV to Database configuration", firstly click the "Choose File";
+5. Click home menu in the pop-up windows;
+6. Find the file 'video_game_sales.csv' and click it;
+7. Click the "select" button and return to the "CSV to Database configuration" interface;
+8. Type "games" in the Table Name input box;
+9. Then, click "Save", and we will see a dataset named "games" in the main panel,
+10. Click 'games' name in the list;
+11. In the pop-up window, drag the "genre" tile from left list to the "DIMENSIONS" box;
+12. Drag the "global_sales" tile from left list to the "METRICS" box;
+13. In the small pop-up window, Click "AGGREGATE" box;
+14. Then select "MAX" in the extended list;
+15. Click "CREATE CHART" in the buttom and you can see a chart in the right side;
+16. Click "SAVE" in the top right corner;
+17. Select "Save as...";
+18. Type chart name as "games";
+19. Type "MyDashboard" in "ADD TO DASHBOARD" box;
+20. Click "MyDashboard" in the extended pop-up windows;
+21. Click "Save&GO TO DASHBOARD" and you can see the created dashboard in the main panel.

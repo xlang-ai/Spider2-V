@@ -1,0 +1,13 @@
+To add the database, please follow these steps:
+1. Click the gear icon on the top right;
+2. Choose "Admin settings" in the drop-down panel;
+3. Click "Add a database" in the page;
+4. Fill all fields according to db_info.json into this form, concretely:
+Database type: PostgreSQL
+Display name: PostgresTomDB
+Host: localhost
+Port: 5432
+Database name: TomDB
+Username: Tom
+Password: Tom123456
+5. Click the "Save" button on the bottom.

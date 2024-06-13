@@ -1,0 +1,17 @@
+To complete the visualization, please follow these steps:
+
+1. Click the "New" button on the top right;
+2. Choose "Question" in the drop-down panel;
+3. Choose "Orders" in the "Sample Database" drop-down panel;
+4. Click the "Join data" button under the "Data" panel;
+5. Click the "Pick Data... -> Products";
+6. Choose Summarize "Count of rows" by "Product -> Category";
+7. Click "Sort -> Count";
+8. Click on the arrow beside the "Count" to change the sorting order as descendingly;
+9. Click on Visualize.
+10. Click on Visualization -> Funnel.
+11. Click Done.
+12. Click the "Download full results" button (cloud icon) on the bottom right;
+13. Choose ".png" in the panel;
+14. Open the local path "/home/user/Downloads";
+15. Rename the visualization file as "funnel_chart.png".

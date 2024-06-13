@@ -1,0 +1,362 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/delete.txt
+
+Documentation Title:
+DELETE | Snowflake Documentation
+
+Documentation Content:
+bicycle_ID
+=
+returned_bicycles
+.
+bicycle_ID
+;
+TRUNCATE
+TABLE
+returned_bicycles
+;
+COMMIT
+WORK
+;
+Copy
+(To avoid trying to remove the same rows again in the future when it might be unnecessary or inappropriate, the returned_bicycles table is
+truncated as part of the same transaction.)
+Show the data after the delete:
+SELECT
+*
+FROM
+leased_bicycles
+ORDER
+BY
+bicycle_ID
+;
++
+------------+-------------+
+| BICYCLE_ID | CUSTOMER_ID |
+|------------+-------------|
+|        101 |        1111 |
+|        103 |        3333 |
++
+------------+-------------+
+Copy
+Now suppose that another bicycle(s) is returned:
+INSERT
+INTO
+returned_bicycles
+(
+bicycle_ID
+)
+VALUES
+(
+103
+);
+Copy
+The following query shows a
+USING
+clause that contains a subquery (rather than a table) to specify which bicycle_IDs to remove from
+the leased_bicycles table:
+BEGIN
+WORK
+;
+DELETE
+FROM
+leased_bicycles
+USING
+(
+SELECT
+bicycle_ID
+AS
+bicycle_ID
+FROM
+returned_bicycles
+)
+AS
+returned
+WHERE
+leased_bicycles
+.
+bicycle_ID
+=
+returned
+.
+bicycle_ID
+;
+TRUNCATE
+TABLE
+returned_bicycles
+;
+COMMIT
+WORK
+;
+Copy
+Show the data after the delete:
+SELECT
+*
+FROM
+leased_bicycles
+ORDER
+BY
+bicycle_ID
+;
++
+------------+-------------+
+| BICYCLE_ID | CUSTOMER_ID |
+|------------+-------------|
+|        101 |        1111 |
++
+------------+-------------+
+Copy
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Syntax
+Required parameters
+Optional parameters
+Usage notes
+Examples
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/stored-procedure/stored-procedures-javascript.txt
+
+Documentation Title:
+Writing Stored Procedures in JavaScript | Snowflake Documentation
+
+Documentation Content:
+Their warranty expired, so the stored procedure
+deletes both the review comments and the purchase records:
+call
+delete_nonessential_customer_data
+(
+3
+);
++
+-------------------------------------------------------------------------+
+| DELETE_NONESSENTIAL_CUSTOMER_DATA                                       |
+|-------------------------------------------------------------------------|
+| Deleted all data, including financial and warranty data, for customer 3 |
++
+-------------------------------------------------------------------------+
+SELECT
+*
+FROM
+reviews
+;
++
+-------------+--------+
+| CUSTOMER_ID | REVIEW |
+|-------------+--------|
++
+-------------+--------+
+SELECT
+*
+FROM
+purchase_history
+;
++
+-------------+-------+-------+------------+---------------+
+| CUSTOMER_ID | PRICE |  PAID | PRODUCT_ID | PURCHASE_DATE |
+|-------------+-------+-------+------------+---------------|
+| 1           | 19.99 | 19.99 | chocolate  | 2018-06-17    |
+| 2           | 19.99 |  0    | chocolate  | 2017-02-14    |
++
+-------------+-------+-------+------------+---------------+
+Copy
+Using Session Variables with Caller’s Rights and Owner’s Rights Stored Procedures
+¶
+These examples illustrate one of the key differences between caller’s rights and owner’s rights stored
+procedures. They attempt to use session variables in two ways:
+Set a session variable before calling the stored procedure, then use the session variable inside the stored
+procedure.
+Set a session variable inside the stored procedure, then use the session variable after returning from the stored
+procedures.
+Both using the session variable and setting the session variable work correctly in a caller’s rights stored procedure.
+Both fail when using an owner’s rights stored procedure even if the caller is the
+owner
+.
+Caller’s Rights Stored Procedure
+¶
+The following example demonstrates a caller’s rights stored procedure.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowpark/reference/python/latest/api/snowflake.snowpark.QueryRecord-3.txt
+
+Documentation Title:
+snowflake.snowpark.QueryRecord.query_id | Snowflake Documentation
+
+Documentation Content:
+snowflake.snowpark.QueryRecord.query_id | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+1.16.0 (latest)
+1.15.0
+1.14.0
+1.13.0
+1.12.1
+1.12.0
+1.11.1
+1.10.0
+1.9.0
+1.8.0
+1.7.0
+1.6.1
+1.5.0
+1.4.0
+1.3.0
+1.2.0
+1.1.0
+Overview
+Snowpark Session
+Input/Output
+DataFrame
+Column
+Data Types
+Row
+Functions
+Window
+Grouping
+Table Function
+Table
+AsyncJob
+Stored Procedures
+User-Defined Functions
+User-Defined Aggregate Functions
+User-Defined Table Functions
+Observability
+QueryHistory
+QueryRecord
+QueryRecord.count
+QueryRecord.index
+QueryHistory.queries
+QueryRecord.query_id
+QueryRecord.sql_text
+Files
+LINEAGE
+Context
+Exceptions
+Developer
+Snowpark API
+Python
+Python API Reference
+Observability
+QueryRecord.query_id
+snowflake.snowpark.QueryRecord.query_id
+¶
+QueryRecord.
+query_id
+:
+str
+¶
+Alias for field number 0
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-load-internal-tutorial.txt
+
+Documentation Title:
+Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
+
+Documentation Content:
+Replace
+query_id
+with the
+Query ID
+value.
+CREATE
+OR
+REPLACE
+TABLE
+save_copy_errors
+AS
+SELECT
+*
+FROM
+TABLE
+(
+VALIDATE
+(
+mycsvtable
+,
+JOB_ID
+=>
+'<query_id>'
+));
+Copy
+Query the
+save_copy_errors
+table.
+SELECT
+*
+FROM
+SAVE_COPY_ERRORS
+;
+Copy
+The query returns the following results:
++
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+| ERROR                                                                                                                                                                | FILE                                | LINE | CHARACTER | BYTE_OFFSET | CATEGORY |   CODE | SQL_STATE | COLUMN_NAME                   | ROW_NUMBER | ROW_START_LINE | REJECTED_RECORD                                                                                                                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Number of columns in file (11) does not match that of the corresponding table (10), use file format option error_on_column_count_mismatch=false to ignore this error | mycsvtable/contacts3.csv.gz         |    3 |         1 |         234 | parsing  | 100080 |     22000 | "MYCSVTABLE"[11]              |          1 |              2 | 11|Ishmael|Burnett|Dolor Elit Pellentesque Ltd|vitae.erat@necmollisvitae.ca|1-872|600-7301|1-513-592-6779|P.O. Box 975, 553 Odio, Road|Hulste|63345 |
+| Field delimiter '|' found while expecting record delimiter '\n'                                                                                                      | mycsvtable/contacts3.csv.gz         |    5 |       125 |         625 | parsing  | 100016 |     22000 | "MYCSVTABLE"["POSTALCODE":10] |          4 |              5 | 14|Sophia|Christian|Turpis Ltd|lectus.pede@non.ca|1-962-503-3253|1-157-|850-3602|P.O.
+
+
+

@@ -1,0 +1,52 @@
+Documentation Source:
+docs.snowflake.com/en/sql-reference/info-schema/tables.html
+
+Documentation Title:
+TABLES View | Snowflake Documentation
+
+Documentation Content:
+If the user has been dropped, shows
+<span>DROPPED_USER(&lt;id&gt;)</span>.</p><p>For dropped users, you can join the <span>&lt;id&gt;</span>with the USER_ID column in the <span>USERS view</span>.</p></td></tr><tr><p>AUTO_CLUSTERING_ON</p><p>BOOLEAN</p><p>Indicates whether automatic clustering is enabled for the table.</p></tr><tr><p>COMMENT</p><p>TEXT</p><p>Comment for this table.</p></tr><tr><p>IS_TEMPORARY</p><p>TEXT</p><p>Indicates whether this is a temporary table. Valid values are <span>YES</span>and <span>NO</span>.</p></tr><tr><p>IS_ICEBERG</p><p>TEXT</p><p>Indicates whether the table is an <span>Iceberg table</span>. Valid values are <span>YES</span>or <span>NO</span>.</p></tr><tr><p>IS_DYNAMIC</p><p>TEXT</p><p>Indicates whether the table is a <span>dynamic table</span>. Valid values are <span>YES</span>or <span>NO</span>.</p></tr><tr><p>IS_IMMUTABLE</p><p>TEXT</p><p>Indicates whether the table was created with the  <span>READ ONLY</span>property. Valid values are <span>YES</span>or <span>NO</span>. This column is visible in output only if you <span>enable</span>the <span>2024_04 behavior change bundle</span>in your account.</p></tr></tbody></table></section><section><h2>Usage Notes<a>¶</a></h2><ul><li><p>The view only displays objects for which the current role for the session has been granted access privileges.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/drop-schema.html
+
+Documentation Title:
+DROP SCHEMA | Snowflake Documentation
+
+Documentation Content:
+When the schema leaves Fail-safe, it is purged.</p><p>A transient schema has no Fail-safe, so it is purged when it moves out of Time Travel.</p></ul></li><p>Once a dropped schema has been purged, it cannot be recovered; it must be recreated.</p></ol></li><p>Currently, when a schema is dropped, the data retention period for child tables, if explicitly set to be different from the retention
+of the schema, is not honored. The child tables are retained for the same period of time as the schema. To honor the data retention
+period for these tables, drop them explicitly <span>before</span>you drop the schema.</p><li><p>After dropping a schema, creating a schema with the same name creates a new version of the schema. The dropped version of the previous
+schema can still be restored using the following method:</p><ol><p>Rename the current version of the schema to a different name.</p><p>Use the <span>UNDROP SCHEMA</span>command to restore the previous version.</p></ol></li><p>If a policy or tag is attached a table or view column, dropping the schema successfully requires the policy or tag to be self-contained
+within the database and schema. For example, <span>database_1</span>contains <span>policy_1</span>and <span>policy_1</span>is only used in <span>database_1</span>.
+Otherwise, a <span>dangling reference</span>occurs.</p><p>The DROP operation fails if a session policy or password policy is set on a user or the account.</p></ul></section><section><h2>Examples<a>¶</a></h2><p>Drop a schema named <span>myschema</span>(from the <span>CREATE SCHEMA</span>examples):</p><div><pre><span>DROP</span><span>SCHEMA</span><span>myschema</span><span>;</span><span>+</span><span>--------------------------------+</span><span>| status                         |</span><span>|--------------------------------|</span><span>| MYSCHEMA successfully dropped.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/drop-table.html
+
+Documentation Title:
+DROP TABLE | Snowflake Documentation
+
+Documentation Content:
+Dropping a table referenced by a view invalidates the view
+(i.e. querying the view returns an “object does not exist” error).</p><p>To drop a table, you must be using a role that has ownership privilege on the table.</p></ul></section><section><h2>Examples<a>¶</a></h2><p>Drop a table:</p><div><pre><span>SHOW</span><span>TABLES</span><span>LIKE</span><span>'t2%'</span><span>;</span><span>+</span><span>---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+</span><span>| created_on                      | name | database_name | schema_name | kind      | comment    | cluster_by | rows | bytes | owner        | retention_time |</span><span>|</span><span>---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+</span><span>| Tue, 17 Mar 2015 16:48:16 -0700 | T2   | TESTDB        | PUBLIC      | TABLE     |            |            |    5 | 4096  | PUBLIC       |              1 |</span><span>+</span><span>---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+</span><span>DROP</span><span>TABLE</span><span>t2</span><span>;</span><span>+</span><span>--------------------------+</span><span>| status                   |</span><span>|--------------------------|</span><span>| T2 successfully dropped.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/account-usage/tables.html
+
+Documentation Title:
+TABLES View | Snowflake Documentation
+
+Documentation Content:
+If the user has been dropped, shows
+<span>DROPPED_USER(&lt;id&gt;)</span>.</p><p>For dropped users, you can join the <span>&lt;id&gt;</span>with the USER_ID column in the <span>USERS view</span>.</p></td></tr><tr><p>DELETED</p><p>TIMESTAMP_LTZ</p><p>Date and time when the table was dropped.</p></tr><tr><p>AUTO_CLUSTERING_ON</p><p>TEXT</p><p>Status of Automatic Clustering for a table. For details, see <span>Viewing the Automatic Clustering Status for a Table</span>.</p></tr><tr><p>COMMENT</p><p>TEXT</p><p>Comment for the table.</p></tr><tr><p>OWNER_ROLE_TYPE</p><p>TEXT</p><p>The type of role that owns the object, either <span>ROLE</span>or <span>DATABASE_ROLE</span>. <span>.</span>If a Snowflake Native App owns the object, the value is <span>APPLICATION</span>. <span>.</span>Snowflake returns NULL if you delete the object because a deleted object does not have an owner role.</p></tr><tr><p>INSTANCE_ID</p><p>NUMBER</p><p>Internal/system-generated identifier for the instance which the object belongs to.</p></tr><tr><p>IS_ICEBERG</p><p>TEXT</p><p>Indicates whether the table is an <span>Iceberg table</span>. Valid values are <span>YES</span>or <span>NO</span>.</p></tr><tr><p>IS_DYNAMIC</p><p>TEXT</p><p>Indicates whether the table is a <span>dynamic table</span>.
+
+
+

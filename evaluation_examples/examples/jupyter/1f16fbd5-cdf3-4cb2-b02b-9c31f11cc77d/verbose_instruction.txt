@@ -1,0 +1,8 @@
+This task is to create jupyter notebook from its website. To finish the task, follow steps below:
+1. In the middle of the Launcher page, click "Python 3 (ipykernel)".
+2. On the left side panel, double click code.py.
+3. Copy the code in code.py and return to the previous ipynb file.
+4. Paste the code to the first cell.
+5. Enter "Ctrl-S".
+6. In the pop-up window, type in "tensor" to the "Rename file" field.
+7. Click button "Rename".

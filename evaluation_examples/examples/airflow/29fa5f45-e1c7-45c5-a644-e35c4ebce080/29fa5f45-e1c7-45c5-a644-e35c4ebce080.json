@@ -1,0 +1,49 @@
+{
+    "id": "29fa5f45-e1c7-45c5-a644-e35c4ebce080",
+    "snapshot": "airflow",
+    "instruction": "I am using Astronomer to place Airflow. Could you create an empty airflow project in current directory for me and launch the project on local server at port 8002.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo initialize an airflow project and run the project with designated local port, we can follow the setps:\n1. In the opened terminal, type in the following command to initialize an airflow project:\nˋastro dev initˋ\n2. Then, type in the following command to set the webserver port to 8002:\nˋastro config set webserver.port 8002ˋ \n3. Then, type in the following command to run the dag project:\nˋastro dev start`\n4. Wait for some time such that the web server can be launched.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.astronomer.io/learn/get-started-with-airflow"
+    ],
+    "config": [
+        {
+            "type": "script_and_execute",
+            "parameters": {
+                "src": "evaluation_examples/examples/airflow/29fa5f45-e1c7-45c5-a644-e35c4ebce080/init.sh",
+                "dest": "/home/user/init.sh"
+            }
+        }
+    ],
+    "action_number": 4,
+    "related_apps": [
+        "airflow",
+        "chromium",
+        "docker",
+        "terminal"
+    ],
+    "tags": [
+        "cli+gui",
+        "data_orchestration",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "vm_script_output",
+            "src": "evaluation_examples/examples/airflow/29fa5f45-e1c7-45c5-a644-e35c4ebce080/eval.sh",
+            "dest": "/home/user/eval.sh"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        }
+    },
+    "counterpart": "699e0c0a-3fdc-4c10-ad9f-c4c9d7a9947b"
+}

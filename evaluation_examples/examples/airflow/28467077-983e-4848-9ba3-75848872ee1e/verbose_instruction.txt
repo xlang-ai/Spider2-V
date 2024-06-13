@@ -1,0 +1,15 @@
+To configure a Postgres connection on the Airflow page, we can:
+1. Click the "Admin" button on the top menu bar;
+2. Choose and click "Connections" in the expanded sub-menu;
+3. In the Connection page, click the button "+" in the `List Connection` table to add a new record;
+4. For `Connection Id`, type in text "postgres_conn";
+5. For `Connection Type`, click the selection box to expand more options;
+6. Then, scroll down to the bottom in the option list and click "Postgres" as the target type;
+7. For the other fields, type in the following text respectively:
+Host: 172.17.0.1
+Database: jaffle_shop
+Login: user
+Password: password
+Port: 5432
+8. Scroll down to the bottom of this page;
+9. Click button "Save". The connection is successfully set up.

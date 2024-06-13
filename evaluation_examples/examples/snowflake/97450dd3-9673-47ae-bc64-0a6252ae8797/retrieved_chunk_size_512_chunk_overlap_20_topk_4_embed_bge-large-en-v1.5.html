@@ -1,0 +1,84 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/spark-connector-qubole.html
+
+Documentation Title:
+Configuring Snowflake for Spark in Qubole | Snowflake Documentation
+
+Documentation Content:
+change the virtual warehouse used for queries).</p><div><p>Note</p><p>After adding a Snowflake data store, restart the Spark cluster (if you are using an already-running Spark cluster). Restarting the Spark cluster installs the <span>.jar</span>files for the Snowflake
+Connector for Spark and the Snowflake JDBC Driver.</p></div></section><section><h2>Verifying the Snowflake Data Store in Qubole<a>¶</a></h2><p>To verify that the Snowflake data store was created and has been activated, click on the dropdown list in the upper-left of the <span>Explore</span>page. A green dot indicates that the data store has
+been activated.</p><p>You should also verify that the table explorer widget in the left pane of the <span>Explore</span>page displays all of the tables in the Snowflake database specified in the data store.</p></section><section><h2>Query Pushdown in Qubole<a>¶</a></h2><p>Spark queries benefit from Snowflake’s automatic query pushdown optimization, which improves performance. By default, Snowflake query pushdown is enabled in Qubole.</p><p>For more details about query pushdown, see <a>Pushing Spark Query Processing to Snowflake</a>(Snowflake Blog).</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowpark/reference/scala/com/snowflake/snowpark/index.html
+
+Documentation Title:
+
+   Snowpark 1.12.1  - com.snowflake.snowpark
+  
+
+Documentation Content:
+</a>.
+        <a>snowflake
+        </a></p><h1>snowpark
+        <i>
+          </i></h1></div><h4><span>package
+        </span><span>snowpark
+        </span></h4><div><div><i>
+        </i><i>
+        </i></div><div><div><span>Ordering
+         </span><span>Alphabetic
+           </span></div><div><span>Visibility
+         </span><ol><span>Public
+           </span><span>All
+           </span></ol></div></div></div><div><div><div><h3>Type Members
+         </h3><ol><li><i>
+             </i><span>class
+            </span><span><span>AsyncJob
+             </span><span>extends
+             <span>AnyRef
+             </span></span></span><p>Provides a way to track an asynchronous query in Snowflake.
+           </p><div><div><p>Provides a way to track an asynchronous query in Snowflake.
+             </p><p>You can use this object to check the status of an asynchronous query and retrieve the results.
+             </p><p>To check the status of an asynchronous query that you submitted earlier,
+call
+              <a>Session.createAsyncJob
+              </a>, and pass in the query ID. This returns an
+              <code>AsyncJob
+              </code>object
+that you can use to check the status of the query and retrieve the query results.
+             </p><p>Example 1: Create an AsyncJob by specifying a valid
+              <code>&lt;query_id&gt;
+              </code>, check whether
+the query is running or not, and get the result rows.
+             </p><pre><span>val</span>asyncJob = session.createAsyncJob(&lt;query_id&gt;)
+println(s<span>"Is query ${asyncJob.getQueryId()} running?
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/spark-connector-use.html
+
+Documentation Title:
+Using the Spark Connector | Snowflake Documentation
+
+Documentation Content:
+</span><span>Append</span><span>)</span><span>.</span><span>save</span><span>()</span></pre><span>Copy</span></div></li></ol></section><section><h3>Executing DDL/DML SQL Statements<a>¶</a></h3><p>Use the <span>runQuery()</span>method of the <span>Utils</span>object to execute DDL/DML SQL statements, in addition to queries, for example:</p><div><pre><span>var</span><span>sfOptions</span><span>=</span><span>Map</span><span>(</span><span>"sfURL"</span><span>-&gt;</span><span>"&lt;account_identifier&gt;snowflakecomputing.com"</span><span>,</span><span>"sfUser"</span><span>-&gt;</span><span>"&lt;user_name&gt;"</span><span>,</span><span>"sfPassword"</span><span>-&gt;</span><span>"&lt;password&gt;"</span><span>,</span><span>"sfDatabase"</span><span>-&gt;</span><span>"&lt;database&gt;"</span><span>,</span><span>"sfSchema"</span><span>-&gt;</span><span>"&lt;schema&gt;"</span><span>,</span><span>"sfWarehouse"</span><span>-&gt;</span><span>"&lt;warehouse&gt;"</span><span>)</span><span>Utils</span><span>.</span><span>runQuery</span><span>(</span><span>sfOptions</span><span>,</span><span>"CREATE TABLE MY_TABLE(A INTEGER)"</span><span>)</span></pre><span>Copy</span></div><p>where <span>sfOptions</span>is the parameters map used to read/write DataFrames.</p><p>The <span>runQuery</span>method returns only TRUE or FALSE.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/clients-drivers/spark-connector-2022.html
+
+Documentation Title:
+Snowflake Connector for Spark release notes for 2022 | Snowflake Documentation
+
+Documentation Content:
+These methods
+return the query ID of the last query that read data from Snowflake and the last COPY INTO TABLE statement that
+was executed (respectively).</p></ul></section></section><section><h2>Version 2.10.0 (February 17, 2022)<a>¶</a></h2><p>Compatible JDBC Driver version: 3.13.14</p><section><h3>Behavior change<a>¶</a></h3><p>Added support for Spark, version 3.2. Beginning with this release, the Snowflake Connector for Spark only supports Spark 3.0, 3.1 and 3.2. Spark version 2.4 is no longer supported.</p></section><section><h3>Bug fix<a>¶</a></h3><p>Fixed an issue where string “null” is regarded as type <span>NULL</span>.</p></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+
+
+

@@ -1,0 +1,317 @@
+Documentation Source:
+superset.apache.org/docs/faq/index.txt
+
+Documentation Title:
+FAQ | Superset
+
+Documentation Content:
+To get Superset to discover your new columns,
+all you have to do is to go to
+Data -> Datasets
+, click the edit icon next to the dataset
+whose schema has changed, and hit
+Sync columns from source
+from the
+Columns
+tab.
+Behind the scene, the new columns will get merged. Following this, you may want to re-edit the
+table afterwards to configure the Columns tab, check the appropriate boxes and save again.
+What database engine can I use as a backend for Superset?
+​
+To clarify, the database backend is an OLTP database used by Superset to store its internal
+information like your list of users and dashboard definitions. While Superset supports a
+variety of databases as data
+sources
+,
+only a few database engines are supported for use as the OLTP backend / metadata store.
+Superset is tested using MySQL, PostgreSQL, and SQLite backends. It’s recommended you install
+Superset on one of these database servers for production.  Installation on other OLTP databases
+may work but isn’t tested.  It has been reported that
+Microsoft SQL Server does
+not
+work as a Superset backend
+. Column-store,
+non-OLTP databases are not designed for this type of workload.
+How can I configure OAuth authentication and authorization?
+​
+You can take a look at this Flask-AppBuilder
+configuration example
+.
+Is there a way to force the dashboard to use specific colors?
+​
+It is possible on a per-dashboard basis by providing a mapping of labels to colors in the JSON
+Metadata attribute using the
+label_colors
+key.
+{
+"label_colors": {
+"Girls": "#FF69B4",
+"Boys": "#ADD8E6"
+}
+}
+Does Superset work with
+[insert database engine here]
+?
+​
+The
+Connecting to Databases section
+provides the best
+overview for supported databases. Database engines not listed on that page may work too. We rely on
+the community to contribute to this knowledge base.
+For a database engine to be supported in Superset through the SQLAlchemy connector, it requires
+having a Python compliant
+SQLAlchemy dialect
+as well
+as a
+DBAPI driver
+defined. Database that have limited
+SQL support may work as well.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+Second, there are performance considerations. The meta database will push any filtering, sorting, and limiting to the underlying databases, but any aggregations and joins will happen in memory in the process running the query. Because of this, it's recommended to run the database in async mode, so queries are executed in Celery workers, instead of the web workers. Additionally, it's possible to specify a hard limit on how many rows are returned from the underlying databases.
+Enabling the meta database
+​
+To enable the Superset meta database, first you need to set the
+ENABLE_SUPERSET_META_DB
+feature flag to true. Then, add a new database of type "Superset meta database" with the SQLAlchemy URI "superset://".
+If you enable DML in the meta database users will be able to run DML queries on underlying databases
+as long as DML is also enabled in them
+. This allows users to run queries that move data across databases.
+Second, you might want to change the value of
+SUPERSET_META_DB_LIMIT
+. The default value is 1000, and defines how many are read from each database before any aggregations and joins are executed. You can also set this value
+None
+if you only have small tables.
+Additionally, you might want to restrict the databases to with the meta database has access to. This can be done in the database configuration, under "Advanced" -> "Other" -> "ENGINE PARAMETERS" and adding:
+{
+"allowed_dbs"
+:
+[
+"Google Sheets"
+,
+"examples"
+]
+}
+Edit this page
+Previous
+Configuring Superset
+Next
+Alerts and Reports
+Installing Database Drivers
+Supported Databases and Dependencies
+Installing Drivers in Docker Images
+Database-specific Instructions
+Connecting through the UI
+Extra Database Settings
+Misc.
+Querying across databases
+We use
+Copyright © 2024,
+          The
+Apache Software Foundation
+,
+          Licensed under the Apache
+License
+.
+Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+Apache Software Foundation
+resources
+Security
+|
+Donate
+|
+Thanks
+|
+Events
+|
+License
+|
+Privacy
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+In Superset, you can either upload that JSON or add the JSON blob in the following format (this should be the content of your credential JSON file):
+{
+"type": "service_account",
+"project_id": "...",
+"private_key_id": "...",
+"private_key": "...",
+"client_email": "...",
+"client_id": "...",
+"auth_uri": "...",
+"token_uri": "...",
+"auth_provider_x509_cert_url": "...",
+"client_x509_cert_url": "..."
+}
+Additionally, can connect via SQLAlchemy URI instead
+The connection string for BigQuery looks like:
+bigquery://{project_id}
+Go to the
+Advanced
+tab, Add a JSON blob to the
+Secure Extra
+field in the database configuration form with
+the following format:
+{
+"credentials_info": <contents of credentials JSON file>
+}
+The resulting file should have this structure:
+{
+"credentials_info": {
+"type": "service_account",
+"project_id": "...",
+"private_key_id": "...",
+"private_key": "...",
+"client_email": "...",
+"client_id": "...",
+"auth_uri": "...",
+"token_uri": "...",
+"auth_provider_x509_cert_url": "...",
+"client_x509_cert_url": "..."
+}
+}
+You should then be able to connect to your BigQuery datasets.
+To be able to upload CSV or Excel files to BigQuery in Superset, you'll need to also add the
+pandas_gbq
+library.
+Currently, Google BigQuery python sdk is not compatible with
+gevent
+, due to some dynamic monkeypatching on python core library by
+gevent
+.
+So, when you deploy Superset with
+gunicorn
+server, you have to use worker type except
+gevent
+.
+Google Sheets
+​
+Google Sheets has a very limited
+SQL API
+. The recommended
+connector library for Google Sheets is
+shillelagh
+.
+There are a few steps involved in connecting Superset to Google Sheets. This
+tutorial
+has the most up to date
+instructions on setting up this connection.
+Hana
+​
+The recommended connector library is
+sqlalchemy-hana
+.
+The connection string is formatted as follows:
+hana://{username}:{password}@{host}:{port}
+Apache Hive
+​
+The
+pyhive
+library is the recommended way to connect to Hive through SQLAlchemy.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+Connecting to Databases | Superset
+Skip to main content
+Documentation
+Getting Started
+FAQ
+Community
+Resources
+GitHub
+Slack
+Mailing List
+Stack Overflow
+Get Started
+Search
+Introduction
+Quickstart
+Installation
+Configuration
+Configuring Superset
+Connecting to Databases
+Alerts and Reports
+Caching
+Async Queries via Celery
+SQL Templating
+Timezones
+Network and Security Settings
+Setup SSH Tunneling
+Event Logging
+Country Map Tools
+Importing and Exporting Datasources
+Using Superset
+Contributing
+Security
+FAQ
+API
+Edit this page on GitHub
+Configuration
+Connecting to Databases
+On this page
+Connecting to Databases
+Superset does not ship bundled with connectivity to databases. The main step in connecting
+Superset to a database is to
+install the proper database driver(s)
+in your environment.
+note
+You’ll need to install the required packages for the database you want to use as your metadata database
+as well as the packages needed to connect to the databases you want to access through Superset.
+For information about setting up Superset's metadata database, please refer to
+installation documentation
+This documentation tries to keep pointer to the different drivers for commonly used database
+engine.
+Installing Database Drivers
+​
+Superset requires a Python
+DB-API database driver
+and a
+SQLAlchemy dialect
+to be installed for
+each database engine you want to connect to.
+You can read more
+here
+about how to
+install new database drivers into your Superset configuration.
+Supported Databases and Dependencies
+​
+Some of the recommended packages are shown below. Please refer to
+pyproject.toml
+for the versions that
+are compatible with Superset.
+Database
+PyPI package
+Connection String
+AWS Athena
+pip install pyathena[pandas]
+,
+pip install PyAthenaJDBC
+awsathena+rest://{access_key_id}:{access_key}@athena.{region}.amazonaws.com/{schema}?s3_staging_dir={s3_staging_dir}&...
+AWS DynamoDB
+pip install pydynamodb
+dynamodb://{access_key_id}:{secret_access_key}@dynamodb.{region_name}.amazonaws.
+
+
+

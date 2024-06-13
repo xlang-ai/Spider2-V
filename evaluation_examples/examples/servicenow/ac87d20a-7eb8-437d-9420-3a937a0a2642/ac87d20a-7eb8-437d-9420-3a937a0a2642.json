@@ -1,0 +1,76 @@
+{
+    "id": "ac87d20a-7eb8-437d-9420-3a937a0a2642",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@CreateUserTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 13,
+    "instruction": "Create a new user with a value of \"Christophel\" for field \"Last name\" and a value of \"Robyn\" for field \"First name\" and a value of \"robyn.christophel@example.com\" for field \"Email\" and a value of \"(514) 703-5913\" for field \"Mobile phone\" and a value of \"dd-MM-yyyy\" for field \"Date format\" and a value of \"(514) 386-6086\" for field \"Business phone\" and a value of \"false\" for field \"Locked out\" and a value of \"surquidry tassie Physostegia snootiness heterotopous\" for field \"Title\" and a value of \"GMT\" for field \"Time zone\" and a value of \"Outlook\" for field \"Calendar integration\" and a value of \"English\" for field \"Language\". The unique field \"User ID\" is provided in the opened file.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We want to create a new user by filling the forms in the opened web page. To achieve this:\n1. Find the unique user id to add in the opened .txt file. It should have the format \"User ID: {user_id}\". Copy the {user_id} part, we will use it later.\n2. Switch to the chrome/chromium browser, which should be in the service now web page.\n3. Firstly, click the input box \"User ID\", paste the value {user_id} we just copied.\n4. For the two requested field under \"User ID\", type in text \"Robyn\" for field \"First name\" and text \"Christophel\" for field \"Last name\", respectively.\n5. Click the field box for \"Title\", input the value \"surquidry tassie Physostegia snootiness heterotopous\"\n6. In the check box with name \"Locked out\" on the left column, please ensure that it is not checked.\n7. Next, we come to the right column of this form. In the must-filled box \"Email\", click it and type in the email \"robyn.christophel@example.com\"\n8. For \"Language\" selection under field \"Email\", click it and select \"English\"\n9. For \"Calendar integration\", ensure that the value \"Outlook\" is chosen.\n10. For the \"Time zone\", click the input box and select the entry \"GMT\" in the drop-down menu.\n11. For the \"Date format\", click the input box and select the entry \"dd-MM-yyyy\"\n12. As for the two remaining fields \"Business phone\" and \"Mobile phone\" on the right column, please input text values \"(514) 386-6086\" and \"(514) 703-5913\", respectively.\n13. Finally, click the \"Submit\" button at the top-right of this web page.\n(Attention that, after the reloading of the page, all filled contents will be reset. But do not worry, if there is no error message, it means the new record for user has been created.)\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "CreateUserTask",
+                "task_kwargs": {}
+            }
+        },
+        {
+            "type": "workarena_unique_fields",
+            "parameters": {
+                "field_mappings": {
+                    "user_name": "User ID"
+                },
+                "path": "/home/user/Desktop/user_id.txt"
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gedit",
+                    "/home/user/Desktop/user_id.txt"
+                ]
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "f5ef218a-dbe6-462e-b635-a2053548a3c2"
+}

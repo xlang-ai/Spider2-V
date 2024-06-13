@@ -1,0 +1,77 @@
+{
+    "id": "df63ae69-3267-4aa0-a6a4-dd2c35ababd2",
+    "snapshot": "dbt",
+    "instruction": "Help me create a new development environment named \"dev env\" using dbt version 1.5. Save the environment without configuring connection and repository, which will be handled by me. \nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to create an environment for an existing project.\n1. Click the big green \"Create Environment\" button at bottom.\n2. Click the \"Environment name\" text bar, change the value to \"dev env\".\n3. Click the \"Environment type\" bar, choose \"Development\" in the drop-down panel.\n4. Click the \"dbt version\" bar, choose \"1.5\" in the drop-down panel.\n5. Click \"Save\" button on the top right of the page.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://docs.getdbt.com/docs/dbt-cloud-environments"
+    ],
+    "related_apps": [
+        "dbt-cloud",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_transformation",
+        "verbose"
+    ],
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "full_screen": true
+            }
+        },
+        {
+            "type": "dbt_cloud_init",
+            "parameters": {
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json",
+                "actions": [
+                    {
+                        "type": "delete_project"
+                    },
+                    {
+                        "type": "create_project",
+                        "project_name": "environment_test"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "dbt_cloud_webui_login",
+            "parameters": {
+                "listening_port": 9222,
+                "skip_step": 2,
+                "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+            }
+        }
+    ],
+    "action_number": 5,
+    "evaluator": {
+        "func": "check_include_exclude",
+        "result": {
+            "type": "dbt_environment_info",
+            "name": "dev env",
+            "fields": [
+                "dbt_version",
+                "type"
+            ],
+            "setting_file": "evaluation_examples/settings/dbt_cloud/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "1.5.0-latest",
+                    "development"
+                ],
+                "exclude": [
+                    "None"
+                ]
+            }
+        }
+    },
+    "counterpart": "f96a5913-1489-40bb-a432-8411b1c61533"
+}

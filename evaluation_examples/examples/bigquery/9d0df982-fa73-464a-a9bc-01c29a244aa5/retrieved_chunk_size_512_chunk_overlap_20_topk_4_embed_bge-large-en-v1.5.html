@@ -1,0 +1,89 @@
+Documentation Source:
+cloud.google.com/bigquery/docs/explore-data-colab.html
+
+Documentation Title:
+Explore query results in notebooks  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+ml_datasets.penguins` LIMIT 1000;
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p><p>In the <strong>Query results</strong>section, click <strong>Explore data</strong>, and then click
+<strong>Explore with Python notebook</strong>.</p></ol><h2>Prepare the notebook for use</h2><p>Prepare the notebook for use by connecting to a runtime and setting application
+default values.</p><ol><li>In the notebook header, click <strong>Connect</strong>to
+<a>connect to the default runtime</a>.</li><li>In the <strong>Setup</strong>code block, click
+<span>play_circle</span><strong>Run cell</strong>.</li></ol><h2>Explore the data</h2><ol><li>To load the <strong>penguins</strong>data into a <a>BigQuery DataFrame</a>and show the results, click <span>play_circle</span><strong>Run cell</strong>in the code block in the
+<strong>Result set loaded from BigQuery job as a DataFrame</strong>section.</li><li>To get descriptive metrics for the data, click
+<span>play_circle</span><strong>Run cell</strong>in the code block
+in the <strong>Show descriptive statistics using describe()</strong>section.</li><li>Optional: Use other Python functions or packages to explore and analyze
+the data.</li></ol><p>The following code sample shows using
+<code>bigframes.pandas</code>to analyze data, and <code>bigframes.ml</code>to create a linear regression model from <strong>penguins</strong>data in a
+BigQuery DataFrame:</p><code># Load data from BigQuery
+query_or_table = "bigquery-public-data.ml_datasets.penguins"
+bq_df = bpd.read_gbq(query_or_table)
+
+# Inspect one of the columns (or series) of the DataFrame:
+bq_df["body_mass_g"]
+
+# Compute the mean of this series:
+average_body_mass = bq_df["body_mass_g"].
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/bigquery-web-ui.html
+
+Documentation Title:
+Explore the Google Cloud console  |  BigQuery
+
+Documentation Content:
+click the name of the project that you want to star.</p></ol></li></ul><h3>Remove a project</h3><p>To remove a project from the <strong>Explorer</strong>pane, click the name of the project,
+and then click
+<span>star</span><strong>Unstar</strong>.</p><h2>Display resources</h2><p>The <strong>Explorer</strong>pane lists datasets that you can browse in your current
+project or any projects that you starred.</p><ul><li>To display the datasets in a project, click
+<span>arrow_right</span><strong>Toggle node</strong>for that
+project.</li><li>To display the tables, views, and functions in a dataset, click the
+dataset.</li><li>Resources are also displayed in the <strong>Explorer</strong>pane when you open them
+some other way. For example, when you create a table and then click
+<strong>Go to table</strong>, the <strong>Explorer</strong>pane highlights and shows that table under
+its dataset.</li></ul><p>To display information about a resource in a project or dataset, click the name
+of the resource in the <strong>Explorer</strong>pane and view the details pane. The set of
+available actions depends on the resource. For example, the following image
+shows the tab for a table:</p><img/><h3>Star resources</h3><p>If you have important or current projects, datasets, or tables, you can star them
+in the <strong>Explorer</strong>pane.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.html
+
+Documentation Title:
+Query a public dataset with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+indexed text</span><span>Work with text analyzers</span><div><span>Work with sessions</span><ul><span>Introduction</span><span>Create sessions</span><span>Write queries in sessions</span><span>Run queries in sessions</span><span>Terminate sessions</span><span>View query history in sessions</span><span>Find sessions</span></ul></div><div><span>Use geospatial analytics</span><ul><span>Introduction</span><span>Work with geospatial analytics</span><span>Visualize geospatial data</span><span>Geospatial analytics syntax reference</span><div><span>Geospatial analytics tutorials</span><ul><span>Get started with geospatial analytics</span><span>Use geospatial analytics to plot a hurricane's path</span></ul></div></ul></div><div><span>Use programmatic tools</span><ul><span>Introduction</span><div><span>Use notebooks in BigQuery</span><ul><span>Introduction</span><span>Create notebooks</span><span>Explore query results</span></ul></div><span>Use Jupyter notebooks</span></ul></div><div><span>Use analysis and BI tools</span><ul><span>Introduction</span><span>Use Connected Sheets</span><span>Use Tableau</span><span>Use Looker</span><span>Use Looker Studio</span><span>Tutorial: Looker Studio with BI Engine</span><span>Use third-party tools</span><div><span>Google Cloud Ready - BigQuery</span><ul><span>Overview</span><span>Partners</span></ul></div></ul></div><div><span>Share with Analytics Hub</span><ul><span>Introduction</span><span>Manage data exchanges</span><span>Manage listings</span><span>Manage subscriptions</span><span>Configure user roles</span><span>View and subscribe to listings</span><span>Share sensitive data with data clean rooms</span><div><span>Entity resolution</span><ul><span>Introduction</span><span>Use entity resolution</span></ul></div><span>VPC Service Controls for
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.html
+
+Documentation Title:
+Query a public dataset with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+</span><ul><span>Guides
+   </span><span>Reference
+   </span><span>Samples
+   </span><span>Resources
+   </span></ul></li><li><span>Technology areas
+   </span><span>More
+   </span></li><li><span>Cross-product tools
+   </span><span>More
+   </span></li><li><span>Related sites
+   </span><span>More
+   </span></li><span>Console
+   </span><span>Contact Us
+   </span><span>Start free
+   </span></ul><div><ul><span>Discover</span><span>Product overview</span><div><span>How does BigQuery work?</span><ul><span>Storage</span><span>Analytics</span><span>Administration</span></ul></div><span>Get started</span><span>Use the BigQuery sandbox</span><span>Enable BigQuery Studio for asset management</span><div><span>Quickstarts</span><ul><div><span>Try the Cloud console</span><ul><span>Query public data</span><span>Load and query data</span><span>Try BigQuery DataFrames</span></ul></div><div><span>Try the command-line tool</span><ul><span>Query public data</span><span>Load and query data</span></ul></div></ul></div><div><span>Explore BigQuery tools</span><ul><span>Explore the console</span><span>Explore the command-line tool</span><span>Query using the client libraries</span></ul></div><span>Migrate</span><span>Overview</span><div><span>Migrate a data warehouse</span><ul><span>Introduction to BigQuery Migration Service</span><span>Migration assessment</span><span>Migrate schema and data</span><span>Migrate data pipelines</span><span>Database replication using change data capture</span><div><span>Migrate SQL</span><ul><span>Translate SQL queries interactively</span><span>Translate SQL queries using the API</span><span>Translate
+
+
+

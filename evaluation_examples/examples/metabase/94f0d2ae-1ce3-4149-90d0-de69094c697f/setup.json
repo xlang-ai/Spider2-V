@@ -1,0 +1,17 @@
+{
+    "language": "en",
+    "name": "John Wilson",
+    "company": "Google",
+    "email": "johnwilson@gmail.com",
+    "password": "Spider2.0",
+    "database": {
+        "type": "postgresql",
+        "display_name": "PostgresData",
+        "host": "localhost",
+        "port": 5432,
+        "db_name": "metabase",
+        "db_user": "user",
+        "db_password": "password"
+    },
+    "comments": "Do not allow sharing of data preferences."
+}

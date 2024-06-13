@@ -1,0 +1,91 @@
+{
+    "id": "e50164dd-4bea-4390-b217-970d6dfe1c61",
+    "snapshot": "bigquery",
+    "instruction": "The compressed file names.zip stores the information of children born in the USA each year. Please help me import data in 2014 into the current GCP. Here is the configuration:\n- Database name: babynames\n- Table name: names_2014\n- Database schema:\n  - name: string\n  - assigned_sex_at_birth: string\n  - count: integer\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Now we have some files on the desktop. Our job is to upload a specific file onto BigQuery. To do this:\n1) Switch to the terminal.\n2) Unzip the .zip file on desktop via typing and executing:\n`unzip -q names.zip -d names`\n3) After that, we will see a file \"yob2014.txt\" with keyword 2014 indicating the year information. Try:\n`ls names | grep 2014`\n4) Change to the web browser, which resides in the BigQuery page.\n5) Click the \"+ ADD\" button next to the \"Explorer\" panel.\n6) Click the \"Local file\" panel on the pop-up window.\n7) In the input box \"Select file\", browse the local file system and select the file \"yob2014.txt\" under folder `~/Desktop/names`.\n8) For file format, click and choose \"CSV\" in the drop-down panel.\n9) For Destination, firstly click \"CREATE NEW DATASET\".\n10) Type in \"babynames\" in the `Dataset ID` field and click button \"CERATE DATASET\".\n11) For the `Table` field, type in text \"names_2014\".\n12) As for the schema, click the button \"+\" to add field. Add these fields one-by-one:\nField name: name; Type: STRING\nField name: assigned_sex_at_birth; Type: STRING\nField name: count; Type: INTEGER;\n13) Then, click the button \"CREATE TABLE\" at the bottom.\nEventually, we have completed this task.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
+    ],
+    "action_number": 13,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "launch",
+            "parameters": {
+                "command": [
+                    "gnome-terminal",
+                    "--maximize",
+                    "--working-directory=/home/user/Desktop"
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        },
+        {
+            "type": "copyfile_from_host_to_guest",
+            "parameters": {
+                "src": "evaluation_examples/examples/bigquery/e50164dd-4bea-4390-b217-970d6dfe1c61/names.zip",
+                "dest": "/home/user/Desktop/names.zip"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium",
+        "terminal"
+    ],
+    "tags": [
+        "cli+gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": "compare_csv",
+        "result": {
+            "type": "bigquery_table_to_csv",
+            "config_file": "evaluation_examples/settings/google/gcp_config.json",
+            "project_name": "bigquery-project",
+            "dataset_id": "babynames",
+            "table_id": "names_2014",
+            "schema": [
+                "name",
+                "assigned_sex_at_birth",
+                "count"
+            ],
+            "dest": "output.csv"
+        },
+        "expected": {
+            "type": "local_file",
+            "path": "evaluation_examples/examples/bigquery/e50164dd-4bea-4390-b217-970d6dfe1c61/yob2014.csv",
+            "dest": "gold_output.csv"
+        }
+    },
+    "counterpart": "21b70cc4-9dd2-57a2-a831-1fb67aa6ba9d"
+}

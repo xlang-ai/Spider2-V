@@ -1,0 +1,58 @@
+{
+    "id": "27c9ba8e-4bdd-4dc8-8f74-8eb1dc529ec8",
+    "snapshot": "servicenow",
+    "source": [
+        "WorkArena@OrderDeveloperLaptopTask"
+    ],
+    "tags": [
+        "account",
+        "it_service_management",
+        "cli+gui",
+        "verbose"
+    ],
+    "related_apps": [
+        "chromium",
+        "servicenow"
+    ],
+    "action_number": 8,
+    "instruction": "Go to the hardware store and order 3 \"Developer Laptop (Mac)\" with configuration {'Additional software requirements': 'Salesforce, QuickBooks, Zoom, Microsoft Office 365, Asana, Adobe Creative Cloud', 'Adobe Acrobat': False, 'Adobe Photoshop': True, 'Eclipse IDE': False}\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To order \"Developer Laptop (Mac)\" in the hardware store, we need to:\n1. Click the \"Hardware\" panel and wait for page loading.\n2. Click the first item panel \"Developer Laptop (Mac)\" and navigate to the new web page.\n3. For the three Optional Software, we check the option \"Adobe Photoshop\" (with a checkmark in the box in front of it).\n4. While for the other two options (\"Adobe Acrobat\" and \"Eclipse IDE\"), we uncheck them. That is, leave the boxes in front of them empty.\n5. Then, we locate the wide input text box under \"Additional software requirements\". Type in text \"Salesforce, QuickBooks, Zoom, Microsoft Office 365, Asana, Adobe Creative Cloud\".\n6. In the \"Quantity\" selection bar on the right panel, we click it to expand the option list.\n7. Select the entry \"3\". We want to buy 3 Macbook Pro laptops.\n8. Finally, we click the button with text \"Order Now\" in this panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "config": [
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222
+            }
+        },
+        {
+            "type": "workarena_task_init",
+            "parameters": {
+                "listening_port": 9222,
+                "settings_file": "evaluation_examples/settings/servicenow/settings.json",
+                "task_name": "OrderDeveloperLaptopTask",
+                "task_kwargs": {}
+            }
+        }
+    ],
+    "evaluator": {
+        "postconfig": [],
+        "result": {
+            "type": "workarena_task_result",
+            "settings_file": "evaluation_examples/settings/servicenow/settings.json"
+        },
+        "expected": {
+            "type": "rule",
+            "rules": {
+                "include": [
+                    "succeed"
+                ],
+                "exclude": [
+                    "failed"
+                ]
+            }
+        },
+        "options": {},
+        "func": "check_include_exclude"
+    },
+    "counterpart": "19f425aa-8595-47bd-84ac-08052d46c4b3"
+}

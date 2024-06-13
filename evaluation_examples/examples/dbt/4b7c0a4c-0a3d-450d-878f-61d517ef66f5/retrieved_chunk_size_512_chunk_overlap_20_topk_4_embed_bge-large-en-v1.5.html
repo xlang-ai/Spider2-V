@@ -1,0 +1,44 @@
+Documentation Source:
+docs.getdbt.com/docs/deploy/source-freshness.html
+
+Documentation Title:
+Source freshness | dbt Developer Hub
+
+Documentation Content:
+If you wanted your job dedicated <em>exclusively</em>to running freshness checks, you still need to include at least one placeholder step, such as <code>dbt compile</code>.</td></tr><tr><strong>Add as a run step</strong><td>Add the <code>dbt source freshness</code>command to a job anywhere in your list of run steps. However, if your source data is out of date —this step will "fail", and subsequent steps will not run. dbt Cloud will trigger email notifications (if configured) based on the end state of this step. You can create a new job to snapshot source freshness. If you <em>do not</em>want your models to run if your source data is out of date, then it could be a good idea to run <code>dbt source freshness</code>as the first step in your job. Otherwise, we recommend adding <code>dbt source freshness</code>as the last step in the job, or creating a separate job just for this task.</td></tr></tbody></table><div><img/><span>Adding a step to snapshot source freshness</span></div><h3>Source freshness snapshot frequency<a>​</a></h3><p>It's important that your freshness jobs run frequently enough to snapshot data latency in accordance with your SLAs. You can imagine that if you have a 1 hour SLA on a particular dataset, snapshotting the freshness of that <span>table</span>once daily would not be appropriate. As a good rule of thumb, you should run your source freshness jobs with at least double the frequency of your lowest SLA.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/sources.html
+
+Documentation Title:
+Add sources to your DAG | dbt Developer Hub
+
+Documentation Content:
+</span><span>period</span><span>:</span><span>hour</span><span>}</span></span><span><span>-</span><span>name</span><span>:</span><span>customers </span><span># this will use the freshness defined above</span></span><span><span>-</span><span>name</span><span>:</span><span>product_skus</span></span><span><span>freshness</span><span>:</span><span>null</span><span># do not check freshness for this table</span></span></code></div><p>In the <code>freshness</code>block, one or both of <code>warn_after</code>and <code>error_after</code>can be provided. If neither is provided, then dbt will not calculate freshness snapshots for the tables in this source.</p><p>Additionally, the <code>loaded_at_field</code>is required to calculate freshness for a table. If a <code>loaded_at_field</code>is not provided, then dbt will not calculate freshness for the table.</p><p>These configs are applied hierarchically, so <code>freshness</code>and <code>loaded_at_field</code>values specified for a <code>source</code>will flow through to all of the <code>tables</code>defined in that source. This is useful when all of the tables in a source have the same <code>loaded_at_field</code>, as the config can just be specified once in the top-level source definition.</p><h3>Checking source freshness<a>​</a></h3><p>To snapshot freshness information for your sources, use the <code>dbt source freshness</code>command (<a>reference docs</a>):</p><span>$ dbt source freshness</span><p>Behind the scenes, dbt uses the freshness properties to construct a <code>select</code>query, shown below.
+
+
+
+Documentation Source:
+docs.getdbt.com/blog/dbt-production-commands.html
+
+Documentation Title:
+The Exact dbt Commands We Run in Production | dbt Developer Blog
+
+Documentation Content:
+The two additions here would be:</p><ol><li>Testing source data before running any dbt transformation, and</li><li>Testing source freshness</li></ol><p>When you test source data before running transformations, this removes the possibility of bad source data affecting the dbt project.</p><p>This will stop the build process if bad source data is detected, and protects the integrity of your dbt models.</p><p>When sources are tested for freshness, it allows you to easily triage whether data in your warehouse is old, and subsequently alert relevant stakeholders.</p><p>You could also opt to run your source freshness test at the beginning, if your organization would prefer that stale data isn’t processed, or if you believe that stale data could lead to unreliable final models.</p><h2>Pro trip: beware of model selectors<a>​</a></h2><p>First, I want to quickly cover the topic of using <a>model selectors</a>(<code>-s</code>for specific models/tags/folders, or <code>-m</code>if you’re on a version prior to dbt v0.21.0) in your run commands. You may already know how to run specific models and subsequently their parent or child models.</p><p>When building production jobs, we highly advise not relying on these, as it adds to the complexity of your project, and is prone to creating mismatched timings in your build steps.</p><p>The way to think about model selectors in runs is more of an exception, rather than the default. It’s best to start with a single main job that runs at a consistent cadence. From there, assess whether specific parts of your dbt project need specific handling for optimization.</p><p>Maybe some models only require updating once a week, while everything else needs to be updated every hour.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/sources.html
+
+Documentation Title:
+Add sources to your DAG | dbt Developer Hub
+
+Documentation Content:
+You can find this query in the <a>query logs</a>.</p><code><span>select</span><span><span>max</span><span>(</span><span>_etl_loaded_at</span><span>)</span><span>as</span><span>max_loaded_at</span><span>,</span></span><span><span>convert_timezone</span><span>(</span><span>'UTC'</span><span>,</span><span>current_timestamp</span><span>(</span><span>)</span><span>)</span><span>as</span><span>snapshotted_at</span></span><span><span>from</span><span>raw</span><span>.</span><span>jaffle_shop</span><span>.</span><span>orders</span></span></code><p>The results of this query are used to determine whether the source is fresh or not:</p><div><img/><span>Uh oh! Not everything is as fresh as we'd like!</span></div><h3>Filter<a>​</a></h3><p>Some databases can have tables where a filter over certain columns are required, in order prevent a full scan of the table, which could be costly. In order to do a freshness check on such tables a <code>filter</code>argument can be added to the configuration, e.g. <code>filter: _etl_loaded_at &gt;= date_sub(current_date(), interval 1 day)</code>. For the example above, the resulting query would look like</p><code><span>select</span><span><span>max</span><span>(</span><span>_etl_loaded_at</span><span>)</span><span>as</span><span>max_loaded_at</span><span>,</span></span><span><span>convert_timezone</span><span>(</span><span>'UTC'</span><span>,</span><span>current_timestamp</span><span>(</span><span>)</span><span>)</span><span>as</span><span>snapshotted_at</span></span><span><span>from</span><span>raw</span><span>.</span><span>jaffle_shop</span><span>.
+
+
+

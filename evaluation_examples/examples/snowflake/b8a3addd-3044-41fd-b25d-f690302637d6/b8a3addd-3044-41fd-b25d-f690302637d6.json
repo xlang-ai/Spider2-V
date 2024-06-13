@@ -12,7 +12,8 @@
     "tags": [
         "gui",
         "account",
-        "data_warehousing"
+        "data_warehousing",
+        "abstract"
     ],
     "action_number": 17,
     "config": [
@@ -39,7 +40,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "postconfig": [],
         "func": "literal_match",
@@ -58,5 +58,6 @@
             "type": "list",
             "ignore_order": true
         }
-    }
+    },
+    "counterpart": "0f376334-8ca6-44e3-9e6d-9b76e9bc0df3"
 }

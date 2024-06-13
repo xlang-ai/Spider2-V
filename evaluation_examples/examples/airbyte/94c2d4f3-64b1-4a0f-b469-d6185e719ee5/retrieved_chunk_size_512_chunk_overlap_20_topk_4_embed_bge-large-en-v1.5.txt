@@ -1,0 +1,268 @@
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+
+Documentation Title:
+Snowflake | Airbyte Documentation
+
+Documentation Content:
+When creating a connection, it may allow you to select
+Mirror source structure
+for the
+Destination namespace
+, which if you have followed some of our default examples and tutorials may
+result in the connection trying to write to a
+PUBLIC
+schema.
+A quick fix could be to edit your connection's 'Replication' settings from
+Mirror source structure
+to
+Destination Default
+. Otherwise, make sure to grant the role the required permissions in the
+desired namespace.
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+3.8.0
+2024-05-08
+#37715
+Remove option for incremental typing and deduping
+3.7.4
+2024-05-07
+#38052
+Revert problematic optimization
+3.7.3
+2024-05-07
+#34612
+Adopt CDK 0.33.2
+3.7.2
+2024-05-06
+#37857
+Use safe executeMetadata call
+3.7.1
+2024-04-30
+#36910
+Bump CDK version
+3.7.0
+2024-04-08
+#35754
+Allow configuring
+data_retention_time_in_days
+; apply to both raw and final tables.
+Note
+: Existing tables will not be affected; you must manually alter them.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+
+Documentation Title:
+Snowflake | Airbyte Documentation
+
+Documentation Content:
+oneOf
+,
+allOf
+fields).
+0.4.34
+2022-07-23
+#14388
+Add support for key pair authentication
+0.4.33
+2022-07-15
+#14494
+Make S3 output filename configurable.
+0.4.32
+2022-07-14
+#14618
+Removed additionalProperties: false from JDBC destination connectors
+0.4.31
+2022-07-07
+#13729
+Improve configuration field description
+0.4.30
+2022-06-24
+#14114
+Remove "additionalProperties": false from specs for connectors with staging
+0.4.29
+2022-06-17
+#13753
+Deprecate and remove PART_SIZE_MB fields from connectors based on StreamTransferManager
+0.4.28
+2022-05-18
+#12952
+Apply buffering strategy on GCS staging
+0.4.27
+2022-05-17
+#12820
+Improved 'check' operation performance
+0.4.26
+2022-05-12
+#12805
+Updated to latest base-java to emit AirbyteTraceMessages on error.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+
+Documentation Title:
+Snowflake | Airbyte Documentation
+
+Documentation Content:
+17.1
+3.5.5
+2024-02-08
+#34502
+Reduce COPY frequency
+3.5.4
+2024-01-24
+#34451
+Improve logging for unparseable input
+3.5.3
+2024-01-25
+#34528
+Fix spurious
+check
+failure (
+UnsupportedOperationException: Snowflake does not use the native JDBC DV2 interface
+)
+3.5.2
+2024-01-24
+#34458
+Improve error reporting
+3.5.1
+2024-01-24
+#34501
+Internal code changes for Destinations V2
+3.5.0
+2024-01-24
+#34462
+Upgrade CDK to 0.14.0
+3.4.22
+2024-01-12
+#34227
+Upgrade CDK to 0.12.0; Cleanup unused dependencies
+3.4.21
+2024-01-10
+#34083
+Emit destination stats as part of the state message
+3.4.20
+2024-01-05
+#33948
+Skip retrieving initial table state when setup fails
+3.4.19
+2024-01-04
+#33730
+Internal code structure changes
+3.4.18
+2024-01-02
+#33728
+Add option to only type and dedupe at the end of the sync
+3.4.17
+2023-12-20
+#33704
+Update to java CDK 0.10.0 (no changes)
+3.4.16
+2023-12-18
+#33124
+Make Schema Creation Seperate from Table Creation
+3.4.15
+2023-12-13
+#33232
+Only run typing+deduping for a stream if the stream had any records
+3.4.14
+2023-12-08
+#33263
+Adopt java CDK version 0.7.0
+3.4.13
+2023-12-05
+#32326
+Use jdbc metadata for table existence check
+3.4.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+
+Documentation Title:
+Snowflake | Airbyte Documentation
+
+Documentation Content:
+4.51
+2023-03-10
+#23466
+Changed S3 Avro type from Int to Long
+0.4.49
+2023-02-27
+#23360
+Added logging for flushing and writing data to destination storage
+0.4.48
+2023-02-23
+#22877
+Add handler for IP not in whitelist error and more handlers for insufficient permission error
+0.4.47
+2023-01-30
+#21912
+Catch "Create" Table and Stage Known Permissions and rethrow as ConfigExceptions
+0.4.46
+2023-01-26
+#20631
+Added support for destination checkpointing with staging
+0.4.45
+2023-01-25
+#21087
+Catch Known Permissions and rethrow as ConfigExceptions
+0.4.44
+2023-01-20
+#21087
+Wrap Authentication Errors as Config Exceptions
+0.4.43
+2023-01-20
+#21450
+Updated Check methods to handle more possible s3 and gcs stagings issues
+0.4.42
+2023-01-12
+#21342
+Better handling for conflicting destination streams
+0.4.41
+2022-12-16
+#20566
+Improve spec to adhere to standards
+0.4.40
+2022-11-11
+#19302
+Set jdbc application env variable depends on env - airbyte_oss or airbyte_cloud
+0.4.39
+2022-11-09
+#18970
+Updated "check" connection method to handle more errors
+0.4.38
+2022-09-26
+#17115
+Added connection string identifier
+0.4.37
+2022-09-21
+#16839
+Update JDBC driver for Snowflake to 3.13.19
+0.4.36
+2022-09-14
+#15668
+Wrap logs in AirbyteLogMessage
+0.4.35
+2022-09-01
+#16243
+Fix Json to Avro conversion when there is field name clash from combined restrictions (
+anyOf
+,
+oneOf
+,
+allOf
+fields).
+
+
+

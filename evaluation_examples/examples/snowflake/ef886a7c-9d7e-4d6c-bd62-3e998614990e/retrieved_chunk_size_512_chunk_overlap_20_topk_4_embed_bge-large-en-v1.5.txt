@@ -1,0 +1,345 @@
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.txt
+
+Documentation Title:
+Visualizing worksheet data | Snowflake Documentation
+
+Documentation Content:
+Each query supports one type of chart at a time.
+Hover over the chart to view details about each data point. For example, you can view your results as a line chart:
+You can modify the type of chart used to display your query results.
+Select the chart type to choose a different type, for example,
+Bar
+.
+You can manage the columns in your chart with the
+Data
+section:
+Select a column to modify the column attributes:
+Add or remove columns.
+Choose a different column in the query results to use in the chart.
+Modify how column data is represented in the chart. For example, change the bucketing for a time column from day to minutes.
+You can modify the column attributes to configure how data in that column is rendered in the chart. See
+Aggregate and bucket data
+for more details about managing aggregate data.
+Style your chart in the
+Appearance
+section. The available settings depend on the type of chart. For example, for a heatgrid
+chart:
+The exact content of your charts depends on your query results. To generate the examples in this topic, use the following query based
+on the Snowflake sample data:
+SELECT
+COUNT
+(
+O_ORDERDATE
+)
+as
+orders
+,
+O_ORDERDATE
+as
+date
+FROM
+SNOWFLAKE_SAMPLE_DATA
+.
+TPCH_SF1
+.
+ORDERS
+WHERE
+O_ORDERDATE
+=
+:daterange
+GROUP
+BY
+:datebucket
+(
+O_ORDERDATE
+),
+O_ORDERDATE
+ORDER
+BY
+O_ORDERDATE
+LIMIT
+10
+;
+Copy
+Charts and new query results
+¶
+Your chart updates automatically as long as the columns used by the chart are available in the query results. If a column name changes, you
+must update the chart to use the new column name. Charts indicate any columns that cannot be found.
+Aggregate and bucket data
+¶
+Charts simplify grouping numbers, dates, and timestamps of more or less continuous values into various
+buckets
+. For example, suppose your
+query retrieves per-day data over a period of time. Without modifying your query, you can easily select a different bucket of time (e.g.
+weekly or monthly data) in the inspector panel to change the time dimension of the results displayed in the chart.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.txt
+
+Documentation Title:
+Getting started with worksheets | Snowflake Documentation
+
+Documentation Content:
+Select
++
+and select
+SQL Worksheet
+or
+Python Worksheet
+to create a worksheet.
+The worksheet opens in the same window with the date and time of creation as the default title.
+You can then start writing in your worksheet. For a SQL worksheet,
+start writing queries
+.
+For a Python worksheet,
+start writing code
+.
+Create worksheets from a SQL file
+¶
+To create a SQL worksheet from an existing SQL file, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Select the
+…
+more menu »
+Create Worksheet from SQL File
+.
+Browse to the SQL file to upload.
+A new worksheet opens with a title that matches the file name.
+You can also add a SQL file to an existing SQL worksheet. Refer to
+Append a SQL script to an existing worksheet
+.
+Opening worksheets in tabs
+¶
+You can use tabs to refer to multiple active worksheets and explore the databases and schemas in Snowflake while writing SQL
+statements or Python code in Snowsight. Your scroll position is preserved in each tab, making comparisons across worksheets easier
+to perform. Worksheet tabs are preserved across sessions, so you can pick up your work where you left off.
+To open your Snowsight worksheets in tabs, do the following:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+.
+Select an existing worksheet, or select
++ Worksheet
+to open a new worksheet. A worksheet opens in a tab.
+Select a role to run the worksheet as, and select a warehouse to allocate the compute resources for your query.
+In the
+Worksheets
+menu, select an existing worksheet or select
++
+to open a new worksheet tab. By default, the new worksheet
+uses your default role and warehouse.
+(Optional) Make changes to the role or warehouse used to run the new worksheet.
+After you open a worksheet, you can
+update the contents
+,
+run SQL statements
+or
+write Python code
+, and manage the worksheet.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.txt
+
+Documentation Title:
+Visualizing worksheet data | Snowflake Documentation
+
+Documentation Content:
+Charts can bucket by date, week, month, and year for date columns. For numeric columns, charts can bucket by integer values.
+Charts use aggregation functions to determine a single value from multiple data points in a bucket. These functions are as follows:
+average
+count
+minimum
+maximum
+median
+mode
+sum
+Download charts
+¶
+Snowsight provides PNG-formatted files of charts.
+To download a chart, select
+Download chart
+(
+).
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+Create a chart
+Modify a chart
+Charts and new query results
+Aggregate and bucket data
+Download charts
+Related content
+Getting started with Snowsight
+Managing and using worksheets in Snowsight
+Getting started with worksheets
+Querying data using worksheets
+Visualizing data with dashboards
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/querying-time-series-data.txt
+
+Documentation Title:
+Analyzing time-series data | Snowflake Documentation
+
+Documentation Content:
+stock_symbol
+=
+q
+.
+stock_symbol
+ORDER
+BY
+t
+.
+stock_symbol
+;
+Copy
++--------------+-------------------------+----------+-------------------------+--------------+
+| STOCK_SYMBOL | TRADE_TIME              | QUANTITY | QUOTE_TIME              |        PRICE |
+|--------------+-------------------------+----------+-------------------------+--------------|
+| AAPL         | 2023-10-01 09:00:05.000 |     2000 | 2023-10-01 09:00:03.000 | 139.00000000 |
+| SNOW         | 2023-10-01 09:00:05.000 |     1000 | 2023-10-01 09:00:02.000 | 163.00000000 |
+| SNOW         | 2023-10-01 09:00:10.000 |     1500 | 2023-10-01 09:00:08.000 | 165.00000000 |
++--------------+-------------------------+----------+-------------------------+--------------+
+The ON condition groups the matched rows by their stock symbols.
+To run this example, create and load the tables as follows:
+CREATE
+OR
+REPLACE
+TABLE
+trades
+(
+stock_symbol
+VARCHAR
+(
+4
+),
+trade_time
+TIMESTAMP_NTZ
+(
+9
+),
+quantity
+NUMBER
+(
+38
+,
+0
+)
+);
+CREATE
+OR
+REPLACE
+TABLE
+quotes
+(
+stock_symbol
+VARCHAR
+(
+4
+),
+quote_time
+TIMESTAMP_NTZ
+(
+9
+),
+price
+NUMBER
+(
+12
+,
+8
+)
+);
+INSERT
+INTO
+trades
+VALUES
+(
+'SNOW'
+,
+'2023-10-01 09:00:05.000'
+,
+1000
+),
+(
+'AAPL'
+,
+'2023-10-01 09:00:05.000'
+,
+2000
+),
+(
+'SNOW'
+,
+'2023-10-01 09:00:10.000'
+,
+1500
+);
+INSERT
+INTO
+quotes
+VALUES
+(
+'SNOW'
+,
+'2023-10-01 09:00:01.000'
+,
+166
+.
+
+
+

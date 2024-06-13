@@ -1,0 +1,299 @@
+Documentation Source:
+docs.astronomer.io/astro/cli/troubleshoot-locally.txt
+
+Documentation Title:
+Troubleshoot a local Airflow environment | Astronomer Documentation
+
+Documentation Content:
+Run
+docker stop $(docker ps -q)
+to stop all running Docker containers.
+Change the default port assignment
+​
+If port 8080 or 5432 are in use on your machine by other services, the Airflow webserver and metadata database won't be able to start. To run these components on different ports, run the following commands in your Astro project:
+astro config
+set
+webserver.port
+<
+available-port
+>
+astro config
+set
+postgres.port
+<
+available-port
+>
+For example, to use 8081 for your webserver port and 5435 for your database port, you would run the following commands:
+astro config
+set
+webserver.port
+8081
+astro config
+set
+postgres.port
+5435
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Use Airflow connections from Astro
+Next
+Test your DAGs
+Troubleshoot KubernetesPodOperator issues
+Troubleshoot dependency errors
+New DAGs aren't visible in the Airflow UI
+DAGs running slowly
+Astro project won't load after running
+astro dev start
+Ports are not available for my local Airflow webserver
+Stop all running Docker containers
+Change the default port assignment
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/troubleshoot-locally.txt
+
+Documentation Title:
+Troubleshoot a local Airflow environment | Astronomer Documentation
+
+Documentation Content:
+If the webserver and scheduler containers exist but are unhealthy, check their logs by running:
+$ astro dev logs
+--webserver
+$ astro dev logs
+--scheduler
+(Optional) Run the following command to prune all unused Docker objects including volumes and free disk space:
+docker
+system prune
+--volumes
+See
+docker system prune
+for more information about pruning.
+These logs should help you understand why your webserver or scheduler is unhealthy. Possible reasons why these containers might be unhealthy include:
+Not enough Docker resources.
+A failed Airflow or Astro Runtime version upgrade.
+Misconfigured Dockerfile or Docker override file.
+Misconfigured Airflow settings including
+packages.txt
+or
+requirements.txt
+.
+Ports are not available for my local Airflow webserver
+​
+By default, the Astro CLI uses port
+8080
+for the Airflow webserver and port
+5432
+for the Airflow metadata database in a local Airflow environment. If these ports are already in use on your local computer, an error message similar to the following appears:
+Error: error building, (re)creating or starting project containers: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:5432 → 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use
+To resolve a port availability error, you have the following options:
+Stop all running Docker containers and restart your local environment using
+astro dev restart
+.
+Change the default ports for these components. For example, you can use
+astro config set webserver.port 8081
+for the webserver and
+astro config set postgres.port 5433
+for Postgres. See
+Configure CLI
+for all available configurations.
+Stop all running Docker containers
+​
+Run
+docker ps
+to identify the Docker containers running on your computer.
+Copy the values in the
+CONTAINER ID
+column.
+Select one of the following options:
+Run
+docker stop <container_id>
+to stop a specific Docker container. Replace
+<container_id>
+with one of the values you copied in step 2.
+Run
+docker stop $(docker ps -q)
+to stop all running Docker containers.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/local-airflow-overview.txt
+
+Documentation Title:
+Run Airflow locally | Astronomer Documentation
+
+Documentation Content:
+Run Airflow locally | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Install the CLI
+Quickstart
+Develop your project
+Run Airflow locally
+Overview
+Basic setup
+Use Airflow connections from Astro
+Troubleshoot a local environment
+Test your DAGs
+Release notes
+Release and lifecycle policy
+Advanced
+Command reference
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Run Airflow locally
+Overview
+Run Airflow locally
+Running Airflow locally with the Astro CLI lets you preview and debug DAG changes before deploying to production. In a local Airflow environment, you can fix issues with your DAGs without consuming infrastructure resources or waiting on code deploy processes.
+To run Airflow locally, the Astro CLI creates and runs containers for core Airflow components. It uses Docker by default to orchestrate these containers, but you can also use
+Podman
+. All tasks run locally in the scheduler container using the
+local executor
+.
+See the following documentation to get started:
+Run Airflow locally
+Test your DAGs
+Troubleshoot locally
+Sync Deployment connections from Astro
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Develop your project
+Next
+Basic setup
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/develop-project.txt
+
+Documentation Title:
+Develop your Astro project | Astronomer Documentation
+
+Documentation Content:
+To apply changes from this folder to a local Airflow environment,
+restart your local environment
+.
+To learn more about Airflow plugins and how to build them, see
+Airflow Plugins
+in Airflow documentation or the Astronomer
+Airflow plugins
+guide.
+Unsupported project configurations
+​
+You can't use
+airflow.cfg
+or
+airflow_local_settings.py
+files in an Astro project.
+airflow_local_settings.py
+has no effect on Astro Deployments, and
+airflow.cfg
+has no effect on local environments and Astro Deployments.
+An alternative to using
+airflow.cfg
+is to set Airflow environment variables in your
+.env
+file. See
+Set environment variables locally
+.
+See also
+​
+For more advanced project configurations, see:
+Customize your Astro project Dockerfile
+Install Python packages from private sources
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Quickstart
+Next
+Overview
+Prerequisites
+Create an Astro project
+Add DAGs
+Add utility files
+Add Airflow connections, pools, variables
+Add test data or files for local testing
+Configure
+airflow_settings.yaml
+(Local development only)
+Add Python, OS-level packages, and Airflow providers
+Set environment variables locally
+Use multiple .env files
+Add Airflow plugins
+Unsupported project configurations
+See also
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+

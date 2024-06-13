@@ -1,0 +1,97 @@
+{
+    "id": "6763a8c9-53f8-4279-b9b4-d576fc3036e2",
+    "snapshot": "bigquery",
+    "instruction": "Please add an empty column named RANK to the 2012 schema in the census dataset.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We need to add a column to the 2012 table in the cencus dataset and name it RANK。\n1. First, you need to view the project first, click toggle node on the personal project name in Exporer\n2. Click the Toggle node of census dataset\n3. Click 2012 Dataset\n4. In the schema interface of the 2012 table, click the blue button of EDIT SCHEMA\n5. In the 'New fields' part, click '+', our purpose is to add a new column\n6. Enter RANK in Field name\n7. Click the blue button \"SAVE\" below\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "source": [
+        "https://cloud.google.com/bigquery/docs/generate-text-tutorial"
+    ],
+    "action_number": 7,
+    "config": [
+        {
+            "type": "bigquery_init",
+            "parameters": {
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "actions": [
+                    {
+                        "type": "empty"
+                    },
+                    {
+                        "type": "create_table",
+                        "dataset_id": "census",
+                        "table_id": "2012",
+                        "data_from_csv": "evaluation_examples/examples/bigquery/6763a8c9-53f8-4279-b9b4-d576fc3036e2/2012.csv"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "google_chrome_browser",
+            "parameters": {
+                "debugging_port": 1337,
+                "listening_port": 9222,
+                "urls": [
+                    "https://www.bing.com/"
+                ]
+            }
+        },
+        {
+            "type": "bigquery_login",
+            "parameters": {
+                "settings_file": "evaluation_examples/settings/google/settings.json",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project"
+            }
+        }
+    ],
+    "related_apps": [
+        "bigquery",
+        "chromium"
+    ],
+    "tags": [
+        "gui",
+        "account",
+        "data_warehousing",
+        "verbose"
+    ],
+    "evaluator": {
+        "func": [
+            "compare_csv",
+            "compare_csv"
+        ],
+        "result": [
+            {
+                "type": "bigquery_table_to_csv",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "dataset_id": "census",
+                "table_id": "2012",
+                "schema": [
+                    "*"
+                ],
+                "dest": "pred.csv"
+            },
+            {
+                "type": "bigquery_sql_result_to_csv",
+                "config_file": "evaluation_examples/settings/google/gcp_config.json",
+                "project_name": "bigquery-project",
+                "sql": "evaluation_examples/examples/bigquery/6763a8c9-53f8-4279-b9b4-d576fc3036e2/get_columns.sql",
+                "dest": "pred_columns.csv"
+            }
+        ],
+        "expected": [
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/bigquery/6763a8c9-53f8-4279-b9b4-d576fc3036e2/gold.csv",
+                "dest": "gold.csv"
+            },
+            {
+                "type": "local_file",
+                "path": "evaluation_examples/examples/bigquery/6763a8c9-53f8-4279-b9b4-d576fc3036e2/gold_columns.csv",
+                "dest": "gold_columns.csv"
+            }
+        ],
+        "conj": "and"
+    },
+    "counterpart": "45b77bfb-9cc5-4da7-a97c-9a7f428eeac3"
+}

@@ -12,7 +12,8 @@
     ],
     "tags": [
         "gui",
-        "data_orchestration"
+        "data_orchestration",
+        "abstract"
     ],
     "action_number": 7,
     "config": [
@@ -53,7 +54,6 @@
             }
         }
     ],
-    "trajectory": "trajectories/",
     "evaluator": {
         "func": [
             "check_include_exclude"
@@ -78,5 +78,6 @@
                 }
             }
         ]
-    }
+    },
+    "counterpart": "1c3aaad0-5081-4dde-8139-e3be3d0a9bb4"
 }

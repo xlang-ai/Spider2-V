@@ -1,0 +1,48 @@
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+Then, open a terminal, and go to a location you want to download Airbyte in and run:</p><code>git clone https://github.com/airbytehq/airbyte.git
+</code><p>‍</p><p>You will need to go into the cloned airbyte repo by running cd airbyte and then you run:</p><code>docker-compose up
+</code><p>Or if you are on the newest version of the Docker CLI you can run:</p><code>docker compose up
+</code><p>The above command will create and start the Airbyte containers. After it's done, you can access Airbyte at<a>http://localhost:8000/</a>(you can go ahead and set up your preference, then leave the Airbyte web app open as we will come back to it shortly)</p><h3>Setting up a Postgres database</h3><p>This database will be the destination for the data coming in from GitHub. To set this up, we will be running a postgres container via docker like so:</p><p>‍</p><code>docker run --rm --name github-destination -e POSTGRES_PASSWORD=password -p 3003:5432 -d postgres
+</code><p>‍</p><p>If you are running the above command for the first time, it will download the Postgres image from Docker Hub registry and then run it as a container with the name of <strong>github-destination</strong>.</p><p>We are also setting the database password by passing an environment variable of <strong>POSTGRES_PASSWORD</strong>to a value of password.</p><p>We are also binding exposing the container’s 5432 port to our host machine on port 3003.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/github.html
+
+Documentation Title:
+GitHub | Airbyte Documentation
+
+Documentation Content:
+</p><h2>Prerequisites<a>​</a></h2><li>List of GitHub Repositories (and access for them in case they are private)</li><strong>For Airbyte Cloud:</strong><ul><li>OAuth</li><li>Personal Access Token (see <a>Permissions and scopes</a>)</li></ul><strong>For Airbyte Open Source:</strong><li>Personal Access Token (see <a>Permissions and scopes</a>)</li><h2>Setup guide<a>​</a></h2><h3>Step 1: Set up GitHub<a>​</a></h3><p>Create a <a>GitHub Account</a>.</p><strong>Airbyte Open Source additional setup steps</strong><p>Log into <a>GitHub</a>and then generate a <a>personal access token</a>. To load balance your API quota consumption across multiple API tokens, input multiple tokens separated with <code>,</code>.</p><h3>Step 2: Set up the GitHub connector in Airbyte<a>​</a></h3><strong>For Airbyte Cloud:</strong><ol><li><a>Log into your Airbyte Cloud</a>account.</li><li>In the left navigation bar, click <strong>Sources</strong>.</li><li>On the source selection page, select <strong>GitHub</strong>from the list of Sources.</li><li>Add a name for your GitHub connector.</li><li>To authenticate:</li></ol><ul><p><strong>For Airbyte Cloud:</strong><strong>Authenticate your GitHub account</strong>to authorize your GitHub account. Airbyte will authenticate the GitHub account you are already logged in to. Please make sure you are logged into the right account.</p><p><strong>For Airbyte Open Source:</strong>Authenticate with <strong>Personal Access Token</strong>. To generate a personal access token, log into <a>GitHub</a>and then generate a <a>personal access token</a>. Enter your GitHub personal access token.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+Finally, we are running the container in the background with the -d flag.</p><p>Now that we have set up the destination database, let's head over to the Airbyte web app and create a connection from the Airbyte GitHub source to our Postgres database.</p><h3>Creating the Airbyte connection</h3><p>Back in the Airbyte web app in your browser, click on the <em>new source</em>button in the top right corner of the app to go to the page to add a new Airbyte source.</p><p>Enter the name <strong>github-source</strong>as the source name and click the drop down and select Github connector as source type. After selecting the GitHub source type, you will be presented with two text boxes.The first is to enter a repository you want. In this box, type in <strong>airbytehq/airbyte</strong>, and then, in the second box, you will need to provide a GitHub access token which you can obtain from<a>here</a>.</p><p>Make sure you grant the token the repo and write:discussion permissions. After you've filled all fields, hit the set up source button.</p><img/><p>If the setup was successful, you will be taken to the destination screen where you will add a new destination.</p><p>Click the <em>add destination</em>button, and, in the drop down that follows, click <em>add new destination</em>. Then, you will see a page to add the destination name. Type in the name we gave the Postgres container we created earlier (github-destination), and then choose Postgres as the destination type.</p><p>After, you will be presented with some text boxes to enter the database connection details.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/github.html
+
+Documentation Title:
+GitHub | Airbyte Documentation
+
+Documentation Content:
+1.2</td><td>2021-07-13</td><a>4708</a><td>Fix bug with IssueEvents stream and add handling for rate limiting</td></tr><tr><td>0.1.1</td><td>2021-07-07</td><a>4590</a><td>Fix schema in the <code>pull_request</code>stream</td></tr><tr><td>0.1.0</td><td>2021-07-06</td><a>4174</a><td>New Source: GitHub</td></tr></tbody></table></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Genesys</div></a><a><div>Next</div><div>GitLab</div></a></nav></div><div><ul><a>Prerequisites</a><li><a>Setup guide</a><ul><a>Step 1: Set up GitHub</a><a>Step 2: Set up the GitHub connector in Airbyte</a></ul></li><a>Supported sync modes</a><li><a>Supported Streams</a><a>Notes</a></li><li><a>Limitations &amp; Troubleshooting</a><ul><a>Connector limitations</a><a>Troubleshooting</a></ul></li><a>Reference</a><a>Changelog</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+
+
+
