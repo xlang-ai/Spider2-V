@@ -63,7 +63,7 @@ def execute_command():
 
     # Execute the command without any safety checks.
     try:
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell, text=True, timeout=120)
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell, text=True, timeout=300)
         return jsonify({
             'status': 'success',
             'output': result.stdout,

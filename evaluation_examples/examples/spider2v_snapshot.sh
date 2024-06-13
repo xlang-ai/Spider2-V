@@ -3,8 +3,8 @@
 # 1. Chromium/Google Chrome is installed and can be started via chromium-browser or google-chrome command in the terminal.
 # 2. Docker is installed and the current user is in the docker group. It is also configured to start on boot.
 # 3. Anaconda3 is installed in the directory /home/user/anaconda3/ and has file path /home/user/anaconda3/etc/profile.d/conda.sh.
-# 4. Visual Studio Code is installed and can be launched via code command in the terminal. Disable auto-update and auto-indent functions.
-# 5. Chromium, gnome-terminal, VS Code and Libreoffice Calc have been added to the application menu bar.
+# 4. Visual Studio Code is installed and can be launched via `code` command in the terminal. Disable auto-update, auto-indent, auto-bracket and accept-suggestion functions.
+# 5. Chromium/Chrome, gnome-terminal, Visual Studio Code and Libreoffice Calc have been added to the application menu bar.
 
 exec 2>/dev/null
 
@@ -23,7 +23,6 @@ declare -a image_list=(
     "redis:${REDIS_VERSION}"
     "apachesuperset.docker.scarf.sh/apache/superset:${SUPERSET_TAG}"
     "quay.io/astronomer/astro-runtime:${ASTRO_RUNTIME_VERSION}"
-    "quay.io/minio/minio:${MINIO_VERSION}"
     "postgres:${ASTRO_POSTGRES_VERSION}"
     "postgres:${POSTGRES_VERSION}"
     "mysql:${MYSQL_VERSION}"
@@ -41,9 +40,6 @@ declare -a image_list=(
     "airbyte/proxy:${AIRBYTE_VERSION}"
     "airbyte/source-postgres:3.3.18"
     "airbyte/source-faker:6.0.3"
-    "airbyte/source-bigquery:0.4.2"
-    "airbyte/source-slack:0.4.0"
-    "airbyte/source-github:1.7.0"
     "airbyte/source-mysql:3.3.13"
     "airbyte/source-file:0.5.0"
     "airbyte/source-snowflake:0.3.1"
@@ -176,7 +172,7 @@ setup_dbt
 function setup_jupyter() {
     conda create -n jupyter python=3.11 -y
     conda activate jupyter
-    pip install jupyter==1.0.0 jupyterlab==4.1.6 ipykernel==6.29.4 numpy==1.26.4 pandas==2.2.2 matplotlib==3.8.4 seaborn==0.13.2 scipy==1.13.0
+    pip install jupyter==1.0.0 jupyterlab==4.1.6 ipykernel==6.29.4 numpy==1.26.4 pandas==2.2.2 matplotlib==3.8.4 seaborn==0.13.2 scipy==1.13.0 scikit-learn==1.5.0
     jupyter notebook --generate-config
     jupyter lab --generate-config
     browser=$(which chromium-browser) # $(which google-chrome)
