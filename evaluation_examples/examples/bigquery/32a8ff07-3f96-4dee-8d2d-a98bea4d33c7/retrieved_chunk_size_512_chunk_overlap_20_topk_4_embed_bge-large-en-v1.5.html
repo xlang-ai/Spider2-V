@@ -32,24 +32,47 @@ h</span></ul></div><div><span>projects</span><ul><span>Overview</span><span>getS
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/visualize-jupyter.html
+cloud.google.com/bigquery/docs/information-schema-jobs.html
 
 Documentation Title:
-Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
+JOBS view  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-</span></aside><h2>View your query history and reuse queries</h2><p>To view your query history as a tab in JupyterLab, perform the following steps:</p><ol><p>In the JupyterLab navigation menu, click
-<img/><strong>BigQuery in Notebooks</strong>to open the
-<strong>BigQuery</strong>pane.</p><li><p>In the <strong>BigQuery</strong>pane, scroll down and click <strong>Query history</strong>.</p><img/><p>A list of your queries opens in a new tab, where you can perform tasks such
-as the following:</p><ul><li>To view the details of a query such as its Job ID, when the query was
-run, and how long it took, click the query.</li><li>To revise the query, run it again, or copy it into your notebook for
-future use, click <strong>Open query in editor</strong>.</li></ul></li></ol><aside><strong>Note:</strong><span>If you run queries after opening this tab, click <span>refresh</span><strong>Refresh</strong>to show
-the most recent queries.</span></aside><h2>Save and download your notebook</h2><p>In this section, you save your notebook and download it if you want it for
-future use after cleaning up the resources used in this tutorial.</p><ol><li>Select <strong>File <span>&gt;</span>Save Notebook</strong>.</li><li>Select <strong>File <span>&gt;</span>Download</strong>to download a local copy of your notebook as
-an IPYNB file on your computer.</li></ol></section><section><h2>Clean up</h2><p>The easiest way to eliminate billing is to delete the Google Cloud project
-that you created for this tutorial.</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
-  <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
-      the tasks in this document, when you delete it,
+total_bytes_processed
+FROM `my_project`.`region-us`.INFORMATION_SCHEMA.JOBS_BY_PROJECT
+WHERE EXTRACT(DATE FROM  creation_time) = current_date()
+ORDER BY total_bytes_processed DESC
+LIMIT 4
+</pre><p>The result for either example is similar to the following:</p><pre>+--------------+---------------------------------+-----------------------+---------------+
+| job_id       | query                           | user_email            | total_slot_ms |
++--------------+---------------------------------+--------------------------+------------+
+| examplejob_1 | SELECT . FROM dataset.table1  | bob@example.com       | 80,000        |
+| examplejob_2 | SELECT . FROM dataset.table2  | alice@example.com     | 78,000        |
+| examplejob_3 | SELECT . FROM dataset.table3  | charles@example.com   | 75,000        |
+| examplejob_4 | SELECT . FROM dataset.table4  | tina@example.com      | 72,000        |
++--------------+---------------------------------+-----------------------+---------------+
+</pre><h3>Get details about a resource warning</h3><p>If you get a <strong>Resources exceeded</strong>error message, you can inquire about the
+queries in a time window:</p><pre>SELECT
+  query,
+  query_info.resource_warning
+FROM
+  `user_project.region-us`.INFORMATION_SCHEMA.JOBS
+WHERE
+ creation_time BETWEEN TIMESTAMP("2022-12-01")
+ AND TIMESTAMP("2022-12-08")
+ AND query_info.resource_warning IS NOT NULL
+LIMIT
+ 50;
+</pre><h3>Monitor resource warnings grouped by date</h3><p>If you get a <strong>Resources exceeded</strong>error message, you can monitor the total
+number of resource warnings grouped by date to know if there are any changes to
+workload:</p><pre>WITH resource_warnings AS (
+  SELECT
+    EXTRACT(DATE FROM creation_time) AS creation_date
+  FROM
+    `user_project.region-us`.INFORMATION_SCHEMA.JOBS
+  WHERE
+    creation_time &gt;= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 14 DAY)
+    AND query_info.
 
 
 

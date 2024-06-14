@@ -1,4 +1,20 @@
 Documentation Source:
+www.metabase.com/docs/v0.49/questions/native-editor/writing-sql.html
+
+Documentation Title:
+The SQL editor
+
+Documentation Content:
+Common errors:</p><table><tr><th>Database</th><th>Do this</th><th>Avoid</th></tr><tbody><tr><td>BigQuery</td><code>FROM `dataset.table`</code><code>FROM dataset.table</code></tr><tr><td>Oracle</td><code>FROM "schema"."table"</code><code>FROM schema.table</code></tr></tbody></table><p>For more help, see <a>Troubleshooting SQL error messages</a>.</p><h2>Explore SQL question results using the Query Builder</h2><p>On saved SQL questions without <a>parameters</a>, you’ll get the <strong>Explore results</strong>button. It will create a new Query Builder question that uses the SQL question results as a data source.</p><h2>To enable drill-through, turn a SQL question into a model and set the data types</h2><p>Visualizations created with SQL do not have <a>drill-through</a>capability. To enable drill-through on a SQL question, you can turn it into a model:</p><ol><li>Save the SQL question and <a>turn it into a model</a>.</li><li><a>Edit the column metadata</a>in the model’s settings. Make sure to set the data types for all the columns.</li><li><a>Create a Query Builder question</a>based on the model. You should be able to use drill-through on this question, if you configured the metadata correctly.</li></ol><h2>Learn more</h2><ul><a>Best practices for writing SQL queries</a><li><a>SQL troubleshooting guide</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs?
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/data-modeling/models.html
 
 Documentation Title:
@@ -10,56 +26,34 @@ If you can’t find one that meets your needs, you can create a model:</p><ul><l
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/data-modeling/start.html
-
-Documentation Title:
-Data modeling overview
-
-Documentation Content:
-49
-</a><a>Data Modeling</a></ol><article><h1>Data modeling overview</h1><p>Metabase provides tools for organizing your data and making it easier for people to understand.</p><a>Models</a><p>Models curate data from another table or tables from the same database to anticipate the kinds of questions people will ask of the data. You can think of them as derived tables, or a special kind of saved question meant to be used as the starting point for new questions.</p><a>Table metadata admin settings</a><p>Guide people to the right data by adding display names, hiding outdated tables, configuring filter types, and more.</p><a>Field types</a><p>Field types dictate how Metabase displays its data, as well as the column’s special functionality, if any.</p><a>Setting default formatting for your data</a><p>Define formatting and display defaults for numbers, currencies, datetimes, and more.</p><a>Working with JSON</a><p>Metabase can unfold JSON columns into their component fields, which you can then filter on using the query builder.</p><a>Creating segments and metrics</a><p>Admins can define segments to create official filters for your data, and metrics for official aggregations.</p></article><p>Read docs for other <a>versions of Metabase</a>.
-	      </p><div><div><div><p>Did this article help you?
-        </p><ul><button>Yes
-                </button><button>No
-                </button></ul></div><button>Send
-                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
-
-
-
-Documentation Source:
 www.metabase.com/docs/v0.49/data-modeling/models.html
 
 Documentation Title:
 Models
 
 Documentation Content:
-verified items
-    </span><p>Keep things organized
-      </p></div></a><a><img/><div><span>Usage analytics
-    </span><span>New</span><p>See who did what, when
-      </p></div></a><a><img/><div><span>Analytics dashboards
-    </span><p>Share insights with anyone, anywhere
-      </p></div></a><a><img/><div><span>SQL editor
+anywhere
+      </p></div><div><span>SQL editor
     </span><p>For advanced data users
-      </p></div></a><a><img/><div><span>Sandboxing
+      </p></div><div><span>Sandboxing
     </span><p>Set boundaries around your data
-      </p></div></a><a><img/><div><span>Models
+      </p></div><div><span>Models
     </span><p>A starting point for questions
-      </p></div></a><a><img/><div><span>Permissions
+      </p></div><div><span>Permissions
     </span><p>Keep your data secure and private
-      </p></div></a><a><img/><div><span>CSV upload
+      </p></div><div><span>CSV upload
     </span><p>Go beyond VLOOKUP
-      </p></div></a></div><span>Documentation</span><span>Resources</span><div><a><img/><span>Learn
-    </span></a><a><img/><span>Blog
-    </span></a><a><img/><span>Events
-    </span></a><a><img/><span>Customers
-    </span></a><a><img/><span>Discussion
-    </span></a><a><img/><span>Partners
-    </span></a><a><img/><span>Community Stories
-    </span></a><a><img/><div><span>Startup Guide to Financial Modeling
-    </span><span>New</span></div></a><a><img/><div><span>Community Data Stack Report
-    </span><span>New</span></div></a></div><span>Pricing</span><span>Log in</span></div></div><div><ol><a>v0.49
-</a><a>Data Modeling</a></ol><article><h1>Models</h1><p>Models are a fundamental building block in Metabase.
+      </p></div></div><span>Documentation</span><span>Resources</span><div><span>Learn
+    </span><span>Blog
+    </span><span>Events
+    </span><span>Customers
+    </span><span>Discussion
+    </span><span>Partners
+    </span><span>Community Stories
+    </span><div><span>Startup Guide to Financial Modeling
+    </span><span>New</span></div><div><span>Community Data Stack Report
+    </span><span>New</span></div></div><span>Pricing</span><span>Log in</span></div></div><div><ol><a>v0.49
+</a><a>Data Modeling</a></ol><article><h1>Models</h1><p>Models are a fundamental building block in Metabase. Models curate data from another table or tables from the same database to anticipate the kinds of questions people will ask of the data. You can think of them as derived tables, or a special kind of saved question meant to be used as the starting point for new questions.
 
 
 
@@ -70,7 +64,7 @@ Documentation Title:
 Models in Metabase
 
 Documentation Content:
-If, however, we manually set the type for each result column in the model’s metadata, Metabase will then be able to present the drill-through menu on charts, as well as know which kind of filters it should use for that column (e.g., filters for numbers will have different options than for dates or categories).</p><h2>Models can surface individual records in search</h2><p>Another neat metadata feature with models: you can opt to <a>index values from a model</a>so that they show up in Metabase’s search results.</p><p>Here we’re toggling on the option to <strong>Surface individual records in search by matching against this column</strong>(bottom right):</p><img/><p>For example, you could index a column in a model with customer names so people can type in a customer like Hudson Borer and jump straight to the detail view for that customer.</p><img/><p>By indexing records in a model, you can also X-ray them. See the <a>docs on models for more details</a>.</p><h2>Skip the SQL variables</h2><p>Here is a subtle point worth calling out. If you’re used to creating “models” with saved questions and SQL variables (like <a>field filters</a>) so that people can take those questions and connect them to dashboard filters, models take a different approach here. Models don’t work with variables, because they don’t need to. Once you tell Metabase the model’s column types, you can start a question from that model, save it, and be able to wire it up to a dashboard filter. There’s no need to put a variable in your SQL code.</p><p>If you add a model to a dashboard, you’ll notice that you can’t map any of its columns to a dashboard filter, even after you’ve set the types for those filters.
+If, however, we manually set the type for each result column in the model’s metadata, Metabase will then be able to present the drill-through menu on charts, as well as know which kind of filters it should use for that column (e.g., filters for numbers will have different options than for dates or categories).</p><h2>Models can surface individual records in search</h2><p>Another neat metadata feature with models: you can opt to <a>index values from a model</a>so that they show up in Metabase’s search results.</p><p>Here we’re toggling on the option to <strong>Surface individual records in search by matching against this column</strong>(bottom right):</p><p>For example, you could index a column in a model with customer names so people can type in a customer like Hudson Borer and jump straight to the detail view for that customer.</p><p>By indexing records in a model, you can also X-ray them. See the <a>docs on models for more details</a>.</p><h2>Skip the SQL variables</h2><p>Here is a subtle point worth calling out. If you’re used to creating “models” with saved questions and SQL variables (like <a>field filters</a>) so that people can take those questions and connect them to dashboard filters, models take a different approach here. Models don’t work with variables, because they don’t need to. Once you tell Metabase the model’s column types, you can start a question from that model, save it, and be able to wire it up to a dashboard filter. There’s no need to put a variable in your SQL code.</p><p>If you add a model to a dashboard, you’ll notice that you can’t map any of its columns to a dashboard filter, even after you’ve set the types for those filters.
 
 
 

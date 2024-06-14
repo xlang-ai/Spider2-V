@@ -5,25 +5,12 @@ Documentation Title:
 People can't log in to Metabase
 
 Documentation Content:
-<strong>Admin settings</strong>&gt; <strong>General</strong>.</li><li>Check if the <a>account is deactivated</a>.</li></ol><h2>No access to Metabase Cloud account</h2><p>The admin password for <code>store.metabase.com</code>(where you can find payment and subscription info) is not necessarily the same as the password for your Metabase instance (where you log in to look at data).</p><p>If you’ve forgotten your Metabase Cloud admin password, you can <a>contact support</a>to reset the password.</p><h2>Related topics</h2><ul><li><a>Troubleshooting SAML</a>.</li><li><a>Troubleshooting LDAP</a>.</li><li><a>Resetting someone’s password</a>.</li><li><a>Resetting the admin password</a>.</li><li><a>Deleting an account that’s set up incorrectly</a>.</li></ul><h2>Are you still stuck?</h2><p>If you can’t solve your problem using the troubleshooting guides:</p><ul><li>Search or ask the <a>Metabase community</a>.</li><li>Search for <a>known bugs or limitations</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
+</p><p>If you’ve forgotten your Metabase Cloud admin password, you can <a>contact support</a>to reset the password.</p><h2>Related topics</h2><ul><li><a>Troubleshooting SAML</a>.</li><li><a>Troubleshooting LDAP</a>.</li><li><a>Resetting someone’s password</a>.</li><li><a>Resetting the admin password</a>.</li><li><a>Deleting an account that’s set up incorrectly</a>.</li></ul><h2>Are you still stuck?</h2><p>If you can’t solve your problem using the troubleshooting guides:</p><ul><li>Search or ask the <a>Metabase community</a>.</li><li>Search for <a>known bugs or limitations</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
 	      </p><div><div><div><p>Did this article help you?
         </p><ul><button>Yes
                 </button><button>No
                 </button></ul></div><button>Send
                 </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/people-and-groups/account-settings.html
-
-Documentation Title:
-Account settings
-
-Documentation Content:
-49
-</a><a>People and Groups</a></ol><article><h1>Account settings</h1><p>You can view your account settings by going to the top right of the screen and clicking on the <strong>gear</strong>icon &gt; <strong>Account settings</strong>.</p><h2>Account profile</h2><p>You can set your first and last names, change your email address, and set your language. See our list of <a>supported languages</a>.</p><h2>Account password</h2><p>You can change your password here. Note that if your Metabase uses Single Sign-On (SSO), your administrator will have disabled this password section, as your identity provider will manage logins.</p><p>If you’re having trouble logging in, see our <a>People can’t log into Metabase</a>.</p><h2>Account login history</h2><p>The login history lists each login, along with some location information (if available), and some client information (like Browser (Firefox/Windows)).
-If you see any suspicious login attempts, change your password and notify your administrator.</p><h3>A note about new login emails</h3><p>Whenever you log in from a new device, Metabase will send you an email just to let you know someone (presumably you) has logged in from an unrecognized device. If you see this email, but don’t remember logging in, or don’t recognize the device, change your password and let your administrator know.</p><h2>Disable animations in Metabase</h2><p>This isn’t an in-Metabase setting, but just so you know: you can disable UI animations in Metabase (like sidebars sliding around, or rotating spinners) by changing the settings for your operating system so it respects the <code>prefers-reduced-motion</code>CSS media feature. This change will also affect other applications, not just Metabase.
 
 
 
@@ -34,31 +21,56 @@ Documentation Title:
 Managing people and groups
 
 Documentation Content:
-If you haven’t yet configured your email settings, they will see a message telling them to ask an admin to reset their password for them.</p><p>To reset a password for someone, just click the three dots icon next to their account and choose <strong>Reset Password</strong>. If you haven’t <a>configured your email settings</a>yet, you’ll be given a temporary password that you’ll have to share with that person. Otherwise, they’ll receive a password reset email.</p><h2>Resetting the admin password</h2><p>If you’re using Metabase Cloud, <a>contact support</a>to reset your admin password.</p><p>If you’re a Metabase admin and have access to the server console, you can get Metabase to send you a password reset token:</p><ol><li>Stop the running Metabase application.</li><li>Restart Metabase with <code>reset-password email@example.com</code>, where “email@example.com” is the email associated with the admin account:
+Otherwise, they’ll receive a password reset email.</p><h2>Resetting the admin password</h2><p>If you’re using Metabase Cloud, <a>contact support</a>to reset your admin password.</p><p>If you’re a Metabase admin and have access to the server console, you can get Metabase to send you a password reset token:</p><ol><li>Stop the running Metabase application.</li><li>Restart Metabase with <code>reset-password email@example.com</code>, where “email@example.com” is the email associated with the admin account:
     <code>java -jar metabase.jar reset-password email@example.com
 </code></li><li><p>Metabase will print out a random token like this:</p><code>...
 Resetting password for email@example.com...
 
 OK [[[1_7db2b600-d538-4aeb-b4f7-0cf5b1970d89]]]
-</code></li><li>Start Metabase normally again (<em>without</em>the <code>reset-password</code>option).</li><li>Navigate to it in your browser using the path <code>/auth/reset_password/:token</code>, where “:token” is the token that was generated from the step above.
+</code></li><li>Start Metabase normally again (<em>without</em>the <code>reset-password</code>option).</li><li>Navigate to it in your browser using the path <code>/auth/reset_password/:token</code>, where “:token” is the token that was generated from the step above. The full URL should look something like this:
+    <code>https://metabase.example.com/auth/reset_password/1_7db2b600-d538-4aeb-b4f7-0cf5b1970d89
+</code></li><li>You should now see a page where you can input a new password for the admin account.</li></ol><h2>Unsubscribe from all subscriptions / alerts</h2><p>This action will delete any dashboard subscriptions or alerts the person has created, and remove them as a recipient from any other subscriptions or alerts.</p><p>This action doesn’t affect email distribution lists that are managed outside of Metabase.</p><h2>Default user accounts</h2><p>Metabase includes default user accounts to handle various tasks. We’re documenting these accounts here so you know they’re legitimate accounts and not someone trying to spy on your Metabase.
 
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.html
+www.metabase.com/docs/v0.49/installation-and-operation/commands.html
 
 Documentation Title:
-People can't log in to Metabase
+Metabase CLI
 
 Documentation Content:
-</span><p>Get answers in a few clicks
-      </p></div></a><a><img/><div><span>Drill-through
-    </span><p>Pull threads in your data
-      </p></div></a><a><img/><div><span>Collections and verified items
-    </span><p>Keep things organized
-      </p></div></a><a><img/><div><span>Usage analytics
-    </span><span>New</span><p>See who did what, when
-      </p></div></a><a><img/><div><span>Analytics dashboards
+Useful for profiling Metabase launch time.</p><code>reset-password email-address</code><p>Reset the password for a user with <code>email-address</code>.</p><code>rotate-encryption-key new-key</code><p>Rotate the encryption key of a Metabase database. The <code>MB_ENCRYPTION_SECRET_KEY</code>environment variable has to be set to the current key, and the parameter <code>new-key</code>has to be the new key. <code>new-key</code>has to be at least 16 chars.</p><code>version</code><p>Print version information about Metabase and the current system.</p></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/changing-password-complexity.html
+
+Documentation Title:
+Password complexity
+
+Documentation Content:
+<body><div><div><div><span>Upcoming</span><span>Metabase for advanced users</span><a>Register Now</a></div><button>×</button></div><div><div><div><div>Product
+    </div><div><div><div><span>Use Cases</span><div><span>Self-service Analytics
+    </span><p>Business intelligence for everyone</p></div><div><span>Embedded Analytics
+    </span><p>Create seamless in-product analytics</p></div></div><div><span>Metabase Plans</span><div><span>Starter and Open Source
+    </span><p>Self-service BI in 5 minutes</p></div><div><span>Pro
+    </span><p>Advanced tools and controls</p></div><div><span>Enterprise
+    </span><p>White-glove treatment</p></div></div><div><span>Platform</span><span>Data Sources
+    </span><span>Security
+    </span><span>Cloud
+    </span><div><span>Professional Services
+    </span><span>New</span></div></div></div><div><span>Watch a 5-minute demo</span><p>to see how to set up and publish a dashboard</p></div></div></div><div><div>Features
+    </div><div><div><div><div><span>Query builder
+    </span><p>Get answers in a few clicks</p></div><div><span>Drill-through
+    </span><p>Pull threads in your data</p></div><div><span>Usage analytics
+    </span><span>New</span><p>See who did what, when</p></div></div><div><div><span>Analytics dashboards
     </span><p>Share insights with anyone,
 
 

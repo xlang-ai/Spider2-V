@@ -22,6 +22,17 @@ Documentation Content:
 
 
 Documentation Source:
+airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections.html
+
+Documentation Title:
+Configuring Connections | Airbyte Documentation
+
+Documentation Content:
+connection links a source to a destination and defines how your data will sync. After you have created a connection, you can modify any of the configuration settings or stream settings.</p><h2>Configure Connection Settings<a>​</a></h2><p>Configuring the connection settings allows you to manage various aspects of the sync, such as how often data syncs and where data is written.</p><p>To configure these settings:</p><ol><p>In the Airbyte UI, click <strong>Connections</strong>and then click the connection you want to change.</p><p>Click the <strong>Settings</strong>tab.</p><p>Click the <strong>Configuration</strong>dropdown to expand the options.</p></ol><div><div>note</div><p>These settings apply to all streams in the connection.</p></div><p>You can configure the following settings:</p><table><tr><th>Setting</th><th>Description</th></tr><tbody><tr><td>Connection Name</td><td>A custom name for your connection</td></tr><tr><a>Schedule Type</a><td>How often data syncs (can be scheduled, cron, API-triggered or manual)</td></tr><tr><a>Destination Namespace</a><td>Where the replicated data is written to in the destination</td></tr><tr><td>Destination Stream Prefix</td><td>A prefix added to each table name in the destination</td></tr><tr><a>Detect and propagate schema changes</a><td>How Airbyte handles schema changes in the source</td></tr><tr><a>Connection Data Residency</a><td>Where data will be processed (Cloud only)</td></tr></tbody></table><h2>Modify Streams<a>​</a></h2><p>On the "Schema" tab, you choose which streams to sync and how they are loaded to the destination.</p><div><div>info</div><p>A connection's schema consists of one or many streams. Each stream is most commonly associated with a database table or an API endpoint.
+
+
+
+Documentation Source:
 airbyte.com/docs.airbyte.com/connector-development/config-based/tutorial/connecting-to-the-API-source.html
 
 Documentation Title:
@@ -33,25 +44,13 @@ It describes what data is available in a source</li><li><code>source-exchange-ra
 
 
 Documentation Source:
-airbyte.com/tutorials/extract-data-from-the-webflow-api.html
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
 
 Documentation Title:
-Build a connector to extract data from the Webflow API | Airbyte
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-Go to <em>Settings → Sources  → + New connector</em>as shown below.</p><p>‍</p><img/><p>‍</p><p>From here you should be able to enter in the information about the docker container that you created as shown in the pop-up below, and by then pressing the <em>Add</em>button. </p><p>‍</p><img/><p>‍</p><p>You should now be able to create a new <em>connection</em>(source connector + destination connector) that uses your Webflow source connector, by clicking in the UI as demonstrated below:</p><p>‍</p><img/><p>‍</p><p>Select the Webflow connector that you created as follows. </p><img/><p>And from there you will be requested to enter in the <em>Site id</em>and <em>API token</em>as follows: </p><p>‍</p><img/><p>Once the source has been created you will be asked to select a destination. You may wish to export Webflow data to a <a>local CSV file</a>, backup Webflow data into <a>S3</a>, or extract Webflow data to send into <a>BigQuery</a>, etc. – the list of <a>supported destinations</a>is long and growing. </p><p>Below I show how to replicate Webflow collections to a <a>local json file</a>.</p><img/><p>‍</p><p>This tells Airbyte to output json data to <em>/tmp/airbyte_local/webflow-blog-test</em>. You will then be presented with a screen that allows you to configure the connection parameters as follows:</p><img/><p>Notice that there are many stream names available, all of which were <strong>dynamically generated based on the collections that are available in Webflow</strong>. Using the switch on the left side allows you to specify which of these streams you are interested in replicating to your output.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/operator-guides/configuring-connector-resources.html
-
-Documentation Title:
-Configuring Connector Resources | Airbyte Documentation
-
-Documentation Content:
-If the url is <code>localhost:8000/workspaces/92ad8c0e-d204-4bb4-9c9e-30fe25614eee/connections/5432b428-b04a-4562-a12b-21c7b9e8b63a/status</code>,
-the connection id is <code>5432b428-b04a-4562-a12b-21c7b9e8b63a</code>.</li></li><li>Connect to the database and run the following command with the connection id and resource requirements filled in.</li></ol><code><span>// SQL command with example</span><span><span>update</span><span>connection </span><span>set</span><span>resource_requirements </span><span>=</span><span>'{"cpu_limit": "0.5", "cpu_request": "0.5", "memory_limit": "500Mi", "memory_request": "500Mi"}'</span><span>where</span><span>id </span><span>=</span><span>'&lt;id-from-step-1&gt;'</span><span>;</span></span></code><h2>Debugging Connection Resources<a>​</a></h2><p>Airbyte logs the resource requirements as part of the job logs as containers are created.
+you will now see three tabs created in your Google Sheet, <code>products</code>, <code>users</code>, and <code>purchases</code>.</p><div><p>If you followed along and created your own connection using a <code>Local JSON</code>destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR_PATH with the path you chose in your destination setup, and YOUR_STREAM_NAME with the name of an actual stream you replicated):</p><span>cat /tmp/airbyte_local/YOUR_PATH/_airbyte_raw_YOUR_STREAM_NAME.jsonl</span><p>You should see a list of JSON objects, each containing a unique <code>airbyte_ab_id</code>, an <code>emitted_at</code>timestamp, and <code>airbyte_data</code>containing the extracted record.</p><div><div>tip</div><p>If you are using Airbyte on Windows with WSL2 and Docker, refer to <a>this guide</a>to locate the replicated folder and file.</p></div></div></div></div><h2>What's next?<a>​</a></h2><p>Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing <a>catalog of sources and destinations</a>, and you can even <a>contribute your own</a>.</p><p>If you have any questions at all, please reach out to us on <a>Slack</a>. If you would like to see a missing feature or connector added, please create an issue on our <a>Github</a>.
 
 
 

@@ -1,23 +1,11 @@
 Documentation Source:
-www.metabase.com/docs/v0.49/installation-and-operation/backing-up-metabase-application-data.html
-
-Documentation Title:
-Backing up Metabase
-
-Documentation Content:
-so all you need to do is back up that database and you’re good to go. You can use that backup to restore your Metabase installation if anything goes wrong (like during an upgrade).</p><h2>Backing up the default H2 database</h2><p>If you didn’t specify an application database using environment variables when you launched Metabase, Metabase will have created an embedded H2 database in its directory.</p><p>But if you’re at the point where you have questions and dashboards that you want to keep, you should consider migrating to a <a>production-ready database</a>before you upgrade.</p><p>If you’re just using Metabase for personal use and want to keep your application data, here’s what you’ll need to do.</p><h3>If you’re running the Metabase JAR</h3><ol><li>Navigate to your Metabase directory.</li><li>If your Metabase is running, stop the Metabase process. You can either close the terminal or kill the process with CTRL-C. If you are running the process as a service, then stop the service.</li><li>Copy the application database file (called <code>metabase.db.mv.db</code>) and keep that copy somewhere safe. That’s it.</li><li>Restart Metabase: <code>java -jar metabase.jar</code>or start the service again.</li></ol><h3>If you’re running the Metabase Docker image</h3><p>If you’re running Docker, you should already have switched to a <a>production-ready database</a>.</p><p>Before migrating to a production application database, you should copy the H2 app db file out of the Docker container. For example, if the container is called metabase, you’d run:</p><code>docker cp metabase:/metabase.db/metabase.db.mv.db ./
-</code><p>The above command would copy the database file to the directory you ran the command from. You can also create a copy of this H2 file and use it to migrate the data to a production-ready database.
-
-
-
-Documentation Source:
 www.metabase.com/docs/v0.49/installation-and-operation/running-the-metabase-jar-file.html
 
 Documentation Title:
 Running the Metabase JAR file
 
 Documentation Content:
-You can run Metabase wherever Java 11 runs. The particular processor architecture shouldn’t matter (although we only test Metabase for x86 and ARM).</p><h3>2. Download Metabase</h3><p>Download the JAR file:</p><ul><a>Metabase OSS</a><a>Metabase Enterprise/Pro edition</a></ul><p>If you want to install the <a>Pro or Enterprise editions</a>of Metabase, see <a>Activating your Metabase commercial license</a>.</p><h3>3. Create a new directory and move the Metabase JAR into it</h3><p>When you run Metabase, Metabase will create some new files, so it’s important to put the Metabase Jar file in a new directory before running it (so move it out of your downloads folder and put it a new directory).</p><p>On posix systems, the commands would look something like this:</p><p>Assuming you downloaded to <code>/Users/person/Downloads</code>:</p><code>mkdir ~/metabase
+Download Metabase</h3><p>Download the JAR file:</p><ul><a>Metabase OSS</a><a>Metabase Enterprise/Pro edition</a></ul><p>If you want to install the <a>Pro or Enterprise editions</a>of Metabase, see <a>Activating your Metabase commercial license</a>.</p><h3>3. Create a new directory and move the Metabase JAR into it</h3><p>When you run Metabase, Metabase will create some new files, so it’s important to put the Metabase Jar file in a new directory before running it (so move it out of your downloads folder and put it a new directory).</p><p>On posix systems, the commands would look something like this:</p><p>Assuming you downloaded to <code>/Users/person/Downloads</code>:</p><code>mkdir ~/metabase
 </code><p>then</p><code>mv /Users/person/Downloads/metabase.jar ~/metabase
 </code><h3>4. Change into your new Metabase directory and run the jar</h3><p>Change into the directory you created in step 2:</p><code>cd ~/metabase
 </code><p>Now that you have Java working you can run the JAR from a terminal with:</p><code>java -jar metabase.jar
@@ -32,9 +20,21 @@ Documentation Title:
 Running the Metabase JAR file
 
 Documentation Content:
-see <a>Activating your Metabase commercial license</a>.</p><h2>Quick start</h2><p>The quick start is intended for running Metabase locally. See below for instructions on <a>running Metabase in production</a>.</p><p>If you have Java installed:</p><ol><li><a>Download the JAR file for Metabase OSS</a>. If you’re on a <a>Pro</a>or <a>Enterprise</a>plan, download the <a>JAR for the Enterprise Edition</a>.</li><li>Create a new directory and move the Metabase JAR into it.</li><li>Change into your new Metabase directory and run the JAR.</li></ol><code>java -jar metabase.jar
+If you’re on a <a>Pro</a>or <a>Enterprise</a>plan, download the <a>JAR for the Enterprise Edition</a>.</li><li>Create a new directory and move the Metabase JAR into it.</li><li>Change into your new Metabase directory and run the JAR.</li></ol><code>java -jar metabase.jar
 </code><p>Metabase will log its progress in the terminal as it starts up. Wait until you see “Metabase Initialization Complete” and visit <code>http://localhost:3000/setup</code>.</p><p>If you are using a paid version, be sure to <a>activate your license</a>.</p><h2>Local installation</h2><p>If you just want to try Metabase out, play around with Metabase, or just use Metabase on your local machine, Metabase ships with a default application database that you can use. <strong>This setup is not meant for production</strong>. If you intend to run Metabase for real at your organization, see <a>Production installation</a>.</p><p>The below instructions are the same as the quick start above, just with a little more context around each step.</p><h3>1. Install Java JRE</h3><p>You may already have Java installed. To check the version, open a terminal and run:</p><code>java -version
-</code><p>If Java isn’t installed, you’ll need to install Java before you can run Metabase. We recommend version 11 of JRE from <a>Eclipse Temurin</a>with HotSpot JVM. You can run Metabase wherever Java 11 runs.
+</code><p>If Java isn’t installed, you’ll need to install Java before you can run Metabase. We recommend version 11 of JRE from <a>Eclipse Temurin</a>with HotSpot JVM. You can run Metabase wherever Java 11 runs. The particular processor architecture shouldn’t matter (although we only test Metabase for x86 and ARM).</p><h3>2.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/backing-up-metabase-application-data.html
+
+Documentation Title:
+Backing up Metabase
+
+Documentation Content:
+so all you need to do is back up that database and you’re good to go. You can use that backup to restore your Metabase installation if anything goes wrong (like during an upgrade).</p><h2>Backing up the default H2 database</h2><p>If you didn’t specify an application database using environment variables when you launched Metabase, Metabase will have created an embedded H2 database in its directory.</p><p>But if you’re at the point where you have questions and dashboards that you want to keep, you should consider migrating to a <a>production-ready database</a>before you upgrade.</p><p>If you’re just using Metabase for personal use and want to keep your application data, here’s what you’ll need to do.</p><h3>If you’re running the Metabase JAR</h3><ol><li>Navigate to your Metabase directory.</li><li>If your Metabase is running, stop the Metabase process. You can either close the terminal or kill the process with CTRL-C. If you are running the process as a service, then stop the service.</li><li>Copy the application database file (called <code>metabase.db.mv.db</code>) and keep that copy somewhere safe. That’s it.</li><li>Restart Metabase: <code>java -jar metabase.jar</code>or start the service again.</li></ol><h3>If you’re running the Metabase Docker image</h3><p>If you’re running Docker, you should already have switched to a <a>production-ready database</a>.</p><p>Before migrating to a production application database, you should copy the H2 app db file out of the Docker container. For example, if the container is called metabase, you’d run:</p><code>docker cp metabase:/metabase.db/metabase.db.mv.db ./
+</code><p>The above command would copy the database file to the directory you ran the command from. You can also create a copy of this H2 file and use it to migrate the data to a production-ready database.
 
 
 

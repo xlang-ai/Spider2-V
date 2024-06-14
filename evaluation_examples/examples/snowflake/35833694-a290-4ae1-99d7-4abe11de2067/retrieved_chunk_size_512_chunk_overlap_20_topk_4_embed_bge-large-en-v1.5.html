@@ -6,10 +6,10 @@ Snowsight quick tour | Snowflake Documentation
 
 Documentation Content:
 adding policies, and reviewing the governance of your data.</p></ul><p>For more information about these and other tasks that you can perform, see <span>Snowsight: The Snowflake web interface</span>.</p><section><h2>Write SQL and Snowpark Python code in worksheets<a>¶</a></h2><p><span>Worksheets</span>provide a simple way for you to write SQL queries (DML and DDL), see the results, and interact with them.
-With a worksheet, you can do any of the following:</p><ul><p>Run ad hoc queries and other DDL/DML operations.</p><p>Write Snowpark Python code in a Python worksheet.</p><p>Review the query history and results of queries that you executed.</p><p>Examine multiple worksheets, each with its own separate session.</p><p>Export the results for a selected statement, while results are still available.</p></ul><img/><p>For more details, see:</p><ul><span>Getting started with worksheets</span><span>Managing and using worksheets in Snowsight</span><span>Querying data using worksheets</span><span>Writing Snowpark Code in Python Worksheets</span></ul></section><section><h2>Visualize query results with charts and dashboards<a>¶</a></h2><p>When you run a query in Snowsight, you can choose to view your results as a chart. You can also create a collection of charts
+With a worksheet, you can do any of the following:</p><ul><p>Run ad hoc queries and other DDL/DML operations.</p><p>Write Snowpark Python code in a Python worksheet.</p><p>Review the query history and results of queries that you executed.</p><p>Examine multiple worksheets, each with its own separate session.</p><p>Export the results for a selected statement, while results are still available.</p></ul><p>For more details, see:</p><ul><span>Getting started with worksheets</span><span>Managing and using worksheets in Snowsight</span><span>Querying data using worksheets</span><span>Writing Snowpark Code in Python Worksheets</span></ul></section><section><h2>Visualize query results with charts and dashboards<a>¶</a></h2><p>When you run a query in Snowsight, you can choose to view your results as a chart. You can also create a collection of charts
 as a <span>Dashboard</span>, allowing you to review your data more easily. Dashboards provide flexible collections of charts arranged as tiles.
 Dashboard charts start with SQL to generate results and associated charts. You can share these charts with others, modify the charts,
-and display them as dashboard tiles.</p><img/><p>To learn more about charts, see <span>Visualizing worksheet data</span>.
+and display them as dashboard tiles.</p><p>To learn more about charts, see <span>Visualizing worksheet data</span>.
 
 
 
@@ -28,32 +28,27 @@ the dashboard.
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/querying-time-series-data.html
+docs.snowflake.com/en/user-guide/ui-snowsight-dashboards.html
 
 Documentation Title:
-Analyzing time-series data | Snowflake Documentation
+Visualizing data with dashboards | Snowflake Documentation
 
 Documentation Content:
-000 |     33.4865 | 30.9174142 |</span><span>| DEVICE2   | 2024-03-15 00:01:08.000 |     34.0321 | 30.7200142 |</span><span>| DEVICE2   | 2024-03-15 00:01:09.000 |     31.4201 | 30.4226142 |</span><span>| DEVICE2   | 2024-03-15 00:01:10.000 |     27.5301 | 30.7077428 |</span><span>+-----------+-------------------------+-------------+------------+</span></pre><div><p>Note</p><p>If you run this example yourself, your output will not match exactly because the <span>sensor_data_ts</span>table is loaded
-with randomly generated values.</p></div><p>You can use Snowsight to visualize the results of queries like this one, and get a
-better sense of the smoothing effect of calculations with sliding window frames.
-In the query worksheet, click the <span>Chart</span>button next to <span>Results</span>.</p><p>For example, the yellow line in the bar chart shows a much smoother trend for average
-temperature versus the blue line for the raw temperature.</p><img/><p>Other window functions, such as the
-<span>LEAD</span>and <span>LAG</span>ranking functions,
-are also commonly used in time-series analysis. Use the LEAD window function to find the next data point in the time series,
-relative to the current data point, and the LAG function to find the previous data point.</p></section><section><h3>Using the MIN_BY and MAX_BY aggregate functions<a>¶</a></h3><p>The ability to select one column based on the minimum or maximum value of another column in the
-same row is a common requirement for SQL developers who are working with time-series data.
+The worksheet query is stored in the dashboard and can be modified in that context.</p><p>To create a dashboard using an existing worksheet, complete the following steps:</p><ol><p><span>Open a worksheet</span>.</p><p>Hover over the name of the worksheet and select , and then select <span>Move to</span>.</p><p>Select <span>New dashboard</span>.</p><li><p>Enter a name for the dashboard, and then select <span>Create Dashboard</span>.</p><p>The dashboard opens, displaying a tile based on the worksheet you used.</p></li></ol><div><p>Note</p><p>If the worksheet is shared with other users, those users lose access to the worksheet when you create a dashboard because the worksheet
+is removed when the dashboard is created. Permissions on the worksheet are revoked and links to the worksheet
+no longer function. For more details about sharing dashboards, see <span>Share dashboards</span>.</p></div></section></section><section><h2>About using dashboards<a>¶</a></h2><p>After you create a dashboard, you can manage, add tiles, filters, and share the dashboard with other users.</p><p>Tiles visualize data on your dashboards as charts and tables.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-query.html
+docs.snowflake.com/en/user-guide/ui-snowsight-dashboards.html
 
 Documentation Title:
-Querying data using worksheets | Snowflake Documentation
+Visualizing data with dashboards | Snowflake Documentation
 
 Documentation Content:
-</p><p>Open a worksheet.</p><p>Hover over the tab for the worksheet and select <img/>.</p><p>In the drop-down list, select <span>Format query</span>to format the query text for readability.</p></ol></section><section><h3>Load data to a table<a>¶</a></h3><p>If you’re using a worksheet and want to add some data to work with, you can load data into a table without leaving your worksheet:</p><ol><p>Sign in to Snowsight.</p><p>In the navigation menu, select <span>Projects</span>» <span>Worksheets</span></p><p>Open a worksheet.</p><p>Select <span>Objects</span>to view the object explorer.</p><p>Locate a specific table using search or browsing.</p><p>Hover over a specific table name and select <img/>» <span>Load Data</span>.</p><p>Follow the prompts to upload one or more structured or unstructured files of 50MB or less.</p></ol><p>Refer to <span>Loading data using the web interface</span>for more details.</p></section></section><section><h2>Executing and running queries<a>¶</a></h2><p>You can run a single query or multiple queries sequentially in the same worksheet.</p><ul><p>To run a single query, in the query editor link, place your cursor in the query, and then select the <span>Run</span>button.</p><p>To run the entire worksheet, from the <span>More options</span>dropdown menu next to the <span>Run</span>button, select <span>Run All</span>.</p></ul><section><h3>Running worksheets in folders<a>¶</a></h3><p>Folders no longer have a role assigned to them. An owner or editor of a worksheet in a folder can change the worksheet to run as any role.
+Hover over charts to view details about each data point.</p><section><h3>Open a dashboard<a>¶</a></h3><p>To open a dashboard, complete the following steps:</p><ol><p>Sign in to Snowsight.</p><p>In the navigation menu, select <span>Projects</span>» <span>Dashboards</span>.</p><li><p>Locate the dashboard that you want to open:</p><ul><p>The <span>Recent</span>tab displays the dashboards you opened most recently.</p><p>The <span>Shared With Me</span>tab displays dashboards that your colleagues shared with you.</p><p>The <span>My dashboards</span>tab displays dashboards that you created and own.</p></ul></li></ol><p>You can also search the names and contents of worksheets and dashboards.</p></section></section><section><h2>Manage a dashboard<a>¶</a></h2><p>While viewing a dashboard, you can take the following actions on the dashboard:</p><ul><p>Select the dashboard name to rename, duplicate, or delete the dashboard.</p><p>Select <span>+</span>to add a tile to the dashboard. See <span>Add a tile to a dashboard</span>.</p><p>Select to show, hide, and manage custom filters that you can use in queries on the dashboard.
+For more details on filters, see <span>Filter query results in dashboards and worksheets</span>.</p><p>Use the context selector to specify the role and warehouse to use for running the queries in the dashboard.</p><p>Select <span>Share</span>to share the dashboard with other Snowsight users.
 
 
 

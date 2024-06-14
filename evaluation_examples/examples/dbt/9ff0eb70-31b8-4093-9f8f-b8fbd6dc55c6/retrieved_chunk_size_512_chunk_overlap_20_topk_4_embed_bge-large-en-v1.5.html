@@ -1,44 +1,44 @@
 Documentation Source:
+docs.getdbt.com/guides/databricks5f72.html
+
+Documentation Title:
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+
+Documentation Content:
+You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><span>The DAG we want for our dbt project</span></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>jaffle_shop_customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>jaffle_shop_orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/bigquery.html
+
+Documentation Title:
+Quickstart for dbt Cloud and BigQuery | dbt Developer Hub
+
+Documentation Content:
+You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><span>The DAG we want for our dbt project</span></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>`</span><span>dbt-tutorial</span><span>`</span><span>.</span><span>jaffle_shop</span><span>.</span><span>customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>`</span><span>dbt-tutorial</span><span>`</span><span>.</span><span>jaffle_shop</span><span>.</span><span>orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/snowflake.html
+
+Documentation Title:
+Quickstart for dbt Cloud and Snowflake | dbt Developer Hub
+
+Documentation Content:
+You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><span>The DAG we want for our dbt project</span></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>raw</span><span>.</span><span>jaffle_shop</span><span>.</span><span>customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>raw</span><span>.</span><span>jaffle_shop</span><span>.</span><span>orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
+
+
+
+Documentation Source:
 docs.getdbt.com/guides/databricks.html
 
 Documentation Title:
 Quickstart for dbt Cloud and Databricks | dbt Developer Hub
 
 Documentation Content:
-You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><div><img/><span>The DAG we want for our dbt project</span></div></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>jaffle_shop_customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>jaffle_shop_orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/databricks8722.html
-
-Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
-
-Documentation Content:
-You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><div><img/><span>The DAG we want for our dbt project</span></div></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>jaffle_shop_customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>jaffle_shop_orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/databricks121c.html
-
-Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
-
-Documentation Content:
-You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><div><img/><span>The DAG we want for our dbt project</span></div></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>jaffle_shop_customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>jaffle_shop_orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/redshift.html
-
-Documentation Title:
-Quickstart for dbt Cloud and Redshift | dbt Developer Hub
-
-Documentation Content:
-You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><div><img/><span>The DAG we want for our dbt project</span></div></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>jaffle_shop</span><span>.</span><span>customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>jaffle_shop</span><span>.</span><span>orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
+You have already started doing this in the existing query by using common table expressions (CTEs).</p><p>Now you can experiment by separating the logic out into separate models and using the <a>ref</a>function to build models on top of other models:</p><span>The DAG we want for our dbt project</span></div><ol><p>Create a new SQL file, <code>models/stg_customers.sql</code>, with the SQL from the <code>customers</code>CTE in our original query.</p><li><p>Create a second new SQL file, <code>models/stg_orders.sql</code>, with the SQL from the <code>orders</code>CTE in our original query.</p><div><span>models/stg_customers.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>first_name</span><span>,</span></span><span>last_name</span><span><span>from</span><span>jaffle_shop_customers</span></span></code></div><div><span>models/stg_orders.sql</span><code><span>select</span><span><span>id </span><span>as</span><span>order_id</span><span>,</span></span><span><span>user_id </span><span>as</span><span>customer_id</span><span>,</span></span><span><span>order_date</span><span>,</span></span><span>status</span><span><span>from</span><span>jaffle_shop_orders</span></span></code></div></li><li><p>Edit the SQL in your <code>models/customers.sql</code>file as follows:</p><div><span>models/customers.
 
 
 

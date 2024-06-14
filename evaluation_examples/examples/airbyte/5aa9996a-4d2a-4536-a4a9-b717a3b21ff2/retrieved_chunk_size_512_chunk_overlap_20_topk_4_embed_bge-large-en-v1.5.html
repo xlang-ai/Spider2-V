@@ -16,7 +16,19 @@ Documentation Title:
 Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-you can verify the sync has completed by checking the data in your destination.</p><div><ul><li>Cloud</li><li>Self Hosted</li></ul><div><p>If you followed along and created your own connection using a <strong>Google Sheets</strong>destination, you will now see three tabs created in your Google Sheet, <code>products</code>, <code>users</code>, and <code>purchases</code>.</p><div><p>If you followed along and created your own connection using a <code>Local JSON</code>destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR_PATH with the path you chose in your destination setup, and YOUR_STREAM_NAME with the name of an actual stream you replicated):</p><span>cat /tmp/airbyte_local/YOUR_PATH/_airbyte_raw_YOUR_STREAM_NAME.jsonl</span><p>You should see a list of JSON objects, each containing a unique <code>airbyte_ab_id</code>, an <code>emitted_at</code>timestamp, and <code>airbyte_data</code>containing the extracted record.</p><div><div>tip</div><p>If you are using Airbyte on Windows with WSL2 and Docker, refer to <a>this guide</a>to locate the replicated folder and file.</p></div></div></div></div><h2>What's next?<a>​</a></h2><p>Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing <a>catalog of sources and destinations</a>, and you can even <a>contribute your own</a>.</p><p>If you have any questions at all, please reach out to us on <a>Slack</a>. If you would like to see a missing feature or connector added, please create an issue on our <a>Github</a>.
+that you've learned how to set up your first <a>source</a>and <a>destination</a>, it's time to finish the setup by creating your very first connection!</p><p>On the left side of your main Airbyte dashboard, select <strong>Connections</strong>. You will be prompted to choose which source and destination to use for this connection. For this example, we'll use the <strong>Google Sheets</strong>source and the destination you previously set up, either <strong>Local JSON</strong>or <strong>Google Sheets</strong>.</p><h2>Configure the connection<a>​</a></h2><p>Once you've chosen your source and destination you can configure the connection. You'll first be asked a few questions about how your data should sync, these correlate to our sync modes which you can read more about on <a>this page</a>.</p><p>Most users select "Mirror Source", which will simply copy the data from the source to the destination where you'll see one row in the destination for each row in the source. If you prefer to Append Historical Changes or take a Full Snapshot with each sync, you can optionally select those options, but keep in mind those will create duplicate records in your destination. The sync mode we choose for all the enabled streams will reflect your selection here.</p><p>Next, you can toggle which streams you want to replicate. Our test data consists of three streams, which we've enabled and set to <code>Incremental - Append + Deduped</code>sync mode.</p><p>Your sync mode is already determined by your selection above, but you can change the sync mode for an individual stream. You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see <a>this page</a>.</p><p>You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
+</p><p>Click <strong>Next</strong>to complete your stream setup and move to the connection configuration.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+you will now see three tabs created in your Google Sheet, <code>products</code>, <code>users</code>, and <code>purchases</code>.</p><div><p>If you followed along and created your own connection using a <code>Local JSON</code>destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR_PATH with the path you chose in your destination setup, and YOUR_STREAM_NAME with the name of an actual stream you replicated):</p><span>cat /tmp/airbyte_local/YOUR_PATH/_airbyte_raw_YOUR_STREAM_NAME.jsonl</span><p>You should see a list of JSON objects, each containing a unique <code>airbyte_ab_id</code>, an <code>emitted_at</code>timestamp, and <code>airbyte_data</code>containing the extracted record.</p><div><div>tip</div><p>If you are using Airbyte on Windows with WSL2 and Docker, refer to <a>this guide</a>to locate the replicated folder and file.</p></div></div></div></div><h2>What's next?<a>​</a></h2><p>Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing <a>catalog of sources and destinations</a>, and you can even <a>contribute your own</a>.</p><p>If you have any questions at all, please reach out to us on <a>Slack</a>. If you would like to see a missing feature or connector added, please create an issue on our <a>Github</a>.
 
 
 
@@ -28,17 +40,6 @@ You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
 
 Documentation Content:
 Here’s how:</p><ul><li><strong>Workspace ID:</strong>Look at the URL in your workspace and you’ll find the Workspace ID right after <em>workspace/</em>.</li><li><strong>Connection ID:</strong>Go to the “Connections” tab in your workspace and click on any connection. Check the URL again; you'll find the Connection ID right after <em>connection/</em>'.</li></ul><h3>Getting your Airbyte API Key</h3><p>To interact with Airbyte programmatically, you’ll need an API key for authentication. Here's how to get it:</p><ul><li>Navigate to the <a>Airbyte Developer Portal</a>and enter your credentials to login.</li><li>Once logged in, look for the option to create a new API key. The portal will guide you through the steps to generate this key.</li><li>After obtaining your API key, make sure to store it safely. We recommend using your favorite secrets manager for this purpose. You'll need this key later.</li></ul><h3>Installing PyAirbyte</h3><p>If you haven’t done so, here's how you can <a>install PyAirbyte</a>:</p><ul><li><strong>Virtual environment (recommended):</strong>It’s a good practice to use a virtual environment.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections.html
-
-Documentation Title:
-Configuring Connections | Airbyte Documentation
-
-Documentation Content:
-This gives you the option to reset streams when you save the changes.</p></ol><div><div>tip</div><p>When editing the stream configuration, Airbyte recommends that you reset streams. A reset will delete data in the destination of the affected streams and then re-sync that data. Skipping a reset is discouraged and might lead to unexpected behavior.</p></div><li>Click <strong>Save connection</strong>.</li></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Set up a Connection</div></a><a><div>Next</div><div>Sync Schedules</div></a></nav></div><div><ul><a>Configure Connection Settings</a><a>Modify Streams</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
 
 
 

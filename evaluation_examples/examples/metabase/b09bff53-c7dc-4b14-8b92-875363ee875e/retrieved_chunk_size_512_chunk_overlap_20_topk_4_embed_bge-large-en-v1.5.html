@@ -1,24 +1,11 @@
 Documentation Source:
-www.metabase.com/docs/v0.49/databases/connecting.html
+www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.html
 
 Documentation Title:
-Adding and managing databases
+Setting up Metabase
 
 Documentation Content:
-49
-</a><a>Databases</a></ol><article><h1>Adding and managing databases</h1><p>Connect Metabase to your data sources.</p><h2>Adding a database connection</h2><p>To add a database connection, click on the <strong>gear</strong>icon in the top right, and navigate to <strong>Admin settings</strong>&gt; <strong>Databases</strong>&gt; <strong>Add a database</strong>.</p><p>Fill out the fields for that database, and click <strong>Save changes</strong>at the bottom.</p><p>The connection settings differ database to database. For the list of connection settings available for your database, click on the link to your database below.</p><h2>Connecting to supported databases</h2><p>The databases listed below have official drivers maintained by the Metabase team. Customers on <a>paid plans</a>will get official support.</p><ul><a>Amazon Athena</a><li><a>BigQuery</a>(Google Cloud Platform)</li><a>Druid</a><a>MongoDB (recommend version 4.2 or higher)</a><a>MySQL (recommend version 8.0.33 or higher, as well as MariaDB version 10.4 or higher)</a><a>Oracle</a><a>PostgreSQL</a><a>Presto</a><a>Redshift (Amazon Web Services)</a><a>Snowflake</a><a>SparkSQL</a><a>SQL Server</a><a>SQLite</a><a>Vertica</a></ul><p>If you don’t see your database listed here, see <a>partner and community drivers</a>.</p><p>As of version 46.6.4, Metabase <a>no longer supports H2 connections</a>.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/databases/connections/druid.html
-
-Documentation Title:
-Druid
-
-Documentation Content:
-49
-</a><a>Databases</a></ol><article><h1>Druid</h1><p>To add a database connection, click on the <strong>gear</strong>icon in the top right, and navigate to <strong>Admin settings</strong>&gt; <strong>Databases</strong>&gt; <strong>Add a database</strong>.</p><p>Fill out the fields for that database, and click <strong>Save changes</strong>at the bottom.</p><h2>Settings</h2><p>You can edit these settings at any time. Just remember to save your changes.</p><h3>Display name</h3><p>The display name for the database in the Metabase interface.</p><h3>Host</h3><p>Your database’s IP address, or its domain name (e.g., esc.mydatabase.com).</p><h3>Broker node port</h3><p>The database port (e.g, 8082).</p><h3>Use an SSH tunnel</h3><p>See our <a>guide to SSH tunneling</a>.</p><h3>Re-run queries for simple explorations</h3><p>Turn this option <strong>OFF</strong>if people want to click <strong>Run</strong>(the play button) before applying any <a>Summarize</a>or filter selections.</p><p>By default, Metabase will execute a query as soon as you choose an grouping option from the <strong>Summarize</strong>menu or a filter condition from the <a>drill-through menu</a>. If your database is slow, you may want to disable re-running to avoid loading data on each click.</p><h3>Choose when Metabase syncs and scans</h3><p>Turn this option <strong>ON</strong>to manage the queries that Metabase uses to stay up to date with your database.
+Metabase comes with a <a>Sample Database</a>that you can play around with to get a feel for how Metabase works.</p><p>If you’re ready to connect, here’s what you’ll need:</p><ul><li>The <strong>hostname</strong>of the server where your database lives</li><li>The <strong>port</strong>the database server uses</li><li>The <strong>database name</strong></li><li>The <strong>username</strong>you use for the database</li><li>The <strong>password</strong>you use for the database</li></ul><p>If you don’t have this information handy, the person responsible for administering the database should have it.</p><h2>Connect to your database</h2><p>Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click <strong>Next</strong>.</p><p>For more on connecting to databases, see <a>Adding and managing databases</a>.</p><h2>Usage data preferences</h2><p>One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:</p><ul><li>Metabase never collects anything about your data or question results.</li><li>All collection is completely anonymous.</li><li>Collection can be turned off at any point in your admin settings.</li></ul><p>If you’re ready to start using Metabase, go ahead and click <strong>Next</strong>.</p><h2>Staying in touch</h2><p>At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!</p><p>Once you’re done here simply follow the link to <strong>Take me to Metabase</strong>.
 
 
 
@@ -50,14 +37,24 @@ java -jar metabase.jar
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/databases/connections/sqlite.html
+www.metabase.com/learn/administration/metabase-api.html
 
 Documentation Title:
-SQLite
+Working with the Metabase API
 
 Documentation Content:
-49
-</a><a>Databases</a></ol><article><h1>SQLite</h1><p>To add a database connection, click on the <strong>gear</strong>icon in the top right, and navigate to <strong>Admin settings</strong>&gt; <strong>Databases</strong>&gt; <strong>Add a database</strong>.</p><p>Fill out the fields for that database, and click <strong>Save changes</strong>at the bottom.</p><h2>Settings</h2><p>You can edit these settings at any time. Just remember to save your changes.</p><h3>Display name</h3><p>The display name for the database in the Metabase interface.</p><h3>Filename</h3><p>The location of the SQLite database (the absolute path).</p><h3>Re-run queries for simple explorations</h3><p>Turn this option <strong>OFF</strong>if people want to click <strong>Run</strong>(the play button) before applying any <a>Summarize</a>or filter selections.</p><p>By default, Metabase will execute a query as soon as you choose an grouping option from the <strong>Summarize</strong>menu or a filter condition from the <a>drill-through menu</a>. If your database is slow, you may want to disable re-running to avoid loading data on each click.</p><h3>Choose when Metabase syncs and scans</h3><p>Turn this option <strong>ON</strong>to manage the queries that Metabase uses to stay up to date with your database.
+such as adding a user or creating a dashboard. Then use the developer tools in your browser to view the request Metabase made to the server when you performed that action.</p><h2>A few things you can do with the Metabase API</h2><h3>Provision a Metabase instance</h3><p>In addition to using <a>environment variables</a>, you can use the Metabase API to setup an instance of Metabase. Once you have installed Metabase using your <a>preferred method</a>, and the Metabase server is up and running, you can create the first user (as an Admin) by posting to a special endpoint, <a>/api/setup</a>. This <code>/api/setup</code>endpoint:</p><ul><li>Creates the first user as an Admin (superuser).</li><li>Logs them in.</li><li>Returns a session ID.</li></ul><p>You can then configure settings using the <code>/api/settings</code>endpoint, set up email using the <code>/api/email</code>endpoint, and use the <code>/api/setup/admin_checklist</code>endpoint to verify your setup progress.</p><h3>Add a data source</h3><p>You can add a new database using the <code>POST /api/database/</code>endpoint, and validate that database’s connection details using the <code>/api/setup/validate</code>endpoint. Once you’ve connected the database to your Metabase instance, you can rescan the database and update the schema metadata.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/databases/uploads.html
+
+Documentation Title:
+Uploading data
+
+Documentation Content:
+This way Metabase will be able to store the uploaded data somewhere.</li><li><a>Select the database and schema you want to store the uploaded data in</a>.</li><li><a>(Optional) Specify a prefix for Metabase to prepend to the uploaded tables</a>.</li><li><a>Add people to a group with unrestricted data access to the upload schema database</a>.</li></ul><h2>Connect to a database using a database user account with write access</h2><p>To upload data to Metabase, an admin will need to connect your Metabase to a database that supports uploads using a database user account that has write access to that database.</p><p>You can also upload data to the Sample Database included with Metabase (an H2 database), though we don’t recommend using the Sample Database for any data that you want to keep around.</p><p>For more, check out:</p><ul><a>Adding and managing databases</a><a>Database users, roles, and privileges</a></ul><h2>Select the database and schema that you want to store the data in</h2><p>If Metabase is connected to a database using a database user account with write access, Admins can enable uploads by:</p><ul><li>Clicking on the <strong>gear</strong>icon in the upper right on the home page and navigating to <strong>Admin settings</strong>&gt; <strong>Settings</strong>&gt; <strong>Uploads</strong>.</li><li>Selecting the database Metabase should use to store the data.</li></ul><p>When people upload a CSV to a collection, Metabase will:</p><ul><li>Create a table to store that data in the database and schema that the Admin selected to store uploads.</li><li>Create a <a>model</a>that wraps the uploaded table, and save that model to the collection the person uploaded the CSV data to.</li></ul><h2>Specify a prefix for Metabase to prepend to the uploaded tables</h2><p>Admins can optionally specify a string of text to add in front of the table that Metabase creates to store the uploaded data.
 
 
 

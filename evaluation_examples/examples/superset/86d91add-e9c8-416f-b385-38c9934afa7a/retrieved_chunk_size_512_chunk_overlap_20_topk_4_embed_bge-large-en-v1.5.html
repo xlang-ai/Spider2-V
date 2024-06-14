@@ -5,12 +5,35 @@ Documentation Title:
 Creating Your First Dashboard | Superset
 
 Documentation Content:
-You can either:</p><ul><li>Save your chart and add it to an existing dashboard</li><li>Save your chart and add it to a new dashboard</li></ul><p>In the following screenshot, we save the chart to a new "Superset Duper Sales Dashboard":</p><img/><p>To publish, click <strong>Save and goto Dashboard</strong>.</p><p>Behind the scenes, Superset will create a slice and store all the information needed
+To start the Explore workflow from the <strong>Datasets</strong>tab, start by clicking the name
+of the dataset that will be powering your chart.</p><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.</li><li>The <strong>Data</strong>preview below the chart area also gives you helpful data context.</li><li>Using the <strong>Data</strong>tab and <strong>Customize</strong>tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.</li></ul><p>As you customize your chart using drop-down menus, make sure to click the <strong>Run</strong>button
+to get visual feedback.</p><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.</p><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button. You can either:</p><ul><li>Save your chart and add it to an existing dashboard</li><li>Save your chart and add it to a new dashboard</li></ul><p>In the following screenshot, we save the chart to a new "Superset Duper Sales Dashboard":</p><p>To publish, click <strong>Save and goto Dashboard</strong>.</p><p>Behind the scenes, Superset will create a slice and store all the information needed
 to create your chart in its thin data layer
-(the query, chart type, options selected, name, etc).</p><img/><p>To resize the chart, start by clicking the Edit Dashboard button in the top right corner.</p><img/><p>Then, click and drag the bottom right corner of the chart until the chart layout snaps
-into a position you like onto the underlying grid.</p><img/><p>Click <strong>Save</strong>to persist the changes.</p><p>Congrats! You’ve successfully linked, analyzed, and visualized data in Superset. There are a wealth
-of other table configuration and visualization options, so please start exploring and creating
-slices and dashboards of your own</p><p>ֿ</p><h3>Manage access to Dashboards<a>​</a></h3><p>Access to dashboards is managed via owners (users that have edit permissions to the dashboard)</p><p>Non-owner users access can be managed two different ways:</p><ol><li>Dataset permissions - if you add to the relevant role permissions to datasets it automatically grants implicit access to all dashboards that uses those permitted datasets</li><li>Dashboard roles - if you enable <strong>DASHBOARD_RBAC</strong><a>feature flag</a>then you be able to manage which roles can access the dashboard<ul><li>Granting a role access to a dashboard will bypass dataset level checks. Having dashboard access implicitly grants read access to all the featured charts in the dashboard, and thereby also all the associated datasets.</li><li>If no roles are specified for a dashboard, regular <strong>Dataset permissions</strong>will apply.
+(the query, chart type, options selected, name, etc).</p><p>To resize the chart, start by clicking the Edit Dashboard button in the top right corner.</p><p>Then, click and drag the bottom right corner of the chart until the chart layout snaps
+into a position you like onto the underlying grid.</p><p>Click <strong>Save</strong>to persist the changes.</p><p>Congrats!
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.html
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
+Since in this
+example, we want to understand different Travel Classes, we select <strong>Travel Class</strong>in this menu.</p><p>Next, we can specify the metrics we would like to see in our table with the <strong>Metrics</strong>option.</p><ul><li><code>COUNT(*)</code>, which represents the number of rows in the table
+(in this case, quantity of flights in each Travel Class)</li><li><code>SUM(Cost)</code>, which represents the total cost spent by each Travel Class</li></ul><p>Finally, select <strong>Run Query</strong>to see the results of the table.</p><p>To save the visualization, click on <strong>Save</strong>in the top left of the screen. In the following modal,</p><ul><li>Select the <strong>Save as</strong>option and enter the chart name as Tutorial Table (you will be able to find it again through the
+<strong>Charts</strong>screen, accessible in the top menu).</li><li>Select <strong>Add To Dashboard</strong>and enter
+Tutorial Dashboard. Finally, select <strong>Save &amp; Go To Dashboard</strong>.</li></ul><h3>Dashboard Basics<a>​</a></h3><p>Next, we are going to explore the dashboard interface. If you’ve followed the previous section, you
+should already have the dashboard open. Otherwise, you can navigate to the dashboard by selecting
+Dashboards on the top menu, then Tutorial dashboard from the list of dashboards.</p><p>On this dashboard you should see the table you created in the previous section. Select <strong>Edit
+dashboard</strong>and then hover over the table. By selecting the bottom right hand corner of the table
+(the cursor will change too), you can resize it by dragging and dropping.</p><p>Finally, save your changes by selecting Save changes in the top right.</p><h3>Pivot Table<a>​</a></h3><p>In this section, we will extend our analysis using a more complex visualization, Pivot Table.
 
 
 
@@ -24,35 +47,16 @@ Documentation Content:
 Publish this chart
 to your existing Tutorial Dashboard you created earlier.</p><h3>Line Chart<a>​</a></h3><p>In this section, we are going to create a line chart to understand the average price of a ticket by
 month across the entire dataset.</p><p>In the Time section, as before, keep the Time Column as Travel Date and Time Grain as month but this
-time for the Time range select No filter as we want to look at entire dataset.</p><p>Within Metrics, remove the default <code>COUNT(*)</code>metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p><img/><p>Next, select <strong>Run Query</strong>to show the data on the chart.</p><p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
+time for the Time range select No filter as we want to look at entire dataset.</p><p>Within Metrics, remove the default <code>COUNT(*)</code>metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p><p>Next, select <strong>Run Query</strong>to show the data on the chart.</p><p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
 doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
 each ticket type.</p><p>Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting <strong>Run
 Query</strong>again. Nice! We can see that on average single tickets are cheaper than returns and that the
 big spike in December is caused by return tickets.</p><p>Our chart is looking pretty good already, but let’s customize some more by going to the Customize
 tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
 filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
-and Y Axis Label.</p><img/><p>Once you’re done, publish the chart in your Tutorial Dashboard.</p><h3>Markup<a>​</a></h3><p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
+and Y Axis Label.</p><p>Once you’re done, publish the chart in your Tutorial Dashboard.</p><h3>Markup<a>​</a></h3><p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
 to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
 dashboards. Got into edit mode by selecting <strong>Edit dashboard</strong>.</p><p>Within the Insert components pane, drag and drop a Markdown box on the dashboard.
-
-
-
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.html
-
-Documentation Title:
-Exploring Data in Superset | Superset
-
-Documentation Content:
-Since in this
-example, we want to understand different Travel Classes, we select <strong>Travel Class</strong>in this menu.</p><p>Next, we can specify the metrics we would like to see in our table with the <strong>Metrics</strong>option.</p><ul><li><code>COUNT(*)</code>, which represents the number of rows in the table
-(in this case, quantity of flights in each Travel Class)</li><li><code>SUM(Cost)</code>, which represents the total cost spent by each Travel Class</li></ul><img/><p>Finally, select <strong>Run Query</strong>to see the results of the table.</p><img/><p>To save the visualization, click on <strong>Save</strong>in the top left of the screen. In the following modal,</p><ul><li>Select the <strong>Save as</strong>option and enter the chart name as Tutorial Table (you will be able to find it again through the
-<strong>Charts</strong>screen, accessible in the top menu).</li><li>Select <strong>Add To Dashboard</strong>and enter
-Tutorial Dashboard. Finally, select <strong>Save &amp; Go To Dashboard</strong>.</li></ul><img/><h3>Dashboard Basics<a>​</a></h3><p>Next, we are going to explore the dashboard interface. If you’ve followed the previous section, you
-should already have the dashboard open. Otherwise, you can navigate to the dashboard by selecting
-Dashboards on the top menu, then Tutorial dashboard from the list of dashboards.</p><p>On this dashboard you should see the table you created in the previous section. Select <strong>Edit
-dashboard</strong>and then hover over the table. By selecting the bottom right hand corner of the table
-(the cursor will change too), you can resize it by dragging and dropping.</p><img/><p>Finally, save your changes by selecting Save changes in the top right.</p><h3>Pivot Table<a>​</a></h3><p>In this section, we will extend our analysis using a more complex visualization, Pivot Table.
 
 
 
@@ -65,11 +69,11 @@ Creating Your First Dashboard | Superset
 Documentation Content:
 If the connection looks good, save the configuration
 by clicking the <strong>Connect</strong>button in the bottom right corner of the modal window:</p><p>Congratulations, you've just added a new data source in Superset!</p><h3>Registering a new table<a>​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong>in Superset)
-that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><img/><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
+that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
 <strong>Schema</strong>, and <strong>Table</strong>using the drop downs that appear. In the following example,
-we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><img/><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
+we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
 for how the column should be treated in the Explore workflow:</p><ul><li>Is the column temporal? (should it be used for slicing &amp; dicing in time series charts?)</li><li>Should the column be filterable?</li><li>Is the column dimensional?</li><li>If it's a datetime column, how should Superset parse
-the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><img/><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
 The Superset semantic layer can store 2 types of computed data:</p><li>Virtual metrics: you can write SQL queries that aggregate values
 from multiple column (e.g.
 

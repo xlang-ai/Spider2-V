@@ -6,8 +6,8 @@ Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
 
 Documentation Content:
 </span></aside><h2>View your query history and reuse queries</h2><p>To view your query history as a tab in JupyterLab, perform the following steps:</p><ol><p>In the JupyterLab navigation menu, click
-<img/><strong>BigQuery in Notebooks</strong>to open the
-<strong>BigQuery</strong>pane.</p><li><p>In the <strong>BigQuery</strong>pane, scroll down and click <strong>Query history</strong>.</p><img/><p>A list of your queries opens in a new tab, where you can perform tasks such
+<strong>BigQuery in Notebooks</strong>to open the
+<strong>BigQuery</strong>pane.</p><li><p>In the <strong>BigQuery</strong>pane, scroll down and click <strong>Query history</strong>.</p><p>A list of your queries opens in a new tab, where you can perform tasks such
 as the following:</p><ul><li>To view the details of a query such as its Job ID, when the query was
 run, and how long it took, click the query.</li><li>To revise the query, run it again, or copy it into your notebook for
 future use, click <strong>Open query in editor</strong>.</li></ul></li></ol><aside><strong>Note:</strong><span>If you run queries after opening this tab, click <span>refresh</span><strong>Refresh</strong>to show
@@ -16,7 +16,8 @@ future use after cleaning up the resources used in this tutorial.</p><ol><li>Sel
 an IPYNB file on your computer.</li></ol></section><section><h2>Clean up</h2><p>The easiest way to eliminate billing is to delete the Google Cloud project
 that you created for this tutorial.</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
   <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
-      the tasks in this document, when you delete it,
+      the tasks in this document, when you delete it, you also delete any other work you've
+      done in the project.
 
 
 
@@ -47,22 +48,23 @@ metadata, such as the job type, the job state, and the user who created the job.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/viewing-labels.html
+cloud.google.com/bigquery/docs/bigquery-web-ui.html
 
 Documentation Title:
-Viewing labels  |  BigQuery  |  Google Cloud
+Explore the Google Cloud console  |  BigQuery
 
 Documentation Content:
-For example, the following SQL query returns the
-query text and labels on the jobs submitted by the current user in the
-current project:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, enter the following statement:</p><pre>SELECT
-  query,
-  labels
-FROM
-  INFORMATION_SCHEMA.JOBS_BY_USER;
-</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p></ol><p>For more information about how to run queries, see <a>Run an interactive query</a>.</p></section><section><h3>bq </h3><p>To see the labels for a query job using the bq command-line tool, enter
-the <code>bq show -j</code>command with the query job's job ID. The <code>--format</code>flag
-can be used to control the output.
+One tab has a
+SQL query, and the other tab shows details about a table.</p><h3>Move a tab</h3><p>To move a tab from one pane to the other pane, follow these steps:</p><ol><p>Next to the tab name, click
+<span>arrow_drop_down</span><strong>Open menu</strong>.</p><p>Select <strong>Move tab to right pane</strong>or <strong>Move tab to left pane</strong>(whichever
+option is available).</p></ol><h3>Close a tab</h3><p>To close all tabs except for one, follow these steps:</p><ol><p>Next to the tab name, click
+<span>arrow_drop_down</span><strong>Open menu</strong>.</p><p>Select
+<span>cancel</span><strong>Close other tabs</strong>.</p></ol><h2>View personal and project history</h2><p>You can view job histories in the footer of the details pane:</p><ul><p>To view details of your own jobs, click <strong>Personal history</strong>.</p><p>To view details of recent jobs in your project, click <strong>Project history</strong>.</p></ul><p>To see the details of a job or to open the query in an editor, do the following:</p><ol><p>In the <strong>Actions</strong>column for a job or query, click
+<span>more_vert</span><strong>Actions</strong>.</p><p>Select <strong>Show job details</strong>or <strong>Open query in editor</strong>.</p></ol><p>The job histories include all load, export, copy, and query jobs that you
+submitted in the past six months (up to 1,000 entries). The limit of 1,000 jobs
+is cumulative across all job types.</p><h2>Keyboard shortcuts</h2><p>To view shortcuts in the Google Cloud console, click
+<span>keyboard</span><strong>SQL workspace shortcuts</strong>.
+The following keyboard shortcuts are supported in the Google Cloud console:</p><table><tr><th>Action</th><th>Windows or Linux shortcut</th><th>macOS shortcut</th></tr><tbody><tr><td>Create a
 
 
 

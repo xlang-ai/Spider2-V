@@ -5,25 +5,10 @@ Documentation Title:
 A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
 
 Documentation Content:
-This connector will be used in the DAG to interact with files on the local filesystem. </li></ul><p>After saving the above connection, you Connections screen should look as follows:</p><figure><img/><figcaption>The Airflow connections that have just been created</figcaption></figure><p>‍</p><p>Now that the relevant Airflow connections are defined, they can be used in an Airflow DAG.</p><h2>Create an Airflow DAG</h2><p>In this section, I present Python code for a simple DAG that performs the following tasks: </p><ol><li><strong>trigger_airbyte</strong>: Uses <a>AirbyteTriggerSyncOperator</a>to asynchronously trigger Airbyte to perform a synchronization from the <strong>Sample Data (Faker)</strong>input to the<strong>Local JSON</strong>(file) output using the Airbyte connection that we defined above. Because this is executed asynchronously, it immediately returns along with a job id that is used for determining the completion of the synchronization.</li><li><strong>wait_for_sync_completion</strong>: Uses <a>AirbyteJobSensor</a>to wait for Airbyte to complete the synchronization.   </li><li><strong>raw_products_file_sensor</strong>: Uses <a>FileSensor</a>to confirm that the file created by Airbyte exists. One of the files created by the <strong>Sample Data (Faker)</strong>source is called <strong>_airbyte_raw_products.jsonl</strong>, and this task waits for that file to exist.</li><li><strong>mv_raw_products_file</strong>: Uses <a>BashOperator</a>to rename the raw products file.</li></ol><p>The code which demonstrates these steps is given below.</p><code>from airflow import DAG
-from airflow.operators.bash import BashOperator
-from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
-from airflow.providers.airbyte.sensors.airbyte import AirbyteJobSensor
-from airflow.sensors.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
-
-Documentation Title:
-A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
-
-Documentation Content:
-After specifying the Destination Path, click on Set up destination. </p><figure><img/><figcaption>Configure the Local JSON destination</figcaption></figure><p>‍</p><p>This will take you to a page to set up the connection. Set the replication frequency to <strong>Manual</strong>(since we will use Airflow to trigger Airbyte syncs rather than using Airbyte’s scheduler) and then click on <strong>Set up connection</strong>as highlighted in the image below.</p><figure><img/><figcaption>Specify connection settings</figcaption></figure><p>‍</p><p>Trigger a sync from the <strong>Sample Data (faker)</strong>source to the <strong>Local JSON</strong>output by clicking on <strong>Sync now</strong>as highlighted in the image below.</p><figure><img/><figcaption>Manually trigger a sync from the UI</figcaption></figure><p>‍</p><p>The sync should take a few seconds, at which point you should see that the sync has succeed as shown below.</p><figure><img/><figcaption>After the sync has completed</figcaption></figure><p>‍</p><p>You can now confirm if some sample data has been copied to the expected location. As previously mentioned, for this example the JSON data can be seen in <strong>/tmp/airbyte_local_json_from_faker</strong>. Because there were three streams generated, the following three JSON files should be available: </p><code>_airbyte_raw_products.jsonl	
+After specifying the Destination Path, click on Set up destination. </p><figcaption>Configure the Local JSON destination</figcaption><p>‍</p><p>This will take you to a page to set up the connection. Set the replication frequency to <strong>Manual</strong>(since we will use Airflow to trigger Airbyte syncs rather than using Airbyte’s scheduler) and then click on <strong>Set up connection</strong>as highlighted in the image below.</p><figcaption>Specify connection settings</figcaption><p>‍</p><p>Trigger a sync from the <strong>Sample Data (faker)</strong>source to the <strong>Local JSON</strong>output by clicking on <strong>Sync now</strong>as highlighted in the image below.</p><figcaption>Manually trigger a sync from the UI</figcaption><p>‍</p><p>The sync should take a few seconds, at which point you should see that the sync has succeed as shown below.</p><figcaption>After the sync has completed</figcaption><p>‍</p><p>You can now confirm if some sample data has been copied to the expected location. As previously mentioned, for this example the JSON data can be seen in <strong>/tmp/airbyte_local_json_from_faker</strong>. Because there were three streams generated, the following three JSON files should be available: </p><code>_airbyte_raw_products.jsonl	
 _airbyte_raw_users.jsonl
 _airbyte_raw_purchases.jsonl
-</code><p>You have now created a simple example connection in Airbyte which can be manually triggered. A manually triggered connection is ideal for situations where you wish to use an external orchestrator. </p><p>In the next section you will see how to trigger a manual sync on this connection by hitting a REST endpoint directly. After that, you will see how Airflow can be used to hit that same endpoint to trigger synchronizations.
+</code><p>You have now created a simple example connection in Airbyte which can be manually triggered. A manually triggered connection is ideal for situations where you wish to use an external orchestrator. </p><p>In the next section you will see how to trigger a manual sync on this connection by hitting a REST endpoint directly. After that, you will see how Airflow can be used to hit that same endpoint to trigger synchronizations. </p><h2>Test the API endpoints with cURL</h2><p>Before using the REST endpoint from within Airflow, it is useful to verify that it is working as expected.
 
 
 
@@ -47,7 +32,44 @@ A step-by-step guide to setting up and configuring Airbyte and Airflow to work t
 Documentation Content:
 For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
 BASIC_AUTH_PASSWORD=password
-</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figure><img/><figcaption>Airbyte OSS login prompt</figcaption></figure><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figure><img/><figcaption>Create your first connection prompt</figcaption></figure><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figure><img/><figcaption>Select Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figure><img/><figcaption>Configure Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figure><img/><figcaption>Select Local JSON as a destination</figcaption></figure><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running.
+</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figcaption>Airbyte OSS login prompt</figcaption><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figcaption>Create your first connection prompt</figcaption><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figcaption>Select Sample Data (Faker) as a source</figcaption><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figcaption>Configure Sample Data (Faker) as a source</figcaption><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figcaption>Select Local JSON as a destination</figcaption><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running. After specifying the Destination Path, click on Set up destination.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+Because this is executed asynchronously, it immediately returns along with a job id that is used for determining the completion of the synchronization.</li><li><strong>wait_for_sync_completion</strong>: Uses <a>AirbyteJobSensor</a>to wait for Airbyte to complete the synchronization.   </li><li><strong>raw_products_file_sensor</strong>: Uses <a>FileSensor</a>to confirm that the file created by Airbyte exists. One of the files created by the <strong>Sample Data (Faker)</strong>source is called <strong>_airbyte_raw_products.jsonl</strong>, and this task waits for that file to exist.</li><li><strong>mv_raw_products_file</strong>: Uses <a>BashOperator</a>to rename the raw products file.</li></ol><p>The code which demonstrates these steps is given below.</p><code>from airflow import DAG
+from airflow.operators.bash import BashOperator
+from airflow.providers.airbyte.operators.airbyte import AirbyteTriggerSyncOperator
+from airflow.providers.airbyte.sensors.airbyte import AirbyteJobSensor
+from airflow.sensors.filesystem import FileSensor
+import pendulum
+
+AIRBYTE_CONNECTION_ID = '[REPLACE THIS WITH YOUR CONNECTION ID]'
+RAW_PRODUCTS_FILE = '/tmp/airbyte_local/json_from_faker/_airbyte_raw_products.jsonl'
+COPY_OF_RAW_PRODUCTS = '/tmp/airbyte_local/json_from_faker/moved_raw_products.jsonl'
+
+with DAG(dag_id='airbyte_example_airflow_dag',
+        default_args={'owner': 'airflow'},
+        schedule='@daily',
+        start_date=pendulum.today('UTC').add(days=-1)
+   ) as dag:
+
+   trigger_airbyte_sync = AirbyteTriggerSyncOperator(
+       task_id='airbyte_trigger_sync',
+       airbyte_conn_id='airflow-call-to-airbyte-example',
+       connection_id=AIRBYTE_CONNECTION_ID,
+       asynchronous=True
+   )
+
+   wait_for_sync_completion = AirbyteJobSensor(
+       task_id='airbyte_check_sync',
+       airbyte_conn_id='airflow-call-to-airbyte-example',
 
 
 

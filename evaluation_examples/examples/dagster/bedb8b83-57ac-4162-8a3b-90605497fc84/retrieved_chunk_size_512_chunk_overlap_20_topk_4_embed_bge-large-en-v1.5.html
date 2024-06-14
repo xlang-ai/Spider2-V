@@ -80,7 +80,7 @@ Changes applied:
   + streams:
     + stargazers:
       + destinationSyncMode: append_dedup
-      + syncMode: incremental</code><strong>Verify generated components in Airbyte UI</strong><p>Let's look at the Airbyte UI before we apply anything.</p><figure><img/><figcaption>Before I applied the changes, only my manual added connections.</figcaption></figure><p>After applying the changes, &lt;span class="text-style-code"&gt;fetch_stargazer&lt;/span&gt; popped up with its corresponding GitHub source and Postgres destination.</p><figure><img/><figcaption>After we applied the Dagster Python configurations</figcaption></figure><p>📝 This is equivalent to going into the Airbyte UI and setting up the source and destination with clicks.</p><h2>Set up Dagster Software Defined Assets</h2><p><a>Software-Defined Asset</a>in Dagster treats each of our destination tables from Airbyte as a <a>Data Product</a>—enabling the control plane to see the latest status of each <a>Data Asset</a>and its valuable metadata.</p><p>We can set them up with a little bit of code in Dagster.
+      + syncMode: incremental</code><strong>Verify generated components in Airbyte UI</strong><p>Let's look at the Airbyte UI before we apply anything.</p><figcaption>Before I applied the changes, only my manual added connections.</figcaption><p>After applying the changes, &lt;span class="text-style-code"&gt;fetch_stargazer&lt;/span&gt; popped up with its corresponding GitHub source and Postgres destination.</p><figcaption>After we applied the Dagster Python configurations</figcaption><p>📝 This is equivalent to going into the Airbyte UI and setting up the source and destination with clicks.</p><h2>Set up Dagster Software Defined Assets</h2><p><a>Software-Defined Asset</a>in Dagster treats each of our destination tables from Airbyte as a <a>Data Product</a>—enabling the control plane to see the latest status of each <a>Data Asset</a>and its valuable metadata.</p><p>We can set them up with a little bit of code in Dagster.
 
 
 
@@ -91,7 +91,7 @@ Documentation Title:
 Orchestrate data ingestion and transformation pipelines with Dagster | Airbyte
 
 Documentation Content:
-Once this source is created, we can hook it up to our LocalPostgres destination:</p><img/></div><h2>Orchestrate Airbyte data ingestion pipelines with Dagster</h2><div><p>Now that we have some Airbyte connections to work with, we can get back to Dagster.</p><p>In the first few lines of <a>slack_github_analytics.py</a>, you’ll see the following code:</p><code>from dagster_airbyte import airbyte_resource, airbyte_sync_op
+Once this source is created, we can hook it up to our LocalPostgres destination:</p></div><h2>Orchestrate Airbyte data ingestion pipelines with Dagster</h2><div><p>Now that we have some Airbyte connections to work with, we can get back to Dagster.</p><p>In the first few lines of <a>slack_github_analytics.py</a>, you’ll see the following code:</p><code>from dagster_airbyte import airbyte_resource, airbyte_sync_op
 
 # …
 
@@ -101,7 +101,7 @@ sync_github = airbyte_sync_op.configured(
 sync_slack = airbyte_sync_op.configured(
     {"connection_id": "&lt;YOUR AIRBYTE CONNECTION ID&gt;"}, name="sync_slack"
 )
-</code><p>Here, we define the first two operations (or “ops”, in Dagster) of our job. <a>Dagster’s Airbyte integration</a>offers a pre-built op that will, when configured with a particular connection id, kick off a sync of that connection and wait until it completes. We also give these ops names (“sync_github” and “sync_slack”) to help people looking at this job understand what they’re doing.</p><p>This is where you can substitute in the relevant connection ids for the connections you set up in the previous steps. A quick way to find the id for a given connection is to click on it in the Airbyte UI, and grab the last section of the URL, i.e.:</p><img/><p>Once you’ve entered the correct values in for the `connection_id` fields, the code is ready to be executed!
+</code><p>Here, we define the first two operations (or “ops”, in Dagster) of our job. <a>Dagster’s Airbyte integration</a>offers a pre-built op that will, when configured with a particular connection id, kick off a sync of that connection and wait until it completes. We also give these ops names (“sync_github” and “sync_slack”) to help people looking at this job understand what they’re doing.</p><p>This is where you can substitute in the relevant connection ids for the connections you set up in the previous steps. A quick way to find the id for a given connection is to click on it in the Airbyte UI, and grab the last section of the URL, i.e.:</p><p>Once you’ve entered the correct values in for the `connection_id` fields, the code is ready to be executed!
 
 
 

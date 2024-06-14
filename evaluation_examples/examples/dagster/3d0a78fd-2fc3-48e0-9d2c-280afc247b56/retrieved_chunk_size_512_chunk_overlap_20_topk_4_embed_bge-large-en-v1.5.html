@@ -5,7 +5,24 @@ Documentation Title:
 Sensors | Dagster Docs
 
 Documentation Content:
-"</span><span>)</span><span>return</span>SkipReason<span>(</span><span>"Nothing to do"</span><span>)</span></code><p>These logs can be viewed when inspecting a tick in the tick history view on the corresponding sensor page.</p><h2>Testing sensors<span>#</span></h2><div><div><button>Via the Dagster UI</button><button>Via the CLI</button><button>Via Python</button></div><div><h3>Via the Dagster UI<span>#</span></h3><span><strong>Before you test</strong>: Test evaluations of sensors run the sensor's underlying Python function, meaning that any side effects contained within that sensor's function may be executed.</span><p>In the UI, you can manually trigger a test evaluation of a sensor and view the results.</p><ol><p>Click <strong>Overview &gt; Sensors</strong>.</p><p>Click the sensor you want to test.</p><li><p>Click the <strong>Test Sensor</strong>button, located near the top right corner of the page.</p><img/></li><li><p>You'll be prompted to provide a cursor value. You can use the existing cursor for the sensor (which will be prepopulated) or enter a different value. If you're not using cursors, leave this field blank.</p><img/></li><li><p>Click <strong>Evaluate</strong>to fire the sensor. A window containing the result of the evaluation will display, whether it's run requests, a skip reason, or a Python error:</p><img/><p>If the run was successful, then for each produced run request, you can open the launchpad pre-scaffolded with the config produced by that run request. You'll also see a new computed cursor value from the evaluation, with the option to persist the value.</p></li></ol></div></div><h2>Monitoring sensors in the Dagster UI<span>#</span></h2><p>Using the UI, you can monitor and operate sensors.
+You can use the existing cursor for the sensor (which will be prepopulated) or enter a different value. If you're not using cursors, leave this field blank.</p><li><p>Click <strong>Evaluate</strong>to fire the sensor. A window containing the result of the evaluation will display, whether it's run requests, a skip reason, or a Python error:</p><p>If the run was successful, then for each produced run request, you can open the launchpad pre-scaffolded with the config produced by that run request. You'll also see a new computed cursor value from the evaluation, with the option to persist the value.</p></li></ol></div><div><h3>Via the CLI<span>#</span></h3><p>To quickly preview what an existing sensor will generate when evaluated, run the following::</p><code>dagster sensor preview my_sensor_name
+</code></div><div><h3>Via Python<span>#</span></h3><p>To unit test sensors, you can directly invoke the sensor's Python function. This will return all the run requests yielded by the sensor. The config obtained from the returned run requests can be validated using the <code>validate_run_config</code>function:</p><code><span>from</span>dagster <span>import</span>validate_run_config
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
+</span>file_mtime<span>)</span>context<span>.</span>update_cursor<span>(</span><span>str</span><span>(</span>max_mtime<span>)</span><span>)</span></code><p>This sensor uses the <code>context</code>argument. To invoke it, we need to provide one:</p><code><span>from</span>dagster <span>import</span>build_sensor_context
+
+
+<span>def</span><span>test_my_directory_sensor_cursor</span><span>(</span><span>)</span><span>:</span>context <span>=</span>build_sensor_context<span>(</span>cursor<span>=</span><span>"0"</span><span>)</span><span>for</span>run_request <span>in</span>my_directory_sensor_cursor<span>(</span>context<span>)</span><span>:</span><span>assert</span>validate_run_config<span>(</span>log_file_job<span>,</span>run_request<span>.</span>run_config<span>)</span></code><h4>Testing sensors with resources<span>#</span></h4><p>For sensors which utilize <a>resources</a>, you can provide the necessary resources when invoking the sensor function.</p><p>Below is a test for the <code>process_new_users_sensor</code>that we defined in the <a>Using resources in sensors</a>section, which uses the <code>users_api</code>resource.</p><code><span>from</span>dagster <span>import</span>build_sensor_context<span>,</span>validate_run_config
+
+<span>def</span><span>test_process_new_users_sensor</span><span>(</span><span>)</span><span>:</span><span>class</span><span>FakeUsersAPI</span><span>:</span><span>def</span><span>fetch_users</span><span>(</span>self<span>)</span><span>-</span><span>&gt;
 
 
 
@@ -25,37 +42,13 @@ Documentation Content:
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
+release-1-7-2.dagster.dagster-docs.io/concepts/webserver/ui.html
 
 Documentation Title:
-Sensors | Dagster Docs
+Dagster UI | Dagster
 
 Documentation Content:
-The UI provides multiple views that help with observing sensor evaluations, skip reasons, and errors.</p><p>To view all sensors, navigate to <strong>Overview &gt; Sensors</strong>. Here, you can start and stop sensors, and view their frequency, last tick, and last run:</p><img/><p>Click on any sensor to <a>test the sensor</a>, monitor all sensor evaluations on a timeline, and view a table of runs launched by the sensor.</p><h2>Run status sensors<span>#</span></h2><p>If you want to act on the status of a job run, Dagster provides a way to create a sensor that reacts to run statuses. You can use <code>run_status_sensor</code>with a specified <code>DagsterRunStatus</code>to decorate a function that will run when the given status occurs.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/schedules-sensors.html
-
-Documentation Title:
-Dagster Docs
-
-Documentation Content:
-If the job has
-a <span>PartitionedConfig</span>, this value will override replace the config
-provided by it.</p></dl><dl><dt><span>tags</span><a>¶</a></dt><dd><p>A dictionary of tags (string key-value pairs) to attach
-to the launched run.</p><dl><dt>Type<span>:</span></dt><p>Optional[Dict[str, Any]]</p></dl></dd></dl><dl><dt><span>job_name</span><a>¶</a></dt><dd><p>(Experimental) The name of the job this run request will launch.
-Required for sensors that target multiple jobs.</p><dl><dt>Type<span>:</span></dt><p>Optional[str]</p></dl></dd></dl><dl><dt><span>asset_selection</span><a>¶</a></dt><dd><p>A subselection of assets that should be
-launched with this run. If the sensor or schedule targets a job, then by default a
-RunRequest returned from it will launch all of the assets in the job. If the sensor
-targets an asset selection, then by default a RunRequest returned from it will launch
-all the assets in the selection. This argument is used to specify that only a subset of
-these assets should be launched, instead of all of them.</p><dl><dt>Type<span>:</span></dt><p>Optional[Sequence[<a>AssetKey</a>]]</p></dl></dd></dl><dl><dt><span>asset_check_keys</span><a>¶</a></dt><dd><p>(Experimental) A subselection of asset checks that
-should be launched with this run. This is currently only supported on sensors. If the
-sensor targets a job, then by default a RunRequest returned from it will launch all of
-the asset checks in the job. If the sensor targets an asset selection, then by default a
-RunRequest returned from it will launch all the asset checks in the selection.
+Clicking the <strong>Test schedule</strong>button near the top right corner of the page allows you to test the schedule.</p><p><strong>Accessed by</strong>: Clicking a schedule in the <a><strong>Schedules</strong>page</a></p></ul></div></div></div><h2>Sensors<span>#</span></h2><div><div><button>All sensors</button><button>Sensor details</button></div><div><div><h3>All sensors<span>#</span></h3><ul><p><strong>Description</strong>: The <strong>Sensors</strong>page lists all <a>sensors</a>defined in your Dagster deployment, as well as information about the sensor's frequency and its last tick. Click a sensor to view details about the sensor, including its recent tick history and recent runs.</p><p><strong>Accessed by</strong>: Clicking <strong>Overview (top nav) &gt; Sensors tab</strong></p></ul></div><div><h3>Sensor details<span>#</span></h3><ul><p><strong>Description</strong>: The <strong>Sensor details</strong>page contains details about a single sensor, including its next tick, tick history, and run history. Clicking the <strong>Test sensor</strong>button near the top right corner of the page allows you to test the sensor.</p><p><strong>Accessed by</strong>: Clicking a sensor in the <a><strong>Sensors</strong>page</a></p></ul></div></div></div><h2>Resources<span>#</span></h2><div><div><button>All resources</button><button>Resource details</button></div><div><div><h3>All resources<span>#</span></h3><ul><p><strong>Description</strong>: The <strong>Resources</strong>page lists all <a>resources</a>defined in your Dagster deployment, across all code locations.
 
 
 

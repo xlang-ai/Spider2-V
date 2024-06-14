@@ -24,6 +24,18 @@ is non-deterministic.</p></section></section></article><footer><div><p>Was this 
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.html
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+Pinned objects appear at the top of the <span>Databases</span>explorer in the <span>Pinned</span>section.
+You might need to expand the section to view of all your pinned objects.</p><p>After you locate a database object, you can place the name of the object in the worksheet that you’re editing:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Open a worksheet.</p><p>Locate the database object in the <span>Databases</span>explorer.</p><li><p>Hover over the object name and select <span>…</span>more menu » <span>Place Name in Editor</span>.</p><p>The fully qualified object name appears after your cursor location in the worksheet.</p></li></ol><p>For database tables and views, you can also add the column names to the worksheet that you’re editing:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Open a worksheet.</p><p>Locate the database object in the <span>Databases</span>explorer.</p><li><p>Hover over the object name and select <span>…</span>more menu » <span>Add Columns in Editor</span>.</p><p>The comma-separated column names appear after your cursor location in the worksheet.</p></li></ol></section><section><h3>Format your queries<a>¶</a></h3><p>When a worksheet is open, you can select the name of the worksheet to format the queries in your worksheet, and view the keyboard shortcuts.</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Open a worksheet.</p><p>Hover over the tab for the worksheet and select .</p><p>In the drop-down list,
+
+
+
+Documentation Source:
 docs.snowflake.com/en/sql-reference/functions/max_by.html
 
 Documentation Title:
@@ -32,18 +44,6 @@ MAX_BY | Snowflake Documentation
 Documentation Content:
 Generation</span><span>Data Metric</span><span>Date &amp; Time</span><span>Encryption</span><span>File</span><span>Geospatial</span><span>Hash</span><span>Metadata</span><span>Notification</span><span>Numeric</span><span>Regular Expressions</span><span>Semi-Structured and Structured Data</span><span>String &amp; Binary</span><span>System</span><span>Table</span><span>Vector</span><span>Window</span><span>Stored Procedures</span></div></li><span>Class Reference</span><span>Scripting Reference</span><span>General Reference</span><span>API Reference</span></ol><div><div><nav><a>Reference</a><a>Function and Stored Procedure Reference</a><a>Aggregate</a><span>MAX_BY</span></nav><article><dl><dt>Categories:</dt><p><span>Aggregate Functions</span>(General)</p></dl><section><h1>MAX_BY<a>¶</a></h1><p>Finds the row(s) containing the maximum value for a column and returns the value of another column in that row.</p><p>For example, if a table contains the columns <span>employee_id</span>and <span>salary</span>, <code><span>MAX_BY(employee_id,</span><span>salary)</span></code>returns the value
 of the <span>employee_id</span>column for the row that has the highest value in the <span>salary</span>column.</p><p>If multiple rows contain the specified maximum value, the function is non-deterministic.</p><p>To return values for multiple rows, specify the optional <span>maximum_number_of_values_to_return</span>argument.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/queries-hierarchical.html
-
-Documentation Title:
-Querying Hierarchical Data | Snowflake Documentation
-
-Documentation Content:
-</span><span>employee_ID</span><span>;</span><span>+</span><span>----------------------------+-------------+------------+----------------------------+</span><span>| TITLE                      | EMPLOYEE_ID | MANAGER_ID | MANAGER TITLE              |</span><span>|----------------------------+-------------+------------+----------------------------|</span><span>| President                  |           1 |       NULL | NULL                       |</span><span>| Vice President Engineering |          10 |          1 | President                  |</span><span>| Vice President HR          |          20 |          1 | President                  |</span><span>| Programmer                 |         100 |         10 | Vice President Engineering |</span><span>| QA Engineer                |         101 |         10 | Vice President Engineering |</span><span>| Health Insurance Analyst   |         200 |         20 | Vice President HR          |</span><span>+</span><span>----------------------------+-------------+------------+----------------------------+</span></pre><span>Copy</span></div><p>This concept can be extended to as many levels as needed, as long as you know how many levels are needed. But if
-the number of levels changes, the queries need to change.</p></section><section><h2>Using CONNECT BY or Recursive CTEs to Query Hierarchical Data<a>¶</a></h2><p>Snowflake provides two ways to query hierarchical data in which the number of levels is not known in advance:</p><ul><p>Recursive CTEs (common table expressions).</p><p><code><span>CONNECT</span><span>BY</span></code>clauses.</p></ul><p>A recursive CTE allows you to create a <span>WITH</span>clause that can refer to itself.
 
 
 

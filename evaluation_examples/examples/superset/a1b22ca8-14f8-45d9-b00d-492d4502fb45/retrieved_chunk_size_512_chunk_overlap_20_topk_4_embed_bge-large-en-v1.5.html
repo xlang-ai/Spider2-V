@@ -6,9 +6,9 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Then, select the Volcanic Eruptions layer, add a short description
-Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><img/><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
 list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
-dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><img/><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><img/><p>If you wish, you can change how your annotation looks by changing the settings in the Display
+dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><p>If you wish, you can change how your annotation looks by changing the settings in the Display
 configuration section. Otherwise, select <strong>OK</strong>and finally <strong>Save</strong>to save your chart. If you keep
 the default selection to overwrite the chart, your annotation will be saved to the chart and also
 appear automatically in the Tutorial Dashboard.</p><h3>Advanced Analytics<a>​</a></h3><p>In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
@@ -20,17 +20,6 @@ chart.
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/development/index.html
-
-Documentation Title:
-Setting up a Development Environment | Superset
-
-Documentation Content:
-a folder name of <code>plugin-chart-whatever</code>and a package name of <code>@superset-ui/plugin-chart-whatever</code></li><li>The plugin should use them variables via Emotion, as passed in by the ThemeProvider</li><li>The plugin should provide adequate error handling (no data returned, malformed data, invalid controls, etc.)</li><li>The plugin should contain documentation in the form of a populated <code>README.md</code>file</li><li>The plugin should have a meaningful and unique icon</li><li>Above all else, the plugin should come with a <em>commitment to maintenance</em>from the original author(s)</li></ul><p>Submissions will be considered for submission (or removal) on a case-by-case basis.</p><h3>Adding a DB migration<a>​</a></h3><ol><li><p>Alter the model you want to change. This example will add a <code>Column</code>Annotations model.</p><a>Example commit</a></li><li><p>Generate the migration file</p><span><span>superset db migrate -m </span><span>'add_metadata_column_to_annotation_model'</span></span><p>This will generate a file in <code>migrations/version/{SHA}_this_will_be_in_the_migration_filename.py</code>.</p><a>Example commit</a></li><li><p>Upgrade the DB</p><span>superset db upgrade</span><p>The output should look like this:</p><code><span>INFO  [alembic.runtime.migration] Context impl SQLiteImpl.</span><span>INFO  [alembic.runtime.migration] Will assume transactional DDL.</span><span>INFO  [alembic.runtime.migration] Running upgrade 1a1d627ebd8e -&gt; 40a0a483dd12, add_metadata_column_to_annotation_model.py</span></code></li><li><p>Add column to view</p><p>Since there is a new column, we need to add it to the AppBuilder Model view.
-
-
-
-Documentation Source:
 superset.apache.org/docs/using-superset/exploring-data/index.html
 
 Documentation Title:
@@ -38,21 +27,32 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Look for the blue
-lines which indicate the anchor where the box will go.</p><img/><p>Now, to edit the text, select the box. You can enter text, in markdown format (see
+lines which indicate the anchor where the box will go.</p><p>Now, to edit the text, select the box. You can enter text, in markdown format (see
 <a>this Markdown Cheatsheet</a>for
 more information about this format). You can toggle between Edit and Preview using the menu on the
-top of the box.</p><img/><p>To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
+top of the box.</p><p>To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
 <strong>Save changes</strong>.</p><h3>Publishing Your Dashboard<a>​</a></h3><p>If you have followed all of the steps outlined in the previous section, you should have a dashboard
 that looks like the below. If you would like, you can rearrange the elements of the dashboard by
 selecting <strong>Edit dashboard</strong>and dragging and dropping.</p><p>If you would like to make your dashboard available to other users, simply select Draft next to the
 title of your dashboard on the top left to change your dashboard to be in Published state. You can
-also favorite this dashboard by selecting the star.</p><img/><h3>Annotations<a>​</a></h3><p>Annotations allow you to add additional context to your chart. In this section, we will add an
+also favorite this dashboard by selecting the star.</p><h3>Annotations<a>​</a></h3><p>Annotations allow you to add additional context to your chart. In this section, we will add an
 annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
 dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
 eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).</p><p>First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
 layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
 save. We can use this layer to refer to a number of different annotations.</p><p>Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
 selecting the green plus sign.
+
+
+
+Documentation Source:
+superset.apache.org/docs/contributing/development/index.html
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+a folder name of <code>plugin-chart-whatever</code>and a package name of <code>@superset-ui/plugin-chart-whatever</code></li><li>The plugin should use them variables via Emotion, as passed in by the ThemeProvider</li><li>The plugin should provide adequate error handling (no data returned, malformed data, invalid controls, etc.)</li><li>The plugin should contain documentation in the form of a populated <code>README.md</code>file</li><li>The plugin should have a meaningful and unique icon</li><li>Above all else, the plugin should come with a <em>commitment to maintenance</em>from the original author(s)</li></ul><p>Submissions will be considered for submission (or removal) on a case-by-case basis.</p><h3>Adding a DB migration<a>​</a></h3><ol><li><p>Alter the model you want to change. This example will add a <code>Column</code>Annotations model.</p><a>Example commit</a></li><li><p>Generate the migration file</p><span><span>superset db migrate -m </span><span>'add_metadata_column_to_annotation_model'</span></span><p>This will generate a file in <code>migrations/version/{SHA}_this_will_be_in_the_migration_filename.py</code>.</p><a>Example commit</a></li><li><p>Upgrade the DB</p><span>superset db upgrade</span><p>The output should look like this:</p><code><span>INFO  [alembic.runtime.migration] Context impl SQLiteImpl.</span><span>INFO  [alembic.runtime.migration] Will assume transactional DDL.</span><span>INFO  [alembic.runtime.migration] Running upgrade 1a1d627ebd8e -&gt; 40a0a483dd12, add_metadata_column_to_annotation_model.py</span></code></li><li><p>Add column to view</p><p>Since there is a new column, we need to add it to the AppBuilder Model view.
 
 
 

@@ -5,8 +5,12 @@ Documentation Title:
 Adding and managing databases
 
 Documentation Content:
-But Metabase still ships with an H2 database to include an embedded application database, as well as to provide some sample data out of the box.</p><h2>Connecting to databases hosted by a cloud provider</h2><p>For provider-specific connection details, like connecting to a PostgreSQL data warehouse on RDS:</p><a>AWS’s Relational Database Service (RDS)</a><h2>Granting database privileges</h2><p>For Metabase to connect, query, or write to your database, you must give Metabase a database user account with the correct database privileges. See <a>Database roles, users, and privileges</a>.</p><h2>Syncing and scanning databases</h2><p>See <a>Syncing and scanning</a>.</p><h2>Deleting databases</h2><strong>Caution: Deleting a database is irreversible! All saved questions and dashboard cards based on the database will be deleted as well!</strong><p>Go to <strong>Admin settings</strong>&gt; <strong>Databases</strong>&gt; your database and click <strong>Remove this database</strong>.</p><h2>Restoring the Sample Database</h2><p>If you’ve deleted the Metabase <a>Sample Database</a>, go to <strong>Admin settings</strong>&gt; <strong>Databases</strong>and click <strong>Bring the Sample Database back</strong>.</p><h2>Troubleshooting</h2><ul><a>Troubleshooting database connections</a><a>Troubleshooting syncs, scans, and fingerprinting</a><li>Search or ask the <a>Metabase community</a>.</li><li>Search for <a>known bugs or limitations</a>.</li></ul><h2>Further reading</h2><ul><li><a>Metadata editing</a>.</li><li><a>Setting data access permissions</a>.</li><li><a>Metabase at scale</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
+All saved questions and dashboard cards based on the database will be deleted as well!</strong><p>Go to <strong>Admin settings</strong>&gt; <strong>Databases</strong>&gt; your database and click <strong>Remove this database</strong>.</p><h2>Restoring the Sample Database</h2><p>If you’ve deleted the Metabase <a>Sample Database</a>, go to <strong>Admin settings</strong>&gt; <strong>Databases</strong>and click <strong>Bring the Sample Database back</strong>.</p><h2>Troubleshooting</h2><ul><a>Troubleshooting database connections</a><a>Troubleshooting syncs, scans, and fingerprinting</a><li>Search or ask the <a>Metabase community</a>.</li><li>Search for <a>known bugs or limitations</a>.</li></ul><h2>Further reading</h2><ul><li><a>Metadata editing</a>.</li><li><a>Setting data access permissions</a>.</li><li><a>Metabase at scale</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
 	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
 
 
 
@@ -17,23 +21,7 @@ Documentation Title:
 Setting up Metabase
 
 Documentation Content:
-Metabase comes with a <a>Sample Database</a>that you can play around with to get a feel for how Metabase works.</p><p>If you’re ready to connect, here’s what you’ll need:</p><ul><li>The <strong>hostname</strong>of the server where your database lives</li><li>The <strong>port</strong>the database server uses</li><li>The <strong>database name</strong></li><li>The <strong>username</strong>you use for the database</li><li>The <strong>password</strong>you use for the database</li></ul><p>If you don’t have this information handy, the person responsible for administering the database should have it.</p><h2>Connect to your database</h2><p>Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click <strong>Next</strong>.</p><img/><p>For more on connecting to databases, see <a>Adding and managing databases</a>.</p><h2>Usage data preferences</h2><p>One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:</p><ul><li>Metabase never collects anything about your data or question results.</li><li>All collection is completely anonymous.</li><li>Collection can be turned off at any point in your admin settings.</li></ul><img/><p>If you’re ready to start using Metabase, go ahead and click <strong>Next</strong>.</p><h2>Staying in touch</h2><p>At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!</p><img/><p>Once you’re done here simply follow the link to <strong>Take me to Metabase</strong>.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.html
-
-Documentation Title:
-People can't log in to Metabase
-
-Documentation Content:
-<strong>Admin settings</strong>&gt; <strong>General</strong>.</li><li>Check if the <a>account is deactivated</a>.</li></ol><h2>No access to Metabase Cloud account</h2><p>The admin password for <code>store.metabase.com</code>(where you can find payment and subscription info) is not necessarily the same as the password for your Metabase instance (where you log in to look at data).</p><p>If you’ve forgotten your Metabase Cloud admin password, you can <a>contact support</a>to reset the password.</p><h2>Related topics</h2><ul><li><a>Troubleshooting SAML</a>.</li><li><a>Troubleshooting LDAP</a>.</li><li><a>Resetting someone’s password</a>.</li><li><a>Resetting the admin password</a>.</li><li><a>Deleting an account that’s set up incorrectly</a>.</li></ul><h2>Are you still stuck?</h2><p>If you can’t solve your problem using the troubleshooting guides:</p><ul><li>Search or ask the <a>Metabase community</a>.</li><li>Search for <a>known bugs or limitations</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
-	      </p><div><div><div><p>Did this article help you?
-        </p><ul><button>Yes
-                </button><button>No
-                </button></ul></div><button>Send
-                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+Metabase comes with a <a>Sample Database</a>that you can play around with to get a feel for how Metabase works.</p><p>If you’re ready to connect, here’s what you’ll need:</p><ul><li>The <strong>hostname</strong>of the server where your database lives</li><li>The <strong>port</strong>the database server uses</li><li>The <strong>database name</strong></li><li>The <strong>username</strong>you use for the database</li><li>The <strong>password</strong>you use for the database</li></ul><p>If you don’t have this information handy, the person responsible for administering the database should have it.</p><h2>Connect to your database</h2><p>Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click <strong>Next</strong>.</p><p>For more on connecting to databases, see <a>Adding and managing databases</a>.</p><h2>Usage data preferences</h2><p>One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:</p><ul><li>Metabase never collects anything about your data or question results.</li><li>All collection is completely anonymous.</li><li>Collection can be turned off at any point in your admin settings.</li></ul><p>If you’re ready to start using Metabase, go ahead and click <strong>Next</strong>.</p><h2>Staying in touch</h2><p>At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!</p><p>Once you’re done here simply follow the link to <strong>Take me to Metabase</strong>.
 
 
 
@@ -44,10 +32,21 @@ Documentation Title:
 I can't see my tables
 
 Documentation Content:
-or</li><li>you can no longer see tables that you used to be able to see.</li></ul><h2>Check for browser issues</h2><ol><li>Clear your browser cache.</li><li>Check if a browser extension or plugin is interfering with Metabase:
-    <ul><li>Disable all extensions and plugins,</li><li>Open Metabase in an incognito browser session, or</li><li>Open Metabase in a different browser.</li></ul></li></ol><strong>Explanation</strong><p>Sometimes your browser will show an old cached list of tables. Browser extensions can also prevent pages from loading correctly.</p><h2>Test the database connection</h2><ol><li>Go to the Metabase <a>SQL editor</a>.</li><li>Test the connection to your database by running:
+</li><li>Open Metabase in an incognito browser session, or</li><li>Open Metabase in a different browser.</li></ul></li></ol><strong>Explanation</strong><p>Sometimes your browser will show an old cached list of tables. Browser extensions can also prevent pages from loading correctly.</p><h2>Test the database connection</h2><ol><li>Go to the Metabase <a>SQL editor</a>.</li><li>Test the connection to your database by running:
     <code>SELECT 1
 </code></li></ol><p>If you get an error, see <a>Troubleshooting database connections</a>.</p><strong>Explanation</strong><p>Something may have changed on the database side (if you were previously connected).
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/exploration-and-organization/history.html
+
+Documentation Title:
+History
+
+Documentation Content:
+If you unarchive an item, but you don’t know where it’s reappeared:</p><ul><li>search for the item directly, or</li><li>check if the item’s parent collection is also in the archive.</li></ul><h3>Unarchiving multiple items</h3><p>You can unarchive multiple items at once from the same collection:</p><ol><li>Go to the collection.</li><li>Hover over the icon beside the name of the item and click the checkbox that appears.</li><li>When you’re done selecting your items, click <strong>Unarchive</strong>at the bottom of the page.</li></ol><h2>Deleting items permanently</h2><ol><li>Open the main Metabase sidebar.</li><li>Click the <code>...</code>beside the “Collections” header in the sidebar.</li><li>Click <strong>View archive</strong>.</li><li>Hover over the item and click the <strong>trash bin</strong>icon.</li></ol><p>The item will get permanently deleted from your application database.</p><p>Remember that <a>archiving</a>and deleting items can have unanticipated ripple effects on related <a>dashboards</a>, <a>subscriptions</a>, and <a>SQL questions</a>.</p><p>We recommend archiving because you can always unarchive if something breaks. If you delete an item and accidentally break something, you might have to recreate all of that work from scratch (unless you’re prepared to revert to a backup of your application database).</p><h3>Deleting multiple items permanently</h3><p>You can delete multiple items at once from the same collection:</p><ol><li>Go to the collection.</li><li>Hover over the icon beside the name of the item and click the checkbox that appears.</li><li>When you’re done selecting your items, click <strong>Delete</strong>at the bottom of the page.</li></ol></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
 
 
 

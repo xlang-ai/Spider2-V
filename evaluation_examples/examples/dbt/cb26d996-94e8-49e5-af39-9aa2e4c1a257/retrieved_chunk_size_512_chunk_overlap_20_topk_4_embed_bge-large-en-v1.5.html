@@ -10,6 +10,17 @@ You can change the <code>target_database</code>configuration, the <code>target_s
 
 
 Documentation Source:
+docs.getdbt.com/faqs/runs/running-model-downstream-of-source.html
+
+Documentation Title:
+How do I run models downstream of one source? | dbt Developer Hub
+
+Documentation Content:
+failed runs</a><a>Debug failed tests</a><a>Run models downstream of a seed</a><a>Run one model at a time</a><a>Run one snapshot at a time</a><a>Run  models downstream of one source</a><a>Snapshot command schedule</a></ul></li><a>Seeds</a><a>Snapshots</a><a>Tests</a><a>Troubleshooting</a><a>Warehouse</a></ul></li></ul><div><article><ul><span>Frequently asked questions</span><span>Runs</span><span>Run  models downstream of one source</span></ul><div><h1>How do I run models downstream of one source?</h1><p>To run models downstream of a source, use the <code>source:</code>selector:</p><span><span>$ dbt run </span><span>--select</span><span>source:jaffle_shop+</span></span><p>(You can also use the <code>-s</code>shorthand here instead of <code>--select</code>)</p><p>To run models downstream of one source <span>table</span>:</p><span><span>$ dbt run </span><span>--select</span><span>source:jaffle_shop.orders+</span></span><p>Check out the <a>model selection syntax</a>for more examples!</p></div><div>0</div><div><a>Edit this page</a><span>Last updatedon <time>May 16, 2024</time></span></div></article><nav><a><div>Previous</div><div>Run one snapshot at a time</div></a><a><div>Next</div><div>Snapshot command schedule</div></a></nav></div></div><div><div><a>Terms of Service</a><a>Privacy Policy</a><a>Security</a><button>Cookie Settings</button></div><div>© 2024 dbt Labs, Inc. All Rights Reserved.</div></div></div>
+
+
+
+Documentation Source:
 docs.getdbt.com/docs/build/snapshots.html
 
 Documentation Title:
@@ -17,17 +28,6 @@ Add snapshots to your DAG | dbt Developer Hub
 
 Documentation Content:
 You can also configure your snapshot from your <code>dbt_project.yml</code>file (<a>docs</a>).</p></ol><div><span>snapshots/orders_snapshot.sql</span><code><span><span>{</span><span>%</span><span>snapshot</span><span>orders_snapshot </span><span>%</span><span>}</span></span><span>{{</span><span><span>config</span><span>(</span></span><span><span>target_database</span><span>=</span><span>'analytics'</span><span>,</span></span><span><span>target_schema</span><span>=</span><span>'snapshots'</span><span>,</span></span><span><span>unique_key</span><span>=</span><span>'id'</span><span>,</span></span><span><span>strategy</span><span>=</span><span>'timestamp'</span><span>,</span></span><span><span>updated_at</span><span>=</span><span>'updated_at'</span><span>,</span></span><span>)</span><span>}}</span><span><span>select</span><span>*</span><span>from</span><span>{{ source</span><span>(</span><span>'jaffle_shop'</span><span>,</span><span>'orders'</span><span>)</span><span>}}</span></span><span><span>{</span><span>%</span><span>endsnapshot </span><span>%</span><span>}</span></span></code></div><li>Run the <code>dbt snapshot</code><a>command</a>— for our example a new table will be created at <code>analytics.snapshots.orders_snapshot</code>.
-
-
-
-Documentation Source:
-docs.getdbt.com/faqs/runs/running-model-downstream-of-source.html
-
-Documentation Title:
-How do I run models downstream of one source? | dbt Developer Hub
-
-Documentation Content:
-sql that dbt runs</a><a>Notifications to debug failed runs</a><a>Debug failed tests</a><a>Run models downstream of a seed</a><a>Run one model at a time</a><a>Run one snapshot at a time</a><a>Run  models downstream of one source</a><a>Snapshot command schedule</a></ul></li><a>Seeds</a><a>Snapshots</a><a>Tests</a><a>Troubleshooting</a><a>Warehouse</a></ul></li></ul></div><div><article><ul><span>Frequently asked questions</span><span>Runs</span><span>Run  models downstream of one source</span></ul><div><h1>How do I run models downstream of one source?</h1><p>To run models downstream of a source, use the <code>source:</code>selector:</p><span><span>$ dbt run </span><span>--select</span><span>source:jaffle_shop+</span></span><p>(You can also use the <code>-s</code>shorthand here instead of <code>--select</code>)</p><p>To run models downstream of one source <span>table</span>:</p><span><span>$ dbt run </span><span>--select</span><span>source:jaffle_shop.orders+</span></span><p>Check out the <a>model selection syntax</a>for more examples!</p></div><div>0</div><div><a>Edit this page</a><span>Last updatedon <time>May 16, 2024</time></span></div></article><nav><a><div>Previous</div><div>Run one snapshot at a time</div></a><a><div>Next</div><div>Snapshot command schedule</div></a></nav></div></div><div><div><a>Terms of Service</a><a>Privacy Policy</a><a>Security</a><button>Cookie Settings</button></div><div>© 2024 dbt Labs, Inc. All Rights Reserved.</div></div></div>
 
 
 

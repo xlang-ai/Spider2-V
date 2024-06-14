@@ -16,10 +16,33 @@ Documentation Title:
 Quickstart: Analyze BigQuery data with BI Engine and Tableau  |  BigQuery: Cloud Data Warehouse  |  Google Cloud
 
 Documentation Content:
+For more information,
+see <a>Troubleshooting Errors</a>.</p></section><section><h2>Create a BigQuery dataset</h2><p>The first step is to create a BigQuery dataset to store your
+BI Engine-managed table. To create your dataset, follow these
+steps:</p><ol><li><p>In the Google Cloud console, go to the BigQuery page.</p><a>Go to BigQuery</a></li><p>In the navigation panel, in the <strong>Explorer</strong>panel, click your project
+name.</p><p>In the details panel, click <span>more_vert</span><strong>View actions</strong>, and then click <strong>Create dataset</strong>.</p><li><p>On the <strong>Create dataset</strong>page, do the following:</p><ul><li>For <strong>Dataset ID</strong>, enter <code>biengine_tutorial</code>.</li><p>For <strong>Data location</strong>, choose <strong>us (multiple regions in United
+States)</strong>, the <a>multi-region
+location</a>where public datasets
+are stored.</p><p>For this tutorial, you can select <strong>Enable table expiration</strong>, and then
+specify the number of days before the table expires.</p></ul></li><p>Leave all of the other default settings in place and click <strong>Create dataset</strong>.</p></ol><h2>Create a table by copying data from a public dataset</h2><p>This tutorial uses a dataset available through the
+<a>Google Cloud Public Dataset Program</a>. Public datasets
+are datasets that BigQuery hosts for you to access and integrate
+into your applications.</p><p>In this section, you create a table by copying data from the
+<a>San Francisco 311 service requests</a>dataset.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/analyze-data-tableau.html
+
+Documentation Title:
+Quickstart: Analyze BigQuery data with BI Engine and Tableau  |  BigQuery: Cloud Data Warehouse  |  Google Cloud
+
+Documentation Content:
 You can explore the dataset by using the
 <a>Google Cloud console</a>.</p><h3>Create your table</h3><p>To create your table, follow these steps:</p><ol><li><p>In the Google Cloud console, go to the BigQuery page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>panel, search for <code>san_francisco_311</code>.</p><p>In the <strong>Explorer</strong>panel, expand <strong>san_francisco_311</strong>and click the
-<strong>311_service_requests</strong>table.</p><li><p>In the Explorer toolbar, click <strong>Copy</strong>.</p><img/></li><li><p>In the <strong>Copy table</strong>dialog, in the <strong>Destination</strong>section, do the
-following:</p><ul><li>For <strong>Project name</strong>, click <strong>Browse</strong>, and then select your project.</li><li>For <strong>Dataset name</strong>, select <strong>biengine_tutorial</strong>.</li><li><p>For <strong>Table name</strong>, enter <code>311_service_requests_copy</code>.</p><img/></li></ul></li><p>Click <strong>Copy</strong>.</p><p>Optional: After the copy job is complete, verify the table contents by expanding
+<strong>311_service_requests</strong>table.</p><p>In the Explorer toolbar, click <strong>Copy</strong>.</p><li><p>In the <strong>Copy table</strong>dialog, in the <strong>Destination</strong>section, do the
+following:</p><ul><li>For <strong>Project name</strong>, click <strong>Browse</strong>, and then select your project.</li><li>For <strong>Dataset name</strong>, select <strong>biengine_tutorial</strong>.</li><p>For <strong>Table name</strong>, enter <code>311_service_requests_copy</code>.</p></ul></li><p>Click <strong>Copy</strong>.</p><p>Optional: After the copy job is complete, verify the table contents by expanding
 <strong><var>PROJECT_NAME</var><span>&gt;</span>biengine_tutorial</strong>and
 clicking <strong>311_service_requests_copy <span>&gt;</span>Preview</strong>.
 
@@ -75,17 +98,6 @@ GROUP BY test_id;
  *---------+--------------------*/
 </code><h4>Block a join operation with no required column</h4><p>You can block a join operation if it doesn't include at least one
 required column.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/inference-tutorial-resnet.html
-
-Documentation Title:
-Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-saved queries</span></ul></div><span>Use cached results</span><span>Run parameterized queries</span><span>Query with wildcard tables</span><span>Access historical data</span><span>Schedule queries</span><span>Troubleshoot queries</span><div><span>Optimize queries</span><ul><span>Introduction</span><span>Use the query plan explanation</span><span>Get query performance insights</span><span>Optimize query computation</span><span>Use history-based optimizations</span><span>Optimize storage</span><span>Use BI Engine</span><span>Use nested and repeated data</span><span>Optimize functions</span></ul></div></ul></div><div><span>Query external data sources</span><ul><span>Manage open source metadata</span><div><span>Use external tables and datasets</span><ul><div><span>Amazon S3 data</span><ul><span>Query Amazon S3 data</span><span>Export query results to Amazon S3</span></ul></div><span>Query Apache Iceberg data</span><span>Query open table formats with manifests</span><div><span>Azure Blob Storage data</span><ul><span>Query Azure Blob Storage data</span><span>Export query results to Azure Blob Storage</span></ul></div><span>Query Cloud Bigtable data</span><div><span>Cloud Storage data</span><ul><span>Query Cloud Storage data in BigLake tables</span><span>Query Cloud Storage data in external tables</span></ul></div><span>Work with Salesforce Data Cloud data</span><span>Query Google Drive data</span><span>Create AWS Glue federated datasets</span></ul></div><div><span>Run federated queries</span><ul><span>Federated queries</span><span>Query SAP Datasphere data</span><span>Query Cloud Spanner data</span><span>Query Cloud SQL data</span></ul></div></ul></div><div><span>Analyze unstructured data</span><ul><span>Run inference</span><span>Analyze with remote
 
 
 

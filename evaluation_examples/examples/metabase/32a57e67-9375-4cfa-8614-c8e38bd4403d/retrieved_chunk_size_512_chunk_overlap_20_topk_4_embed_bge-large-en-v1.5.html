@@ -5,19 +5,7 @@ Documentation Title:
 API keys
 
 Documentation Content:
-49
-</a><a>People and Groups</a></ol><article><h1>API keys</h1><p>Metabase can create API keys to authenticate programmatic requests to the API. To set the permissions for an API key, you can assign the key to a <a>group</a>.</p><h2>Fair warning about Metabase’s API</h2><p>We don’t version the <a>Metabase API</a>. We rarely change API endpoints, and almost never remove them, but if you write code that relies on the API, there’s a chance you might have to update your code in the future.</p><p>That said, there are times when it’s nice to work with the API, like when managing permissions with a large number of people and groups, or bulk archiving, or content creation. So we added the ability to create API keys to authenticate your programmatic requests.</p><h2>Create an API key</h2><p>To create an API key:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Go to the <strong>Settings</strong>tab.</li><li>Click on the <strong>Authentication</strong>tab on the left menu.</li><li>Scroll to <strong>API Keys</strong>and click <strong>Manage</strong>.</li><li>Click the <strong>Create API Key</strong>button.</li><li>Enter a <strong>Key name</strong>. You can have multiple API keys, so give it a name that will help you remember what you’re using the key for.</li><li>Select a <a>Group</a>. The key will have the same permissions granted to that group.</li><li>Click <strong>Create</strong>.</li><li>Copy the generated API key and save it somewhere safe. Metabase won’t be able to show you the key again.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/people-and-groups/api-keys.html
-
-Documentation Title:
-API keys
-
-Documentation Content:
-Metabase won’t be able to show you the key again. If you lose the key, you’ll need to regenerate a new key.</li></ol><h2>Managing API Keys</h2><p>To view and manage existing API keys:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Go to the <strong>Settings</strong>tab.</li><li>Click on the <strong>Authentication</strong>tab on the left menu.</li><li>Scroll to <strong>API Keys</strong>and click <strong>Manage</strong>.</li></ol><h3>Editing API keys</h3><p>To edit an API key, scroll to the key you want to edit and click on the <strong>pencil</strong>icon. Metabase will pop up an <strong>Edit API Key</strong>modal where you can edit:</p><ul><li>The key’s name</li><li>Which group the key belongs to.</li><li>Change (regenerate) the key. Metabase will replace the existing API key with a new key. You won’t be able to recover the old key.</li></ul><h3>Deleting API keys</h3><p>You won’t be able to recover a deleted API key. You’ll have to create a new key.</p><p>To delete an API Key:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Go to the <strong>Settings</strong>tab.</li><li>Click on the <strong>Authentication</strong>tab on the left menu.</li><li>Scroll to <strong>API Keys</strong>and click <strong>Manage</strong>.</li><li>Select the key you want to delete and click the <strong>trash</strong>icon.</li><li>Metabase will pop up a <strong>Delete API Key</strong>modal.
+So we added the ability to create API keys to authenticate your programmatic requests.</p><h2>Create an API key</h2><p>To create an API key:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Go to the <strong>Settings</strong>tab.</li><li>Click on the <strong>Authentication</strong>tab on the left menu.</li><li>Scroll to <strong>API Keys</strong>and click <strong>Manage</strong>.</li><li>Click the <strong>Create API Key</strong>button.</li><li>Enter a <strong>Key name</strong>. You can have multiple API keys, so give it a name that will help you remember what you’re using the key for.</li><li>Select a <a>Group</a>. The key will have the same permissions granted to that group.</li><li>Click <strong>Create</strong>.</li><li>Copy the generated API key and save it somewhere safe. Metabase won’t be able to show you the key again. If you lose the key, you’ll need to regenerate a new key.</li></ol><h2>Managing API Keys</h2><p>To view and manage existing API keys:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Go to the <strong>Settings</strong>tab.</li><li>Click on the <strong>Authentication</strong>tab on the left menu.</li><li>Scroll to <strong>API Keys</strong>and click <strong>Manage</strong>.</li></ol><h3>Editing API keys</h3><p>To edit an API key, scroll to the key you want to edit and click on the <strong>pencil</strong>icon. Metabase will pop up an <strong>Edit API Key</strong>modal where you can edit:</p><ul><li>The key’s name</li><li>Which group the key belongs to.</li><li>Change (regenerate) the key.
 
 
 
@@ -34,13 +22,29 @@ To follow along, you can <a>spin up a fresh Metabase on localhost</a>and play ar
 
 
 Documentation Source:
+www.metabase.com/docs/v0.49/api/api-key.html
+
+Documentation Title:
+API key
+
+Documentation Content:
+Non-paginated.</p><p>You must be a superuser to do this.</p><code>GET /api/api-key/count</code><p>Get the count of API keys in the DB.</p><p>You must be a superuser to do this.</p><h3>PARAMS:</h3><code>_body</code><code>POST /api/api-key/</code><p>Create a new API key (and an associated <code>User</code>) with the provided name and group ID.</p><p>You must be a superuser to do this.</p><h3>PARAMS:</h3><ul><p><code>group_id</code>value must be an integer greater than zero.</p><p><code>name</code>value must be a non-blank string.</p><code>_body</code></ul><code>PUT /api/api-key/:id</code><p>Update an API key by changing its group and/or its name.</p><p>You must be a superuser to do this.</p><h3>PARAMS:</h3><ul><p><code>id</code>value must be an integer greater than zero.</p><p><code>group_id</code>nullable value must be an integer greater than zero.</p><p><code>name</code>nullable value must be a non-blank string.</p><code>_body</code></ul><code>PUT /api/api-key/:id/regenerate</code><p>Regenerate an API Key.</p><p>You must be a superuser to do this.</p><h3>PARAMS:</h3><li><code>id</code>value must be an integer greater than zero.</li><a>« Back to API index</a></article><p>Read docs for other <a>versions of Metabase</a>.
+	      </p><div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs?
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/people-and-groups/api-keys.html
 
 Documentation Title:
 API keys
 
 Documentation Content:
-Click the <strong>Delete API Key</strong>button.</li></ol><h3>Metabase will transfer API keys associated with a group that gets deleted to the All users group</h3><p>If you have API keys assigned to a group, but then someone deletes that group, the API keys will still work, but Metabase will reassign those keys to the All users group. If you want to change their group, you’ll need to edit the keys manually.</p><h2>Example <code>GET</code>requests</h2><p>Here are some example <code>GET</code>requests that return the groups in your Metabase. These examples assume you’re running Metabase locally on the default port: 3000.</p><h3><code>curl</code>example</h3><p>Replace <code>YOUR_API_KEY</code>with the API key you generated above.</p><code>curl <span>\</span><span>-H</span><span>'x-api-key: YOUR_API_KEY'</span><span>\</span><span>-X</span>GET <span>'http://localhost:3000/api/permissions/group'</span></code><h3>JavaScript example</h3><p>Assuming you’ve set your key as an environment variable like so:</p><code><span>export </span><span>METABASE_API_KEY</span><span>=</span><span>"YOUR_API_KEY"</span></code><p>Here’s a basic <code>GET</code>request using <code>fetch</code>to get the list of groups. You can copy the code, save it as file (e.g. as <code>api-test.js</code>), and run the code with <code>node api-test.js</code>.</p><code><span>// Assuming you've set the key in process with</span><span>// `export METABASE_API_KEY="YOUR_KEY_HERE"`</span><span>const</span><span>API_KEY</span><span>=</span><span>process</span><span>.</span><span>env</span><span>.</span><span>METABASE_API_KEY</span><span>;
+Metabase will replace the existing API key with a new key. You won’t be able to recover the old key.</li></ul><h3>Deleting API keys</h3><p>You won’t be able to recover a deleted API key. You’ll have to create a new key.</p><p>To delete an API Key:</p><ol><li>Click on the <strong>gear</strong>icon in the upper right.</li><li>Select <strong>Admin settings</strong>.</li><li>Go to the <strong>Settings</strong>tab.</li><li>Click on the <strong>Authentication</strong>tab on the left menu.</li><li>Scroll to <strong>API Keys</strong>and click <strong>Manage</strong>.</li><li>Select the key you want to delete and click the <strong>trash</strong>icon.</li><li>Metabase will pop up a <strong>Delete API Key</strong>modal. Click the <strong>Delete API Key</strong>button.</li></ol><h3>Metabase will transfer API keys associated with a group that gets deleted to the All users group</h3><p>If you have API keys assigned to a group, but then someone deletes that group, the API keys will still work, but Metabase will reassign those keys to the All users group. If you want to change their group, you’ll need to edit the keys manually.</p><h2>Example <code>GET</code>requests</h2><p>Here are some example <code>GET</code>requests that return the groups in your Metabase.
 
 
 

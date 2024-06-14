@@ -1,19 +1,4 @@
 Documentation Source:
-superset.apache.org/docs/configuration/event-logging/index.html
-
-Documentation Title:
-Event Logging | Superset
-
-Documentation Content:
-<div><a>Skip to main content</a><div><div><div><img/><img/></div><div><a>Documentation</a><ul><a>Getting Started</a><a>FAQ</a></ul></div><div><a>Community</a><ul><a>Resources</a><a>GitHub</a><a>Slack</a><a>Mailing List</a><a>Stack Overflow</a></ul></div></div><div><a>Get Started</a><span>Search</span></div></div><div><ul><a>Introduction</a><a>Quickstart</a><a>Installation</a><li><a>Configuration</a><ul><a>Configuring Superset</a><a>Connecting to Databases</a><a>Alerts and Reports</a><a>Caching</a><a>Async Queries via Celery</a><a>SQL Templating</a><a>Timezones</a><a>Network and Security Settings</a><a>Setup SSH Tunneling</a><a>Event Logging</a><a>Country Map Tools</a><a>Importing and Exporting Datasources</a></ul></li><a>Using Superset</a><a>Contributing</a><a>Security</a><a>FAQ</a><a>API</a></ul><div><a>Edit this page on GitHub</a><div><div><article><ul><span>Configuration</span><span>Event Logging</span></ul><button>On this page</button><div><h1>Logging</h1><h2>Event Logging<a>​</a></h2><p>Superset by default logs special action events in its internal database (DBEventLogger). These logs can be accessed
-on the UI by navigating to <strong>Security &gt; Action Log</strong>. You can freely customize these logs by
-implementing your own event log class.
-<strong>When custom log class is enabled DBEventLogger is disabled and logs
-stop being populated in UI logs view.</strong>To achieve both, custom log class should extend built-in DBEventLogger log class.
-
-
-
-Documentation Source:
 superset.apache.org/docs/configuration/alerts-reports/index.html
 
 Documentation Title:
@@ -31,18 +16,35 @@ Documentation Title:
 Event Logging | Superset
 
 Documentation Content:
+<div><a>Skip to main content</a><div><div><div><a>Documentation</a><ul><a>Getting Started</a><a>FAQ</a></ul></div><div><a>Community</a><ul><a>Resources</a><a>GitHub</a><a>Slack</a><a>Mailing List</a><a>Stack Overflow</a></ul></div></div><div><a>Get Started</a><span>Search</span></div></div><div><ul><a>Introduction</a><a>Quickstart</a><a>Installation</a><li><a>Configuration</a><ul><a>Configuring Superset</a><a>Connecting to Databases</a><a>Alerts and Reports</a><a>Caching</a><a>Async Queries via Celery</a><a>SQL Templating</a><a>Timezones</a><a>Network and Security Settings</a><a>Setup SSH Tunneling</a><a>Event Logging</a><a>Country Map Tools</a><a>Importing and Exporting Datasources</a></ul></li><a>Using Superset</a><a>Contributing</a><a>Security</a><a>FAQ</a><a>API</a></ul><div><a>Edit this page on GitHub</a><div><div><article><ul><span>Configuration</span><span>Event Logging</span></ul><button>On this page</button><div><h1>Logging</h1><h2>Event Logging<a>​</a></h2><p>Superset by default logs special action events in its internal database (DBEventLogger). These logs can be accessed
+on the UI by navigating to <strong>Security &gt; Action Log</strong>. You can freely customize these logs by
+implementing your own event log class.
+<strong>When custom log class is enabled DBEventLogger is disabled and logs
+stop being populated in UI logs view.</strong>To achieve both, custom log class should extend built-in DBEventLogger log class.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/event-logging/index.html
+
+Documentation Title:
+Event Logging | Superset
+
+Documentation Content:
 </span></span><span><span>json</span><span>=</span><span>record</span><span>,</span></span><span><span>dashboard_id</span><span>=</span><span>dashboard_id</span><span>,</span></span><span><span>slice_id</span><span>=</span><span>slice_id</span><span>,</span></span><span><span>duration_ms</span><span>=</span><span>duration_ms</span><span>,</span></span><span><span>referrer</span><span>=</span><span>referrer</span><span>,</span></span><span><span>user_id</span><span>=</span><span>user_id</span></span><span>)</span><span><span>print</span><span>(</span><span>json</span><span>.</span><span>dumps</span><span>(</span><span>log</span><span>)</span><span>)</span></span></code><p>End by updating your config to pass in an instance of the logger you want to use:</p><span>EVENT_LOGGER = JSONStdOutEventLogger()</span><h2>StatsD Logging<a>​</a></h2><p>Superset can be configured to log events to <a>StatsD</a>if desired.
 
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/index72c9.html
+superset.apache.org/docs/configuration/alerts-reports/index.html
 
 Documentation Title:
-Index of /docs/configuration
+Alerts and Reports | Superset
 
 Documentation Content:
-htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>event-logging.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>event-logging.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>country-map-tools.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>country-map-tools.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>configuring-superset.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>configuring-superset.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>cache.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>cache.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>async-queries-celery.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>async-queries-celery.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>alerts-reports.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>alerts-reports.
+You may get different responses depending on whether the dashboard exists - for example, you may need to change the <code>1</code>in that URL. If there's a URL in your logs from a failed report screenshot, that's a good place to start. The goal is to determine a valid value for <code>WEBDRIVER_BASEURL</code>and determine if an issue like HTTPS or authentication is redirecting your worker.</p><p>In a deployment with authentication measures enabled like HTTPS and Single Sign-On, it may make sense to have the worker navigate directly to the Superset application running in the same location, avoiding the need to sign in.  For instance, you could use <code>WEBDRIVER_BASEURL="http://superset_app:8088"</code>for a docker compose deployment, and set <code>"force_https": False,</code>in your <code>TALISMAN_CONFIG</code>.</p><h2>Scheduling Queries as Reports<a>​</a></h2><p>You can optionally allow your users to schedule queries directly in SQL Lab. This is done by adding
+extra metadata to saved queries, which are then picked up by an external scheduled (like
+<a>Apache Airflow</a>).</p><p>To allow scheduled queries, add the following to <code>SCHEDULED_QUERIES</code>in your configuration file:</p><code><span><span>SCHEDULED_QUERIES </span><span>=</span><span>{</span></span><span># This information is collected when the user clicks "Schedule query",</span><span># and saved into the `extra` field of saved queries.</span><span># See: https://github.com/mozilla-services/react-jsonschema-form</span><span><span>'JSONSCHEMA'</span><span>:</span><span>{</span></span><span><span>'title'</span><span>:</span><span>'Schedule'</span><span>,</span></span><span><span>'description'</span><span>:</span><span>(</span></span><span>'In order to schedule a query, you need to specify when it '</span><span>'should start running, when it should stop running, and how '</span><span>'often it should run.
 
 
 

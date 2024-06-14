@@ -10,6 +10,17 @@ It will not work otherwise). You allow it with "File sharing" in <code>Settings 
 
 
 Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+you will now see three tabs created in your Google Sheet, <code>products</code>, <code>users</code>, and <code>purchases</code>.</p><div><p>If you followed along and created your own connection using a <code>Local JSON</code>destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR_PATH with the path you chose in your destination setup, and YOUR_STREAM_NAME with the name of an actual stream you replicated):</p><span>cat /tmp/airbyte_local/YOUR_PATH/_airbyte_raw_YOUR_STREAM_NAME.jsonl</span><p>You should see a list of JSON objects, each containing a unique <code>airbyte_ab_id</code>, an <code>emitted_at</code>timestamp, and <code>airbyte_data</code>containing the extracted record.</p><div><div>tip</div><p>If you are using Airbyte on Windows with WSL2 and Docker, refer to <a>this guide</a>to locate the replicated folder and file.</p></div></div></div></div><h2>What's next?<a>​</a></h2><p>Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing <a>catalog of sources and destinations</a>, and you can even <a>contribute your own</a>.</p><p>If you have any questions at all, please reach out to us on <a>Slack</a>. If you would like to see a missing feature or connector added, please create an issue on our <a>Github</a>.
+
+
+
+Documentation Source:
 airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
 
 Documentation Title:
@@ -21,24 +32,15 @@ Each file will a collections of <code>json</code>objects containing 3 fields:</p
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
 
 Documentation Title:
-Set up a Connection | Airbyte Documentation
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
 
 Documentation Content:
-you can verify the sync has completed by checking the data in your destination.</p><div><ul><li>Cloud</li><li>Self Hosted</li></ul><div><p>If you followed along and created your own connection using a <strong>Google Sheets</strong>destination, you will now see three tabs created in your Google Sheet, <code>products</code>, <code>users</code>, and <code>purchases</code>.</p><div><p>If you followed along and created your own connection using a <code>Local JSON</code>destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR_PATH with the path you chose in your destination setup, and YOUR_STREAM_NAME with the name of an actual stream you replicated):</p><span>cat /tmp/airbyte_local/YOUR_PATH/_airbyte_raw_YOUR_STREAM_NAME.jsonl</span><p>You should see a list of JSON objects, each containing a unique <code>airbyte_ab_id</code>, an <code>emitted_at</code>timestamp, and <code>airbyte_data</code>containing the extracted record.</p><div><div>tip</div><p>If you are using Airbyte on Windows with WSL2 and Docker, refer to <a>this guide</a>to locate the replicated folder and file.</p></div></div></div></div><h2>What's next?<a>​</a></h2><p>Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing <a>catalog of sources and destinations</a>, and you can even <a>contribute your own</a>.</p><p>If you have any questions at all, please reach out to us on <a>Slack</a>. If you would like to see a missing feature or connector added, please create an issue on our <a>Github</a>.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
-
-Documentation Title:
-Local JSON | Airbyte Documentation
-
-Documentation Content:
-DB</a><a>Pinecone</a><a>Postgres</a><a>PubSub</a><a>Pulsar</a><a>Qdrant</a><a>R2</a><a>RabbitMQ</a><a>Redis</a><a>Redpanda</a><a>Redshift</a><a>Rockset</a><a>S3-Glue</a><a>S3</a><a>Scylla</a><a>SelectDB</a><a>SFTP JSON</a><a>Snowflake Cortex Destination</a><a>Snowflake</a><a>Sqlite</a><a>Starburst Galaxy destination user guide</a><a>Streamr</a><a>Teradata</a><a>TiDB</a><a>Timeplus</a><a>Typesense</a><a>Vectara</a><a>vertica</a><a>Weaviate</a><a>Xata</a><a>Yellowbrick</a><a>Yugabytedb</a></ul></li><a>Custom or New Connector</a></ul></li><a>Build a Connector</a><a>Connector Support Levels</a><li>Using Airbyte</li><a>Getting Started</a><a>Configuring Connections</a><a>Managing Syncs</a><li>Managing Airbyte</li><a>Deploy Airbyte</a><a>Self-Managed Enterprise</a><a>Upgrading Airbyte</a><a>Configuring Airbyte</a><a>Access Management</a><a>Airbyte at Scale</a><a>Security</a><a>Integrating with Airbyte</a><a>Account Management</a><li>Developer Guides</li><a>API documentation</a><a>Terraform Documentation</a><a>Using PyAirbyte</a><a>Understand Airbyte</a><a>Contribute to Airbyte</a><a>Licenses</a><li>Community</li><a>Getting Support</a><a>Code of Conduct</a><li>Product Updates</li><a>Roadmap</a><a>Release
+For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password
+</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figcaption>Airbyte OSS login prompt</figcaption><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figcaption>Create your first connection prompt</figcaption><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figcaption>Select Sample Data (Faker) as a source</figcaption><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figcaption>Configure Sample Data (Faker) as a source</figcaption><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figcaption>Select Local JSON as a destination</figcaption><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running. After specifying the Destination Path, click on Set up destination.
 
 
 

@@ -1,24 +1,35 @@
 Documentation Source:
-airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset.html
-
-Documentation Title:
-How to Build a Slack Activity Dashboard with Apache Superset | Airbyte | Airbyte
-
-Documentation Content:
-You’ve got Superset set up. Now let’s tell Superset about our Postgres Database holding the Slack data from Airbyte.</p><h3>Setting Up a Postgres Database in Superset</h3><p>To do this, on the top menu in your Superset dashboard, hover on the Data dropdown and click on <strong>Databases.</strong></p><p>‍</p><img/><p>‍</p><p>In the page that opens up, click on the <strong>+ Database </strong>button in the top right corner.</p><p>‍</p><img/><p>‍</p><p>Then, you will be presented with a modal to add your Database Name and the connection URI.</p><p>‍</p><img/><p>‍</p><p>Let’s call our Database <strong>slack_db,</strong>and then add the following URI as the connection URI:</p><code>postgresql://postgres:password@docker.for.mac.localhost:2000/postgres
-</code><p>‍</p><strong>If you are on a Windows Machine, yours will be:</strong><code>postgresql://postgres:password@docker.for.win.localhost:2000/postgres
-</code><p>‍</p><p>Note: We are using <strong>docker.for.[mac|win].localhost</strong>in order to access the localhost of your machine, because using just <em>localhost</em>will point to the Docker container network and not your machine’s network.</p><p>Your Superset UI should look like this:</p><p>‍</p><img/><p>‍</p><p>We will need to enable some settings on this connection.
-
-
-
-Documentation Source:
 airbyte.com/tutorials/postgres-to-bigquery.html
 
 Documentation Title:
 How to Connect & Load Data from Postgres to BigQuery?
 
 Documentation Content:
-Obtain the name of the database you just created. </p><p>5. In Airbyte, navigate to the PostgreSQL source connector and click on "Create Connection". </p><p>6. Enter a name for your connection and fill in the required fields, including the hostname or IP address, port number, database name, username, and password. </p><p>7. Test the connection to ensure that Airbyte can successfully connect to your PostgreSQL database. </p><p>8. Select the tables or views you want to replicate and configure any necessary settings, such as the replication frequency and the replication method. </p><p>9. Save your configuration and start the replication process. </p><p>10. Monitor the replication process to ensure that it is running smoothly and troubleshoot any issues that arise.</p></div></div><div><h2>Step 2: Set up BigQuery as a destination connector</h2><img/><div><p>1. First, navigate to the Airbyte dashboard and select the "Destinations" tab on the left-hand side of the screen. </p><p>2. Scroll down until you find the "BigQuery" destination connector and click on it. </p><p>3. Click the "Create Destination" button to begin setting up your BigQuery destination. </p><p>4. Enter your Google Cloud Platform project ID and service account credentials in the appropriate fields. </p><p>5. Next, select the dataset you want to use for your destination and enter the table prefix you want to use. </p><p>6. Choose the schema mapping for your data, which will determine how your data is organized in BigQuery. </p><p>7. Finally, review your settings and click the "Create Destination" button to complete the setup process. </p><p>8. Once your destination is created, you can begin configuring your source connectors to start syncing data to BigQuery. </p><p>9. To do this, navigate to the "Sources" tab on the left-hand side of the screen and select the source connector you want to use.
+Obtain the name of the database you just created. </p><p>5. In Airbyte, navigate to the PostgreSQL source connector and click on "Create Connection". </p><p>6. Enter a name for your connection and fill in the required fields, including the hostname or IP address, port number, database name, username, and password. </p><p>7. Test the connection to ensure that Airbyte can successfully connect to your PostgreSQL database. </p><p>8. Select the tables or views you want to replicate and configure any necessary settings, such as the replication frequency and the replication method. </p><p>9. Save your configuration and start the replication process. </p><p>10. Monitor the replication process to ensure that it is running smoothly and troubleshoot any issues that arise.</p></div></div><div><h2>Step 2: Set up BigQuery as a destination connector</h2><div><p>1. First, navigate to the Airbyte dashboard and select the "Destinations" tab on the left-hand side of the screen. </p><p>2. Scroll down until you find the "BigQuery" destination connector and click on it. </p><p>3. Click the "Create Destination" button to begin setting up your BigQuery destination. </p><p>4. Enter your Google Cloud Platform project ID and service account credentials in the appropriate fields. </p><p>5. Next, select the dataset you want to use for your destination and enter the table prefix you want to use. </p><p>6. Choose the schema mapping for your data, which will determine how your data is organized in BigQuery. </p><p>7. Finally, review your settings and click the "Create Destination" button to complete the setup process. </p><p>8. Once your destination is created, you can begin configuring your source connectors to start syncing data to BigQuery. </p><p>9. To do this, navigate to the "Sources" tab on the left-hand side of the screen and select the source connector you want to use. </p><p>10.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset.html
+
+Documentation Title:
+How to Build a Slack Activity Dashboard with Apache Superset | Airbyte | Airbyte
+
+Documentation Content:
+You’ve got Superset set up. Now let’s tell Superset about our Postgres Database holding the Slack data from Airbyte.</p><h3>Setting Up a Postgres Database in Superset</h3><p>To do this, on the top menu in your Superset dashboard, hover on the Data dropdown and click on <strong>Databases.</strong></p><p>‍</p><p>‍</p><p>In the page that opens up, click on the <strong>+ Database </strong>button in the top right corner.</p><p>‍</p><p>‍</p><p>Then, you will be presented with a modal to add your Database Name and the connection URI.</p><p>‍</p><p>‍</p><p>Let’s call our Database <strong>slack_db,</strong>and then add the following URI as the connection URI:</p><code>postgresql://postgres:password@docker.for.mac.localhost:2000/postgres
+</code><p>‍</p><strong>If you are on a Windows Machine, yours will be:</strong><code>postgresql://postgres:password@docker.for.win.localhost:2000/postgres
+</code><p>‍</p><p>Note: We are using <strong>docker.for.[mac|win].localhost</strong>in order to access the localhost of your machine, because using just <em>localhost</em>will point to the Docker container network and not your machine’s network.</p><p>Your Superset UI should look like this:</p><p>‍</p><p>‍</p><p>We will need to enable some settings on this connection.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+Enter the values for the Postgres container we created earlier:</p><ul><li>host - localhost</li><li>post - 3003</li><li>schema - public (leave default)</li><li>database - postgres</li><li>Password - password</li><li>username - postgres</li></ul><p>Then click on the basic normalization toggle button to check it on as we want Airbyte to normalize the data coming in from GitHub. Overall the UI should look like this:</p><p>Then click on the Set up destination button. If your credentials are all good for the database, the postgres destination would have been set, and now you will need to make the connection from the source (GitHub) to the destination (Postgres).</p><p>You should check the boxes that are checked in the screenshot below, and then choose how often Airbyte will attempt to replicate data to be every hour in the Sync frequency drop down. Then, click on the <em>Set up connection</em>button.</p><p>You will be taken to the source page, click on the source and you will see the status of your sync. The sync should take a while to complete.</p><p>When done, you will see the status change from running to Succeeded. Also, the byte count will be referring to the byte of data Airbyte has pulled from GitHub into your Postgres database.</p><p>‍</p><p>That wasn’t a lot of work, was it? You can pat yourself in the back as you just synced data from GitHub to a Postgres database.</p><p>Let's move on to connecting that database to Metabase, so we can start creating our dashboard.</p></div><h2>Step 2: Connecting the PostgreSQL database to Metabase</h2><div><h3>Installing Metabase</h3><p>‍Metabase is an open source analytic tool that you can get started working with in a couple of ways; using the .jar file, installing it as a Mac app or using a Docker container.For this tutorial we will be using the Mac app(you can alternatively look up the installation that suits you <a>here</a>).
 
 
 
@@ -39,17 +50,6 @@ might render applications less portable. The SQL standard will not define a key 
 digits or starts or ends with an underscore, so identifiers of this form are safe against possible
 conflict with future extensions of the standard.</p></li><p>The system uses no more than NAMEDATALEN-1 bytes of an identifier; longer names can be written in
 commands, but they will be truncated.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/postgres-to-bigquery.html
-
-Documentation Title:
-How to Connect & Load Data from Postgres to BigQuery?
-
-Documentation Content:
-</p><p>Then, click on <em>Set up source</em>and let Airbyte test the destination.</p><h4>Step 3: Create an Airbyte connection</h4><p>Go to connections and create a new connection. Then, select the existing Postgres source you have just created, and then do the same for the BigQuery destination. The following diagram shows how we set up the connection at Airbyte.</p><img/><p>As you can see, we set the replication frequency to every hour. You can change the replication frequency depending on your needs. </p><p>At Airbyte, we load data from multiple sources to a single BigQuery project. Because we don’t want data to be held in the default dataset specified in the destination configuration (<em>airbyte_raw</em>), we used the “Custom format” option so the data will be stored in the <em>airbyte_prod_configapi</em>dataset. If you want to know more about namespaces, <a>check our documentation</a>.</p><p>Then, it's time to configure the <a>streams</a>. Each stream represents a table that will be created in BigQuery. You can expand each stream to see the fields they contain, their data type, how they will be named in BigQuery, etc. You can select which streams you want to sync using the “Sync” toggle.</p><p>Now, you should select a sync mode for each stream. As shown in the image below, we extract data from Postgres in an <strong>Incremental</strong>way and load it using <strong>Deduped + history mode</strong>. </p><p>We use the <strong>Deduped + history</strong>mode because we want to model our data as Slowly Changing Dimensions of type 2 (<a>SCD</a>). For example, in our dashboards, we want to know when a connection stopped being active (when someone disabled it or deleted it), but we still need it to count for periods when it was active.
 
 
 

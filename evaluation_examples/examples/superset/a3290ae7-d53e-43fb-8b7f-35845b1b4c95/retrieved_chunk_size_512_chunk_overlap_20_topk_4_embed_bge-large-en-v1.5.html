@@ -7,11 +7,11 @@ Creating Your First Dashboard | Superset
 Documentation Content:
 If the connection looks good, save the configuration
 by clicking the <strong>Connect</strong>button in the bottom right corner of the modal window:</p><p>Congratulations, you've just added a new data source in Superset!</p><h3>Registering a new table<a>​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong>in Superset)
-that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><img/><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
+that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
 <strong>Schema</strong>, and <strong>Table</strong>using the drop downs that appear. In the following example,
-we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><img/><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
+we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
 for how the column should be treated in the Explore workflow:</p><ul><li>Is the column temporal? (should it be used for slicing &amp; dicing in time series charts?)</li><li>Should the column be filterable?</li><li>Is the column dimensional?</li><li>If it's a datetime column, how should Superset parse
-the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><img/><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
 The Superset semantic layer can store 2 types of computed data:</p><li>Virtual metrics: you can write SQL queries that aggregate values
 from multiple column (e.g.
 

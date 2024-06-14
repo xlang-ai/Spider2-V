@@ -31,26 +31,8 @@ LIMIT
 </pre><p>After running the query, we get a table with the ten most common names of
 children born in 1980.</p><p>For this example, we are going to visualize these results. Click <strong>Visualize</strong>.
 BigQuery data canvas suggests several visualization options, including bar chart, pie
-chart, line graph, and custom visualization. Click <strong>Create bar chart</strong>.</p><p>BigQuery data canvas creates a bar chart similar to the following:</p><img/><p>Along with providing a chart, BigQuery data canvas summarizes some of the key details
+chart, line graph, and custom visualization. Click <strong>Create bar chart</strong>.</p><p>BigQuery data canvas creates a bar chart similar to the following:</p><p>Along with providing a chart, BigQuery data canvas summarizes some of the key details
 of the data backing the visualization.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.html
-
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-The retailer can then use a
-binary logistic regression model that uses this customer information to predict
-which label best represents each customer.</p><p>In this tutorial, you create a binary logistic regression model that predicts
-whether a US Census respondent's income falls into one of two ranges based on
-the respondent's demographic attributes.</p><h2>Create a dataset</h2><p>Create a BigQuery dataset to store your model:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>pane, click your project name.</p><li><p>Click <span>more_vert</span><strong>View actions &gt; Create dataset</strong>.</p><img/></li><li><p>On the <strong>Create dataset</strong>page, do the following:</p><ul><p>For <strong>Dataset ID</strong>, enter <code>census</code>.</p><li><p>For <strong>Location type</strong>, select <strong>Multi-region</strong>, and then select <strong>US (multiple regions in United States)</strong>.</p><p>The public datasets are stored in the
-<code>US</code><a>multi-region</a>. For
-simplicity, store your dataset in the same location.</p></li><p>Leave the remaining default settings as they are, and click <strong>Create dataset</strong>.</p></ul></li></ol><h2>Examine the data</h2><p>Examine the dataset and identify which columns to use as
-training data for the logistic regression model.
 
 
 
@@ -82,6 +64,24 @@ ORDER BY zip_code, time;
  | 2020-09-08 03:00:00 |    60606 |              57 |              59 |
  | 2020-09-08 06:00:00 |    60606 |              55 |              56 |
  | 2020-09-08 09:00:00 |    60606 |              55 |
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+
+Documentation Title:
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+The retailer can then use a
+binary logistic regression model that uses this customer information to predict
+which label best represents each customer.</p><p>In this tutorial, you create a binary logistic regression model that predicts
+whether a US Census respondent's income falls into one of two ranges based on
+the respondent's demographic attributes.</p><h2>Create a dataset</h2><p>Create a BigQuery dataset to store your model:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>pane, click your project name.</p><p>Click <span>more_vert</span><strong>View actions &gt; Create dataset</strong>.</p><li><p>On the <strong>Create dataset</strong>page, do the following:</p><ul><p>For <strong>Dataset ID</strong>, enter <code>census</code>.</p><li><p>For <strong>Location type</strong>, select <strong>Multi-region</strong>, and then select <strong>US (multiple regions in United States)</strong>.</p><p>The public datasets are stored in the
+<code>US</code><a>multi-region</a>. For
+simplicity, store your dataset in the same location.</p></li><p>Leave the remaining default settings as they are, and click <strong>Create dataset</strong>.</p></ul></li></ol><h2>Examine the data</h2><p>Examine the dataset and identify which columns to use as
+training data for the logistic regression model.
 
 
 

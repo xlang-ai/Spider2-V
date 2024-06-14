@@ -1,4 +1,31 @@
 Documentation Source:
+cloud.google.com/bigquery/docs/generate-text-tutorial.html
+
+Documentation Title:
+Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+## Note: The cloud resource nested object has only one output only field - serviceAccountId.
+ resource "google_bigquery_connection" "connection" {
+    connection_id = "<var>CONNECTION_ID</var>"
+    project = "<var>PROJECT_ID</var>"
+    location = "<var>REGION</var>"
+    cloud_resource {}
+}        </pre>Replace the following:
+
+<ul><li><var>CONNECTION_ID</var>: an ID for your
+connection</li><li><var>PROJECT_ID</var>: your Google Cloud project ID</li><li><var>REGION</var>: your
+<a>connection region</a></li></ul></section></div><h2>Grant permissions to the connection's service account</h2><p>To grant the connection's service account an appropriate role to access the
+Vertex AI service, follow these steps:</p><ol><li><p>Go to the <strong>IAM &amp; Admin</strong>page.</p><a>Go to IAM &amp; Admin</a></li><p>Click <span>person_add</span><strong>Grant Access</strong>.</p><p>In the <strong>New principals</strong>field, enter the service account ID that you
+copied earlier.</p><p>In the <strong>Select a role</strong>field, choose <strong>Vertex AI</strong>, and then
+select <strong>Vertex AI User role</strong>.</p><p>Click <strong>Save</strong>.</p></ol><h2>Create the remote model</h2><p>Create a remote model that represents a hosted Vertex AI
+large language model (LLM):</p><div><section><h3>SQL </h3><li>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</li><a>Go to BigQuery</a><li><p>In the query editor, run the following statement:</p><pre>CREATE OR REPLACE MODEL `bqml_tutorial.llm_model`
+REMOTE WITH CONNECTION `<var>LOCATION</var>.<var>CONNECTION_ID</var>`
+OPTIONS (ENDPOINT = 'text-bison');
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/generate-text.html
 
 Documentation Title:
@@ -40,34 +67,6 @@ unique system service account and associates it with the connection.</p><p><stro
 <a>update the Google Cloud SDK</a>:</p><pre>Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of.
 </pre></li><li><p>Retrieve and copy the service account ID for use in a later
 step:</p><pre>bq show --connection <var>PROJECT_ID</var>.<var>REGION</var>.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/generate-text-tutorial.html
-
-Documentation Title:
-Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-iam.gserviceaccount.com"}
-</pre></li></ol></section><section><h3>Terraform </h3><p>Append the following section into your <code>main.tf</code>file.
- </p><pre>## This creates a cloud resource connection.
- ## Note: The cloud resource nested object has only one output only field - serviceAccountId.
- resource "google_bigquery_connection" "connection" {
-    connection_id = "<var>CONNECTION_ID</var>"
-    project = "<var>PROJECT_ID</var>"
-    location = "<var>REGION</var>"
-    cloud_resource {}
-}        </pre>Replace the following:
-
-<ul><li><var>CONNECTION_ID</var>: an ID for your
-connection</li><li><var>PROJECT_ID</var>: your Google Cloud project ID</li><li><var>REGION</var>: your
-<a>connection region</a></li></ul></section></div><h2>Grant permissions to the connection's service account</h2><p>To grant the connection's service account an appropriate role to access the
-Vertex AI service, follow these steps:</p><ol><li><p>Go to the <strong>IAM &amp; Admin</strong>page.</p><a>Go to IAM &amp; Admin</a></li><p>Click <span>person_add</span><strong>Grant Access</strong>.</p><p>In the <strong>New principals</strong>field, enter the service account ID that you
-copied earlier.</p><p>In the <strong>Select a role</strong>field, choose <strong>Vertex AI</strong>, and then
-select <strong>Vertex AI User role</strong>.</p><p>Click <strong>Save</strong>.</p></ol><h2>Create the remote model</h2><p>Create a remote model that represents a hosted Vertex AI
-large language model (LLM):</p><div><section><h3>SQL </h3><li>In the Google Cloud console, go to the <strong>BigQuery</strong>page.
 
 
 

@@ -65,6 +65,39 @@ BigQuery creates the table when you run your query.</p></li><li><p>In the <stron
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-console.html
+
+Documentation Title:
+Load and query data with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+For example, the
+<strong>Preview</strong>tab is not displayed for external tables or views.
+
+
+<h2>Query table data</h2><p>Next, query the table. The process is identical to the previous example,
+except that this time, you're querying your table instead of a public table.</p><ol><li>Click <span>add_box</span><b>Compose new query</b>. A new <b>Editor</b>tab opens.</li><li>In the <b>Editor
+    tab</b>, paste the following query. This query
+    retrieves the top five names for US babies that were assigned male at birth
+    in 2014.  <code>SELECT
+      name,
+      count
+    FROM
+      `babynames.names_2014`
+    WHERE
+      assigned_sex_at_birth = 'M'
+    ORDER BY
+      count DESC
+    LIMIT
+      5;
+    </code></li><li>Click <b>Run</b>. The results are displayed
+  in the <b>Query results</b>section.  </li></ol><p>You have successfully queried a table in a public dataset and then loaded your
+sample data into BigQuery using the Cloud console.</p></section><section><h2>Clean up</h2><p>To avoid incurring charges to your Google Cloud account for
+          the resources used on this page, follow these steps.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/quickstarts/load-data-bq.html
 
 Documentation Title:
@@ -135,39 +168,6 @@ the public dataset, then billing is not enabled for your project.
 
 <p>The easiest way to eliminate billing is to delete the project that you
   created for the tutorial.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/quickstarts/load-data-console.html
-
-Documentation Title:
-Load and query data with the Google Cloud console  |  BigQuery
-
-Documentation Content:
-For example, the
-<strong>Preview</strong>tab is not displayed for external tables or views.
-
-
-<h2>Query table data</h2><p>Next, query the table. The process is identical to the previous example,
-except that this time, you're querying your table instead of a public table.</p><ol><li>Click <span>add_box</span><b>Compose new query</b>. A new <b>Editor</b>tab opens.</li><li>In the <b>Editor
-    tab</b>, paste the following query. This query
-    retrieves the top five names for US babies that were assigned male at birth
-    in 2014.  <code>SELECT
-      name,
-      count
-    FROM
-      `babynames.names_2014`
-    WHERE
-      assigned_sex_at_birth = 'M'
-    ORDER BY
-      count DESC
-    LIMIT
-      5;
-    </code></li><li>Click <b>Run</b>. The results are displayed
-  in the <b>Query results</b>section.  <img/></li></ol><p>You have successfully queried a table in a public dataset and then loaded your
-sample data into BigQuery using the Cloud console.</p></section><section><h2>Clean up</h2><p>To avoid incurring charges to your Google Cloud account for
-          the resources used on this page, follow these steps.
 
 
 

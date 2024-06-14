@@ -24,6 +24,24 @@ GROUP BY 1, 2;
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/writing-results.html
+
+Documentation Title:
+Writing query results  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+To help control costs, you can
+<a>preview data</a>before running the query.</p><div><section><h3>Console </h3><section><ol><li><p>Open the BigQuery page in the Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the <strong>Explorer</strong>panel, expand your project and select a dataset.</p><p>Enter a valid SQL query.</p><p>Click <strong>More</strong>and then select <strong>Query settings</strong>.</p><p>Select the <strong>Set a destination table for query results</strong>option.</p><p>In the <strong>Destination</strong>section, select the <strong>Dataset</strong>in which you want
+to create the table, and then choose a <strong>Table Id</strong>.</p><li><p>In the <strong>Destination table write preference</strong>section, choose one of
+the following:</p><ul><li><strong>Write if empty</strong>— Writes the query results to the table only
+if the table is empty.</li><li><strong>Append to table</strong>— Appends the query results to an existing
+table.</li><li><strong>Overwrite table</strong>— Overwrites an existing table with the same
+name using the query results.</li></ul></li><p>Optional: For <strong>Data location</strong>, choose
+your <a>location</a>.</p><p>To update the query settings, click <strong>Save</strong>.</p><p>Click <strong>Run</strong>.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/visualize-jupyter.html
 
 Documentation Title:
@@ -53,24 +71,6 @@ ORDER BY
   num_regions DESC;
 </pre></li><li><p>Click <span>play_circle_filled</span><strong>Run cell</strong>.</p><p>The output is similar to the following:</p><pre>Query complete after 0.07s: 100%|██████████| 4/4 [00:00&lt;00:00, 1440.60query/s]
 Downloading: 100%|██████████| 41/41 [00:02&lt;00:00, 20.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/writing-results.html
-
-Documentation Title:
-Writing query results  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-To help control costs, you can
-<a>preview data</a>before running the query.</p><div><section><h3>Console </h3><section><ol><li><p>Open the BigQuery page in the Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the <strong>Explorer</strong>panel, expand your project and select a dataset.</p><p>Enter a valid SQL query.</p><li><p>Click <strong>More</strong>and then select <strong>Query settings</strong>.</p><img/></li><li><p>Select the <strong>Set a destination table for query results</strong>option.</p><img/></li><p>In the <strong>Destination</strong>section, select the <strong>Dataset</strong>in which you want
-to create the table, and then choose a <strong>Table Id</strong>.</p><li><p>In the <strong>Destination table write preference</strong>section, choose one of
-the following:</p><ul><li><strong>Write if empty</strong>— Writes the query results to the table only
-if the table is empty.</li><li><strong>Append to table</strong>— Appends the query results to an existing
-table.</li><li><strong>Overwrite table</strong>— Overwrites an existing table with the same
-name using the query results.</li></ul></li><p>Optional: For <strong>Data location</strong>, choose
-your <a>location</a>.</p><p>To update the query settings, click <strong>Save</strong>.</p><p>Click <strong>Run</strong>.
 
 
 

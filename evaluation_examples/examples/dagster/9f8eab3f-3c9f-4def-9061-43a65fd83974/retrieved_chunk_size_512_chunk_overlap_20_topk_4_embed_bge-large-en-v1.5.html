@@ -27,7 +27,15 @@ Documentation Title:
 Quickstart | Dagster Docs
 
 Documentation Content:
-<span>@asset</span><span>def</span><span>hackernews_top_story_ids</span><span>(</span>config<span>:</span>HNStoriesConfig<span>)</span><span>:</span><span>"""Get top stories from the HackerNews top stories endpoint."""</span>top_story_ids <span>=</span>requests<span>.</span>get<span>(</span><span>"https://hacker-news.firebaseio.com/v0/topstories.json"</span><span>)</span><span>.</span>json<span>(</span><span>)</span><span>with</span><span>open</span><span>(</span>config<span>.</span>hn_top_story_ids_path<span>,</span><span>"w"</span><span>)</span><span>as</span>f<span>:</span>json<span>.</span>dump<span>(</span>top_story_ids<span>[</span><span>:</span>config<span>.</span>top_stories_limit<span>]</span><span>,</span>f<span>)</span><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>hackernews_top_story_ids<span>]</span><span>)</span><span>def</span><span>hackernews_top_stories</span><span>(</span>config<span>:</span>HNStoriesConfig<span>)</span><span>-</span><span>&gt;</span>MaterializeResult<span>:</span><span>"""Get items based on story ids from the HackerNews items endpoint."""</span><span>with</span><span>open</span><span>(</span>config<span>.</span>hn_top_story_ids_path<span>,</span><span>"r"</span><span>)</span><span>as</span>f<span>:</span>hackernews_top_story_ids <span>=</span>json<span>.</span>load<span>(</span>f<span>)</span>results <span>=</span><span>[</span><span>]</span><span>for</span>item_id <span>in</span>hackernews_top_story_ids<span>:</span>item <span>=</span>requests<span>.
+This opens a preview of the pipeline result, allowing you to view the top 10 HackerNews stories:</li></ol><h2>Understanding the Code<span>#</span></h2><p>The Quickstart project defines two <strong>Assets</strong>using the <code>@asset</code>decorator:</p><ul><li><code>hackernews_top_story_ids</code>retrieves the top stories from the Hacker News API and saves them as a JSON file.</li><li><code>hackernews_top_stories</code>asset builds upon the first asset, retrieving data for each story as a CSV file, and returns a <code>MaterializeResult</code>with a markdown preview of the top stories.</li></ul><code><span>import</span>json
+
+<span>import</span>pandas <span>as</span>pd
+<span>import</span>requests
+
+<span>from</span>dagster <span>import</span><span>(</span>MaterializeResult<span>,</span>MetadataValue<span>,</span>asset<span>,</span><span>)</span><span>from</span><span>.</span>configurations <span>import</span>HNStoriesConfig
+
+
+<span>@asset</span><span>def</span><span>hackernews_top_story_ids</span><span>(</span>config<span>:</span>HNStoriesConfig<span>)</span><span>:</span><span>"""Get top stories from the HackerNews top stories endpoint.
 
 
 
@@ -49,12 +57,7 @@ Documentation Title:
 Quickstart | Dagster Docs
 
 Documentation Content:
-From here, we can run our data pipeline.</p><p>To run the pipeline, click the <strong>Materialize All</strong>button in the top right. In Dagster, <em>materialization</em>refers to executing the code associated with an asset to produce an output.</p><img/><p>Congratulations! You have successfully materialized two Dagster assets:</p><img/><p>But wait - there's more. Because the <code>hackernews_top_stories</code>asset returned some <code>metadata</code>, you can view the metadata right in the UI:</p><ol><li>Click the asset</li><li>In the sidebar, click the <strong>Show Markdown</strong>link in the <strong>Materialization in Last Run</strong>section. This opens a preview of the pipeline result, allowing you to view the top 10 HackerNews stories:</li></ol><img/><h2>Understanding the Code<span>#</span></h2><p>The Quickstart project defines two <strong>Assets</strong>using the <code>@asset</code>decorator:</p><ul><li><code>hackernews_top_story_ids</code>retrieves the top stories from the Hacker News API and saves them as a JSON file.</li><li><code>hackernews_top_stories</code>asset builds upon the first asset, retrieving data for each story as a CSV file, and returns a <code>MaterializeResult</code>with a markdown preview of the top stories.</li></ul><code><span>import</span>json
-
-<span>import</span>pandas <span>as</span>pd
-<span>import</span>requests
-
-<span>from</span>dagster <span>import</span><span>(</span>MaterializeResult<span>,</span>MetadataValue<span>,</span>asset<span>,</span><span>)</span><span>from</span><span>.</span>configurations <span>import</span>HNStoriesConfig
+"""</span>top_story_ids <span>=</span>requests<span>.</span>get<span>(</span><span>"https://hacker-news.firebaseio.com/v0/topstories.json"</span><span>)</span><span>.</span>json<span>(</span><span>)</span><span>with</span><span>open</span><span>(</span>config<span>.</span>hn_top_story_ids_path<span>,</span><span>"w"</span><span>)</span><span>as</span>f<span>:</span>json<span>.</span>dump<span>(</span>top_story_ids<span>[</span><span>:</span>config<span>.</span>top_stories_limit<span>]</span><span>,</span>f<span>)</span><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>hackernews_top_story_ids<span>]</span><span>)</span><span>def</span><span>hackernews_top_stories</span><span>(</span>config<span>:</span>HNStoriesConfig<span>)</span><span>-</span><span>&gt;</span>MaterializeResult<span>:</span><span>"""Get items based on story ids from the HackerNews items endpoint."""</span><span>with</span><span>open</span><span>(</span>config<span>.</span>hn_top_story_ids_path<span>,</span><span>"r"</span><span>)</span><span>as</span>f<span>:</span>hackernews_top_story_ids <span>=</span>json<span>.</span>load<span>(</span>f<span>)</span>results <span>=</span><span>[</span><span>]</span><span>for</span>item_id <span>in</span>hackernews_top_story_ids<span>:</span>item <span>=</span>requests<span>.</span>get<span>(</span><span><span>f"https://hacker-news.firebaseio.com/v0/item/</span><span><span>{</span>item_id<span>}</span></span><span>.json"</span></span><span>)</span><span>.
 
 
 

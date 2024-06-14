@@ -34,16 +34,14 @@ RETURNFLAG and LINESTATUS, and listed in ascending order of RETURNFLAG and LINES
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.html
+docs.snowflake.com/en/user-guide/sample-data-using.html
 
 Documentation Title:
-Load and query sample data using SQL | Snowflake Documentation
+Using the Sample Database | Snowflake Documentation
 
 Documentation Content:
-Query the data<a>¶</a></h2><p>Now that the data is loaded, you can run queries on the <span>menu</span>table.</p><p>To run a query in the open worksheet, select the line or lines of the SELECT command,
-and then select <span>Run</span>.</p><p>For example, to return the number of rows in the table, run the following query:</p><div><pre><span>SELECT</span><span>COUNT</span><span>(*)</span><span>AS</span><span>row_count</span><span>FROM</span><span>tasty_bytes_sample_data</span><span>.</span><span>raw_pos</span><span>.</span><span>menu</span><span>;</span></pre><span>Copy</span></div><p>Your output looks similar to the following image.</p><img/><p>Run this query to return the top ten rows in the table:</p><div><pre><span>SELECT</span><span>TOP</span><span>10</span><span>*</span><span>FROM</span><span>tasty_bytes_sample_data</span><span>.</span><span>raw_pos</span><span>.</span><span>menu</span><span>;</span></pre><span>Copy</span></div><p>Your output looks similar to the following image.</p><img/><p>For more information about running a query that returns the specified number of rows,
-see <span>TOP &lt;n&gt;</span>.</p><p>You can run other queries in the worksheet to explore the data in the <span>menu</span>table.</p></section><section><h2>Step 7. Clean up, summary, and additional resources<a>¶</a></h2><p>Congratulations! You have successfully completed this tutorial for trial accounts.</p><p>Take a few minutes to review a short summary and the key points covered in this tutorial.
-Consider cleaning up by dropping any objects you created in this tutorial.
+</span><span>+</span><span>-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+</span><span>| created_on                    | name                  | is_default | is_current | origin                  | owner        | comment | options | retention_time |</span><span>|-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------|</span><span>| 2016-07-14 14:30:21.711 -0700 | SNOWFLAKE_SAMPLE_DATA | N          | N          | SFC_SAMPLES.SAMPLE_DATA | ACCOUNTADMIN |         |         | 1              |</span><span>+</span><span>-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+</span></pre><span>Copy</span></div><p>Note that this example illustrates the sample database, SNOWFLAKE_SAMPLE_DATA, has been <span>shared with your account</span>by Snowflake.</p><p>The <span>origin</span>column in the SHOW DATABASES output (or the <span>Origin</span>column in the <span>Databases</span>page in the interface) displays the fully-qualified name of the shared
+database, SFC_SAMPLES.SAMPLE_DATA, indicating it originated from the SFC_SAMPLES account (used by Snowflake to share the sample data).</p></section><section><h2>Querying Tables and Views in the Sample Database<a>¶</a></h2><p>To use a table or view in the sample database, you can either:</p><ul><li><p>Reference the fully-qualified name of the table in your query (in the form of <code><span>snowflake_sample_data.</span><span>schema_name</span><span>.</span><span>object_name</span></code>).</p><p>OR</p></li><p>Specify the sample database (and schema) for your session using the <span>USE DATABASE</span>and/or <span>USE SCHEMA</span>commands.
 
 
 

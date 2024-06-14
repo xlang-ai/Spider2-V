@@ -11,6 +11,17 @@ dates using the <span>DATEADD</span>function.
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/data-quality-tutorial-start.html
+
+Documentation Title:
+Tutorial: Getting started with data metric functions | Snowflake Documentation
+
+Documentation Content:
+</span><span>country</span><span>,</span><span>email</span><span>,</span><span>first_name</span><span>,</span><span>last_name</span><span>,</span><span>phone</span><span>,</span><span>state</span><span>,</span><span>street</span><span>,</span><span>zip_code</span><span>)</span><span>VALUES</span><span>(</span><span>8028387</span><span>,</span><span>'san francisco'</span><span>,</span><span>'usa'</span><span>,</span><span>'bart.simpson@example.com'</span><span>,</span><span>'bart'</span><span>,</span><span>'simpson'</span><span>,</span><span>1012023030</span><span>,</span><span>null</span><span>,</span><span>'market st'</span><span>,</span><span>94102</span><span>);</span><span>INSERT</span><span>INTO</span><span>customers</span><span>(</span><span>account_number</span><span>,</span><span>city</span><span>,</span><span>country</span><span>,</span><span>email</span><span>,</span><span>first_name</span><span>,</span><span>last_name</span><span>,</span><span>phone</span><span>,</span><span>state</span><span>,</span><span>street</span><span>,</span><span>zip_code</span><span>)</span><span>VALUES</span><span>(</span><span>1589420</span><span>,</span><span>'san francisco'</span><span>,</span><span>'usa'</span><span>,</span><span>'john.doe@example.com'</span><span>,</span><span>'john'</span><span>,</span><span>'doe'</span><span>,</span><span>1234567890</span><span>,
+
+
+
+Documentation Source:
 docs.snowflake.com/en/sql-reference/data-types-geospatial.html
 
 Documentation Title:
@@ -19,7 +30,7 @@ Geospatial Data Types | Snowflake Documentation
 Documentation Content:
 (The result is
 356,379 km^2.)</p><p>With GEOMETRY input values, the input coordinates in degrees, and the output value is in square degrees. (The result is
-45.930 square degrees.)</p></ul></section><section><h4>Example 3: Querying the Names of Countries Overlapping the Line from Berlin to San Francisco<a>¶</a></h4><p>The following table compares the output of <span>ST_INTERSECTS</span>for GEOGRAPHY types and GEOMETRY types:</p><table><tr><p>ST_INTERSECTS Using <span>.</span>GEOGRAPHY Input</p><p>ST_INTERSECTS Using <span>.</span>GEOMETRY Input</p></tr><tbody><tr><td><div><pre><span>SELECT</span><span>name</span><span>FROM</span><span>world_countries</span><span>WHERE</span><span>ST_INTERSECTS</span><span>(</span><span>border</span><span>,</span><span>TO_GEOGRAPHY</span><span>(</span><span>'LINESTRING(13.4814 52.5015, -121.8212 36.8252)'</span><span>));</span></pre><span>Copy</span></div><div><pre>+--------------------------+
+45.930 square degrees.)</p></ul></section><section><h4>Example 3: Querying the Names of Countries Overlapping the Line from Berlin to San Francisco<a>¶</a></h4><p>The following table compares the output of <span>ST_INTERSECTS</span>for GEOGRAPHY types and GEOMETRY types:</p><table><tr><p>ST_INTERSECTS Using <span>.</span>GEOGRAPHY Input</p><p>ST_INTERSECTS Using <span>.</span>GEOMETRY Input</p></tr><tr><td><div><pre><span>SELECT</span><span>name</span><span>FROM</span><span>world_countries</span><span>WHERE</span><span>ST_INTERSECTS</span><span>(</span><span>border</span><span>,</span><span>TO_GEOGRAPHY</span><span>(</span><span>'LINESTRING(13.4814 52.5015, -121.8212 36.8252)'</span><span>));</span></pre><span>Copy</span></div><div><pre>+--------------------------+
 | NAME                     |
 |--------------------------|
 | Germany                  |
@@ -30,17 +41,6 @@ Documentation Content:
 | United States of America |
 +--------------------------+
 </pre><span>Copy</span></div></td><td><div><pre><span>SELECT</span><span>name</span><span>FROM</span><span>world_countries_geom</span><span>WHERE</span><span>ST_INTERSECTS</span><span>(</span><span>border</span><span>,</span><span>TO_GEOMETRY</span><span>(</span><span>'LINESTRING(13.4814 52.5015, -121.8212 36.8252)'</span><span>));
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-quality-tutorial-start.html
-
-Documentation Title:
-Tutorial: Getting started with data metric functions | Snowflake Documentation
-
-Documentation Content:
-</span><span>country</span><span>,</span><span>email</span><span>,</span><span>first_name</span><span>,</span><span>last_name</span><span>,</span><span>phone</span><span>,</span><span>state</span><span>,</span><span>street</span><span>,</span><span>zip_code</span><span>)</span><span>VALUES</span><span>(</span><span>8028387</span><span>,</span><span>'san francisco'</span><span>,</span><span>'usa'</span><span>,</span><span>'bart.simpson@example.com'</span><span>,</span><span>'bart'</span><span>,</span><span>'simpson'</span><span>,</span><span>1012023030</span><span>,</span><span>null</span><span>,</span><span>'market st'</span><span>,</span><span>94102</span><span>);</span><span>INSERT</span><span>INTO</span><span>customers</span><span>(</span><span>account_number</span><span>,</span><span>city</span><span>,</span><span>country</span><span>,</span><span>email</span><span>,</span><span>first_name</span><span>,</span><span>last_name</span><span>,</span><span>phone</span><span>,</span><span>state</span><span>,</span><span>street</span><span>,</span><span>zip_code</span><span>)</span><span>VALUES</span><span>(</span><span>1589420</span><span>,</span><span>'san francisco'</span><span>,</span><span>'usa'</span><span>,</span><span>'john.doe@example.com'</span><span>,</span><span>'john'</span><span>,</span><span>'doe'</span><span>,</span><span>1234567890</span><span>,
 
 
 

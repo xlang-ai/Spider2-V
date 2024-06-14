@@ -1,4 +1,17 @@
 Documentation Source:
+docs.snowflake.com/en/user-guide/client-redirect.html
+
+Documentation Title:
+Redirecting client connections | Snowflake Documentation
+
+Documentation Content:
+Select the <span>More</span>menu (<span>…</span>) in the last column of the row.</p><p>Select <span>Drop</span>, then select <span>Drop Connection</span></p></ol></section><section><h3>Drop a connection using SQL<a>¶</a></h3><p>You can use the <span>DROP CONNECTION</span>command to delete a connection.</p><ol><p>Delete all secondary connections in target accounts.</p><p>Delete the primary connection in the source account.</p></ol><p>For an example, see <span>Examples</span>.</p></section></section><section><h2>Monitoring Client Redirect<a>¶</a></h2><p>You can monitor Client Redirect connections and usage for accounts in an organization using Snowsight or SQL.</p><section><h3>Monitor Client Redirect using Snowsight<a>¶</a></h3><aside><p><span>Preview Feature</span>— Open</p><p>Client Redirect in Snowsight is available to all accounts that are Business Critical Edition (or higher).
+Currently this feature is not supported for accounts using private connectivity.</p></aside><div><p>Note</p><ul><p>Only a user with the ACCOUNTADMIN role can view connection details using Snowsight.</p><p>You must be signed in to the target account as a user with the ACCOUNTADMIN role. If you are not, you will be
+prompted to sign in.</p></ul></div><p>To view the Client Redirect connection details, complete the following steps:</p><ol><p>Sign in to Snowsight and navigate to <span>Admin</span>» <span>Accounts</span>.</p><p>Select <span>Replication</span>and then select <span>Client Redirect</span>.</p><p>If there is no active warehouse for the session, you will be prompted to select a warehouse.</p></ol><p>Monitor a specific connection using search and filters.</p><ul><p>You can search by connection name.
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/cleanrooms/external-data-gcp.html
 
 Documentation Title:
@@ -18,21 +31,8 @@ Redirecting client connections | Snowflake Documentation
 
 Documentation Content:
 Select the <span>More</span>menu (<span>…</span>) in the last column of the row.</p></ol></section><section><h3>Modify target accounts for a connection using SQL<a>¶</a></h3><p>You can add more than one target account for a primary connection using the <span>ALTER CONNECTION</span>command.
-For an example, see <span>Examples</span>.</p></section></section><section><h2>Dropping a connection<a>¶</a></h2><p>You can drop a connection using Snowsight or SQL.</p><section><h3>Drop a connection using Snowsight<a>¶</a></h3><aside><p><img/><span>Preview Feature</span>— Open</p><p>Client Redirect in Snowsight is available to all accounts that are Business Critical Edition (or higher).
+For an example, see <span>Examples</span>.</p></section></section><section><h2>Dropping a connection<a>¶</a></h2><p>You can drop a connection using Snowsight or SQL.</p><section><h3>Drop a connection using Snowsight<a>¶</a></h3><aside><p><span>Preview Feature</span>— Open</p><p>Client Redirect in Snowsight is available to all accounts that are Business Critical Edition (or higher).
 Currently this feature is not supported for accounts using private connectivity.</p></aside><p>To delete a connection, you must sign in as a user with the ACCOUNTADMIN role to the <em>source</em>account with the primary connection.</p><ol><p>Sign in to Snowsight and navigate to <span>Admin</span>» <span>Accounts</span>.</p><p>Select <span>Client Redirect</span>.</p><p>Locate the connection you want to delete.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/client-redirect.html
-
-Documentation Title:
-Redirecting client connections | Snowflake Documentation
-
-Documentation Content:
-Select the <span>More</span>menu (<span>…</span>) in the last column of the row.</p><p>Select <span>Drop</span>, then select <span>Drop Connection</span></p></ol></section><section><h3>Drop a connection using SQL<a>¶</a></h3><p>You can use the <span>DROP CONNECTION</span>command to delete a connection.</p><ol><p>Delete all secondary connections in target accounts.</p><p>Delete the primary connection in the source account.</p></ol><p>For an example, see <span>Examples</span>.</p></section></section><section><h2>Monitoring Client Redirect<a>¶</a></h2><p>You can monitor Client Redirect connections and usage for accounts in an organization using Snowsight or SQL.</p><section><h3>Monitor Client Redirect using Snowsight<a>¶</a></h3><aside><p><img/><span>Preview Feature</span>— Open</p><p>Client Redirect in Snowsight is available to all accounts that are Business Critical Edition (or higher).
-Currently this feature is not supported for accounts using private connectivity.</p></aside><div><p>Note</p><ul><p>Only a user with the ACCOUNTADMIN role can view connection details using Snowsight.</p><p>You must be signed in to the target account as a user with the ACCOUNTADMIN role. If you are not, you will be
-prompted to sign in.</p></ul></div><p>To view the Client Redirect connection details, complete the following steps:</p><ol><p>Sign in to Snowsight and navigate to <span>Admin</span>» <span>Accounts</span>.</p><p>Select <span>Replication</span>and then select <span>Client Redirect</span>.</p><p>If there is no active warehouse for the session, you will be prompted to select a warehouse.</p></ol><p>Monitor a specific connection using search and filters.</p><ul><p>You can search by connection name.
 
 
 

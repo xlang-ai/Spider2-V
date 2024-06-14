@@ -6,9 +6,9 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Then, select the Volcanic Eruptions layer, add a short description
-Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><img/><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
 list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
-dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><img/><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><img/><p>If you wish, you can change how your annotation looks by changing the settings in the Display
+dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><p>If you wish, you can change how your annotation looks by changing the settings in the Display
 configuration section. Otherwise, select <strong>OK</strong>and finally <strong>Save</strong>to save your chart. If you keep
 the default selection to overwrite the chart, your annotation will be saved to the chart and also
 appear automatically in the Tutorial Dashboard.</p><h3>Advanced Analytics<a>​</a></h3><p>In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
@@ -38,15 +38,15 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Look for the blue
-lines which indicate the anchor where the box will go.</p><img/><p>Now, to edit the text, select the box. You can enter text, in markdown format (see
+lines which indicate the anchor where the box will go.</p><p>Now, to edit the text, select the box. You can enter text, in markdown format (see
 <a>this Markdown Cheatsheet</a>for
 more information about this format). You can toggle between Edit and Preview using the menu on the
-top of the box.</p><img/><p>To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
+top of the box.</p><p>To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
 <strong>Save changes</strong>.</p><h3>Publishing Your Dashboard<a>​</a></h3><p>If you have followed all of the steps outlined in the previous section, you should have a dashboard
 that looks like the below. If you would like, you can rearrange the elements of the dashboard by
 selecting <strong>Edit dashboard</strong>and dragging and dropping.</p><p>If you would like to make your dashboard available to other users, simply select Draft next to the
 title of your dashboard on the top left to change your dashboard to be in Published state. You can
-also favorite this dashboard by selecting the star.</p><img/><h3>Annotations<a>​</a></h3><p>Annotations allow you to add additional context to your chart. In this section, we will add an
+also favorite this dashboard by selecting the star.</p><h3>Annotations<a>​</a></h3><p>Annotations allow you to add additional context to your chart. In this section, we will add an
 annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
 dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
 eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).</p><p>First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
@@ -57,21 +57,16 @@ selecting the green plus sign.
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/country-map-tools/index.html
+superset.apache.org/docs/contributing/development/index.html
 
 Documentation Title:
-Country Map Tools | Superset
+Setting up a Development Environment | Superset
 
 Documentation Content:
-</p><ol><li>Generate a new GeoJSON file for your country following the guide in <a>this Jupyter notebook</a>.</li><li>Edit the countries list in <a>legacy-plugin-chart-country-map/src/countries.ts</a>.</li><li>Install superset-frontend dependencies: <code>cd superset-frontend &amp;&amp; npm install</code></li><li>Verify your countries in Superset plugins storybook: <code>npm run plugins:storybook</code>.</li><li>Build and install Superset from source code.</li></ol></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Event Logging</div></a><a><div>Next</div><div>Importing and Exporting Datasources</div></a></nav></div><ul><a>Included Maps</a><a>Adding a New Country</a></ul></div></div></div><div><div>We use  <img/></div><p>Copyright © 2024,
-          The <a>Apache Software Foundation</a>,
-          Licensed under the Apache <a>License</a>.</p><small>Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
-          <a>Apache Software Foundation</a>resources</small><img/><small><a>Security</a>| 
-              <a>Donate</a>| 
-              <a>Thanks</a>| 
-              <a>Events</a>| 
-              <a>License</a>| 
-              <a>Privacy</a></small><img/></div></div>
+Having more than one
+option inside will add a language selection dropdown to the UI on the right side
+of the navigation bar.</p><code><span><span>LANGUAGES </span><span>=</span><span>{</span></span><span><span>'en'</span><span>:</span><span>{</span><span>'flag'</span><span>:</span><span>'us'</span><span>,</span><span>'name'</span><span>:</span><span>'English'</span><span>}</span><span>,</span></span><span><span>'fr'</span><span>:</span><span>{</span><span>'flag'</span><span>:</span><span>'fr'</span><span>,</span><span>'name'</span><span>:</span><span>'French'</span><span>}</span><span>,</span></span><span><span>'zh'</span><span>:</span><span>{</span><span>'flag'</span><span>:</span><span>'cn'</span><span>,</span><span>'name'</span><span>:</span><span>'Chinese'</span><span>}</span><span>,</span></span><span>}</span></code><h3>Updating language files<a>​</a></h3><span>./scripts/babel_update.sh</span><p>This script will</p><ol><li>update the template file <code>superset/translations/messages.pot</code>with current application strings.</li><li>update language files with the new extracted strings.</li></ol><p>You can then translate the strings gathered in files located under
+<code>superset/translation</code>, where there's one per language. You can use <a>Poedit</a>to translate the <code>po</code>file more conveniently.
 
 
 

@@ -32,18 +32,6 @@ to use in your Python code. Instead, you add those files to a stage and referenc
 
 
 Documentation Source:
-docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets.html
-
-Documentation Title:
-Writing Snowpark Code in Python Worksheets | Snowflake Documentation
-
-Documentation Content:
-To run this code example, you must have the
-CREATE TABLE privilege on the database schema to which you want to add the table.</p><ol><p>Sign in to Snowsight.</p><p>Open <span>Projects</span>» <span>Worksheets</span>.</p><p>Select <span>+</span>» <span>Python Worksheet</span>.</p><p>Select a database and schema that you want to add the table to.</p><p>Select a warehouse to use to run the worksheet. If you have a default warehouse for your user, it is pre-selected. Make sure your warehouse is running.</p><li><p>Write the Snowpark Python code as part of the <span>main</span>function:</p><div><pre><span>import</span><span>snowflake.snowpark</span><span>as</span><span>snowpark</span><span>def</span><span>main</span><span>(</span><span>session</span><span>:</span><span>snowpark</span><span>.</span><span>Session</span><span>):</span><span>tableName</span><span>=</span><span>"range_table"</span><span>df_range</span><span>=</span><span>session</span><span>.</span><span>range</span><span>(</span><span>1</span><span>,</span><span>10</span><span>,</span><span>2</span><span>)</span><span>.</span><span>to_df</span><span>(</span><span>'a'</span><span>)</span><span>df_range</span><span>.</span><span>write</span><span>.</span><span>mode</span><span>(</span><span>"overwrite"</span><span>)</span><span>.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load.html
 
 Documentation Title:
@@ -53,7 +41,7 @@ Documentation Content:
 If you’ve previously signed in to Snowsight, you might see an account name that you can select.</p><p>Sign in using your Snowflake account credentials.</p></ol></section><section><h2>Step 2. Open the Python worksheet<a>¶</a></h2><p>You can use Python worksheets to write and run Python code. Your trial account has access
 to a pre-loaded Python worksheet for this tutorial. The worksheet has the Python code that
 you will run to create a database, load data into it, and query the data. For more information
-about Python worksheets, see <span>Writing Snowpark Code in Python Worksheets</span>.</p><p>To open the pre-loaded tutorial Python worksheet:</p><ol><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><li><p>Open <span>[Tutorial] Using Python to load and query sample data</span>.</p><p>Your worksheet looks similar to the following image.</p></li></ol><img/><p>This pre-loaded Python worksheet automatically uses the ACCOUNTADMIN system role so that
+about Python worksheets, see <span>Writing Snowpark Code in Python Worksheets</span>.</p><p>To open the pre-loaded tutorial Python worksheet:</p><ol><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><li><p>Open <span>[Tutorial] Using Python to load and query sample data</span>.</p><p>Your worksheet looks similar to the following image.</p></li></ol><p>This pre-loaded Python worksheet automatically uses the ACCOUNTADMIN system role so that
 you can view and manage objects in your account. For more information, see
 <span>Using the ACCOUNTADMIN Role</span>.</p><p>The worksheet also uses the COMPUTE_WH virtual warehouse. A warehouse provides
 the required resources to create and manage objects and run SQL commands. These
@@ -61,6 +49,18 @@ resources include CPU, memory, and temporary storage. For more information, see
 <span>Virtual warehouses</span>.</p></section><section><h2>Step 3. Learn how to use Python worksheets<a>¶</a></h2><p>Python worksheets let you use <span>Snowpark Python</span>in Snowsight to run SQL statements. This step in this tutorial describes the code in each step
 in the Python worksheet. When you use a Python worksheet, you cannot run individual blocks of
 code separately. You must run the whole worksheet.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets.html
+
+Documentation Title:
+Writing Snowpark Code in Python Worksheets | Snowflake Documentation
+
+Documentation Content:
+To run this code example, you must have the
+CREATE TABLE privilege on the database schema to which you want to add the table.</p><ol><p>Sign in to Snowsight.</p><p>Open <span>Projects</span>» <span>Worksheets</span>.</p><p>Select <span>+</span>» <span>Python Worksheet</span>.</p><p>Select a database and schema that you want to add the table to.</p><p>Select a warehouse to use to run the worksheet. If you have a default warehouse for your user, it is pre-selected. Make sure your warehouse is running.</p><li><p>Write the Snowpark Python code as part of the <span>main</span>function:</p><div><pre><span>import</span><span>snowflake.snowpark</span><span>as</span><span>snowpark</span><span>def</span><span>main</span><span>(</span><span>session</span><span>:</span><span>snowpark</span><span>.</span><span>Session</span><span>):</span><span>tableName</span><span>=</span><span>"range_table"</span><span>df_range</span><span>=</span><span>session</span><span>.</span><span>range</span><span>(</span><span>1</span><span>,</span><span>10</span><span>,</span><span>2</span><span>)</span><span>.</span><span>to_df</span><span>(</span><span>'a'</span><span>)</span><span>df_range</span><span>.</span><span>write</span><span>.</span><span>mode</span><span>(</span><span>"overwrite"</span><span>)</span><span>.
 
 
 

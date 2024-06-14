@@ -8,14 +8,14 @@ Documentation Content:
 Publish this chart
 to your existing Tutorial Dashboard you created earlier.</p><h3>Line Chart<a>​</a></h3><p>In this section, we are going to create a line chart to understand the average price of a ticket by
 month across the entire dataset.</p><p>In the Time section, as before, keep the Time Column as Travel Date and Time Grain as month but this
-time for the Time range select No filter as we want to look at entire dataset.</p><p>Within Metrics, remove the default <code>COUNT(*)</code>metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p><img/><p>Next, select <strong>Run Query</strong>to show the data on the chart.</p><p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
+time for the Time range select No filter as we want to look at entire dataset.</p><p>Within Metrics, remove the default <code>COUNT(*)</code>metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p><p>Next, select <strong>Run Query</strong>to show the data on the chart.</p><p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
 doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
 each ticket type.</p><p>Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting <strong>Run
 Query</strong>again. Nice! We can see that on average single tickets are cheaper than returns and that the
 big spike in December is caused by return tickets.</p><p>Our chart is looking pretty good already, but let’s customize some more by going to the Customize
 tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
 filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
-and Y Axis Label.</p><img/><p>Once you’re done, publish the chart in your Tutorial Dashboard.</p><h3>Markup<a>​</a></h3><p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
+and Y Axis Label.</p><p>Once you’re done, publish the chart in your Tutorial Dashboard.</p><h3>Markup<a>​</a></h3><p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
 to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
 dashboards. Got into edit mode by selecting <strong>Edit dashboard</strong>.</p><p>Within the Insert components pane, drag and drop a Markdown box on the dashboard.
 
@@ -29,12 +29,15 @@ Creating Your First Dashboard | Superset
 
 Documentation Content:
 To start the Explore workflow from the <strong>Datasets</strong>tab, start by clicking the name
-of the dataset that will be powering your chart.</p><img/><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
+of the dataset that will be powering your chart.</p><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
 scoped to the current dataset you selected.</li><li>The <strong>Data</strong>preview below the chart area also gives you helpful data context.</li><li>Using the <strong>Data</strong>tab and <strong>Customize</strong>tabs, you can change the visualization type,
 select the temporal column, select the metric to group by, and customize
 the aesthetics of the chart.</li></ul><p>As you customize your chart using drop-down menus, make sure to click the <strong>Run</strong>button
-to get visual feedback.</p><img/><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
-our quarterly sales data by product line just by clicking options in drop-down menus.</p><img/><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button.
+to get visual feedback.</p><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.</p><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button. You can either:</p><ul><li>Save your chart and add it to an existing dashboard</li><li>Save your chart and add it to a new dashboard</li></ul><p>In the following screenshot, we save the chart to a new "Superset Duper Sales Dashboard":</p><p>To publish, click <strong>Save and goto Dashboard</strong>.</p><p>Behind the scenes, Superset will create a slice and store all the information needed
+to create your chart in its thin data layer
+(the query, chart type, options selected, name, etc).</p><p>To resize the chart, start by clicking the Edit Dashboard button in the top right corner.</p><p>Then, click and drag the bottom right corner of the chart until the chart layout snaps
+into a position you like onto the underlying grid.</p><p>Click <strong>Save</strong>to persist the changes.</p><p>Congrats!
 
 
 
@@ -46,11 +49,11 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Run Query to see the new chart,
-which has an additional series with the same values, shifted a week back in time.</p><img/><p>Then, change the <strong>Calculation type</strong>to Absolute difference and select <strong>Run Query</strong>. We can now
+which has an additional series with the same values, shifted a week back in time.</p><p>Then, change the <strong>Calculation type</strong>to Absolute difference and select <strong>Run Query</strong>. We can now
 see only one series again, this time showing the difference between the two series we saw
-previously.</p><img/><p>Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.</p><h3>Resampling the data<a>​</a></h3><p>In this section, we’ll resample the data so that rather than having daily data we have weekly data.
+previously.</p><p>Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.</p><h3>Resampling the data<a>​</a></h3><p>In this section, we’ll resample the data so that rather than having daily data we have weekly data.
 As in the previous section, reopen the Tutorial Advanced Analytics Base chart.</p><p>Next, in the Python Functions subsection of <strong>Advanced Analytics</strong>, enter 7D, corresponding to seven
-days, in the Rule and median as the Method and show the chart by selecting <strong>Run Query</strong>.</p><img/><p>Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
+days, in the Rule and median as the Method and show the chart by selecting <strong>Run Query</strong>.</p><p>Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
 the median value within the seven daily data points. For more information on the meaning of the
 various options in this section, refer to the
 <a>Pandas documentation</a>.</p><p>Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard.
@@ -65,9 +68,9 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Then, select the Volcanic Eruptions layer, add a short description
-Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><img/><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
 list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
-dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><img/><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><img/><p>If you wish, you can change how your annotation looks by changing the settings in the Display
+dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><p>If you wish, you can change how your annotation looks by changing the settings in the Display
 configuration section. Otherwise, select <strong>OK</strong>and finally <strong>Save</strong>to save your chart. If you keep
 the default selection to overwrite the chart, your annotation will be saved to the chart and also
 appear automatically in the Tutorial Dashboard.</p><h3>Advanced Analytics<a>​</a></h3><p>In this section, we are going to explore the Advanced Analytics feature of Apache Superset that

@@ -26,6 +26,21 @@ view the details.</p><section><h4>Troubleshoot failed filter query refreshes<a>�
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/ui-history.html
+
+Documentation Title:
+Using the History Page to Monitor Queries | Snowflake Documentation
+
+Documentation Content:
+Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Connecting to Snowflake</a><a>Classic Console</a><span>Monitoring Queries</span></nav><section><h1>Using the History Page to Monitor Queries<a>¶</a></h1><p>The <span>History</span>page allows you to view and drill into the details of all queries executed in the last 14 days.
+The page displays a historical listing of queries, including queries
+executed from SnowSQL or other SQL clients.</p><div><p>Note</p><p>For details about reviewing query history in Snowsight, see <span>Monitor query activity with Query History</span>.</p></div><p>The default information displayed for each query includes:</p><ul><p>Current status of queries: waiting in queue, running, succeeded, failed.</p><p>SQL text of your query.</p><p>Query ID.</p><p>Information about the warehouse used to execute the query.</p><p>Query start and end time, as well as duration.</p><p>Information about the query, including number of bytes scanned and number of rows returned.</p></ul><div><p>Note</p><p>The <span>Start Time</span>and <span>End Time</span>columns display times in the logged-in user’s time zone. There is no option to change this setting.
+Session parameters do not affect this setting.</p></div><section><h2>Overview of Features<a>¶</a></h2><div><p>Note</p><p>The <span>History</span>page columns are derived from the QUERY_HISTORY view.
+See <span>QUERY_HISTORY View</span>for more information, including column descriptions.</p></div><p>You can perform the following tasks in the <span>History</span>page:</p><ul><p>Use the <span>auto-refresh</span>checkbox in the upper right to enable/disable auto-refresh for the session. If selected, the page is refreshed every 10 seconds.
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-activity.html
 
 Documentation Title:
@@ -41,21 +56,6 @@ users in reader accounts associated with your account. See <span>SNOWFLAKE datab
 See <span>Filter Query History</span>.</p><p>For queries that failed due to syntax or parsing errors, you see <span>&lt;redacted&gt;</span>instead of the SQL statement that was executed.
 If you are granted a role with appropriate privileges, you can set the <span>ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR</span>parameter to view
 the full query text.</p><p>Filters and the <span>Started</span>and <span>End Time</span>columns use your current time zone.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/ui-history.html
-
-Documentation Title:
-Using the History Page to Monitor Queries | Snowflake Documentation
-
-Documentation Content:
-Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Connecting to Snowflake</a><a>Classic Console</a><span>Monitoring Queries</span></nav><section><h1>Using the History Page to Monitor Queries<a>¶</a></h1><p>The <span>History</span><img/>page allows you to view and drill into the details of all queries executed in the last 14 days.
-The page displays a historical listing of queries, including queries
-executed from SnowSQL or other SQL clients.</p><div><p>Note</p><p>For details about reviewing query history in Snowsight, see <span>Monitor query activity with Query History</span>.</p></div><p>The default information displayed for each query includes:</p><ul><p>Current status of queries: waiting in queue, running, succeeded, failed.</p><p>SQL text of your query.</p><p>Query ID.</p><p>Information about the warehouse used to execute the query.</p><p>Query start and end time, as well as duration.</p><p>Information about the query, including number of bytes scanned and number of rows returned.</p></ul><div><p>Note</p><p>The <span>Start Time</span>and <span>End Time</span>columns display times in the logged-in user’s time zone. There is no option to change this setting.
-Session parameters do not affect this setting.</p></div><section><h2>Overview of Features<a>¶</a></h2><img/><div><p>Note</p><p>The <span>History</span>page columns are derived from the QUERY_HISTORY view.
-See <span>QUERY_HISTORY View</span>for more information, including column descriptions.</p></div><p>You can perform the following tasks in the <span>History</span>page:</p><ul><p>Use the <span>auto-refresh</span>checkbox in the upper right to enable/disable auto-refresh for the session. If selected, the page is refreshed every 10 seconds.
 
 
 

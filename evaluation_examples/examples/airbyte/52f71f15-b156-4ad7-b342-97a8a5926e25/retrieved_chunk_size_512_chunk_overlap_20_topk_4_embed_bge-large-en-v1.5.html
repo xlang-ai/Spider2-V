@@ -1,13 +1,35 @@
 Documentation Source:
-airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
+airbyte.com/tutorials/configure-airbyte-with-python-dagster.html
 
 Documentation Title:
-A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+Configure Airbyte Connections with Python (Dagster) | Airbyte
 
 Documentation Content:
-For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
-BASIC_AUTH_PASSWORD=password
-</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figure><img/><figcaption>Airbyte OSS login prompt</figcaption></figure><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figure><img/><figcaption>Create your first connection prompt</figcaption></figure><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figure><img/><figcaption>Select Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figure><img/><figcaption>Configure Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figure><img/><figcaption>Select Local JSON as a destination</figcaption></figure><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running.
+your pythonic configurations. Apply will delete an existing source, destination, and connection and re-apply based on your updated configs.</p><p>📝 Below, I will skip the step on setting up Airbyte and Postgres database; You can find that in the <a>ReadMe</a>or <a>Postgres Replication Tutorial</a>.</p><em>Configure Airbyte Connections in Python</em><p>For my <a>demo</a>, I am scraping a GitHub repo that is evolving.</p><strong>Define Airbyte Instance</strong><p>First, I define the airbyte instance in my dagster python code:</p><code>airbyte_instance = airbyte_resource.configured(
+    {
+        "host": "localhost",
+        "port": "8000",
+        "username": "airbyte",
+        "password": {"env": "AIRBYTE_PASSWORD"},
+    }
+)</code><p>➡️ Make sure you set the environment variable &lt;span class="text-style-code"&gt;AIRBYTE_PASSWORD&lt;/span&gt; on your laptop. The default password is password. As well as <a>create</a>a token &lt;span class="text-style-code"&gt;AIRBYTE_PERSONAL_GITHUB_TOKEN&lt;/span&gt; for fetching the stargazers from the public repositories in the below code.</p><strong>Define Airbyte GitHub Source</strong><p>After we create our Airbyte source with:</p><code>gh_awesome_de_list_source = GithubSource(
+    name="gh_awesome_de_list",
+    credentials=GithubSource.PATCredentials(AIRBYTE_PERSONAL_GITHUB_TOKEN),
+    start_date="2020-01-01T00:00:00Z",
+    repository=get_awesome_repo_list(),  # The magic happens here
+    page_size_for_large_streams=100,
+)</code><em>Web Scraping GitHub List with Beautiful Soup</em><p>The &lt;span class="text-style-code"&gt;get_awesome_repo_list()&lt;/span&gt; could be any arbitrary Python code. In this demo, this function does web scraping with Beautiful Soup from the awesome repo list.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+
+Documentation Title:
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+
+Documentation Content:
+Enter the values for the Postgres container we created earlier:</p><ul><li>host - localhost</li><li>post - 3003</li><li>schema - public (leave default)</li><li>database - postgres</li><li>Password - password</li><li>username - postgres</li></ul><p>Then click on the basic normalization toggle button to check it on as we want Airbyte to normalize the data coming in from GitHub. Overall the UI should look like this:</p><p>Then click on the Set up destination button. If your credentials are all good for the database, the postgres destination would have been set, and now you will need to make the connection from the source (GitHub) to the destination (Postgres).</p><p>You should check the boxes that are checked in the screenshot below, and then choose how often Airbyte will attempt to replicate data to be every hour in the Sync frequency drop down. Then, click on the <em>Set up connection</em>button.</p><p>You will be taken to the source page, click on the source and you will see the status of your sync. The sync should take a while to complete.</p><p>When done, you will see the status change from running to Succeeded. Also, the byte count will be referring to the byte of data Airbyte has pulled from GitHub into your Postgres database.</p><p>‍</p><p>That wasn’t a lot of work, was it? You can pat yourself in the back as you just synced data from GitHub to a Postgres database.</p><p>Let's move on to connecting that database to Metabase, so we can start creating our dashboard.</p></div><h2>Step 2: Connecting the PostgreSQL database to Metabase</h2><div><h3>Installing Metabase</h3><p>‍Metabase is an open source analytic tool that you can get started working with in a couple of ways; using the .jar file, installing it as a Mac app or using a Docker container.For this tutorial we will be using the Mac app(you can alternatively look up the installation that suits you <a>here</a>).
 
 
 
@@ -22,17 +44,6 @@ Documentation Content:
 <code>count</code>records, no new records will be added.</p><p>You can choose a specific <code>seed</code>(integer) as an option for this connector which will guarantee that
 the same fake records are generated each time. Otherwise, random data will be created on each
 subsequent sync.</p><h3>Requirements<a>​</a></h3><p>None!</p><h2>Reference<a>​</a></h2><div><h4>Config fields reference</h4><div><div>Field</div><div>Type</div><div>Property name</div><button><div>›</div><div>Count</div></button><div>integer</div><div>count</div><button><div>›</div><div>Seed</div></button><div>integer</div><div>seed</div><button><div>›</div><div>Records Per Stream Slice</div></button><div>integer</div><div>records_per_slice</div><button><div>›</div><div>Always Updated</div></button><div>boolean</div><div>always_updated</div><button><div>›</div><div>Parallelism</div></button><div>integer</div><div>parallelism</div></div></div><h2>Changelog<a>​</a></h2><table><tr><th>Version</th><th>Date</th><th>Pull Request</th><th>Subject</th></tr><tbody><tr><td>6.1.0</td><td>2024-04-08</td><a>36898</a><td>Update car prices and years</td></tr><tr><td>6.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/postgres/cloud-sql-postgres.html
-
-Documentation Title:
-Cloud SQL for PostgreSQL | Airbyte Documentation
-
-Documentation Content:
-</li><li>All available <a>sync modes</a>, providing flexibility in how data is delivered to your destination.</li><li>Reliable replication at any table size with <a>checkpointing</a>and chunking of database reads.</li></ul><img/><h2>Quick Start<a>​</a></h2><img/><p>Here is an outline of the minimum required steps to configure a connection to Postgres on Google Cloud SQL:</p><ol><li>Create a dedicated read-only Postgres user with permissions for replicating data</li><li>Create a new Postgres source in the Airbyte UI using <code>xmin</code>system column</li><li>(Airbyte Cloud Only) Allow inbound traffic from Airbyte IPs</li></ol><p>Once this is complete, you will be able to select Postgres as a source for replicating data.</p><h4>Step 1: Create a dedicated read-only Postgres user<a>​</a></h4><p>These steps create a dedicated read-only user for replicating data. Alternatively, you can use an existing Postgres user in your database. To create a user, first <a>connect to your database</a>. If you are getting started, you can use <a>Cloud Shell to connect directly from the UI</a>.</p><p>The following commands will create a new user:</p><span>CREATE USER &lt;user_name&gt; PASSWORD 'your_password_here';</span><p>Now, provide this user with read-only access to relevant schemas and tables. Re-run this command for each schema you expect to replicate data from (e.g.
 
 
 

@@ -5,9 +5,23 @@ Documentation Title:
 Creating a new Dagster project | Dagster Docs
 
 Documentation Content:
-This CLI tool helps generate files and folder structures that enable you to quickly get started with Dagster.</p><h2>Step 1: Bootstrap a new project<span>#</span></h2><span>If you don't already have Dagster installed, verify you meet the<a>installation requirements</a>before continuing.</span><p>You can scaffold a new project using the default project skeleton, or start with one of the official Dagster examples.</p><p>To learn more about the default files in a Dagster project, refer to the <a>Dagster project file reference</a>.</p><div><div><button>Default project skeleton</button><button>Official example</button></div><div><h3>Using the default project skeleton<span>#</span></h3><p>To get started, run:</p><code>pip <span>install</span>dagster
+This CLI tool helps generate files and folder structures that enable you to quickly get started with Dagster.</p><h2>Step 1: Bootstrap a new project<span>#</span></h2><span>If you don't already have Dagster installed, verify you meet the<a>installation requirements</a>before continuing.</span><p>You can scaffold a new project using the default project skeleton, or start with one of the official Dagster examples.</p><p>To learn more about the default files in a Dagster project, refer to the <a>Dagster project file reference</a>.</p><div><div><button>Default project skeleton</button><button>Official example</button></div><div><div><h3>Using the default project skeleton<span>#</span></h3><p>To get started, run:</p><code>pip <span>install</span>dagster
 dagster project scaffold --name my-dagster-project
-</code><p>The <code>dagster project scaffold</code>command generates a folder structure with a single Dagster code location and other files, such as <code>pyproject.toml</code>and <code>setup.py</code>. This takes care of setting things up with an empty project, enabling you to quickly get started.</p></div></div><h2>Step 2: Install project dependencies<span>#</span></h2><p>The newly generated <code>my-dagster-project</code>directory is a fully functioning <a>Python package</a>and can be installed with <code>pip</code>.</p><p>To install it as a package and its Python dependencies, run:</p><code>pip <span>install</span>-e <span>".
+</code><p>The <code>dagster project scaffold</code>command generates a folder structure with a single Dagster code location and other files, such as <code>pyproject.toml</code>and <code>setup.py</code>. This takes care of setting things up with an empty project, enabling you to quickly get started.</p></div><div><h3>Using an official example<span>#</span></h3><p>To get started using an official Dagster example, run:</p><code>pip <span>install</span>dagster
+dagster project from-example <span>\</span>--name my-dagster-project <span>\</span>--example quickstart_etl
+</code><p>The command <code>dagster project from-example</code>downloads one of the official Dagster examples to the current directory.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/create-new-project.html
+
+Documentation Title:
+Creating a new Dagster project | Dagster Docs
+
+Documentation Content:
+This command enables you to quickly bootstrap your project with an officially maintained example.</p><p>For more info about the examples, visit the <a>Dagster GitHub repository</a>or use <code>dagster project list-examples</code>.</p></div></div></div><h2>Step 2: Install project dependencies<span>#</span></h2><p>The newly generated <code>my-dagster-project</code>directory is a fully functioning <a>Python package</a>and can be installed with <code>pip</code>.</p><p>To install it as a package and its Python dependencies, run:</p><code>pip <span>install</span>-e <span>".[dev]"</span></code><span>Using the <code>--editable</code>(<code>-e</code>) flag instructs<code>pip</code>to install your code location as a Python package in<a>"editable mode"</a>so that as you develop, local code changes are automatically applied.</span><h2>Step 3: Start the Dagster UI<span>#</span></h2><p>To start the <a>Dagster UI</a>, run:</p><code>dagster dev
+</code><p><strong>Note</strong>: This command also starts the <a>Dagster daemon</a>.
 
 
 
@@ -33,26 +47,6 @@ Dagster Docs
 
 Documentation Content:
 This CLI helps you to scaffold a new Dagster code location within a folder structure that includes multiple Dagster code locations.</p></dl><dl><span>scaffold-repository</span><p>(DEPRECATED; Use <cite>dagster project scaffold-code-location</cite>instead) Create a folder structure with a single Dagster repository, in the current directory. This CLI helps you to scaffold a new Dagster repository within a folder structure that includes multiple Dagster repositories</p></dl></section><section><h2>dagster-graphql<a>¶</a></h2><p>Run a GraphQL query against the dagster interface to a specified repository or pipeline/job.</p><p>Can only use ONE of –workspace/-w, –python-file/-f, –module-name/-m, –grpc-port, –grpc-socket.</p><p>Examples:</p><ol><p>dagster-graphql</p><p>dagster-graphql -y path/to/workspace.yaml</p><p>dagster-graphql -f path/to/file.py -a define_repo</p><p>dagster-graphql -m some_module -a define_repo</p><p>dagster-graphql -f path/to/file.py -a define_pipeline</p><p>dagster-graphql -m some_module -a define_pipeline</p></ol><pre>dagster-graphql<span>[</span>OPTIONS<span>]</span></pre><p>Options</p><dl><dt><span>--version</span><a>¶</a></dt><p>Show the version and exit.</p></dl><dl><dt><span>-t</span><span>,</span><span>--text</span><span>&lt;text&gt;</span><a>¶</a></dt><p>GraphQL document to execute passed as a string</p></dl><dl><dt><span>-f</span><span>,</span><span>--file</span><span>&lt;file&gt;</span><a>¶</a></dt><p>GraphQL document to execute passed as a file</p></dl><dl><dt><span>-p</span><span>,</span><span>--predefined</span><span>&lt;predefined&gt;
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/understanding-dagster-project-files.html
-
-Documentation Title:
-Understanding the files in your Dagster project | Dagster Docs
-
-Documentation Content:
-including:</p><ul><li>File names</li><li>What the files do</li><li>Where files should be located in a project directory</li><li>Resources for structuring your Dagster project</li></ul><h2>Default files<span>#</span></h2><p>The following demonstrates a Dagster project using the default project skeleton, <a>generated by the <code>dagster project scaffold</code>command</a>:</p><code><span>.</span>├── README.md
-├── my_dagster_project
-│   ├── __init__.py
-│   └──  assets.py
-├── my_dagster_project_tests
-├── pyproject.toml
-├── setup.cfg
-├── setup.py
-└── tox.ini
-</code><p><strong>Note</strong>: While this specific example uses a project created by scaffolding, projects created <a>using an official example</a>will also contain these files. In official examples, <code>assets.py</code>will be a subdirectory instead of a Python file.</p><p>Let's take a look at what each of these files and directories does:</p><table><tr><th>File/Directory</th><th>Description</th></tr><tbody><tr><td>my_dagster_project/</td><td>A Python module that contains Dagster code.This directory also contains the following:<table><tr><th>File/Directory</th><th>Description</th></tr><tbody><tr><td>__init__.py</td><td>The <code>__init__.py</code>file includes a<code>Definitions</code>object that contains all the definitions defined within your project. A definition can be an asset, a job, a schedule, a sensor, or a resource.
 
 
 

@@ -7,11 +7,11 @@ Creating Your First Dashboard | Superset
 Documentation Content:
 If the connection looks good, save the configuration
 by clicking the <strong>Connect</strong>button in the bottom right corner of the modal window:</p><p>Congratulations, you've just added a new data source in Superset!</p><h3>Registering a new table<a>​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong>in Superset)
-that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><img/><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
+that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
 <strong>Schema</strong>, and <strong>Table</strong>using the drop downs that appear. In the following example,
-we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><img/><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
+we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
 for how the column should be treated in the Explore workflow:</p><ul><li>Is the column temporal? (should it be used for slicing &amp; dicing in time series charts?)</li><li>Should the column be filterable?</li><li>Is the column dimensional?</li><li>If it's a datetime column, how should Superset parse
-the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><img/><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
 The Superset semantic layer can store 2 types of computed data:</p><li>Virtual metrics: you can write SQL queries that aggregate values
 from multiple column (e.g.
 
@@ -25,9 +25,9 @@ Exploring Data in Superset | Superset
 
 Documentation Content:
 Then, select the Volcanic Eruptions layer, add a short description
-Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><img/><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
 list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
-dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><img/><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><img/><p>If you wish, you can change how your annotation looks by changing the settings in the Display
+dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><p>If you wish, you can change how your annotation looks by changing the settings in the Display
 configuration section. Otherwise, select <strong>OK</strong>and finally <strong>Save</strong>to save your chart. If you keep
 the default selection to overwrite the chart, your annotation will be saved to the chart and also
 appear automatically in the Tutorial Dashboard.</p><h3>Advanced Analytics<a>​</a></h3><p>In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
@@ -39,31 +39,48 @@ chart.
 
 
 Documentation Source:
-superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.html
+superset.apache.org/docs/using-superset/exploring-data/index.html
 
 Documentation Title:
-Creating Your First Dashboard | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-To start the Explore workflow from the <strong>Datasets</strong>tab, start by clicking the name
-of the dataset that will be powering your chart.</p><img/><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
-scoped to the current dataset you selected.</li><li>The <strong>Data</strong>preview below the chart area also gives you helpful data context.</li><li>Using the <strong>Data</strong>tab and <strong>Customize</strong>tabs, you can change the visualization type,
-select the temporal column, select the metric to group by, and customize
-the aesthetics of the chart.</li></ul><p>As you customize your chart using drop-down menus, make sure to click the <strong>Run</strong>button
-to get visual feedback.</p><img/><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
-our quarterly sales data by product line just by clicking options in drop-down menus.</p><img/><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button.
+The following section
+explains how to enable this functionality for the examples database.</p><p>In the top menu, select <strong>Data ‣ Databases</strong>. Find the <strong>examples</strong>database in the list and
+select the <strong>Edit</strong>button.</p><p>In the resulting modal window, switch to the <strong>Extra</strong>tab and
+tick the checkbox for <strong>Allow Data Upload</strong>. End by clicking the <strong>Save</strong>button.</p><h3>Loading CSV Data<a>​</a></h3><p>Download the CSV dataset to your computer from
+<a>GitHub</a>.
+In the Superset menu, select <strong>Data ‣ Upload a CSV</strong>.</p><p>Then, enter the <strong>Table Name</strong>as <em>tutorial_flights</em>and select the CSV file from your computer.</p><p>Next enter the text <em>Travel Date</em>into the <strong>Parse Dates</strong>field.</p><p>Leaving all the other options in their default settings, select <strong>Save</strong>at the bottom of the page.</p><h3>Table Visualization<a>​</a></h3><p>You should now see <em>tutorial_flights</em>as a dataset in the <strong>Datasets</strong>tab. Click on the entry to
+launch an Explore workflow using this dataset.</p><p>In this section, we'll create a table visualization
+to show the number of flights and cost per travel class.</p><p>By default, Apache Superset only shows the last week of data. In our example, we want to visualize all
+of the data in the dataset. Click the <strong>Time ‣ Time Range</strong>section and change
+the <strong>Range Type</strong>to <strong>No Filter</strong>.</p><p>Click <strong>Apply</strong>to save.</p><p>Now, we want to specify the rows in our table by using the <strong>Group by</strong>option.
 
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/sql-templating/index.html
+superset.apache.org/docs/using-superset/exploring-data/index.html
 
 Documentation Title:
-SQL Templating | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-By default, the following variables are
-made available in the Jinja context:</p><ul><li><code>columns</code>: columns which to group by in the query</li><li><code>filter</code>: filters applied in the query</li><li><code>from_dttm</code>: start <code>datetime</code>value from the selected time range (<code>None</code>if undefined)</li><li><code>to_dttm</code>: end <code>datetime</code>value from the selected time range (<code>None</code>if undefined)</li><li><code>groupby</code>: columns which to group by in the query (deprecated)</li><li><code>metrics</code>: aggregate expressions in the query</li><li><code>row_limit</code>: row limit of the query</li><li><code>row_offset</code>: row offset of the query</li><li><code>table_columns</code>: columns available in the dataset</li><li><code>time_column</code>: temporal column of the query (<code>None</code>if undefined)</li><li><code>time_grain</code>: selected time grain (<code>None</code>if undefined)</li></ul><p>For example, to add a time range to a virtual dataset, you can write the following:</p><code><span><span>SELECT</span><span>*</span></span><span><span>FROM</span><span>tbl</span></span><span><span>WHERE</span><span>dttm_col </span><span>&gt;</span><span>'{{ from_dttm }}'</span><span>and</span><span>dttm_col </span><span>&lt;
+Look for the blue
+lines which indicate the anchor where the box will go.</p><p>Now, to edit the text, select the box. You can enter text, in markdown format (see
+<a>this Markdown Cheatsheet</a>for
+more information about this format). You can toggle between Edit and Preview using the menu on the
+top of the box.</p><p>To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
+<strong>Save changes</strong>.</p><h3>Publishing Your Dashboard<a>​</a></h3><p>If you have followed all of the steps outlined in the previous section, you should have a dashboard
+that looks like the below. If you would like, you can rearrange the elements of the dashboard by
+selecting <strong>Edit dashboard</strong>and dragging and dropping.</p><p>If you would like to make your dashboard available to other users, simply select Draft next to the
+title of your dashboard on the top left to change your dashboard to be in Published state. You can
+also favorite this dashboard by selecting the star.</p><h3>Annotations<a>​</a></h3><p>Annotations allow you to add additional context to your chart. In this section, we will add an
+annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
+dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
+eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).</p><p>First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
+save. We can use this layer to refer to a number of different annotations.</p><p>Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
+selecting the green plus sign.
 
 
 

@@ -7,14 +7,14 @@ Exploring Data in Superset | Superset
 Documentation Content:
 The following section
 explains how to enable this functionality for the examples database.</p><p>In the top menu, select <strong>Data ‣ Databases</strong>. Find the <strong>examples</strong>database in the list and
-select the <strong>Edit</strong>button.</p><img/><p>In the resulting modal window, switch to the <strong>Extra</strong>tab and
-tick the checkbox for <strong>Allow Data Upload</strong>. End by clicking the <strong>Save</strong>button.</p><img/><h3>Loading CSV Data<a>​</a></h3><p>Download the CSV dataset to your computer from
+select the <strong>Edit</strong>button.</p><p>In the resulting modal window, switch to the <strong>Extra</strong>tab and
+tick the checkbox for <strong>Allow Data Upload</strong>. End by clicking the <strong>Save</strong>button.</p><h3>Loading CSV Data<a>​</a></h3><p>Download the CSV dataset to your computer from
 <a>GitHub</a>.
-In the Superset menu, select <strong>Data ‣ Upload a CSV</strong>.</p><img/><p>Then, enter the <strong>Table Name</strong>as <em>tutorial_flights</em>and select the CSV file from your computer.</p><img/><p>Next enter the text <em>Travel Date</em>into the <strong>Parse Dates</strong>field.</p><img/><p>Leaving all the other options in their default settings, select <strong>Save</strong>at the bottom of the page.</p><h3>Table Visualization<a>​</a></h3><p>You should now see <em>tutorial_flights</em>as a dataset in the <strong>Datasets</strong>tab. Click on the entry to
+In the Superset menu, select <strong>Data ‣ Upload a CSV</strong>.</p><p>Then, enter the <strong>Table Name</strong>as <em>tutorial_flights</em>and select the CSV file from your computer.</p><p>Next enter the text <em>Travel Date</em>into the <strong>Parse Dates</strong>field.</p><p>Leaving all the other options in their default settings, select <strong>Save</strong>at the bottom of the page.</p><h3>Table Visualization<a>​</a></h3><p>You should now see <em>tutorial_flights</em>as a dataset in the <strong>Datasets</strong>tab. Click on the entry to
 launch an Explore workflow using this dataset.</p><p>In this section, we'll create a table visualization
 to show the number of flights and cost per travel class.</p><p>By default, Apache Superset only shows the last week of data. In our example, we want to visualize all
 of the data in the dataset. Click the <strong>Time ‣ Time Range</strong>section and change
-the <strong>Range Type</strong>to <strong>No Filter</strong>.</p><img/><p>Click <strong>Apply</strong>to save.</p><p>Now, we want to specify the rows in our table by using the <strong>Group by</strong>option.
+the <strong>Range Type</strong>to <strong>No Filter</strong>.</p><p>Click <strong>Apply</strong>to save.</p><p>Now, we want to specify the rows in our table by using the <strong>Group by</strong>option.
 
 
 
@@ -59,15 +59,15 @@ Documentation Title:
 Creating Your First Dashboard | Superset
 
 Documentation Content:
-You’ll also explore the data you’ve exposed and add a visualization to a dashboard so that you get a
-feel for the end-to-end user experience.</p><h3>Connecting to a new database<a>​</a></h3><p>Superset itself doesn't have a storage layer to store your data but instead pairs with
-your existing SQL-speaking database or data store.</p><p>First things first, we need to add the connection credentials to your database to be able
-to query and visualize data from it. If you're using Superset locally via
-<a>Docker compose</a>, you can
-skip this step because a Postgres database, named <strong>examples</strong>, is included and
-pre-configured in Superset for you.</p><p>Under the <strong>+</strong>menu in the top right, select Data, and then the <em>Connect Database</em>option:</p><img/><p>Then select your database type in the resulting modal:</p><img/><p>Once you've selected a database, you can configure a number of advanced options in this window,
-or for the purposes of this walkthrough, you can click the link below all these fields:</p><img/><p>Once you've clicked that link you only need to specify two things (the database name and SQLAlchemy URI):</p><img/><p>As noted in the text below the form, you should refer to the SQLAlchemy documentation on
-<a>creating new connection URIs</a>for your target database.</p><p>Click the <strong>Test Connection</strong>button to confirm things work end to end.
+If the connection looks good, save the configuration
+by clicking the <strong>Connect</strong>button in the bottom right corner of the modal window:</p><p>Congratulations, you've just added a new data source in Superset!</p><h3>Registering a new table<a>​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong>in Superset)
+that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong>and select the <strong>+ Dataset</strong>button in the top right corner.</p><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
+<strong>Schema</strong>, and <strong>Table</strong>using the drop downs that appear. In the following example,
+we register the <strong>cleaned_sales_data</strong>table from the <strong>examples</strong>database.</p><p>To finish, click the <strong>Add</strong>button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3>Customizing column properties<a>​</a></h3><p>Now that you've registered your dataset, you can configure column properties
+for how the column should be treated in the Explore workflow:</p><ul><li>Is the column temporal? (should it be used for slicing &amp; dicing in time series charts?)</li><li>Should the column be filterable?</li><li>Is the column dimensional?</li><li>If it's a datetime column, how should Superset parse
+the datetime format? (using the <a>ISO-8601 string pattern</a>)</li></ul><h3>Superset semantic layer<a>​</a></h3><p>Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+The Superset semantic layer can store 2 types of computed data:</p><li>Virtual metrics: you can write SQL queries that aggregate values
+from multiple column (e.g.
 
 
 

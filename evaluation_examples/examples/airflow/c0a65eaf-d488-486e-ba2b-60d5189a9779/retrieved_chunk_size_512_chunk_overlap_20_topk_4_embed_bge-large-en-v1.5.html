@@ -10,6 +10,17 @@ Note that currently the operators cannot support BigQuery <code>job_id</code>s.<
 
 
 Documentation Source:
+docs.astronomer.io/astro/cloud-ide/quickstart.html
+
+Documentation Title:
+Astro Cloud IDE quickstart | Astronomer Documentation
+
+Documentation Content:
+To enable cell runs, Astronomer support might need to set up additional cloud infrastructure for the IDE.</p></div><h2>Step 5: Create a database connection<a>​</a></h2><p>To create a SQL cell and execute SQL, first create a database to run your SQL queries against.</p><ol><p>Click the <strong>Connections</strong>tab and then click <strong>Connection</strong>.</p><p>Click <strong>NEW CONNECTION</strong>.</p><p>Choose one of the available connection types and configure all required values for the connection. Click <strong>More options</strong>to configure optional values for the connection.</p></ol><div><div>info</div><p>SQL cell query results are stored in XComs and are not accessible outside of your data pipeline. To save the results of a SQL query, run it in a SQL warehouse cell. See <a>Run SQL</a>.</p></div><ol><p>Optional. Click <strong>Test Connection</strong>. The Astro Cloud IDE runs a quick connection test and returns a status message. You can still create the connection if the test is unsuccessful.</p><p>Click <strong>Create Connection</strong>. You new connection appears in the <strong>Connections</strong>tab both in the pipeline editor and on your project homepage. You can use this connection with any future pipelines you create in this project.</p></ol><h2>Step 6: Create a SQL cell<a>​</a></h2><p>You can now write and run SQL cells with your database connection.</p><ol><p>In the <strong>Pipeline</strong>list, click the name of the pipeline you created in step 2.</p><p>Click <strong>Add Cell</strong>and select <strong>SQL</strong>.
+
+
+
+Documentation Source:
 docs.astronomer.io/learn/debugging-dags.html
 
 Documentation Title:
@@ -28,17 +39,6 @@ Data quality and Airflow | Astronomer Documentation
 
 Documentation Content:
 Astronomer recommends using SQL check operators if you want to:</p><ul><li>Write checks without needing to set up software in addition to Airflow.</li><li>Write checks as Python dictionaries and in SQL.</li><li>Use any SQL statement that returns a single row of booleans as a data quality check.</li><li>Implement many different downstream dependencies depending on the outcome of different checks.</li><li>Have full observability of which checks failed from within Airflow task logs, including the full SQL statements of failed checks.</li></ul><p>Astronomer recommends using a data validation framework such as Great Expectations or Soda in the following circumstances:</p><ul><li>You want to collect the results of your data quality checks in a central place.</li><li>You prefer to write checks in JSON (Great Expectations) or YAML (Soda).</li><li>Most or all of your checks can be implemented by the predefined checks in the solution of your choice.</li><li>You want to abstract your data quality checks from the DAG code.</li></ul><p>Currently only SQL check operators and the GreatExpectationsOperator offer data lineage extraction through <a>OpenLineage</a>.</p><h3>SQL check operators<a>​</a></h3><div><div>info</div><p>You can find more details and examples using SQL check operators in the <a>Run data quality checks using SQL check operators</a>tutorial.</p></div><p>SQL check operators execute a SQL statement that results in a set of booleans. A result of <code>True</code>leads to the check passing and the task being labeled as successful. A result of <code>False</code>, or any error when the statement is executed, leads to a failure of the task. Before using any of the operators, you need to define the <a>connection</a>to your data storage from the Airflow UI or with an external secrets manager.</p><p>The SQL check operators work with any backend solution that accepts SQL queries and supports Airflow, and differ in what kind of data quality checks they can perform and how they are defined.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-snowflake.html
-
-Documentation Title:
-Orchestrate Snowflake Queries with Airflow | Astronomer Documentation
-
-Documentation Content:
-A <a>30-day free trial</a>is available. You need to have at least one schema in one database available for which you have permissions to create and write to tables.</li></ul><h2>Step 1: Configure your Astro project<a>​</a></h2><p>Use the Astro CLI to create and run an Airflow project on your local machine.</p><ol><li><p>Create a new Astro project:</p><code><span><span>$ </span><span>mkdir</span><span>astro-snowflake-tutorial </span><span>&amp;&amp;</span><span>cd</span><span>astro-snowflake-tutorial</span></span><span>$ astro dev init</span></code></li><li><p>Run the following command to start your Airflow project:</p><span>astro dev start</span></li></ol><h2>Step 2: Configure a Snowflake connection<a>​</a></h2><ol><p>In the Airflow UI, go to <strong>Admin</strong>-&gt; <strong>Connections</strong>and click <strong>+</strong>.</p><li><p>Create a new connection and choose the <code>Snowflake</code>connection type.
 
 
 

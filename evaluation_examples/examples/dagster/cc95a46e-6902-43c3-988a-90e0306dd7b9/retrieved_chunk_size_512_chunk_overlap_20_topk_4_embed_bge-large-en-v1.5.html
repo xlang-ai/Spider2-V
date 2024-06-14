@@ -5,15 +5,8 @@ Documentation Title:
 Partitioning assets | Dagster
 
 Documentation Content:
-Materializing partition <code>2023-11-13</code>of this asset would result in fetching data from the URL <code>https://api.nasa.gov/planetary/apod?date=2023-11-13</code>and storing it at the path <code>nasa/2023-11-13.csv</code>. Note that <code>api_key=DEMO_KEY</code>is used but has a limited number of calls:</p><code><span>import</span>os
-<span>import</span>urllib<span>.</span>request
-
-<span># Create a new 'nasa' directory if needed</span>dir_name <span>=</span><span>"nasa"</span><span>if</span><span>not</span>os<span>.</span>path<span>.</span>exists<span>(</span>dir_name<span>)</span><span>:</span>os<span>.</span>makedirs<span>(</span>dir_name<span>)</span><span>from</span>dagster <span>import</span>AssetExecutionContext<span>,</span>DailyPartitionsDefinition<span>,</span>asset
-
-
-<span>@asset</span><span>(</span>partitions_def<span>=</span>DailyPartitionsDefinition<span>(</span>start_date<span>=</span><span>"2023-10-01"</span><span>)</span><span>)</span><span>def</span><span>my_daily_partitioned_asset</span><span>(</span>context<span>:</span>AssetExecutionContext<span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span>partition_date_str <span>=</span>context<span>.</span>partition_key
-
-    url <span>=</span><span><span>f"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&amp;date=</span><span><span>{</span>partition_date_str<span>}</span></span><span>"</span></span>target_location <span>=</span><span><span>f"nasa/</span><span><span>{</span>partition_date_str<span>}</span></span><span>.
+<span>@asset</span><span>(</span>partitions_def<span>=</span>DailyPartitionsDefinition<span>(</span>start_date<span>=</span><span>"2022-01-01"</span><span>)</span><span>)</span><span>def</span><span>my_daily_partitioned_asset</span><span>(</span>context<span>:</span>AssetExecutionContext<span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span>partition_date_str <span>=</span>context<span>.</span>partition_key
+    <span>return</span>pd<span>.</span>read_csv<span>(</span><span><span>f"coolweatherwebsite.com/weather_obs&amp;date=</span><span><span>{</span>partition_date_str<span>}</span></span><span>"</span></span><span>)</span></code><p>If using the default I/O manager, materializing partition <code>2022-07-23</code>of this asset would store the output <code>DataFrame</code>in a pickle file at a path like <code>my_daily_partitioned_asset/2022-07-23</code>.</p><h2>Relevant APIs<span>#</span></h2><table><tr><th>Name</th><th>Description</th></tr><tbody><tr><code>PartitionsDefinition</code><td>Superclass - defines the set of partitions that can be materialized for an asset.</td></tr><tr><code>HourlyPartitionsDefinition</code><td>A partitions definition with a partition for each hour.</td></tr><tr><code>DailyPartitionsDefinition</code><td>A partitions definition with a partition for each day.</td></tr><tr><code>WeeklyPartitionsDefinition</code><td>A partitions definition with a partition for each week.</td></tr><tr><code>MonthlyPartitionsDefinition</code><td>A partitions definition with a partition for each month.</td></tr><tr><code>StaticPartitionsDefinition</code><td>A partitions definition with a fixed set of partitions.
 
 
 
@@ -24,8 +17,15 @@ Documentation Title:
 Partitioning assets | Dagster
 
 Documentation Content:
-<span>@asset</span><span>(</span>partitions_def<span>=</span>DailyPartitionsDefinition<span>(</span>start_date<span>=</span><span>"2022-01-01"</span><span>)</span><span>)</span><span>def</span><span>my_daily_partitioned_asset</span><span>(</span>context<span>:</span>AssetExecutionContext<span>)</span><span>-</span><span>&gt;</span>pd<span>.</span>DataFrame<span>:</span>partition_date_str <span>=</span>context<span>.</span>partition_key
-    <span>return</span>pd<span>.</span>read_csv<span>(</span><span><span>f"coolweatherwebsite.com/weather_obs&amp;date=</span><span><span>{</span>partition_date_str<span>}</span></span><span>"</span></span><span>)</span></code><p>If using the default I/O manager, materializing partition <code>2022-07-23</code>of this asset would store the output <code>DataFrame</code>in a pickle file at a path like <code>my_daily_partitioned_asset/2022-07-23</code>.</p><h2>Relevant APIs<span>#</span></h2><table><tr><th>Name</th><th>Description</th></tr><tbody><tr><code>PartitionsDefinition</code><td>Superclass - defines the set of partitions that can be materialized for an asset.</td></tr><tr><code>HourlyPartitionsDefinition</code><td>A partitions definition with a partition for each hour.</td></tr><tr><code>DailyPartitionsDefinition</code><td>A partitions definition with a partition for each day.</td></tr><tr><code>WeeklyPartitionsDefinition</code><td>A partitions definition with a partition for each week.</td></tr><tr><code>MonthlyPartitionsDefinition</code><td>A partitions definition with a partition for each month.</td></tr><tr><code>StaticPartitionsDefinition</code><td>A partitions definition with a fixed set of partitions.
+Note that <code>api_key=DEMO_KEY</code>is used but has a limited number of calls:</p><code><span>import</span>os
+<span>import</span>urllib<span>.</span>request
+
+<span># Create a new 'nasa' directory if needed</span>dir_name <span>=</span><span>"nasa"</span><span>if</span><span>not</span>os<span>.</span>path<span>.</span>exists<span>(</span>dir_name<span>)</span><span>:</span>os<span>.</span>makedirs<span>(</span>dir_name<span>)</span><span>from</span>dagster <span>import</span>AssetExecutionContext<span>,</span>DailyPartitionsDefinition<span>,</span>asset
+
+
+<span>@asset</span><span>(</span>partitions_def<span>=</span>DailyPartitionsDefinition<span>(</span>start_date<span>=</span><span>"2023-10-01"</span><span>)</span><span>)</span><span>def</span><span>my_daily_partitioned_asset</span><span>(</span>context<span>:</span>AssetExecutionContext<span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span>partition_date_str <span>=</span>context<span>.</span>partition_key
+
+    url <span>=</span><span><span>f"https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&amp;date=</span><span><span>{</span>partition_date_str<span>}</span></span><span>"</span></span>target_location <span>=</span><span><span>f"nasa/</span><span><span>{</span>partition_date_str<span>}</span></span><span>.csv"</span></span>urllib<span>.</span>request<span>.</span>urlretrieve<span>(</span>url<span>,</span>target_location<span>)</span></code><p>In the following sections,
 
 
 

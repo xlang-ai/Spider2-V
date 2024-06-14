@@ -5,7 +5,7 @@ Documentation Title:
 Using Dagster Pipes, Part two: Modify external code | Dagster Docs
 
 Documentation Content:
-Refer to the <a>Asset Checks</a>documentation for more information.</p><p>If your asset has data quality checks defined, you can report to Dagster that an asset check has been performed via <code>PipesContext.report_asset_check</code>:</p><div><div><button>Report from the external code</button><button>Define the asset in the Dagster code</button></div><code><span>import</span>pandas <span>as</span>pd
+Refer to the <a>Asset Checks</a>documentation for more information.</p><p>If your asset has data quality checks defined, you can report to Dagster that an asset check has been performed via <code>PipesContext.report_asset_check</code>:</p><div><div><button>Report from the external code</button><button>Define the asset in the Dagster code</button></div><div><code><span>import</span>pandas <span>as</span>pd
 <span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
 
 
@@ -20,11 +20,8 @@ Documentation Title:
 Using Dagster Pipes, Part two: Modify external code | Dagster Docs
 
 Documentation Content:
-</span>report_asset_check<span>(</span>passed<span>=</span>orders_df<span>[</span><span>[</span><span>"item_id"</span><span>]</span><span>]</span><span>.</span>notnull<span>(</span><span>)</span><span>.</span><span>all</span><span>(</span><span>)</span><span>.</span><span>bool</span><span>(</span><span>)</span><span>,</span>check_name<span>=</span><span>"no_empty_order_check"</span><span>,</span><span>)</span><span>if</span>__name__ <span>==</span><span>"__main__"</span><span>:</span><span># connect to Dagster Pipes</span><span>with</span>open_dagster_pipes<span>(</span><span>)</span><span>:</span>main<span>(</span><span>)</span></code></div><p>When Dagster executes the code, you’ll see an asset check event with the check result in the UI:</p><img/><p>This check result will also be displayed on the <strong>Checks</strong>tab of the <strong>Asset Details</strong>page in the UI:</p><img/><h2>Finished code<span>#</span></h2><p>At this point, your two files should look like the following:</p><div><div><button>External code in external_code.py</button><button>Dagster code in dagster_code.py</button></div><code><span>import</span>pandas <span>as</span>pd
+This will show only the logs marked as <strong>info</strong>level.</li></ol><h2>Step 3: Send structured metadata to Dagster<span>#</span></h2><p>Sometimes, you may want to log information from your external code as structured metadata shown in the Dagster UI. Dagster Pipes context also comes with the ability to log structured metadata back to Dagster.</p><h3>Report asset materialization<span>#</span></h3><p>Similar to <a>reporting materialization metadata within the Dagster process</a>, you can also report asset materialization back to Dagster from the external process.</p><p>In this example, we’re passing a piece of metadata named <code>total_orders</code>to the <code>metadata</code>parameter of the <code>PipesContext.report_asset_materialization</code>. This payload will be sent from the external process back to Dagster:</p><code><span>import</span>pandas <span>as</span>pd
 <span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
-
-
-<span>def</span><span>main</span><span>(</span><span>)</span><span>:</span>orders_df <span>=</span>pd<span>.
 
 
 
@@ -35,8 +32,12 @@ Documentation Title:
 Using Dagster Pipes, Part two: Modify external code | Dagster Docs
 
 Documentation Content:
-This will show only the logs marked as <strong>info</strong>level.</li></ol><img/><h2>Step 3: Send structured metadata to Dagster<span>#</span></h2><p>Sometimes, you may want to log information from your external code as structured metadata shown in the Dagster UI. Dagster Pipes context also comes with the ability to log structured metadata back to Dagster.</p><h3>Report asset materialization<span>#</span></h3><p>Similar to <a>reporting materialization metadata within the Dagster process</a>, you can also report asset materialization back to Dagster from the external process.</p><p>In this example, we’re passing a piece of metadata named <code>total_orders</code>to the <code>metadata</code>parameter of the <code>PipesContext.report_asset_materialization</code>. This payload will be sent from the external process back to Dagster:</p><code><span>import</span>pandas <span>as</span>pd
+</span>which<span>(</span><span>"python"</span><span>)</span><span>,</span>file_relative_path<span>(</span>__file__<span>,</span><span>"external_code.py"</span><span>)</span><span>,</span><span>]</span><span>return</span>pipes_subprocess_client<span>.</span>run<span>(</span>command<span>=</span>cmd<span>,</span>context<span>=</span>context
+    <span>)</span><span>.</span>get_materialize_result<span>(</span><span>)</span>defs <span>=</span>Definitions<span>(</span>assets<span>=</span><span>[</span>subprocess_asset<span>]</span><span>,</span>resources<span>=</span><span>{</span><span>"pipes_subprocess_client"</span><span>:</span>PipesSubprocessClient<span>(</span><span>)</span><span>}</span><span>,</span><span>)</span></code></div></div><p>When Dagster executes the code, you’ll see an asset check event with the check result in the UI:</p><p>This check result will also be displayed on the <strong>Checks</strong>tab of the <strong>Asset Details</strong>page in the UI:</p><h2>Finished code<span>#</span></h2><p>At this point, your two files should look like the following:</p><div><div><button>External code in external_code.py</button><button>Dagster code in dagster_code.py</button></div><div><code><span>import</span>pandas <span>as</span>pd
 <span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
+
+
+<span>def</span><span>main</span><span>(</span><span>)</span><span>:</span>orders_df <span>=</span>pd<span>.
 
 
 
@@ -47,8 +48,12 @@ Documentation Title:
 Dagster Pipes subprocess reference | Dagster Docs
 
 Documentation Content:
-When your asset has data quality checks defined in <code>@asset_check</code>:</p><div><div><button>External code in external_code.py</button><button>Dagster code in dagster_code.py</button></div><div><p>From the external code, you can report to Dagster that an asset check has been performed via <code>PipesContext.report_asset_check</code>. Note that <code>asset_key</code>in this case is required, and must match the asset key defined in <code>@asset_check</code>:</p><code><span>import</span>pandas <span>as</span>pd
+Asset has already been materialized, so no additional data can be reported <span>for</span>it
+</code><p>Instead, you’ll need to set the <code>asset_key</code>parameter for each instance of <code>PipesContext.report_asset_materialization</code>:</p><code><span>import</span>pandas <span>as</span>pd
 <span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
+
+
+<span>def</span><span>main</span><span>(</span><span>)</span><span>:</span>orders_df <span>=</span>pd<span>.</span>DataFrame<span>(</span><span>{</span><span>"order_id"</span><span>:</span><span>[</span><span>1</span><span>,</span><span>2</span><span>,</span><span>3</span><span>]</span><span>,</span><span>"item_id"</span><span>:</span><span>[</span><span>432</span><span>,</span><span>878</span><span>,</span><span>102</span><span>]</span><span>,</span><span>"user_id"</span><span>:</span><span>[</span><span>"a"</span><span>,</span><span>"b"</span><span>,</span><span>"a"</span><span>]</span><span>}</span><span>)</span>total_orders <span>=</span><span>len</span><span>(</span>orders_df<span>)</span>total_users <span>=</span>orders_df<span>[</span><span>"user_id"</span><span>]</span><span>.</span>nunique<span>(</span><span>)</span><span># get the Dagster Pipes context</span>context <span>=</span>PipesContext<span>.</span>get<span>(</span><span>)</span><span># send structured metadata back to Dagster.
 
 
 

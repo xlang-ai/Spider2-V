@@ -6,8 +6,8 @@ Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
 
 Documentation Content:
 For simplicity,
-store your dataset in the same location.</p></li><li><p>Leave the remaining default settings as they are, and click
-<strong>Create dataset</strong>.</p><img/></li></ul></li></ol><h2>Create your model</h2><p>Next, you create a logistic regression model using the Analytics sample
+store your dataset in the same location.</p></li><p>Leave the remaining default settings as they are, and click
+<strong>Create dataset</strong>.</p></ul></li></ol><h2>Create your model</h2><p>Next, you create a logistic regression model using the Analytics sample
 dataset for BigQuery.</p><div><section><h3>SQL </h3><p>The following GoogleSQL query is used to
 create the model you use to predict whether a website visitor will make a
 transaction.</p><pre>#standardSQL
@@ -66,7 +66,7 @@ Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
 Documentation Content:
 The date range
 scanned is August 1, 2016 to June 30, 2017.</p><strong>Run the <code>CREATE MODEL</code>query</strong><p>To run the <code>CREATE MODEL</code>query to create and train your model:</p><li>In the Google Cloud console, click the <strong>Compose new query</strong>button. If this text is
-unavailable to click, then the <strong>Query editor</strong>is already open.</li><img/><ol><li><p>Enter the following GoogleSQL query in the <strong>Query editor</strong>text area.</p><pre>#standardSQL
+unavailable to click, then the <strong>Query editor</strong>is already open.</li><ol><li><p>Enter the following GoogleSQL query in the <strong>Query editor</strong>text area.</p><pre>#standardSQL
 CREATE MODEL `bqml_tutorial.sample_model`
 OPTIONS(model_type='logistic_reg') AS
 SELECT

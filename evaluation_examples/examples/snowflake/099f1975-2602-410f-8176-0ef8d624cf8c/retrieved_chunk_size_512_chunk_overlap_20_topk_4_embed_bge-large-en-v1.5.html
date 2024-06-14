@@ -20,7 +20,7 @@ Documentation Title:
 Visualizing worksheet data | Snowflake Documentation
 
 Documentation Content:
-These functions are as follows:</p><ul><p>average</p><p>count</p><p>minimum</p><p>maximum</p><p>median</p><p>mode</p><p>sum</p></ul></section><section><h2>Download charts<a>¶</a></h2><p>Snowsight provides PNG-formatted files of charts.</p><p>To download a chart, select <span>Download chart</span>(<img/>).</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><aside><div><p>On this page</p><ol><a>Create a chart</a><a>Modify a chart</a><a>Charts and new query results</a><a>Aggregate and bucket data</a><a>Download charts</a></ol></div><div><p>Related content</p><ol><a>Getting started with Snowsight</a><a>Managing and using worksheets in Snowsight</a><a>Getting started with worksheets</a><a>Querying data using worksheets</a><a>Visualizing data with dashboards</a></ol></div></aside></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+These functions are as follows:</p><ul><p>average</p><p>count</p><p>minimum</p><p>maximum</p><p>median</p><p>mode</p><p>sum</p></ul></section><section><h2>Download charts<a>¶</a></h2><p>Snowsight provides PNG-formatted files of charts.</p><p>To download a chart, select <span>Download chart</span>().</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><aside><div><p>On this page</p><ol><a>Create a chart</a><a>Modify a chart</a><a>Charts and new query results</a><a>Aggregate and bucket data</a><a>Download charts</a></ol></div><div><p>Related content</p><ol><a>Getting started with Snowsight</a><a>Managing and using worksheets in Snowsight</a><a>Getting started with worksheets</a><a>Querying data using worksheets</a><a>Visualizing data with dashboards</a></ol></div></aside></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
 
 
 
@@ -38,14 +38,16 @@ query results. Each query supports one type of chart at a time.</p><p>Hover over
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.html
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.html
 
 Documentation Title:
-Visualizing worksheet data | Snowflake Documentation
+Getting started with worksheets | Snowflake Documentation
 
 Documentation Content:
-For example, you can view your results as a line chart:</p><img/><p>You can modify the type of chart used to display your query results.</p><li><p>Select the chart type to choose a different type, for example, <span>Bar</span>.</p><img/></li><p>You can manage the columns in your chart with the <span>Data</span>section:</p><img/><p>Select a column to modify the column attributes:</p><ul><p>Add or remove columns.</p><p>Choose a different column in the query results to use in the chart.</p><li><p>Modify how column data is represented in the chart. For example, change the bucketing for a time column from day to minutes.</p><img/><p>You can modify the column attributes to configure how data in that column is rendered in the chart. See <span>Aggregate and bucket data</span>for more details about managing aggregate data.</p></li></ul><p>Style your chart in the <span>Appearance</span>section. The available settings depend on the type of chart. For example, for a heatgrid
-chart:</p><img/><p>The exact content of your charts depends on your query results.
+If you make updates to a SQL worksheet in Snowsight, the changes are not reflected in the Classic Console, and vice versa.</p></section></section><section><h2>Create worksheets in Snowsight<a>¶</a></h2><p>To create a worksheet in Snowsight, do the following:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Select <span>+</span>and select <span>SQL Worksheet</span>or <span>Python Worksheet</span>to create a worksheet.</p></ol><p>The worksheet opens in the same window with the date and time of creation as the default title.</p><p>You can then start writing in your worksheet. For a SQL worksheet, <span>start writing queries</span>.
+For a Python worksheet, <span>start writing code</span>.</p><section><h3>Create worksheets from a SQL file<a>¶</a></h3><p>To create a SQL worksheet from an existing SQL file, do the following:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Select the <span>…</span>more menu » <span>Create Worksheet from SQL File</span>.</p><p>Browse to the SQL file to upload.</p><p>A new worksheet opens with a title that matches the file name.</p></ol><p>You can also add a SQL file to an existing SQL worksheet. Refer to <span>Append a SQL script to an existing worksheet</span>.</p></section></section><section><h2>Opening worksheets in tabs<a>¶</a></h2><p>You can use tabs to refer to multiple active worksheets and explore the databases and schemas in Snowflake while writing SQL
+statements or Python code in Snowsight. Your scroll position is preserved in each tab, making comparisons across worksheets easier
+to perform.
 
 
 

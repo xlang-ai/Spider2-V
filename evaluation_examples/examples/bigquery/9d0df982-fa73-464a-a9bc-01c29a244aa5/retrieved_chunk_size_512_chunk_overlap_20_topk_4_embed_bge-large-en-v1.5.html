@@ -11,34 +11,12 @@ features at no charge.</p><li><p>Ensure that the BigQuery API is enabled.</p><a>
     enabled.</p></li></ol></section><section><h2>Open a public dataset</h2><p>BigQuery public datasets are available by default in the
 Google Cloud console.</p><p>In the following example, you access datasets in the public project
 <code>bigquery-public-data</code>.</p><ol><li><p>In the Google Cloud console, go to the
-<strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>pane, click <strong>+Add</strong>.</p><p>In the <strong>Add</strong>dialog, search <code>public datasets</code>, and then click <img/><strong>Public Datasets</strong>.</p><li><p>Select a dataset, and then click <strong>View dataset</strong>.</p><p>In the <strong>Explorer</strong>pane, your dataset is selected and you can view its
+<strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>pane, click <strong>+Add</strong>.</p><p>In the <strong>Add</strong>dialog, search <code>public datasets</code>, and then click <strong>Public Datasets</strong>.</p><li><p>Select a dataset, and then click <strong>View dataset</strong>.</p><p>In the <strong>Explorer</strong>pane, your dataset is selected and you can view its
 details.</p></li><li><p>Optional: Click <span>more_vert</span><strong>View actions</strong>next to your dataset to view more options.</p><p>Each dataset contains tables, which you can view by clicking
 <span>arrow_right</span><strong>Toggle node</strong>next to any dataset.</p></li></ol><h2>Query a public dataset</h2><p>In the following steps, you query the USA Names public dataset to determine
 the most common names in the United States between 1910 and 2013:</p><ol><li><p>In the Google Cloud console, go to the
 <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>Go to the
-<strong>Editor</strong>field.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-pandas-public-data-sandbox.html
-
-Documentation Title:
-Download public table data to DataFrame from the sandbox  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-a dataset and grant access to it</span><span>Create a dataset in BigQuery.</span><span>Create a dataset with a customer-managed encryption key</span><span>Create a job</span><span>Create a model</span><span>Create a regression model with BigQuery DataFrames</span><span>Create a routine</span><span>Create a routine with DDL</span><span>Create a table</span><span>Create a table using a template</span><span>Create a view</span><span>Create a view with DDL</span><span>Create an authorized view</span><span>Create an integer-range partitioned table</span><span>Create credentials with scopes</span><span>Create external table with hive partitioning</span><span>Create IAM policy</span><span>Create materialized view</span><span>Create table with schema</span><span>Delete a dataset</span><span>Delete a dataset and its contents</span><span>Delete a label from a dataset</span><span>Delete a label from a table</span><span>Delete a model</span><span>Delete a routine</span><span>Delete a table</span><span>Delete materialized view</span><span>Deploy and apply a remote function using BigQuery DataFrames</span><span>Disable query cache</span><span>Download public table data to DataFrame</span><span>Download public table data to DataFrame from the sandbox</span><span>Download query results to a GeoPandas GeoDataFrame</span><span>Download query results to DataFrame</span><span>Download table data to DataFrame</span><span>Dry run query</span><span>Enable large results</span><span>Export a model</span><span>Export a table to a compressed file</span><span>Export a table to a CSV file</span><span>Export a table to a JSON file</span><span>Generate text with the BigQuery DataFrames API</span><span>Get a model</span><span>Get a routine</span><span>Get dataset labels</span><span>Get dataset properties</span><span>Get job properties</span><span>Get table labels</span><span>Get table properties</span><span>Get view properties</span><span>Grant view
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-pandas-public-data.html
-
-Documentation Title:
-Download public table data to DataFrame  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-a dataset and grant access to it</span><span>Create a dataset in BigQuery.</span><span>Create a dataset with a customer-managed encryption key</span><span>Create a job</span><span>Create a model</span><span>Create a regression model with BigQuery DataFrames</span><span>Create a routine</span><span>Create a routine with DDL</span><span>Create a table</span><span>Create a table using a template</span><span>Create a view</span><span>Create a view with DDL</span><span>Create an authorized view</span><span>Create an integer-range partitioned table</span><span>Create credentials with scopes</span><span>Create external table with hive partitioning</span><span>Create IAM policy</span><span>Create materialized view</span><span>Create table with schema</span><span>Delete a dataset</span><span>Delete a dataset and its contents</span><span>Delete a label from a dataset</span><span>Delete a label from a table</span><span>Delete a model</span><span>Delete a routine</span><span>Delete a table</span><span>Delete materialized view</span><span>Deploy and apply a remote function using BigQuery DataFrames</span><span>Disable query cache</span><span>Download public table data to DataFrame</span><span>Download public table data to DataFrame from the sandbox</span><span>Download query results to a GeoPandas GeoDataFrame</span><span>Download query results to DataFrame</span><span>Download table data to DataFrame</span><span>Dry run query</span><span>Enable large results</span><span>Export a model</span><span>Export a table to a compressed file</span><span>Export a table to a CSV file</span><span>Export a table to a JSON file</span><span>Generate text with the BigQuery DataFrames API</span><span>Get a model</span><span>Get a routine</span><span>Get dataset labels</span><span>Get dataset properties</span><span>Get job properties</span><span>Get table labels</span><span>Get table properties</span><span>Get view properties</span><span>Grant view
+<strong>Editor</strong>field.</p><p>If the <strong>Editor</strong>field is not visible,
 
 
 
@@ -54,8 +32,40 @@ steps:</p><ol><li><p>In the Google Cloud console, go to the BigQuery page.</p><a
 name.</p><p>In the details panel, click <span>more_vert</span><strong>View actions</strong>, and then click <strong>Create dataset</strong>.</p><li><p>On the <strong>Create dataset</strong>page, do the following:</p><ul><li>For <strong>Dataset ID</strong>, enter <code>biengine_tutorial</code>.</li><p>For <strong>Data location</strong>, choose <strong>us (multiple regions in United
 States)</strong>, the <a>multi-region
 location</a>where public datasets
-are stored.</p><li><p>For this tutorial, you can select <strong>Enable table expiration</strong>, and then
-specify the number of days before the table expires.</p><img/></li></ul></li><p>Leave all of the other default settings in place and click <strong>Create dataset</strong>.</p></ol><h2>Create a table by copying data from a public dataset</h2><p>This tutorial uses a dataset available through the
+are stored.</p><p>For this tutorial, you can select <strong>Enable table expiration</strong>, and then
+specify the number of days before the table expires.</p></ul></li><p>Leave all of the other default settings in place and click <strong>Create dataset</strong>.</p></ol><h2>Create a table by copying data from a public dataset</h2><p>This tutorial uses a dataset available through the
+<a>Google Cloud Public Dataset Program</a>. Public datasets
+are datasets that BigQuery hosts for you to access and integrate
+into your applications.</p><p>In this section, you create a table by copying data from the
+<a>San Francisco 311 service requests</a>dataset.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-pandas-public-data-sandbox.html
+
+Documentation Title:
+Download public table data to DataFrame from the sandbox  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+a dataset and grant access to it</span><span>Create a dataset in BigQuery.</span><span>Create a dataset with a customer-managed encryption key</span><span>Create a job</span><span>Create a model</span><span>Create a regression model with BigQuery DataFrames</span><span>Create a routine</span><span>Create a routine with DDL</span><span>Create a table</span><span>Create a table using a template</span><span>Create a view</span><span>Create a view with DDL</span><span>Create an authorized view</span><span>Create an integer-range partitioned table</span><span>Create credentials with scopes</span><span>Create external table with hive partitioning</span><span>Create IAM policy</span><span>Create materialized view</span><span>Create table with schema</span><span>Delete a dataset</span><span>Delete a dataset and its contents</span><span>Delete a label from a dataset</span><span>Delete a label from a table</span><span>Delete a model</span><span>Delete a routine</span><span>Delete a table</span><span>Delete materialized view</span><span>Deploy and apply a remote function using BigQuery DataFrames</span><span>Disable query cache</span><span>Download public table data to DataFrame</span><span>Download public table data to DataFrame from the sandbox</span><span>Download query results to a GeoPandas GeoDataFrame</span><span>Download query results to DataFrame</span><span>Download table data to DataFrame</span><span>Dry run query</span><span>Enable large results</span><span>Export a model</span><span>Export a table to a compressed file</span><span>Export a table to a CSV file</span><span>Export a table to a JSON file</span><span>Generate text with the BigQuery DataFrames API</span><span>Get a model</span><span>Get a routine</span><span>Get dataset labels</span><span>Get dataset properties</span><span>Get job properties</span><span>Get table labels</span><span>Get table properties</span><span>Get view properties</span><span>Grant view
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/bi-engine-looker-studio.html
+
+Documentation Title:
+Quickstart using Looker Studio  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+To create your dataset, follow these
+steps:</p><ol><li><p>In the Google Cloud console, go to the BigQuery page.</p><a>Go to BigQuery</a></li><p>In the navigation panel, in the <strong>Explorer</strong>panel, click your project
+name.</p><p>In the details panel, click <span>more_vert</span><strong>View actions</strong>, and then click <strong>Create dataset</strong>.</p><li><p>On the <strong>Create dataset</strong>page, do the following:</p><ul><li>For <strong>Dataset ID</strong>, enter <code>biengine_tutorial</code>.</li><p>For <strong>Data location</strong>, choose <strong>us (multiple regions in United
+States)</strong>, the <a>multi-region
+location</a>where public datasets
+are stored.</p><p>For this tutorial, you can select <strong>Enable table expiration</strong>, and then
+specify the number of days before the table expires.</p></ul></li><p>Leave all of the other default settings in place and click <strong>Create dataset</strong>.</p></ol><h2>Create a table by copying data from a public dataset</h2><p>This tutorial uses a dataset available through the
 <a>Google Cloud Public Dataset Program</a>. Public datasets
 are datasets that BigQuery hosts for you to access and integrate
 into your applications.</p><p>In this section, you create a table by copying data from the

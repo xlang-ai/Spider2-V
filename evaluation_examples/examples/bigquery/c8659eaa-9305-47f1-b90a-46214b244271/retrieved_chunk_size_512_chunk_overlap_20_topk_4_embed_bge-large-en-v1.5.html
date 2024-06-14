@@ -1,4 +1,30 @@
 Documentation Source:
+cloud.google.com/bigquery/docs/visualize-looker-studio.html
+
+Documentation Title:
+Analyze data with Looker Studio  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+This is useful if you want to modify the data in
+BigQuery before working with it in Looker Studio,
+or if you only need a subset of the fields in the table.</p><aside><strong>Note:</strong><span>You can visualize a maximum of 5,000 rows of data in
+Looker Studio charts.</span></aside><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Select your <a>billing project</a>.</p><p>In the <strong>Explorer</strong>pane, enter <code>bikeshare_trips</code>in the
+<strong>Type to search</strong>field.</p><p>Go to <strong>bigquery-public-data <span>&gt;</span>austin_bikeshare <span>&gt;</span>bikeshare_trips</strong>.</p><p>Click <span>more_vert</span><strong>View actions</strong>,
+and then click <strong>Query</strong>.</p><li><p>In the query editor, construct your query. For example:</p><pre>SELECT
+  *
+FROM
+  `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+LIMIT
+  1000;
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p><p>In the <strong>Query results</strong>section, click <strong>Explore data</strong>, and then click
+<strong>Explore with Looker Studio</strong>.</p><p>On the <strong>Welcome to Looker Studio</strong>page, click
+<strong>Get Started</strong>if you agree to the Google Looker Studio and
+Google Terms of Service.</p><li><p>On the <strong>Authorize Looker Studio access</strong>page, click <strong>Authorize</strong>to authorize the connection if you agree to the terms of service, and
+then select your marketing preferences.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/kmeans-tutorial.html
 
 Documentation Title:
@@ -7,7 +33,7 @@ Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  
 Documentation Content:
 The results tab shows the columns you queried that are used to train
 your model: <code>station_name</code>, <code>duration</code>, <code>num_trips</code>, <code>distance_from_city_center</code>.
-The results should look like the following.</p></ol><img/></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
+The results should look like the following.</p></ol></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
     setup instructions in the <a>BigQuery quickstart
     using BigQuery DataFrames</a>.
     For more information, see the
@@ -43,32 +69,6 @@ s = bpd.read_gbq(
     # data. These functions determine spatial relationships between
     # geographical features.
     """
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/visualize-looker-studio.html
-
-Documentation Title:
-Analyze data with Looker Studio  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-This is useful if you want to modify the data in
-BigQuery before working with it in Looker Studio,
-or if you only need a subset of the fields in the table.</p><aside><strong>Note:</strong><span>You can visualize a maximum of 5,000 rows of data in
-Looker Studio charts.</span></aside><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Select your <a>billing project</a>.</p><p>In the <strong>Explorer</strong>pane, enter <code>bikeshare_trips</code>in the
-<strong>Type to search</strong>field.</p><p>Go to <strong>bigquery-public-data <span>&gt;</span>austin_bikeshare <span>&gt;</span>bikeshare_trips</strong>.</p><p>Click <span>more_vert</span><strong>View actions</strong>,
-and then click <strong>Query</strong>.</p><li><p>In the query editor, construct your query. For example:</p><pre>SELECT
-  *
-FROM
-  `bigquery-public-data.austin_bikeshare.bikeshare_trips`
-LIMIT
-  1000;
-</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p><li><p>In the <strong>Query results</strong>section, click <strong>Explore data</strong>, and then click
-<strong>Explore with Looker Studio</strong>.</p><img/></li><p>On the <strong>Welcome to Looker Studio</strong>page, click
-<strong>Get Started</strong>if you agree to the Google Looker Studio and
-Google Terms of Service.</p><li><p>On the <strong>Authorize Looker Studio access</strong>page, click <strong>Authorize</strong>to authorize the connection if you agree to the terms of service, and
-then select your marketing preferences.
 
 
 

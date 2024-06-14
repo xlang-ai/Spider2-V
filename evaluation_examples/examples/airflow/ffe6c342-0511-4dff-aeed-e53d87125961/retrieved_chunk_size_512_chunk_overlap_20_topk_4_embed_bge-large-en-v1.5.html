@@ -21,6 +21,17 @@ py</code>.</p><li><p>Copy and paste the following DAG code into the file:</p><co
 
 
 Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.html
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Object storage</div></a><a><div>Next</div><div>Use the Astro Python SDK</div></a></nav></div><ul><a>Time to complete</a><a>Assumed knowledge</a><a>Prerequisites</a><a>Step 1: Configure your Astro project</a><a>Step 2: Create a connection to SQLite</a><a>Step 3: Add a SQL file with a custom check</a><a>Step 4: Create a DAG using SQL check operators</a><li><a>How it works</a><ul><a>SQLColumnCheckOperator</a><a>SQLTableCheckOperator</a><a>SQLCheckOperator</a><code>partition_clause</code></ul></li></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div>
+
+
+
+Documentation Source:
 docs.astronomer.io/learn/data-quality.html
 
 Documentation Title:
@@ -28,17 +39,6 @@ Data quality and Airflow | Astronomer Documentation
 
 Documentation Content:
 Astronomer recommends using SQL check operators if you want to:</p><ul><li>Write checks without needing to set up software in addition to Airflow.</li><li>Write checks as Python dictionaries and in SQL.</li><li>Use any SQL statement that returns a single row of booleans as a data quality check.</li><li>Implement many different downstream dependencies depending on the outcome of different checks.</li><li>Have full observability of which checks failed from within Airflow task logs, including the full SQL statements of failed checks.</li></ul><p>Astronomer recommends using a data validation framework such as Great Expectations or Soda in the following circumstances:</p><ul><li>You want to collect the results of your data quality checks in a central place.</li><li>You prefer to write checks in JSON (Great Expectations) or YAML (Soda).</li><li>Most or all of your checks can be implemented by the predefined checks in the solution of your choice.</li><li>You want to abstract your data quality checks from the DAG code.</li></ul><p>Currently only SQL check operators and the GreatExpectationsOperator offer data lineage extraction through <a>OpenLineage</a>.</p><h3>SQL check operators<a>​</a></h3><div><div>info</div><p>You can find more details and examples using SQL check operators in the <a>Run data quality checks using SQL check operators</a>tutorial.</p></div><p>SQL check operators execute a SQL statement that results in a set of booleans. A result of <code>True</code>leads to the check passing and the task being labeled as successful. A result of <code>False</code>, or any error when the statement is executed, leads to a failure of the task. Before using any of the operators, you need to define the <a>connection</a>to your data storage from the Airflow UI or with an external secrets manager.</p><p>The SQL check operators work with any backend solution that accepts SQL queries and supports Airflow, and differ in what kind of data quality checks they can perform and how they are defined.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-sql-data-quality.html
-
-Documentation Title:
-Run data quality checks using SQL check operators | Astronomer Documentation
-
-Documentation Content:
-</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Object storage</div></a><a><div>Next</div><div>Use the Astro Python SDK</div></a></nav></div><ul><a>Time to complete</a><a>Assumed knowledge</a><a>Prerequisites</a><a>Step 1: Configure your Astro project</a><a>Step 2: Create a connection to SQLite</a><a>Step 3: Add a SQL file with a custom check</a><a>Step 4: Create a DAG using SQL check operators</a><li><a>How it works</a><ul><a>SQLColumnCheckOperator</a><a>SQLTableCheckOperator</a><a>SQLCheckOperator</a><code>partition_clause</code></ul></li></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
 
 
 

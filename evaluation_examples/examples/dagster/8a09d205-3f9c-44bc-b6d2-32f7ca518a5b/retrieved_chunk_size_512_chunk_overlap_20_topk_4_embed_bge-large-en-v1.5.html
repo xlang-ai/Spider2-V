@@ -43,13 +43,16 @@ defs <span>=</span>Definitions<span>(</span>assets<span>=</span><span>[</span>ra
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/load-dbt-models.html
+release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/set-up-dbt-project.html
 
 Documentation Title:
-Using Dagster with dbt, part 2: Load dbt models as Dagster assets
+Using Dagster with dbt, part 1: Set up the dbt project
 
 Documentation Content:
-Materializing an asset means running some computation to update its contents in persistent storage. In this tutorial, that persistent storage is our local DuckDB database.</p><p>To build your dbt project, i.e. materialize your assets, click the <strong>Materialize all</strong>button near the top right corner of the page. This will launch a run to materialize the assets. When finished, the <strong>Materialized</strong>and <strong>Latest Run</strong>attributes in the asset will be populated:</p><img/><p>After the run completes, you can:</p><ul><li>Click the <strong>asset</strong>to open a sidebar containing info about the asset, including its last materialization stats and a link to view the <a><strong>Asset details</strong>page</a></li><li>Click the ID of the <strong>Latest Run</strong>in an asset to view the <strong>Run details</strong>page. This page contains detailed info about the run, including timing information, errors, and logs.</li></ul><h2>Step 4: Understand the Python code in your Dagster project<span>#</span></h2><p>You saw how you can create a Dagster project that loads a dbt project. How does this work? Understanding how Dagster loads a dbt project will give you a foundation for customizing how Dagster runs your dbt project, as well as for connecting it to other data assets outside of dbt.</p><p>The most important file is the Python file that contains the set of definitions for Dagster to load: <code>jaffle_shop/definitions.py</code>. Dagster executes the code in this file to find out what assets it should be aware of, as well as details about those assets.
+You'll get a dbt project running on your computer.</p><p>In this part, you'll:</p><ul><a>Download a dbt project</a><a>Configure your dbt project to run with DuckDB</a><a>Build your dbt project</a></ul><h2>Step 1: Download the sample dbt project<span>#</span></h2><p>Let's get started by downloading a sample dbt project. We'll use the standard dbt <a>Jaffle Shop</a>example.</p><ol><li><p>First, create a folder that will ultimately contain both your dbt project and Dagster code.</p><code><span>mkdir</span>tutorial-dbt-dagster
+</code></li><li><p>Then, navigate into that folder:</p><code><span>cd</span>tutorial-dbt-dagster
+</code></li><li><p>Finally, download the sample dbt project into that folder.</p><code><span>git</span>clone https://github.com/dbt-labs/jaffle_shop.git
+</code></li></ol><h2>Step 2: Configure your dbt project to run with DuckDB<span>#</span></h2><p>Running dbt requires a data warehouse to store the tables that are created from the dbt models.
 
 
 

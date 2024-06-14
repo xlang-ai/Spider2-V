@@ -5,7 +5,7 @@ Documentation Title:
 Using Worksheets for Queries / DML / DDL | Snowflake Documentation
 
 Documentation Content:
-Copy and paste the contents of individual worksheets into files that you can safeguard. Backing up your worksheets prevents them from accidental deletion.</p><p>Worksheet metadata is stored in the Snowflake user stage, in the <span>worksheet_data</span>directory. Executing the <span>REMOVE</span>command and removing the <span>worksheet_data</span>directory deletes your own worksheets, which cannot be restored.</p><div><p>Note</p><p>This precaution applies to worksheets in the <span>Worksheets</span><img/>tab in the Classic Console only.
+Copy and paste the contents of individual worksheets into files that you can safeguard. Backing up your worksheets prevents them from accidental deletion.</p><p>Worksheet metadata is stored in the Snowflake user stage, in the <span>worksheet_data</span>directory. Executing the <span>REMOVE</span>command and removing the <span>worksheet_data</span>directory deletes your own worksheets, which cannot be restored.</p><div><p>Note</p><p>This precaution applies to worksheets in the <span>Worksheets</span>tab in the Classic Console only.
 Worksheets in <span>Snowsight</span>are stored elsewhere and are not prone to accidental deletion.</p></div></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Overview of Features</a><a>Saving and Managing Worksheets</a><a>Using the Object Browser</a><a>Managing Warehouses</a><a>Managing Queries</a><a>Formatting Queries Using Keyboard Shortcuts</a><a>Backing Up Your Own Worksheets</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
 
 
@@ -23,6 +23,21 @@ table, which lists the IDs of the bicycles to be deleted from the leased_bicycle
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-upgrade-migrate.html
+
+Documentation Title:
+Upgrading to Snowsight from Classic Console | Snowflake Documentation
+
+Documentation Content:
+If you don’t see the object explorer, select <span>Open sidebar</span>.</p><p>Locate the database and schema that contain the table you want to preview, and then select the table.</p><li><p>In the table details section that appears, select (<span>Preview table</span>).</p><p>A data preview opens overlaying your worksheet, displaying a sample of data in the table.</p></li></ol><p>You can also preview the column names and comments of a database table without previewing the data. See <span>Refer to database object names in worksheets</span>.</p></section><section><h3>How do I see query details from my worksheet?<a>¶</a></h3><p>After you run a SQL query, when you view the <span>Results</span>, you can select the <span>Query Details</span>to see information about your query,
+such as the bytes scanned and the end time.</p><p>To review the queries that have been run in the worksheet, as well as the results for those queries, select (<span>Query history</span>).</p><p>For more details, see <span>View query history</span>. If you open the query details, you open the query profile for the
+query. See <span>Review Query Profile</span>.</p></section><section><h3>Where is my account info?<a>¶</a></h3><p>To retrieve your account information, such as to copy the account identifier to sign in to SnowSQL, the Snowflake VS Code Extension, or
+another connection to Snowflake, you can use the account menu in Snowsight:</p><ol><p>Open the account selector and review the list of accounts that you previously signed in to.</p><p>Locate the account for which you want to copy the account name.</p><p>Hover over the account to view additional details, and then select the copy icon to copy the account identifier in the format
+<span>&lt;orgname&gt;&lt;account_name&gt;</span>to your clipboard.</p></ol><p>You can also copy the account URL and review additional details,
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.html
 
 Documentation Title:
@@ -30,22 +45,10 @@ Managing and using worksheets in Snowsight | Snowflake Documentation
 
 Documentation Content:
 To recover the worksheets, do the following:</p><ol><p><span>Download recovered worksheets</span>owned by a dropped user.</p><p><span>Create worksheets from a SQL file</span>to add the recovered worksheets back to Snowflake.</p></ol><p>If you want to change ownership or retain access to worksheets before dropping a user, ask that user to share the worksheets.
-See <span>Sharing worksheets and folders</span>.</p><section><h3>Download recovered worksheets owned by a dropped user<a>¶</a></h3><p>To recover worksheets owned by a dropped user, download a <span>.tar.gz</span>archive file of up to 500 worksheets owned by that user.</p><div><p>Note</p><p>You must be granted the ACCOUNTADMIN role to recover worksheets of dropped users.</p></div><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>.</p><p>Select <img/>» <span>Recover Worksheets from Dropped User</span>.</p><li><p>In the dialog box, enter the username of a dropped user in your account.</p><div><p>Important</p><p>The case and spelling of the username must exactly match the username as it was stored in Snowflake.</p></div></li><li><p>Select <span>Recover</span>.</p><p>Your web browser downloads a <span>.tar</span>file containing up to 500 worksheets. If the dropped user has more than 500 worksheets,
+See <span>Sharing worksheets and folders</span>.</p><section><h3>Download recovered worksheets owned by a dropped user<a>¶</a></h3><p>To recover worksheets owned by a dropped user, download a <span>.tar.gz</span>archive file of up to 500 worksheets owned by that user.</p><div><p>Note</p><p>You must be granted the ACCOUNTADMIN role to recover worksheets of dropped users.</p></div><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>.</p><p>Select » <span>Recover Worksheets from Dropped User</span>.</p><li><p>In the dialog box, enter the username of a dropped user in your account.</p><div><p>Important</p><p>The case and spelling of the username must exactly match the username as it was stored in Snowflake.</p></div></li><li><p>Select <span>Recover</span>.</p><p>Your web browser downloads a <span>.tar</span>file containing up to 500 worksheets. If the dropped user has more than 500 worksheets,
 only the 500 most recently modified worksheets are downloaded.</p></li></ol><p>After downloading worksheets owned by a dropped user, add the recovered worksheets to Snowsight by creating worksheets from
 the SQL files.</p><p>You must expand the downloaded <span>.tar</span>file into a folder of <span>.sql</span>files before you can add recovered worksheets to
 Snowsight.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/insert.html
-
-Documentation Title:
-INSERT | Snowflake Documentation
-
-Documentation Content:
-</span><span>"email": "denise.holloway@digigen.net",</span><span>"phone": "+1 (979) 587-3021",</span><span>"address": "441 Dover Street, Ada, New Mexico, 5922"</span><span>}'</span><span>);</span></pre><span>Copy</span></div></section><section><h3>Insert using overwrite<a>¶</a></h3><p>This example uses INSERT with OVERWRITE to rebuild the <span>sf_employees</span>table from <span>employees</span>after new records were added
-to the <span>employees</span>table.</p><p>Here is the initial data for both tables:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>employees</span><span>;</span><span>+</span><span>------------+-----------+----------------+---------------+-------------+</span><span>| FIRST_NAME | LAST_NAME | WORKPHONE      | CITY          | POSTAL_CODE |</span><span>|------------+-----------+----------------+---------------+-------------|</span><span>| May        | Franklin  | 1-650-111-1111 | San Francisco | 94115       |</span><span>| Gillian    | Patterson | 1-650-222-2222 | San Francisco | 94115       |</span><span>| Lysandra   | Reeves    | 1-212-222-2222 | New York      | 10018       |</span><span>| Michael    | Arnett    | 1-650-333-3333 | San Francisco | 94116       |</span><span>+</span><span>------------+-----------+----------------+---------------+-------------+</span><span>SELECT</span><span>*</span><span>FROM</span><span>sf_employees</span><span>;
 
 
 

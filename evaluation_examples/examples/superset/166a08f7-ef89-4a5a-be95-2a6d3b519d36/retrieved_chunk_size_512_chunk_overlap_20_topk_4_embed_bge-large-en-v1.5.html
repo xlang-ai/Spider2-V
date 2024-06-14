@@ -35,19 +35,22 @@ To confirm that the change succeeded, run the following command to load the upda
 
 
 Documentation Source:
-superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.html
+superset.apache.org/docs/using-superset/exploring-data/index.html
 
 Documentation Title:
-Creating Your First Dashboard | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-To start the Explore workflow from the <strong>Datasets</strong>tab, start by clicking the name
-of the dataset that will be powering your chart.</p><img/><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
-scoped to the current dataset you selected.</li><li>The <strong>Data</strong>preview below the chart area also gives you helpful data context.</li><li>Using the <strong>Data</strong>tab and <strong>Customize</strong>tabs, you can change the visualization type,
-select the temporal column, select the metric to group by, and customize
-the aesthetics of the chart.</li></ul><p>As you customize your chart using drop-down menus, make sure to click the <strong>Run</strong>button
-to get visual feedback.</p><img/><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
-our quarterly sales data by product line just by clicking options in drop-down menus.</p><img/><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button.
+The following section
+explains how to enable this functionality for the examples database.</p><p>In the top menu, select <strong>Data ‣ Databases</strong>. Find the <strong>examples</strong>database in the list and
+select the <strong>Edit</strong>button.</p><p>In the resulting modal window, switch to the <strong>Extra</strong>tab and
+tick the checkbox for <strong>Allow Data Upload</strong>. End by clicking the <strong>Save</strong>button.</p><h3>Loading CSV Data<a>​</a></h3><p>Download the CSV dataset to your computer from
+<a>GitHub</a>.
+In the Superset menu, select <strong>Data ‣ Upload a CSV</strong>.</p><p>Then, enter the <strong>Table Name</strong>as <em>tutorial_flights</em>and select the CSV file from your computer.</p><p>Next enter the text <em>Travel Date</em>into the <strong>Parse Dates</strong>field.</p><p>Leaving all the other options in their default settings, select <strong>Save</strong>at the bottom of the page.</p><h3>Table Visualization<a>​</a></h3><p>You should now see <em>tutorial_flights</em>as a dataset in the <strong>Datasets</strong>tab. Click on the entry to
+launch an Explore workflow using this dataset.</p><p>In this section, we'll create a table visualization
+to show the number of flights and cost per travel class.</p><p>By default, Apache Superset only shows the last week of data. In our example, we want to visualize all
+of the data in the dataset. Click the <strong>Time ‣ Time Range</strong>section and change
+the <strong>Range Type</strong>to <strong>No Filter</strong>.</p><p>Click <strong>Apply</strong>to save.</p><p>Now, we want to specify the rows in our table by using the <strong>Group by</strong>option.
 
 
 

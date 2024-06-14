@@ -38,13 +38,13 @@ for options how to get in touch with the community or us.</p></div><a>Edit this 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/deploying-airbyte/docker-compose.html
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/index.html
 
 Documentation Title:
-Docker Compose | Airbyte Documentation
+Getting Started | Airbyte Documentation
 
 Documentation Content:
-Compose</h1><div><div>info</div><p>These instructions have been tested on MacOS, Windows 10 and Ubuntu 22.04.</p></div><h2>Setup &amp; launch Airbyte<a>​</a></h2><ul><li>Install <code>Docker Engine</code>and the <code>Docker Compose plugin</code>on your workstation (see <a>instructions</a>).</li><li>After Docker is installed, you can immediately get started locally by running:</li></ul><code><span># clone Airbyte from GitHub</span><span>git clone --depth=1 https://github.com/airbytehq/airbyte.git</span><span># switch into Airbyte directory</span><span>cd airbyte</span><span># start Airbyte</span><span>./run-ab-platform.sh</span></code><ul><li>In your browser, visit <a>http://localhost:8000</a></li><li>You will be asked for a username and password. By default, that's username <code>airbyte</code>and password <code>password</code>. Once you deploy Airbyte to your servers, be sure to change these in your <code>.env</code>file:</li></ul><code><span># Proxy Configuration</span><span># Set to empty values, e.g. "" to disable basic auth</span><span>BASIC_AUTH_USERNAME=your_new_username_here</span><span>BASIC_AUTH_PASSWORD=your_new_password_here</span></code><li>Start moving some data!</li><h2>Deploy on Windows<a>​</a></h2><p>After installing the WSL 2 backend and Docker you should be able to run containers using Windows PowerShell. Additionally, as we note frequently, you will need <code>docker-compose</code>to build Airbyte from source. The suggested guide already installs <code>docker-compose</code>on Windows.</p><h3>Setup Guide<a>​</a></h3><strong>1.
+Get started immediately by deploying locally using Docker.</p><h3>Self-Managed Community (Open Source)<a>​</a></h3><p>With Airbyte Self-Managed Community (Open Source), you can use one of the following options in your infrastructure:</p><ul><li><a>Local Deployment</a>(recommended when trying out Airbyte)</li><a>On AWS</a><a>On Azure VM Cloud Shell</a><a>On Digital Ocean Droplet</a><a>On GCP</a><a>On Kubernetes</a><a>On OCI VM</a><a>On Restack</a><a>On Plural</a><li><a>On AWS ECS</a>(Spoiler alert: it doesn't work)</li></ul><h3>Self-Managed Enterprise<a>​</a></h3><p>Airbyte Self-Managed Enterprise is the best way to run Airbyte yourself. You get all 300+ pre-built connectors, data never leaves your environment, and Airbyte becomes self-serve in your organization with new tools to manage multiple users, and multiple teams using Airbyte all in one place.</p><p>To start with Self-Managed Enterprise, navigate to our <a>Enterprise setup guide</a>.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Connector Support Levels</div></a><a><div>Next</div><div>Core Concepts</div></a></nav></div><div><ul><a>Sign Up for Airbyte Cloud</a><li><a>Deploy Airbyte (Self-Managed)</a><ul><a>Self-Managed Community (Open Source)</a><a>Self-Managed Enterprise</a></ul></li></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
 
 
 

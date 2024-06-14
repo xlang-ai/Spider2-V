@@ -5,6 +5,37 @@ Documentation Title:
 Build and use a classification model on census data  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+Select 100 rows from the
+<code>census_adult_income</code>table:</p><div><section><h3>SQL </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, run the following GoogleSQL query:</p><pre>SELECT
+age,
+workclass,
+marital_status,
+education_num,
+occupation,
+hours_per_week,
+income_bracket,
+functional_weight
+FROM
+`bigquery-public-data.ml_datasets.census_adult_income`
+LIMIT
+100;
+</pre></li><p>The results look similar to the following:</p></ol></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the <a>BigQuery quickstart
+    using BigQuery DataFrames</a>.
+    For more information, see the
+    <a>BigQuery DataFrames reference documentation</a>.</p><p>To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see <a>Set 
+    up authentication for a local development environment</a>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+
+Documentation Title:
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
 </p><code>import bigframes.pandas as bpd
 
 df = bpd.read_gbq(
@@ -32,37 +63,6 @@ df.peek()
 <code>census_adult_income</code>table has only one of two values: <code>&lt;=50K</code>or <code>&gt;50K</code>. The
 <code>functional_weight</code>column is the number of individuals that the census
 organization believes a particular row represents.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.html
-
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Select 100 rows from the
-<code>census_adult_income</code>table:</p><div><section><h3>SQL </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, run the following GoogleSQL query:</p><pre>SELECT
-age,
-workclass,
-marital_status,
-education_num,
-occupation,
-hours_per_week,
-income_bracket,
-functional_weight
-FROM
-`bigquery-public-data.ml_datasets.census_adult_income`
-LIMIT
-100;
-</pre></li><li><p>The results look similar to the following:</p><img/></li></ol></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
-    setup instructions in the <a>BigQuery quickstart
-    using BigQuery DataFrames</a>.
-    For more information, see the
-    <a>BigQuery DataFrames reference documentation</a>.</p><p>To authenticate to BigQuery, set up Application Default Credentials.
-    For more information, see <a>Set 
-    up authentication for a local development environment</a>.
 
 
 

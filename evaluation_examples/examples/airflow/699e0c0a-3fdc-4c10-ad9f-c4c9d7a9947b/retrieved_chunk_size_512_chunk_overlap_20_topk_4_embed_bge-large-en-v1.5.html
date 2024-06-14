@@ -16,7 +16,7 @@ Documentation Title:
 Troubleshoot a local Airflow environment | Astronomer Documentation
 
 Documentation Content:
-By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Use Airflow connections from Astro</div></a><a><div>Next</div><div>Test your DAGs</div></a></nav></div><ul><a>Troubleshoot KubernetesPodOperator issues</a><a>Troubleshoot dependency errors</a><a>New DAGs aren't visible in the Airflow UI</a><a>DAGs running slowly</a><a>Astro project won't load after running <code>astro dev start</code></a><li><a>Ports are not available for my local Airflow webserver</a><ul><a>Stop all running Docker containers</a><a>Change the default port assignment</a></ul></li></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Use Airflow connections from Astro</div></a><a><div>Next</div><div>Test your DAGs</div></a></nav></div><ul><a>Troubleshoot KubernetesPodOperator issues</a><a>Troubleshoot dependency errors</a><a>New DAGs aren't visible in the Airflow UI</a><a>DAGs running slowly</a><a>Astro project won't load after running <code>astro dev start</code></a><li><a>Ports are not available for my local Airflow webserver</a><ul><a>Stop all running Docker containers</a><a>Change the default port assignment</a></ul></li></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div>
 
 
 
@@ -32,13 +32,13 @@ For advanced use cases, you can also configure this file with Docker-based comma
 
 
 Documentation Source:
-docs.astronomer.io/astro/cli/local-airflow-overview.html
+docs.astronomer.io/astro/cli/develop-project.html
 
 Documentation Title:
-Run Airflow locally | Astronomer Documentation
+Develop your Astro project | Astronomer Documentation
 
 Documentation Content:
-All tasks run locally in the scheduler container using the <a>local executor</a>.</p><p>See the following documentation to get started:</p><ul><a>Run Airflow locally</a><a>Test your DAGs</a><a>Troubleshoot locally</a><a>Sync Deployment connections from Astro</a></ul></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Develop your project</div></a><a><div>Next</div><div>Basic setup</div></a></nav></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+To apply changes from this folder to a local Airflow environment, <a>restart your local environment</a>.</p><p>To learn more about Airflow plugins and how to build them, see <a>Airflow Plugins</a>in Airflow documentation or the Astronomer <a>Airflow plugins</a>guide.</p><h2>Unsupported project configurations<a>​</a></h2><p>You can't use <code>airflow.cfg</code>or <code>airflow_local_settings.py</code>files in an Astro project. <code>airflow_local_settings.py</code>has no effect on Astro Deployments, and <code>airflow.cfg</code>has no effect on local environments and Astro Deployments.</p><p>An alternative to using <code>airflow.cfg</code>is to set Airflow environment variables in your <code>.env</code>file. See <a>Set environment variables locally</a>.</p><h2>See also<a>​</a></h2><p>For more advanced project configurations, see:</p><ul><a>Customize your Astro project Dockerfile</a><a>Install Python packages from private sources</a></ul></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time.
 
 
 

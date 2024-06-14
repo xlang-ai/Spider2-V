@@ -31,7 +31,7 @@ LIMIT
 </pre><p>After running the query, we get a table with the ten most common names of
 children born in 1980.</p><p>For this example, we are going to visualize these results. Click <strong>Visualize</strong>.
 BigQuery data canvas suggests several visualization options, including bar chart, pie
-chart, line graph, and custom visualization. Click <strong>Create bar chart</strong>.</p><p>BigQuery data canvas creates a bar chart similar to the following:</p><img/><p>Along with providing a chart, BigQuery data canvas summarizes some of the key details
+chart, line graph, and custom visualization. Click <strong>Create bar chart</strong>.</p><p>BigQuery data canvas creates a bar chart similar to the following:</p><p>Along with providing a chart, BigQuery data canvas summarizes some of the key details
 of the data backing the visualization.
 
 
@@ -57,7 +57,7 @@ FROM
 `bigquery-public-data.ml_datasets.census_adult_income`
 LIMIT
 100;
-</pre></li><li><p>The results look similar to the following:</p><img/></li></ol></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
+</pre></li><p>The results look similar to the following:</p></ol></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
     setup instructions in the <a>BigQuery quickstart
     using BigQuery DataFrames</a>.
     For more information, see the
@@ -102,40 +102,34 @@ BigQuery creates the table when you run your query.</p></li><li><p>In the <stron
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+cloud.google.com/bigquery/docs/running-queries.html
 
 Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-This view is used by the <code>CREATE MODEL</code>statement
-later in this tutorial.</p><p>Run the query that prepares the sample data:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, run the following query:</p><pre>CREATE OR REPLACE VIEW
-`census.input_data` AS
-SELECT
-age,
-workclass,
-marital_status,
-education_num,
-occupation,
-hours_per_week,
-income_bracket,
-CASE
-  WHEN MOD(functional_weight, 10) &lt; 8 THEN 'training'
-  WHEN MOD(functional_weight, 10) = 8 THEN 'evaluation'
-  WHEN MOD(functional_weight, 10) = 9 THEN 'prediction'
-END AS dataframe
+select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add_box</span><strong>Compose a new query</strong>.</p><li><p>In the query editor, enter a valid GoogleSQL query.</p><p>For example, query the
+<a>BigQuery public dataset <code>usa_names</code></a>to determine the most common names in the United States between the
+years 1910 and 2013:</p><code>SELECT
+  name, gender,
+  SUM(number) AS total
 FROM
-`bigquery-public-data.ml_datasets.census_adult_income`
-</pre></li><p>In the <strong>Explorer</strong>pane, expand the <code>census</code>dataset and locate the
-<code>input_data</code>view.</p><p>Click the view name to open the information pane. The view schema appears in
-the <strong>Schema</strong>tab.</p></ol><img/></section><section><h3>BigQuery DataFrames </h3><p>Create a <code>DataFrame</code>called <code>input_data</code>. You use <code>input_data</code>later in
-this tutorial to use to train the model, evaluate it, and make predictions.</p><p>Before trying this sample, follow the BigQuery DataFrames
-    setup instructions in the <a>BigQuery quickstart
-    using BigQuery DataFrames</a>.
-    For more information, see the
-    <a>BigQuery DataFrames reference documentation</a>.</p><p>To authenticate to BigQuery, set up Application Default Credentials.
-    For more information, see <a>Set 
-    up authentication for a local development environment</a>.
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+</code></li><p>Click <span>settings</span><strong>More</strong>, and then
+click <strong>Query settings</strong>.</p><p>In the <strong>Resource management</strong>section, select <strong>Batch</strong>.</p><li><p>Optional: Specify the destination table and
+<a>location</a>for the query results:</p><ol><li>In the <strong>Destination</strong>section, select
+<strong>Set a destination table for query results</strong>.</li><li>For <strong>Dataset</strong>, enter the name of an existing dataset for the
+destination table—for example, <code>myProject.myDataset</code>.</li><li>For <strong>Table Id</strong>, enter a name for the destination table—for
+example, <code>myTable</code>.</li><li><p>If the destination table is an existing table, then for
+<strong>Destination table write preference</strong>, select whether to append or
+overwrite the table with the query results.</p><p>If the destination table is a new table, then
+BigQuery creates the table when you run your query.</p></li><li><p>In the <strong>Additional settings</strong>section,
 
 
 
