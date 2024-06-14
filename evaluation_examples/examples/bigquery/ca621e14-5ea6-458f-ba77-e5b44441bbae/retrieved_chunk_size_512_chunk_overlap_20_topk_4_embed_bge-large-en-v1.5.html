@@ -1,4 +1,46 @@
 Documentation Source:
+cloud.google.com/bigquery/docs/connected-sheets.html
+
+Documentation Title:
+Using Connected Sheets  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+To activate BigQuery in a preexisting project, go to
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+    
+      <p>Enable the BigQuery API.
+            
+          
+        
+      </p><a>Enable the API</a></li></ol><p>When you finish this topic, you can avoid continued billing by deleting the
+resources you created. See <a>Cleaning up</a>for more detail.</p><h2>Open BigQuery datasets from Connected Sheets</h2><p>The following example uses a public dataset to show you how to connect to
+BigQuery from Google Sheets.</p><ol><p>Create or open a Google Sheets spreadsheet.</p><li><p>Click <strong>Data</strong>, click <strong>Data connectors</strong>, and then click <strong>Connect to
+BigQuery</strong>.</p><aside><strong>Note:</strong><span>If you do not see the <strong>Data connectors</strong>option, see
+<a>Before you begin</a>.</span></aside></li><p>Click <strong>Get connected</strong>.</p><p>Select a Google Cloud project that has billing enabled.</p><p>Click <strong>Public datasets</strong>.</p><p>In the search box, type <strong>chicago</strong>and then select the
+<strong>chicago_taxi_trips</strong>dataset.</p><li><p>Select the <strong>taxi_trips</strong>table and then click <strong>Connect</strong>.</p><img/><p>Your spreadsheet should look similar to the following:</p><img/></li></ol><p>Start using the spreadsheet. You can create pivot tables, formulas, and charts
+using familiar Google Sheets techniques.</p><p>Although the spreadsheet shows a preview of only 500 rows, any pivot tables,
+formulas, and charts use the entire set of data. The maximum number of rows for
+results returned for pivot tables is 50,000. You can also extract the data to a
+sheet. The maximum number of rows for results returned for data extracts is
+50,000.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/analyze-data-tableau.html
 
 Documentation Title:
@@ -75,105 +117,28 @@ Documentation Title:
 Using Connected Sheets  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-To activate BigQuery in a preexisting project, go to
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
+VPC Service Controls perimeters that use end-user context to restrict access
+cause scheduled refreshes to fail.</span></aside><h2>Before you begin</h2><p>First, make sure that you meet the requirements for accessing BigQuery
+data in Sheets, as described in the "What you need" section of
+the Google Workspace topic
+<a>Get started with BigQuery data in Google Sheets</a>.</p><p>If you do not yet have a Google Cloud project that is set up for billing, follow
+these steps:</p><ol><cloudx-free-trial-eligible-content><slot><li>Sign in to your Google Cloud account. If you're new to
+        Google Cloud, <a>create an account</a>to evaluate how our products perform in
+        real-world scenarios. New customers also get $300 in free credits to
+        run, test, and deploy workloads.
+      
     
-      <p>Enable the BigQuery API.
-            
-          
-        
-      </p><a>Enable the API</a></li></ol><p>When you finish this topic, you can avoid continued billing by deleting the
-resources you created. See <a>Cleaning up</a>for more detail.</p><h2>Open BigQuery datasets from Connected Sheets</h2><p>The following example uses a public dataset to show you how to connect to
-BigQuery from Google Sheets.</p><ol><p>Create or open a Google Sheets spreadsheet.</p><li><p>Click <strong>Data</strong>, click <strong>Data connectors</strong>, and then click <strong>Connect to
-BigQuery</strong>.</p><aside><strong>Note:</strong><span>If you do not see the <strong>Data connectors</strong>option, see
-<a>Before you begin</a>.</span></aside></li><p>Click <strong>Get connected</strong>.</p><p>Select a Google Cloud project that has billing enabled.</p><p>Click <strong>Public datasets</strong>.</p><p>In the search box, type <strong>chicago</strong>and then select the
-<strong>chicago_taxi_trips</strong>dataset.</p><li><p>Select the <strong>taxi_trips</strong>table and then click <strong>Connect</strong>.</p><img/><p>Your spreadsheet should look similar to the following:</p><img/></li></ol><p>Start using the spreadsheet. You can create pivot tables, formulas, and charts
-using familiar Google Sheets techniques.</p><p>Although the spreadsheet shows a preview of only 500 rows, any pivot tables,
-formulas, and charts use the entire set of data. The maximum number of rows for
-results returned for pivot tables is 50,000. You can also extract the data to a
-sheet. The maximum number of rows for results returned for data extracts is
-50,000.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/managing-table-data.html
-
-Documentation Title:
-Managing table data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-</p><code>import com.google.cloud.bigquery.BigQuery;
-import com.google.cloud.bigquery.BigQuery.TableDataListOption;
-import com.google.cloud.bigquery.BigQueryException;
-import com.google.cloud.bigquery.BigQueryOptions;
-import com.google.cloud.bigquery.TableId;
-import com.google.cloud.bigquery.TableResult;
-
-// Sample to directly browse a table with optional paging
-public class BrowseTable {
-
-  public static void runBrowseTable() {
-    // TODO(developer): Replace these variables before running the sample.
-    String table = "MY_TABLE_NAME";
-    String dataset = "MY_DATASET_NAME";
-    browseTable(dataset, table);
-  }
-
-  public static void browseTable(String dataset, String table) {
-    try {
-      // Initialize client that will be used to send requests. This client only needs to be created
-      // once, and can be reused for multiple requests.
-      BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
-
-      // Identify the table itself
-      TableId tableId = TableId.of(dataset, table);
-
-      // Page over 100 records. If you don't need pagination, remove the pageSize parameter.
-      TableResult result = bigquery.listTableData(tableId, TableDataListOption.pageSize(100));
-
-      // Print the records
-      result
-          .iterateAll()
-          .forEach(
-              row -&gt; {
-                row.forEach(fieldValue -&gt; System.out.print(fieldValue.toString() + ", "));
-                System.out.println();
-              });
-
-      System.out.println("Query ran successfully");
-    } catch (BigQueryException e) {
-      System.out.println("Query failed to run \n" + e.toString());
-    }
-  }
-}</code></section><section><span>Node.js</span><p>Before trying this sample, follow the <span>Node.js</span>setup instructions in the
-          <a>BigQuery quickstart using
-            client libraries</a>.
-        
-      
-      
-  For more information, see the
-  <a>BigQuery <span>Node.js</span>API
-    reference documentation</a>.
-  
-    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
-      For more information, see
-      
-        <a>Set up authentication for client libraries</a>.
+    </li><li><p>In the Google Cloud console, on the project selector page,
+        select or <a>create a Google Cloud project</a>.</p><aside><b>Note</b>: If you don't plan to keep the
+    resources that you create in this procedure, create a project instead of
+    selecting an existing project. After you finish these steps, you can
+    delete the project, removing all resources associated with the project.</aside><a>Go to project selector</a></li><p><a>Make sure that billing is enabled for your Google Cloud project</a>.
+    </p></slot><slot><li><p>In the Google Cloud console, on the project selector page,
+        select or <a>create a Google Cloud project</a>.</p><aside><b>Note</b>: If you don't plan to keep the
+    resources that you create in this procedure, create a project instead of
+    selecting an existing project. After you finish these steps, you can
+    delete the project, removing all resources associated with the project.</aside><a>Go to project selector</a></li><p><a>Make sure that billing is enabled for your Google Cloud project</a>.
+    </p></slot></cloudx-free-trial-eligible-content><li>BigQuery is automatically enabled in new projects.
 
 
 

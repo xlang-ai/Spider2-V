@@ -1,179 +1,315 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-table-storage-usage.txt
+cloud.google.com/bigquery/docs/data-canvas.txt
 
 Documentation Title:
-TABLE_STORAGE_USAGE_TIMELINE view  |  BigQuery  |  Google Cloud
+Analyze with data canvas  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+Click
+Save
+. The notebook is created successfully.
+Click
+Open in BQ Studio
+to view the created notebook.
+Example 3
+Prompt 1
+Find data about USA names
+Potential result
+BigQuery data canvas generates a list of tables. For this example, we are going to
+select the
+bigquery-public-data.usa_names.usa_1910_current
+table.
+Click
+Query
+to query the data. Enter a prompt to query the data.
+Potential result
+BigQuery data canvas generates the following query:
 SELECT
-  usage_date,
-  table_schema,
-  table_name,
-  billable_total_physical_usage
+  state,
+  gender,
+  year,
+  name,
+  number
 FROM
-  (
-    SELECT
-      *,
-      ROW_NUMBER()
-        OVER (PARTITION BY project_id, table_schema, table_name ORDER BY usage_date DESC) AS rank
-    FROM
-      `region-
-REGION
-`.INFORMATION_SCHEMA.TABLE_STORAGE_USAGE_TIMELINE
-  )
+  `bigquery-public-data.usa_names.usa_1910_current`
+BigQuery data canvas generates the results of the query. We are going to ask an
+additional query to filter this data. Click
+Query these results
+.
+Prompt 2
+Get me the top 10 most popular names in 1980
+Potential result
+BigQuery data canvas generates the following query:
+SELECT
+  name,
+  SUM(number) AS total_count
+FROM
+  `bigquery-public-data`.usa_names.usa_1910_current
 WHERE
-  rank = 1
-  AND project_id = '
-PROJECT_ID
-'
-  AND table_schema ='
-DATASET_NAME
-'
+  year = 1980
+GROUP BY
+  name
 ORDER BY
-  usage_date;
-The result is similar to the following:
-+--------------+--------------+------------+-------------------------------+
-| usage_date   | table_schema | table_name | billable_total_physical_usage |
-+--------------+--------------+------------+-------------------------------+
-|  2023-04-12  | dataset_A    | table_4    |  345788341123                 |
-+--------------+--------------+------------+-------------------------------+
-|  2023-04-12  | dataset_A    | table_1    |             0                 |
-+--------------+--------------+------------+-------------------------------+
-|  2023-04-12  | dataset_A    | table_3    | 9123481400212                 |
-+--------------+--------------+------------+-------------------------------+
-|  2023-04-12  | dataset_A    | table_2    |    1451334553                 |
-+--------------+--------------+------------+-------------------------------+
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
+  total_count DESC
+LIMIT
+  10;
+After running the query, we get a table with the ten most common names of
+children born in 1980.
+For this example, we are going to visualize these results. Click
+Visualize
+.
+BigQuery data canvas suggests several visualization options, including bar chart, pie
+chart, line graph, and custom visualization. Click
+Create bar chart
+.
+BigQuery data canvas creates a bar chart similar to the following:
+Along with providing a chart, BigQuery data canvas summarizes some of the key details
+of the data backing the visualization. You can modify the chart by clicking
+Visualization details
+and editing your chart in the side panel.
+Prompt 3
+Create a bar chart sorted high to low, with a gradient
+Potential result
+BigQuery data canvas creates a bar chart similar to the following:
+To make further changes, click
+Visualization details
+. The Vis details
+sidebar is displayed. You can edit the chart title, x-axis name, y-axis name,
+and more.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-table-storage-usage-by-organization.txt
+cloud.google.com/bigquery/docs/running-queries.txt
 
 Documentation Title:
-TABLE_STORAGE_USAGE_TIMELINE_BY_ORGANIZATION view  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-INFORMATION_SCHEMA.TABLE_STORAGE_USAGE_TIMELINE_BY_ORGANIZATION
-  )
-WHERE rank = 1;
-The result is similar to the following:
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-| usage_date   | project_id | table_schema | table_name | billable_total_logical_usage | billable_total_physical_usage |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-|  2023-04-03  | project1   | dataset_A    | table_x    | 734893409201                 |           0                   |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-|  2023-04-03  | project1   | dataset_A    | table_z    | 110070445455                 |           0                   |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-|  2023-04-03  | project1   | dataset_B    | table_y    |            0                 | 52500873256                   |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-|  2023-04-03  | project1   | dataset_B    | table_t    |            0                 | 32513713981                   |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-|  2023-04-03  | project2   | dataset_C    | table_m    |   8894535352                 |           0                   |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-|  2023-04-03  | project2   | dataset_C    | table_n    |   4183337201                 |           0                   |
-+--------------+------------+--------------+------------+------------------------------+-------------------------------+
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-tables.txt
-
-Documentation Title:
-TABLES view  |  BigQuery  |  Google Cloud
-
-Documentation Content:
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
 SELECT
-  table_name, ddl
+  name, gender,
+  SUM(number) AS total
 FROM
-  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
-WHERE
-  table_name = 'population_by_zip_2010';
-The result is similar to the following:
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|       table_name       |                                                                                                            ddl                                                                                                             |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
-|                        | (                                                                                                                                                                                                                          |
-|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
-|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
-|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
-|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
-|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
-|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
-|                        | )                                                                                                                                                                                                                          |
-|                        | OPTIONS(                                                                                                                                                                                                                   |
-|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
-|                        | );                                                                                                                                                                                                                         |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Optional: Specify the destination table and
+location
+for the query results:
+In the query editor, click
+settings
+More
+, and then
+click
+Query settings
+.
+In the
+Destination
+section, select
+Set a destination table for query results
+.
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+You can now explore the query results in the
+Results
+tab of the
+Query results
+pane.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-tablesd41d.txt
+cloud.google.com/bigquery/docs/running-queries.txt
 
 Documentation Title:
-TABLES view  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
 SELECT
-  table_name, ddl
+  name, gender,
+  SUM(number) AS total
 FROM
-  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
-WHERE
-  table_name = 'population_by_zip_2010';
-The result is similar to the following:
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|       table_name       |                                                                                                            ddl                                                                                                             |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
-|                        | (                                                                                                                                                                                                                          |
-|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
-|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
-|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
-|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
-|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
-|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
-|                        | )                                                                                                                                                                                                                          |
-|                        | OPTIONS(                                                                                                                                                                                                                   |
-|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
-|                        | );                                                                                                                                                                                                                         |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Click
+settings
+More
+, and then
+click
+Query settings
+.
+In the
+Resource management
+section, select
+Batch
+.
+Optional: Specify the destination table and
+location
+for the query results:
+In the
+Destination
+section, select
+Set a destination table for query results
+.
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
+Optional: To see visualization of your query results, go to the
+Chart
+tab.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/logistic-regression-prediction.txt
+
+Documentation Title:
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Select 100 rows from the
+census_adult_income
+table:
+SQL
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the query editor, run the following GoogleSQL query:
+SELECT
+age,
+workclass,
+marital_status,
+education_num,
+occupation,
+hours_per_week,
+income_bracket,
+functional_weight
+FROM
+`bigquery-public-data.ml_datasets.census_adult_income`
+LIMIT
+100;
+The results look similar to the following:
+BigQuery DataFrames
+Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the
+BigQuery quickstart
+    using BigQuery DataFrames
+.
+    For more information, see the
+BigQuery DataFrames reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see
+Set 
+    up authentication for a local development environment
+.
 
 
 

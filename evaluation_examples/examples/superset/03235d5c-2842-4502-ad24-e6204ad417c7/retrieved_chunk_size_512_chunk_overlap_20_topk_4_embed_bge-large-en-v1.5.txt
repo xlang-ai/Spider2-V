@@ -70,81 +70,6 @@ Documentation Title:
 Connecting to Databases | Superset
 
 Documentation Content:
-For Postgres this is
-{"sslmode": "require"}
-.
-In addition, the DB engine spec must implement these class methods:
-build_sqlalchemy_uri(cls, parameters, encrypted_extra)
-: this method receives the distinct parameters and builds the URI from them.
-get_parameters_from_uri(cls, uri, encrypted_extra)
-: this method does the opposite, extracting the parameters from a given URI.
-validate_parameters(cls, parameters)
-: this method is used for
-onBlur
-validation of the form. It should return a list of
-SupersetError
-indicating which parameters are missing, and which parameters are definitely incorrect (
-example
-).
-For databases like MySQL and Postgres that use the standard format of
-engine+driver://user:password@host:port/dbname
-all you need to do is add the
-BasicParametersMixin
-to the DB engine spec, and then define the parameters 2-4 (
-parameters_schema
-is already present in the mixin).
-For other databases you need to implement these methods yourself. The BigQuery DB engine spec is a good example of how to do that.
-Extra Database Settings
-​
-Deeper SQLAlchemy Integration
-​
-It is possible to tweak the database connection information using the parameters exposed by
-SQLAlchemy. In the
-Database edit
-view, you can edit the
-Extra
-field as a JSON blob.
-This JSON string contains extra configuration elements. The
-engine_params
-object gets unpacked
-into the
-sqlalchemy.create_engine
-call, while the
-metadata_params
-get unpacked into the
-sqlalchemy.MetaData
-call. Refer to the SQLAlchemy docs for more information.
-Schemas
-​
-Databases like Postgres and Redshift use the
-schema
-as the logical entity on top of the
-database
-. For Superset to connect to a specific schema, you can set the
-schema
-parameter in
-the
-Edit Tables
-form (Sources > Tables > Edit record).
-External Password Store for SQLAlchemy Connections
-​
-Superset can be configured to use an external store for database passwords. This is useful if you a
-running a custom secret distribution framework and do not wish to store secrets in Superset’s meta
-database.
-Example: Write a function that takes a single argument of type
-sqla.engine.url
-and returns the
-password for the given connection string.
-
-
-
-Documentation Source:
-superset.apache.org/docs/configuration/databases/index.txt
-
-Documentation Title:
-Connecting to Databases | Superset
-
-Documentation Content:
 The expected connection string is formatted as follows:
 pinot+http://<pinot-broker-host>:<pinot-broker-port>/query?controller=http://<pinot-controller-host>:<pinot-controller-port>/``
 The expected connection string using username and password is formatted as follows:
@@ -199,6 +124,65 @@ datasource. If you’re using an older version of Presto, you can configure it i
 "version": "0.123"
 }
 SSL Secure extra add json config to extra connection information.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.txt
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+All fields in
+auth_params
+are passed directly to your class/function.
+Reference
+:
+Trino-Superset-Podcast
+Vertica
+​
+The recommended connector library is
+sqlalchemy-vertica-python
+. The
+Vertica
+connection parameters are:
+User Name:
+UserName
+Password:
+DBPassword
+Database Host:
+For Localhost : localhost or 127.0.0.1
+For On Prem : IP address or Host name
+For Cloud: IP Address or Host Name
+Database Name:
+Database Name
+Port:
+default 5433
+The connection string is formatted as follows:
+vertica+vertica_python://{username}:{password}@{host}/{database}
+Other parameters:
+Load Balancer - Backup Host
+YugabyteDB
+​
+YugabyteDB
+is a distributed SQL database built on top of PostgreSQL.
+Note that, if you're using docker compose, the
+Postgres connector library
+psycopg2
+comes out of the box with Superset.
+The connection string looks like:
+postgresql://{username}:{password}@{host}:{port}/{database}
+Connecting through the UI
+​
+Here is the documentation on how to leverage the new DB Connection UI. This will provide admins the ability to enhance the UX for users who want to connect to new databases.
+There are now 3 steps when connecting to a database in the new UI:
+Step 1: First the admin must inform superset what engine they want to connect to. This page is powered by the
+/available
+endpoint which pulls on the engines currently installed in your environment, so that only supported databases are shown.
+Step 2: Next, the admin is prompted to enter database specific parameters. Depending on whether there is a dynamic form available for that specific engine, the admin will either see the new custom form or the legacy SQLAlchemy form. We currently have built dynamic forms for (Redshift, MySQL, Postgres, and BigQuery). The new form prompts the user for the parameters needed to connect (for example, username, password, host, port, etc.) and provides immediate feedback on errors.
+Step 3: Finally, once the admin has connected to their DB using the dynamic form they have the opportunity to update any optional advanced settings.
+We hope this feature will help eliminate a huge bottleneck for users to get into the application and start crafting datasets.
 
 
 

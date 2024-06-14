@@ -15,13 +15,28 @@ how many dollars they’ve spent on your products.</p><img/><h2>Pie chart or don
 
 
 Documentation Source:
-www.metabase.com/learn/visualization/index.html
+www.metabase.com/learn/getting-started/introduction.html
 
 Documentation Title:
-Visualizing data
+Getting started with Metabase
 
 Documentation Content:
-maps, gauges, funnels, tables, numbers, and more.</p><h2>Articles</h2><div><div><img/><a><span>Article 1</span><h3>Which chart should you use?</h3><p>Which type of charts and graphs should you use to best communicate insights from data? This guide will help you pick the right visualization for the job.</p><p><span>Read more</span><img/></p></a></div><div><img/><a><span>Article 2</span><h3>Guide to line charts</h3><p>What we talk about when we talk about line charts: time series, trend lines, alerts, and more.</p><p><span>Read more</span><img/></p></a></div><div><img/><a><span>Article 3</span><h3>Master the bar chart visualization</h3><p>Create a bar chart and customize it with visualization settings.</p><p><span>Read more</span><img/></p></a></div><div><img/><a><span>Article 4</span><h3>Visualize your data as a histogram</h3><p>Learn when to use a histogram, and how Metabase makes it easy to create histograms.</p><p><span>Read more</span><img/></p></a></div><div><img/><a><span>Article 5</span><h3>Visualizing data with maps</h3><p>How to use pin maps, region maps, and grid maps to visualize data in Metabase.</p><p><span>Read more</span><img/></p></a></div><div><img/><a><span>Article 6</span><h3>Almost everything you can do with the table visualization</h3><p>Learn how to set up conditional formatting, mini bar charts, value formatting, and more.</p><p><span>Read more</span><img/></p></a></div><div><img/><a><span>Article 7</span><h3>Creating pivot tables</h3><p>Learn how to create pivot tables using different databases in Metabase.
+To change the visualization, just select one of the options from the <strong>Visualization sidebar</strong>.</p><p>If we want to check the results as a table, we can click the little toggle at the bottom center of the page to toggle from our chart to the table of data and back again.</p><p>For other visualization options, click the blue <strong>Visualization</strong>button in the bottom left. For example, let’s visualize our question as an <strong>area chart</strong>.</p><img/><p>Some visualizations aren’t the best way to show an answer to a question, so Metabase will fade out the option. For example, it wouldn’t make sense to show the total number of orders over $40 as a map.</p><p>If you want, you can try playing around with your question, like changing the number 40 to a different number. To do that, just click on the filter badge below the page title.</p><p>To learn more about charts, check out <a>Visualizing data</a>.</p><h2>Next up</h2><p>Keep reading to learn how to add questions to dashboards and <a>share your work with others</a>.</p><p>If you’d like more technical resources to set up your data stack with Metabase, connect with a <a>Metabase Expert</a>.</p><div><a>« Previous</a><a>Next »</a></div><div><div><p>Did this article help you?
+        </p><ul><button>Yes
+                </button><button>No
+                </button></ul></div><button>Send
+                </button></div><p>Thanks for your feedback!</p></article></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/histograms.html
+
+Documentation Title:
+Visualize your data as a histogram
+
+Documentation Content:
+Then <strong>Visualize</strong>the results.</p><p>Once you’re viewing the Orders table, click <strong>Summarize</strong>. Scroll down and select <code>Total</code>, and click the <code>+</code>button to add the grouping. Metabase will automatically create a histogram for you!</p><img/><p>The histogram shows that customers are most likely to make purchases totaling in the $40-60 range. If you hover over one of the bars, Metabase will display the count of orders in that range. You can also click on a bar to <a>drill-through the data</a>and see the orders that compose the bar.</p><h2>Edit a histogram</h2><p>Metabase gives you <a>a lot of knobs for customizing a bar chart</a>. For now, we’ll hone in on the settings that make histograms shine.</p><p>Metabase will automatically set the number of bins, but you can change how Metabase bins the data. Click <strong>Summarize</strong>, scroll down to <code># Total</code>, and click on <code>Auto binned</code>. A dropdown menu will present the options: <code>Auto bin</code>, 10, 50, or 100 bins, or <code>Don't bin</code>.</p><img/><p>Click the <strong>Settings</strong>&gt; <strong>Axes</strong>. The x-axis scale currently says <code>Histogram</code>. Metabase detects when your <a>bar chart</a>should present as a histogram, and selects the best x-axis scale for your visualization.</p><p>If you toggle between the three options, you’ll see that <code>Histogram</code>is the only axes option in which the bars are flush with each other. The flush bars communicate that the x-axis represents a continuous range of data. Linear axes are good for displaying data in categories. Ordinal axes are good for displaying data that’s grouped in distinct number categories.
 
 
 
@@ -33,17 +48,6 @@ Publishing data visualizations to the web
 
 Documentation Content:
 snippets: reuse and share SQL code</span><span>Simplify complex queries with Common Table Expressions (CTEs)</span><span>SQL Snippets vs. Saved Questions vs. Views</span><span>Combining tables with joins</span><span>SQL join types</span><span>SQL trick: ordering bars in a chart</span><span>How to calculate customer lifetime value (LTV) with SQL</span></ol></li><li><div><img/><span>Debugging SQL</span></div><ol><span>Debugging SQL syntax errors</span><span>Debugging SQL query logic</span><span>Debugging duplicated data in SQL query results</span><span>Debugging missing data in SQL query results</span></ol></li><li><div><img/><span>Visualizing data</span></div><ol><span>Which chart should you use?</span><span>Guide to line charts</span><span>Master the bar chart visualization</span><span>Visualize your data as a histogram</span><span>Visualizing data with maps</span><span>Almost everything you can do with the table visualization</span><span>Creating pivot tables</span><span>Funnel charts</span></ol></li><li><div><img/><span>Building dashboards</span></div><ol><span>BI dashboard best practices</span><span>Linking filters in dashboards</span><span>Custom destinations: choose what happens when people click on charts in your dashboard</span><span>Cross-filtering: using a chart to update a dashboard filter</span><span>Adding filters to dashboards with SQL questions</span><span>Build a record lookup tool with Metabase</span><span>Why you should regularly edit your dashboards</span><span>Fun with Markdown in your dashboards</span></ol></li><li><div><img/><span>Time series analysis</span></div><ol><span>Getting insights from time series data</span><span>Comparing time periods</span><span>Visualizing time series comparisons</span><span>Measuring rates of change</span></ol></li><li><div><img/><span>Data modeling</span></div><ol><span>Models in
-
-
-
-Documentation Source:
-www.metabase.com/learn/dashboards/bi-dashboard-best-practices.html
-
-Documentation Title:
-BI dashboard best practices
-
-Documentation Content:
-You can use text cards as spacers, or as section titles or description and commentary.</p><h3>Look for opportunities to add more useful information</h3><p>Metabase’s visualizations take care of a lot of the best practices for information design and visual literacy—they do their best to make <a>Edward Tufte</a>proud, communicating maximum info with minimal “ink.” But even though Metabase charts come junk-free out of the box, you should review the visualization settings to see if you can add additional context. For example, there’s a lot you can do with the a <a>bar chart</a>. A simple goal line on a bar or line chart, or conditional formatting on a table, can provide meaningful answers to questions like: are these values good? Expected? On target?</p><img/><p>For instance, instead of simply displaying a number, you could additionally show how it’s gone up or down over time. Let’s say you want to include the number of orders for the last week; instead of displaying that as a plain number, you could instead group it by a time dimension and set the visualization to a <strong>trend line</strong>. That way people will get to see the value in the context of the previous number—did the value improve or worsen?</p><img/><p>You can also adjust the color of the trend arrow (green for good, red for bad), so numbers that you want to go down (like churn) and numbers that you’d like to go up (revenue) can both get green arrows.</p><h3>Pick the right visualizations for the job</h3><p>In general the best advice is to avoid mistaking a good looking, colorful dashboard for one that’s informative. A lot of BI articles (and we’re guilty of this at times as well) will display dashboards that showcase multiple different visualizations types: bar charts, gauges, pie charts, scatter plots, and so on. We do this because 1) they look cool, and 2) our goal is to demonstrate what the product can do, which is different than the goal of getting feedback on your decisions.
 
 
 

@@ -57,21 +57,15 @@ selecting the green plus sign.
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/country-map-tools/index.html
+superset.apache.org/docs/contributing/howtos/index.html
 
 Documentation Title:
-Country Map Tools | Superset
+Development How-tos | Superset
 
 Documentation Content:
-</p><ol><li>Generate a new GeoJSON file for your country following the guide in <a>this Jupyter notebook</a>.</li><li>Edit the countries list in <a>legacy-plugin-chart-country-map/src/countries.ts</a>.</li><li>Install superset-frontend dependencies: <code>cd superset-frontend &amp;&amp; npm install</code></li><li>Verify your countries in Superset plugins storybook: <code>npm run plugins:storybook</code>.</li><li>Build and install Superset from source code.</li></ol></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Event Logging</div></a><a><div>Next</div><div>Importing and Exporting Datasources</div></a></nav></div><ul><a>Included Maps</a><a>Adding a New Country</a></ul></div></div></div><div><div>We use  <img/></div><p>Copyright © 2024,
-          The <a>Apache Software Foundation</a>,
-          Licensed under the Apache <a>License</a>.</p><small>Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
-          <a>Apache Software Foundation</a>resources</small><img/><small><a>Security</a>| 
-              <a>Donate</a>| 
-              <a>Thanks</a>| 
-              <a>Events</a>| 
-              <a>License</a>| 
-              <a>Privacy</a></small><img/></div></div>
+Description: Hello World</span><span>? What type of chart would you like? Time-series chart</span><span>create package.json</span><span>create .gitignore</span><span>create babel.config.js</span><span>create jest.config.js</span><span>create README.md</span><span>create tsconfig.json</span><span>create src/index.ts</span><span>create src/plugin/buildQuery.ts</span><span>create src/plugin/controlPanel.ts</span><span>create src/plugin/index.ts</span><span>create src/plugin/transformProps.ts</span><span>create src/types.ts</span><span>create src/SupersetPluginChartHelloWorld.tsx</span><span>create test/index.test.ts</span><span>create test/__mocks__/mockExportString.js</span><span>create test/plugin/buildQuery.test.ts</span><span>create test/plugin/transformProps.test.ts</span><span>create types/external.d.ts</span><span>create src/images/thumbnail.png</span></code><p>To build the viz plugin, run the following commands:</p><code><span>npm i --force</span><span>npm run build</span></code><p>Alternatively, to run the viz plugin in development mode (=rebuilding whenever changes
+are made), start the dev server with the following command:</p><span>npm run dev</span><p>To add the package to Superset, go to the <code>superset-frontend</code>subdirectory in your
+Superset source folder run</p><span><span>npm</span><span>i -S /tmp/superset-plugin-chart-hello-world</span></span><p>If you publish your package to npm, you can naturally install directly from there, too.
 
 
 

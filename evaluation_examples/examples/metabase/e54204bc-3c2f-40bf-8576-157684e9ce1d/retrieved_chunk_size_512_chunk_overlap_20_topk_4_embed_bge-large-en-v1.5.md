@@ -5,21 +5,6 @@ Documentation Title:
 Guide to line charts
 
 Documentation Content:
-Trend lines and goal lines
-
-You can add a trend linefrom the display settings of a time series chart. You’ll see the toggle if you’ve chosen exactly one time field from **Summarize**> **Group by**. In the example below, we’ve chosen the grouping field “Created At: Month”:
-
-!You can also add a goal line to plot a horizontal line at your goal value. Goal lines are especially useful when paired with alerts. For example, if you’re monitoring sales, and you only want to get notified if a metric dips below a certain threshold, you can add a goal line to specify that threshold and get an email or have a Slack message sent when the line goes under it.
-
-
-
-Documentation Source:
-www.metabase.com/learn/visualization/line-charts.md
-
-Documentation Title:
-Guide to line charts
-
-Documentation Content:
 To make the chart more legible, we can summarize the data, so each point on the line chart is an aggregate of rows—“buckets” of records. (It’s much more common to plot unaggregated rows in visualizations like pin maps, or a scatterplot, e.g., to show each product plotted by price and rating.)
 
 As an example of an aggregated metric, let’s plot the sum of order totals for each month. Click on the green **Summarize button**to pull up the **Summarize sidebar**. Metabase defaults to counting the records, but we’re not interested in the number of orders, so we’ll click on `Count`and change it to `Sum of`and select the `Total`column from `Order`.
@@ -69,15 +54,118 @@ Let’s take a look at the `Orders`table in the Sample Databasethat ships with M
 
 
 Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.md
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+when!Analytics dashboards
+ Share insights with anyone, anywhere!SQL editor
+ For advanced data users!Sandboxing
+ Set boundaries around your data!Models
+ A starting point for questions!Permissions
+ Keep your data secure and private!CSV upload
+ Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
+ New!Community Data Stack Report
+ NewPricingLog inv0.49Questions
+Visualizing data
+================
+
+While tables are useful for looking up information or finding specific numbers, it’s usually easier to see trends and make sense of data using charts.
+
+To change how the answer to your question is displayed, click on the **Visualization**button in the bottom-left of the screen to open the visualization sidebar.
+
+!If a particular visualization doesn’t really make sense for your answer, that option will appear in the “Other charts” section. You can still select one of these other charts, though you might need to fiddle with the chart options to make the chart work with your data.
+
+Not sure which visualization type to use? Check out Which chart should you use?
+
+Visualization options
+---------------------
+
+!Each visualization type has its own advanced options.
+
+To change the settings for a specific chart, for example a row chart, you could either:
+
+* Click on the gear icon in the bottom left of the chart (next to the **Visualization**button, or
+* Click on **Visualization**in the bottom left of the chart, then hover over the currently selected chart and click on the **gear**icon that pops up.
+
+Visualization types
+-------------------
+
+Metabase ships with a bunch of different visualizations types:
+
+Numbers
+-------
+
+The Numbersoption is for displaying a single number, nice and big.
+
+!Trends
+------
+
+The Trendvisualization is great for displaying how a single number has changed between two time periods.
+
+!Detail
+------
+
+The Detailvisualization shows a single result record (row) in an easy-to-read, two-column display.
+
+!Progress bars
+-------------
+
+Progress barsare for comparing a single number to a goal value that you set.
+
+!Gauges
+------
+
+Gaugesallow you to show a single number in the context of a set of colored ranges that you can specify.
+
+
+
+Documentation Source:
 www.metabase.com/learn/visualization/bar-charts.md
 
 Documentation Title:
 Master the bar chart visualization
 
 Documentation Content:
-Add a goal line
+Create a bar chart and customize it with visualization settings.
 
-This specifies where you want the values to be. Metabase can alertyou when the values exceed (or drop below) that goal. For example, you can add a goal line at 5500 and name it ‘Arbitrary Sales Goal’.
+Create a bar chart* Bar chart settings
+	Data+ Display settings
+		Add a goal lineShow valuesAdd a trend lineStacking options
+	+ Axes
+		LabelShow lines and marksScale
+* Stacked bar charts
+	Don’t stackStackStack-100%
+Further reading
+We’ll walk through creating a bar chartand editing that bar chart’s settings, then talk about stacked bar chartsand when we might want to use them.
+
+Create a bar chart
+------------------
+
+You can follow along using Metabase’s Sample Database. Select **+ New**> **Question**> **Raw data**> **Sample database**. Choose the Sample Database’s `Orders`table as your data. Next, summarize the count of rows and group by Product -> Category.
+
+!Click **Visualize**, and Metabase will present the data as a bar chart:
+
+!Bar chart settings
+------------------
+
+To customize the chart, click on the **gear**icon at the bottom left of the chart to open the settings sidebar, within the settings, you’ll find the following tabs:
+
+DataDisplayAxes
+Data
+----
+
+Here we can format and style our bar chart by clicking the `...`under Y-axis.
+To change bar colors, click the color swatch and choose from the palette.
+
+Customize your chart in the **Formatting tab**by adjusting numbers, separators, decimals, and scale. You can also add Prefix/Suffix as needed. In the **Style tab**, select colors, modify labels, choose a chart type (line, area, or bar), and position the Y-axis according to your chart preferences.
+
+!Display settings
+----------------
+
+In the Settings > Display section, you can customize your chart in several ways:
 
 
 

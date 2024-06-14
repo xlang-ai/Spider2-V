@@ -1,47 +1,4 @@
 Documentation Source:
-www.metabase.com/learn/permissions/collection-permissions.md
-
-Documentation Title:
-Working with collection permissions
-
-Documentation Content:
-Configuring permissions to “Our analytics”
-------------------------------------------
-
-We’re going to revoke access to **Our analytics**, because Metabase grants the *most permissive*level of access across all of the groups that someone belongs to.
-
-You can’t remove people from the All Users group, so if you give All Users **Curate**permissions to **Our analytics**, then that’ll always be the most permissive setting for everyone who uses your Metabase, regardless of any other group that you put people in.
-
-1. Go to **Admin settings**> **Permissions**> **Collections**> **Our analytics**.
-2. Click on the dropdown menu at the **All Users**row and **Collection access**column..
-3. Select **No access**. Toggle on **Also change sub-collections**so that these permissions apply to all sub-collections nested under **Our analytics**.
-
-!Creating new groups and collections
------------------------------------
-
-Next, we’ll create groups to match our Canoes and Sailboats teams. Go to **Admin settings**> **People**> **Groups**> Create a group, and call the group “Canoes”.
-
-To create a new collection, we’ll go to the Metabase homepage and click **+ New**> **Collection**. We’ll create two collections named after our new groups, and save each of those collections inside **Our analytics**.
-
-Setting collection permissions
-------------------------------
-
-We’ll set up collection permissions for the Canoes collection first, so that:
-
-* The Canoes group can view and edit questions, dashboards, and models saved in the Canoes collection.
-* The Canoes group can move, re-name, or archive the Canoes collection.
-* The Sailboats group can only view the work that’s saved in the Canoes collection.
-
-You can navigate back to **Admin settings**and go to the collection permissions page for each collection, or you can set up permissions directly from the Metabase homepage.
-
-1. Click on the Canoes collection in the sidebar.
-2. Click on the **lock icon**to open a collection permissions modal.
-3. Select **Curate**from the dropdown menu for the **Canoes**row and **Collection access**column.
-4. Select **View**from the dropdown menu for the **Sailboats**row and **Collection access**column.
-
-
-
-Documentation Source:
 www.metabase.com/docs/v0.49/people-and-groups/managing.md
 
 Documentation Title:
@@ -98,45 +55,104 @@ To promote someone to become a group manager:
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/developers-guide/contributing.md
+www.metabase.com/docs/v0.49/people-and-groups/managing.md
 
 Documentation Title:
-Contributing to Metabase
+Managing people and groups
 
 Documentation Content:
-Help us triage and support other users
+when!Analytics dashboards
+ Share insights with anyone, anywhere!SQL editor
+ For advanced data users!Sandboxing
+ Set boundaries around your data!Models
+ A starting point for questions!Permissions
+ Keep your data secure and private!CSV upload
+ Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
+ New!Community Data Stack Report
+ NewPricingLog inv0.49People and Groups
+Managing people and groups
+==========================
 
-Spend time on discourse.metabase.com and on new issues and try to reproduce the bugs reported. For people having trouble with their databases where you have significant knowledge, help them out. Who knows, maybe they’ll end up helping you with something in the future.
+To start managing people, click on the **gear**icon > **Admin settings**> **People**. You’ll see a list of all the people in your organization.
 
-It is helpful if you understand our prioritization frameworkwhen responding.
+!Creating an account
+-------------------
+
+To add a new person, click **Invite someone**in the upper right corner. You’ll be prompted to enter their email, and optionally their first and last names–only the email is required.
+
+Click **Create**to activate an account. An account becomes active once you click **Create**, even if the person never signs into the account. The account remains active until you deactivate the account. If you’re on a paid Metabase plan, all active accounts will count toward your user account total. If one person has more than one account, each account will count toward the total (see how billing works).
+
+If you’ve already configured Metabase to use email, Metabase will send the person an email inviting them to log into Metabase. If you haven’t yet setup email for your Metabase, Metabase will give you a temporary password that you’ll have to manually send to the person.
+
+Editing an account
+------------------
+
+You can edit someone’s name and email address by clicking the three dots icon and choosing **Edit user**.
+
+Be careful: changing an account’s email address *will change the address the person will use to log in to Metabase*.
+
+Adding a user attribute
+-----------------------
+
+User attributes is only available on Proand Enterpriseplans (both self-hosted and on Metabase Cloud).
+
+To add a user attribute manually:
+
+1. Go to **Admin settings**> **People**.
+2. Find the person’s account and click the **three dot**(…) menu.
+3. Click **Edit user**.
+4.
 
 
 
 Documentation Source:
-www.metabase.com/learn/getting-started/tour-of-metabase.md
+www.metabase.com/docs/v0.49/people-and-groups/managing.md
 
 Documentation Title:
-A tour of Metabase
+Managing people and groups
 
 Documentation Content:
-Submit a PR, or fork the source code
-
-Metabase is open source, so if Metabase lacks a feature you need, you can always build it yourself. Check out our releasesto see the features we’ve added recently, and the roadmapfor what we’re working on next.
+At the top right of the screen, click the **gear**icon > **Admin settings**> **People**> **Groups**.
+2. Select the group you want the person to manage. If the person isn’t already in the group, you’ll need to add that person to the group.
+3. Find the person you want to promote, hover over their member type, and click the up arrow to promote them to group manager. If you want to demote them, click on the down arrow.
 
 Further reading
 ---------------
 
-* Stay up to date on our blog.
-* Questions? See if they’ve been answered on our forum, or post a question yourself.
-* Beyond BI: other problems you can solve with Metabase.
+* Configure Single Sign-On (SSO).
+* Permissions strategies.
+* Multi-tenant permissions.
+Read docs for other versions of Metabase.
+ 
 
-« PreviousNext »Did this article help you?
+Did this article help you?
  
 
 Yes
  No
  Send
  Thanks for your feedback!
+
+Want to improve these docs? Propose a change.##### Subscribe to our newsletter
+
+Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/embedding/interactive-embedding-quick-start-guide.md
+
+Documentation Title:
+Interactive embedding quick start
+
+Documentation Content:
+Add a `groups`key to your token
+
+Recall the `signUserToken`function used to create the JWTs. Add a `groups`key to the signed token that maps to an array. Metabase will look at the values in that array to see if any of the values map to a group in Metabase (We’ll walk through mapping groups in a bit).
+
+`constsignUserToken=user=>jwt.sign({email:user.email,first_name:user.firstName,last_name:user.lastName,groups:["Customer-Acme"],exp:Math.round(Date.now()/1000)+60*10,// 10 minute expiration},METABASE_JWT_SHARED_SECRET,);`### Create a group in Metabase
+
+In Metabase, click the **gear**icon and go to **Admin settings**> **People**> **Groups**. Click the **Create a group**button. Add a group that corresponds with a group in your app. If you’re using the sample app, add a group called `Customer Acme`.
 
 
 

@@ -128,48 +128,95 @@ Documentation Title:
 Master the bar chart visualization
 
 Documentation Content:
-Privacy Policy
-Terms of Service
-License
-Brand Guidelines
-Support
-Documentation
-Help
-Professional Services
-Onboarding
-New
-Status
-Github
-Resources
-Case Studies
-Blog
+Managing your information budget
+Don't use "data" as a crutch for lazy thinking
+Common data model mistakes made by startups
+Ten common analytics mistakes startups make
+The five stages of embedding grief
+The push and pull of analytics
+ETLs, ELTs, and Reverse ETLs
+Administration and operation
+Admin overview
+How to run Metabase in production
+Managing people in Metabase
+Guide to sharing data
+Keeping your analytics organized
+Multiple environments
+Serialization: preloading dashboards in a new Metabase instance
+Setting up a git-based workflow
+Making dashboards faster
+Metabase at scale
+Working with the Metabase API
+Permissions
+Permissions strategies
+Guide to data permissions
+Working with collection permissions
+Basic sandboxes: setting row-level permissions
+Custom sandboxes: limiting access to columns
+Data sandboxes: personalizing the data that people can see in Metabase
+Use Impersonation to get row-level permissions with both GUI and SQL queries
+Configuring multi-tenant data permissions
+How to keep tabs on your data
+Auditing your users and data
+Using LDAP for authentication and access control
+Customer-facing analytics
+Strategies for delivering customer-facing analytics
+Publishing data visualizations to the web
+A Metabase mystery
+Multi-tenant self-service analytics
+Brand your Metabase
+Securing embedded Metabase
 Learn
-Community Stories
-Data and Business Intelligence Glossary
-Partners
-The Startup's Guide to Financial Modeling
-The 2023 Metabase Community Data Stack Report
-More Resources
-Example Dashboards
-SQL Best Practices
-Choosing a Data Warehouse
-How to Create Pivot Tables
-Types of SQL Joins
-SQL Cheat Sheet
-Data Bias Examples
-Modern Data Stack
-Dashboard for Marketing Teams
-Dashboards for Sales Teams
-Dashboards for Engineering Teams
-© Metabase 2024
+Visualizing data
+Article
+Master the bar chart visualization
+Create a bar chart and customize it with visualization settings.
+Create a bar chart
+Bar chart settings
+Data
+Display settings
+Add a goal line
+Show values
+Add a trend line
+Stacking options
+Axes
+Label
+Show lines and marks
+Scale
+Stacked bar charts
+Don’t stack
+Stack
+Stack-100%
+Further reading
+We’ll walk through
+creating a bar chart
+and
+editing that bar chart’s settings
+, then talk about
+stacked bar charts
+and when we might want to use them.
+Create a bar chart
+You can follow along using Metabase’s
+Sample Database
+. Select
++ New
+>
+Question
+>
+Raw data
+>
+Sample database
+. Choose the Sample Database’s
+Orders
+table as your data. Next, summarize the count of rows and group by Product -> Category.
 
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/questions/sharing/visualizations/line-bar-and-area-charts.txt
+www.metabase.com/learn/visualization/bar-charts.txt
 
 Documentation Title:
-Line, bar, and area charts
+Master the bar chart visualization
 
 Documentation Content:
 Privacy Policy

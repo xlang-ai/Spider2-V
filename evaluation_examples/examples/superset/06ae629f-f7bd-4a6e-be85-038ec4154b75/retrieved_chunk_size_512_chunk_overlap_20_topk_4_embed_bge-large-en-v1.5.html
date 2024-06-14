@@ -1,4 +1,18 @@
 Documentation Source:
+superset.apache.org/docs/quickstart/index.html
+
+Documentation Title:
+Quickstart | Superset
+
+Documentation Content:
+Start the latest official release of Superset<a>​</a></h3><code><span># Enter the repository you just cloned</span><span><span>$ </span><span>cd</span><span>superset</span></span><span># Fire up Superset using Docker Compose</span><span><span>$ </span><span>docker</span><span>compose -f docker-compose-image-tag.yml up</span></span></code><p>This may take a moment as Docker Compose will fetch the underlying
+container images and will load up some examples. Once all containers
+are downloaded and the output settles, you're ready to log in.</p><h3>3. Log into Superset<a>​</a></h3><p>Now head over to <a>http://localhost:8088</a>and log in with the default created account:</p><code><span>username: admin</span><span>password: admin</span></code><h4>🎉 Congratulations! Superset is now up and running on your machine! 🎉<a>​</a></h4><h3>Wrapping Up<a>​</a></h3><p>Once you're done with Superset, you can stop and delete just like any other container environment:</p><span><span>$ </span><span>docker</span><span>compose down</span></span><div><div>tip</div><p>You can use the same environment more than once, as Superset will persist data locally. However, make sure to properly stop all
+processes by running Docker Compose <code>stop</code>command.
+
+
+
+Documentation Source:
 superset.apache.org/docs/contributing/development/index.html
 
 Documentation Title:
@@ -16,15 +30,27 @@ our <a>installing on k8s</a>documentation.
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/development/index.html
+superset.apache.org/docs/installation/docker-compose/index.html
 
 Documentation Title:
-Setting up a Development Environment | Superset
+Docker Compose | Superset
 
 Documentation Content:
-<strong>Most people should stick to
-the first few sections - ("Fork &amp; Clone", "docker-compose" and "Installing Dev Tools")</strong></p></div><h2>Fork and Clone<a>​</a></h2><p>First, <a>fork the repository on GitHub</a>,
-then clone it.</p><p>Second, you can clone the main repository directly, but you won't be able to send pull requests.</p><code><span><span>git</span><span>clone git@github.com:your-username/superset.git</span></span><span><span>cd</span><span>superset</span></span></code><h2>docker-compose (recommended!
+Note that many browsers now default to <code>https</code>- if
+yours is one of them, please make sure it uses <code>http</code>.</p><p>Log in with the default username and password:</p><span>username: admin</span><span>password: admin</span><h2>4. Connecting Superset to your local database instance<a>​</a></h2><p>When running Superset using <code>docker</code>or <code>docker compose</code>it runs in its own docker container, as if
+the Superset was running in a separate machine entirely. Therefore attempts to connect to your local
+database with the hostname <code>localhost</code>won't work as <code>localhost</code>refers to the docker container
+Superset is running in, and not your actual host machine. Fortunately, docker provides an easy way
+to access network resources in the host machine from inside a container, and we will leverage this
+capability to connect to our local database instance.</p><p>Here the instructions are for connecting to postgresql (which is running on your host machine) from
+Superset (which is running in its docker container). Other databases may have slightly different
+configurations but gist would be same and boils down to 2 steps -</p><li><strong>(Mac users may skip this step)</strong>Configuring the local postgresql/database instance to accept
+public incoming connections. By default, postgresql only allows incoming connections from
+<code>localhost</code>and under Docker, unless you use <code>--network=host</code>, <code>localhost</code>will refer to different
+endpoints on the host machine and in a docker container respectively. Allowing postgresql to accept
+connections from the Docker involves making one-line changes to the files <code>postgresql.conf</code>and
+<code>pg_hba.conf</code>; you can find helpful links tailored to your OS / PG version on the web easily for
+this task.
 
 
 
@@ -35,33 +61,17 @@ Documentation Title:
 Docker Compose | Superset
 
 Documentation Content:
-Clone Superset's GitHub repository</a><li><a>2. Launch Superset Through Docker Compose</a><ul><a>Option #1 - for an interactive development environment</a><a>Option #2 - build a set of immutable images from the local branch</a><a>Option #3 - boot up an official release</a></ul></li><li><a>docker-compose tips &amp; configuration</a><a>Configuring Further</a></li><a>3. Log in to Superset</a><a>4. Connecting Superset to your local database instance</a></ul></div></div></div><div><div>We use  <img/></div><p>Copyright © 2024,
-          The <a>Apache Software Foundation</a>,
-          Licensed under the Apache <a>License</a>.</p><small>Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
-          <a>Apache Software Foundation</a>resources</small><img/><small><a>Security</a>| 
-              <a>Donate</a>| 
-              <a>Thanks</a>| 
-              <a>Events</a>| 
-              <a>License</a>| 
-              <a>Privacy</a></small><img/></div></div>
-
-
-
-Documentation Source:
-superset.apache.org/docs/contributing/index.html
-
-Documentation Title:
-Contributing to Superset | Superset
-
-Documentation Content:
-Please include:</p><ul><li>Your operating system name and version.</li><li>Superset version.</li><li>Detailed steps to reproduce the bug.</li><li>Any details about your local setup that might be helpful in troubleshooting.</li></ul><p>When posting Python stack traces, please quote them using
-<a>Markdown blocks</a>.</p><em>Please note that feature requests opened as GitHub Issues will be moved to Discussions.</em><h3>Submit Ideas or Feature Requests<a>​</a></h3><p>The best way is to start an <a>"Ideas" Discussion thread</a>on GitHub:</p><ul><li>Explain in detail how it would work.</li><li>Keep the scope as narrow as possible, to make it easier to implement.</li><li>Remember that this is a volunteer-driven project, and that your contributions are as welcome as anyone's :)</li></ul><p>To propose large features or major changes to codebase, and help usher in those changes, please create a <strong>Superset Improvement Proposal (SIP)</strong>. See template from <a>SIP-0</a></p><h3>Fix Bugs<a>​</a></h3><p>Look through the GitHub issues. Issues tagged with <code>#bug</code>are
-open to whoever wants to implement them.</p><h3>Implement Features<a>​</a></h3><p>Look through the GitHub issues. Issues tagged with
-<code>#feature</code>are open to whoever wants to implement them.</p><h3>Improve Documentation<a>​</a></h3><p>Superset could always use better documentation,
-whether as part of the official Superset docs,
-in docstrings, <code>docs/*.rst</code>or even on the web as blog posts or
-articles. See <a>Documentation</a>for more details.</p><h3>Add Translations<a>​</a></h3><p>If you are proficient in a non-English language, you can help translate
-text strings from Superset's UI.
+Here we'll refer generally
+to <code>docker compose up</code>even though in some cases you may want to force a check for newer remote
+images using <code>docker compose pull</code>, force a build with <code>docker compose build</code>or force a build
+on latest base images using <code>docker compose build --pull</code>. In most cases though, the simple
+<code>up</code>command should do just fine. Refer to docker compose docs for more information on the topic.</p><h3>Option #1 - for an interactive development environment<a>​</a></h3><span><span>docker</span><span>compose up</span></span><div><div>tip</div><p>When running in development mode the <code>superset-node</code>container needs to finish building assets in order for the UI to render properly. If you would just
+like to try out Superset without making any code changes follow the steps documented for
+<code>production</code>or a specific version below.</p></div><div><div>tip</div><p>By default, we mount the local superset-frontend folder here and run <code>npm install</code>as well
+as <code>npm run dev</code>which triggers webpack to compile/bundle the frontend code. Depending
+on your local setup, especially if you have less than 16GB of memory,  it may be very slow to
+perform those operations. In this case, we recommend you set the env var
+<code>BUILD_SUPERSET_FRONTEND_IN_DOCKER</code>to <code>false</code>, and to run this locally instead in a terminal.
 
 
 

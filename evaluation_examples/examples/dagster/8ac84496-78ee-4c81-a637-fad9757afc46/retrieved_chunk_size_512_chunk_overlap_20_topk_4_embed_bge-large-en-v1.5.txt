@@ -5,50 +5,6 @@ Documentation Title:
 Using Jupyter notebooks with Papermill and Dagster Tutorial
 
 Documentation Content:
-The page will display the notebook asset in the
-Asset Graph
-.
-If you click the notebook asset, a sidebar containing info about the asset will slide out from the right side of the page. In the
-Description
-section of the panel is a
-View Source Notebook
-button:
-This button allows you to view the notebook directly in the UI. When clicked, Dagster will render the notebook - referenced in the
-notebook_path
-parameter - that'll be executed when the
-iris_kmeans_jupyter
-asset is materialized:
-Click the
-Materialize
-button. To view the execution as it happens, click the
-View
-button in the alert that displays.
-After the run completes successfully, you can view the executed notebook in the UI. Click the asset again and locate the
-View Notebook
-button in the
-Materialization in Last Run
-section of the sidebar:
-Click the button to display the executed notebook - specifically, the notebook that was executed and written to a persistent location:
-Step 5: Add an upstream asset
-#
-While our
-iris-kmeans
-notebook asset now materializes successfully, there are still some improvements we can make. The beginning of the notebook fetches the Iris dataset, which means that every time the notebook is materialized, the data is re-fetched.
-To address this, we can factor the Iris dataset into its own asset. This will allow us to:
-Use the asset as input to additional notebooks.
-This means all notebooks analyzing the Iris dataset will use the same source data, which we only have to fetch once.
-Materialize notebooks without fetching data for each materialization.
-Instead of making potentially expensive API calls, Dagster can fetch the data from the previous materialization of the Iris dataset and provide that data as input to the notebook.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/dagstermill/using-notebooks-with-dagster.txt
-
-Documentation Title:
-Using Jupyter notebooks with Papermill and Dagster Tutorial
-
-Documentation Content:
 In this step, you'll:
 Create the Iris dataset asset
 Provide the Iris dataset as input to the notebook
@@ -139,73 +95,40 @@ Documentation Title:
 Using Jupyter notebooks with Papermill and Dagster Tutorial
 
 Documentation Content:
-Step 1: Explore the Jupyter notebook
+The page will display the notebook asset in the
+Asset Graph
+.
+If you click the notebook asset, a sidebar containing info about the asset will slide out from the right side of the page. In the
+Description
+section of the panel is a
+View Source Notebook
+button:
+This button allows you to view the notebook directly in the UI. When clicked, Dagster will render the notebook - referenced in the
+notebook_path
+parameter - that'll be executed when the
+iris_kmeans_jupyter
+asset is materialized:
+Click the
+Materialize
+button. To view the execution as it happens, click the
+View
+button in the alert that displays.
+After the run completes successfully, you can view the executed notebook in the UI. Click the asset again and locate the
+View Notebook
+button in the
+Materialization in Last Run
+section of the sidebar:
+Click the button to display the executed notebook - specifically, the notebook that was executed and written to a persistent location:
+Step 5: Add an upstream asset
 #
-In this tutorial, we'll analyze the Iris dataset, collected in 1936 by the American botanist Edgar Anderson and made famous by statistician Ronald Fisher. The Iris dataset is a basic example of machine learning because it contains three classes of observation: one class is straightforwardly linearly separable from the other two, which can only be distinguished by more sophisticated methods.
-The
-/tutorial_template/notebooks/iris-kmeans.ipynb
-Jupyter notebook, which is already completed for you, does some analysis on the Iris dataset.
-In the Jupyter notebook, we first fetch the Iris dataset:
-# /tutorial_template/notebooks/iris-kmeans.ipynb
-iris
-=
-pd
-.
-read_csv
-(
-"https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
-,
-names
-=
-[
-"Sepal length (cm)"
-,
-"Sepal width (cm)"
-,
-"Petal length (cm)"
-,
-"Petal width (cm)"
-,
-"Species"
-,
-]
-,
-)
-Next, we'll perform some descriptive analysis to explore the dataset. If you execute these cells, several plots of the Iris dataset will be created:
-Next, we conduct our K-means analysis:
-estimator
-=
-sklearn
-.
-cluster
-.
-KMeans
-(
-n_clusters
-=
-3
-)
-estimator
-.
-fit
-(
-iris
-[
-[
-"Sepal length (cm)"
-,
-"Sepal width (cm)"
-,
-"Petal length (cm)"
-,
-"Petal width (cm)"
-]
-]
-)
-Lastly, we plot the results of the K-means analysis. From the plots, we can see that one species of Iris is separable from the other two, but a more sophisticated model will be required to distinguish the other two species:
-Like many notebooks, this example does some fairly sophisticated work, including producing diagnostic plots and a statistical model. For now, this work is locked away in the
-.ipynb
-format, only reproducible using a complex Jupyter setup, and only programmatically accessible within the notebook context. We'll address this in the remainder of the tutorial.
+While our
+iris-kmeans
+notebook asset now materializes successfully, there are still some improvements we can make. The beginning of the notebook fetches the Iris dataset, which means that every time the notebook is materialized, the data is re-fetched.
+To address this, we can factor the Iris dataset into its own asset. This will allow us to:
+Use the asset as input to additional notebooks.
+This means all notebooks analyzing the Iris dataset will use the same source data, which we only have to fetch once.
+Materialize notebooks without fetching data for each materialization.
+Instead of making potentially expensive API calls, Dagster can fetch the data from the previous materialization of the Iris dataset and provide that data as input to the notebook.
 
 
 
@@ -301,6 +224,84 @@ iris-kmeans
 notebook that fetches the Iris dataset. This allows us to replace the cell with the data-fetching logic that loads the
 iris_dataset
 asset and retain the ability to run the Jupyter notebook in a standalone context. We'll cover this in more detail later in the tutorial.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dagstermill/using-notebooks-with-dagster.txt
+
+Documentation Title:
+Using Jupyter notebooks with Papermill and Dagster Tutorial
+
+Documentation Content:
+We'll address this in the remainder of the tutorial.
+Step 2: Create a Dagster asset from the Jupyter Notebook
+#
+By creating a Dagster asset from our notebook, we can integrate the notebook as part of our data platform. This enables us to make its contents more accessible to developers, stakeholders, and other assets in Dagster.
+To create a Dagster asset from a Jupyter notebook, we can use the
+define_dagstermill_asset
+function. In
+/tutorial_template/assets/__init__.py
+add the following code snippet:
+# /tutorial_template/assets/__init__.py
+from
+dagstermill
+import
+define_dagstermill_asset
+from
+dagster
+import
+file_relative_path
+
+iris_kmeans_jupyter_notebook
+=
+define_dagstermill_asset
+(
+name
+=
+"iris_kmeans_jupyter"
+,
+notebook_path
+=
+file_relative_path
+(
+__file__
+,
+"../notebooks/iris-kmeans.ipynb"
+)
+,
+group_name
+=
+"template_tutorial"
+,
+)
+If you are following along in the template code, uncomment the code block under the
+TODO 1
+comment.
+Using
+define_dagstermill_asset
+, we've created and returned a Dagster asset. Let's take a look at the arguments we provided:
+name
+- This argument names the asset, in this case
+iris_kmeans_jupyter
+notebook_path
+- This argument tells Dagster where to find the notebook the asset should use as a source. In this case, that's our
+/notebooks/iris-kmeans.ipynb
+file.
+group_name
+- This optional argument places the asset into a group named
+template_tutorial
+, which is helpful for organizating your assets in the UI.
+When materialized, the
+iris_kmeans_jupyter
+asset will execute the notebook (
+/notebooks/iris-kmeans.ipynb
+) and store the resulting
+.ipynb
+file in a persistent location.
+Step 3: Add a Dagster Definitions object and supply an I/O manager
+#
+We want to execute our Dagster asset and save the resulting notebook to a persistent location.
 
 
 

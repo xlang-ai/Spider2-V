@@ -5,58 +5,6 @@ Documentation Title:
 Using Jupyter notebooks with Papermill and Dagster Tutorial
 
 Documentation Content:
-When clicked, Dagster will render the notebook - referenced in the `notebook_path`parameter - that'll be executed when the `iris_kmeans_jupyter`asset is materialized:
-
-!
-Click the **Materialize**button. To view the execution as it happens, click the **View**button in the alert that displays.
-
-
-After the run completes successfully, you can view the executed notebook in the UI. Click the asset again and locate the **View Notebook**button in the **Materialization in Last Run**section of the sidebar:
-
-!Click the button to display the executed notebook - specifically, the notebook that was executed and written to a persistent location:
-
-!Step 5: Add an upstream asset#
-------------------------------
-
-While our `iris-kmeans`notebook asset now materializes successfully, there are still some improvements we can make. The beginning of the notebook fetches the Iris dataset, which means that every time the notebook is materialized, the data is re-fetched.
-
-To address this, we can factor the Iris dataset into its own asset. This will allow us to:
-
-**Use the asset as input to additional notebooks.**This means all notebooks analyzing the Iris dataset will use the same source data, which we only have to fetch once.
-
-**Materialize notebooks without fetching data for each materialization.**Instead of making potentially expensive API calls, Dagster can fetch the data from the previous materialization of the Iris dataset and provide that data as input to the notebook.
-
-
-In this step, you'll:
-
-Create the Iris dataset assetProvide the Iris dataset as input to the notebookModify the notebook
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/dagstermill/using-notebooks-with-dagster.md
-
-Documentation Title:
-Using Jupyter notebooks with Papermill and Dagster Tutorial
-
-Documentation Content:
-Step 5.2: Provide the iris\_dataset asset to the notebook asset
-
-Next, we need to tell Dagster that the `iris_datset`asset is input data for the `iris-kmeans`notebook. To do this, add the `ins`parameter to the notebook asset:
-
-`# tutorial_template/assets/__init__.pyfromdagstermill importdefine_dagstermill_asset
-fromdagster importasset,file_relative_path,AssetIn
-importpandas aspd
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/dagstermill/using-notebooks-with-dagster.md
-
-Documentation Title:
-Using Jupyter notebooks with Papermill and Dagster Tutorial
-
-Documentation Content:
 Step 5.3: Modify the notebook
 
 We need to make a small change in our Jupyter notebook to allow Dagster to supply the `iris_dataset`asset as input. Behind the scenes, Dagster uses `papermill`to inject parameters into notebooks. `papermill`works by replacing a notebook cell with the `parameters`tag with a custom cell that can fetch the desired data.
@@ -105,6 +53,23 @@ Documentation Title:
 Using Jupyter notebooks with Papermill and Dagster Tutorial
 
 Documentation Content:
+Step 5.2: Provide the iris\_dataset asset to the notebook asset
+
+Next, we need to tell Dagster that the `iris_datset`asset is input data for the `iris-kmeans`notebook. To do this, add the `ins`parameter to the notebook asset:
+
+`# tutorial_template/assets/__init__.pyfromdagstermill importdefine_dagstermill_asset
+fromdagster importasset,file_relative_path,AssetIn
+importpandas aspd
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dagstermill/using-notebooks-with-dagster.md
+
+Documentation Title:
+Using Jupyter notebooks with Papermill and Dagster Tutorial
+
+Documentation Content:
 The answer is simple: use the `iris_dataset`Dagster asset!
 
 In the Jupyter notebook, import the Dagster `Definitions`object and use the `Definitions.load_asset_value`function to load the data for the `iris_dataset`asset we created in Step 5.1: Create the Iris dataset asset:
@@ -127,6 +92,41 @@ On This Page- Using Jupyter notebooks with Papermill and Dagster
 		Step 5.1: Create the Iris dataset assetStep 5.2: Provide the iris\_dataset asset to the notebook assetStep 5.3: Modify the notebook
 	Step 6: Materialize the assetsExtra credit: Fetch a Dagster asset in a Jupyter notebookConclusion
 Edit Page on GitHubShare FeedbackStar
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dagstermill/using-notebooks-with-dagster.md
+
+Documentation Title:
+Using Jupyter notebooks with Papermill and Dagster Tutorial
+
+Documentation Content:
+When clicked, Dagster will render the notebook - referenced in the `notebook_path`parameter - that'll be executed when the `iris_kmeans_jupyter`asset is materialized:
+
+!
+Click the **Materialize**button. To view the execution as it happens, click the **View**button in the alert that displays.
+
+
+After the run completes successfully, you can view the executed notebook in the UI. Click the asset again and locate the **View Notebook**button in the **Materialization in Last Run**section of the sidebar:
+
+!Click the button to display the executed notebook - specifically, the notebook that was executed and written to a persistent location:
+
+!Step 5: Add an upstream asset#
+------------------------------
+
+While our `iris-kmeans`notebook asset now materializes successfully, there are still some improvements we can make. The beginning of the notebook fetches the Iris dataset, which means that every time the notebook is materialized, the data is re-fetched.
+
+To address this, we can factor the Iris dataset into its own asset. This will allow us to:
+
+**Use the asset as input to additional notebooks.**This means all notebooks analyzing the Iris dataset will use the same source data, which we only have to fetch once.
+
+**Materialize notebooks without fetching data for each materialization.**Instead of making potentially expensive API calls, Dagster can fetch the data from the previous materialization of the Iris dataset and provide that data as input to the notebook.
+
+
+In this step, you'll:
+
+Create the Iris dataset assetProvide the Iris dataset as input to the notebookModify the notebook
 
 
 

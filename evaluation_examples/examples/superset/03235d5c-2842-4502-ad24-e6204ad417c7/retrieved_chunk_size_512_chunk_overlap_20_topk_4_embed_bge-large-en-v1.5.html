@@ -1,15 +1,4 @@
 Documentation Source:
-superset.apache.org/docs/configuration/databases/index.html
-
-Documentation Title:
-Connecting to Databases | Superset
-
-Documentation Content:
-TimescaleDB is a PostgreSQL extension, and you can use the standard PostgreSQL connector library, <a>psycopg2</a>, to connect to the database.</p><p>If you're using docker compose, psycopg2 comes out of the box with Superset.</p><p>TimescaleDB sample connection parameters:</p><ul><li><strong>User Name</strong>: User</li><li><strong>Password</strong>: Password</li><li><strong>Database Host</strong>:<ul><li>For Localhost: localhost or 127.0.0.1</li><li>For On Prem: IP address or Host name</li><li>For <a>Timescale Cloud</a>service: Host name</li><li>For <a>Managed Service for TimescaleDB</a>service: Host name</li></ul></li><li><strong>Database Name</strong>: Database Name</li><li><strong>Port</strong>: default 5432 or Port number of the service</li></ul><p>The connection string looks like:</p><span>postgresql://{username}:{password}@{host}:{port}/{database name}</span><p>You can require SSL by adding <code>?sslmode=require</code>at the end (e.g. in case you use <a>Timescale Cloud</a>):</p><span>postgresql://{username}:{password}@{host}:{port}/{database name}?sslmode=require</span><a>Learn more about TimescaleDB!</a><h4>Trino<a>​</a></h4><p>Supported trino version 352 and higher</p><h5>Connection String<a>​</a></h5><p>The connection string format is as follows:</p><span>trino://{username}:{password}@{hostname}:{port}/{catalog}</span><p>If you are running Trino with docker on local machine, please use the following connection URL</p><span>trino://trino@host.docker.internal:8080</span><h5>Authentications<a>​</a></h5><h6>1.
-
-
-
-Documentation Source:
 superset.apache.org/docs/installation/docker-compose/index.html
 
 Documentation Title:
@@ -41,13 +30,11 @@ Documentation Title:
 Connecting to Databases | Superset
 
 Documentation Content:
-Refer to the SQLAlchemy docs for more information.</p><h5>Schemas<a>​</a></h5><p>Databases like Postgres and Redshift use the <strong>schema</strong>as the logical entity on top of the
-<strong>database</strong>. For Superset to connect to a specific schema, you can set the <strong>schema</strong>parameter in
-the <strong>Edit Tables</strong>form (Sources &gt; Tables &gt; Edit record).</p><h5>External Password Store for SQLAlchemy Connections<a>​</a></h5><p>Superset can be configured to use an external store for database passwords. This is useful if you a
-running a custom secret distribution framework and do not wish to store secrets in Superset’s meta
-database.</p><p>Example: Write a function that takes a single argument of type <code>sqla.engine.url</code>and returns the
-password for the given connection string. Then set <code>SQLALCHEMY_CUSTOM_PASSWORD_STORE</code>in your config
-file to point to that function.</p><code><span><span>def</span><span>example_lookup_password</span><span>(</span><span>url</span><span>)</span><span>:</span></span><span><span>secret </span><span>=</span><span>&lt;&lt;</span><span>get password </span><span>from</span><span>external framework</span><span>&gt;&gt;</span></span><span><span>return</span><span>'secret'</span></span><span><span>SQLALCHEMY_CUSTOM_PASSWORD_STORE </span><span>=</span><span>example_lookup_password</span></span></code><p>A common pattern is to use environment variables to make secrets available.
+</p><p>Postgres sample connection parameters:</p><ul><li><strong>User Name</strong>: UserName</li><li><strong>Password</strong>: DBPassword</li><li><strong>Database Host</strong>:<ul><li>For Localhost: localhost or 127.0.0.1</li><li>For On Prem: IP address or Host name</li><li>For AWS Endpoint</li></ul></li><li><strong>Database Name</strong>: Database Name</li><li><strong>Port</strong>: default 5432</li></ul><p>The connection string looks like:</p><span>postgresql://{username}:{password}@{host}:{port}/{database}</span><p>You can require SSL by adding <code>?sslmode=require</code>at the end:</p><span>postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=require</span><p>You can read about the other SSL modes that Postgres supports in
+<a>Table 31-1 from this documentation</a>.</p><p>More information about PostgreSQL connection options can be found in the
+<a>SQLAlchemy docs</a>and the
+<a>PostgreSQL docs</a>.</p><h4>Presto<a>​</a></h4><p>The <a>pyhive</a>library is the recommended way to connect to Presto through SQLAlchemy.</p><p>The expected connection string is formatted as follows:</p><span>presto://{hostname}:{port}/{database}</span><p>You can pass in a username and password as well:</p><span>presto://{username}:{password}@{hostname}:{port}/{database}</span><p>Here is an example connection string with values:</p><span>presto://datascientist:securepassword@presto.example.com:8080/hive</span><p>By default Superset assumes the most recent version of Presto is being used when querying the
+datasource.
 
 
 
@@ -58,7 +45,26 @@ Documentation Title:
 Connecting to Databases | Superset
 
 Documentation Content:
-<code>SQLALCHEMY_CUSTOM_PASSWORD_STORE</code>can also be used for that purpose.</p><code><span><span>def</span><span>example_password_as_env_var</span><span>(</span><span>url</span><span>)</span><span>:</span></span><span># assuming the uri looks like</span><span># mysql://localhost?superset_user:{SUPERSET_PASSWORD}</span><span><span>return</span><span>url</span><span>.</span><span>password</span><span>.</span><span>format</span><span>(</span><span>**</span><span>os</span><span>.</span><span>environ</span><span>)</span></span><span><span>SQLALCHEMY_CUSTOM_PASSWORD_STORE </span><span>=</span><span>example_password_as_env_var</span></span></code><h5>SSL Access to Databases<a>​</a></h5><p>You can use the <code>Extra</code>field in the <strong>Edit Databases</strong>form to configure SSL:</p><code><span>{</span><span>"metadata_params": {},</span><span>"engine_params": {</span><span>"connect_args":{</span><span>"sslmode":"require",</span><span>"sslrootcert": "/path/to/my/pem"</span><span>}</span><span>}</span><span>}</span></code><h2>Misc.<a>​</a></h2><h3>Querying across databases<a>​</a></h3><p>Superset offers an experimental feature for querying across different databases. This is done via a special database called "Superset meta database" that uses the "superset://" SQLAlchemy URI. When using the database it's possible to query any table in any of the configured databases using the following syntax:</p><span><span>SELECT</span><span>*</span><span>FROM</span><span>"database name.[[catalog.
+From there, follow the steps on the
+<a>Using Database Connection UI page</a>.</p><p>Consult the page for your specific database type in the Superset documentation to determine
+the connection string and any other parameters you need to input.  For instance,
+on the <a>MySQL page</a>, we see that the connection string
+to a local MySQL database differs depending on whether the setup is running on Linux or Mac.</p><p>Click the “Test Connection” button, which should result in a popup message saying,
+"Connection looks good!".</p><h4>4. Troubleshooting<a>​</a></h4><p>If the test fails, review your docker logs for error messages.  Superset uses SQLAlchemy
+to connect to databases; to troubleshoot the connection string for your database, you might
+start Python in the Superset application container or host environment and try to connect
+directly to the desired database and fetch data.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.html
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+TimescaleDB is a PostgreSQL extension, and you can use the standard PostgreSQL connector library, <a>psycopg2</a>, to connect to the database.</p><p>If you're using docker compose, psycopg2 comes out of the box with Superset.</p><p>TimescaleDB sample connection parameters:</p><ul><li><strong>User Name</strong>: User</li><li><strong>Password</strong>: Password</li><li><strong>Database Host</strong>:<ul><li>For Localhost: localhost or 127.0.0.1</li><li>For On Prem: IP address or Host name</li><li>For <a>Timescale Cloud</a>service: Host name</li><li>For <a>Managed Service for TimescaleDB</a>service: Host name</li></ul></li><li><strong>Database Name</strong>: Database Name</li><li><strong>Port</strong>: default 5432 or Port number of the service</li></ul><p>The connection string looks like:</p><span>postgresql://{username}:{password}@{host}:{port}/{database name}</span><p>You can require SSL by adding <code>?sslmode=require</code>at the end (e.g. in case you use <a>Timescale Cloud</a>):</p><span>postgresql://{username}:{password}@{host}:{port}/{database name}?sslmode=require</span><a>Learn more about TimescaleDB!</a><h4>Trino<a>​</a></h4><p>Supported trino version 352 and higher</p><h5>Connection String<a>​</a></h5><p>The connection string format is as follows:</p><span>trino://{username}:{password}@{hostname}:{port}/{catalog}</span><p>If you are running Trino with docker on local machine, please use the following connection URL</p><span>trino://trino@host.docker.internal:8080</span><h5>Authentications<a>​</a></h5><h6>1.
 
 
 

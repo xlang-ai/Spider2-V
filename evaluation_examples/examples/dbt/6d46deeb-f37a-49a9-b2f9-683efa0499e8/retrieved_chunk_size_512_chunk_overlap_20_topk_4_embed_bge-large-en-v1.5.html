@@ -15,27 +15,20 @@ where <span>myorg</span>is the Snowflake organization ID, and <span>myaccount</s
 
 
 Documentation Source:
-docs.snowflake.com/en/developer-guide/python-connector/sqlalchemy.html
+docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.html
 
 Documentation Title:
-Using the Snowflake SQLAlchemy toolkit with the Python Connector | Snowflake Documentation
+Snowflake in 20 minutes | Snowflake Documentation
 
 Documentation Content:
-Snowflake
-automatically appends the domain name to your account identifier to create the required connection.</p></div></li></ul></section><section><h4>Additional connection parameters<a>¶</a></h4><p>You can optionally include the following additional information at the end of the connection string (after <span>&lt;account_name&gt;</span>):</p><div><span>'snowflake://&lt;user_login_name&gt;:&lt;password&gt;@&lt;account_identifier&gt;/&lt;database_name&gt;/&lt;schema_name&gt;?warehouse=&lt;warehouse_name&gt;&amp;role=&lt;role_name&gt;'</span><span>Copy</span></div><p>Where:</p><ul><p><span>&lt;database_name&gt;</span>and <span>&lt;schema_name&gt;</span>are the initial database and schema for the Snowflake session, separated by forward slashes (<span>/</span>).</p><p><span>warehouse=&lt;warehouse_name&gt;</span>and <span>role=&lt;role_name&gt;'</span>are the initial warehouse and role for the session, specified as parameter strings, separated by question marks (<span>?</span>).</p></ul><div><p>Note</p><p>After login, the initial database, schema, warehouse, and role specified in the connection string can always be changed for the session.</p></div></section><section><h4>Proxy server configuration<a>¶</a></h4><p>Proxy server parameters are not supported. Instead, use the supported environment variables to configure a proxy server.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/developer-guide/snowflake-python-api/reference/latest/index.html
-
-Documentation Title:
-Snowflake API Reference (Python) | Snowflake Documentation
-
-Documentation Content:
-These instructions
-will change before the public release of SnowAPI.</p></div><p>You can define your connection information in a dictionary in your code <a><span>[</span>1<span>]</span></a>like so:</p><div><pre><span>&gt;&gt;&gt; </span><span>CONNECTION_PARAMETERS</span><span>=</span><span>dict</span><span>(</span><span>... </span><span>account</span><span>=</span><span>'your account name'</span><span>,</span><span>... </span><span>user</span><span>=</span><span>'your user name'</span><span>,</span><span>... </span><span>password</span><span>=</span><span>'your password'</span><span>,</span><span>... </span><span>database</span><span>=</span><span>'database name'</span><span>,</span><span>... </span><span>schema</span><span>=</span><span>'schema name'</span><span>,</span><span>... </span><span>role</span><span>=</span><span>'role if needed'</span><span>,</span><span>... </span><span>warehouse</span><span>=</span><span>'warehouse name'</span><span>,</span><span>... </span><span>)</span></pre><span>Copy</span></div><p>You then use this connection information to create a session:</p><div><pre><span>&gt;&gt;&gt; </span><span>session</span><span>=</span><span>Session</span><span>.</span><span>builder</span><span>.</span><span>configs</span><span>(</span><span>connection_parameters</span><span>)</span><span>.</span><span>create</span><span>()</span></pre><span>Copy</span></div></section><section><h3>The root resource<a>¶</a></h3><p>The SnowAPI is organized as a tree of resources, modeling the resources
-available in the Snowflake REST API <a><span>[</span>2<span>]</span></a>.
+For more information, see <span>Format 1 (preferred): Account name in your organization</span>.</p></dl></dd></dl><p><span>&lt;user_name&gt;</span>is the login name for your Snowflake user.</p></ul><div><p>Note</p><p>If your account has an identity provider (IdP) that has been defined for your account, you can use a web browser to authenticate instead of a password, as the following example demonstrates:</p><div><pre>$snowsql-a&lt;account_identifier&gt;-u&lt;user_name&gt;--authenticatorexternalbrowser
+</pre><span>Copy</span></div></div><p>For more information, see <span>Using a web browser for federated authentication/SSO</span>.</p></li><p>When SnowSQL prompts you, enter the password for your Snowflake user.</p></ol><p>If you log in successfully, SnowSQL displays a command prompt that includes
+your current warehouse, database, and schema.</p><div><p>Note</p><p>If you get locked out of the account and can’t obtain the account identifier, you can find it in the Welcome email that Snowflake sent to
+you when you signed up for the trial account, or you can work with your
+ORGADMIN to <span>get the account details</span>.
+You can also find the values for <span>locator</span>, <span>cloud</span>, and <span>region</span>in the Welcome email.</p></div><p>If your Snowflake user doesn’t have a default warehouse, database, and schema, or if
+you didn’t configure SnowSQL to specify a default warehouse, database, and schema,
+the prompt displays <code><span>no</span><span>warehouse</span></code>, <code><span>no</span><span>database</span></code>, and <code><span>no</span><span>schema</span></code>. For example:</p><div><pre>user-name#(no warehouse)@(no database).
 
 
 
@@ -49,6 +42,23 @@ Documentation Content:
 connection-name&gt;</span>is the name of a connection in the configuration file, such as <span>MYCONNECTION</span></p><li><p><span>&lt;key&gt;</span>is one of the following:</p><ul><p>ACCOUNT</p><p>USER</p><p>PASSWORD</p><p>DATABASE</p><p>SCHEMA</p><p>ROLE</p><p>WAREHOUSE</p><p>MFA_PASSCODE</p></ul></li></ul><p>For example, to set the account for the <span>MYCONNECTION</span>connection defined in the <span>config.toml</span>file, set
 an environment variable similar to the following:</p><div><pre><span>export</span><span>SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT</span><span>=</span><span>"myaccount"</span></pre><span>Copy</span></div><p>You can specify some credentials, such as account and user, in the configuration file, and specify the password in an
 environment variable as follows:</p><ol><li><p>Define the following connection configuration, as appropriate for your Snowflake account:</p><div><pre><span>[connections]</span><span>[connections.myconnection]</span><span>account</span><span>=</span><span>"myaccount"</span><span>user</span><span>=</span><span>"jdoe"</span></pre><span>Copy</span></div></li><li><p>Create a generic system environment variable for the password as follows:</p><div><pre><span>export</span><span>SNOWFLAKE_PASSWORD</span><span>=</span><span>"xyz2000"</span></pre><span>Copy</span></div></li></ol><p>You can also override a value in the configuration file by using a system environment variable.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/developer-guide/sql-api/authenticating.html
+
+Documentation Title:
+Authenticating to the server | Snowflake Documentation
+
+Documentation Content:
+If this header is not present,
+Snowflake assumes that the token in the <span>Authorization</span>header is an OAuth token.</p></li></ul></li></ol></section><section><h2>Using key-pair authentication<a>¶</a></h2><p>To use key pair authentication, follow these steps:</p><ol><li><p>Set up key-pair authentication.</p><p>As part of this process, you must:</p><ol><p>Generate a public-private key pair. The generated private key should be in a file (e.g. named <span>rsa_key.p8</span>).</p><p>Assign the public key to your Snowflake user. After you assign the key to the user, run the
+<span>DESCRIBE USER</span>command. In the output, the <span>RSA_PUBLIC_KEY_FP</span>property should be set to the fingerprint of the public key assigned to the user.</p></ol><p>For instructions on how to generate the key pair and assign a key to a user,
+see <span>Key-pair authentication and key-pair rotation</span>. For language-specific examples of creating a fingerprint and generating a
+JWT token, see the following:</p><ul><span>Python</span><span>Java</span><span>Node.js</span></ul></li><li><p>Use SnowSQL to verify that you can use the generated private key to
+<span>connect to Snowflake</span>:</p><div><pre>$snowsql-a&lt;account_identifier&gt;-u&lt;user&gt;--private-key-path&lt;path&gt;/rsa_key.p8
+</pre><span>Copy</span></div><p>If you generated an encrypted private key, SnowSQL prompts you for the passphrase that you created when you generated the key.</p></li><li><p>In your application code:</p><ol><li><p>Generate the fingerprint (a SHA-256 hash) of the public key for the user. Prefix the fingerprint with <span>SHA256:</span>.
 
 
 

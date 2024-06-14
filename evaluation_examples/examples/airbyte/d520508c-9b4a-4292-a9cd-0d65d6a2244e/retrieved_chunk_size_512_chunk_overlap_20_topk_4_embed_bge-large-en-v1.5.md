@@ -59,6 +59,74 @@ Documentation Title:
 A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
 
 Documentation Content:
+The instructions presented in this tutorial were created in February 2023, and the following tools were used:
+
+* Airbyte OSS 0.40.32
+* Docker Desktop v4.10.1
+* macOS Monterey Version 12.5.1
+* MacBook Pro with the Apple M1 Pro Chip
+* Airflow v2.5.1 Git Version: .release:2.5.1+49867b660b6231c1319969217bc61917f7cf9829
+
+Install Airbyte
+---------------
+
+If you already have a local copy of Airbyte running, then you may skip this section. Otherwise, follow the instructions to deploy Airbyte. 
+
+[Optional] Modify **BASIC\_AUTH\_USERNAME**and **BASIC\_AUTH\_PASSWORD**in the (hidden) **.env**file. For this tutorial I use the following default values: 
+
+`BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password`Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:
+
+!
+
+Airbyte OSS login prompt
+
+Create a connection
+-------------------
+
+Create a connection that sends data from the **Sample Data (Faker)**source to the **Local JSON**(file system) output. Click on “Create your first connection” as shown below:
+
+!
+
+Create your first connection prompt
+
+‍
+
+You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.
+
+!
+
+Select Sample Data (Faker) as a source
+
+‍
+
+After selecting Sample Data as the source, you will see a screen that should look as follows. Click on **Set up source**as shown below. 
+
+!
+
+Configure Sample Data (Faker) as a source
+
+‍
+
+You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select **Local JSON**as shown below:
+
+!
+
+Select Local JSON as a destination
+
+‍
+
+After selecting Local JSON as the output, you will need to specify where the JSON files should be written.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.md
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
 After saving the above connection, you Connections screen should look as follows:
 
 !
@@ -84,65 +152,51 @@ The code which demonstrates these steps is given below.
 
 
 Documentation Source:
-airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.md
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.md
 
 Documentation Title:
-E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
 
 Documentation Content:
-**7. Link Airbyte connection to the Airflow DAG**:
+This should look as follows: 
 
-The last step being being able to execute the DAG in Airflow, is to include the connection ID from Airbyte:
+!
 
-1. Visit the Airbyte UI at http://localhost:8000/.
-2. In the "Connections" tab, select the "Faker to BigQuery" connection and copy its connection id from the URL.
-3. Update the connection\_id in the extract\_data task within orchestration/airflow/dags/elt\_dag.py with this id.
+Configure an Airflow connection to Airbyte
 
-That's it! Airflow has been configured to work with dbt and Airbyte. 🎉
+The connection parameters are:
 
-6. Orchestrating with Airflow
------------------------------
+* **Connection Id:**Define an identifier that Airflow DAGs can use to communicate with Airbyte. In this example the identifier is given the name **airflow-call-to-airbyte-example**, which will be used in the DAG definition (shown later).
+* **Connection Type**: Specifies that this is a connection to Airbyte. Note that if you do not see **Airbyte**in the dropdown menu, then the Docker image has not been correctly built. Adding the Airbyte providerto the Docker image was done earlier in this tutorial.
+* **Host**: The host which is running Airbyte. Note the use of **host.docker.internal**, which  resolves to the internal IP address used by the host, as discussed in Docker’s instructions on network interfaces.
+* **Login**: The default user to connect to Airbyte is **airbyte**. If you have changed this, then use whichever username you have defined.
+* **Password**: If you are using the default then the value is **password**. If you have changed this, then use whichever password you have defined.
+* **Port**: By default, Airbyte listens on port **8000**.
 
-Now that everything is set up, it's time to run your data pipeline!
+Click on **Save**which should take you back to the Connections screen. 
 
-1. In the Airflow UI, go to the "DAGs" section.
-2. Locate elt\_dag and click on "Trigger DAG" under the "Actions" column.
+Because the DAG that we will define is also going to manipulate files, we will also create a Files connection. Again, click on the **+**symbol as shown below:
 
-This will initiate the complete data pipeline, starting with the Airbyte sync from Faker to BigQuery, followed by dbt transforming the raw data into staging and marts models. As the last step, it generates dbt docs.
+!
 
-1. Confirm the sync status in the Airbyte UI.
-2. After dbt jobs completion, check the BigQuery console to see the newly created views in the transformed\_data dataset.
-3. Once the dbt pipeline completes, you can check the dbt docs from the Airflow UI by going to the "Custom Docs" > "dbt" tab.
+Create another Airflow connection
 
-Congratulations! You've successfully run an end-to-end workflow with Airflow, dbt and Airbyte. 🎉
+‍
 
-7. Next Steps
--------------
+This should take you to a screen that looks like the following:
 
-Once you've gone through the steps above, you should have a working Airbyte, dbt and Airflow (ADA) Stack with BigQuery. You can use this as a starting point for your project, and adapt it to your needs. There are lots of things you can do beyond this point, and these tools are evolving fast and adding new features almost every week.
+!
 
+Create an Airflow connection to manipulate files on the local filesystem
 
+The connection parameters are:
 
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.md
+* **Connection Id**: As mentioned above this will be used in the DAG to connect to the file system. In this example the value is set to **airflow-file-connector**.
+* **Connection Type**: Select **File (path)**. This connector will be used in the DAG to interact with files on the local filesystem.
 
-Documentation Title:
-Faker | Airbyte Documentation
+After saving the above connection, you Connections screen should look as follows:
 
-Documentation Content:
-| Feature | Supported?(Yes/No) | Notes |
-| --- | --- | --- |
-| Full Refresh Sync | Yes |
-| --- | --- |
-| Incremental Sync | Yes |
-| Namespaces | No |
-
-Of note, if you choose `Incremental Sync`, state will be maintained between syncs, and once you hit
-`count`records, no new records will be added.
-
-You can choose a specific `seed`(integer) as an option for this connector which will guarantee that
-the same fake records are generated each time. Otherwise, random data will be created on each
-subsequent sync.
+!
 
 
 

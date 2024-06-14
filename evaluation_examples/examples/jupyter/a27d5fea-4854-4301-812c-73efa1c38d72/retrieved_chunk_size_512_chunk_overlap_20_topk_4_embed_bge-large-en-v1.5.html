@@ -1,45 +1,51 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/ui_components.WindowedList.IModel.html
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/csvviewer.DSVModel-1.html
 
 Documentation Title:
-IModel | @jupyterlab
+DSVModel | @jupyterlab
 
 Documentation Content:
-d.ts:578</li></li></ul></section><section><span>getRangeToRender</span><ul><li><span>getRangeToRender</span><span>(</span><span>)</span><span>: </span><a>WindowIndex</a></li><li><div><p>Compute the items range to display.</p><p>It returns <code>null</code>if the range does not need to be updated.</p></div><h4>Returns <a>WindowIndex</a></h4><p>The current items range to display</p><li>Defined in packages/ui-components/lib/components/windowedlist.d.ts:590</li></li></ul></section><section><span>getSpan</span><ul><li><span>getSpan</span><span>(</span><span>start</span>, <span>stop</span><span>)</span><span>: </span><span>[</span><span>number</span><span>, </span><span>number</span><span>]</span></li><li><p>Return the viewport top position and height for range spanning from
-<code>startIndex</code>to <code>stopIndex</code>.</p><div><h4>Parameters</h4><ul><li><h5><span>start</span>: <span>number</span></h5><p>First item in viewport index</p></li><li><h5><span>stop</span>: <span>number</span></h5><p>Last item in viewport index</p></li></ul></div><h4>Returns <span>[</span><span>number</span><span>, </span><span>number</span><span>]</span></h4><p>The viewport top position and its height</p><li>Defined in packages/ui-components/lib/components/windowedlist.d.
+then we
+parse the full data string asynchronously.</p></div><h4>Returns <span>void</span></h4><li>Defined in packages/csvviewer/lib/model.d.ts:100</li></li></ul></section><section><span>rowCount</span><ul><li><span>rowCount</span><span>(</span><span>region</span><span>)</span><span>: </span><span>number</span></li><li><p>Get the row count for a region in the data model.</p><div><h4>Parameters</h4><li><h5><span>region</span>: <span>RowRegion</span></h5><p>The row region of interest.</p></li></div><h4>Returns <span>number</span></h4><li>The row count for the region.</li><aside><p>Overrides DataModel.rowCount</p><li>Defined in packages/csvviewer/lib/model.d.ts:58</li></aside></li></ul></section></section></div><div><div><details><h3>Settings</h3><div><div><h4>Member Visibility</h4><ul><span>Protected</span><span>Private</span><span>Inherited</span><span>External</span></ul></div><h4>Theme</h4></div></details><details><h3>On This Page</h3><ul><span>Notes</span><span>constructor</span><span>_columnCount</span><span>_columnOffsets</span><span>Notes</span><span>_columnOffsetsStartingRow</span><spa
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/ui_components.IRankedMenu.DEFAULT_RANK.html
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/csvviewer.DSVModel-1.html
 
 Documentation Title:
-DEFAULT_RANK | @jupyterlab
+DSVModel | @jupyterlab
 
 Documentation Content:
-tory</span><span>htmlRendererFactory</span><span>imageRendererFactory</span><span>javaScriptRendererFactory</span><span>latexRendererFactory</span><span>markdownRendererFactory</span><span>standardRendererFactories</span><span>svgRendererFactory</span><span>textRendererFactory</span><span>removeMath</span><span>renderError</span><span>renderHTML</span><span>renderImage</span><span>renderLatex</span><span>renderMarkdown</span><span>renderSVG</span><span>renderText</span>
+</p><h3>Param</h3><p>The last row to parse, from the start of the data (first
+row is row 1).</p><a>Notes</a><p>This method supports parsing the data incrementally by calling it with
+incrementally higher endRow. Rows that have already been parsed will not be
+parsed again.</p></div><li>Defined in packages/csvviewer/lib/model.d.ts:112</li></section><section><h3><code>Private</code><span>_delayedParse</span></h3><div><span>_delayedParse</span><span>:</span><span>any</span></div><li>Defined in packages/csvviewer/lib/model.d.ts:162</li></section><section><h3><code>Private</code><span>_delimiter</span></h3><div><span>_delimiter</span><span>:</span><span>any</span></div><li>Defined in packages/csvviewer/lib/model.d.ts:125</li></section><section><h3><code>Private</code><span>_doneParsing</span></h3><div><span>_doneParsing</span><span>:</span><span>any</span></div><li>Defined in packages/csvviewer/lib/model.d.ts:164</li></section><section><h3><code>Private</code><span>_getField</span></h3><div><span>_getField</span><span>:</span><span>any</span></div><div><p>Get the parsed string field for a row and column.</p><h3>Param</h3><p>The row number of the data item.</p><h3>Param</h3><p>The column number of the data item.</p><h3>Returns</h3><p>The parsed string for the data item.</p></div><li>Defined in packages/csvviewer/lib/model.d.ts:120</li></section><section><h3><code>Private</code><span>_header</span></h3><div><span>_header</span><span>:</span><span>any</span></div><p>The header strings.
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/ui_components.IRankedMenu.DEFAULT_RANK.html
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/csvviewer.IParser.IOptions.html
 
 Documentation Title:
-DEFAULT_RANK | @jupyterlab
+IOptions | @jupyterlab
 
 Documentation Content:
-rkdownViewerFactory</span><span>MarkdownViewerTableOfContentsFactory</span><span>MarkdownViewerTableOfContentsModel</span><span>IMarkdownViewerHeading</span><span>IMarkdownViewerTracker</span><span>IMarkdownViewerTracker</span></ul></details><details><span>mathjax-extension</span><ul><span>MathJaxTypesetter</span><span>default</span></ul></details><details><span>nbformat</span><ul><span>IAttachments</span><span>IBaseCell</span><span>IBaseCellJupyterMetadata</span><span>
+:</span><span>string</span></div><p>The delimiter to use. Defaults to ','.</p><li>Defined in packages/csvviewer/lib/parse.d.ts:34</li></section><section><h3><code>Optional</code><span>maxRows</span></h3><div><span>maxRows</span><span>?:</span><span>number</span></div><div><p>Maximum number of rows to parse.</p><p>If this is not given, parsing proceeds to the end of the data.</p></div><li>Defined in packages/csvviewer/lib/parse.d.ts:59</li></section><section><h3><code>Optional</code><span>ncols</span></h3><div><span>ncols</span><span>?:</span><span>number</span></div><div><p>Number of columns in each row to parse.</p><a>Notes</a><p>If this is not given, the ncols defaults to the number of columns in the
+first row.</p></div><li>Defined in packages/csvviewer/lib/parse.d.ts:67</li></section><section><h3><code>Optional</code><span>quote</span></h3><div><span>quote</span><span>?:</span><span>string</span></div><div><p>The quote character for quoting fields. Defaults to the double quote (").</p><a>Notes</a><p>As specified in <a>RFC 4180</a>, quotes
+are escaped in a quoted field by doubling them (for example, "a""b" is the field
+a"b).</p></div><li>Defined in packages/csvviewer/lib/parse.d.ts:47</li></section><section><h3><code>Optional</code><span>rowDelimiter</span></h3><div><span>rowDelimiter</span><span>?:</span><span>string</span></div><p>The row delimiter to use.
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/ui_components.IRankedMenu.DEFAULT_RANK.html
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/csvviewer.DSVModel-1.html
 
 Documentation Title:
-DEFAULT_RANK | @jupyterlab
+DSVModel | @jupyterlab
 
 Documentation Content:
-le</span><span>IRestorer</span><span>IStateDB</span><span>IStateDB</span></ul></details><details><span>statusbar</span><ul><details><span>GroupItem</span><span>IProps</span></details><details><span>IStatusBar</span><ul><span>IItem</span><span>Alignment</span></ul></details><details><span>Popup</span><span>IOptions</span></details><details><span>ProgressBar</span><span>IProps</span></details><details><span>ProgressCircle</span><span>IProps</span></details><details><span>
+d.ts:46</li></li></ul></section></section><section><h2>Methods</h2><section><span>columnCount</span><ul><li><span>columnCount</span><span>(</span><span>region</span><span>)</span><span>: </span><span>number</span></li><li><p>Get the column count for a region in the data model.</p><div><h4>Parameters</h4><li><h5><span>region</span>: <span>ColumnRegion</span></h5><p>The column region of interest.</p></li></div><h4>Returns <span>number</span></h4><li>The column count for the region.</li><aside><p>Overrides DataModel.columnCount</p><li>Defined in packages/csvviewer/lib/model.d.ts:66</li></aside></li></ul></section><section><span>data</span><ul><li><span>data</span><span>(</span><span>region</span>, <span>row</span>, <span>column</span><span>)</span><span>: </span><span>string</span></li><li><p>Get the data value for a cell in the data model.</p><div><h4>Parameters</h4><ul><li><h5><span>region</span>: <span>CellRegion</span></h5><p>The cell region of interest.</p></li><li><h5><span>row</span>: <span>number</span></h5><p>The row index of the cell of interest.</p></li><li><h5><span>column</span>: <span>number</span></h5><p>The column index of the cell of interest.</p></li></ul></div><h4>Returns <span>string</span></h4><aside><p>Overrides DataModel.data</p><li>Defined in packages/csvviewer/lib/model.d.
 
 
 

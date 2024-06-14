@@ -1,114 +1,168 @@
 Documentation Source:
-airbyte.com/tutorials/incremental-data-synchronization.md
-
-Documentation Title:
-Incremental data synchronization between Postgres databases | Airbyte
-
-Documentation Content:
-Look at its contents by executing the following:
-
-`SELECT * FROM _airbyte_raw_table_one;`‍
-
-Which should respond with a table that looks as follows:
-
-`_airbyte_ab_id | _airbyte_data | _airbyte_emitted_at 
---------------------------------------+-----------------------------------------------------------------------------+----------------------------
- 2abc7493-bfc8-4493-ab62-de6ffe094a2d | {"id": 1, "name": "Eg1 IncApp", "updated_at": "2022-09-01T11:01:41.666004"} | 2022-09-01 11:12:03.301+00
- 06e67da7-9c6a-46b6-a2e5-e1d102e16c7e | {"id": 2, "name": "Eg2a IncAp", "updated_at": "2022-09-01T11:02:05.017416"} | 2022-09-01 11:12:03.301+00
-(2 rows)`‍
-
-In addition to the field containing the source data there are two additional fields in the raw table:
-
-* *\_airbyte\_emitted\_at*which tells you what time airbyte sent the record to the destination.
-* *\_airbyte\_ab\_id*is a UUID value added by the destination connector to each record before it is sent to the destination. This is a UUID (not a hash) and therefore it changes for each row after each sync, even if the data has not been modified.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/postgres-to-bigquery.md
-
-Documentation Title:
-How to Connect & Load Data from Postgres to BigQuery?
-
-Documentation Content:
-Airbyte allows both manual and automatic scheduling for your data refreshes.
-5. **Select the data to sync:**Choose the specific Postgres objects you want to import data from towards BigQuery. You can sync all data or select specific tables and fields.
-6. **Select the sync mode for your streams:**Choose between full refreshes or incremental syncs (with deduplication if you want), and this for all streams or at the stream level. Incremental is only available for streams that have a primary cursor.
-7. **Test your connection:**Click the 'Test Connection' button to make sure that your setup works. If the connection test is successful, save your configuration.
-8. **Start the sync:**If the test passes, click 'Set Up Connection'. Airbyte will start moving data from Postgres to BigQuery according to your settings.
-
-Remember, Airbyte keeps your data in sync at the frequency you determine, ensuring your BigQuery data warehouse is always up-to-date with your Postgres data.
-
-Use Cases to transfer your Postgres data to BigQuery
-----------------------------------------------------
-
-Integrating data from Postgres to BigQuery provides several benefits. Here are a few use cases:
-
-1. **Advanced Analytics:**BigQuery’s powerful data processing capabilities enable you to perform complex queries and data analysis on your Postgres data, extracting insights that wouldn't be possible within Postgres alone.
-2. **Data Consolidation:**If you're using multiple other sources along with Postgres, syncing to BigQuery allows you to centralize your data for a holistic view of your operations, and to set up a change data capture process so you never have any discrepancies in your data again.
-3. **Historical Data Analysis:**Postgres has limits on historical data. Syncing data to BigQuery allows for long-term data retention and analysis of historical trends over time.
-4. **Data Security and Compliance:**BigQuery provides robust data security features. Syncing Postgres data to BigQuery ensures your data is secured and allows for advanced data governance and compliance management.
-5. **Scalability:**BigQuery can handle large volumes of data without affecting performance, providing an ideal solution for growing businesses with expanding Postgres data.
-6.
-
-
-
-Documentation Source:
 airbyte.com/tutorials/postgres-replication.md
 
 Documentation Title:
 Postgres Replication: Data Transfer Efficiency | Airbyte
 
 Documentation Content:
-Should you build or buy your data pipelines?
+Prerequisites
+-------------
 
-Download our free guide and discover the best approach for your needs, whether it's building your ELT solution in-house or opting for Airbyte Open Source or Airbyte Cloud.
+* Having Dockerand Docker Composeinstalled.
+* Deploying Airbyte.
+Step 1: Set up your source Postgres database (optional)
+-------------------------------------------------------
 
-Download now!Step 3: Create an Airbyte connection
-------------------------------------
+If you don’t have a readily available Postgres database to sync, here are some quick instructions. Run the following commands in a new terminal window to start backgrounded source and destination databases:
 
-Go to connections and create a new connection. Then, select the existing Postgres source you have just created and then do the same for the destination. Once you’re done, you can set up the connection as follows.
+`docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres
+docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres`Add two tables with a few rows to the source database:
 
-* **Replication Frequency:**I recommend setting it to “manual” if you’re testing. When you’re ready, you can change to any frequency that makes sense to your use case.
-* **Destination Namespace:**I selected a mirror source structure, so the schema and tables are the same as the source.
-* **Destination Stream Prefix:**I added the prefix *tutorial\_*so my table will be created as *tutorial\_users.*
+`docker exec -it airbyte-source psql -U postgres -c "CREATE TABLE users(id SERIAL PRIMARY KEY, col1 VARCHAR(200));"
+docker exec -it airbyte-source psql -U postgres -c "INSERT INTO public.users(col1) VALUES('record1');"
+docker exec -it airbyte-source psql -U postgres -c "INSERT INTO public.users(col1) VALUES('record2');"
+docker exec -it airbyte-source psql -U postgres -c "INSERT INTO public.users(col1) VALUES('record3');"
 
-Then, it’s time to configure the streams, which in this case are the tables in our database. If we expand the tables, we can see the columns they have. We can also see they’re part of the *public*namespace or schema. The destination schema will be also *public*.
+docker exec -it airbyte-source psql -U postgres -c "CREATE TABLE cities(city_code VARCHAR(8), city VARCHAR(200));"
+docker exec -it airbyte-source psql -U postgres -c "INSERT INTO public.cities(city_code, city) VALUES('BCN', 'Barcelona');"
+docker exec -it airbyte-source psql -U postgres -c "INSERT INTO public.cities(city_code, city) VALUES('MAD', 'Madrid');" 
+docker exec -it airbyte-source psql -U postgres -c "INSERT INTO public.cities(city_code, city) VALUES('VAL', 'Valencia');"`You now have a Postgres database ready to be replicated.
 
-!Now, you should select a sync mode. I chose **Full refresh | Overwrite**to sync the *cities*table and **Incremental | Append** for the *users*table since it has an *id*column (primary key) suitable for the incremental cursor field. The most important thing to note is that you can have different sync modes for each table! Learn more about sync modes in our documentation. 
-
-Once you’re ready, save the changes. Then, you can run your first sync by clicking on “Sync now.” You can check your run logs to verify everything is going well. Just wait for the sync to be completed, and that’s it! You’ve synchronized two Postgres databases.
-
-!Step 4: Verify that the sync worked
------------------------------------
-
-Now, let's verify that this worked.
+Alternatively, you can use a local Postgres database on your computer: use *host.docker.internal*(if you are on Mac) as the host instead of *localhost*when setting up the source and destination.
 
 
 
 Documentation Source:
-airbyte.com/tutorials/incremental-data-synchronization.md
+airbyte.com/tutorials/full-data-synchronization.md
 
 Documentation Title:
-Incremental data synchronization between Postgres databases | Airbyte
+Explore Airbyte's full refresh data synchronization | Airbyte
 
 Documentation Content:
-`SELECT * FROM _airbyte_raw_table_two;`‍
+Create a full refresh append connection
 
-Which should respond with a table that looks as follows:
+Set up a new connection that will demonstrate **full refresh | append**functionality, using the connectors that you created earlier in this tutorial.
+
+First, select **Postgres-source**as the source for this connection.
+
+!‍
+
+Then select **Postgres-destination** as the destination for this connection.
+
+!‍
+
+Then create a new connection and name it **full-refresh-append**, set the prefix to **append**\_ ,and select **full refresh | append**as the sync mode, as shown below.
+
+!A sync should automatically start after you create the connection. Wait for the sync to complete, and you should see a message like the following: 
+
+‍
+
+!### Open a Postgres terminal on the destination
+
+If you don’t already have a shell open to your Postgres destination, execute the following commands:
+
+`docker exec -it airbyte-destination /bin/bash
+psql --username=postgres`‍
+
+You can view the tables in the destination Postgres database by executing the following command from the Postgres shell that you have just opened . 
+
+`\dt;`‍
+
+Which should respond with the following: 
+
+`List of relations
+ Schema | Name | Type | Owner 
+--------+------------------------------------------+-------+----------
+ public | _airbyte_raw_append_full_refresh_demo | table | postgres
+ public | _airbyte_raw_overwrite_full_refresh_demo | table | postgres
+ public | append_full_refresh_demo | table | postgres
+ public | overwrite_full_refresh_demo | table | postgres
+(4 rows)`‍
+
+Two new tables have been created, **\_airbyte\_raw\_append\_full\_refresh\_demo**and **append\_full\_refresh\_demo**. 
+
+You can look at the raw data as follows:
+
+`SELECT * FROM  _airbyte_raw_append_full_refresh_demo;`‍
+
+Which should respond with a table that looks very similar to the raw table that you saw created with **full refresh | overwrite**replication, as follows: 
 
 `_airbyte_ab_id | _airbyte_data | _airbyte_emitted_at 
---------------------------------------+-----------------------------------------------------------------------------+----------------------------
- 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | {"id": 1, "name": "Eg1 DD+Hst", "updated_at": "2022-09-01T16:18:07.569818"} | 2022-09-01 16:52:44.103+00
- 4282344a-62c3-4634-a91a-e6dafb9b253a | {"id": 2, "name": "Eg2a DD+Hs", "updated_at": "2022-09-01T16:30:13.939030"} | 2022-09-01 16:52:44.103+00
- 89377204-7801-49c8-a779-91da45a86cc3 | {"id": 2, "name": "Eg2b DD+Hs", "updated_at": "2022-09-01T17:02:14.841419"} | 2022-09-01 17:02:39.894+00
-(3 rows)`### Update: View the normalized tables in the destination
+--------------------------------------+-----------------------------+----------------------------
+ 972a8d74-d840-4c43-826e-b0a1042c1681 | {"id": 1,
 
-View the history table called *table\_two\_scd*by executing the following:
 
-`SELECT * FROM table_two_scd;`‍
 
-Which looks as follows.
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.md
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+Insert a new record on the source
+
+If you don’t have a terminal open on the Postgres source database, open one as follows: 
+
+`docker exec -it airbyte-source /bin/bash
+psql --username=postgres`‍
+
+Add a new record to the source Postgres database as follows:
+
+`INSERT INTO full_refresh_demo(id, name) VALUES(3, 'Alex M');`‍
+
+And view the source table by executing: 
+
+`SELECT * FROM full_refresh_demo;`‍
+
+The source table should look as follows:
+
+`id | name 
+----+--------
+ 1 | Mary X
+ 2 | John D
+ 3 | Alex M
+(3 rows)`Execute a new sync by clicking on **Sync Now**in the connection pane and wait for the sync to complete. 
+
+‍
+
+!‍
+
+Once complete, you should see that three records have been emitted. Also take note of the **job ID**and **attempt ID**, which are 104 and 0 for this run.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.md
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+Open a Postgres terminal in the destination container
+
+‍
+
+Now that the first sync has completed you can take a look at the Postgres destination to see how the replicated data looks. Execute the following command to open a shell to the destination Postgres database:
+
+`docker exec -it airbyte-destination /bin/bashpsql --username=postgres
+psql --username=postgres`### Look at the data in the Postgres destination
+
+You can view the tables in the destination Postgres database by executing the following command from the Postgres shell that you have just opened . 
+
+`\dt;`‍
+
+Which should respond with the following: 
+
+`List of relations
+ Schema | Name | Type | Owner 
+--------+------------------------------------------+-------+----------
+ public | _airbyte_raw_overwrite_full_refresh_demo | table | postgres
+ public | overwrite_full_refresh_demo | table | postgres
+(2 rows)`‍
+
+
+> ℹ️  Notice that there are two tables. As discussed earlier, Airbyte converts each source record into a JSON blob that contains all of your data, and writes it into the **\_airbyte\_raw\_overwrite\_full\_refresh\_demo**table. This is then normalized into a separate table.
 
 
 

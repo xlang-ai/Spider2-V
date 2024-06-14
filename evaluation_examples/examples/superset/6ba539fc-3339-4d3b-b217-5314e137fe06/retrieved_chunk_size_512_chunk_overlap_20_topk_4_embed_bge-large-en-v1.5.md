@@ -66,6 +66,36 @@ Apache Superset, Apache, Superset, the Superset logo, and the Apache feather log
 
 
 Documentation Source:
+superset.apache.org/docs/configuration/databases/index.md
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+{region}/{database}?role={role}&warehouse={warehouse}`
+| SQLite | No additional library needed |`sqlite://path/to/file.db?check_same_thread=false`
+|SQL Server`pip install pymssql``mssql+pymssql://`
+|Teradata`pip install teradatasqlalchemy``teradatasql://{user}:{password}@{host}`
+|TimescaleDB`pip install psycopg2``postgresql://:@:/`
+|Trino`pip install trino``trino://{username}:{password}@{hostname}:{port}/{catalog}`
+|Vertica`pip install sqlalchemy-vertica-python``vertica+vertica_python://:@/`
+|YugabyteDB`pip install psycopg2``postgresql://:@/`
+
+Note that many other databases are supported, the main criteria being the existence of a functional
+SQLAlchemy dialect and Python driver. Searching for the keyword "sqlalchemy + (database name)"
+should help get you to the right place.
+
+If your database or data engine isn't on the list but a SQL interface
+exists, please file an issue on the
+Superset GitHub repo, so we can work on documenting and
+supporting it.
+
+If you'd like to build a database connector for Superset integration,
+read the following tutorial.
+
+
+
+Documentation Source:
 superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.md
 
 Documentation Title:
@@ -99,58 +129,6 @@ Click the **Test Connection**button to confirm things work end to end. If the co
 by clicking the **Connect**button in the bottom right corner of the modal window:
 
 Congratulations, you've just added a new data source in Superset!
-
-
-
-Documentation Source:
-superset.apache.org/docs/faq/index.md
-
-Documentation Title:
-FAQ | Superset
-
-Documentation Content:
-You can override this path using the **SUPERSET\_HOME**environment variable.
-
-Another workaround is to change where superset stores the sqlite database by adding the following in
-`superset_config.py`:
-
-SQLALCHEMY\_DATABASE\_URI = 'sqlite:////new/location/superset.db?check\_same\_thread=false'You can read more about customizing Superset using the configuration file
-here.
-
-What if the table schema changed?​
-----------------------------------
-
-Table schemas evolve, and Superset needs to reflect that. It’s pretty common in the life cycle of a
-dashboard to want to add a new dimension or metric. To get Superset to discover your new columns,
-all you have to do is to go to **Data -> Datasets**, click the edit icon next to the dataset
-whose schema has changed, and hit **Sync columns from source**from the **Columns**tab.
-Behind the scene, the new columns will get merged. Following this, you may want to re-edit the
-table afterwards to configure the Columns tab, check the appropriate boxes and save again.
-
-What database engine can I use as a backend for Superset?​
-----------------------------------------------------------
-
-To clarify, the database backend is an OLTP database used by Superset to store its internal
-information like your list of users and dashboard definitions. While Superset supports a
-variety of databases as data *sources*,
-only a few database engines are supported for use as the OLTP backend / metadata store.
-
-Superset is tested using MySQL, PostgreSQL, and SQLite backends. It’s recommended you install
-Superset on one of these database servers for production. Installation on other OLTP databases
-may work but isn’t tested. It has been reported that Microsoft SQL Server does *not*work as a Superset backend. Column-store,
-non-OLTP databases are not designed for this type of workload.
-
-How can I configure OAuth authentication and authorization?​
-------------------------------------------------------------
-
-You can take a look at this Flask-AppBuilder
-configuration example.
-
-Is there a way to force the dashboard to use specific colors?​
---------------------------------------------------------------
-
-It is possible on a per-dashboard basis by providing a mapping of labels to colors in the JSON
-Metadata attribute using the `label_colors`key.
 
 
 

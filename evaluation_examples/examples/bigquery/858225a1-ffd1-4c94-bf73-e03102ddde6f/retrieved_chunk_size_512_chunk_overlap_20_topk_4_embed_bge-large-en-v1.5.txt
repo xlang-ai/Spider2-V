@@ -113,6 +113,193 @@ Editor
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/running-queries.txt
+
+Documentation Title:
+Run a query  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
+SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Click
+settings
+More
+, and then
+click
+Query settings
+.
+In the
+Resource management
+section, select
+Batch
+.
+Optional: Specify the destination table and
+location
+for the query results:
+In the
+Destination
+section, select
+Set a destination table for query results
+.
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
+Optional: To see visualization of your query results, go to the
+Chart
+tab.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/running-queries.txt
+
+Documentation Title:
+Run a query  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
+SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Optional: Specify the destination table and
+location
+for the query results:
+In the query editor, click
+settings
+More
+, and then
+click
+Query settings
+.
+In the
+Destination
+section, select
+Set a destination table for query results
+.
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+You can now explore the query results in the
+Results
+tab of the
+Query results
+pane.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/quickstarts/load-data-bq.txt
 
 Documentation Title:
@@ -184,135 +371,6 @@ to query
 the public dataset, then billing is not enabled for your project.
 The easiest way to eliminate billing is to delete the project that you
   created for the tutorial.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/quickstarts/load-data-console.txt
-
-Documentation Title:
-Load and query data with the Google Cloud console  |  BigQuery
-
-Documentation Content:
-Note
-: If you don't plan to keep the
-    resources that you create in this procedure, create a project instead of
-    selecting an existing project. After you finish these steps, you can
-    delete the project, removing all resources associated with the project.
-Go to project selector
-Optional: If you
-    select an existing project, make sure that you
-enable
-      the BigQuery API
-. The BigQuery API is automatically
-      enabled in new projects.
-Create a BigQuery dataset
-Use the Google Cloud console to create a dataset that stores the data.
-In the Google Cloud console, open the BigQuery page.
-Go to BigQuery
-In the
-Explorer
-panel, click your project name.
-Expand the
-more_vert
-View actions > Create dataset
-.
-On the
-Create dataset
-page, do the following:
-For
-Dataset ID
-, enter
-babynames
-.
-From the
-Data location
-list, choose
-us (multiple regions in United States)
-.
-     The public datasets are stored in the
-us
-multi-region
-location
-. For simplicity,
-      store your
-     dataset in the same location.
-Leave the remaining default settings as they are, and click
-Create dataset
-.
-Download the source data file
-The file that you're downloading contains approximately 7 MB of data about
-popular baby names. It's provided by the US Social Security Administration.
-For more information about the dataset, see the
-Social Security Administration's dataset information page
-.
-Download the US Social Security Administration's dataset by opening the
-following URL in a new browser tab:
-https://www.ssa.gov/OACT/babynames/names.zip
-Extract the file.
-For more information about the dataset schema, see the zip file's
-NationalReadMe.pdf
-file.
-To see what the data looks like, open the
-yob2014.txt
-file. This file
-contains comma-separated values for name, assigned sex at birth, and number
-of children with that name. The file has no header row.
-Note the location of the
-yob2014.txt
-file so that you can find it later.
-Load data into a table
-Next, load the data into a new table.
-In the
-Explorer
-panel, click your project name.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/reference/legacy-sql.txt
-
-Documentation Title:
-Legacy SQL Functions and Operators  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-'PA', 'NJ', 'CT',
-                   'RI', 'MA', 'VT', 'NH', 'ME')
-      THEN 'Northeast'
-    ELSE 'None'
-  END as region,
-  average_mother_age,
-  average_father_age,
-  state, year
-FROM
-  (SELECT
-     year, state,
-     SUM(mother_age)/COUNT(mother_age) as average_mother_age,
-     SUM(father_age)/COUNT(father_age) as average_father_age
-   FROM
-     [bigquery-public-data:samples.natality]
-   WHERE
-     father_age < 99
-   GROUP BY
-     year, state)
-ORDER BY
-  year
-LIMIT 5;
-Returns:
-+--------+--------------------+--------------------+-------+------+
-| region | average_mother_age | average_father_age | state | year |
-+--------+--------------------+--------------------+-------+------+
-| South  | 24.342600163532296 | 27.683769419460344 | AR    | 1969 |
-| West   | 25.185041908446163 | 28.268214055448098 | AK    | 1969 |
-| West   | 24.780776677578217 | 27.831181063905248 | CA    | 1969 |
-| West   | 25.005834769924412 | 27.942978384829598 | AZ    | 1969 |
-| South  | 24.541730952905738 | 27.686430093306885 | AL    | 1969 |
-+--------+--------------------+--------------------+-------+------+
-Simulating a Pivot Table
-Use conditional statements to organize the results of a subselect query into rows and
-      columns. In the example below, results from a search for most revised Wikipedia articles that
-      start with the value 'Google' are organized into columns where the revision counts are
-      displayed if they meet various criteria.
 
 
 

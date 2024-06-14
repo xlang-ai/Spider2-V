@@ -1,44 +1,35 @@
 Documentation Source:
-docs.astronomer.io/astro/cli/test-your-astro-project-locally.md
+docs.astronomer.io/learn/debugging-dags.md
 
 Documentation Title:
-Test your Astro project | Astronomer Documentation
+Debug DAGs | Astronomer Documentation
 
 Documentation Content:
-Run tests with pytest​
+DAGs are not running correctly​
 
-To run unit tests on your Astro project, run:
+If your DAGs are either not running or running differently than you intended, consider checking the following common causes:
 
-astro dev pytestThis command runs all tests in your project's `tests`directory with pytest, a testing framework for Python. With pytest, you can test custom Python code and operators locally without having to start a local Airflow environment.
+* DAGs need to be unpaused in order to run on their schedule. You can unpause a DAG by clicking the toggle on the left side of the Airflow UI or by using the Airflow CLI.
 
-The `tests`directory in your Astro project includes an example DAG test called `test_dag_example.py`. This test checks that:
+!If you want all DAGs unpaused by default, you can set `dags_are_paused_at_creation=False`in your Airflow config. If you do this, remember to set `catchup=False`in your DAGs to prevent automatic backfilling of DAG runs. Paused DAGs are unpaused automatically when you manually trigger them.
+Double check that each DAG has a unique `dag_id`. If two DAGs with the same id are present in one Airflow instance the scheduler will pick one at random every 30 seconds to display.
 
-* All Airflow tasks have required arguments.
-* DAG IDs are unique across the Astro project.
-* DAGs have no cycles.
-* There are no general import or syntax errors.
+Make sure your DAG has a `start_date`in the past. A DAG with a `start_date`in the future will result in a successful DAG run with no task runs. Do not use `datetime.now()`as a `start_date`.
 
-This test is just an example of the kinds of pytests one could run to test thier DAGs. You may want to alter this test or create new ones that better fit the context of your DAGs. `astro dev pytest`will run any pytest file that you add to the `tests`directory. For more information about this command, see the CLI command reference.
+Test the DAG using `astro dev dags test `. With the Airflow CLI, run `airflow dags test `.
 
-Test before an Astro Runtime upgrade​
--------------------------------------
+If no DAGs are running, check the state of your scheduler
+using `astro dev logs -s`.
 
-You can use `astro dev upgrade-test`to test your local Astro project against a new version of Astro Runtime to prepare for an upgrade. By default, the command runs the following tests in order to create reports that can help you determine whether your upgrade will be successful:
+If too many runs of your DAG are being scheduled after you unpause it, you most likely need to set `catchup=False`in your DAG's parameters.
 
-* **Dependency test**: Identify the packages that have been added, removed, or changed in the upgrade version.
-* **DAG test**: Identify Python DAG `import`errors in the upgrade version.
 
-To run these tests, open your Astro project and run:
+If your DAG is running, but not on the schedule you expected, review the DAG Schedule DAGs in Airflowguide. If you are using a custom timetable, ensure that the data interval for your DAG run does not precede the DAG start date.
 
-astro dev upgrade-testIf the tests are successful, the Astro CLI creates a folder in your Astro project called `upgrade-test---`. The folder will contain the following reports:
+Common task issues​
+-------------------
 
-* `pip_freeze_`: The output of the `pip freeze`with your current version.
-* `pip_freeze_`: The output of the `pip freeze`with your upgrade version.
-* `dependency_compare.txt`: The result of the dependency test.
-* `Dockerfile`: The updated file used in the upgrade test.
-* `dag-test-results.html`: The results of the DAG test.
-
-Use the test results to fix any major package changes or broken DAGs before you upgrade.
+This section covers common issues related to individual tasks you might encounter. If your entire DAG is not working, see the DAGs are not running correctlysection above.
 
 
 
@@ -49,78 +40,82 @@ Documentation Title:
 Test Airflow DAGs | Astronomer Documentation
 
 Documentation Content:
-Test DAGs in a CI/CD pipeline​
+Setup​
 
-You can use CI/CD tools to test and deploy your Airflow code. By installing the Astro CLI into your CI/CD process, you can test your DAGs before deploying them to a production environment. See set up CI/CDfor example implementations.
+To use `dag.test()`, you only need to add a few lines of code to the end of your DAG file. If you are using a traditional DAG context, call `dag.test()`after your DAG declaration. If you are using the `@dag`decorator, assign your DAG function to a new object and call the method on that object.
 
-infoAstronomer customers can use the Astro GitHub integration, which allows you to automatically deploy code from a GitHUb repository to an Astro deployment, viewing Git metadata in the Astro UI. See Deploy code with the Astro GitHub integration.
+* Traditional DAG context
+* @dag decorator
 
-Add test data or files for local testing​
------------------------------------------
+`fromairflow.models.dag importDAGfrompendulum importdatetimefromairflow.operators.empty importEmptyOperatorwithDAG(dag_id="simple_classic_dag",start_date=datetime(2023,1,1),schedule="@daily",catchup=False,)asdag:# assigning the context to an object is mandatory for using dag.test()t1 =EmptyOperator(task_id="t1")if__name__ =="__main__":dag.test()``fromairflow.decorators importdagfrompendulum importdatetimefromairflow.operators.empty importEmptyOperator@dag(start_date=datetime(2023,1,1),schedule="@daily",catchup=False,)defmy_dag():t1 =EmptyOperator(task_id="t1")dag_object =my_dag()if__name__ =="__main__":dag_object.test()`You can run the `.test()`method with popular debugging tools such as:
 
-Use the `include`folder of your Astro project to store files for testing locally, such as test data or a dbt project file. The files in your `include`folder are included in your deploys to Astro, but they are not parsed by Airflow. Therefore, you don't need to specify them in `.airflowignore`to prevent parsing.
-
-If you're running Airflow locally, apply your changes by refreshing the Airflow UI.
-
-Debug interactively with dag.test()​
-------------------------------------
-
-The `dag.test()`method allows you to run all tasks in a DAG within a single serialized Python process, without running the Airflow scheduler. The `dag.test()`method lets you iterate faster and use IDE debugging tools when developing DAGs.
-
-This functionality replaces the deprecated DebugExecutor. Learn more in the Airflow documentation.
+* VSCode.
+* PyCharm.
+* Tools like The Python Debuggerand the built-in `breakpoint()`function. These allow you to run `dag.test()`from the command line by running `python `.
 
 
 
 Documentation Source:
-docs.astronomer.io/astro/cli/release-notes.md
+docs.astronomer.io/learn/get-started-with-airflow.md
 
 Documentation Title:
-Astro CLI release notes | Astronomer Documentation
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
 
 Documentation Content:
-New command to run DAG unit tests with pytest​
+Let's trigger a run of the `example_astronauts`DAG!
 
-You can now run custom unit tests for all DAGs in your Astro project with `astro dev pytest`, a new Astro CLI command that uses pytest, a common testing framework for Python. As part of this change, new Astro projects created via `astro dev init`now include a `tests`directory, which includes one example pytest built by Astronomer.
+1. Before you can trigger a DAG run in Airflow, you have to unpause the DAG. To unpause `example_astronauts`, click the slider button next to its name. Once you unpause it, the DAG starts to run on the schedule defined in its code.
 
-When you run this command, the Astro CLI creates a local Python environment that includes your DAG code, dependencies, and Astro Runtime Docker image. The CLI then runs any pytests in the `tests`directory and shows you the results of those tests in your terminal. You can add as many custom tests to this directory as you'd like.
+!
+While all DAGs can run on a schedule defined in their code, you can manually trigger a DAG run at any time from the Airflow UI. Manually trigger `example_astronauts`by clicking the play button under the **Actions**column. During development, running DAGs on demand can help you identify and resolve issues.
 
-For example, you can use this command to run tests that check for:
 
-* Python and Airflow syntax errors.
-* Import errors.
-* Dependency conflicts.
-* Unique DAG IDs.
+After you press **Play**, the **Runs**and **Recent Tasks**sections for the DAG start to populate with data.
 
-These tests don't require a fully functional Airflow environment in order to execute, which makes this Astro CLI command the fastest and easiest way to test DAGs locally.
+!These circles represent different statesthat your DAG and task runs can be in. However, these are only high-level summaries of your runs that won't make much sense until you learn more about how Airflow works. To get a better picture of how your DAG is running, let's explore some other views in Airflow.
 
-In addition to running tests locally, you can also run pytest as part of the Astro deploy process. To do so, specify the `--pytest`flag when running `astro deploy`. This ensures that your code push to Astro automatically fails if any DAGs do not pass all pytests specified in the `tests`directory of your Astro project. For more information, see Test your Astro project locally.
+Step 5: Explore the Airflow UI​
+-------------------------------
+
+The navigation bar in the Airflow UI contains tabs with different information about your Airflow environment. For more information about what you can find in each tab, see The Airflow UI.
+
+Let's explore the available views in the **DAGs**page. To access different DAG views for `example_astronauts`:
+
+1. Click the name of the DAG to access the **Grid**view, which shows the status of running and completed tasks.
+
+Each column in the grid represents a complete DAG run, and each block in the column represents a specific task instance. This view is useful for seeing DAG runs over time and troubleshooting previously failed task instances.
+
+!Click on a green square to display additional information about the related task instance on the right side of the Airflow UI. The task instance view includes tabs with additional information for the task instance, such as its logs and historic runs. This is one of many available views that show details about your DAG.
 
 
 
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.md
+docs.astronomer.io/astro/first-dag-cli.md
 
 Documentation Title:
-Debug DAGs | Astronomer Documentation
+Run your first DAG with the Astro CLI | Astronomer Documentation
 
 Documentation Content:
-Import errors due to dependency conflicts​
+If your code passes the parse, the Astro CLI deploys your DAGs to Astro. If you run into issues deploying your DAGs, check to make sure that you have the latest version of the Astro CLI. See Upgrade the CLI.
 
-A frequent cause of DAG import errors is not having the necessary packages installed in your Airflow environment. You might be missing provider packagesthat are required for using specific operators or hooks, or you might be missing Python packages used in Airflow tasks.
+Step 5: Trigger your DAG on Astro​
+----------------------------------
 
-In an Astro project, you can install OS-level packages by adding them to your `packages.txt`file. You can install Python-level packages, such as provider packages, by adding them to your `requirements.txt`file. If you need to install packages using a specific package manager, consider doing so by adding a bash command to your Dockerfile.
+Newly-deployed DAGs are paused by default and will not start running automatically. To run one of the example DAGs in your Astro project according to its schedule, you must unpause it from the Airflow UI hosted on your Deployment.
 
-To prevent compatibility issues when new packages are released, Astronomer recommends pinning a package version to your project. For example, adding `astronomer-providers[all]==1.14.0`to your `requirements.txt`file ensures that no future releases of `astronomer-providers`causes compatibility issues. If no version is pinned, Airflow will always use the latest available version.
+In the Deployment page of the Astro UI, click the **Open Airflow**button.
 
-If you are using the Astro CLI, packages are installed in the scheduler Docker container. You can confirm that a package is installed correctly by running:
+2. In the main DAGs view of the Airflow UI, click the slider button next to `example-dag-basic`to unpause it. If you hover over the DAG, it says `DAG is Active`. When you do this, the DAG starts to run on the schedule that is defined in its code.
 
-astro dev bash--scheduler"pip freeze | grep "If you have conflicting package versions or need to run multiple Python versions, you can run tasks in different environments using a few different operators:
+!
+3. Manually trigger a DAG run of `example-dag-basic`by clicking the play button in the **Actions**column. When you develop DAGs on Astro, triggering a DAG run instead of waiting for the DAG schedule can help you quickly identify and resolve issues.
 
-* KubernetesPodOperator: Runs a task in a separate Kubernetes Pod.
-* ExternalPythonOperator: Runs a task in a predefined virtual environment.
-* PythonVirtualEnvOperator: Runs a task in a temporary virtual environment.
+After you press **Play**, the **Runs**and **Recent Tasks**sections for the DAG start to populate with data.
 
-If many Airflow tasks share a set of alternate package and version requirements a common pattern is to run them in two or more separate Airflow deployments.
+!These circles represent different statesthat your DAG and task runs can be in.
+Click on the name of the DAG, **example-dag-basic**, to open the **Grid**view for the DAG. To see if your DAG ran successfully, the most recent entry in the grid should have green squares for all of your tasks.
+
+Pause your DAG by clicking the slider button next to `example-dag-basic`. This prevents your example DAG from running automatically and consuming your Deployment resources.
 
 
 

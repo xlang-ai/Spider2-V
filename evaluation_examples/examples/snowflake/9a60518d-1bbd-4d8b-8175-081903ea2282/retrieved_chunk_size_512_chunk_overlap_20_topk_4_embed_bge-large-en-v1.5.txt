@@ -1,212 +1,113 @@
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-quality-tutorial-start.txt
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.txt
 
 Documentation Title:
-Tutorial: Getting started with data metric functions | Snowflake Documentation
+Managing data listings | Snowflake Documentation
 
 Documentation Content:
-city
-,
-country
-,
-email
-,
-first_name
-,
-last_name
-,
-phone
-,
-state
-,
-street
-,
-zip_code
-)
-VALUES
-(
-1589420
-,
-'san francisco'
-,
-'usa'
-,
-'john.doe@'
-,
-'john'
-,
-'doe'
-,
-1234567890
-,
-null
-,
-null
-,
-null
-);
-INSERT
-INTO
-customers
-(
-account_number
-,
-city
-,
-country
-,
-email
-,
-first_name
-,
-last_name
-,
-phone
-,
-state
-,
-street
-,
-zip_code
-)
-VALUES
-(
-8028387
-,
-'san francisco'
-,
-'usa'
-,
-'bart.simpson@example.com'
-,
-'bart'
-,
-'simpson'
-,
-1012023030
-,
-null
-,
-'market st'
-,
-94102
-);
-INSERT
-INTO
-customers
-(
-account_number
-,
-city
-,
-country
-,
-email
-,
-first_name
-,
-last_name
-,
-phone
-,
-state
-,
-street
-,
-zip_code
-)
-VALUES
-(
-1589420
-,
-'san francisco'
-,
-'usa'
-,
-'john.doe@example.com'
-,
-'john'
-,
-'doe'
-,
-1234567890
-,
-'ca'
-,
-'concar dr'
-,
-94402
-),
-(
-2834123
-,
-'san mateo'
-,
-'usa'
-,
-'jane.doe@example.com'
-,
-'jane'
-,
-'doe'
-,
-3641252911
-,
-'ca'
-,
-'concar dr'
-,
-94402
-),
-(
-4829381
-,
-'san mateo'
-,
-'usa'
-,
-'jim.doe@example.com'
-,
-'jim'
-,
-'doe'
-,
-3641252912
-,
-'ca'
-,
-'concar dr'
-,
-94402
-),
-(
-9821802
-,
-'san francisco'
-,
+For personalized listings, you can replicate data upon consumer’s request.
+Make sure to allocate time to set up replication and understand costs involved.
+To share data in a region, you must have an account in that region in order to replicate data. If you have more than one account, all accounts must belong to the same organization.
+When you publish a listing in a remote region, you can either allow all accounts in your organization to fulfill listing requests or explicitly add individual accounts as providers. Only the listing owner can specify who can fulfill listing requests.
+Cross region data sharing utilizes Snowflake data replication functionality, for more information, see
+Sharing data securely across regions and cloud platforms
+.
+You do not need to replicate the data to each region until a consumer requests it.
+For free listings, you have an option to pre-associate a share with the listing in a remote region. This will allow consumers to get the share instantly without submitting a request.
+To see a list of shares attached to a listing in a remote region, you must log in to the remote account from which you attached the share to the listing.
+Creating and publishing a data listing
+¶
+To create a free or personalized data listing:
+In
+Snowsight
+, navigate to
+Data Products
+»
+Private Sharing
+.
+Select the
+Share Data
+drop-down list and select a data exchange.
+In the
+New Listing
+dialog box, enter the listing title as it appears to the consumers and select the listing type. For more information about listing type, see
+Types of Listings
+.
+Complete each of the sections for the new listing. You can save the draft at any time to finish it later. For a description of each section and related fields, see
+Listings Capabilities Reference
+.
+For a free listing, to associate a share with the listing, when editing the
+Data
+section:
+Note
+Until a listing is published, it can only be associated with a share in the local/primary account. After the listing is published, it can be associated with a share in additional regions that you have selected.
+Select
+Select Data
+.
+If a secure share exists, navigate to the share and select it. If a share does not exist, navigate to the desired database and select the database objects you wish to add to the share.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/2024/other/2024-02-21.txt
+docs.snowflake.com/en/user-guide/data-exchange-using.txt
 
 Documentation Title:
-February 21, 2024 — Data sharing & collaboration for accounts in U.S. government regions | Snowflake Documentation
+Configuring and using a Data Exchange | Snowflake Documentation
 
 Documentation Content:
-government regions
+Sign in to
+Snowsight
+.
+Select
+Data Products
+»
+Private Sharing
+.
+Select the
+Requests
+tab.
+Select
+Inbound
+.
+Note
+To see requests from listings on the Snowflake Marketplace, such as those for personalized listings or free listings in another region,
+use
+Provider Studio
+.
+See
+Managing Listing Requests as a Provider
+.
+If a request is denied, a comment is provided next to the request, explaining the reason for denial. In such cases, you can make the necessary adjustments and resubmit your request.
+Accessing the shared data
 ¶
-With this release, we are pleased to announce that data sharing and collaboration with listings is now available for accounts in
-U.S. government regions.
-After accepting the cross-region disclaimer, anyone in your account with the required privileges can do the following:
-Publish free and limited trial listings on the Snowflake Marketplace.
-Share free listings directly with consumers.
-Access and install free and limited trial listings from the Snowflake Marketplace.
-Install free listings shared directly with your account.
-Some limitations apply. For more details, see:
-Prepare to provide listings from accounts in U.S. government regions
-Prepare to access listings from accounts in U.S. government regions
-Limitations for accessing listings from accounts in U.S. government regions
+If your request for a listing in the Data Exchange is approved:
+Sign in to Snowsight.
+Select
+Data Products
+»
+Private Sharing
+.
+Select the
+Shared With You
+tab.
+Locate the listing you requested and select
+Get Data
+for the listing.
+Enter the name for the database to create in your account from the share.
+Select roles that you want to have access to the database created from the share.
+Accept Snowflake’s consumer terms and the provider’s terms of use. You only need to accept the listing terms when you create a database from a share for the first time.
+Note
+Accepting terms using SQL is not supported.
+Select
+Create Database
+.
+After you create the database from share, the
+Get Data
+button is replaced with the
+View Database
+button.
+See also:
+Usage metrics shared with providers
 Was this page helpful?
 Yes
 No
@@ -223,6 +124,10 @@ Site Terms
 Snowflake, Inc.
 All Rights Reserved
 .
+On this page
+Data Exchange admin
+Data providers
+Data consumers
 Language
 :
 English
@@ -236,164 +141,159 @@ Português
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.txt
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.txt
 
 Documentation Title:
-Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+Managing data listings | Snowflake Documentation
 
 Documentation Content:
-Box 975, 553 Odio, Road|Hulste|63345 |
-| Field delimiter '|' found while expecting record delimiter '\n'                                                                                                      | mycsvtable/contacts3.csv.gz         |    5 |       125 |         625 | parsing  | 100016 |     22000 | "MYCSVTABLE"["POSTALCODE":10] |          4 |              5 | 14|Sophia|Christian|Turpis Ltd|lectus.pede@non.ca|1-962-503-3253|1-157-|850-3602|P.O. Box 824, 7971 Sagittis Rd.|Chattanooga|56188                  |
-+
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-Copy
-The result shows two data errors in
-mycsvtable/contacts3.csv.gz
-:
-Number
-of
-columns
-in
-file
-(11)
-does
-not
-match
-that
-of
-the
-corresponding
-table
-(10)
-In Row 1, a hyphen was mistakenly replaced with the pipe (
-|
-) character, the data file delimiter, effectively creating an additional column in the record.
-Field
-delimiter
-'|'
-found
-while
-expecting
-record
-delimiter
-'n'
-In Row 5, an additional pipe (
-|
-) character was introduced after a hyphen, breaking the record.
-Fix the errors and load the data files again
+Select the
+Requests
+tab. Use the filtering drop down list to view requests by status.
+Approving consumer requests for data listings in a remote region
 ¶
-In regular use, you would fix the problematic records manually and write them to a new data file.
-You would then stage the fixed data files to the S3 bucket and attempt to reload the data from
-the files. For this tutorial, you are using Snowflake provided sample data, which you do not correct.
-Verify the loaded data
-¶
-Execute a
-SELECT
-statement to verify that the data was loaded successfully.
+Note
+For
+personalized
+listings, data is not automatically available in remote regions. The provider is responsible for replicating their data to each of these regions.
+For
+free
+listings, you have an option to pre-associate a share with the listing in a remote region. This allows consumers to get the share instantly without submitting a request. You can also replicate data and attach a share to a listing after receiving a request from the first consumer in a region. Once the listing is attached to the share, all consumers in that region can access the share instantly.
+You can specify whether a listing can be fulfilled by a select provider account(s) or by any account in the organization.
+To approve a request for a data listing submitted by a consumer:
+Note
+If the consumer is in a different region, before attaching a share, you must set up replication of data to the account in each remote region. For more information, see
+Sharing data securely across regions and cloud platforms
+.
+Navigate to
+Data Products
+»
+Private Sharing
+.
+Select the
+Requests
+tab.
+Select
+Review
+next to the listing name.
+In the
+Associate Secure Share
+section, select an account where you wish to create the share.
+Select the role that owns the share and the shared database objects (or has the necessary privileges on the database objects to be able to add them to a share).
+select
+Select Data
+.
+If a secure share exists, navigate to the share and select it. If a share does not exist, navigate to the desired database and select the database objects you wish to add to the share.
+Note
+If you do not see a share, it is either already attached to another listing, or has been previously shared with consumers.
+Select
+Done
+.
+(Optional) You can change the default name for the secure share.
+Select
+Fullfill Request
+.
+Tip
+If you receive an error when fulfilling a request for a remote region, consider the following:
+Has the remote account been added to the Marketplace as a provider?
+Is the remote account part of the same organization as the account you published the listing from?
+Did you create a new share using the ACCOUNTADMIN role?
 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/cleanrooms/demo-flows/python-based-templates.txt
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.txt
 
 Documentation Title:
-Snowflake Data Clean Rooms: Secure Python Based Templates | Snowflake Documentation
+Managing data listings | Snowflake Documentation
 
 Documentation Content:
-Snowflake Data Clean Rooms: Secure Python Based Templates | Snowflake Documentation
-DOCUMENTATION
-/
-Getting Started
-Guides
-Developer
-Reference
-Releases
-Tutorials
-Status
-Overview
-Connecting to Snowflake
-Virtual warehouses
-Databases, Tables, & Views
-Data Types
-Data Loading
-Data Unloading
-Queries
-Data Sharing & Collaboration
-Introduction to Secure Data Sharing
-About listings
-About Snowflake Marketplace
-Legal requirements for providers and consumers of listings
-Snowflake Data Clean Rooms
-Getting started
-Administrator tasks
-Web app
-Developer APIs
-Provider API reference guide
-Consumer API reference guide
-Differential privacy
-Supported flows
-Provider data analysis
-Overlap analysis
-Custom analysis templates
-Secure Python-based templates
-Machine learning
-Secure Python UDTF-based templates
-Snowpark
-Register clean room in web app
-Managed accounts
-Adding Snowflake data
-Third-party connectors
-Activation connectors
-Identity & data provider connectors
-External data connectors
-Amazon S3
-Azure Blob Storage
-Google Cloud Storage
-Using listings as a provider
-Becoming a provider of listings
-Accessing Provider Studio
-Managing your provider profile
-Preparing data for a listing
-Creating and publishing a listing
-Configuring listings
-Configuring Cross-Cloud Auto-fulfillment
-Paid listings pricing models
-Managing listing requests
-Modifying published listings
-Defining listing referral links
-Removing listings as a provider
-Monitoring usage of your listing
-Monetization usage views
-About working with listings using SQL
-Using listings as a consumer
-Becoming a consumer of listings
-Exploring listings
-Accessing and installing listings as a consumer
-Paying for listings
-Data sharing for providers
-Getting started
-Working with shares
-Sharing data from multiple databases
-Sharing data across regions and cloud platforms
-Using secure objects to control data access
-Sharing data protected by a policy
-Data sharing for consumers
-Consuming shared data
-General data sharing tasks
-Managing reader accounts
-Configuring reader accounts
-Enabling non-Admins to perform sharing tasks
-Granting privileges to other roles
-Sharing from Business Critical to non-Business Critical
-Data Exchange
-About
-Admin and membership
-Accessing a Data Exchange
-Becoming a data provider
-Managing data listings
-Configuring and using Data Exchanges
-Requesting a new Data Exchange
-Snowflake AI
+Did you create a new share using the ACCOUNTADMIN role?
+Have you added other consumers to the share you are trying to attach?
+Viewing fulfilled listing requests
+¶
+Providers who fulfill free or personalized listing requests using
+Snowsight
+can view records of consumers added to the
+share by navigating to
+Data Products
+»
+Private Sharing
+and selecting the
+Shared by My Account
+tab.
+These records are also available in the
+QUERY_HISTORY View
+.
+Managing existing data listings
+¶
+Editing a data listing
+¶
+When you publish a new version of the listing, it overwrites the previously published listing. If you remove a region that was previously available, consumers in that region will no longer have access to the shared dataset.
+To edit a data listing:
+Sign in to
+Snowsight
+as an ACCOUNTADMIN.
+In the navigation menu, click
+Data Products
+»
+Private Sharing
+»
+Shared by My Account
+.
+Click the name of the listing you wish to update.
+Next to the listing title, click
+New Draft
+.
+Click
+Edit
+for the section you wish to update.
+Click
+Publish
+.
+Unpublishing a data listing
+¶
+When you unpublish a data listing, existing consumers can still access the data share unless you remove them from the share. New consumers cannot see it.
+To unpublish a data listing:
+Sign in to the Data Exchange using
+Snowsight
+as an Account Administrator.
+In the navigation menu, select
+Data Products
+»
+Private Sharing
+»
+Shared by My Account
+.
+Select the name of the listing you wish to unpublish.
+In the top-right corner, from the
+Live
+drop-down list, select
+Unpublish
+.
+Republishing a data listing
+¶
+To republish a data listing:
+Sign in to the Data Exchange using
+Snowsight
+as an Account Administrator.
+In the navigation menu, select
+Data Products
+»
+Private Sharing
+»
+Shared by My Account
+.
+Select the name of the listing you wish to republish.
+In the top-right corner, from the drop-down list select
+Re-publish
+.
+Select
+Re-publish
+to republish the listing.
+Updating a data share
+¶
+You can update a data share using the Classic Console.
 
 
 

@@ -217,66 +217,189 @@ operators
 
 
 Documentation Source:
-docs.astronomer.io/astro/best-practices/cross-deployment-dependencies.txt
+docs.astronomer.io/astro/airflow-api.txt
 
 Documentation Title:
-Cross-deployment dependencies | Astronomer Documentation
+Make requests to the Airflow REST API | Astronomer Documentation
 
 Documentation Content:
-While you can also use the HttpOperator or a custom Python function in an
-@task
-decorated task to make the API request to update the dataset, an advantage of using a listener is that the dataset is updated and the downstream DAG runs whenever
-any
-DAG updates the dataset. This means you don't need to implement an API call in every upstream DAG that updates the same dataset.
-Prerequisites
+Replace
+<your-dag-id>
+with your own value.
+cURL
 ​
-Two
-Astro Deployments
-.
-A
-Deployment API token
-,
-Workspace API token
-, or
-Organization API token
-for one of your deployments. This deployment will host your downstream DAG.
-Two
-Astro projects
-.
-Process
+curl
+-X
+PATCH https://
+<
+your-deployment-url
+>
+/api/v1/dags/
+<
+your-dag-id
+>
+\
+-H
+'Content-Type: application/json'
+\
+-H
+'Cache-Control: no-cache'
+\
+-H
+'Authorization: Bearer <your-access-token>'
+\
+-d
+'{"is_paused": true}'
+Python
 ​
-In your upstream Deployment, which is the Deployment for which you did
-not
-create an API Token, use
-Variables
-in the Astro UI to create an environment variable for your API token, and use
-API_TOKEN
-for the key.
-For your downstream Deployment, follow the guidance in
-Make requests to the Airflow REST API - Step 2
-to obtain the Deployment URL for your downstream Deployment. The Deployment URL should be in the format of
-clq52ag32000108i8e3v3acml.astronomer.run/dz3uu847
-.
-In your upstream Deployment, use Variables in the Astro UI to create an environment variable where you can store your downstream Deployment URL, using
-DEPLOYMENT_URL
-for the key.
-In the upstream Deployment, add the following DAG to your Astro project running in the upstream Deployment. In the
-get_bear
-task, the TaskFlow API automatically registers
-MY_DATASET
-as an outlet Dataset. This creates an update to this Dataset in the
-same
-Airflow deployment. The dependent
-on_dataset_changed
-task creates or updates the Dataset via a request to the Airflow API Datasets endpoint in a
-different
-Airflow deployment.
-from
-airflow
-.
-datasets
 import
-Dataset
+requests
+token
+=
+"<your-access-token>"
+deployment_url
+=
+"<your-deployment-url>"
+dag_id
+=
+"<your-dag-id>"
+response
+=
+requests
+.
+patch
+(
+url
+=
+f"https://
+{
+deployment_url
+}
+/api/v1/dags/
+{
+dag_id
+}
+"
+,
+headers
+=
+{
+"Authorization"
+:
+f"Bearer
+{
+token
+}
+"
+,
+"Content-Type"
+:
+"application/json"
+}
+,
+data
+=
+'{"is_paused": true}'
+)
+print
+(
+response
+.
+json
+(
+)
+)
+# Prints data about the DAG with id <dag-id>
+Trigger DAG runs across Deployments
+​
+You can use the Airflow REST API to make a request in one Deployment that triggers a DAG run in a different Deployment. This is sometimes necessary when you have interdependent workflows across multiple Deployments. On Astro, you can do this for any Deployment in any Workspace or cluster.
+This topic has guidelines on how to trigger a DAG run, but you can modify the example DAG provided to trigger any request that's supported in the Airflow REST API.
+Create a
+Deployment API token
+for the Deployment that contains the DAG you want to trigger.
+In the Deployment that contains the triggering DAG, create an
+Airflow HTTP connection
+with the following values:
+Connection Id
+:
+http_conn
+Connection Type
+: HTTP
+Host
+:
+<your-deployment-url>
+Schema
+:
+https
+Extras
+:
+{
+"Content-Type"
+:
+"application/json"
+,
+"Authorization"
+:
+"Bearer <your-deployment-api-token>"
+}
+See
+Manage connections in Apache Airflow
+.
+info
+If the
+HTTP
+connection type is not available, double check that the
+HTTP provider
+is installed in your Airflow environment.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-fivetran.txt
+
+Documentation Title:
+Use Fivetran with Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+Click
+Generate API Key
+. Copy the API key information to a secure place for later.
+Step 6: Create an Airflow connection to Fivetran
+​
+In a web browser, go to
+localhost:8080
+to access the Airflow UI.
+Click
+Admin
+->
+Connections
+->
++
+to create a new connection.
+Name your connection
+fivetran_conn
+and select the
+Fivetran
+connection type. Provide your Fivetran API key and Fivetran API secret. If the Fivetran connection type isn't available, try restarting your Airflow instance with
+astro dev restart
+to ensure the contents of
+requirements.txt
+have been installed.
+Click
+Save
+.
+Step 7: Create your Airflow DAG
+​
+For this tutorial you will create a DAG that triggers your Fivetran sync to ingest the GitHub repo metadata to your destination.
+Open your
+astro-fivetran-project
+in a code-editor.
+In your
+dags
+folder add a new Python file called
+my_fivetran_dag.py
+.
+Copy and paste the following DAG code into the file:
 from
 airflow
 .
@@ -289,134 +412,8 @@ from
 pendulum
 import
 datetime
-import
-os
-URI
-=
-"file://include/bears"
-MY_DATASET
-=
-Dataset
-(
-URI
-)
-TOKEN
-=
-os
-.
-environ
-.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/get-started-with-airflow-part-2.txt
-
-Documentation Title:
-Get started with Apache Airflow, Part 2: Providers, connections, and variables | Astronomer Documentation
-
-Documentation Content:
-get
-(
-f"https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=
-{
-lat
-}
-&longitude=
-{
-lon
-}
-"
-)
-.
-json
-(
-)
-country
-=
-r
-[
-"countryName"
-]
-city
-=
-r
-[
-"locality"
-]
-task_logger
-.
-info
-(
-f"The International Space Station is currently over
-{
-city
-}
-in
-{
-country
-}
-."
-)
-return
-r
-log_iss_location_obj
-=
-log_iss_location
-(
-get_iss_coordinates
-.
-output
-)
-chain
-(
-github_sensor
-,
-get_iss_coordinates
-,
-log_iss_location_obj
-)
-find_the_iss
-(
-)
-Step 2: Add a provider package
-​
-If your Airflow project is not running locally yet, run
-astro dev start
-in the your Astro project directory to start your Airflow environment.
-Open the Airflow UI to confirm that your DAG was pushed to your environment. On the
-DAGs
-page, you should see a "DAG Import Error" like the one shown here:
-This error is due to a missing provider package.
-Provider packages
-are Python packages maintained separately from core Airflow that contain hooks and operators for interacting with external services. You can browse all available providers in the
-Astronomer Registry
-.
-Your DAG uses operators from two Airflow provider packages: the
-HTTP provider
-and the
-GitHub provider
-. While the HTTP provider is pre-installed in the Astro Runtime image, the GitHub provider is not, which causes the DAG import error.
-Open the
-GitHub provider page
-in the Astronomer Registry.
-Copy the provider name and version by clicking
-Use Provider
-in the top right corner.
-Paste the provider name and version into the
-requirements.txt
-file of your Astro project. Make sure to only add
-apache-airflow-providers-github=<version>
-without
-pip install
-.
-Restart your Airflow environment by running
-astro dev restart
-. Unlike DAG code changes, package dependency changes require a complete restart of Airflow.
-Step 3: Add an Airflow variable
-​
-After restarting your Airflow instance, you should not see the DAG import error from
-Step 2
+from
+fivetran_provider_async
 .
 
 

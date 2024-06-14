@@ -1,4 +1,15 @@
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/writing-your-first-asset.html
+
+Documentation Title:
+Tutorial, part three: Writing your first asset | Dagster Docs
+
+Documentation Content:
+As more assets are built, this graph will show your entire data platform in one place. This page can also be referred to as the <strong>Global Asset Lineage</strong>.</p><img/><p>Observe that Dagster has detected your <code>topstory_ids</code>asset, but it says that the asset has never been <em>“materialized”</em>.</p><h2>Step 2: Materialize your asset<span>#</span></h2><p>To <strong>materialize</strong>a Software-defined asset means to create or update it. Dagster materializes assets by executing the asset's function or triggering an integration.</p><p>To manually materialize an asset in the UI, click the <strong>Materialize</strong>button in the upper right corner of the screen. This will create a Dagster run that will materialize your assets.</p><p>To follow the progress of the materialization and monitor the logs, each run has a dedicated page. To find the page:</p><ol><p>Click on the <strong>Runs</strong>tab in the upper navigation bar</p><p>Click the value in the <strong>Run ID</strong>column on the table of the Runs page</p><li><p>The top section displays the progress, and the bottom section live updates with the logs</p><img/></li></ol><h2>Next steps<span>#</span></h2><p>You've written the first step in your data pipeline! In <a>the next section</a>, you'll learn how to add more assets to your pipeline.
+
+
+
+Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.html
 
 Documentation Title:
@@ -15,35 +26,6 @@ From here, we can run our data pipeline.</p><p>To run the pipeline, click the <s
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.html
-
-Documentation Title:
-Tutorial, part four: Building an asset graph | Dagster Docs
-
-Documentation Content:
-and manually materialized your asset.</p><p>Continuing from there, you will:</p><ul><li>Add more assets to your Dagster project</li><li>Connect them to finish creating the pipeline</li><li>Give users more knowledge about the assets by adding metadata and logging</li></ul><h2>Step 1: Adding the DataFrame asset<span>#</span></h2><p>Using the top Hacker News story IDs, you'll now look up each story by its ID, ingest that data, and make a DataFrame out of it. You'll connect your current asset with this new asset to establish dependencies and make an <em>asset graph</em>.</p><p>Modify your <code>assets.py</code>to add the <code>pandas</code>import and a new asset called <code>topstories</code>:</p><span>Add new imports, such as <code>import pandas as pd</code>, to the top of<code>assets.py</code></span><code><span>import</span>json
-<span>import</span>os
-
-<span>import</span>pandas <span>as</span>pd  <span># Add new imports to the top of `assets.py`</span><span>import</span>requests
-
-<span>from</span>dagster <span>import</span>asset
-
-<span># . Keep the `topstory_ids` asset from the previous section</span><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>topstory_ids<span>]</span><span>)</span><span># this asset is dependent on topstory_ids</span><span>def</span><span>topstories</span><span>(</span><span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span><span>with</span><span>open</span><span>(</span><span>"data/topstory_ids.json"</span><span>,
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/writing-your-first-asset.html
-
-Documentation Title:
-Tutorial, part three: Writing your first asset | Dagster Docs
-
-Documentation Content:
-As more assets are built, this graph will show your entire data platform in one place. This page can also be referred to as the <strong>Global Asset Lineage</strong>.</p><img/><p>Observe that Dagster has detected your <code>topstory_ids</code>asset, but it says that the asset has never been <em>“materialized”</em>.</p><h2>Step 2: Materialize your asset<span>#</span></h2><p>To <strong>materialize</strong>a Software-defined asset means to create or update it. Dagster materializes assets by executing the asset's function or triggering an integration.</p><p>To manually materialize an asset in the UI, click the <strong>Materialize</strong>button in the upper right corner of the screen. This will create a Dagster run that will materialize your assets.</p><p>To follow the progress of the materialization and monitor the logs, each run has a dedicated page. To find the page:</p><ol><p>Click on the <strong>Runs</strong>tab in the upper navigation bar</p><p>Click the value in the <strong>Run ID</strong>column on the table of the Runs page</p><li><p>The top section displays the progress, and the bottom section live updates with the logs</p><img/></li></ol><h2>Next steps<span>#</span></h2><p>You've written the first step in your data pipeline! In <a>the next section</a>, you'll learn how to add more assets to your pipeline.
-
-
-
-Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/concepts/assets/software-defined-assets.html
 
 Documentation Title:
@@ -51,6 +33,17 @@ Software-defined assets | Dagster
 
 Documentation Content:
 This opens the <strong>Asset catalog</strong>:</p><img/></div></div><h3>Materializing assets in the UI<span>#</span></h3><p>In the UI, you can launch runs that materialize assets by:</p><ul><li>Navigating to the <a><strong>Asset details</strong>page</a>for the asset and clicking the <strong>Materialize</strong>button in the upper right corner.</li><li>Navigating to the graph view of the <a><strong>Asset catalog</strong>page</a>and clicking the <strong>Materialize</strong>button in the upper right corner. You can also click on individual assets to collect a subset to materialize.</li></ul><h2>Building jobs that materialize assets<span>#</span></h2><p>Jobs that target assets can materialize a fixed selection of assets each time they run and be placed on schedules and sensors. Refer to the <a>Asset jobs documentation</a>for more info and examples.</p><h2>Grouping assets<span>#</span></h2><p>To help keep your assets tidy, you can organize them into groups. Grouping assets by project, concept, and so on simplifies <a>keeping track of them in the UI</a>. Each asset is assigned to a single group, which by default is called "default".</p><ul><a>Assigning assets to groups</a><a>Viewing asset groups in the UI</a></ul><h3>Assigning assets to groups<span>#</span></h3><p>In Dagster, there are two ways to assign assets to groups:</p><ul><a>By specifying a group name on an individual asset</a><li><a>By using the <code>group_name</code>argument when calling <code>load_assets_from_package_module</code></a>(<strong>recommended</strong>)</li></ul><p>By default, assets that aren't assigned to a group will be placed in a group named <code>default</code>.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/assets/asset-auto-execution.html
+
+Documentation Title:
+Auto-Materializing Assets | Dagster
+
+Documentation Content:
+This enables a declarative approach to asset scheduling – instead of defining imperative workflows to materialize your assets, you just describe the conditions under which they should be materialized.</p><p>At a high-level, the most common way for assets to be auto-materialized is "eagerly" -- immediately after upstream changes occur, a run will be kicked off to incorporate those changes into a given asset. However, the precise rules that govern when runs are kicked off can be customized on an asset-by-asset basis.</p><h2>Turning on auto-materializing<span>#</span></h2><p>To enable assets to be automatically materialized, you need to first flip a toggle in the Dagster UI.</p><ul><li>If you're using an open source Dagster deployment, you can get to this toggle by clicking "Deployment" in the top navigation pane and then clicking on the "Daemons" tab.</li><li>If you're using Dagster+, you can get to this toggle by clicking "Deployment" in the top navigation pane, then clicking on the "Agents" tab, then looking under "Cloud service statuses".</li></ul><h2>Auto-materialize policies<span>#</span></h2><p>You can set up an asset to be auto-materialized by assigning it an <code>AutoMaterializePolicy</code>. Each policy consists of a set of <code>AutoMaterializeRules</code>, each representing individual reasons that an asset should be materialized or not at a given point in time. If there's at least one rule determining that the asset should be materialized, and no rules determining that it should be skipped, a run will be launched to materialize that asset.</p><p>It is recommended to start with the built-in <code>AutoMaterializePolicy.eager</code>and further customize from there if necessary. This policy consists of all of the supported rules, other than <code>materialize_on_cron</code>and <code>skip_on_not_all_parents_updated</code>.
 
 
 

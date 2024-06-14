@@ -1,4 +1,57 @@
 Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/index.md
+
+Documentation Title:
+@jupyterlab
+
+Documentation Content:
+```
+jupyter serverextensionenable--pyjupyterlab--sys-prefixCopy
+```
+RunningStart up JupyterLab using:
+
+
+```
+jupyter labCopy
+```
+JupyterLab will open automatically in the browser. See the documentationfor additional details.
+
+If you encounter an error like "Command 'jupyter' not found", please make sure `PATH`environment variable is set correctly. Alternatively, you can start up JupyterLab using `~/.local/bin/jupyter lab`without changing the `PATH`environment variable.
+
+Prerequisites and Supported BrowsersThe latest versions of the following browsers are currently *known to work*:
+
+* Firefox
+* Chrome
+* Safari
+
+See our documentationfor additional details.
+
+Getting helpWe encourage you to ask questions on the Discourse forum. A question answered there can become a useful resource for others.
+
+Bug reportTo report a bug please read the guidelinesand then open a Github issue. To keep resolved issues self-contained, the lock botwill lock closed issues as resolved after a period of inactivity. If a related discussion is still needed after an issue is locked, please open a new issue and reference the old issue.
+
+Feature requestWe also welcome suggestions for new features as they help make the project more useful for everyone. To request a feature please use the feature request template.
+
+DevelopmentExtending JupyterLabTo start developing an extension for JupyterLab, see the developer documentationand the API docs.
+
+ContributingTo contribute code or documentation to JupyterLab itself, please read the contributor documentation.
+
+JupyterLab follows the Jupyter Community Guides.
+
+LicenseJupyterLab uses a shared copyright model that enables all contributors to maintain the
+copyright on their contributions. All code is licensed under the terms of the revised BSD license.
+
+TeamJupyterLab is part of Project Jupyterand is developed by an open community. The maintenance team is assisted by a much larger group of contributors to JupyterLab and Project Jupyter as a whole.
+
+JupyterLab's current maintainers are listed in alphabetical order, with affiliation, and main areas of contribution:
+
+* Mehmet Bektas, Netflix (general development, extensions).
+* Alex Bozarth, IBM (general development, extensions).
+* Eric Charles, Datalayer, (general development, extensions).
+
+
+
+Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/index-2.md
 
 Documentation Title:
@@ -123,29 +176,55 @@ Installing with Previous Versions of Jupyter NotebookWhen using a version of Jup
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookAdapter.md
+jupyterlab.readthedocs.io/en/4.1.x/api/index-2.md
 
 Documentation Title:
-NotebookAdapter | @jupyterlab
+@jupyterlab
 
 Documentation Content:
-serFactoryIUploadModelIDefaultFileBrowserCHUNK\_SIZEIDefaultFileBrowserIFileBrowserCommandsIFileBrowserFactoryLARGE\_FILE\_SIZEfileeditorEditorSyntaxStatusModelIOptionsFileEditorIOptionsdefaultEditorConfigFileEditorFactoryIOptionsTabSpaceStatusModelIOptionsEditorSyntaxStatusEditorTableOfContentsFactoryFileEditorFileEditorAdapterFileEditorFactoryFileEditorSearchProviderFileEditorWidgetLaTeXTableOfContentsFactoryLaTeXTableOfContentsModelMarkdownTableOfContentsFactoryMarkdow
+```
+jupyter serverextensionenable--pyjupyterlab--sys-prefixCopy
+```
+RunningStart up JupyterLab using:
 
 
+```
+jupyter labCopy
+```
+JupyterLab will open automatically in the browser. See the documentationfor additional details.
 
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookAdapter.md
+If you encounter an error like "Command 'jupyter' not found", please make sure `PATH`environment variable is set correctly. Alternatively, you can start up JupyterLab using `~/.local/bin/jupyter lab`without changing the `PATH`environment variable.
 
-Documentation Title:
-NotebookAdapter | @jupyterlab
+Prerequisites and Supported BrowsersThe latest versions of the following browsers are currently *known to work*:
 
-Documentation Content:
-GitHubJupyter* Preparing search index...
-* The search index is not available
+* Firefox
+* Chrome
+* Safari
 
-@jupyterlab@jupyterlabnotebookNotebookAdapter
-Class NotebookAdapter
-=====================
+See our documentationfor additional details.
+
+Getting helpWe encourage you to ask questions on the Discourse forum. A question answered there can become a useful resource for others.
+
+Bug reportTo report a bug please read the guidelinesand then open a Github issue. To keep resolved issues self-contained, the lock botwill lock closed issues as resolved after a period of inactivity. If a related discussion is still needed after an issue is locked, please open a new issue and reference the old issue.
+
+Feature requestWe also welcome suggestions for new features as they help make the project more useful for everyone. To request a feature please use the feature request template.
+
+DevelopmentExtending JupyterLabTo start developing an extension for JupyterLab, see the developer documentationand the API docs.
+
+ContributingTo contribute code or documentation to JupyterLab itself, please read the contributor documentation.
+
+JupyterLab follows the Jupyter Community Guides.
+
+LicenseJupyterLab uses a shared copyright model that enables all contributors to maintain the
+copyright on their contributions. All code is licensed under the terms of the revised BSD license.
+
+TeamJupyterLab is part of Project Jupyterand is developed by an open community. The maintenance team is assisted by a much larger group of contributors to JupyterLab and Project Jupyter as a whole.
+
+JupyterLab's current maintainers are listed in alphabetical order, with affiliation, and main areas of contribution:
+
+* Mehmet Bektas, Netflix (general development, extensions).
+* Alex Bozarth, IBM (general development, extensions).
+* Eric Charles, Datalayer, (general development, extensions).
 
 
 

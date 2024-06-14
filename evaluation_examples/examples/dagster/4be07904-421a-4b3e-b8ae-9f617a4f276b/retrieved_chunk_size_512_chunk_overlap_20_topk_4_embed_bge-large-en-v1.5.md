@@ -1,4 +1,35 @@
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.md
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+This will be a supervised model since we have the number of comments for all the previous stories.
+
+The assets graph will look like this at the end of this guide (click to expand):
+
+!### Ingesting data#
+
+First, we will create an asset that retrieves the most recent Hacker News records.
+
+`importrequests
+fromdagster importasset
+importpandas aspd
+
+
+@assetdefhackernews_stories():# Get the max ID number from hacker newslatest_item =requests.get("https://hacker-news.firebaseio.com/v0/maxitem.json").json()# Get items based on story ids from the HackerNews items endpointresults =[]scope =range(latest_item -1000,latest_item)foritem_id inscope:item =requests.get(f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json").json()results.append(item)# Store the results in a dataframe and filter on stories with valid titlesdf =pd.DataFrame(results)iflen(df)>0:df =df[df.type=="story"]df =df[~df.title.isna()]returndf`### Transforming data#
+
+Now that we have a dataframe with all valid stories, we want to transform that data into something our machine learning model will be able to use.
+
+The first step is taking the dataframe and splitting it into a training and test set. In some of your models, you also might choose to have an additional split for a validation set. The reason we split the data is so that we can have a test and/or a validation dataset that is independent of the training set. We can then use that dataset to see how well our model did.
+
+`fromsklearn.model_selection importtrain_test_split
+fromdagster importmulti_asset,AssetOut
+
+
+
+Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/guides/dagster/managing-ml.md
 
 Documentation Title:
@@ -31,77 +62,6 @@ Documentation Title:
 Building machine learning pipelines with Dagster | Dagster Docs
 
 Documentation Content:
-This will be a supervised model since we have the number of comments for all the previous stories.
-
-The assets graph will look like this at the end of this guide (click to expand):
-
-!### Ingesting data#
-
-First, we will create an asset that retrieves the most recent Hacker News records.
-
-`importrequests
-fromdagster importasset
-importpandas aspd
-
-
-@assetdefhackernews_stories():# Get the max ID number from hacker newslatest_item =requests.get("https://hacker-news.firebaseio.com/v0/maxitem.json").json()# Get items based on story ids from the HackerNews items endpointresults =[]scope =range(latest_item -1000,latest_item)foritem_id inscope:item =requests.get(f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json").json()results.append(item)# Store the results in a dataframe and filter on stories with valid titlesdf =pd.DataFrame(results)iflen(df)>0:df =df[df.type=="story"]df =df[~df.title.isna()]returndf`### Transforming data#
-
-Now that we have a dataframe with all valid stories, we want to transform that data into something our machine learning model will be able to use.
-
-The first step is taking the dataframe and splitting it into a training and test set. In some of your models, you also might choose to have an additional split for a validation set. The reason we split the data is so that we can have a test and/or a validation dataset that is independent of the training set. We can then use that dataset to see how well our model did.
-
-`fromsklearn.model_selection importtrain_test_split
-fromdagster importmulti_asset,AssetOut
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/airflow/from-airflow-to-dagster.md
-
-Documentation Title:
-Learning Dagster from Airlfow
-
-Documentation Content:
-Once enabled in your `dagster.yaml`file, you can define the retry count for the job.
-
-Step 3: Define the schedule#
-----------------------------
-
-In Dagster, schedules can be defined for jobs, which determine the cadence at which a job is triggered to be executed. Below we define a schedule that will run the `tutorial_job`daily:
-
-`schedule =ScheduleDefinition(job=tutorial_job,cron_schedule="@daily")`Step 4: Run Dagster locally#
-----------------------------
-
-In order to run our newly defined Dagster job we'll need to add it and the schedule to our project's Definitions.
-
-`defs =Definitions(jobs=[tutorial_job],schedules=[schedule],)`We can now load this file with the UI:
-
-`dagster dev -f .py`Completed code example#
------------------------
-
-That's it! By now, your code should look like this:
-
-`importtime
-fromdatetime importdatetime,timedelta
-
-fromdagster import(Definitions,In,Nothing,OpExecutionContext,RetryPolicy,ScheduleDefinition,job,op,schedule,)@opdefprint_date(context:OpExecutionContext)->datetime:ds =datetime.now()context.log.info(ds)returnds
-
-
-@op(retry_policy=RetryPolicy(max_retries=3),ins={"start":In(Nothing)})defsleep():time.sleep(5)@opdeftemplated(context:OpExecutionContext,ds:datetime):for_i inrange(5):context.log.info(ds)context.log.info(ds -timedelta(days=7))@job(tags={"dagster/max_retries":1,"dag_name":"example"})deftutorial_job():ds =print_date()sleep(ds)templated(ds)schedule =ScheduleDefinition(job=tutorial_job,cron_schedule="@daily")defs =Definitions(jobs=[tutorial_job],schedules=[schedule],)`On This Page- Learning Dagster from Airflow
-	Comparing an Airflow DAG to Dagster2. Step 1: Defining the opsOp-level retries
-	3. Step 2: Define the jobJob-level retries
-	Step 3: Define the scheduleStep 4: Run Dagster locallyCompleted code example
-Edit Page on GitHubShare FeedbackStar
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.md
-
-Documentation Title:
-Building machine learning pipelines with Dagster | Dagster Docs
-
-Documentation Content:
 `@assetdeflatest_story_comment_predictions(xgboost_comments_model,tfidf_vectorizer):# Get the max ID number from hacker newslatest_item =requests.get("https://hacker-news.firebaseio.com/v0/maxitem.json").json()# Get items based on story ids from the HackerNews items endpointresults =[]scope =range(latest_item -100,latest_item)foritem_id inscope:item =requests.get(f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json").json()results.append(item)df =pd.DataFrame(results)iflen(df)>0:df =df[df.type=="story"]df =df[~df.title.isna()]inference_x =df.title
  # Transform the new story titles using the existing vectorizerinference_x =tfidf_vectorizer.transform(inference_x)returnxgboost_comments_model.predict(inference_x)`Depending on what the objective of your ML model is, you can use this data to set alerts, save model performance history, and trigger retraining.
 
@@ -117,6 +77,27 @@ On This Page- Building machine learning pipelines with Dagster
 		Ingesting dataTransforming dataTraining the modelEvaluating our results
 	Where to go from here
 Edit Page on GitHubShare FeedbackStar
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.md
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+@multi_asset(outs={"training_data":AssetOut(),"test_data":AssetOut()})deftraining_test_data(hackernews_stories):X =hackernews_stories.title
+ y =hackernews_stories.descendants
+ # Split the dataset to reserve 20% of records as the test setX_train,X_test,y_train,y_test =train_test_split(X,y,test_size=0.2)return(X_train,y_train),(X_test,y_test)`Next, we will take both the training and test data subsets and tokenize the titlese.g. take the words and turn them into columns with the frequency of terms for each record to create featuresfor the data. To do this, we will be using the training set to fit the tokenizer. In this case, we are using TfidfVectorizerand then transforming both the training and test set based on that tokenizer.
+
+`fromsklearn.feature_extraction.text importTfidfVectorizer
+importnumpy asnp
+
+
+@multi_asset(outs={"tfidf_vectorizer":AssetOut(),"transformed_training_data":AssetOut()})deftransformed_train_data(training_data):X_train,y_train =training_data
+ # Initiate and fit the tokenizer on the training data and transform the training datasetvectorizer =TfidfVectorizer()transformed_X_train =vectorizer.fit_transform(X_train)transformed_X_train =transformed_X_train.toarray()y_train =y_train.fillna(0)transformed_y_train =np.array(y_train)returnvectorizer,(transformed_X_train,transformed_y_train)@assetdeftransformed_test_data(test_data,tfidf_vectorizer):X_test,y_test =test_data
+ # Use the fitted tokenizer to transform the test datasettransformed_X_test =tfidf_vectorizer.transform(X_test)transformed_y_test =np.array(y_test)y_test =y_test.fillna(0)transformed_y_test =np.array(y_test)returntransformed_X_test,transformed_y_test`We also transformed the dataframes into NumPy arrays and removed `nan`values to prepare the data for training.
 
 
 

@@ -195,86 +195,137 @@ panel, click your project name.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-tablesd41d.txt
+cloud.google.com/bigquery/docs/quickstarts/load-data-bq.txt
 
 Documentation Title:
-TABLES view  |  BigQuery  |  Google Cloud
+Load and query data with the bq tool  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-SELECT
-  table_name, ddl
-FROM
-  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
-WHERE
-  table_name = 'population_by_zip_2010';
-The result is similar to the following:
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|       table_name       |                                                                                                            ddl                                                                                                             |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
-|                        | (                                                                                                                                                                                                                          |
-|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
-|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
-|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
-|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
-|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
-|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
-|                        | )                                                                                                                                                                                                                          |
-|                        | OPTIONS(                                                                                                                                                                                                                   |
-|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
-|                        | );                                                                                                                                                                                                                         |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
+The name cannot start with a number or underscore,
+and it cannot have spaces.
+Confirm that the dataset
+babynames
+now appears in your project:
+bq ls
+The output is similar to the following:
+datasetId
+-------------
+  babynames
+Load data into a table
+In the
+babynames
+dataset, load the source file
+yob2010.txt
+into a
+new table that's named
+names2010
+:
+bq load babynames.names2010 yob2010.txt name:string,assigned_sex_at_birth:string,count:integer
+The output is similar to the following:
+Upload complete.
+Waiting on bqjob_r3c045d7cbe5ca6d2_0000018292f0815f_1 ... (1s) Current status: DONE
+By default, when you load data, BigQuery expects UTF-8
+encoded data. If you have data in ISO-8859-1 (or Latin-1) encoding and
+you have problems with it, instruct BigQuery to treat
+your data as Latin-1 using
+bq load -E=ISO-8859-1
+. For more information,
+see
+Encoding
+.
+Confirm that the table
+names2010
+now appears in the
+babynames
+dataset:
+bq ls babynames
+The output is similar to the following. Some columns are omitted to simplify
+the output.
+tableId     Type
+----------- ---------
+ names2010    TABLE
+Confirm that the table schema of your new
+names2010
+table is
+name: string
+,
+assigned_sex_at_birth: string
+, and
+count: integer
+:
+bq show babynames.names2010
+The output is similar to the following. Some columns are omitted to simplify
+the output.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-tables.txt
+cloud.google.com/bigquery/docs/quickstarts/load-data-bq.txt
 
 Documentation Title:
-TABLES view  |  BigQuery  |  Google Cloud
+Load and query data with the bq tool  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-SELECT
-  table_name, ddl
-FROM
-  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
-WHERE
-  table_name = 'population_by_zip_2010';
-The result is similar to the following:
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|       table_name       |                                                                                                            ddl                                                                                                             |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| population_by_zip_2010 | CREATE TABLE `bigquery-public-data.census_bureau_usa.population_by_zip_2010`                                                                                                                                               |
-|                        | (                                                                                                                                                                                                                          |
-|                        |   geo_id STRING OPTIONS(description="Geo code"),                                                                                                                                                                           |
-|                        |   zipcode STRING NOT NULL OPTIONS(description="Five digit ZIP Code Tabulation Area Census Code"),                                                                                                                          |
-|                        |   population INT64 OPTIONS(description="The total count of the population for this segment."),                                                                                                                             |
-|                        |   minimum_age INT64 OPTIONS(description="The minimum age in the age range. If null, this indicates the row as a total for male, female, or overall population."),                                                          |
-|                        |   maximum_age INT64 OPTIONS(description="The maximum age in the age range. If null, this indicates the row as having no maximum (such as 85 and over) or the row is a total of the male, female, or overall population."), |
-|                        |   gender STRING OPTIONS(description="male or female. If empty, the row is a total population summary.")                                                                                                                    |
-|                        | )                                                                                                                                                                                                                          |
-|                        | OPTIONS(                                                                                                                                                                                                                   |
-|                        |   labels=[("freebqcovid", "")]                                                                                                                                                                                             |
-|                        | );                                                                                                                                                                                                                         |
-+------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
+Go to project selector
+Make sure that billing is enabled for your Google Cloud project
+.
+If you do not enable billing for the Google Cloud project that you use in this
+tutorial, then you will work with data in the BigQuery sandbox. The
+BigQuery sandbox lets you learn BigQuery with a limited
+set of BigQuery features at no charge.
+Ensure that the BigQuery API is enabled.
+Enable the API
+If you created a new project, the BigQuery API is automatically
+    enabled.
+In the Google Cloud console, activate Cloud Shell.
+Activate Cloud Shell
+At the bottom of the Google Cloud console, a
+Cloud Shell
+session starts and displays a command-line prompt. Cloud Shell is a shell environment
+      with the Google Cloud CLI
+      already installed and with values already set for
+      your current project. It can take a few seconds for the session to initialize.
+Download the source public data file
+Download the
+baby names zip file
+.
+Extract the zip file. It contains a file named
+NationalReadMe.pdf
+that
+describes the dataset schema.
+Learn more about the baby names dataset
+.
+Open the
+yob2010.txt
+file. It's a comma-separated value (CSV) file that
+contains three columns: name, assigned sex at birth, and number of children
+with that name. The file has no header row.
+Move the file to your working directory.
+If you're working in Cloud Shell, click
+more_vert
+More
+>
+Upload
+, click
+Choose Files
+, choose the
+yob2010.txt
+file, and then click
+Upload
+.
+If you're working in a local shell, copy or move the file
+yob2010.txt
+into the directory where you're running the bq tool.
+Create a dataset
+Create a dataset named
+babynames
+:
+bq mk babynames
+The output is similar to the following:
+Dataset 'myproject:babynames' successfully created.
+A dataset name can be up to 1,024 characters long and consist of A-Z, a-z,
+0-9, and the underscore. The name cannot start with a number or underscore,
+and it cannot have spaces.
 
 
 

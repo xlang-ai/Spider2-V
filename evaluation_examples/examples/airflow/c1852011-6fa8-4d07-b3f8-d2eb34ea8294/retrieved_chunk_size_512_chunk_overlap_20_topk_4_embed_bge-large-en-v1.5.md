@@ -5,74 +5,6 @@ Documentation Title:
 Create DAG documentation in Apache Airflow | Astronomer Documentation
 
 Documentation Content:
-!Conclusion​
------------
-
-Congratulations! You now know how to add fancy documentation to both your DAGs and your Airflow tasks.
-
-Was this page helpful?
-----------------------
-
-YesNoSign up for Developer Updates
------------------------------
-
-Get a summary of new Astro features once a month.
-
-SubmitYou can unsubscribe at any time. By proceeding you agree to our Privacy Policy, our Website Termsand to receive emails from Astronomer.
-
-Edit this pagePreviousUse the Astro Python SDKNextIntegrations & connectionsTime to completeAssumed knowledgePrerequisitesStep 1: Create an Astro projectStep 2: Create a new DAGStep 3: Add docs to your DAGStep 4: Add docs to a taskStep 5: Add notes to a task instance and DAG runConclusionLegal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.md
-
-Documentation Title:
-Create DAG documentation in Apache Airflow | Astronomer Documentation
-
-Documentation Content:
-Add the following code containing reStructuredText:
-
-`doc_rst_task ="""===========This feature is pretty neat===========* there are many ways to add docs* luckily Airflow supports a lot of them.. note:: `Learn more about rst here! `__"""`
-Create a task definition as shown in the following snippet. The task definition includes parameters for specifying each of the documentation strings you created. Pick the coding style you're most comfortable with.
-
-
-* TaskFlow API
-* Traditional syntax
-
-`@task(doc_md=doc_md_task,doc=doc_monospace_task,doc_json=doc_json_task,doc_yaml=doc_yaml_task,doc_rst=doc_rst_task)deftell_me_what_to_do():response =requests.get("https://www.boredapi.com/api/activity")returnresponse.json()["activity"]tell_me_what_to_do()``tell_me_what_to_do =PythonOperator(task_id="tell_me_what_to_do",python_callable=query_api,doc_md=doc_md_task,doc=doc_monospace_task,doc_json=doc_json_task,doc_yaml=doc_yaml_task,doc_rst=doc_rst_task)`Go to the Airflow UI and run your DAG.
-
-In the **Grid**view, click on the green square for your task instance.
-
-3. Click on **Task Instance Details**.
-
-!
-4. See the docs under their respective attribute:
-
-!
-
-Step 5: Add notes to a task instance and DAG run​
--------------------------------------------------
-
-You can add notes to task instances and DAG runs from the **Grid**view in the Airflow UI. This feature is useful if you need to share contextual information about a DAG or task run with your team, such as why a specific run failed.
-
-Go to the **Grid View**of the `docs_example_dag`DAG you created in Step 2.
-
-Select a task instance or DAG run.
-
-Click **Details**> **Task Instance Notes**or **DAG Run notes**> **Add Note**.
-
-Write a note and click **Save Note**.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.md
-
-Documentation Title:
-Create DAG documentation in Apache Airflow | Astronomer Documentation
-
-Documentation Content:
 Copy and paste one of the following DAGs based on which coding style you're most comfortable with.
 
 
@@ -129,6 +61,74 @@ To add documentation to your task, follow these steps:
 
 `doc_yaml_task ="""clothes_to_wear: sportsgear: |- climbing: true- swimming: false"""`
 5.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.md
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+Add the following code containing reStructuredText:
+
+`doc_rst_task ="""===========This feature is pretty neat===========* there are many ways to add docs* luckily Airflow supports a lot of them.. note:: `Learn more about rst here! `__"""`
+Create a task definition as shown in the following snippet. The task definition includes parameters for specifying each of the documentation strings you created. Pick the coding style you're most comfortable with.
+
+
+* TaskFlow API
+* Traditional syntax
+
+`@task(doc_md=doc_md_task,doc=doc_monospace_task,doc_json=doc_json_task,doc_yaml=doc_yaml_task,doc_rst=doc_rst_task)deftell_me_what_to_do():response =requests.get("https://www.boredapi.com/api/activity")returnresponse.json()["activity"]tell_me_what_to_do()``tell_me_what_to_do =PythonOperator(task_id="tell_me_what_to_do",python_callable=query_api,doc_md=doc_md_task,doc=doc_monospace_task,doc_json=doc_json_task,doc_yaml=doc_yaml_task,doc_rst=doc_rst_task)`Go to the Airflow UI and run your DAG.
+
+In the **Grid**view, click on the green square for your task instance.
+
+3. Click on **Task Instance Details**.
+
+!
+4. See the docs under their respective attribute:
+
+!
+
+Step 5: Add notes to a task instance and DAG run​
+-------------------------------------------------
+
+You can add notes to task instances and DAG runs from the **Grid**view in the Airflow UI. This feature is useful if you need to share contextual information about a DAG or task run with your team, such as why a specific run failed.
+
+Go to the **Grid View**of the `docs_example_dag`DAG you created in Step 2.
+
+Select a task instance or DAG run.
+
+Click **Details**> **Task Instance Notes**or **DAG Run notes**> **Add Note**.
+
+Write a note and click **Save Note**.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.md
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+!Conclusion​
+-----------
+
+Congratulations! You now know how to add fancy documentation to both your DAGs and your Airflow tasks.
+
+Was this page helpful?
+----------------------
+
+YesNoSign up for Developer Updates
+-----------------------------
+
+Get a summary of new Astro features once a month.
+
+SubmitYou can unsubscribe at any time. By proceeding you agree to our Privacy Policy, our Website Termsand to receive emails from Astronomer.
+
+Edit this pagePreviousUse the Astro Python SDKNextIntegrations & connectionsTime to completeAssumed knowledgePrerequisitesStep 1: Create an Astro projectStep 2: Create a new DAGStep 3: Add docs to your DAGStep 4: Add docs to a taskStep 5: Add notes to a task instance and DAG runConclusionLegal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various trademarks held by their respective owners.
 
 
 

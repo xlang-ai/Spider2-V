@@ -274,35 +274,37 @@ info
 (
 context
 .
-asset_partitions_time_window_for_input
-(
-"upstream_asset"
-))
+asset_partitions_def_for_output
+())
 # materializing the 2023-08-21 partition of this asset will log:
-#   TimeWindow("2023-08-21", "2023-08-22")
-# running a backfill of the 2023-08-21 through 2023-08-25 partitions of this asset will log:
-#   TimeWindow("2023-08-21", "2023-08-26")
-@asset
+#   DailyPartitionsDefinition("2023-08-20")
+@multi_asset
 (
-ins
+outs
 =
 {
-"upstream_asset"
+"first_asset"
 :
-AssetIn
+AssetOut
 (
-partition_mapping
+key
 =
-TimeWindowPartitionMapping
-(
-start_offset
-=-
-1
+[
+"my_assets"
 ,
-end_offset
-=-
-1
-))
+"first_asset"
+]),
+"second_asset"
+:
+AssetOut
+(
+key
+=
+[
+"my_assets"
+,
+"second_asset"
+])
 }
 partitions_def
 =
@@ -310,13 +312,11 @@ partitions_def
 ,
 )
 def
-another_asset
+a_multi_asset
 (
 context
 :
 AssetExecutionContext
-,
-upstream_asset
 ):
 context
 .
@@ -326,49 +326,80 @@ info
 (
 context
 .
-asset_partitions_time_window_for_input
+asset_partitions_def_for_output
 (
-"upstream_asset"
+"first_asset"
+))
+context
+.
+log
+.
+info
+(
+context
+.
+asset_partitions_def_for_output
+(
+"second_asset"
 ))
 # materializing the 2023-08-21 partition of this asset will log:
-#   TimeWindow("2023-08-20", "2023-08-21")
-# running a backfill of the 2023-08-21 through 2023-08-25 partitions of this asset will log:
-#   TimeWindow("2023-08-21", "2023-08-26")
+#   DailyPartitionsDefinition("2023-08-20")
+#   DailyPartitionsDefinition("2023-08-20")
+asset_partitions_time_window_for_input
+(
+input_name
+=
+'result'
+)
+[source]
+¶
+The time window for the partitions of the input asset.
+If you want to write your asset to support running a backfill of several partitions in a single run,
+you can use
+asset_partitions_time_window_for_input
+to get the time window of the input that
+are relevant to that backfill.
+Raises an error if either of the following are true:
+- The input asset has no partitioning.
+- The input asset is not partitioned with a TimeWindowPartitionsDefinition or a
+MultiPartitionsDefinition with one time-partitioned dimension.
+Parameters
+:
+input_name
+(
+str
+) – The name of the input to get the partition key for.
+Examples
+partitions_def
+=
+DailyPartitionsDefinition
+(
+"2023-08-20"
+)
 @asset
 (
 partitions_def
 =
 partitions_def
-,
-ins
-=
-{
-"self_dependent_asset"
-:
-AssetIn
-(
-partition_mapping
-=
-TimeWindowPartitionMapping
-(
-start_offset
-=-
-1
-,
-end_offset
-=-
-1
-))
-}
 )
 def
-self_dependent_asset
+upstream_asset
+():
+...
+@asset
+(
+partitions_def
+=
+partitions_def
+)
+def
+an_asset
 (
 context
 :
 AssetExecutionContext
 ,
-self_dependent_asset
+upstream_asset
 ):
 context
 .

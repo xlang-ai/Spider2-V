@@ -1,60 +1,95 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/geospatial-get-started.txt
+cloud.google.com/bigquery/docs/visualize-looker-studio.txt
 
 Documentation Title:
-Get started with geospatial analytics  |  BigQuery  |  Google Cloud
+Analyze data with Looker Studio  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Go to project selector
-Make sure that billing is enabled for your Google Cloud project
+This is useful if you want to modify the data in
+BigQuery before working with it in Looker Studio,
+or if you only need a subset of the fields in the table.
+Note:
+You can visualize a maximum of 5,000 rows of data in
+Looker Studio charts.
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+Select your
+billing project
 .
-In the Google Cloud console, on the project selector page,
-        select or
-create a Google Cloud project
+In the
+Explorer
+pane, enter
+bikeshare_trips
+in the
+Type to search
+field.
+Go to
+bigquery-public-data
+>
+austin_bikeshare
+>
+bikeshare_trips
 .
-Note
-: If you don't plan to keep the
-    resources that you create in this procedure, create a project instead of
-    selecting an existing project. After you finish these steps, you can
-    delete the project, removing all resources associated with the project.
-Go to project selector
-Make sure that billing is enabled for your Google Cloud project
+Click
+more_vert
+View actions
+,
+and then click
+Query
 .
-BigQuery is automatically enabled in new projects.
-  To activate BigQuery in an existing project, go to
-Enable the BigQuery API.
-Enable the API
-Explore the sample data
-This tutorial uses a dataset available through the
-Google Cloud Public Dataset Program
+In the query editor, construct your query. For example:
+SELECT
+  *
+FROM
+  `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+LIMIT
+  1000;
+Click
+play_circle
+Run
 .
-A public dataset is any dataset that is stored in BigQuery and
-made available to the general public. The
-public datasets are datasets that BigQuery hosts for
-you to access and integrate into your applications. Google pays for the storage
-of these datasets and provides public access to the data via a
-project
-. You pay only for the queries that
-you perform on the data (the first 1 TB per month is free, subject to
-query pricing details
-.)
-The NYC Citi Bike Trips dataset
-NYC Citi Bike Trips
-Citi Bike is the nation's largest bike share program, with 10,000 bikes and 600
-stations across Manhattan, Brooklyn, Queens, and Jersey City. This dataset
-includes Citi Bike trips since Citi Bike launched in September 2013 and is
-updated daily. The data is processed by Citi Bike to remove trips that are
-taken by staff to service and inspect the system and any trips below 60
-seconds in length, which are considered false starts.
-You can start exploring this data in the BigQuery console by
-viewing the details of the
-citibike_stations
-table:
-Go to citibike_stations schema
-Three columns in this table are relevant to this tutorial:
-bike_stations.longitude
-: the longitude of a station. The values are
-valid WGS 84 longitudes in decimal degrees format.
+In the
+Query results
+section, click
+Explore data
+, and then click
+Explore with Looker Studio
+.
+On the
+Welcome to Looker Studio
+page, click
+Get Started
+if you agree to the Google Looker Studio and
+Google Terms of Service.
+On the
+Authorize Looker Studio access
+page, click
+Authorize
+to authorize the connection if you agree to the terms of service, and
+then select your marketing preferences. Only you can view data in your
+report unless you grant others permission to view the data.
+The report editor displays your query results as
+Looker Studio charts.
+The following image shows some features of a Looker Studio report:
+Legend
+:
+Looker Studio logo and report name.
+To go to the
+Looker Studio
+page, click the
+logo.
+To edit the report name, click the name.
+Looker Studio toolbar. The
+Add a chart
+tool is highlighted.
+Report title. To edit the text, click the text box.
+Table (selected). You can interact with a selected
+chart by using the options in the chart header.
+Bar chart (not selected).
+Chart
+properties pane.
 
 
 
@@ -145,90 +180,6 @@ Documentation Title:
 Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-#standardSQL
-WITH
-hs AS (
-SELECT
-  h.start_station_name AS station_name,
-  IF
-  (EXTRACT(DAYOFWEEK
-    FROM
-      h.start_date) = 1
-    OR EXTRACT(DAYOFWEEK
-    FROM
-      h.start_date) = 7,
-    "weekend",
-    "weekday") AS isweekday,
-  h.duration,
-  ST_DISTANCE(ST_GEOGPOINT(s.longitude,
-      s.latitude),
-    ST_GEOGPOINT(-0.1,
-      51.5))/1000 AS distance_from_city_center
-FROM
-  `bigquery-public-data.london_bicycles.cycle_hire` AS h
-JOIN
-  `bigquery-public-data.london_bicycles.cycle_stations` AS s
-ON
-  h.start_station_id = s.id
-WHERE
-  h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
-  AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
-stationstats AS (
-SELECT
-  station_name,
-  isweekday,
-  AVG(duration) AS duration,
-  COUNT(duration) AS num_trips,
-  MAX(distance_from_city_center) AS distance_from_city_center
-FROM
-  hs
-GROUP BY
-  station_name, isweekday )
-SELECT
-*
-FROM
-stationstats
-ORDER BY
-distance_from_city_center ASC
-Query details
-This query extracts data on cycle hires, including
-start_station_name
-, and
-duration
-and joins it against station information, including
-distance-from-city-center
-. Then, it computes attributes of
-the station in
-stationstats
-, including the average duration of rides and the
-number of trips, and passes through the station attribute
-distance_from_city_center
-.
-This query uses the
-WITH
-clause
-to define subqueries. The query also uses the
-ST_DISTANCE
-and
-ST_GEOGPOINT
-geospatial analytics functions. For more information about these functions, see
-Geography
-functions
-. For more
-information about geospatial analytics, see
-Introduction to
-geospatial analytics
-.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/kmeans-tutorial.txt
-
-Documentation Title:
-Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
-
-Documentation Content:
 Run the query
 The following query compiles your training data, and is also used in the
 CREATE MODEL
@@ -302,6 +253,90 @@ Before trying this sample, follow the BigQuery DataFrames
     setup instructions in the
 BigQuery quickstart
     using BigQuery DataFrames
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/kmeans-tutorial.txt
+
+Documentation Title:
+Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+#standardSQL
+WITH
+hs AS (
+SELECT
+  h.start_station_name AS station_name,
+  IF
+  (EXTRACT(DAYOFWEEK
+    FROM
+      h.start_date) = 1
+    OR EXTRACT(DAYOFWEEK
+    FROM
+      h.start_date) = 7,
+    "weekend",
+    "weekday") AS isweekday,
+  h.duration,
+  ST_DISTANCE(ST_GEOGPOINT(s.longitude,
+      s.latitude),
+    ST_GEOGPOINT(-0.1,
+      51.5))/1000 AS distance_from_city_center
+FROM
+  `bigquery-public-data.london_bicycles.cycle_hire` AS h
+JOIN
+  `bigquery-public-data.london_bicycles.cycle_stations` AS s
+ON
+  h.start_station_id = s.id
+WHERE
+  h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
+  AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
+stationstats AS (
+SELECT
+  station_name,
+  isweekday,
+  AVG(duration) AS duration,
+  COUNT(duration) AS num_trips,
+  MAX(distance_from_city_center) AS distance_from_city_center
+FROM
+  hs
+GROUP BY
+  station_name, isweekday )
+SELECT
+*
+FROM
+stationstats
+ORDER BY
+distance_from_city_center ASC
+Query details
+This query extracts data on cycle hires, including
+start_station_name
+, and
+duration
+and joins it against station information, including
+distance-from-city-center
+. Then, it computes attributes of
+the station in
+stationstats
+, including the average duration of rides and the
+number of trips, and passes through the station attribute
+distance_from_city_center
+.
+This query uses the
+WITH
+clause
+to define subqueries. The query also uses the
+ST_DISTANCE
+and
+ST_GEOGPOINT
+geospatial analytics functions. For more information about these functions, see
+Geography
+functions
+. For more
+information about geospatial analytics, see
+Introduction to
+geospatial analytics
 .
 
 

@@ -115,27 +115,30 @@ Edit this pagePreviousPineconeNextRedshiftPrerequisitesGet connection detailsCre
 
 
 Documentation Source:
-docs.astronomer.io/astro/cli/configure-cli.md
+docs.astronomer.io/learn/connections.md
 
 Documentation Title:
-Configure the Astro CLI | Astronomer Documentation
+Manage connections in Apache Airflow | Astronomer Documentation
 
 Documentation Content:
-|`docker` `docker`or `podman` |
-|`context` The context for your Astro project. | Empty string | Any available context |
-|`disable_astro_run` Determines whether to disable `astro run`commands and exclude `astro-run-dag`from any images built by the CLI. |`false` `true`, `false` |
-|`disable_env_objects` Determines whether the Astro CLI pulls connections set in the Astro UI to your local environment. When set to `true`, connections are not pulled to the local environment. Set to `false`to import connections from the Astro UI for local development. Can be set globally with the `-g`flag. |`true` `true`, `false` |
-|`duplicate_volumes` Determines if the Astro CLI creates duplicate volumes when running Airflow locally. |`true` `true`or `false` |
-|`local.registry` The location of your local Docker container running Airflow. |`localhost:5555` Any available port |
-|`postgres.user` The username for the Postgres metadata database. |`postgres` Any string |
-|`postgres.password` The password for the Postgres metadata database. |`postgres` Any string |
-|`postgres.host` The hostname for the Postgres metadata database. |`postgres` Any string |
-|`postgres.port` The port for the Postgres metadata database. |`5432` Any available port |
-|`postgres.repository` Image repository to pull the Postgres image from |`docker.io/postgres` Any Postgres image in a repository |
-|`postgres.tag` The tag for your Postgres image |`12.6` Any valid image tag |
-|`project.name` The name of your Astro project. | Empty string | Any string |
-|`show_warnings` Determines whether warning messages appear when starting a local Airflow environment. For example, when set to `true`, you'll receive warnings when a new version of Astro Runtime is available and when your Astro project doesn't have any DAGs. |`true` `true`, `false` |
-|`skip_parse` Determines whether the CLI parses DAGs before pushing code to a Deployment.
+!As you update the **Connection Type**field, notice how the other available fields change. Each connection type requires different kinds of information. Specific connection types are only available in the dropdown list when the relevant provider is installed in your Airflow environment.
+
+You don't have to specify every field for most connections. However, the values marked as required in the Airflow UI can be misleading. For example, to set up a connection to a PostgreSQL database, you need to reference the PostgreSQL provider documentationto learn that the connection requires a `Host`, a user name as `login`, and a password in the `password`field.
+
+!Any parameters that don't have specific fields in the connection form can be defined in the **Extra**field as a JSON dictionary. For example, you can add the `sslmode`or a client `sslkey`in the **Extra**field of your PostgreSQL connection.
+
+You can test some connection types from the Airflow UI with the **Test**button if you enable `test_connection`in the Airflow config. After running a connection test, a message shows either a success confirmation or an error message. When using the **Test**button, the connection to your external tool is made from the webserver component of Airflow. See also Testing connections in the Airflow documentation.
+
+Define connections with environment variables​
+----------------------------------------------
+
+Connections can also be defined using environment variables. If you use the Astro CLI, you can use the `.env`file for local development or specify environment variables in your project's Dockerfile.
+
+**Note**: If you are synchronizing your project to a remote repository, don't save sensitive information in your Dockerfile. In this case, using either a secrets backend, Airflow connections defined in the UI, or `.env`locally are preferred to avoid exposing secrets in plain text.
+
+The environment variable used for the connection must be formatted as `AIRFLOW_CONN_YOURCONNID`and can be provided as a Uniform Resource Identifier (URI) or in JSON.
+
+URIis a format designed to contain all necessary connection information in one string, starting with the connection type, followed by login, password, and host. In many cases a specific port, schema, and additional parameters must be added.
 
 
 

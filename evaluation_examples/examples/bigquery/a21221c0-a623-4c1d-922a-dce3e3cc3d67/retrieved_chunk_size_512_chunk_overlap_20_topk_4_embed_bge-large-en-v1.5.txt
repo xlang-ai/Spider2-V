@@ -108,6 +108,68 @@ Project history
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/writing-results.txt
+
+Documentation Title:
+Writing query results  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For more information, see
+Set up authentication for client libraries
+.
+from google.cloud import bigquery
+
+# Construct a BigQuery client object.
+client = bigquery.Client()
+
+# TODO(developer): Set table_id to the ID of the destination table.
+# table_id = "your-project.your_dataset.your_table_name"
+
+# Set the destination table and use_legacy_sql to True to use
+# legacy SQL syntax.
+job_config = bigquery.QueryJobConfig(
+    allow_large_results=True, destination=table_id, use_legacy_sql=True
+)
+
+sql = """
+    SELECT corpus
+    FROM [bigquery-public-data:samples.shakespeare]
+    GROUP BY corpus;
+"""
+
+# Start the query, passing in the extra configuration.
+query_job = client.query(sql, job_config=job_config)  # Make an API request.
+query_job.result()  # Wait for the job to complete.
+
+print("Query results loaded to the table {}".format(table_id))
+Downloading and saving query results from the Google Cloud console
+After you run a SQL query by using the Google Cloud console, you can save the
+results to another location. You can use the Google Cloud console to download
+query results to a local file, Google Sheets, or Google Drive. If you first
+sort the query results by column, then the order is preserved in the downloaded
+data. Saving results to a local file, Google Sheets, or Google Drive is not
+supported by the bq command-line tool or the API.
+Limitations
+Downloading and saving query results are subject to the following limitations:
+You can download query results locally only in CSV or newline-delimited JSON
+format.
+You cannot save query results containing nested and repeated data to
+Google Sheets.
+To save query results to Google Drive using the Google Cloud console, the
+results set must be 1 GB or less. If your results are larger, you can save
+them to a table instead.
+When saving query results to a local CSV file, the maximum download size is
+10 MB.
+The maximum download size is based on the size of each row returned in the
+tabledata.list
+method
+response, and can vary based on the schema of the query results. As a result,
+the size of the downloaded CSV file can vary, and might be less than the
+maximum download size limit.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/managing-jobs.txt
 
 Documentation Title:
@@ -179,74 +241,6 @@ Apache 2.0 License
 Google Developers Site Policies
 . Java is a registered trademark of Oracle and/or its affiliates.
 Last updated 2024-05-13 UTC.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/information-schema-jobs.txt
-
-Documentation Title:
-JOBS view  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Load job history
-The following example lists all users or service accounts that submitted a batch
-load job for a given project. Because no time boundary is specified,
-this query scans all available history (for example, the last 30 days).
-SELECT
-  DISTINCT(user_email) AS user
-FROM
-  `region-us`.INFORMATION_SCHEMA.JOBS
-WHERE
-  job_type = 'LOAD';
-Note:
-INFORMATION_SCHEMA
-view names are case-sensitive.
-The result is similar to the following:
-+--------------+
-| user         |
-+--------------+
-| abc@xyz.com  |
-+--------------+
-| def@xyz.com  |
-+--------------+
-Get the number of load jobs to determine the daily job quota used
-The following example returns the number of jobs by day, dataset, and table so
-that you can determine how much of the daily job quota is used.
-SELECT
-    DATE(creation_time) as day,
-    destination_table.project_id as project_id,
-    destination_table.dataset_id as dataset_id,
-    destination_table.table_id as table_id,
-    COUNT(job_id) AS load_job_count
- FROM
-   region-us.INFORMATION_SCHEMA.JOBS_BY_PROJECT
- WHERE
-    creation_time BETWEEN TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 8 DAY) AND CURRENT_TIMESTAMP()
-    AND job_type = "LOAD"
-GROUP BY
-    day,
-    project_id,
-    dataset_id,
-    table_id
-ORDER BY
-    day DESC
-Get the last 10 failed jobs
-The following example shows the last 10 failed jobs:
-SELECT
-   job_id,
-  creation_time,
-  user_email,
-   error_result
- FROM `region-us`.INFORMATION_SCHEMA.JOBS_BY_PROJECT
- WHERE error_result.reason != "Null"
-ORDER BY creation_time DESC
-LIMIT 10
-The results should look similar to the following:
-+---------------+--------------------------+------------------+-----------------------------------------------------------+
-| job_id        | creation_time            | user_email       | error_result                                              |
-+---------------+--------------------------+------------------+-----------------------------------------------------------+
-| examplejob_1  | 2020-10-10 00:00:00 UTC  | bob@example.com  | Column 'generate_metadata_snapshot' has mismatched type.
 
 
 

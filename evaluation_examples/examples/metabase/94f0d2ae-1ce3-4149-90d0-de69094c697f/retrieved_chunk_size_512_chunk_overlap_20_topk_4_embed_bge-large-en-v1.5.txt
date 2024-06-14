@@ -1,239 +1,4 @@
 Documentation Source:
-www.metabase.com/learn/administration/serialization.txt
-
-Documentation Title:
-Serialization: preloading dashboards in a new Metabase instance
-
-Documentation Content:
-["setup-token"]'
-)
-MB_TOKEN
-=
-$(
-curl
--s
--X
-POST
-\
--H
-"Content-type: application/json"
-\
-http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/setup
-\
--d
-'{
-    "token": "'
-${
-SETUP_TOKEN
-}
-'",
-    "user": {
-        "email": "'
-${
-ADMIN_EMAIL
-}
-'",
-        "first_name": "Metabase",
-        "last_name": "Admin",
-        "password": "'
-${
-ADMIN_PASSWORD
-}
-'"
-    },
-    "prefs": {
-        "allow_tracking": false,
-        "site_name": "Metawhat"
-    }
-}'
-| jq
--r
-'.id'
-)
-echo
--e
-"
-\n
-👥 Creating some basic users: "
-curl
--s
-"http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/user"
-\
--H
-'Content-Type: application/json'
-\
--H
-"X-Metabase-Session:
-${
-MB_TOKEN
-}
-"
-\
--d
-'{"first_name":"Basic","last_name":"User","email":"basic@somewhere.com","login_attributes":{"region_filter":"WA"},"password":"'
-${
-ADMIN_PASSWORD
-}
-'"}'
-curl
--s
-"http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/user"
-\
--H
-'Content-Type: application/json'
-\
--H
-"X-Metabase-Session:
-${
-MB_TOKEN
-}
-"
-\
--d
-'{"first_name":"Basic 2","last_name":"User","email":"basic2@somewhere.com","login_attributes":{"region_filter":"CA"},"password":"'
-${
-ADMIN_PASSWORD
-}
-'"}'
-echo
--e
-"
-\n
-👥 Basic users created!"
-Save the above code as
-create_users.sh
-, and make it executable:
-chmod
-+x create_users.sh
-Then run:
-MB_HOSTNAME
-=
-localhost
-MB_PORT
-=
-5001 ./create_users.sh
-With your metabase-source instance up, and your users created, open up
-http://localhost:5001
-and sign in as the admin user you created.
-
-
-
-Documentation Source:
-www.metabase.com/learn/administration/serialization.txt
-
-Documentation Title:
-Serialization: preloading dashboards in a new Metabase instance
-
-Documentation Content:
-#!/bin/sh
-ADMIN_EMAIL
-=
-${
-MB_ADMIN_EMAIL
-:-
-admin
-@metabase.local
-}
-ADMIN_PASSWORD
-=
-${
-MB_ADMIN_PASSWORD
-:-
-Metapass123
-}
-METABASE_HOST
-=
-${
-MB_HOSTNAME
-}
-METABASE_PORT
-=
-${
-MB_PORT
-:-
-3000
-}
-echo
-"⌚︎ Waiting for Metabase to start"
-while
-(!
-curl
--s
--m
-5 http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/session/properties
--o
-/dev/null
-)
-;
-do
-sleep
-5
-;
-done
-echo
-"😎 Creating admin user"
-SETUP_TOKEN
-=
-$(
-curl
--s
--m
-5
--X
-GET
-\
--H
-"Content-Type: application/json"
-\
-http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/session/properties
-\
-| jq
--r
-'.
-
-
-
-Documentation Source:
 www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.txt
 
 Documentation Title:
@@ -296,145 +61,232 @@ Did this article help you?
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/embedding/interactive-embedding-quick-start-guide.txt
+www.metabase.com/docs/v0.49/configuring-metabase/config-file.txt
 
 Documentation Title:
-Interactive embedding quick start
+Configuration file
 
 Documentation Content:
-Copy this key, as you’ll need it in the next section.
-Save and enable JWT authentication
-We’ll set up group synchronization later, but for now, be sure to click the
-Save and enable
-button to activate JWT authentication.
-Set up SSO with JWT in your app’s server
-Add the signing key and Metabase site URL to your app
-Here you’ll need to input some values for your SSO to work.
-You’ll want to declare up two constants in your app:
-METABASE_JWT_SHARED_SECRET
-, paste the JWT signing key that you got from your Metabase here.
-METABASE_SITE_URL
-, which points to your Metabase’s root path.
-const
-METABASE_JWT_SHARED_SECRET
+The first user listed in the config file may be designated an admin, but not necessarily. If someone has already spun up and logged into that Metabase for the first time, Metabase will make that first user an admin. Additionally, you can specify a user account as an admin by using the
+is_superuser: true
+key.
+In the following example, assuming that the Metabase hasn’t already been set up (which creates the first user) both users
+first@example.com
+and
+admin@example.com
+will be admins:
+first@example.com
+because it’s the first user account on the list, and
+admin@example.com
+because that user has the
+is_superuser
+flag set to true.
+version: 1
+config:
+  users:
+    - first_name: First
+      last_name: Person
+      password: metabot1
+      email: first@example.com
+    - first_name: Normal
+      last_name: Person
+      password: metabot1
+      email: normal@example.com
+    - first_name: Admin
+      last_name: Person
+      password: metabot1
+      is_superuser: true
+      email: admin@example.com
+If the Metabase has already been set up, then
+first @example.com
+will be loaded as a normal user.
+Databases
+On a new Metabase, the example below sets up an admin user account and one database connection.
+version: 1
+config:
+  users:
+    - first_name: Cam
+      last_name: Era
+      password: 2cans3cans4cans
+      email: cam@example.com
+  databases:
+    - name: test-data (Postgres)
+      engine: postgres
+      details:
+        host: localhost
+        port: 5432
+        user: dbuser
+        password: "{{ env POSTGRES_TEST_DATA_PASSWORD }}"
+        dbname: test-data
+To determine which keys you can specify for a database, check out the fields available in Metabase itself for the database that you want to add.
+Referring to environment variables in the
+config.yml
+As shown in the Databases example above, environment variables can be specified with
+{{ template-tags }}
+like
+{{ env POSTGRES_TEST_DATA_PASSWORD }}
+or
+[[options {{template-tags}}]]
+.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.txt
+
+Documentation Title:
+Setting up Metabase
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Configuring Metabase
+Setting up Metabase
+This guide will help you set up Metabase once you’ve gotten it installed. If you haven’t installed Metabase yet, you can
+get Metabase here
+.
+Start Metabase up for the first time and you’ll see this screen:
+Go ahead and click
+Let’s get started
+.
+Setting up an admin account
+The first thing you’ll need to do is set up an admin account. The account you create when you first install Metabase is an admin account by default — handy! If you’ve installed Metabase on a production server, you should be really careful to remember the password for this account since it will be used to add other users, connect to databases, set up email, and more. You can also create additional admin accounts later.
+For now, let’s just create an account for ourselves to explore Metabase. Type in your info, and when you’re ready to continue, click the
+Next
+button.
+What will you use Metabase for?
+Let us know your plans with Metabase so that we can best guide you.
+Self-service analytics for my own company
+Embedding analytics into my application
+A bit of both
+Not sure yet
+Don’t worry about picking the wrong option. If you say you’re interested in embedding, Metabase will display a card with a link to the embedding settings when you (the admin) first log in to your instance. Just a little convenience thing, that’s all.
+Gathering your database info
+At this point you’ll need to gather some information about the database you want to use with Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/serialization.txt
+
+Documentation Title:
+Serialization: preloading dashboards in a new Metabase instance
+
+Documentation Content:
+Target Metabase
+Setting up a target Metabase is similar. On our metanet network, we’ll set up a Postgres database to serve as our application database, then spin up another Metabase in another Docker container.
+Note the changes to:
+ports for both Postgres (5434) and the Metabase server (5002)
+Instance names:
+postgres-target
+and
+metabase-target
+Application database:
+docker run
+--rm
+-d
+--name
+postgres-target
+\
+-p
+5434:5432
+\
+-e
+POSTGRES_USER
 =
-"
-YOURSIGNINGKEY
-"
-;
-const
-METABASE_SITE_URL
+metabase
+\
+-e
+POSTGRES_PASSWORD
 =
-"
-https://your-domain.metabaseapp.com
-"
-;
-The signing key should preferably be setup as an environment variable, to avoid accidentally committing your key to your app’s repo.
-Add a JWT library to your app’s server
-Add a JWT library to your app. For example, if you’re using a Node backend with JavaScript, we recommend using
-jsonwebtoken
-.
-In your terminal:
-npm
-install
-jsonwebtoken
---save
-And in your app, require the library:
-const
-jwt
+knockknock
+\
+--network
+metanet postgres:12
+Metabase instance:
+docker run
+--rm
+-d
+--name
+metabase-target
+\
+-p
+5002:3000
+\
+-e
+MB_DB_TYPE
 =
-require
-(
-"
-jsonwebtoken
-"
-);
-Restricting access to certain routes
-Presumably, your app already has some way of making sure some routes are only accessible after having signed in. Our examples use a simple helper function named
-restrict
-that protects these routes:
-function
-restrict
-(
-req
-,
-res
-,
-next
-)
-{
-if
-(
-req
-.
-session
-.
-user
-)
-{
-next
-();
-}
-else
-{
-req
-.
-session
-.
-returnTo
+postgres
+\
+-e
+MB_DB_DBNAME
 =
-req
-.
-originalUrl
-;
-req
-.
-session
-.
-error
+metabase
+\
+-e
+MB_DB_PORT
 =
-"
-Access denied!
-"
-;
-res
-.
-redirect
-(
-"
-/login
-"
-);
-}
-}
-Add a function to sign users
-We need to write a function to sign user JWTs, using the JWT library.
-const
-signUserToken
+5432
+\
+-e
+MB_DB_USER
 =
-user
-=>
-jwt
-.
-sign
-(
-{
-email
-:
-user
-.
-email
-,
-first_name
-:
-user
-.
-firstName
-,
-last_name
-:
-user
-.
+metabase
+\
+-e
+MB_DB_PASS
+=
+knockknock
+\
+-e
+MB_DB_HOST
+=
+postgres-target
+\
+--network
+metanet
+\
+metabase/metabase-enterprise:v1.49.11
+After our Metabase instances complete their initialization (patience, this could take a minute or two), we should now have two Metabases up and running:
+metabase-source at
+http://localhost:5001
+metabase-target at
+http://localhost:5002
+Add users to our source Metabase
+Let’s add one Admin account, and two basic users to our metabase-source instance.
+You can
+add users to your Metabase manually
+(i.e., in the Metabase application), but here’s a quick bash script that creates an Admin user (the initial user) and two basic users:
+You’ll need to have
+jq
+installed to handle the JSON in this script.
 
 
 

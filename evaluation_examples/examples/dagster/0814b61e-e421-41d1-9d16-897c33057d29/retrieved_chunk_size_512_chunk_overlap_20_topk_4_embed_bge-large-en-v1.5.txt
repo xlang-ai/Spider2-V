@@ -266,291 +266,221 @@ all examples on GitHub
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.txt
+release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.txt
 
 Documentation Title:
-Tutorial, part four: Building an asset graph | Dagster Docs
+Quickstart | Dagster Docs
 
 Documentation Content:
-Modify your
-assets.py
-to add the
-pandas
-import and a new asset called
-topstories
-:
-Add new imports, such as
-import pandas as pd
-, to the top of
-assets.py
+dagster dev
+Navigate to
+localhost:3000
+in your web browser.
+Success!
+Option 2: Using GitHub Codespaces
+#
+Fork the
+Dagster Quickstart
+repository
+Select
+Create codespace on main
+from the
+Code
+dropdown menu.
+After the codespace loads, start Dagster by running
+dagster dev
+in the terminal:
+dagster dev
+Click
+Open in Browser
+when prompted.
+Success!
+Navigating the User Interface
+#
+You should now have a running instance of Dagster! From here, we can run our data pipeline.
+To run the pipeline, click the
+Materialize All
+button in the top right. In Dagster,
+materialization
+refers to executing the code associated with an asset to produce an output.
+Congratulations! You have successfully materialized two Dagster assets:
+But wait - there's more. Because the
+hackernews_top_stories
+asset returned some
+metadata
+, you can view the metadata right in the UI:
+Click the asset
+In the sidebar, click the
+Show Markdown
+link in the
+Materialization in Last Run
+section. This opens a preview of the pipeline result, allowing you to view the top 10 HackerNews stories:
+Understanding the Code
+#
+The Quickstart project defines two
+Assets
+using the
+@asset
+decorator:
+hackernews_top_story_ids
+retrieves the top stories from the Hacker News API and saves them as a JSON file.
+hackernews_top_stories
+asset builds upon the first asset, retrieving data for each story as a CSV file, and returns a
+MaterializeResult
+with a markdown preview of the top stories.
 import
 json
-import
-os
 import
 pandas
 as
 pd
-# Add new imports to the top of `assets.py`
 import
 requests
 from
 dagster
 import
-asset
-# ... Keep the `topstory_ids` asset from the previous section
-@asset
 (
-deps
-=
-[
-topstory_ids
-]
-)
-# this asset is dependent on topstory_ids
-def
-topstories
-(
-)
--
->
-None
-:
-with
-open
-(
-"data/topstory_ids.json"
+MaterializeResult
 ,
-"r"
+MetadataValue
+,
+asset
+,
 )
-as
-f
-:
-topstory_ids
-=
-json
+from
 .
-load
+configurations
+import
+HNStoriesConfig
+@asset
+def
+hackernews_top_story_ids
 (
-f
-)
-results
-=
-[
-]
-for
-item_id
-in
-topstory_ids
+config
 :
-item
+HNStoriesConfig
+)
+:
+"""Get top stories from the HackerNews top stories endpoint."""
+top_story_ids
 =
 requests
 .
 get
 (
-f"https://hacker-news.firebaseio.com/v0/item/
-{
-item_id
-}
-.json"
+"https://hacker-news.firebaseio.com/v0/topstories.json"
 )
 .
 json
 (
 )
-results
+with
+open
+(
+config
 .
-append
-(
-item
-)
-if
-len
-(
-results
-)
-%
-20
-==
-0
-:
-print
-(
-f"Got
-{
-len
-(
-results
-)
-}
-items so far."
-)
-df
-=
-pd
-.
-DataFrame
-(
-results
-)
-df
-.
-to_csv
-(
-"data/topstories.csv"
-)
-Dependencies between assets are defined using the
-deps
-parameter of the
-@asset
-decorator. In this case,
-topstory_ids
-(the list of IDs) is a dependency of
-topstories
-(the CSV file).
-In your browser, navigate back to Dagster's Global Asset Lineage (
-localhost:3000/asset-groups
-), and click on the
-Reload Definitions
-button on the top-right region of the page. This will tell Dagster to re-scan your code for new assets and other definitions without stopping Dagster. You can also use the Command + Option + R (Mac) or Control + Alt (Windows) + R keyboard shortcut to perform the same action.
-After reloading your definitions, look at the asset graph to see the relationship between your assets.
 
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/introduction.txt
+release-1-7-2.dagster.dagster-docs.io/concepts/webserver/ui.txt
 
 Documentation Title:
-Introduction to Dagster and Software-defined Assets Tutorial | Dagster Docs
+Dagster UI | Dagster
 
 Documentation Content:
-Here's an example. The asset is a dataset called
-topstories
-, and it depends on another asset called
-topstory_ids
+On this page, you can:
+Filter assets by
+group
+Filter a subset of assets by using
+asset selection syntax
+Reload definitions
+Materialize all or a selection of assets
+View
+run details
+for the latest materialization of any asset
+Accessed by
+:
+From the
+Asset catalog
+: Clicking
+View global asset lineage
+, located near the top right corner of the page
+From the
+Asset details
+page
+: Clicking the
+Lineage tab
+Asset details
+#
+Description
+: The
+Asset details
+page contains details about a single asset. Use the tabs on this page to view detailed information about the asset:
+Overview
+- Information about the asset such as its description, resources, config, type, etc. If you have the
+Use new asset overview page
+user setting
+enabled, this tab will display instead of
+Definition
 .
-topstories
-gets the IDs computed in
-topstory_ids
-, then fetches data for each of those IDs.
-@asset
-(
-deps
-=
-[
-topstory_ids
-]
-)
-def
-topstories
-(
-)
+Partitions
+- The asset's partitions, including their materialization status, metadata, and run information
+Events
+- The asset's materialization history
+Checks
+- The
+Asset checks
+defined for the asset
+Plots
+- Any plots associated with the asset
+Definition
+- The same information as the
+Overview
+tab. This tab will display if the
+Use new asset overview page
+user setting isn't enabled.
+Lineage
+- The asset's lineage in the
+Global asset lineage
+page
+Automation
+- The
+Auto-materialize policies
+associated with the asset
+Insights
 -
->
-None
-:
-with
-open
-(
-"data/topstory_ids.json"
-,
-"r"
-)
-as
-f
-:
-topstory_ids
-=
-json
-.
-load
-(
-f
-)
-results
-=
-[
-]
-for
-item_id
-in
-topstory_ids
-:
-item
-=
-requests
-.
-get
-(
-f"https://hacker-news.firebaseio.com/v0/item/
-{
-item_id
-}
-.json"
-)
-.
-json
-(
-)
-results
-.
-append
-(
-item
-)
-if
-len
-(
-results
-)
-%
-20
-==
-0
-:
-print
-(
-f"Got
-{
-len
-(
-results
-)
-}
-items so far."
-)
-df
-=
-pd
-.
-DataFrame
-(
-results
-)
-df
-.
-to_csv
-(
-"data/topstories.csv"
-)
-Building a DAG of assets
+Dagster+ only.
+Historical information about the asset, such as failures and credit usage. Refer to the
+Dagster+ Insights
+documentation for more information.
+Accessed by
+: Clicking an asset in the
+Asset catalog
+Runs
 #
-A set of assets forms a
-DAG (directed acyclic graph)
-, where the edges correspond to data dependencies between assets. This DAG helps you to:
-Understand how your assets relate to each other
-Empower you and your teammates to act, learn, and debug your pipelines
-Your DAGs are viewable in Dagster's web-based UI, shown below:
-Assets enable the best long-term approach for building pipelines in Dagster and this tutorial focuses on them. However, developers can use Dagster's underlying Ops and Graphs when granular workflows are needed. For more on Ops and Graphs, refer to
-their tutorial
-and a guide on
-how SDAs relate to ops and graphs
-.
-Next steps
+All runs
+Run details
+Run logs
+All runs
 #
-In this section, you learned how Software-defined assets are the building blocks of Dagster and also about the benefits of asset-based pipelines.
-Within your current data pipelines, you likely have many assets. Or if you are earlier in your data journey, you might have an understanding of what data your stakeholders need.
+Description
+: The
+Runs
+page lists all job runs, which can be filtered by job name, run ID, execution status, or tag. Click a run ID to open the
+Run details
+page
+and view details for that run.
+Accessed by
+: Clicking
+Runs
+in the top navigation bar
+Run details
+#
+Description
+: The
+Run details
+page contains details about a single run, including timing information, errors, and logs.
 
 
 

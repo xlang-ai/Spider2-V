@@ -131,46 +131,6 @@ Querying data using worksheets
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/querying-time-series-data.txt
-
-Documentation Title:
-Analyzing time-series data | Snowflake Documentation
-
-Documentation Content:
-000 |     25.5342 | 30.8151200 |
-| DEVICE2   | 2024-03-15 00:01:04.000 |     27.6066 | 30.2803666 |
-| DEVICE2   | 2024-03-15 00:01:05.000 |     35.6839 | 31.0523000 |
-| DEVICE2   | 2024-03-15 00:01:06.000 |     25.1949 | 30.1941571 |
-| DEVICE2   | 2024-03-15 00:01:07.000 |     33.4865 | 30.9174142 |
-| DEVICE2   | 2024-03-15 00:01:08.000 |     34.0321 | 30.7200142 |
-| DEVICE2   | 2024-03-15 00:01:09.000 |     31.4201 | 30.4226142 |
-| DEVICE2   | 2024-03-15 00:01:10.000 |     27.5301 | 30.7077428 |
-+-----------+-------------------------+-------------+------------+
-Note
-If you run this example yourself, your output will not match exactly because the
-sensor_data_ts
-table is loaded
-with randomly generated values.
-You can use Snowsight to visualize the results of queries like this one, and get a
-better sense of the smoothing effect of calculations with sliding window frames.
-In the query worksheet, click the
-Chart
-button next to
-Results
-.
-For example, the yellow line in the bar chart shows a much smoother trend for average
-temperature versus the blue line for the raw temperature.
-Other window functions, such as the
-LEAD
-and
-LAG
-ranking functions,
-are also commonly used in time-series analysis. Use the LEAD window function to find the next data point in the time series,
-relative to the current data point, and the LAG function to find the previous data point.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-dashboards.txt
 
 Documentation Title:
@@ -267,6 +227,46 @@ Enter a name for the dashboard, and then select
 Create Dashboard
 .
 The empty dashboard opens.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/querying-time-series-data.txt
+
+Documentation Title:
+Analyzing time-series data | Snowflake Documentation
+
+Documentation Content:
+000 |     25.5342 | 30.8151200 |
+| DEVICE2   | 2024-03-15 00:01:04.000 |     27.6066 | 30.2803666 |
+| DEVICE2   | 2024-03-15 00:01:05.000 |     35.6839 | 31.0523000 |
+| DEVICE2   | 2024-03-15 00:01:06.000 |     25.1949 | 30.1941571 |
+| DEVICE2   | 2024-03-15 00:01:07.000 |     33.4865 | 30.9174142 |
+| DEVICE2   | 2024-03-15 00:01:08.000 |     34.0321 | 30.7200142 |
+| DEVICE2   | 2024-03-15 00:01:09.000 |     31.4201 | 30.4226142 |
+| DEVICE2   | 2024-03-15 00:01:10.000 |     27.5301 | 30.7077428 |
++-----------+-------------------------+-------------+------------+
+Note
+If you run this example yourself, your output will not match exactly because the
+sensor_data_ts
+table is loaded
+with randomly generated values.
+You can use Snowsight to visualize the results of queries like this one, and get a
+better sense of the smoothing effect of calculations with sliding window frames.
+In the query worksheet, click the
+Chart
+button next to
+Results
+.
+For example, the yellow line in the bar chart shows a much smoother trend for average
+temperature versus the blue line for the raw temperature.
+Other window functions, such as the
+LEAD
+and
+LAG
+ranking functions,
+are also commonly used in time-series analysis. Use the LEAD window function to find the next data point in the time series,
+relative to the current data point, and the LAG function to find the previous data point.
 
 
 

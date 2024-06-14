@@ -26,6 +26,39 @@ In the UI, you can discover the Attempt ID within the sync job. Most jobs will c
 
 
 Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.md
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see this page.
+
+You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
+!
+
+Click **Next**to complete your stream setup and move to the connection configuration. This is where you'll set up how often your data will sync and where it will live in the destination. For this demo, we'll set the connection to run at 8 AM every day and sync the connection to a custom namespace with a stream prefix.
+
+noteTo ensure your data is synced to the correct place, see our examples for Destination Namespace
+
+Once you've set up all the connection settings, click "Set up connection". You've successfully set up your first data pipeline with Airbyte. Your first sync is about to begin!
+
+Connection Overview​
+--------------------
+
+Once you've finished setting up the connection, you will be automatically redirected to a connection overview containing all the tools you need to keep track of your connection.
+
+!Here's a basic overview of the tabs and their use:
+
+1. The **Status**tab shows you an overview of your connector's sync health.
+2. The **Job History**tab allows you to check the logs for each sync. If you encounter any errors or unexpected behaviors during a sync, checking the logs is always a good first step to finding the cause and solution.
+3. The **Schema**tab allows you to modify the streams you chose during the connection setup.
+4. The **Transformation**tab allows you to set up a custom post-sync transformations using dbt.
+5. The **Settings**tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.
+
+
+
+Documentation Source:
 airbyte.com/docs.airbyte.com/operator-guides/browsing-output-logs.md
 
 Documentation Title:
@@ -76,48 +109,15 @@ Documentation Title:
 You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
 
 Documentation Content:
-Or get a specific job result by ID:
-my_job_id = "..."
-sync_result_lookup: SyncResult = workspace.get_sync_job(
+Getting Sync Results from Prior Executions
+
+You can use get\_sync\_history() to get a SyncResult object from a previously run job, or get\_sync\_job() if you already know the job ID.
+
+`# Get the last n job results
+last_5_sync_results: list[SyncResult] = workspace.get_sync_history(
  connection_id=connection_id,
- job_id=my_job_id,
-)`Reading Data From Sync Results
-------------------------------
-
-**This feature is currently only available for specific SQL-based destinations.**This includes SQL-based destinations such as Snowflake and BigQuery.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.md
-
-Documentation Title:
-Set up a Connection | Airbyte Documentation
-
-Documentation Content:
-You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see this page.
-
-You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
-!
-
-Click **Next**to complete your stream setup and move to the connection configuration. This is where you'll set up how often your data will sync and where it will live in the destination. For this demo, we'll set the connection to run at 8 AM every day and sync the connection to a custom namespace with a stream prefix.
-
-noteTo ensure your data is synced to the correct place, see our examples for Destination Namespace
-
-Once you've set up all the connection settings, click "Set up connection". You've successfully set up your first data pipeline with Airbyte. Your first sync is about to begin!
-
-Connection Overview​
---------------------
-
-Once you've finished setting up the connection, you will be automatically redirected to a connection overview containing all the tools you need to keep track of your connection.
-
-!Here's a basic overview of the tabs and their use:
-
-1. The **Status**tab shows you an overview of your connector's sync health.
-2. The **Job History**tab allows you to check the logs for each sync. If you encounter any errors or unexpected behaviors during a sync, checking the logs is always a good first step to finding the cause and solution.
-3. The **Schema**tab allows you to modify the streams you chose during the connection setup.
-4. The **Transformation**tab allows you to set up a custom post-sync transformations using dbt.
-5. The **Settings**tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.
+ limit=5,
+)
 
 
 

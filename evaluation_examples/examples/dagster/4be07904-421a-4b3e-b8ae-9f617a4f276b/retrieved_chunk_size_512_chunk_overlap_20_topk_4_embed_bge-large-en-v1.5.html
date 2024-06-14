@@ -1,4 +1,17 @@
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+</span>array<span>(</span>y_test<span>)</span>y_test <span>=</span>y_test<span>.</span>fillna<span>(</span><span>0</span><span>)</span>transformed_y_test <span>=</span>np<span>.</span>array<span>(</span>y_test<span>)</span><span>return</span>transformed_X_test<span>,</span>transformed_y_test
+</code><p>We also transformed the dataframes into NumPy arrays and removed <code>nan</code>values to prepare the data for training.</p><h3>Training the model<span>#</span></h3><p>At this point, we have <code>X_train</code>, <code>y_train</code>, <code>X_test</code>, and <code>y_test</code>ready to go for our model. To train our model, we can use any number of models from libraries like <a>sklearn</a>, <a>TensorFlow</a>, and <a>PyTorch</a>.</p><p>In our example, we will train an <a>XGBoost model</a>to predict a numerical value.</p><code><span>import</span>xgboost <span>as</span>xg
+<span>from</span>sklearn<span>.</span>metrics <span>import</span>mean_absolute_error
+
+
+
+Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/guides/dagster/managing-ml.html
 
 Documentation Title:
@@ -21,9 +34,8 @@ Documentation Title:
 Building machine learning pipelines with Dagster | Dagster Docs
 
 Documentation Content:
-</span>array<span>(</span>y_test<span>)</span>y_test <span>=</span>y_test<span>.</span>fillna<span>(</span><span>0</span><span>)</span>transformed_y_test <span>=</span>np<span>.</span>array<span>(</span>y_test<span>)</span><span>return</span>transformed_X_test<span>,</span>transformed_y_test
-</code><p>We also transformed the dataframes into NumPy arrays and removed <code>nan</code>values to prepare the data for training.</p><h3>Training the model<span>#</span></h3><p>At this point, we have <code>X_train</code>, <code>y_train</code>, <code>X_test</code>, and <code>y_test</code>ready to go for our model. To train our model, we can use any number of models from libraries like <a>sklearn</a>, <a>TensorFlow</a>, and <a>PyTorch</a>.</p><p>In our example, we will train an <a>XGBoost model</a>to predict a numerical value.</p><code><span>import</span>xgboost <span>as</span>xg
-<span>from</span>sklearn<span>.</span>metrics <span>import</span>mean_absolute_error
+</span>title
+    <span># Transform the new story titles using the existing vectorizer</span>inference_x <span>=</span>tfidf_vectorizer<span>.</span>transform<span>(</span>inference_x<span>)</span><span>return</span>xgboost_comments_model<span>.</span>predict<span>(</span>inference_x<span>)</span></code><p>Depending on what the objective of your ML model is, you can use this data to set alerts, save model performance history, and trigger retraining.</p><h2>Where to go from here<span>#</span></h2><ul><li><a>Managing machine learning models with Dagster</a>- This guide reviews ways to manage and maintain your machine learning (ML) models in Dagster</li><li>Dagster is flexible so there could be many 'right' ways to implement your machine learning pipeline and different avenues to explore</li><li>Dagster intergrates with <a>MLflow</a>that can be used to keep track of your models</li><li>Dagster integrates with <a>Weights &amp; Biases</a>and an <a>example</a>which demonstrates how to use W\&amp;B's artifacts with Dagster.</li></ul></div></div></div><div><div><div>On This Page</div><li><a>Building machine learning pipelines with Dagster</a><ol><a>Before you begin</a><a>Benefits of building machine learning pipelines in Dagster</a><li><a>Machine learning development</a><ol><a>Ingesting data</a><a>Transforming data</a><a>Training the model</a><a>Evaluating our results</a></ol></li><a>Where to go from here</a></ol></li></div><a>Edit Page on GitHub</a><button>Share Feedback</button><a>Star</a></div></div></div></div></body>
 
 
 
@@ -35,19 +47,6 @@ Managing machine learning models with Dagster | Dagster Docs
 
 Documentation Content:
 <span>@asset</span><span>def</span><span>my_other_data</span><span>(</span><span>)</span><span>:</span><span>.</span><span>.</span><span>.</span><span>@asset</span><span>(</span>auto_materialize_policy<span>=</span>AutoMaterializePolicy<span>.</span>lazy<span>(</span><span>)</span><span>,</span>freshness_policy<span>=</span>FreshnessPolicy<span>(</span>maximum_lag_minutes<span>=</span><span>7</span><span>*</span><span>24</span><span>*</span><span>60</span><span>)</span><span>,</span><span>)</span><span>def</span><span>my_other_ml_model</span><span>(</span>my_other_data<span>)</span><span>:</span><span>.</span><span>.</span><span>.</span></code><p>This can be useful if you know that you want your machine learning model retrained at least once a week. While Dagster allows you to refresh a machine learning model as often as you like, best practice is to re-train as seldomly as possible. Model retraining can be costly to compute and having a minimal number of model versions can reduce the complexity of reproducing results at a later point in time. In this case, the model is updated once a week for <code>predictions</code>, ensuring that <code>my_ml_model</code>is retrained before it is used.</p><code><span>from</span>dagster <span>import</span>AutoMaterializePolicy<span>,</span>FreshnessPolicy<span>,</span>asset
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.html
-
-Documentation Title:
-Tutorial, part five: Scheduling your pipeline | Dagster Docs
-
-Documentation Content:
-The code below is how your <code>__init__.py</code>should look after making these changes:</p><code><span>from</span>dagster <span>import</span><span>(</span>AssetSelection<span>,</span>Definitions<span>,</span>ScheduleDefinition<span>,</span>define_asset_job<span>,</span>load_assets_from_modules<span>,</span><span>)</span><span>from</span><span>.</span><span>import</span>assets
-
-all_assets <span>=</span>load_assets_from_modules<span>(</span><span>[</span>assets<span>]</span><span>)</span><span># Define a job that will materialize the assets</span>hackernews_job <span>=</span>define_asset_job<span>(</span><span>"hackernews_job"</span><span>,</span>selection<span>=</span>AssetSelection<span>.</span><span>all</span><span>(</span><span>)</span><span>)</span><span># Addition: a ScheduleDefinition the job it should run and a cron schedule of how frequently to run it</span>hackernews_schedule <span>=</span>ScheduleDefinition<span>(</span>job<span>=</span>hackernews_job<span>,</span>cron_schedule<span>=</span><span>"0 * * * *"</span><span>,</span><span># every hour</span><span>)</span>defs <span>=</span>Definitions<span>(</span>assets<span>=</span>all_assets<span>,</span>schedules<span>=</span><span>[</span>hackernews_schedule<span>]</span><span>,</span><span>)</span></code><p>Go to the UI, click <strong>Overview &gt; Schedules tab</strong>, and observe your new schedule with the attached job.</p><img/><p>To test the change, click the schedule's name to view its details. Click the <strong>Test Schedule</strong>button on the top right corner of the page to trigger the schedule immediately.</p><img/><span>Schedules are just one way to start jobs.
 
 
 

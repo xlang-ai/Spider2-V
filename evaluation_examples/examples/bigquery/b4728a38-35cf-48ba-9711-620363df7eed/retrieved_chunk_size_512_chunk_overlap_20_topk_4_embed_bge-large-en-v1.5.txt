@@ -204,60 +204,6 @@ Run an interactive query
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/change-history.txt
-
-Documentation Title:
-Work with change history  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-ALTER TABLE mydataset.Produce ADD COLUMN color STRING;
-INSERT INTO mydataset.Produce VALUES ("grapes", 40, "purple");
-UPDATE mydataset.Produce SET inventory = inventory + 5 WHERE TRUE;
-DELETE mydataset.Produce WHERE product = "bananas";
-View the new table.
-SELECT * FROM mydataset.Produce;
-+---------+-----------+--------+
-| product | inventory | color  |
-+---------+-----------+--------+
-| apples  | 15        | NULL   |
-| carrots | 35        | NULL   |
-| grapes  | 45        | purple |
-+---------+-----------+--------+
-View the full change history of appends.
-SELECT
-  product,
-  inventory,
-  color,
-  _CHANGE_TYPE AS change_type,
-  _CHANGE_TIMESTAMP AS change_time
-FROM
-  APPENDS(TABLE mydataset.Produce, NULL, NULL);
-The output is similar to the following:
-+---------+-----------+--------+-------------+--------------------------------+
-| product | inventory | color  | change_type | change_time                    |
-+---------+-----------+--------+-------------+--------------------------------+
-| apples  | 10        | NULL   | INSERT      | 2022-04-15 20:06:00.488000 UTC |
-| bananas | 20        | NULL   | INSERT      | 2022-04-15 20:06:08.490000 UTC |
-| carrots | 30        | NULL   | INSERT      | 2022-04-15 20:06:08.490000 UTC |
-| grapes  | 40        | purple | INSERT      | 2022-04-15 20:07:45.751000 UTC |
-+---------+-----------+--------+-------------+--------------------------------+
-The
-inventory
-column displays the values that were set when the rows were
-originally inserted into to the table. It does not show the changes from the
-UPDATE
-statement. The row with information on bananas is still present since
-the
-APPENDS
-TVF only captures additions to tables, not deletions.
-Limitations
-Change history is subject to the following limitations:
-You can only view information about appends, not updates or deletions.
-The data is limited to the time travel window of the table.
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/default-values.txt
 
 Documentation Title:
@@ -331,6 +277,101 @@ command with the
 flag to append the
 results of a query to a destination table that has default values. If the query
 omits a column with a default value, the default value is assigned.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/default-values.txt
+
+Documentation Title:
+Specify default column values  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+generative AI, and ML
+Application development
+Application hosting
+Compute
+Data analytics and pipelines
+Databases
+Distributed, hybrid, and multicloud
+Industry solutions
+Networking
+Observability and monitoring
+Security
+Storage
+Access and resources management
+Cloud SDK, languages, frameworks, and tools
+Costs and usage management
+Infrastructure as code
+Migration
+Google Cloud Home
+Free Trial and Free Tier
+Architecture Center
+Blog
+Contact Sales
+Google Cloud Developer Center
+Google Developer Center
+Google Cloud Marketplace (in console)
+Google Cloud Marketplace Documentation
+Google Cloud Skills Boost
+Google Cloud Solution Center
+Google Cloud Support
+Google Cloud Tech Youtube Channel
+Home
+BigQuery
+Documentation
+Guides
+Send feedback
+Stay organized with collections
+Save and categorize content based on your preferences.
+Specify default column values
+This page describes how to set a default value for a column in a
+BigQuery table. When you add a row to a table that doesn't contain
+data for a column with a default value, the default value is written to the
+column instead.
+Default value expression
+The default value expression for a column must be a
+literal
+or one of the
+following functions:
+CURRENT_DATE
+CURRENT_DATETIME
+CURRENT_TIME
+CURRENT_TIMESTAMP
+GENERATE_UUID
+RAND
+SESSION_USER
+ST_GEOGPOINT
+You can compose a STRUCT or ARRAY default value with these functions, such as
+[CURRENT_DATE(), DATE '2020-01-01']
+.
+Functions are evaluated when the data is written to the table.
+The type of the default value must match or
+coerce
+to the type of the column it applies to. If no default value is set, the default
+value is
+NULL
+.
+Set default values
+You can set the default value for columns when you create a new table. You use the
+CREATE TABLE
+DDL statement
+and add the
+DEFAULT
+keyword and default value expression after the column name
+and type.  The following example creates a table called
+simple_table
+with two
+STRING
+columns,
+a
+and
+b
+. Column
+b
+has the default value
+'hello'
+.
 
 
 

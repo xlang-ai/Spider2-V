@@ -148,6 +148,274 @@ Documentation Title:
 Customize Operator Extra Links | Astronomer Documentation
 
 Documentation Content:
+This API will return data about a randomly generated user persona. Feel free to use a different API, the content returned will not be relevant for this tutorial. Learn more about connections in the
+Manage connections in Apache Airflow
+guide.
+Step 5: Use your static operator extra link
+​
+Run the
+plugins_test_dag
+.
+In the
+Grid
+view, click the green square representing the successful run of the
+call_api_simple
+task. Select the
+Details
+tab and scroll down to see the extra link button called
+HTTP docs
+.
+Click on the button to visit the HTTP docs on Mozilla.
+Step 6: Create a custom operator
+​
+Another core feature of extra links is that you can dynamically generate them based on information returned by an operator at run time. The second half of this tutorial will cover how to modify an operator to push the value you need to
+XComs
+and retrieve that value for use in an extra link.
+Create a new file called
+cat_http.py
+in the
+include
+folder of your Airflow project.
+Copy the following code into the file.
+from
+airflow
+.
+providers
+.
+http
+.
+operators
+.
+http
+import
+SimpleHttpOperator
+from
+airflow
+.
+providers
+.
+http
+.
+hooks
+.
+http
+import
+HttpHook
+from
+airflow
+.
+utils
+.
+operator_helpers
+import
+determine_kwargs
+from
+airflow
+.
+exceptions
+import
+AirflowException
+class
+CatHttpOperator
+(
+SimpleHttpOperator
+)
+:
+# initialize with identical arguments to the parent class
+def
+__init__
+(
+self
+,
+**
+kwargs
+)
+:
+super
+(
+)
+.
+__init__
+(
+**
+kwargs
+)
+def
+execute
+(
+self
+,
+context
+)
+:
+http
+=
+HttpHook
+(
+self
+.
+method
+,
+http_conn_id
+=
+self
+.
+http_conn_id
+,
+auth_type
+=
+self
+.
+auth_type
+,
+tcp_keep_alive
+=
+self
+.
+tcp_keep_alive
+,
+tcp_keep_alive_idle
+=
+self
+.
+tcp_keep_alive_idle
+,
+tcp_keep_alive_count
+=
+self
+.
+tcp_keep_alive_count
+,
+tcp_keep_alive_interval
+=
+self
+.
+tcp_keep_alive_interval
+,
+)
+self
+.
+log
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/operator-extra-link-tutorial.txt
+
+Documentation Title:
+Customize Operator Extra Links | Astronomer Documentation
+
+Documentation Content:
+providers
+.
+http
+.
+operators
+.
+http
+import
+SimpleHttpOperator
+# define the extra link
+class
+HTTPDocsLink
+(
+BaseOperatorLink
+)
+:
+# name the link button in the UI
+name
+=
+"HTTP docs"
+# add the button to one or more operators
+operators
+=
+[
+SimpleHttpOperator
+]
+# provide the link
+def
+get_link
+(
+self
+,
+operator
+,
+*
+,
+ti_key
+=
+None
+)
+:
+return
+"https://developer.mozilla.org/en-US/docs/Web/HTTP"
+# define the plugin class
+class
+AirflowExtraLinkPlugin
+(
+AirflowPlugin
+)
+:
+name
+=
+"extra_link_plugin"
+operator_extra_links
+=
+[
+HTTPDocsLink
+(
+)
+,
+]
+This script accomplishes the following:
+Defines an operator extra link called
+HTTPDocsLink
+which will create an extra link button with the name
+HTTP docs
+. Customize this string to change the name on the button displayed in the UI.
+Adds the
+SimpleHttpOperator
+to the list of operators this extra link will be applied to. You can add as many operators as you'd like, including custom operators.
+Defines the
+get_link()
+method which determines the website the operator extra link will link to. You can change this function to any Python function that returns a valid link. See
+Step 9
+for instructions on how to make this link dynamically change between task instances.
+Creates an instance of the
+AirflowPlugin
+class which will be automatically picked up by Airflow to install the plugin named
+extra_link_plugin
+in your Airflow instance.
+Adds the
+HTTPDocsLink
+plugin to the
+extra_link_plugin
+. You can add several operator extra links to the same Airflow plugin.
+Step 4: Add an HTTP connection
+​
+Run
+astro dev start
+in your Astro project directory to start up Airflow. If your Airflow instance is already running, use
+astro dev restart
+to restart it in order to load any changes made in the
+plugins
+folder.
+Add an HTTP connection called
+random_user_api_conn
+to
+http://randomuser.me/api/
+in the Airflow UI. This API will return data about a randomly generated user persona.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/operator-extra-link-tutorial.txt
+
+Documentation Title:
+Customize Operator Extra Links | Astronomer Documentation
+
+Documentation Content:
 Update the
 operator_extra_links
 list in the
@@ -216,254 +484,6 @@ Privacy Policy
 , our
 Website Terms
 and to receive emails from Astronomer.
-
-
-
-Documentation Source:
-docs.astronomer.io/astro/create-and-link-connections.txt
-
-Documentation Title:
-Create Airflow connections in the Astro UI | Astronomer Documentation
-
-Documentation Content:
-Click
-Edit
-to open the connection configurations for a specific linked Deployment.
-Add the override values to the fields you want to edit. You might need to open
-More options
-to find the full list of available fields.
-Click
-Update connection link
-.
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-Manage connections and variables
-Next
-Import and export connections and variables
-How connections are stored
-Fetching environment secrets
-Prerequisites
-Create a connection
-Link connections to Deployments
-Step 1: Link the connection
-Step 2: (Optional) Add provider packages to your Deployment
-Configure connection sharing for a Workspace
-Override connection fields
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/cross-dag-dependencies.txt
-
-Documentation Title:
-Cross-DAG dependencies | Astronomer Documentation
-
-Documentation Content:
-external_task
-import
-ExternalTaskSensor
-from
-airflow
-.
-operators
-.
-empty
-import
-EmptyOperator
-from
-pendulum
-import
-datetime
-,
-duration
-def
-downstream_function_branch_1
-(
-)
-:
-print
-(
-"Upstream DAG 1 has completed. Starting tasks of branch 1."
-)
-def
-downstream_function_branch_2
-(
-)
-:
-print
-(
-"Upstream DAG 2 has completed. Starting tasks of branch 2."
-)
-def
-downstream_function_branch_3
-(
-)
-:
-print
-(
-"Upstream DAG 3 has completed. Starting tasks of branch 3."
-)
-default_args
-=
-{
-"owner"
-:
-"airflow"
-,
-"depends_on_past"
-:
-False
-,
-"email_on_failure"
-:
-False
-,
-"email_on_retry"
-:
-False
-,
-"retries"
-:
-1
-,
-"retry_delay"
-:
-duration
-(
-minutes
-=
-5
-)
-,
-}
-with
-DAG
-(
-"external-task-sensor-dag"
-,
-start_date
-=
-datetime
-(
-2022
-,
-8
-,
-1
-)
-,
-max_active_runs
-=
-3
-,
-schedule
-=
-"*/1 * * * *"
-,
-catchup
-=
-False
-,
-)
-as
-dag
-:
-start
-=
-EmptyOperator
-(
-task_id
-=
-"start"
-)
-end
-=
-EmptyOperator
-(
-task_id
-=
-"end"
-)
-ets_branch_1
-=
-ExternalTaskSensor
-(
-task_id
-=
-"ets_branch_1"
-,
-external_dag_id
-=
-"upstream_dag_1"
-,
-external_task_id
-=
-"my_task"
-,
-allowed_states
-=
-[
-"success"
-]
-,
-failed_states
-=
-[
-"failed"
-,
-"skipped"
-]
-,
-)
-task_branch_1
-=
-PythonOperator
-(
-task_id
-=
-"task_branch_1"
-,
-python_callable
-=
-downstream_function_branch_1
-,
-)
-ets_branch_2
-=
-ExternalTaskSensor
-(
-task_id
-=
-"ets_branch_2"
-,
-external_dag_id
-=
-"upstream_dag_2"
-,
-external_task_id
-=
-"my_task"
-,
 
 
 

@@ -1,251 +1,63 @@
 Documentation Source:
-docs.snowflake.com/en/user-guide/sample-data-using.txt
+docs.snowflake.com/en/user-guide/data-exchange-using.txt
 
 Documentation Title:
-Using the Sample Database | Snowflake Documentation
+Configuring and using a Data Exchange | Snowflake Documentation
 
 Documentation Content:
-For example, in SQL:
-show databases
-like
-'%sample%'
-;
-+
--------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
-| created_on                    | name                  | is_default | is_current | origin                  | owner        | comment | options | retention_time |
-|-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------|
-| 2016-07-14 14:30:21.711 -0700 | SNOWFLAKE_SAMPLE_DATA | N          | N          | SFC_SAMPLES.SAMPLE_DATA | ACCOUNTADMIN |         |         | 1              |
-+
--------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
-Copy
-Note that this example illustrates the sample database, SNOWFLAKE_SAMPLE_DATA, has been
-shared with your account
-by Snowflake.
-The
-origin
-column in the SHOW DATABASES output (or the
-Origin
-column in the
-Databases
-page in the interface) displays the fully-qualified name of the shared
-database, SFC_SAMPLES.SAMPLE_DATA, indicating it originated from the SFC_SAMPLES account (used by Snowflake to share the sample data).
-Querying Tables and Views in the Sample Database
-¶
-To use a table or view in the sample database, you can either:
-Reference the fully-qualified name of the table in your query (in the form of
-snowflake_sample_data.
-schema_name
+Sign in to
+Snowsight
 .
-object_name
-).
-OR
-Specify the sample database (and schema) for your session using the
-USE DATABASE
-and/or
-USE SCHEMA
-commands.
-The following two examples illustrate using both approaches to query the
-lineitem
-table in the
-tpch_sf1
-schema:
-select
-count
-(*)
-from
-snowflake_sample_data
+Select
+Data Products
+»
+Private Sharing
 .
-tpch_sf1
+Select the
+Requests
+tab.
+Select
+Inbound
 .
-lineitem
-;
-+
-----------+
-| COUNT(*) |
-|----------|
-|  6001215 |
-+
-----------+
-use
-schema
-snowflake_sample_data
-.
-tpch_sf1
-;
-select
-count
-(*)
-from
-lineitem
-;
-+
-----------+
-| COUNT(*) |
-|----------|
-|  6001215 |
-+
-----------+
-Copy
 Note
-You must have a running, current warehouse in your session to perform queries.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.txt
-
-Documentation Title:
-Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
-
-Documentation Content:
-Box 975, 553 Odio, Road|Hulste|63345 |
-| Field delimiter '|' found while expecting record delimiter '\n'                                                                                                      | mycsvtable/contacts3.csv.gz         |    5 |       125 |         625 | parsing  | 100016 |     22000 | "MYCSVTABLE"["POSTALCODE":10] |          4 |              5 | 14|Sophia|Christian|Turpis Ltd|lectus.pede@non.ca|1-962-503-3253|1-157-|850-3602|P.O. Box 824, 7971 Sagittis Rd.|Chattanooga|56188                  |
-+
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+------+-----------+-------------+----------+--------+-----------+-------------------------------+------------+----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
-Copy
-The result shows two data errors in
-mycsvtable/contacts3.csv.gz
-:
-Number
-of
-columns
-in
-file
-(11)
-does
-not
-match
-that
-of
-the
-corresponding
-table
-(10)
-In Row 1, a hyphen was mistakenly replaced with the pipe (
-|
-) character, the data file delimiter, effectively creating an additional column in the record.
-Field
-delimiter
-'|'
-found
-while
-expecting
-record
-delimiter
-'n'
-In Row 5, an additional pipe (
-|
-) character was introduced after a hyphen, breaking the record.
-Fix the errors and load the data files again
-¶
-In regular use, you would fix the problematic records manually and write them to a new data file.
-You would then stage the fixed data files to the S3 bucket and attempt to reload the data from
-the files. For this tutorial, you are using Snowflake provided sample data, which you do not correct.
-Verify the loaded data
-¶
-Execute a
-SELECT
-statement to verify that the data was loaded successfully.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/sample-data.txt
-
-Documentation Title:
-Sample Data Sets | Snowflake Documentation
-
-Documentation Content:
-Sample Data Sets | Snowflake Documentation
-DOCUMENTATION
-/
-Getting Started
-Guides
-Developer
-Reference
-Releases
-Tutorials
-Status
-Overview
-Concepts
-Tutorials
-Sample Data
-Usage
-TPC-DS
-TPC-H
-Getting Started
-Sample Data
-Sample Data Sets
-¶
-Snowflake provides sample data sets, such as the industry-standard TPC-DS and TPC-H benchmarks, for evaluating and testing a broad range of Snowflake’s SQL support.
-Sample data sets are provided in a database named SNOWFLAKE_SAMPLE_DATA that has been
-shared with your account
-from the Snowflake SFC_SAMPLES account.
-If you do not see the database, you can create it yourself. Refer to
-Using the Sample Database
+To see requests from listings on the Snowflake Marketplace, such as those for personalized listings or free listings in another region,
+use
+Provider Studio
 .
-The database contains a schema for each data set, with the sample data stored in the tables in each schema. The database and schemas
-do not use any data storage so they do
-not
-incur storage charges for your account. You can execute queries on the tables in
-these databases just as you would with any other databases in your account. Executing queries requires a running, current warehouse
-for your session, which consumes credits.
-Next Topics:
-Using the Sample Database
-Sample Data: TPC-DS
-Sample Data: TPC-H
-Sample Data: OpenWeatherMap —
-Deprecated
-Was this page helpful?
-Yes
-No
-Visit Snowflake
-Join the conversation
-Develop with Snowflake
-Share your feedback
-Read the latest on our blog
-Get your own certification
-Privacy Notice
-Site Terms
-©
-2024
-Snowflake, Inc.
-All Rights Reserved
+See
+Managing Listing Requests as a Provider
 .
-Related content
-Query Data in Snowflake
-Query Syntax
-Language
-:
-English
-English
-Français
-Deutsch
-日本語
-한국어
-Português
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/desc-result.txt
-
-Documentation Title:
-DESCRIBE RESULT | Snowflake Documentation
-
-Documentation Content:
-| default | primary key | unique key | check | expression | comment |
-|-----------+-------------------+--------+-------+---------+-------------+------------+-------+------------+---------|
-| CITY      | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-| ZIP       | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-| STATE     | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-| SQ__FT    | NUMBER(38,0)      | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-| TYPE      | VARCHAR(16777216) | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-| SALE_DATE | DATE              | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-| PRICE     | NUMBER(38,0)      | COLUMN | Y     | NULL    | N           | N          | NULL  | NULL       | NULL    |
-+
------------+-------------------+--------+-------+---------+-------------+------------+-------+------------+---------+
-Copy
+If a request is denied, a comment is provided next to the request, explaining the reason for denial. In such cases, you can make the necessary adjustments and resubmit your request.
+Accessing the shared data
+¶
+If your request for a listing in the Data Exchange is approved:
+Sign in to Snowsight.
+Select
+Data Products
+»
+Private Sharing
+.
+Select the
+Shared With You
+tab.
+Locate the listing you requested and select
+Get Data
+for the listing.
+Enter the name for the database to create in your account from the share.
+Select roles that you want to have access to the database created from the share.
+Accept Snowflake’s consumer terms and the provider’s terms of use. You only need to accept the listing terms when you create a database from a share for the first time.
+Note
+Accepting terms using SQL is not supported.
+Select
+Create Database
+.
+After you create the database from share, the
+Get Data
+button is replaced with the
+View Database
+button.
+See also:
+Usage metrics shared with providers
 Was this page helpful?
 Yes
 No
@@ -263,10 +75,9 @@ Snowflake, Inc.
 All Rights Reserved
 .
 On this page
-Syntax
-Parameters
-Usage notes
-Examples
+Data Exchange admin
+Data providers
+Data consumers
 Language
 :
 English
@@ -276,6 +87,221 @@ Deutsch
 日本語
 한국어
 Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/data-exchange-using.txt
+
+Documentation Title:
+Configuring and using a Data Exchange | Snowflake Documentation
+
+Documentation Content:
+Open a listing by selecting its row.
+View the listing, or select
+Review
+to review the listing and approve or deny it for your Data Exchange.
+Manage member profiles
+¶
+To examine, review, and otherwise manage member profiles:
+Sign in to
+Snowsight
+.
+Select
+Data Products
+»
+Private Sharing
+.
+Select the
+Manage Exchanges
+tab.
+Select the exchange you want to manage.
+Select the
+Member Profiles
+tab. On the tab, you can do the following:
+Select
+Pending
+or
+Reviewed
+to view profiles in different states.
+You can view already reviewed profiles, or select
+Review
+to approve or deny a member profile.
+Data providers
+¶
+These topics provide instructions for becoming a data provider in the Data Exchange and managing data listings.
+Becoming a data provider in a Data Exchange
+Managing data listings
+Data consumers
+¶
+How do I access the Data Exchange to browse listings?
+¶
+All users can browse listings in the Data Exchange, but only users with the ACCOUNTADMIN role or the
+IMPORT SHARE
+privilege can get or request data.
+If you do not have sufficient privileges, you can do one of the following:
+Request your ACCOUNTADMIN to grant you the IMPORT SHARE privilege.
+Request your ACCOUNTADMIN to get data, and grant you IMPORTED PRIVILEGES on the database created from the share.
+For more information, see
+Granting privileges on a shared database
+.
+To access the listings available to you as a consumer of the Data Exchange:
+Sign in to Snowsight.
+Select
+Data Products
+»
+Private Sharing
+.
+Select the
+Shared With You
+tab.
+Browsing data listings
+¶
+After you sign in to a Data Exchange, review the
+Listings
+section of the
+Shared With You
+tab to view available listings.
+In a Data Exchange, the following types of listings are available to you:
+Free listings
+, which you can
+access by selecting
+Get
+to create a database out of the shared data inside of your Snowflake account.
+Personalized listings, which you can access by selecting
+Request
+to request access to the data. An email notification is sent to
+the data provider with your request.
+Viewing listing requests
+¶
+To view requests that you made for data in a Data Exchange, use the
+Requests
+tab.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/release-notes/2023-02.txt
+
+Documentation Title:
+February 2023 | Snowflake Documentation
+
+Documentation Content:
+For more information, refer to
+Querying Metadata for Staged Files
+.
+Data Collaboration Updates
+¶
+Listing Discovery Controls —
+General Availability
+¶
+With this release, we are pleased to announce the general availability of listing discovery controls, which let you offer listings that can
+only be discovered by specific consumers, similar to a direct share.
+Using privately discoverable listings instead of direct shares lets you auto-fulfill your data product across clouds and Snowflake regions,
+gather metrics about consumer usage of the data, and include metadata with your data share, such as a title and description, and usage
+examples to help consumers use the data quickly.
+For more information, refer to
+About Listings
+.
+Web Interface Updates
+¶
+SQL Editor Improvements —–
+General Availability
+¶
+With this release, we are pleased to announce the general availability of improvements to the SQL editor in Snowsight,
+including the following:
+Improved find and replace functionality.
+Redesigned autocomplete for commands, columns, and objects.
+Updated function autocomplete, including suggestions for function arguments to make it easier to write user-defined functions.
+Added highlighting for selected keywords, so that when you select a term in the SQL editor, all other instances of the term appear highlighted.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
+On this page
+New Features
+Security Updates
+SQL Updates
+Virtual Warehouse Updates
+Data Loading Updates
+Data Collaboration Updates
+Web Interface Updates
+Related info
+For more details about the individual releases in which these changes were introduced, refer to:
+Releases
+Language
+:
+English
+English
+Français
+Deutsch
+日本語
+한국어
+Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.txt
+
+Documentation Title:
+Managing data listings | Snowflake Documentation
+
+Documentation Content:
+Link to Documentation
+A link to a page on provider’s website with more detailed documentation. Documentation must be clear and reference the right schema objects present in the Snowflake share. It cannot be just standard documentation.
+https://developer.example.com
+Data
+Database Objects or Secure Share
+Select data you wish to share. This section is only available for free data listings.
+Business Needs
+Business Need
+Data listings are grouped by business needs for easy discovery.
+.
+- You can select up to six business needs for your listing. If you do not see a relevant business need in the drop-down list, you can create a custom one.
+.
+- Consumers can easily discover listings based on business needs available in the drop-down list. However, custom business needs you add are not included, and are only visible in your listing details.
+Description
+Description of how your data or data service addresses the business need.
+Sample SQL Query
+Title
+Descriptive title for the query to help consumers understand the data. You can add more than one example.
+Description (Optional)
+Description of the example with additional instructions, e.g. name of the schema, sample tables, fields, use cases.
+SQL Query
+Test sample queries against the database you use to create the share. Snowflake auto-validates the queries to ensure that all referenced objects are added to the share and the queries run successfully. If the validation fails, an error message with a reason is displayed. You can see an exclamation sign next to each query that failed.
+Region Availability
+All available regions
+or
+Specific Regions
+Regions where your listing will be visible. You will need to replicate the data to these regions. You can edit the list of available regions at any time without resubmitting it for administrator’s approval. If you remove a region that was previously available, consumers in that region will no longer be able to see the listing.
+Viewing requests for personalized listings
+¶
+Note
+Email notifications are sent to providers to notify them of data requests. You can change the request notification email for a specific listing in the
+Settings
+tab.
+To view requests for personalized listings:
+Navigate to
+Data Products
+»
+Private Sharing
+.
+Select the
+Requests
+tab. Use the filtering drop down list to view requests by status.
 
 
 

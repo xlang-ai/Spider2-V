@@ -1,8 +1,8 @@
 Documentation Source:
-docs.getdbt.com/guides/manual-install5f72.txt
+docs.getdbt.com/guides/redshift5f72.txt
 
 Documentation Title:
-Quickstart for dbt Core from a manual install | dbt Developer Hub
+Quickstart for dbt Cloud and Redshift | dbt Developer Hub
 
 Documentation Content:
 Edit your
@@ -129,11 +129,16 @@ jaffle_shop
 :
 table
 Save your changes.
+FAQs
+​
+Build models on top of other models
+​
+As a best practice in SQL, you should separate logic that cleans up your data from logic that transforms your data.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/manual-install0c17.txt
+docs.getdbt.com/guides/manual-install5f72.txt
 
 Documentation Title:
 Quickstart for dbt Core from a manual install | dbt Developer Hub
@@ -406,12 +411,13 @@ As a best practice in SQL, you should separate logic that cleans up your data fr
 
 
 Documentation Source:
-docs.getdbt.com/guides/manual-install8722.txt
+docs.getdbt.com/guides/bigquery.txt
 
 Documentation Title:
-Quickstart for dbt Core from a manual install | dbt Developer Hub
+Quickstart for dbt Cloud and BigQuery | dbt Developer Hub
 
 Documentation Content:
+By default, everything gets created as a view. You can override that at the directory level so everything in that directory will materialize to a different materialization.
 Edit your
 dbt_project.yml
 file.
@@ -536,11 +542,6 @@ jaffle_shop
 :
 table
 Save your changes.
-FAQs
-​
-Build models on top of other models
-​
-As a best practice in SQL, you should separate logic that cleans up your data from logic that transforms your data.
 
 
 

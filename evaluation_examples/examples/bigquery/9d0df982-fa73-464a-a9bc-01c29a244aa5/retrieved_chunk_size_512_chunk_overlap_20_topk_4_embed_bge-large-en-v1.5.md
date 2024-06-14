@@ -1,15 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-browse-table.md
-
-Documentation Title:
-Preview table data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-table_id = "your-project.your_dataset.your_table_name"
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.md
 
 Documentation Title:
@@ -93,6 +82,125 @@ query.
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/analytics-hub-view-subscribe-listings.md
+
+Documentation Title:
+View and subscribe to listings  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Required permissions
+
+* Create new datasets: `bigquery.datasets.create`or `bigquery.datasets.*`to
+ perform additional actions on datasets.
+* Query datasets: `bigquery.jobs.create`or `bigquery.jobs.*`to perform
+ additional actions on jobs.
+You might also be able to get these permissions with custom rolesor other predefined roles.
+
+Discover listings
+-----------------
+
+To discover public and private listings, follow these steps:
+
+1. In the Google Cloud console, go to the **BigQuery**page.
+
+Go to BigQuery
+In the **Explorer**pane, click add**Add data**.
+
+3. In the **Add data**dialog, click **Analytics Hub**. The **Analytics Hub**dialog appears containing listings that you can access. For Salesforce Data Cloud listings, there is a button in the
+**Explorer**pane that automatically filters related listings.
+
+Alternatively, to open the Analytics Hub dialog you can also go
+to Analytics Huband click **Search
+listings**.
+To filter listings by their name or description, enter the name or
+description of the listing in the **Search for listings**field.
+
+5. In the **Filter**section, you can filter listings based on the following
+fields:
+
+
+	**Listings**: select whether you want to view private listings, public
+	listings, or listingswithin your org.
+	
+	**Categories**: select the desired categories.
+	
+	**Location**: select the desired location. For more information, see
+	Supported regions.
+	
+	**Provider**: select the data provider. Some data providers require you to
+	request access to their *commercial datasets*. After requesting access,
+	the data provider contacts you to share their datasets.
+Browse through the filtered listings.
+
+
+Subscribe to listings
+---------------------
+
+Subscribing to a listinggives you **read-only access**to the data in the listing by creating a linked
+datasetin your
+project.
+
+**Caution:**We recommend that you don't put data into a project that is within a
+VPC Service Controls perimeter. If you do so, then you must add the appropriate
+ingress and egress rules.To subscribe to a listing, follow these steps:
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/bi-engine-looker-studio.md
+
+Documentation Title:
+Quickstart using Looker Studio  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Creating your data source
+
+To create your data source:
+
+Open Looker Studio.
+
+2. On the **Reports**page, in the **Start a new report section**, click the
+**Blank Report**template. This creates a new untitled report.
+
+!
+If prompted, complete the **Marketing Preferences**and the **Account and
+Privacy**settings and then click **Save**. You may need to click the **Blank**template again after saving your settings.
+
+4. In the **Add a data source**window, click **Create new data source**.
+
+!
+In the **Google Connectors**section, hover over **BigQuery**and then click **Select**.
+
+For **Authorization**, click **Authorize**. This allows Looker Studio
+access to your Google Cloud project.
+
+In the **Request for permission**dialog, click **Allow**to give
+Looker Studio the ability to view data in BigQuery. You may
+not receive this prompt if you previously used Looker Studio.
+
+Leave **My Projects**selected and in the **Project**pane, click the name of
+your project.
+
+In the **Dataset**pane, click **biengine\_tutorial**.
+
+In the **Table**pane, click **311\_service\_requests\_copy**.
+
+In the upper right corner of the window, click **Connect**. Once Looker Studio
+connects to the BigQuery data source, the table's fields are
+displayed. You can use this page to adjust the field properties or to create new
+calculated fields.
+
+In the upper right corner, click **Add to report**.
+
+When prompted, click **Add to report**.
+
+In the **Request for permission**dialog, click **Allow**to give
+Looker Studio the ability to view and manage files in Google Drive.
+You may not receive this prompt if you previously used Looker Studio.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/bigquery-web-ui.md
 
 Documentation Title:
@@ -137,68 +245,6 @@ You can run this demo multiple times.
 
 To view the Google Trends public dataset, in the welcome page, click
 **View dataset**.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/visualize-looker-studio.md
-
-Documentation Title:
-Analyze data with Looker Studio  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-```
-SELECT
-  *
-FROM
-  `bigquery-public-data.austin_bikeshare.bikeshare_trips`
-LIMIT
-  1000;
-
-```
-Click play\_circle**Run**.
-
-8. In the **Query results**section, click **Explore data**, and then click
-**Explore with Looker Studio**.
-
-!
-On the **Welcome to Looker Studio**page, click
-**Get Started**if you agree to the Google Looker Studio and
-Google Terms of Service.
-
-10. On the **Authorize Looker Studio access**page, click **Authorize**to authorize the connection if you agree to the terms of service, and
-then select your marketing preferences. Only you can view data in your
-report unless you grant others permission to view the data.
-
-The report editor displays your query results as
-Looker Studio charts.
-
-The following image shows some features of a Looker Studio report:
-
-!**Legend**:
-
-1. Looker Studio logo and report name.
-	* To go to the **Looker Studio**page, click the
-	logo.
-	* To edit the report name, click the name.
-2. Looker Studio toolbar. The
-**Add a chart**tool is highlighted.
-3. Report title. To edit the text, click the text box.
-4. Table (selected). You can interact with a selected
-chart by using the options in the chart header.
-5. Bar chart (not selected).
-6. **Chart**properties pane. For a selected table,
-you can configure its data properities and appearance
-on the **Setup**and **Style**tabs.
-7. **Data**pane. In this pane, you can access the
-fields and data sources to use in your report.
-	* To add data to a chart, drag fields from the
-	**Data**pane onto the chart.
-	* To create a chart, drag a field from the **Data**pane onto the canvas.
-8. **Save and share**. Save this report so you can view,
-edit, and share it with others later. Before you save
-the report, review the data source settings and the
-credentials that the data sources use.
 
 
 

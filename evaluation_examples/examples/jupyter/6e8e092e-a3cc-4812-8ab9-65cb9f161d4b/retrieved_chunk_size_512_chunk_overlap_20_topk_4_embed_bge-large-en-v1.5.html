@@ -1,11 +1,47 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/index-2.html
+jupyterlab.readthedocs.io/en/4.1.x/user/files.html
 
 Documentation Title:
-@jupyterlab
+Working with Files — JupyterLab 4.1.8 documentation
 
 Documentation Content:
-tails><span>settingeditor</span><ul><details><span>JsonSettingEditor</span><ul><span>ILayoutState</span><span>IOptions</span><span>IPluginLayout</span></ul></details><details><span>SettingsEditor</span><ul><span>IOptions</span><span>PluginSearchFilter</span><span>SaveState</span></ul></details><span>JsonSettingEditor</span><span>SettingsEditor</span><span>IJSONSettingEditorTracker</span><span>ISettingEditorTracker</span><span>IJSONSettingEditorTracker</span><span>ISettingEditorT
+Rename a file by
+right-clicking on its name in the file browser and selecting “Rename”
+from the context menu:</p></section><section><h2>Uploading and Downloading<a>#</a></h2><p>Files can be uploaded to the current directory of the file browser by
+dragging and dropping files onto the file browser, or by clicking the
+“Upload Files” button at the top of the file browser:</p><p>Any file in JupyterLab can be downloaded by right-clicking its name in
+the file browser and selecting “Download” from the context menu:</p></section><section><h2>Displaying Hidden files<a>#</a></h2><p>Hidden files and folders can be displayed in JupyterLab by combining two parameters:</p><ol><p>First the server should be allowed to serve hidden files by setting <code><span>ContentsManager.allow_hidden</span><span>=</span><span>True</span></code>; see <a>server documentation</a>.</p><p>Then you will be able to display or hide the hidden files through the menu <span>View</span>-&gt; <code><span>Show</span><span>Hidden</span><span>Files</span></code>.</p></ol></section></section><div><div><p>previous</p><p>JupyterLab URLs</p></div><div><p>next</p><p>Text Editor</p></div></div></div><div><div><div>On this page
+  </div><ul><a>Opening Files</a><a>Creating Files and Activities</a><a>Uploading and Downloading</a><a>Displaying Hidden files</a></ul></div><a>Edit on GitHub
+        
+      
+    </a><a>Show Source
+    </a></div></div></div><div><p>© Copyright 2018-2024, Project Jupyter.The Jupyter Trademark is registered with the U.S. Patent &amp;amp Trademark Office.
+      
+    
+      <span>Revision <code>ba2431eb</code>.
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/developer/contributing.html
+
+Documentation Title:
+Contribute — JupyterLab 4.1.8 documentation
+
+Documentation Content:
+For example: To apply
+the label <span>foo</span>and <code><span>bar</span><span>baz</span></code>to an issue, comment
+<code><span>@meeseeksdev</span><span>tag</span><span>foo</span><span>"bar</span><span>baz"</span></code>on the issue.</p></section></section><section><h2><a>Contributing from within the browser</a><a>#</a></h2><p>Contributing to JupyterLab codebase is also possible without setting up
+a local environment, directly from the Web browser:</p><ul><p>GitHub’s
+<a>codespace</a>is available (free account have
+<a>limited monthly resources</a>).</p><p>GitHub’s
+<a>built-in editor</a>is suitable for contributing very small fixes,</p><p>more advanced <a>github.dev</a>editor can be accessed by pressing the dot (<span>.</span>) key while in the JupyterLab GitHub repository,</p><p><a>Gitpod</a>integration is enabled,
+however it is not actively maintained,</p><p><a>jupyterlab-playground</a>,
+allows to prototype JupyterLab extensions from within JupyterLab and
+can be run without installation in the browser using Binder.</p></ul><p>Using <a>Binder</a>, you can test the current main branch and your
+changes within the browser as well. We recommend you have at least 8 GB of RAM for this.
+To build and launch an instance of the latest JupyterLab main, open
+<a>this link</a>in a new tab. The build takes about 7 minutes to complete.</p><p>To test your own branch hosted on GitHub, enter it on <a>https://mybinder.org</a>.
 
 
 
@@ -16,29 +52,18 @@ Documentation Title:
 IUploadModel | @jupyterlab
 
 Documentation Content:
-</ul></details><details><span>settingeditor</span><ul><details><span>JsonSettingEditor</span><ul><span>ILayoutState</span><span>IOptions</span><span>IPluginLayout</span></ul></details><details><span>SettingsEditor</span><ul><span>IOptions</span><span>PluginSearchFilter</span><span>SaveState</span></ul></details><span>JsonSettingEditor</span><span>SettingsEditor</span><span>IJSONSettingEditorTracker</span><span>ISettingEditorTracker</span><span>IJSONSettingEditorTracker</s
+<ul><details><span>GroupItem</span><span>IProps</span></details><details><span>IStatusBar</span><ul><span>IItem</span><span>Alignment</span></ul></details><details><span>Popup</span><span>IOptions</span></details><details><span>ProgressBar</span><span>IProps</span></details><details><span>ProgressCircle</span><span>IProps</span></details><details><span>TextItem</span><span>IProps</span></details><span>Popup</span><span>StatusBar</span><span>IStatusBar</span><span>IStatusB
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/filebrowser.IUploadModel.html
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/coreutils.URLExt.IUrl.html
 
 Documentation Title:
-IUploadModel | @jupyterlab
+IUrl | @jupyterlab
 
 Documentation Content:
-an><span>IAddSectionOptions</span><span>ITool</span></ul></details><details><span>Notebook</span><ul><details><span>ContentFactory</span><span>IOptions</span></details><span>ContentFactory</span><span>IContentFactory</span><span>IOptions</span></ul></details><details><span>NotebookActions</span><ul><span>accessNextHistory</span><span>accessPreviousHistory</span><span>changeCellType</span><span>clearAllOutputs</span><span>clearOutputs</span><span>collapseAllHeadings</span>
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/outputarea.IOutputAreaModel-1.html
-
-Documentation Title:
-IOutputAreaModel | @jupyterlab
-
-Documentation Content:
-n><span>IFileContainer</span><span>IDocumentManager</span><span>IDocumentWidgetOpener</span><span>isValidFileName</span><span>renameDialog</span><span>renameFile</span><span>shouldOverwrite</span></ul></details><details><span>docmanager-extension</span><ul><details><span>ToolbarItems</span><span>createSaveButton</span></details><span>default</span><span>downloadPlugin</span><span>openBrowserTabPlugin</span><span>pathStatusPlugin</span><span>savingStatusPlugin</span></
+span>IEditorConfig</span><span>INotebookConfig</span><span>IOptions</span><span>defaultEditorConfig</span><span>defaultNotebookConfig</span></ul></details><details><span>ToolbarItems</span><ul><span>createCellTypeItem</span><span>createCopyButton</span><span>createCutButton</span><span>createInsertButton</span><span>createPasteButton</span><span>createRestartRunAllButton</span><span>createRunButton</span><span>createSaveButton</span><span>getDefaultItems</span></ul></deta
 
 
 

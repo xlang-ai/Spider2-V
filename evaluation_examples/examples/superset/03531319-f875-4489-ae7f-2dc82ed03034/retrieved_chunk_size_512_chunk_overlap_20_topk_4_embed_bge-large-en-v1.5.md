@@ -5,6 +5,47 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
+Pivot Table​
+
+In this section, we will extend our analysis using a more complex visualization, Pivot Table. By the
+end of this section, you will have created a table that shows the monthly spend on flights for the
+first six months, by department, by travel class.
+
+Create a new chart by selecting **+ ‣ Chart**from the top right corner. Choose
+tutorial\_flights again as a datasource, then click on the visualization type to get to the
+visualization menu. Select the **Pivot Table**visualization (you can filter by entering text in the
+search box) and then **Create New Chart**.
+
+!In the **Time**section, keep the Time Column as Travel Date (this is selected automatically as we
+only have one time column in our dataset). Then select Time Grain to be month as having daily data
+would be too granular to see patterns from. Then select the time range to be the first six months of
+2011 by click on Last week in the Time Range section, then in Custom selecting a Start / end of 1st
+January 2011 and 30th June 2011 respectively by either entering directly the dates or using the
+calendar widget (by selecting the month name and then the year, you can move more quickly to far
+away dates).
+
+!Next, within the **Query**section, remove the default COUNT(\*) and add Cost, keeping the default
+SUM aggregate. Note that Apache Superset will indicate the type of the metric by the symbol on the
+left hand column of the list (ABC for string, # for number, a clock face for time, etc.).
+
+In **Group by**select **Time**: this will automatically use the Time Column and Time Grain
+selections we defined in the Time section.
+
+Within **Columns**, select first Department and then Travel Class. All set – let’s **Run Query**to
+see some data!
+
+!You should see months in the rows and Department and Travel Class in the columns. Publish this chart
+to your existing Tutorial Dashboard you created earlier.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.md
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
 Rolling Mean​
 
 There is quite a lot of variation in the data, which makes it difficult to identify any trend. One
@@ -56,47 +97,6 @@ filter by selecting No in the Show Range Filter drop down and adding some labels
 and Y Axis Label.
 
 !Once you’re done, publish the chart in your Tutorial Dashboard.
-
-
-
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.md
-
-Documentation Title:
-Exploring Data in Superset | Superset
-
-Documentation Content:
-Pivot Table​
-
-In this section, we will extend our analysis using a more complex visualization, Pivot Table. By the
-end of this section, you will have created a table that shows the monthly spend on flights for the
-first six months, by department, by travel class.
-
-Create a new chart by selecting **+ ‣ Chart**from the top right corner. Choose
-tutorial\_flights again as a datasource, then click on the visualization type to get to the
-visualization menu. Select the **Pivot Table**visualization (you can filter by entering text in the
-search box) and then **Create New Chart**.
-
-!In the **Time**section, keep the Time Column as Travel Date (this is selected automatically as we
-only have one time column in our dataset). Then select Time Grain to be month as having daily data
-would be too granular to see patterns from. Then select the time range to be the first six months of
-2011 by click on Last week in the Time Range section, then in Custom selecting a Start / end of 1st
-January 2011 and 30th June 2011 respectively by either entering directly the dates or using the
-calendar widget (by selecting the month name and then the year, you can move more quickly to far
-away dates).
-
-!Next, within the **Query**section, remove the default COUNT(\*) and add Cost, keeping the default
-SUM aggregate. Note that Apache Superset will indicate the type of the metric by the symbol on the
-left hand column of the list (ABC for string, # for number, a clock face for time, etc.).
-
-In **Group by**select **Time**: this will automatically use the Time Column and Time Grain
-selections we defined in the Time section.
-
-Within **Columns**, select first Department and then Travel Class. All set – let’s **Run Query**to
-see some data!
-
-!You should see months in the rows and Department and Travel Class in the columns. Publish this chart
-to your existing Tutorial Dashboard you created earlier.
 
 
 

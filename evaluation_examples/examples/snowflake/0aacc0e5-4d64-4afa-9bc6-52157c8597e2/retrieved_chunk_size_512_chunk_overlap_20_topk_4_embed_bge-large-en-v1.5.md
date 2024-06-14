@@ -110,69 +110,50 @@ Python worksheets use Python 3.11 by default, but you can choose another support
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/2024/ui/2024-02-07.md
+docs.snowflake.com/en/developer-guide/snowpark/python/python-worksheets.md
 
 Documentation Title:
-February 07-08, 2024 — Snowsight Release Notes | Snowflake Documentation
+Writing Snowpark Code in Python Worksheets | Snowflake Documentation
 
 Documentation Content:
-If you have additional questions, please feel free to contact Snowflake Support.
+Example: Transform Data in a Python Worksheet¶
 
-Write Snowpark code in Python worksheets —– *General Availability*¶
--------------------------------------------------------------------
+In this example, write Python code that aggregates the entries in the TASK\_HISTORY view in the ACCOUNT\_USAGE schema of the SNOWFLAKE
+database by scheduled time and state and saves the aggregated output to a table, aggregate\_task\_history.
 
-With this release, we are pleased to announce the general availability of Python worksheets in Snowsight. Python worksheets let
-you write and run Snowpark Python code in a worksheet in Snowsight. You can now use Python version 3.11 or another
-supported version.
+Note
 
-In a Python worksheet, you can do the following:
+Because this example queries account usage data, you must use a role with:
 
-Write a Python script to read data from a stage, transform it, and save it to a table, all without leaving Snowsight.
+Access to query the views in the ACCOUNT\_USAGE schema. See Enabling the SNOWFLAKE Database Usage for Other Roles.
 
-Use included packages from Anaconda or import packages from a stage to write code more easily.
+The CREATE TABLE privilege on the database schema to which you want to add the table.
 
-Automate your Python code by deploying it as a stored procedure and scheduling it as a task.
+Sign in to Snowsight.
 
+Open Projects» Worksheets.
 
-For more information, see Writing Snowpark Code in Python Worksheets.
+Select +» Python Worksheet.
 
-Recover worksheets for dropped users —– *General Availability*¶
----------------------------------------------------------------
+Select a database and schema that you want to add the table to.
 
-With this release, we are pleased to announce the general availability of recovering Snowsight worksheets for users that have
-been dropped from Snowflake. You can recover up to 500 worksheets for each dropped user.
+Select a warehouse to use to run the worksheet. If you have a default warehouse for your user, it is pre-selected. Make sure your warehouse is running.
 
-For more details, see Recover worksheets owned by a dropped user.
-
-Get Started page for some accounts —– *Removed*¶
-------------------------------------------------
-
-With this release, the Get Startedpage that was available to some trial and Snowflake On Demand accounts has been removed.
-
-Release Notes Change Log¶
--------------------------
+6. Write the Snowpark Python code as part of the mainfunction:
 
 
+```
+importsnowflake.snowparkassnowparkfromsnowflake.snowpark.functionsimportcolfromsnowflake.snowpark.dataframe_readerimport*fromsnowflake.snowpark.functionsimport*defmain(session:snowpark.Session):inputTableName="snowflake.account_usage.task_history"outputTableName="aggregate_task_history"df=session.table(inputTableName)df.filter(col("STATE")!="SKIPPED")\
+    .group_by(("SCHEDULED_TIME"),"STATE").count()\
+    .write.mode("overwrite").save_as_table(outputTableName)returnoutputTableName+" table successfully written"
+```
+Copy
+Select Settingsand for the Return type, select Stringfor the type returned by the handler function.
 
-|Announcement
-
-Update
-
-Date
-
-
-|  |
-|New navigation menu (Preview)
-
-*Removed*02-08-24
+Run the code.
 
 
-
-Was this page helpful?
-
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
-
-Write Snowpark code in Python worksheets —– General AvailabilityRecover worksheets for dropped users —– General AvailabilityGet Started page for some accounts —– RemovedRelease Notes Change LogLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+After you run your code in a Python worksheet, you can open a SQL worksheet and query the table. See Querying data using worksheets.
 
 
 

@@ -1,4 +1,15 @@
 Documentation Source:
+docs.astronomer.io/learn/airflow-setup-teardown.html
+
+Documentation Title:
+Use setup and teardown tasks in Airflow | Astronomer Documentation
+
+Documentation Content:
+</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Pools</div></a><a><div>Next</div><div>Sharing code between multiple projects</div></a></nav></div><ul><a>Assumed knowledge</a><a>When to use setup/ teardown tasks</a><li><a>Setup/ teardown concepts</a><a>Before and after using setup and teardown tasks</a></li><li><a>Setup/ teardown implementation</a><ul><a><code>.as_setup()</code>and <code>.as_teardown()</code>methods</a><a><code>@setup</code>and <code>@teardown</code>decorators</a><a>Creating setup/ teardown workflows</a><a>Narrowing the scope of a setup task</a></ul></li><a>Example DAG</a></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+
+
+
+Documentation Source:
 docs.astronomer.io/astro/view-logs.html
 
 Documentation Title:
@@ -10,35 +21,24 @@ Documentation Content:
 
 
 Documentation Source:
-docs.astronomer.io/software.html
+docs.astronomer.io/learn/airflow-ui.html
 
 Documentation Title:
-Astronomer Software documentation | Astronomer Documentation
+An introduction to the Airflow UI | Astronomer Documentation
 
 Documentation Content:
-with capabilities enabling you to build, run, and observe data all in one place.</p><div><a>Try Astro</a><a>Learn about Astronomer</a></div></div><h2>Run Airflow in your private cloud using Astronomer Software<a>​</a></h2><p>The following diagram shows how you can run Airflow in your private cloud using Astronomer Software:</p><img/><h2>Get Started<a>​</a></h2><div><div><p>Installation guides</p><p>Install Astronomer Software on your cloud.</p></div><div><p>Integrate an auth system</p><p>Set up enterprise-grade user authentication on Astronomer Software.</p></div><div><p>CI/CD and automation</p><p>Use the Houston API and CI/CD tools to automate code deploys and changes to your platform.</p></div></div><h2>Astronomer Software features<a>​</a></h2><div><div><p>Push-button Deployments</p><p>Deploy an Airflow instance with the push of a button.</p></div><div><p>Role-based access control</p><p>Use an extensive RBAC system for configurable and secure user management.</p></div><div><p>Configurations via Helm</p><p>Manage cloud, network, third party provider, and system component configurations using Helm.</p></div><div><p>Grafana &amp; Kibana integrations</p><p>System logging, monitoring, and alerts are available through Grafana and Kibana.</p></div><div><p>Astronomer Docker images</p><p>Run versions of Airflow with extended support lifecycles and additional bug testing.</p></div></div><h2>Most popular software docs<a>​</a></h2><div><div><p>Release notes</p><p>A list of all changes in the latest version of Astronomer Software.</p></div><div><p>Customize image</p><p>Guides and considerations for customizing your Astro project and fine-tuning Airflow.
+As a result, the Security tab is not needed and is not available on Airflow deployments on Astro.</p></div><p>The <strong>Security</strong>tab links to multiple pages, including <strong>List Users</strong>and <strong>List Roles</strong>, that you can use to review and manage Airflow role-based access control (RBAC). For more information on working with RBAC, see <a>Security</a>.</p><img/><p>If you are running Airflow on Astronomer, the Astronomer RBAC will extend into Airflow and take precedence. There is no need for you to use Airflow RBAC in addition to Astronomer RBAC. Astronomer RBAC can be managed from the Astronomer UI, so the <strong>Security</strong>tab might be less relevant for Astronomer users.</p><h2>Browse tab<a>​</a></h2><p>The <strong>Browse</strong>tab links to multiple pages that provide additional insight into and control over your DAG runs and task instances for all DAGs in one place.</p><img/><p>The DAG runs and task instances pages are the easiest way to view and manipulate these objects in aggregate. If you need to re-run tasks in multiple DAG runs, you can do so from this page by selecting all relevant tasks and clearing their status.</p><img/><p>The DAG Dependencies view shows a graphical representation of any <a>cross-DAG</a>and dataset dependencies in your Airflow environment.</p><img/><p>Other views on the <strong>Browse</strong>tab include:</p><ul><li><strong>Jobs:</strong>Shows a list of all jobs that have been completed. This includes executed tasks as well as scheduler jobs.</li><li><strong>Audit Logs:</strong>Shows a list of events that have occurred in your Airflow environment that can be used for auditing purposes.</li><li><strong>Task Reschedules:</strong>Shows a list of all tasks that have been rescheduled.</li><li><strong>Triggers:</strong>Shows any triggers that occurred in this Airflow environment.
 
 
 
 Documentation Source:
-docs.astronomer.io/astro/create-deployment.html
+docs.astronomer.io/astro/cli/get-started-cli.html
 
 Documentation Title:
-Create a Deployment | Astronomer Documentation
+Get started with Airflow using the Astro CLI | Astronomer Documentation
 
 Documentation Content:
-During this time, the Airflow UI is unavailable and you can't deploy code or modify Deployment settings. When the Deployment is ready, the status changes to <strong>Healthy</strong>.</p></li></ol><p>You can continue to access your other Deployments by selecting the <strong>Deployments</strong>link.</p><p>For more information about possible Deployment health statuses, see <a>Deployment health</a>.</p><h2>Next steps<a>​</a></h2><ul><a>Deployment settings</a><a>Set environment variables on Astro</a><a>Authenticate an automation tool to Astro</a></ul></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Deploy history and rollbacks</div></a><a><div>Next</div><div>Overview</div></a></nav></div><ul><a>Prerequisites</a><a>Create a Deployment</a><a>Next steps</a></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-great-expectations.html
-
-Documentation Title:
-Orchestrate Great Expectations with Airflow | Astronomer Documentation
-
-Documentation Content:
-Connections will still work if you have your connection configured in both Airflow and Great Expectations, as long as the correct Datasource is specified in the Checkpoint passed to the operator.</p></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Fivetran</div></a><a><div>Next</div><div>Jupyter notebook</div></a></nav></div><ul><a>Time to complete</a><a>Assumed knowledge</a><a>Prerequisites</a><a>Step 1: Configure your Astro project</a><a>Step 2: Configure a GX project</a><a>Step 3: Create a database connection</a><a>Step 4: Create a DAG</a><li><a>How it works</a><ul><a>Operator parameters</a><a>Running GX validations on pandas DataFrames</a><a>Connections and backends</a></ul></li></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+Alternatively, you can run <code>astro dev stop</code>to stop your Docker containers without restarting your environment, then run <code>astro dev start</code>when you want to restart.</p><h2>Next Steps<a>​</a></h2><p>After you have finished Getting Started with the CLI, you can configure your CLI to locally debug your Airflow environment, authenticate to cloud services to test your DAGs with data stored on the cloud, or you can learn more about developing DAGs with Astro.</p><ul><a>Configure the CLI</a><a>Authenticate to cloud services</a><a>Build and run a project locally</a></ul></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>Install the CLI</div></a><a><div>Next</div><div>Develop your project</div></a></nav></div><ul><a>Prerequisites</a><a>Step 1: Create an Astro project</a><a>Step 2: Run Airflow locally</a><a>Step 3: Develop locally with the CLI</a><a>Next Steps</a></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
 
 
 

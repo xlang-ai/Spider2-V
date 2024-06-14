@@ -1,134 +1,225 @@
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/drop-table.md
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.md
 
 Documentation Title:
-DROP TABLE | Snowflake Documentation
+Managing and using worksheets in Snowsight | Snowflake Documentation
 
 Documentation Content:
-```
-SHOWTABLESLIKE't2%';+---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+| created_on                      | name | database_name | schema_name | kind      | comment    | cluster_by | rows | bytes | owner        | retention_time ||---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+| Tue, 17 Mar 2015 16:48:16 -0700 | T2   | TESTDB        | PUBLIC      | TABLE     |            |            |    5 | 4096  | PUBLIC       |              1 |+---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+DROPTABLEt2;+--------------------------+| status                   ||--------------------------|| T2 successfully dropped. |+--------------------------+SHOWTABLESLIKE't2%';+------------+------+---------------+-------------+------+---------+------------+------+-------+-------+----------------+| created_on | name | database_name | schema_name | kind | comment | cluster_by | rows | bytes | owner | retention_time ||------------+------+---------------+-------------+------+---------+------------+------+-------+-------+----------------|+------------+------+---------------+-------------+------+---------+------------+------+-------+-------+----------------+
-```
-CopyDrop the table again, but don’t raise an error if the table does not exist:
+Download recovered worksheets owned by a dropped user¶
 
+To recover worksheets owned by a dropped user, download a .tar.gzarchive file of up to 500 worksheets owned by that user.
 
-```
-DROPTABLEIFEXISTSt2;+------------------------------------------------------------+| status                                                     ||------------------------------------------------------------|| Drop statement executed successfully (T2 already dropped). |+------------------------------------------------------------+
-```
-CopyWas this page helpful?
+Note
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
+You must be granted the ACCOUNTADMIN role to recover worksheets of dropped users.
 
-SyntaxParametersUsage notesExamplesLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+Sign in to Snowsight.
+
+Select Projects» Worksheets.
+
+Select !» Recover Worksheets from Dropped User.
+
+4. In the dialog box, enter the username of a dropped user in your account.
+
+Important
+
+The case and spelling of the username must exactly match the username as it was stored in Snowflake.
+5. Select Recover.
+
+Your web browser downloads a .tarfile containing up to 500 worksheets. If the dropped user has more than 500 worksheets,
+only the 500 most recently modified worksheets are downloaded.
+
+After downloading worksheets owned by a dropped user, add the recovered worksheets to Snowsight by creating worksheets from
+the SQL files.
+
+You must expand the downloaded .tarfile into a folder of .sqlfiles before you can add recovered worksheets to
+Snowsight. You can only add one worksheet at a time to Snowsight, and the user who adds the recovered worksheets to
+Snowsight becomes the new owner of the worksheets.
+
+See Create worksheets from a SQL filefor details.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/drop-schema.md
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.md
 
 Documentation Title:
-DROP SCHEMA | Snowflake Documentation
+Managing and using worksheets in Snowsight | Snowflake Documentation
 
 Documentation Content:
-```
-DROPSCHEMAmyschema;+--------------------------------+| status                         ||--------------------------------|| MYSCHEMA successfully dropped. |+--------------------------------+SHOWSCHEMAS;+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+| created_on                      | name               | is_default | is_current | database_name | owner  | comment                                                   | options | retention_time ||---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------|| Fri, 13 May 2016 17:26:07 -0700 | INFORMATION_SCHEMA | N          | N          | MYTESTDB      |        | Views describing the contents of schemas in this database |         |              1 || Tue, 17 Mar 2015 16:57:04 -0700 | PUBLIC             | N          | Y          | MYTESTDB      | PUBLIC |                                                           |         |              1 |+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+
-```
-CopyWas this page helpful?
+Considerations for recovering worksheets owned by dropped users¶
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
+Considerations when recovering worksheets:
 
-SyntaxParametersUsage notesExamplesLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+Only the title and contents of the most recently executed version of a worksheet are recovered. Worksheet version history,
+sharing recipients and permissions, query results, and worksheet metadata are not recovered.
+
+A maximum of 500 worksheets are recovered. For dropped users with more than 500 worksheets, only the 500 most recently modified worksheets
+are recovered.
+
+Only worksheets in Snowsight are recovered. Worksheets in Classic Console owned by dropped users cannot be recovered with
+this method.
+
+If multiple dropped users have the same username, worksheets owned by all dropped users with that username are recovered.
+
+
+If the worksheet recovery fails for unexpected reasons, contact Snowflake Support.
+
+Internal Snowflake objects for worksheets¶
+------------------------------------------
+
+Snowflake creates the following internal objects to support using worksheets in Snowsight:
+
+
+
+|Object Type
+
+Name
+
+
+|  |
+|Security integration
+
+WORKSHEETS
+
+
+|  |
+|Blobs
+
+WORKSHEETS\_APP
+
+
+|Database
+
+WORKSHEETS\_APP
+
+
+|User
+
+WORKSHEETS\_APP\_USER
+
+
+|Roles
+
+APPADMIN, WORKSHEETS\_APP\_RL
 
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/undrop-schema.md
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.md
 
 Documentation Title:
-UNDROP SCHEMA | Snowflake Documentation
+Managing and using worksheets in Snowsight | Snowflake Documentation
 
 Documentation Content:
-```
-UNDROPSCHEMAmyschema;+----------------------------------------+| status                                 ||----------------------------------------|| Schema MYSCHEMA successfully restored. |+----------------------------------------+SHOWSCHEMASHISTORY;+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+------------+| created_on                      | name               | is_default | is_current | database_name | owner  | comment                                                   | options | retention_time | dropped_on ||---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+------------|| Fri, 13 May 2016 17:26:07 -0700 | INFORMATION_SCHEMA | N          | N          | MYTESTDB      |        | Views describing the contents of schemas in this database |         |              1 | [NULL]     || Tue, 17 Mar 2015 17:18:42 -0700 | MYSCHEMA           | N          | N          | MYTESTDB      | PUBLIC |                                                           |         |              1 | [NULL]     || Tue, 17 Mar 2015 16:57:04 -0700 | PUBLIC             | N          | Y          | MYTESTDB      | PUBLIC |                                                           |         |              1 | [NULL]     |+---------------------------------+--------------------+------------+------------+---------------+--------+-----------------------------------------------------------+---------+----------------+------------+
-```
-CopyWas this page helpful?
+Stored results for past worksheet versions¶
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
+Note
 
-SyntaxParametersUsage notesExamplesLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+Available to most accounts. Accounts in U.S. government regions, accounts using Virtual Private Snowflake (VPS), and accounts
+that use Private Connectivity to access Snowflake continue to see query results limited to 10,000 rows.
+
+All results for queries executed in worksheets are available for up to 24 hours. After 24 hours, you must run your query again to view
+results.
+
+To support contextual statistics and sharing worksheet results, the query results are cached for up to 90 days, or 25 worksheet versions,
+whichever is greater. This cache is included in the data storage usage for your account.
+
+Recover worksheets owned by a dropped user¶
+-------------------------------------------
+
+If you drop a user, you can recover up to 500 of the worksheets owned by that user. To recover the worksheets, do the following:
+
+Download recovered worksheetsowned by a dropped user.
+
+Create worksheets from a SQL fileto add the recovered worksheets back to Snowflake.
+
+
+If you want to change ownership or retain access to worksheets before dropping a user, ask that user to share the worksheets.
+See Sharing worksheets and folders.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/info-schema/table_storage_metrics.md
+docs.snowflake.com/en/sql-reference/sql-all.md
 
 Documentation Title:
-TABLE_STORAGE_METRICS View | Snowflake Documentation
+All Commands (Alphabetical) | Snowflake Documentation
 
 Documentation Content:
-|TABLE\_CREATED
-
-TIMESTAMP\_LTZ
-
-Date and time at which the table was created.
+|SHOW SHARES IN REPLICATION GROUPLists shares in a replication group.
 
 
-|TABLE\_DROPPED
-
-TIMESTAMP\_LTZ
-
-Date and time at which the table was dropped. NULL if table has not been dropped.
+|SHOW SNAPSHOTSLists the snapshotsfor which you have access privileges.
 
 
-|TABLE\_ENTERED\_FAILSAFE
-
-TIMESTAMP\_LTZ
-
-Date and time at which the table, if dropped, entered the Fail-safe state, or NULL. In this state, the table cannot be restored using UNDROP.
+|SHOW STAGESLists all the stages for which you have access privileges.
 
 
-|CATALOG\_CREATED
-
-TIMESTAMP\_LTZ
-
-Date and time at which the database containing the table was created.
+|SHOW STREAMLITSLists the Streamlit objects for which you have access privileges.
 
 
-|CATALOG\_DROPPED
-
-TIMESTAMP\_LTZ
-
-Date and time at which the database containing the table was dropped.
+|SHOW STREAMSLists the streams for which you have access privileges.
 
 
-|SCHEMA\_CREATED
-
-TIMESTAMP\_LTZ
-
-Date and time at which the schema containing the table was created.
+|SHOW TABLESLists the tables for which you have access privileges, including dropped tables that are still within the Time Travel retention period and, therefore, can be undropped.
 
 
-|SCHEMA\_DROPPED
-
-TIMESTAMP\_LTZ
-
-Date and time at which the schema containing the table was dropped.
+|SHOW TAGSLists the tag information.
 
 
-|COMMENT
-
-TEXT
-
-Comment for the table.
+|SHOW TASKSLists the tasks for which you have access privileges.
 
 
+|SHOW TRANSACTIONSList all running transactions.
 
-Usage Notes¶
-------------
 
-There may be a 1-2 hour delay in updating storage related statistics for active\_bytes, time\_travel\_bytes,
-failsafe\_bytes, and retained\_for\_clone\_bytes.
+|SHOW USER FUNCTIONSLists all user-defined functions (UDFs) for which you have access privileges.
 
-* ID and CLONE\_GROUP\_ID:
+
+|SHOW USERSLists all users in the system.
+
+
+|SHOW VARIABLESLists all variablesdefined in the current session.
+
+
+|SHOW VERSIONSLists the versions defined in the specified application package.
+
+
+|SHOW VERSIONS IN MODELLists the versions in a machine learning model.
+
+
+|SHOW VIEWSLists the views, including secure views, for which you have access privileges.
+
+
+|SHOW WAREHOUSESLists all the warehouses in your account for which you have access privileges.
+
+
+**T**|TRUNCATE MATERIALIZED VIEWRemoves all rows from a materialized view, but leaves the view intact (including all privileges and constraints on the materialized view).
+
+
+|TRUNCATE TABLERemoves all rows from a table but leaves the table intact (including all privileges and constraints on the table).
+
+
+**U**|UNDROP Restores the specified object to the system.
+
+
+|UNDROP ACCOUNTRestores a dropped accountthat has not yet been permanently deleted (a dropped account that is within its grace period).
+
+
+|UNDROP DATABASERestores the most recent version of a dropped database.
+
+
+|UNDROP DYNAMIC TABLERestores the most recent version of a dropped dynamic table.
+
+
+|UNDROP EXTERNAL VOLUMERestores the most recent version of a dropped external volume.
+
+
+|UNDROP ICEBERG TABLERestores the most recent version of a dropped Iceberg table.
+
+
+|UNDROP SCHEMARestore the most recent version of a dropped schema.
 
 
 

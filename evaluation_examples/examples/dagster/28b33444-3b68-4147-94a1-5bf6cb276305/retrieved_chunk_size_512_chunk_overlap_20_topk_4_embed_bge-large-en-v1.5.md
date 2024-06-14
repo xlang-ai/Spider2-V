@@ -97,35 +97,28 @@ To view all sensors, navigate to **Overview > Sensors**. Here, you can start and
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/schedules-sensors.md
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.md
 
 Documentation Title:
-Dagster Docs
+Sensors | Dagster Docs
 
 Documentation Content:
-```
-instance=DagsterInstance.ephemeral()result=my_job.execute_in_process(instance=instance)dagster_run=result.dagster_rundagster_event=result.get_job_success_event()# or get_job_failure_event()context=build_run_status_sensor_context(sensor_name="run_status_sensor_to_invoke",dagster_instance=instance,dagster_run=dagster_run,dagster_event=dagster_event,)run_status_sensor_to_invoke(context)
-```
-@dagster.run\_status\_sensor(run\_status, *name=None*, *minimum\_interval\_seconds=None*, *description=None*, *monitored\_jobs=None*, *job\_selection=None*, *monitor\_all\_code\_locations=None*, *default\_status=DefaultSensorStatus.STOPPED*, *request\_job=None*, *request\_jobs=None*, *monitor\_all\_repositories=None*)[source]¶Creates a sensor that reacts to a given status of job execution, where the decorated
-function will be run when a job is at the given status.
+Cross-code location run status sensors
 
-Takes a RunStatusSensorContext.
+Sometimes, you may want to monitor jobs in a code location other than the one where the sensor is defined. You can use special identifiers `CodeLocationSelector`and `JobSelector`to tell a run status sensor to monitor jobs in another code location:
 
-Parameters:**run\_status**(*DagsterRunStatus*) – The status of run execution which will be
-monitored by the sensor.
+`@run_status_sensor(monitored_jobs=[CodeLocationSelector(location_name="defs")],run_status=DagsterRunStatus.SUCCESS,)defcode_location_a_sensor():# when any job in code_location_a succeeds, this sensor will triggersend_slack_alert()@run_failure_sensor(monitored_jobs=[JobSelector(location_name="defs",repository_name="code_location_a",job_name="data_update",)],)defcode_location_a_data_update_failure_sensor():# when the data_update job in code_location_a fails, this sensor will triggersend_slack_alert()`You can also monitor every job in your Dagster instance by specifying `monitor_all_code_locations=True`on the sensor decorator. Note that `monitor_all_code_locations`cannot be used along with jobs specified via `monitored_jobs`.
 
-**name**(*Optional**[**str**]*) – The name of the sensor. Defaults to the name of the decorated function.
+`@run_status_sensor(monitor_all_code_locations=True,run_status=DagsterRunStatus.SUCCESS,)defsensor_monitor_all_code_locations():# when any job in the Dagster instance succeeds, this sensor will triggersend_slack_alert()`Testing run status sensors#
+---------------------------
 
-**minimum\_interval\_seconds**(*Optional**[**int**]*) – The minimum number of seconds that will elapse
-between sensor evaluations.
+As with other sensors, you can directly invoke run status sensors. However, the `context`provided via `run_status_sensor`and `run_failure_sensor`contain objects that are typically only available during run time. Below you'll find code snippets that demonstrate how to build the context so that you can directly invoke your function in unit tests.
 
-**description**(*Optional**[**str**]*) – A human-readable description of the sensor.
+If you had written a status sensor like this (assuming you implemented the function `email_alert`elsewhere):
 
-**monitored\_jobs**(*Optional**[**List**[**Union**[**JobDefinition**,* *GraphDefinition**,* *UnresolvedAssetJobDefinition**,* *RepositorySelector**,* *JobSelector**,* *CodeLocationSelector**]**]**]*) – Jobs in the current code locations that will be monitored by this sensor. Defaults to None, which means the alert will
-be sent when any job in the code location matches the requested run\_status. Jobs in external repositories can be monitored by using
-RepositorySelector or JobSelector.
+`@run_status_sensor(run_status=DagsterRunStatus.SUCCESS)defmy_email_sensor(context:RunStatusSensorContext):message =f'Job "{context.dagster_run.job_name}" succeeded.'email_alert(message)`We can first write a simple job that will succeed:
 
-**monitor\_all\_code\_locations**(*Optional**[**bool**]*) – If set to True, the sensor will monitor all runs in the Dagster instance.
+`@opdefsucceeds():return1@jobdefmy_job_succeeds():succeeds()`Then we can execute this job and pull the attributes we need to build the `context`.
 
 
 

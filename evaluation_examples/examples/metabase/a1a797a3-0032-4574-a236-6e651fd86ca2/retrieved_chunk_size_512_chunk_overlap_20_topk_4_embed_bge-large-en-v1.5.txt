@@ -1,4 +1,117 @@
 Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/managing.txt
+
+Documentation Title:
+Managing people and groups
+
+Documentation Content:
+If they log in using Google credentials, Metabase displays a Google icon.
+If they log in using an email address and password stored in Metabase, no icon is shown.
+Note that the type of user is set when the account is first created: if you create a user in Metabase, but that person then logs in via Google or some other form of SSO, the latter’s icon will
+not
+show up next to their name.
+Resetting someone’s password
+If you’ve already
+configured your email settings
+, people can reset their passwords using the “forgot password” link on the login screen. If you haven’t yet configured your email settings, they will see a message telling them to ask an admin to reset their password for them.
+To reset a password for someone, just click the three dots icon next to their account and choose
+Reset Password
+. If you haven’t
+configured your email settings
+yet, you’ll be given a temporary password that you’ll have to share with that person. Otherwise, they’ll receive a password reset email.
+Resetting the admin password
+If you’re using Metabase Cloud,
+contact support
+to reset your admin password.
+If you’re a Metabase admin and have access to the server console, you can get Metabase to send you a password reset token:
+Stop the running Metabase application.
+Restart Metabase with
+reset-password email@example.com
+, where “email@example.com” is the email associated with the admin account:
+java -jar metabase.jar reset-password email@example.com
+Metabase will print out a random token like this:
+...
+Resetting password for email@example.com...
+
+OK [[[1_7db2b600-d538-4aeb-b4f7-0cf5b1970d89]]]
+Start Metabase normally again (
+without
+the
+reset-password
+option).
+Navigate to it in your browser using the path
+/auth/reset_password/:token
+, where “:token” is the token that was generated from the step above.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/account-settings.txt
+
+Documentation Title:
+Account settings
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+People and Groups
+Account settings
+You can view your account settings by going to the top right of the screen and clicking on the
+gear
+icon >
+Account settings
+.
+Account profile
+You can set your first and last names, change your email address, and set your language. See our list of
+supported languages
+.
+Account password
+You can change your password here. Note that if your Metabase uses Single Sign-On (SSO), your administrator will have disabled this password section, as your identity provider will manage logins.
+If you’re having trouble logging in, see our
+People can’t log into Metabase
+.
+Account login history
+The login history lists each login, along with some location information (if available), and some client information (like Browser (Firefox/Windows)).
+If you see any suspicious login attempts, change your password and notify your administrator.
+A note about new login emails
+Whenever you log in from a new device, Metabase will send you an email just to let you know someone (presumably you) has logged in from an unrecognized device. If you see this email, but don’t remember logging in, or don’t recognize the device, change your password and let your administrator know.
+Disable animations in Metabase
+This isn’t an in-Metabase setting, but just so you know: you can disable UI animations in Metabase (like sidebars sliding around, or rotating spinners) by changing the settings for your operating system so it respects the
+prefers-reduced-motion
+CSS media feature. This change will also affect other applications, not just Metabase. Check out the instructions for how to set the user preferences for your operating system in the
+MDN Web Docs
+.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.txt
 
 Documentation Title:
@@ -92,303 +205,66 @@ Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/api/user.txt
+www.metabase.com/docs/v0.49/people-and-groups/managing.txt
 
 Documentation Title:
-User
+Managing people and groups
 
 Documentation Content:
-PARAMS:
-id
-value must be an integer greater than zero.
-modal
-PUT /api/user/:id/password
-Update a user’s password.
-PARAMS:
-id
-value must be an integer greater than zero.
-password
-password is too common.
-old_password
-request
-PUT /api/user/:id/reactivate
-Reactivate user at
-:id
+The full URL should look something like this:
+https://metabase.example.com/auth/reset_password/1_7db2b600-d538-4aeb-b4f7-0cf5b1970d89
+You should now see a page where you can input a new password for the admin account.
+Unsubscribe from all subscriptions / alerts
+This action will delete any dashboard subscriptions or alerts the person has created, and remove them as a recipient from any other subscriptions or alerts.
+This action doesn’t affect email distribution lists that are managed outside of Metabase.
+Default user accounts
+Metabase includes default user accounts to handle various tasks. We’re documenting these accounts here so you know they’re legitimate accounts and not someone trying to spy on your Metabase. Some things to know about them:
+Customers are not charged for these accounts.
+No one can log in to these user accounts.
+Metabase excludes these user accounts from the
+Admin settings
+>
+People
+tab.
+Anonymous user account
+ID: 0
+First name: External
+Last name: User
+Email: null
+Metabase uses this anonymous user account to identify anonymous views, for example views of a
+public question or dashboard
+. This account is a virtual user: the account doesn’t exist in the application database. You’ll see this account show up in
+usage analytics
 .
-You must be a superuser to do this.
-PARAMS:
-id
-value must be an integer greater than zero.
-« Back to API index
-Read docs for other
-versions of Metabase
+Metabase internal account
+ID: 13371338
+First name: Internal
+Last name: Metabase
+Email: internal@metabase.com
+Metabase uses this account to load content into Metabase (like the
+Metabase analytics
+collection). You may see this
+internal@metabase.com
+account in the logs.
+Groups
+To determine
+who has access to what
+, you’ll need to
+Create one or more groups.
+Choose which level of access that group has to different databases, collections, and so on.
+Then add people to those groups.
+(Optional) promote people to
+group managers
 .
-Did this article help you?
-Yes
-No
-Send
-Thanks for your feedback!
-Want to improve these docs?
-Propose a change.
-Subscribe to our newsletter
-Stay in touch with updates and news from Metabase. No spam, ever.
-Product
-Watch Demo
-Data Sources
-Security
-Cloud
-Roadmap
-What's New
-Pricing
-Plans
-Open Source
-Use Cases
-Self-Service Business Analytics
-Embedded Analytics
-Metabase Plans
-Starter and Open Source
-Pro
-Enterprise
-Features
-Query Builder
-Drill Through
-Collections
-Usage analytics
-New
-Analytics dashboards
-SQL editor
-Sandboxing
-Models
-Permissions
-CSV upload
-Company
-Jobs
-We're hiring!
-Privacy Policy
-Terms of Service
-License
-Brand Guidelines
-Support
-Documentation
-Help
-Professional Services
-Onboarding
-New
-Status
-Github
-Resources
-Case Studies
-Blog
-Learn
-Community Stories
-Data and Business Intelligence Glossary
-Partners
-The Startup's Guide to Financial Modeling
-The 2023 Metabase Community Data Stack Report
-More Resources
-Example Dashboards
-SQL Best Practices
-Choosing a Data Warehouse
-How to Create Pivot Tables
-Types of SQL Joins
-SQL Cheat Sheet
-Data Bias Examples
-Modern Data Stack
-Dashboard for Marketing Teams
-Dashboards for Sales Teams
-Dashboards for Engineering Teams
-© Metabase 2024
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/people-and-groups/changing-password-complexity.txt
-
-Documentation Title:
-Password complexity
-
-Documentation Content:
-Password complexity
-Upcoming
-Metabase for advanced users
-Register Now
-×
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Self-service BI in 5 minutes
-Pro
-Advanced tools and controls
-Enterprise
-White-glove treatment
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Watch a 5-minute demo
-to see how to set up and publish a dashboard
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-New
-Metabase 49:
-New tools for dashboard creators, data sharers, and more
-Documentation
-Resources
-Learn
-Guides on working with data
-Blog
-News, updates, and ideas
-Events
-Join a live event or watch on demand
-Customers
-Real companies, real data, real stories
-Discussion
-Share and connect with other users
-Metabase Experts
-Find an expert partner
-Community Stories
-Practical advice from our community
-Startup Guide to Financial Modeling
-New
-Modeling financial data with Metabase
-Community Data Stack Report
-New
-See how others work with data
-Recent Blog Posts
-Set up a basic pipeline for log analysis
-Embed a Metabase dashboard in Zendesk
-Keeping tabs on embedded analytics
-Pricing
-Log in
-Get started
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Pro
-Enterprise
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Collections and verified items
-Keep things organized
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone,
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/releases.txt
-
-Documentation Title:
-Metabase versions
-
-Documentation Content:
-47.2
-v1.47.1
-v1.47.0
-v1.46.8
-v1.46.7
-v1.46.6.4
-v1.46.6.3
-v1.46.6.2
-v1.46.6.1
-v1.46.6
-v1.46.5
-v1.46.4
-v1.46.3
-v1.46.2
-v1.46.1
-v1.46.0
-v1.45.4.3
-v1.45.4.2
-v1.45.4.1
-v1.45.4
-v1.45.3.1
-v1.45.3
-v1.45.2.1
-v1.45.2
-v1.45.1
-v1.45.0
-v1.44.7.3
-v1.44.7.2
-v1.44.7.1
-v1.44.7
-v1.44.6.1
-v1.44.6
-v1.44.5
-v1.44.4
-v1.44.3
-v1.44.2
-v1.44.1
-v1.44.0
-v1.43.7.3
-v1.43.7.2
-v1.43.7.1
-v1.43.7
-v1.43.5
-v1.43.4.2
-v1.43.4.1
-v1.43.4
-v1.43.3
-v1.43.2
-v1.43.1
-v1.43.0
-v1.42.6
-v1.42.4
-v1.42.3
-v1.42.2
-v1.42.1
-v1.42.0
-v1.41.9
-v1.41.7
-v1.41.6
-v1.41.5
-v1.41.4
-v1.41.3.1
-v1.41.3
-v1.41.2
-v1.41.
+To view and manage your groups, go to the
+Admin Panel
+>
+People
+tab, and then click on
+Groups
+from the side menu.
+Special default groups
+Every Metabase has two default groups: Administrators and All Users. These are special groups that can’t be removed.
 
 
 

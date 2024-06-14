@@ -14,17 +14,6 @@ That returns an <code>ExecuteInProcessResult</code>object, whose methods let us 
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/assets/asset-checks.html
-
-Documentation Title:
-Asset checks | Dagster
-
-Documentation Content:
-Checks can also be executed on a one-off basis using the Dagster UI. Refer to the <a>Executing checks</a>section of the <a>Defining and executing asset checks</a>guide for more info.</p><p>With asset checks, you can also:</p><ul><li>Block downstream execution based on check results</li><li>Use severity levels and metadata <a>to communicate actionable details about check results in the UI</a></li><li>Use freshness checks <a>to identify stale assets that are due for a refresh</a></li><li><strong>Dagster+ only</strong>: <a>Create alerts based on asset check results</a></li></ul><h2>Limitations<span>#</span></h2><ul><p><strong>Dagster's UI is tested with a maximum of 1000 checks per asset.</strong>It's designed with the expectation that most assets will have fewer than 50 checks. If you have a use case that doesn't fit these limits, reach out to Dagster support to discuss.</p><p><strong>Checks are currently only supported per-asset, not per-partition.</strong>See <a>this issue</a>for updates.</p></ul></div></div></div><div><div><div>On This Page</div><li><a>Asset checks</a><ol><a>Benefits</a><a>How it works</a><a>Limitations</a></ol></li></div><a>Edit Page on GitHub</a><button>Share Feedback</button><a>Star</a></div></div></div></div></body>
-
-
-
-Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/guides/dagster/testing-assets.html
 
 Documentation Title:
@@ -36,13 +25,31 @@ I can't wait to use it!"</span><span>}</span><span>,</span><span>{</span><span>"
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/assets/software-defined-assets.html
+release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.html
 
 Documentation Title:
-Software-defined assets | Dagster
+Tutorial, part four: Building an asset graph | Dagster Docs
 
 Documentation Content:
-This allows you to test assets in isolation from one another:</p><code><span>def</span><span>test_more_complex_asset</span><span>(</span><span>)</span><span>:</span>result <span>=</span>more_complex_asset<span>(</span><span>[</span><span>0</span><span>]</span><span>)</span><span>assert</span>result <span>==</span><span>[</span><span>0</span><span>,</span><span>4</span><span>,</span><span>5</span><span>,</span><span>6</span><span>]</span></code><p>If you use config of resources in your asset, they will be provided automatically during execution. When writing unit tests, you may provide them directly when invoking the asset function:</p><code><span>class</span><span>MyConfig</span><span>(</span>Config<span>)</span><span>:</span>api_url<span>:</span><span>str</span><span>class</span><span>MyAPIResource</span><span>(</span>ConfigurableResource<span>)</span><span>:</span><span>def</span><span>query</span><span>(</span>self<span>,</span>url<span>)</span><span>-</span><span>&gt;</span>Dict<span>[</span><span>str</span><span>,</span>Any<span>]</span><span>:</span><span>return</span>requests<span>.</span>get<span>(</span>url<span>)</span><span>.</span>json<span>(</span><span>)</span><span>@asset</span><span>def</span><span>uses_config_and_resource</span><span>(</span>config<span>:</span>MyConfig<span>,</span>my_api<span>:</span>MyAPIResource<span>)</span><span>:</span><span>return</span>my_api<span>.</span>query<span>(</span>config<span>.
+and manually materialized your asset.</p><p>Continuing from there, you will:</p><ul><li>Add more assets to your Dagster project</li><li>Connect them to finish creating the pipeline</li><li>Give users more knowledge about the assets by adding metadata and logging</li></ul><h2>Step 1: Adding the DataFrame asset<span>#</span></h2><p>Using the top Hacker News story IDs, you'll now look up each story by its ID, ingest that data, and make a DataFrame out of it. You'll connect your current asset with this new asset to establish dependencies and make an <em>asset graph</em>.</p><p>Modify your <code>assets.py</code>to add the <code>pandas</code>import and a new asset called <code>topstories</code>:</p><span>Add new imports, such as <code>import pandas as pd</code>, to the top of<code>assets.py</code></span><code><span>import</span>json
+<span>import</span>os
+
+<span>import</span>pandas <span>as</span>pd  <span># Add new imports to the top of `assets.py`</span><span>import</span>requests
+
+<span>from</span>dagster <span>import</span>asset
+
+<span># . Keep the `topstory_ids` asset from the previous section</span><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>topstory_ids<span>]</span><span>)</span><span># this asset is dependent on topstory_ids</span><span>def</span><span>topstories</span><span>(</span><span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span><span>with</span><span>open</span><span>(</span><span>"data/topstory_ids.json"</span><span>,
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/dbt/using-dbt-with-dagster/load-dbt-models.html
+
+Documentation Title:
+Using Dagster with dbt, part 2: Load dbt models as Dagster assets
+
+Documentation Content:
+Materializing an asset means running some computation to update its contents in persistent storage. In this tutorial, that persistent storage is our local DuckDB database.</p><p>To build your dbt project, i.e. materialize your assets, click the <strong>Materialize all</strong>button near the top right corner of the page. This will launch a run to materialize the assets. When finished, the <strong>Materialized</strong>and <strong>Latest Run</strong>attributes in the asset will be populated:</p><img/><p>After the run completes, you can:</p><ul><li>Click the <strong>asset</strong>to open a sidebar containing info about the asset, including its last materialization stats and a link to view the <a><strong>Asset details</strong>page</a></li><li>Click the ID of the <strong>Latest Run</strong>in an asset to view the <strong>Run details</strong>page. This page contains detailed info about the run, including timing information, errors, and logs.</li></ul><h2>Step 4: Understand the Python code in your Dagster project<span>#</span></h2><p>You saw how you can create a Dagster project that loads a dbt project. How does this work? Understanding how Dagster loads a dbt project will give you a foundation for customizing how Dagster runs your dbt project, as well as for connecting it to other data assets outside of dbt.</p><p>The most important file is the Python file that contains the set of definitions for Dagster to load: <code>jaffle_shop/definitions.py</code>. Dagster executes the code in this file to find out what assets it should be aware of, as well as details about those assets.
 
 
 

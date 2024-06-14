@@ -48,17 +48,6 @@ Documentation Title:
 Sqlite | Airbyte Documentation
 
 Documentation Content:
-Sync Overview​
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/sqlite.md
-
-Documentation Title:
-Sqlite | Airbyte Documentation
-
-Documentation Content:
 To change this location, modify the `LOCAL_ROOT`environment variable for Airbyte.
 
 cautionPlease make sure that Docker Desktop has access to `/tmp`(and `/private`on a MacOS, as /tmp has a symlink that points to /private. It will not work otherwise). You allow it with "File sharing" in `Settings -> Resources -> File sharing -> add the one or two above folder`and hit the "Apply & restart" button.
@@ -72,17 +61,49 @@ Documentation Title:
 Sqlite | Airbyte Documentation
 
 Documentation Content:
-Features​
+Performance considerations​
+
+This integration will be constrained by the speed at which your filesystem accepts writes.
+
+Getting Started​
+----------------
+
+The `destination_path`will always start with `/local`whether it is specified by the user or not. Any directory nesting within local will be mapped onto the local mount.
+
+By default, the `LOCAL_ROOT`env variable in the `.env`file is set `/tmp/airbyte_local`.
+
+The local mount is mounted by Docker onto `LOCAL_ROOT`. This means the `/local`is substituted by `/tmp/airbyte_local`by default.
 
 
 
-| Feature | Supported |
-| --- | --- |
-| Full Refresh Sync | Yes |
-| --- | --- |
-| Incremental - Append Sync | Yes |
-| Incremental - Append + Deduped | No |
-| Namespaces | No |
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/locating-files-local-destination.md
+
+Documentation Title:
+Windows - Browsing Local File Output | Airbyte Documentation
+
+Documentation Content:
+Note that there are scenarios where you may not be able to browse to the actual files in which case, use the below method to take a local copy.
+
+Use Docker to Copy your temp folder files​
+------------------------------------------
+
+Note that this method does not allow direct access to any files directly, instead it creates local, readable copies.
+
+1. Open and standard CMD shell
+2. Type the following (where ``is the path on your Windows host machine to place copies)
+`docker cp airbyte-server:/tmp/airbyte_local `
+3. This will copy the entire `airbyte_local`folder to your host machine.
+
+Note that if you know the specific filename or wildcard, you can add append it to the source path of the `docker cp`command.
+
+Notes​
+------
+
+1. Local JSON and Local CSV files do not persist between Docker restarts. This means that once you turn off your Docker image, your data is lost. This is consistent with the `tmp`nature of the folder.
+2. In the root folder of your docker files, it might generate tmp and var folders that only have empty folders inside.
+Edit this pageOverviewLocating where your temp folder isUse Docker to Copy your temp folder filesNotes
+Was this page helpful?YesNo
 
 
 

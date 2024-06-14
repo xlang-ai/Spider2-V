@@ -1,294 +1,263 @@
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/create-user.txt
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.txt
 
 Documentation Title:
-CREATE USER | Snowflake Documentation
+Create users and grant roles | Snowflake Documentation
 
 Documentation Content:
-See also:
-DROP USER
-,
-ALTER USER
-,
-DESCRIBE USER
-,
-SHOW PARAMETERS
-Syntax
-¶
+For DEFAULT_WAREHOUSE, use
+COMPUTE_WH
+.
 CREATE
-[
 OR
 REPLACE
-]
 USER
-[
-IF
-NOT
-EXISTS
-]
-<name>
-[
-objectProperties
-]
-[
-objectParams
-]
-[
-sessionParams
-]
-[
-[
-WITH
-]
-TAG
-(
-<tag_name>
-=
-'
-<tag_value>
-'
-[
-,
-<tag_name>
-=
-'
-<tag_value>
-'
-,
-.
-]
-)
-]
-Copy
-Where:
-objectProperties
-::=
+snowman
 PASSWORD
 =
-'
-<string>
-'
+'sn0wf@ll'
 LOGIN_NAME
 =
-<string>
-DISPLAY_NAME
-=
-<string>
+'snowstorm'
 FIRST_NAME
 =
-<string>
-MIDDLE_NAME
-=
-<string>
+'Snow'
 LAST_NAME
 =
-<string>
+'Storm'
 EMAIL
 =
-<string>
+'snow.storm@snowflake.com'
 MUST_CHANGE_PASSWORD
 =
-TRUE
-|
-FALSE
-DISABLED
-=
-TRUE
-|
-FALSE
-DAYS_TO_EXPIRY
-=
-<integer>
-MINS_TO_UNLOCK
-=
-<integer>
+true
 DEFAULT_WAREHOUSE
 =
-<string>
-DEFAULT_NAMESPACE
-=
-<string>
-DEFAULT_ROLE
-=
-<string>
-D
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/create-user.txt
-
-Documentation Title:
-CREATE USER | Snowflake Documentation
-
-Documentation Content:
-LT_ROLE
-=
-<string>
-DEFAULT_SECONDARY_ROLES
-=
-(
-'
-ALL
-'
-)
-MINS_TO_BYPASS_MFA
-=
-<integer>
-RSA_PUBLIC_KEY
-=
-<string>
-RSA_PUBLIC_KEY_FP
-=
-<string>
-RSA_PUBLIC_KEY_2
-=
-<string>
-RSA_PUBLIC_KEY_2_FP
-=
-<string>
-COMMENT
-=
-'
-<string_literal>
-'
+COMPUTE_WH
+;
 Copy
-objectParams
-::=
-ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR
-=
-TRUE
-|
-FALSE
-NETWORK_POLICY
-=
-<string>
-Copy
-sessionParams
-::=
-ABORT_DETACHED_QUERY
-=
-TRUE
-|
-FALSE
-AUTOCOMMIT
-=
-TRUE
-|
-FALSE
-BINARY_INPUT_FORMAT
-=
-<string>
-BINARY_OUTPUT_FORMAT
-=
-<string>
-DATE_I
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/admin-user-management.txt
-
-Documentation Title:
-User management | Snowflake Documentation
-
-Documentation Content:
-Optionally specify an email address for the user in the
-Email
-field.
-In the
-Password
-and
-Confirm Password
-fields, enter the password for the user.
-Optionally add a comment explaining why you created the user.
-Leave the
-Force user to change password on first time login
-checkbox selected to force the user to change their password when they
-sign in.
-Optionally select
-Advanced User Options
-to specify additional details about the user:
-Login Name
-to use instead of the
-User Name
-when signing in to Snowflake.
-Display Name
-that appears after signing in.
-First Name
-and
-Last Name
-to complete the user profile.
-Default Role
+This command returns the following output:
+User SNOWMAN successfully created.
+If you were creating a real user in a real Snowflake account, you would now send the
+following information in a secure manner to the person who would need to access
+this new account:
+Snowflake Account URL: the Snowflake account link where the user will log in.
+You can find this link at the top of your browser
+(for example:
+https://app.snowflake.com/myorg/myaccount/
 ,
-Default Warehouse
-, and
-Default Namespace
-.
-Select
-Create User
-.
-Using Classic Console
+where
+myorg
+is the Snowflake organization ID, and
+myaccount
+is the account ID).
+LOGIN_NAME, as specified in the CREATE USER command.
+PASSWORD, as specified in the CREATE USER command.
+Step 5. Grant a system role and warehouse access to the user
 ¶
+Now that you have created a user, you can use the SECURITYADMIN role to grant the
+SYSADMIN role to the user, as well as grant USAGE on the COMPUTE_WH warehouse.
+Granting a role to another role creates a parent-child relationship between the roles
+(also referred to as a role hierarchy). Granting a role to a user enables the user to perform
+all operations allowed by the role (through the access privileges granted to the role).
+The SYSADMIN role has privileges to create warehouses, databases, and database objects
+in an account and grant those privileges to other roles. Only grant this role to users who should
+have these privileges. For information about other system-defined roles, see
+see
+Overview of Access Control
+.
+To grant the user access to a role and a warehouse, do the following:
+In the open worksheet, place your cursor in the
+USE ROLE
+line,
+then select
+Run
+.
+USE
+ROLE
+SECURITYADMIN
+;
+Copy
+Place your cursor in the
+GRANT ROLE
+line, enter the name of the user you created,
+then select
+Run
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.txt
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+GRANT
+ROLE
+SYSADMIN
+TO
+USER
+snowman
+;
+Copy
+Place your cursor in the GRANT USAGE line, then select
+Run
+.
+GRANT
+USAGE
+ON
+WAREHOUSE
+COMPUTE_WH
+TO
+ROLE
+SYSADMIN
+;
+Copy
+Step 6. Explore the users and roles in your account
+¶
+Now you can explore all the users and roles in your account by using the ACCOUNTADMIN role.
+To explore users and roles, do the following:
+In the open worksheet, place your cursor in the
+USE ROLE
+line,
+then select
+Run
+.
+USE
+ROLE
+ACCOUNTADMIN
+;
+Copy
+Place your cursor in the
+SHOW USERS
+line, then select
+Run
+.
+SHOW USERS
+;
+Copy
+Your output looks similar to the following image.
+Place your cursor in the
+SHOW ROLES
+line, then select
+Run
+.
+SHOW ROLES
+;
+Copy
+Your output looks similar to the following image.
+Step 7. Drop the user and review key points
+¶
+Congratulations! You have successfully completed this tutorial for trial accounts.
+Take a few minutes to review the key points that were covered.
+Learn more by reviewing other topics in the Snowflake Documentation.
+Drop the user
+¶
+Assuming that it is no longer needed, you can now drop the user you created.
+In the open worksheet, place your cursor in the
+DROP USER
+line,
+enter the name of the user you created, then select
+Run
+.
+DROP
+USER
+snowman
+;
+Copy
+Review key points
+¶
+In summary, you used a pre-loaded worksheet in Snowsight to complete the following steps:
+Set the role to use.
+Create a new user.
+Grant the user role privileges and access to a warehouse.
+Explore the users and roles in the account.
+Drop the user you created.
+Here are some key points to remember about users and roles:
+You need the required permissions to create and manage objects in your account. In this tutorial,
+you used the USERADMIN, SECURITYADMIN, SYSADMIN, and ACCOUNTADMIN system roles for different purposes.
+The ACCOUNTADMIN role is not normally used to create objects. Instead, we recommend creating a
+hierarchy of roles aligned with business functions in your organization. For more information, see
+Using the ACCOUNTADMIN Role
+.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.txt
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+Sign in using your Snowflake account credentials.
+Step 2. Open the [Template] worksheet
+¶
+You can use worksheets to write and run SQL commands on your database.
+Your trial account has access to a pre-loaded template worksheet for this tutorial.
+The worksheet contains the SQL commands that you will run to set the role context,
+create a user, and grant role privileges. Because it is a template worksheet, you
+will be invited to enter your own values for certain SQL parameters.
+For more information about worksheets, see
+Getting started with worksheets
+.
+To open the worksheet:
 Select
-Account
+Projects
 »
-Users
+Worksheets
+to open the list of worksheets.
+Open
+[Template] Adding a user and granting roles
 .
-Select
-Create
-.
-In the
-User Name
-field, enter a unique identifier for the user.
-Note
-User name is the unique identifier for the user in Snowflake. It is
-not
-the user’s login name (i.e. the name the user enters when logging into Snowflake). Snowflake allows users to have different user names and login names, if desired. You specify a login name for the user on the next screen.
-In the
-Password
-and
-Confirm Password
-fields, enter the password for the user.
-Leave the
-Force Password Change
-checkbox selected to force the user to change their password on their next login; otherwise, clear the checkbox.
-Select
-Next
-. The
-Advanced
-screen opens.
-Optionally enter the
-Login Name
-,
-Display Name
-, and personal information for the user.
-Note
-Users require a login name to log into Snowflake; if you don’t explicitly provide a login name, Snowflake uses their user name as the login name.
-Select
-Next
-. The
-Preferences
-screen opens.
-Optionally enter defaults for the user:
-Virtual warehouse
-Namespace in the form of
-db_name
-or
-db_name
-.
-schema_name
-Role
-Select
-Finish
-. Snowflake displays a success message.
-Using SQL
+Your browser looks similar to the following image.
+Step 3. Set the role to use
 ¶
-Use the
+The role you use determines the privileges you have. In this tutorial, use the
+USERADMIN system role so that you can create and manage users and roles in your
+account. For more information, see
+Overview of Access Control
+.
+To set the role to use, do the following:
+In the open worksheet, place your cursor in the
+USE ROLE
+line.
+USE
+ROLE
+USERADMIN
+;
+Copy
+In the upper-right corner of the worksheet, select
+Run
+.
+Note
+In this tutorial, run SQL statements one at a time. Do not select
+Run All
+.
+Step 4. Create a user
+¶
+A Snowflake user has login credentials. When a user is granted a role, the user can
+perform all the operations that the role allows, via the privileges that were
+granted to the role. For more information, see
+User management
+.
+In this step of the tutorial, you create a user with a name, a password, and some
+other properties.
+In the open worksheet, place your cursor in the
 CREATE USER
-command to create a user.
-Important
-When creating a user, if you assign a default role to the user, you must then explicitly grant this role to the user.
+line,
+insert a username and other parameter values of your choice (an example is shown below), and
+select
+Run
+.
+For MUST_CHANGE_PASSWORD, set the value to
+true
+, which ensures that a password
+reset is requested on first login. For DEFAULT_WAREHOUSE, use
+COMPUTE_WH
+.
 
 
 

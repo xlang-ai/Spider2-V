@@ -1,45 +1,50 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.html
+docs.snowflake.com/en/user-guide/cleanrooms/external-data-gcp.html
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Snowflake Data Clean Room: External data from Google Cloud Platform | Snowflake Documentation
 
 Documentation Content:
-4.16</td><td>2022-02-25</td><a>#10627</a><td>Add try catch to make sure all handlers are closed</td></tr><tr><td>0.4.15</td><td>2022-02-22</td><a>#10459</a><td>Add FailureTrackingAirbyteMessageConsumer</td></tr><tr><td>0.4.14</td><td>2022-02-17</td><a>#10394</a><td>Reduce memory footprint.</td></tr><tr><td>0.4.13</td><td>2022-02-16</td><a>#10212</a><td>Execute COPY command in parallel for S3 and GCS staging</td></tr><tr><td>0.4.12</td><td>2022-02-15</td><a>#10342</a><td>Use connection pool, and fix connection leak.</td></tr><tr><td>0.4.11</td><td>2022-02-14</td><a>#9920</a><td>Updated the size of staging files for S3 staging. Also, added closure of S3 writers to staging files when data has been written to an staging file.</td></tr><tr><td>0.4.10</td><td>2022-02-14</td><a>#10297</a><td>Halve the record buffer size to reduce memory consumption.</td></tr><tr><td>0.4.9</td><td>2022-02-14</td><a>#10256</a><td>Add <code>ExitOnOutOfMemoryError</code>JVM flag.</td></tr><tr><td>0.4.8</td><td>2022-02-01</td><a>#9959</a><td>Fix null pointer exception from buffered stream consumer.</td></tr><tr><td>0.4.7</td><td>2022-01-29</td><a>#9745</a><td>Integrate with Sentry.</td></tr><tr><td>0.
+If you are signed out of the
+clean room, see <span>Sign in to the web app</span>.</p><p>Select the GCP bucket you are connecting to, and select <span>Authenticate</span>.</p></ol></section></section><section><h2>Remove access to external data on GCP<a>¶</a></h2><p>To remove access to a GCP bucket from a clean room environment:</p><ol><p>Navigate to the <a>sign in page</a>.</p><p>Enter your email address, and select <span>Continue</span>.</p><p>Enter your password.</p><p>If you are associated with multiple clean room environments, select the Snowflake account you want to use.</p><p>In the left navigation, select <span>Connectors</span>, then expand the <span>Google Cloud</span>section.</p><p>Find the GCP bucket that is currently connected, and select the trash can icon.</p></ol></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.html
+docs.snowflake.com/en/user-guide/client-redirect.html
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Redirecting client connections | Snowflake Documentation
 
 Documentation Content:
-1.3</td><td>2023-08-25</td><a>#29881</a><td>Destinations v2: Only run T+D once at end of sync, to prevent data loss under async conditions</td></tr><tr><td>2.1.2</td><td>2023-08-24</td><a>#29805</a><td>Destinations v2: Don't soft reset in migration</td></tr><tr><td>2.1.1</td><td>2023-08-23</td><a>#29774</a><td>Destinations v2: Don't soft reset overwrite syncs</td></tr><tr><td>2.1.0</td><td>2023-08-21</td><a>#29636</a><td>Destinations v2: Several Critical Bug Fixes (cursorless dedup, improved floating-point handling, improved special characters handling; improved error handling)</td></tr><tr><td>2.0.0</td><td>2023-08-09</td><a>#28894</a><td>Remove support for Snowflake GCS/S3 loading method in favor of Snowflake Internal staging</td></tr><tr><td>1.3.3</td><td>2023-08-15</td><a>#29461</a><td>Changing a static constant reference</td></tr><tr><td>1.3.2</td><td>2023-08-11</td><a>#29381</a><td>Destinations v2: Add support for streams with no columns</td></tr><tr><td>1.3.1</td><td>2023-08-04</td><a>#28894</a><td>Destinations v2: Update SqlGenerator</td></tr><tr><td>1.3.0</td><td>2023-08-07</td><a>#29174</a><td>Destinations v2: early access release</td></tr><tr><td>1.2.
+Select the <span>More</span>menu (<span>…</span>) in the last column of the row.</p></ol></section><section><h3>Modify target accounts for a connection using SQL<a>¶</a></h3><p>You can add more than one target account for a primary connection using the <span>ALTER CONNECTION</span>command.
+For an example, see <span>Examples</span>.</p></section></section><section><h2>Dropping a connection<a>¶</a></h2><p>You can drop a connection using Snowsight or SQL.</p><section><h3>Drop a connection using Snowsight<a>¶</a></h3><aside><p><img/><span>Preview Feature</span>— Open</p><p>Client Redirect in Snowsight is available to all accounts that are Business Critical Edition (or higher).
+Currently this feature is not supported for accounts using private connectivity.</p></aside><p>To delete a connection, you must sign in as a user with the ACCOUNTADMIN role to the <em>source</em>account with the primary connection.</p><ol><p>Sign in to Snowsight and navigate to <span>Admin</span>» <span>Accounts</span>.</p><p>Select <span>Client Redirect</span>.</p><p>Locate the connection you want to delete.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.html
+docs.snowflake.com/en/user-guide/client-redirect.html
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Redirecting client connections | Snowflake Documentation
 
 Documentation Content:
-4.47</td><td>2023-01-30</td><a>#21912</a><td>Catch "Create" Table and Stage Known Permissions and rethrow as ConfigExceptions</td></tr><tr><td>0.4.46</td><td>2023-01-26</td><a>#20631</a><td>Added support for destination checkpointing with staging</td></tr><tr><td>0.4.45</td><td>2023-01-25</td><a>#21087</a><td>Catch Known Permissions and rethrow as ConfigExceptions</td></tr><tr><td>0.4.44</td><td>2023-01-20</td><a>#21087</a><td>Wrap Authentication Errors as Config Exceptions</td></tr><tr><td>0.4.43</td><td>2023-01-20</td><a>#21450</a><td>Updated Check methods to handle more possible s3 and gcs stagings issues</td></tr><tr><td>0.4.42</td><td>2023-01-12</td><a>#21342</a><td>Better handling for conflicting destination streams</td></tr><tr><td>0.4.41</td><td>2022-12-16</td><a>#20566</a><td>Improve spec to adhere to standards</td></tr><tr><td>0.4.40</td><td>2022-11-11</td><a>#19302</a><td>Set jdbc application env variable depends on env - airbyte_oss or airbyte_cloud</td></tr><tr><td>0.4.39</td><td>2022-11-09</td><a>#18970</a><td>Updated "check" connection method to handle more errors</td></tr><tr><td>0.4.38</td><td>2022-09-26</td><a>#17115</a><td>Added connection string identifier</td></tr><tr><td>0.4.
+Select the <span>More</span>menu (<span>…</span>) in the last column of the row.</p><p>Select <span>Drop</span>, then select <span>Drop Connection</span></p></ol></section><section><h3>Drop a connection using SQL<a>¶</a></h3><p>You can use the <span>DROP CONNECTION</span>command to delete a connection.</p><ol><p>Delete all secondary connections in target accounts.</p><p>Delete the primary connection in the source account.</p></ol><p>For an example, see <span>Examples</span>.</p></section></section><section><h2>Monitoring Client Redirect<a>¶</a></h2><p>You can monitor Client Redirect connections and usage for accounts in an organization using Snowsight or SQL.</p><section><h3>Monitor Client Redirect using Snowsight<a>¶</a></h3><aside><p><img/><span>Preview Feature</span>— Open</p><p>Client Redirect in Snowsight is available to all accounts that are Business Critical Edition (or higher).
+Currently this feature is not supported for accounts using private connectivity.</p></aside><div><p>Note</p><ul><p>Only a user with the ACCOUNTADMIN role can view connection details using Snowsight.</p><p>You must be signed in to the target account as a user with the ACCOUNTADMIN role. If you are not, you will be
+prompted to sign in.</p></ul></div><p>To view the Client Redirect connection details, complete the following steps:</p><ol><p>Sign in to Snowsight and navigate to <span>Admin</span>» <span>Accounts</span>.</p><p>Select <span>Replication</span>and then select <span>Client Redirect</span>.</p><p>If there is no active warehouse for the session, you will be prompted to select a warehouse.</p></ol><p>Monitor a specific connection using search and filters.</p><ul><p>You can search by connection name.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.html
+docs.snowflake.com/en/user-guide/cleanrooms/external-data-azure.html
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Snowflake Data Clean Room: External data from Azure Blob Storage | Snowflake Documentation
 
 Documentation Content:
-Otherwise, make sure to grant the role the required permissions in the
-desired namespace.</p><h2>Changelog<a>​</a></h2><table><tr><th>Version</th><th>Date</th><th>Pull Request</th><th>Subject</th></tr><tbody><tr><td>3.8.0</td><td>2024-05-08</td><a>#37715</a><td>Remove option for incremental typing and deduping</td></tr><tr><td>3.7.4</td><td>2024-05-07</td><a>#38052</a><td>Revert problematic optimization</td></tr><tr><td>3.7.3</td><td>2024-05-07</td><a>#34612</a><td>Adopt CDK 0.33.2</td></tr><tr><td>3.7.2</td><td>2024-05-06</td><a>#37857</a><td>Use safe executeMetadata call</td></tr><tr><td>3.7.1</td><td>2024-04-30</td><a>#36910</a><td>Bump CDK version</td></tr><tr><td>3.7.0</td><td>2024-04-08</td><a>#35754</a><td>Allow configuring <code>data_retention_time_in_days</code>; apply to both raw and final tables. <em>Note</em>: Existing tables will not be affected; you must manually alter them.</td></tr><tr><td>3.6.6</td><td>2024-03-26</td><a>#36466</a><td>Correctly hhandle instances with <code>QUOTED_IDENTIFIERS_IGNORE_CASE</code>enabled globally</td></tr><tr><td>3.6.5</td><td>2024-03-25</td><a>#36461</a><td>Internal code change (use published CDK artifact instead of source dependency)</td></tr><tr><td>3.6.
+To authenticate the connector:</p><ol><p>In the clean room environment, select <span>Connectors</span>and expand the <span>Microsoft Azure</span>section. If you are signed out of the
+clean room, see <span>Sign in to the web app</span>.</p><p>Select the blob storage you are connecting to, and select <span>Authenticate</span>.</p></ol></section></section><section><h2>Remove access to external data on AWS<a>¶</a></h2><p>To remove access to Azure Blob Storage from a clean room environment:</p><ol><p>Navigate to the <a>sign in page</a>.</p><p>Enter your email address, and select <span>Continue</span>.</p><p>Enter your password.</p><p>If you are associated with multiple clean room environments, select the Snowflake account you want to use.</p><p>In the left navigation, select <span>Connectors</span>and expand the <span>Microsoft Azure</span>section.</p><p>Find the blob storage that is currently connected, and select the trash can icon.</p></ol></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
 
 
 

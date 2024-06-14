@@ -163,17 +163,50 @@ Documentation Title:
 Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
 
 Documentation Content:
-CSV¶
+DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatus### Tutorial: Bulk loading from a local file system using COPY
+
+Getting StartedTutorialsBulk LoadingBulk Loading from a Local File SystemTutorial: Bulk loading from a local file system using COPY¶
+===========================================================
+
+This tutorial describes how to load data from files in your local file system into a table.
+
+Introduction¶
+-------------
+
+In this tutorial, you will learn how to:
+
+Create named file format objects that describe your data files.
+
+Create named stage objects.
+
+Upload your data to the internal stages.
+
+Load your data into tables.
+
+Resolve errors in your data files.
 
 
-```
-SELECT*FROMmycsvtable;
-```
-CopyThe query returns the following results:
+The tutorial covers loading of both CSV and JSON data.
+
+Prerequisites¶
+--------------
+
+The tutorial assumes the following:
+
+You have a Snowflake account and a user with a role that grants the necessary
+privileges to create a database, tables, and virtual warehouse objects.
+
+You have SnowSQL installed.
 
 
-```
-+----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+---------------------------------+------------------+------------+| ID | LAST_NAME | FIRST_NAME | COMPANY                          | EMAIL                                  | WORKPHONE      | CELLPHONE      | STREETADDRESS                   | CITY             | POSTALCODE ||----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+---------------------------------+------------------+------------||  6 | Reed      | Moses      | Neque Corporation                | eget.lacus@facilisis.com               | 1-449-871-0780 | 1-454-964-5318 | Ap #225-4351 Dolor Ave          | Titagarh         |      62631 ||  7 | Audrey    | Franks     | Arcu Eu Limited                  | eu.dui@aceleifendvitae.org             | 1-527-945-8935 | 1-263-127-1173 | Ap #786-9241 Mauris Road        | Bergen           |      81958 ||  8 | Jakeem    | Erickson   | A Ltd                            | Pellentesque.habitant@liberoProinmi.ca | 1-381-591-9386 | 1-379-391-9490 | 319-1703 Dis Rd.                | Pangnirtung      |      62399 ||  9 | Xaviera   | Brennan    | Bibendum Ullamcorper Limited     | facilisi.Sed.neque@dictum.edu          | 1-260-757-1919 | 1-211-651-0925 | P.O. Box 146, 8385 Vel Road     | Béziers          |      13082 || 10 | Francis   | Ortega     | Vitae Velit Egestas Associates   | egestas.rhoncus.Proin@faucibus.com     | 1-257-584-6487 | 1-211-870-2111 | 733-7191 Neque Rd.
+The Snowflake in 20 minutestutorial provides the related step-by-step instructions to meet these requirements.
+
+In addition, you need to do the following before you start the tutorial:
+
+Download sample files provided for this exercise.
+
+Create a database, tables, and a virtual warehouse for this tutorial.
+These are the basic Snowflake objects needed for most Snowflake activities.
 
 
 

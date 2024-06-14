@@ -28,43 +28,6 @@ Documentation Title:
 Migrating Airflow to Dagster | Dagster Docs
 
 Documentation Content:
-Ask AI!PlatformDagster+NewPricingBlogCommunityDocsSign inJoin us on Slack!Star usTry Dagster+PlatformDagster+PricingBlogCommunityDocsContact SalesSign inTry Dagster+Search the docsPress Ctrl and `K`to searchGetting startedWhat's Dagster?QuickstartInstallationCreating a new projectGetting helpTutorialConceptsDeploymentIntegrationsGuidesAPI ReferenceAbout1.7.2/ 0.23.2 (libs)### You are viewing an unreleased or outdated version of the documentation
-
-View Latest Documentation →Migrating Airflow to Dagster#
-=============================
-
-Looking for an example of an Airflow to Dagster migration? Check out thedagster-airflow migration example repo on GitHub!Dagster can convert your Airflow DAGs into Dagster jobs, enabling a lift-and-shift migration from Airflow without any rewriting.
-
-This guide will walk you through the steps of performing this migration.
-
-Prerequisites#
---------------
-
-To complete the migration, you'll need:
-
-**To perform some upfront analysis**. Refer to the next sectionfor more detail.
-
-* **To know the following about your Airflow setup**:
-
-
-	+ What operator types are used in the DAGs you're migrating
-	+ What Airflow connections your DAGs depend on
-	+ What Airflow variables you've set
-	+ What Airflow secrets backend you use
-	+ Where the permissions that your DAGs depend on are defined
-* **If using Dagster+**, an existing Dagster+account. While your migrated Airflow DAGs will work with Dagster Open Source, this guide includes setup specific to Dagster+.
-
-**If you just signed up for a Dagster+ account**, follow the steps in the Dagster+ Getting Started guidebefore proceeding.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.md
-
-Documentation Title:
-Migrating Airflow to Dagster | Dagster Docs
-
-Documentation Content:
 Step 1: Prepare your project for a new Dagster Python module#
 -------------------------------------------------------------
 
@@ -100,42 +63,65 @@ In this step, you'll spin up Dagster's web-based UI, and verify that your migrat
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/airflow/from-airflow-to-dagster.md
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.md
 
 Documentation Title:
-Learning Dagster from Airlfow
+Migrating Airflow to Dagster | Dagster Docs
 
 Documentation Content:
-Once enabled in your `dagster.yaml`file, you can define the retry count for the job.
+Step 8: Migrate permissions to Dagster#
+---------------------------------------
 
-Step 3: Define the schedule#
-----------------------------
+Your Airflow instance likely had specific IAM or Kubernetes permissions that allowed it to successfully run your Airflow DAGs. To run the migrated Dagster jobs, you'll need to duplicate these permissions for Dagster.
 
-In Dagster, schedules can be defined for jobs, which determine the cadence at which a job is triggered to be executed. Below we define a schedule that will run the `tutorial_job`daily:
+**We recommend using Airflow connectionsor environment variables**to define permissions whenever possible.
 
-`schedule =ScheduleDefinition(job=tutorial_job,cron_schedule="@daily")`Step 4: Run Dagster locally#
-----------------------------
+**If you're unable to use Airflow connections or environment variables,**you can attach permissions directly to the infrastructure where you're deploying Dagster.
 
-In order to run our newly defined Dagster job we'll need to add it and the schedule to our project's Definitions.
+**If your Airflow DAGs used `KubernetesPodOperators`**, it's possible that you loaded a `kube_config`file or used the `in_cluster`config. When migrating, we recommend switching to using connections with a `kube_config`JSON blobto make things easier.
 
-`defs =Definitions(jobs=[tutorial_job],schedules=[schedule],)`We can now load this file with the UI:
-
-`dagster dev -f .py`Completed code example#
------------------------
-
-That's it! By now, your code should look like this:
-
-`importtime
-fromdatetime importdatetime,timedelta
-
-fromdagster import(Definitions,In,Nothing,OpExecutionContext,RetryPolicy,ScheduleDefinition,job,op,schedule,)@opdefprint_date(context:OpExecutionContext)->datetime:ds =datetime.now()context.log.info(ds)returnds
-
-
-@op(retry_policy=RetryPolicy(max_retries=3),ins={"start":In(Nothing)})defsleep():time.sleep(5)@opdeftemplated(context:OpExecutionContext,ds:datetime):for_i inrange(5):context.log.info(ds)context.log.info(ds -timedelta(days=7))@job(tags={"dagster/max_retries":1,"dag_name":"example"})deftutorial_job():ds =print_date()sleep(ds)templated(ds)schedule =ScheduleDefinition(job=tutorial_job,cron_schedule="@daily")defs =Definitions(jobs=[tutorial_job],schedules=[schedule],)`On This Page- Learning Dagster from Airflow
-	Comparing an Airflow DAG to Dagster2. Step 1: Defining the opsOp-level retries
-	3. Step 2: Define the jobJob-level retries
-	Step 3: Define the scheduleStep 4: Run Dagster locallyCompleted code example
+On This Page- Migrating Airflow to Dagster
+	1. PrerequisitesBefore you begin
+	Step 1: Prepare your project for a new Dagster Python moduleStep 2: Install Dagster Python packages alongside AirflowStep 3: Convert DAGS into Dagster definitions5. Step 4: Verify the DAGs are loadingContainerized operator considerations
+	Step 5: Transfer your Airflow configurationStep 6: Deciding on persistent vs ephemeral Airflow databaseStep 7: Move to productionStep 8: Migrate permissions to Dagster
 Edit Page on GitHubShare FeedbackStar
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.md
+
+Documentation Title:
+Migrating Airflow to Dagster | Dagster Docs
+
+Documentation Content:
+Ask AI!PlatformDagster+NewPricingBlogCommunityDocsSign inJoin us on Slack!Star usTry Dagster+PlatformDagster+PricingBlogCommunityDocsContact SalesSign inTry Dagster+Search the docsPress Ctrl and `K`to searchGetting startedWhat's Dagster?QuickstartInstallationCreating a new projectGetting helpTutorialConceptsDeploymentIntegrationsGuidesAPI ReferenceAbout1.7.2/ 0.23.2 (libs)### You are viewing an unreleased or outdated version of the documentation
+
+View Latest Documentation →Migrating Airflow to Dagster#
+=============================
+
+Looking for an example of an Airflow to Dagster migration? Check out thedagster-airflow migration example repo on GitHub!Dagster can convert your Airflow DAGs into Dagster jobs, enabling a lift-and-shift migration from Airflow without any rewriting.
+
+This guide will walk you through the steps of performing this migration.
+
+Prerequisites#
+--------------
+
+To complete the migration, you'll need:
+
+**To perform some upfront analysis**. Refer to the next sectionfor more detail.
+
+* **To know the following about your Airflow setup**:
+
+
+	+ What operator types are used in the DAGs you're migrating
+	+ What Airflow connections your DAGs depend on
+	+ What Airflow variables you've set
+	+ What Airflow secrets backend you use
+	+ Where the permissions that your DAGs depend on are defined
+* **If using Dagster+**, an existing Dagster+account. While your migrated Airflow DAGs will work with Dagster Open Source, this guide includes setup specific to Dagster+.
+
+**If you just signed up for a Dagster+ account**, follow the steps in the Dagster+ Getting Started guidebefore proceeding.
 
 
 

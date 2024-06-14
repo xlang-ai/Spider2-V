@@ -26,38 +26,29 @@ Documentation Title:
 Add snapshots to your DAG | dbt Developer Hub
 
 Documentation Content:
-models/changed\_orders.sqlselect\*from{{ ref('orders\_snapshot')}}- Schedule the `snapshot`command to run regularly — snapshots are only useful if you run them frequently.
-Detecting row changes​
-----------------------
+You'll also need to configure your snapshot to tell dbt how to detect record changes.
 
-Snapshot "strategies" define how dbt knows if a row has changed. There are two strategies built-in to dbt — `timestamp`and `check`.
+snapshots/orders\_snapshot.sql`{%snapshotorders_snapshot %}{{config(target_database='analytics',target_schema='snapshots',unique_key='id',strategy='timestamp',updated_at='updated_at',)}}select*from{{ source('jaffle_shop','orders')}}{%endsnapshot %}`Preview or Compile Snapshots in IDEIt is not possible to "preview data" or "compile sql" for snapshots in dbt Cloud. Instead, run the `dbt snapshot`command in the IDE by completing the following steps.
 
+When you run the `dbt snapshot`command:
 
+* **On the first run:**dbt will create the initial snapshot table — this will be the result set of your `select`statement, with additional columns including `dbt_valid_from`and `dbt_valid_to`. All records will have a `dbt_valid_to = null`.
+* **On subsequent runs:**dbt will check which records have changed or if any new records have been created:
+	+ The `dbt_valid_to`column will be updated for any existing records that have changed
+	+ The updated record and any new records will be inserted into the snapshot table. These records will now have `dbt_valid_to = null`
 
-Documentation Source:
-docs.getdbt.com/docs/build/snapshots.md
+Snapshots can be referenced in downstream models the same way as referencing models — by using the reffunction.
 
-Documentation Title:
-Add snapshots to your DAG | dbt Developer Hub
+Example​
+--------
 
-Documentation Content:
-Timestamp strategy (recommended)​
+To add a snapshot to your project:
 
-The `timestamp`strategy uses an `updated_at`field to determine if a row has changed. If the configured `updated_at`column for a row is more recent than the last time the snapshot ran, then dbt will invalidate the old record and record the new one. If the timestamps are unchanged, then dbt will not take any action.
+1. Create a file in your `snapshots`directory with a `.sql`file extension, e.g. `snapshots/orders.sql`
+2. Use a `snapshot`block to define the start and end of a snapshot:
 
-The `timestamp`strategy requires the following configurations:
-
-
-
-| Config | Description | Example |
-| --- | --- | --- |
-| updated\_at | A column which represents when the source row was last updated |`updated_at`
-
-**Example usage:**snapshots/orders\_snapshot\_timestamp.sql`{%snapshotorders_snapshot_timestamp %}{{config(target_schema='snapshots',strategy='timestamp',unique_key='id',updated_at='updated_at',)}}select*from{{ source('jaffle_shop','orders')}}{%endsnapshot %}`### Check strategy​
-
-The `check`strategy is useful for tables which do not have a reliable `updated_at`column. This strategy works by comparing a list of columns between their current and historical values. If any of these columns have changed, then dbt will invalidate the old record and record the new one. If the column values are identical, then dbt will not take any action.
-
-The `check`strategy requires the following configurations:
+snapshots/orders\_snapshot.sql`{%snapshotorders_snapshot %}{%endsnapshot %}`- Write a `select`statement within the snapshot block (tips for writing a good snapshot query are below). This select statement defines the results that you want to snapshot over time. You can use `sources`and `refs`here.
+snapshots/orders\_snapshot.sql`{%snapshotorders_snapshot %}select*from{{ source('jaffle_shop','orders')}}{%endsnapshot %}`Check whether the result set of your query includes a reliable timestamp column that indicates when a record was last updated.
 
 
 
@@ -99,6 +90,33 @@ This order is now in the "shipped" state, but we've lost the information about w
 | 1 | shipped | 2019-01-02 | 2019-01-02 |`null`
 
 In dbt, snapshots are `select`statements, defined within a snapshot block in a `.sql`file (typically in your `snapshots`directory). You'll also need to configure your snapshot to tell dbt how to detect record changes.
+
+
+
+Documentation Source:
+docs.getdbt.com/docs/build/snapshots.md
+
+Documentation Title:
+Add snapshots to your DAG | dbt Developer Hub
+
+Documentation Content:
+Timestamp strategy (recommended)​
+
+The `timestamp`strategy uses an `updated_at`field to determine if a row has changed. If the configured `updated_at`column for a row is more recent than the last time the snapshot ran, then dbt will invalidate the old record and record the new one. If the timestamps are unchanged, then dbt will not take any action.
+
+The `timestamp`strategy requires the following configurations:
+
+
+
+| Config | Description | Example |
+| --- | --- | --- |
+| updated\_at | A column which represents when the source row was last updated |`updated_at`
+
+**Example usage:**snapshots/orders\_snapshot\_timestamp.sql`{%snapshotorders_snapshot_timestamp %}{{config(target_schema='snapshots',strategy='timestamp',unique_key='id',updated_at='updated_at',)}}select*from{{ source('jaffle_shop','orders')}}{%endsnapshot %}`### Check strategy​
+
+The `check`strategy is useful for tables which do not have a reliable `updated_at`column. This strategy works by comparing a list of columns between their current and historical values. If any of these columns have changed, then dbt will invalidate the old record and record the new one. If the column values are identical, then dbt will not take any action.
+
+The `check`strategy requires the following configurations:
 
 
 

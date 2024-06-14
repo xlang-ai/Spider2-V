@@ -1,28 +1,4 @@
 Documentation Source:
-docs.snowflake.com/en/user-guide/queries-hierarchical.md
-
-Documentation Title:
-Querying Hierarchical Data | Snowflake Documentation
-
-Documentation Content:
-```
-SELECTemps.title,emps.employee_ID,mgrs.employee_IDASMANAGER_ID,mgrs.titleAS"MANAGER TITLE"FROMemployeesASempsLEFTOUTERJOINemployeesASmgrsONemps.manager_ID=mgrs.employee_IDORDERBYmgrs.employee_IDNULLSFIRST,emps.employee_ID;+----------------------------+-------------+------------+----------------------------+| TITLE                      | EMPLOYEE_ID | MANAGER_ID | MANAGER TITLE              ||----------------------------+-------------+------------+----------------------------|| President                  |           1 |       NULL | NULL                       || Vice President Engineering |          10 |          1 | President                  || Vice President HR          |          20 |          1 | President                  || Programmer                 |         100 |         10 | Vice President Engineering || QA Engineer                |         101 |         10 | Vice President Engineering || Health Insurance Analyst   |         200 |         20 | Vice President HR          |+----------------------------+-------------+------------+----------------------------+
-```
-CopyThis concept can be extended to as many levels as needed, as long as you know how many levels are needed. But if
-the number of levels changes, the queries need to change.
-
-Using CONNECT BY or Recursive CTEs to Query Hierarchical Data¶
---------------------------------------------------------------
-
-Snowflake provides two ways to query hierarchical data in which the number of levels is not known in advance:
-
-Recursive CTEs (common table expressions).
-
-`CONNECTBY`clauses.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/sql-reference/functions/max_by.md
 
 Documentation Title:
@@ -66,6 +42,30 @@ Querying Hierarchical Data | Snowflake Documentation
 
 Documentation Content:
 ```
+SELECTemps.title,emps.employee_ID,mgrs.employee_IDASMANAGER_ID,mgrs.titleAS"MANAGER TITLE"FROMemployeesASempsLEFTOUTERJOINemployeesASmgrsONemps.manager_ID=mgrs.employee_IDORDERBYmgrs.employee_IDNULLSFIRST,emps.employee_ID;+----------------------------+-------------+------------+----------------------------+| TITLE                      | EMPLOYEE_ID | MANAGER_ID | MANAGER TITLE              ||----------------------------+-------------+------------+----------------------------|| President                  |           1 |       NULL | NULL                       || Vice President Engineering |          10 |          1 | President                  || Vice President HR          |          20 |          1 | President                  || Programmer                 |         100 |         10 | Vice President Engineering || QA Engineer                |         101 |         10 | Vice President Engineering || Health Insurance Analyst   |         200 |         20 | Vice President HR          |+----------------------------+-------------+------------+----------------------------+
+```
+CopyThis concept can be extended to as many levels as needed, as long as you know how many levels are needed. But if
+the number of levels changes, the queries need to change.
+
+Using CONNECT BY or Recursive CTEs to Query Hierarchical Data¶
+--------------------------------------------------------------
+
+Snowflake provides two ways to query hierarchical data in which the number of levels is not known in advance:
+
+Recursive CTEs (common table expressions).
+
+`CONNECTBY`clauses.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/queries-hierarchical.md
+
+Documentation Title:
+Querying Hierarchical Data | Snowflake Documentation
+
+Documentation Content:
+```
 CREATEORREPLACETABLEemployees(titleVARCHAR,employee_IDINTEGER,manager_IDINTEGER);
 ```
 Copy
@@ -91,25 +91,63 @@ CopyIn a three-level hierarchy, you can use a 3-way join:
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/constructs/where.md
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load.md
 
 Documentation Title:
-WHERE | Snowflake Documentation
+Load and query sample data using Snowpark Python | Snowflake Documentation
 
 Documentation Content:
-```
-createtabledepartments(department_IDINTEGER,department_nameVARCHAR,locationVARCHAR);insertintodepartments(department_id,department_name,location)values(10,'CUSTOMER SUPPORT','CHICAGO'),(40,'RESEARCH','BOSTON'),(80,'Department with no employees yet','CHICAGO'),(90,'Department with no projects or employees yet','EREHWON');createtableprojects(project_idinteger,project_namevarchar,department_idinteger);insertintoprojects(project_id,project_name,department_id)values(4000,'Detect fake product reviews',40),(4001,'Detect false insurance claims',10),(9000,'Project with no employees yet',80),(9099,'Project with no department or employees yet',NULL);createtableemployees(employee_IDINTEGER,employee_nameVARCHAR,department_idINTEGER,project_idINTEGER);insertintoemployees(employee_id,employee_name,department_id,project_id)values(1012,'May Aidez',10,NULL),(1040,'Devi Nobel',40,4000),(1041,'Alfred Mendeleev',40,4001);
-```
-CopyExecute a 3-way inner join. This does not use (+)(or the OUTER keyword) and is therefore an inner join. The
-output includes only rows for which there is a department, project, and employee:
+Note
 
+This tutorial is only available to users with a trial account. The sample worksheet is not available
+for other types of accounts.
 
-```
-SELECTd.department_name,p.project_name,e.employee_nameFROMdepartmentsd,projectsp,employeeseWHEREp.department_id=d.department_idANDe.project_id=p.project_idORDERBYd.department_id,p.project_id,e.employee_id;+------------------+-------------------------------+------------------+| DEPARTMENT_NAME  | PROJECT_NAME                  | EMPLOYEE_NAME    ||------------------+-------------------------------+------------------|| CUSTOMER SUPPORT | Detect false insurance claims | Alfred Mendeleev || RESEARCH         | Detect fake product reviews   | Devi Nobel       |+------------------+-------------------------------+------------------+
-```
-CopyPerform an outer join. This is similar to the preceding statement exceptthat this uses (+)to make the
-second join a right outer join. The effect is that if a department is included in the output, then all of that
-department’s projects are included, even if those projects have no employees:
+Step 1. Sign in using Snowsight¶
+--------------------------------
+
+To access Snowsight over the public Internet, do the following:
+
+In a supported web browser, navigate to https://app.snowflake.com.
+
+Provide your account identifieror account URL.
+If you’ve previously signed in to Snowsight, you might see an account name that you can select.
+
+Sign in using your Snowflake account credentials.
+
+Step 2. Open the Python worksheet¶
+----------------------------------
+
+You can use Python worksheets to write and run Python code. Your trial account has access
+to a pre-loaded Python worksheet for this tutorial. The worksheet has the Python code that
+you will run to create a database, load data into it, and query the data. For more information
+about Python worksheets, see Writing Snowpark Code in Python Worksheets.
+
+To open the pre-loaded tutorial Python worksheet:
+
+Select Projects» Worksheetsto open the list of worksheets.
+
+2. Open [Tutorial] Using Python to load and query sample data.
+
+Your worksheet looks similar to the following image.
+
+!This pre-loaded Python worksheet automatically uses the ACCOUNTADMIN system role so that
+you can view and manage objects in your account. For more information, see
+Using the ACCOUNTADMIN Role.
+
+The worksheet also uses the COMPUTE\_WH virtual warehouse. A warehouse provides
+the required resources to create and manage objects and run SQL commands. These
+resources include CPU, memory, and temporary storage. For more information, see
+Virtual warehouses.
+
+Step 3. Learn how to use Python worksheets¶
+-------------------------------------------
+
+Python worksheets let you use Snowpark Pythonin Snowsight to run SQL statements. This step in this tutorial describes the code in each step
+in the Python worksheet. When you use a Python worksheet, you cannot run individual blocks of
+code separately. You must run the whole worksheet. Before you select Runin the worksheet,
+review the following steps so that you better understand the Python code.
+
+1. In the open Python worksheet, this step includes the following code:
 
 
 

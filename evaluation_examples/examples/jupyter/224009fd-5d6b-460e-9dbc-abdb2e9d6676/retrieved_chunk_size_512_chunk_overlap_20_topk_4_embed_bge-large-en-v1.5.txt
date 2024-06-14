@@ -83,97 +83,6 @@ Com
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/debugger.Debugger.Dialogs.getCode.txt
-
-Documentation Title:
-getCode | @jupyterlab
-
-Documentation Content:
-Above
-insert
-Below
-insert
-Same
-Level
-Heading
-Above
-insert
-Same
-Level
-Heading
-Below
-merge
-Cells
-move
-Down
-move
-Up
-paste
-redo
-render
-All
-Markdown
-render
-Default
-render
-Side
-By
-Side
-replace
-Selection
-run
-run
-All
-run
-All
-Above
-run
-All
-Below
-run
-And
-Advance
-run
-And
-Insert
-run
-Cells
-select
-Above
-select
-All
-select
-Below
-select
-Heading
-Above
-Or
-Collapse
-Heading
-select
-Heading
-Below
-Or
-Expand
-Heading
-select
-Last
-Run
-Cell
-set
-Cell
-Collapse
-set
-Heading
-Collapse
-set
-Markdown
-Header
-sh
-
-
-
-Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/types/statedb.StateDB.Content.txt
 
 Documentation Title:
@@ -265,13 +174,109 @@ s
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/console.CodeConsole.ContentFactory.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/services.ConfigSection.create.txt
 
 Documentation Title:
-ContentFactory | @jupyterlab
+create | @jupyterlab
 
 Documentation Content:
-t
+merge
+Cells
+move
+Down
+move
+Up
+paste
+redo
+render
+All
+Markdown
+render
+Default
+render
+Side
+By
+Side
+replace
+Selection
+run
+run
+All
+run
+All
+Above
+run
+All
+Below
+run
+And
+Advance
+run
+And
+Insert
+run
+Cells
+select
+Above
+select
+All
+select
+Below
+select
+Heading
+Above
+Or
+Collapse
+Heading
+select
+Heading
+Below
+Or
+Expand
+Heading
+select
+Last
+Run
+Cell
+set
+Cell
+Collapse
+set
+Heading
+Collapse
+set
+Markdown
+Header
+show
+All
+Code
+show
+All
+Outputs
+show
+Code
+show
+Output
+split
+Cell
+toggle
+All
+Line
+Numbers
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/debugger.Debugger.Dialogs.getCode.txt
+
+Documentation Title:
+getCode | @jupyterlab
+
+Documentation Content:
+Above
+insert
+Below
+insert
 Same
 Level
 Heading
@@ -348,12 +353,7 @@ Collapse
 set
 Markdown
 Header
-show
-All
-Code
-show
-All
-Out
+sh
 
 
 

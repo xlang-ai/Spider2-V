@@ -1,194 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/bigquery-web-ui.txt
-
-Documentation Title:
-Explore the Google Cloud console  |  BigQuery
-
-Documentation Content:
-Display resources
-The
-Explorer
-pane lists datasets that you can browse in your current
-project or any projects that you starred.
-To display the datasets in a project, click
-arrow_right
-Toggle node
-for that
-project.
-To display the tables, views, and functions in a dataset, click the
-dataset.
-Resources are also displayed in the
-Explorer
-pane when you open them
-some other way. For example, when you create a table and then click
-Go to table
-, the
-Explorer
-pane highlights and shows that table under
-its dataset.
-To display information about a resource in a project or dataset, click the name
-of the resource in the
-Explorer
-pane and view the details pane. The set of
-available actions depends on the resource. For example, the following image
-shows the tab for a table:
-Star resources
-If you have important or current projects, datasets, or tables, you can star them
-in the
-Explorer
-pane. To star a resource, hold the pointer over the name of
-the resource that you want to star, and then click
-star_border
-Star
-.
-For more information on starring a project, see
-Star a project
-.
-View starred resources
-To view only the starred resources in the
-Explorer
-pane, click
-Show starred resources only
-in the
-Explorer
-pane.
-To view all the resources in the
-Explorer
-pane, click
-Show all resources
-.
-Unstar resources
-To unstar a resource, click
-star
-Unstar
-next to the resource.
-Welcome tab
-Preview
-This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section
-        of the
-Service Specific Terms
-.
-        
-        Pre-GA products and features are available "as is" and might have limited support.
-      
-      For more information, see the
-launch stage descriptions
-.
-The first time you open BigQuery, you see the welcome tab
-and a query editor tab, with the welcome tab in focus. The welcome tab contains
-the following demo guides:
-Run a sample query on a public dataset from Google Trends.
-Add data to BigQuery.
-You may close the welcome tab, but it appears again when you refresh the page.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/bigquery-web-ui.txt
-
-Documentation Title:
-Explore the Google Cloud console  |  BigQuery
-
-Documentation Content:
-You may close the welcome tab, but it appears again when you refresh the page.
-If you want to see the welcome tab on startup, select the
-Show welcome page on startup
-checkbox. To go back to the welcome tab, click
-Welcome
-.
-To open a query editor from the welcome tab, click
-add_box
-Compose a new query
-. To access
-ways to import data and search data sources that work with
-BigQuery, click
-add_box
-Add data
-.
-If you open BigQuery using your workspace URL, then
-your workspace query editor tab opens first.
-Run query demo guide
-The
-Get started
-section contains the demo guide for running a sample
-query on a Google Trends public dataset.
-To run the demo guide, follow these steps. To exit the demo at any time,
-click
-close
-Close tour
-.
-In the Google Cloud console, go to the
-BigQuery
-page.
-Go to BigQuery
-Ensure that you are on the BigQuery
-welcome page: click
-Welcome
-.
-Click
-search
-Open this query
-.
-The
-bigquery-public-data
-project is automatically added to the
-Explorer
-pane. The public project and the
-google_trends
-dataset are expanded, and
-the
-Google Trends Data
-dialog highlights the starred
-top_terms
-table.
-Additionally, the query editor is opened with a predefined query.
-In the
-Google Trends Data
-dialog, click
-Next
-.
-In the
-Google Trends Query
-dialog, click
-Next
-.
-To return to the previous step, click
-Back
-in the dialog.
-In the
-Run this query
-dialog, click
-Try it
-.
-To return to the previous step, click
-Back
-in the dialog.
-In the
-Query results
-dialog, click
-Done
-.
-You can run this demo multiple times.
-To view the Google Trends public dataset, in the welcome page, click
-View dataset
-.
-Run add data demo guide
-The
-Add your own data
-section contains the demo guide for adding data to
-BigQuery through popular sources.
-To run the demo guide, follow these steps. To exit the demo at any time,
-click
-close
-Close tour
-. To return to the
-previous step where applicable, click
-Back
-.
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.txt
 
 Documentation Title:
@@ -285,110 +95,292 @@ query.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.txt
+cloud.google.com/bigquery/docs/bigquery-web-ui.txt
 
 Documentation Title:
-Query a public dataset with the Google Cloud console  |  BigQuery
+Explore the Google Cloud console  |  BigQuery
 
 Documentation Content:
-DML
-Transform data in partitioned tables
-Work with change history
-Export data
-Export to file
-Export to Cloud Storage
-Export to Bigtable
-Export as Protobuf columns
-Analyze
-Introduction
-Query BigQuery data
-Run a query
-Analyze with a data canvas
-Write queries with Gemini
-Write query results
-Generate profile insights
-Generate data insights
-Query data with SQL
-Introduction
-Arrays
-JSON data
-Sketches
-Multi-statement queries
-Recursive CTEs
-Table sampling
-Time series
-Transactions
-Saved queries
-Introduction
-Create saved queries
-Use cached results
-Run parameterized queries
-Query with wildcard tables
-Access historical data
-Schedule queries
-Troubleshoot queries
-Optimize queries
-Introduction
-Use the query plan explanation
-Get query performance insights
-Optimize query computation
-Use history-based optimizations
-Optimize storage
-Use BI Engine
-Use nested and repeated data
-Optimize functions
-Query external data sources
-Manage open source metadata
-Use external tables and datasets
-Amazon S3 data
-Query Amazon S3 data
-Export query results to Amazon S3
-Query Apache Iceberg data
-Query open table formats with manifests
-Azure Blob Storage data
-Query Azure Blob Storage data
-Export query results to Azure Blob Storage
-Query Cloud Bigtable data
-Cloud Storage data
-Query Cloud Storage data in BigLake tables
-Query Cloud Storage data in external tables
-Work with Salesforce Data Cloud data
-Query Google Drive data
-Create AWS Glue federated datasets
-Run federated queries
-Federated queries
-Query SAP Datasphere data
-Query Cloud Spanner data
-Query Cloud SQL data
-Analyze unstructured data
-Run inference
-Analyze with remote functions
-Tutorial: Create and use a remote function
-Search indexed text
-Work with text analyzers
-Work with sessions
-Introduction
-Create sessions
-Write queries in sessions
-Run queries in sessions
-Terminate sessions
-View query history in sessions
-Find sessions
-Use geospatial analytics
-Introduction
-Work with geospatial analytics
-Visualize geospatial data
-Geospatial analytics syntax reference
-Geospatial analytics tutorials
-Get started with geospatial analytics
-Use geospatial analytics to plot a hurricane's path
-Use programmatic tools
-Introduction
-Use notebooks in BigQuery
-Introduction
-Create notebooks
-Explore query results
-Use
+Display resources
+The
+Explorer
+pane lists datasets that you can browse in your current
+project or any projects that you starred.
+To display the datasets in a project, click
+arrow_right
+Toggle node
+for that
+project.
+To display the tables, views, and functions in a dataset, click the
+dataset.
+Resources are also displayed in the
+Explorer
+pane when you open them
+some other way. For example, when you create a table and then click
+Go to table
+, the
+Explorer
+pane highlights and shows that table under
+its dataset.
+To display information about a resource in a project or dataset, click the name
+of the resource in the
+Explorer
+pane and view the details pane. The set of
+available actions depends on the resource. For example, the following image
+shows the tab for a table:
+Star resources
+If you have important or current projects, datasets, or tables, you can star them
+in the
+Explorer
+pane. To star a resource, hold the pointer over the name of
+the resource that you want to star, and then click
+star_border
+Star
+.
+For more information on starring a project, see
+Star a project
+.
+View starred resources
+To view only the starred resources in the
+Explorer
+pane, click
+Show starred resources only
+in the
+Explorer
+pane.
+To view all the resources in the
+Explorer
+pane, click
+Show all resources
+.
+Unstar resources
+To unstar a resource, click
+star
+Unstar
+next to the resource.
+Welcome tab
+Preview
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section
+        of the
+Service Specific Terms
+.
+        
+        Pre-GA products and features are available "as is" and might have limited support.
+      
+      For more information, see the
+launch stage descriptions
+.
+The first time you open BigQuery, you see the welcome tab
+and a query editor tab, with the welcome tab in focus. The welcome tab contains
+the following demo guides:
+Run a sample query on a public dataset from Google Trends.
+Add data to BigQuery.
+You may close the welcome tab, but it appears again when you refresh the page.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/looker.txt
+
+Documentation Title:
+Analyze data with BI Engine and Looker  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Get started with Looker and BigQuery
+The BI Engine SQL interface expands BI Engine to integrate with
+business intelligence (BI) tools such as Looker. For more
+information, see
+BigQuery BI Engine SQL interface overview
+.
+Create a BigQuery dataset
+The first step is to create a BigQuery dataset to store your
+BI Engine-managed table. To create your dataset, follow these
+steps:
+In the Google Cloud console, go to the BigQuery page.
+Go to BigQuery
+In the navigation panel, in the
+Explorer
+panel, click your project
+name.
+In the details panel, click
+more_vert
+View actions
+, and then click
+Create dataset
+.
+On the
+Create dataset
+page, do the following:
+For
+Dataset ID
+, enter
+biengine_tutorial
+.
+For
+Data location
+, choose
+us (multiple regions in United
+States)
+, the
+multi-region
+location
+where public datasets
+are stored.
+For this tutorial, you can select
+Enable table expiration
+, and then
+specify the number of days before the table expires.
+Leave all of the other default settings in place and click
+Create dataset
+.
+Create a table by copying data from a public dataset
+This tutorial uses a dataset available through the
+Google Cloud Public Dataset Program
+. Public datasets
+are datasets that BigQuery hosts for you to access and integrate
+into your applications.
+In this section, you create a table by copying data from the
+San Francisco 311 service requests
+dataset. You can explore the dataset by using the
+Google Cloud console
+.
+Create your table
+To create your table, follow these steps:
+In the Google Cloud console, go to the BigQuery page.
+Go to BigQuery
+In the
+Explorer
+panel, search for
+san_francisco_311
+.
+In the
+Explorer
+panel, expand
+san_francisco_311
+and click the
+311_service_requests
+table.
+In the Explorer toolbar, click
+Copy
+.
+In the
+Copy table
+dialog, in the
+Destination
+section, do the
+following:
+For
+Project name
+, click
+Browse
+, and then select your project.
+For
+Dataset name
+, select
+biengine_tutorial
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/analytics-hub-view-subscribe-listings.txt
+
+Documentation Title:
+View and subscribe to listings  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+These predefined roles contain the permissions required to perform the tasks in
+this document. To see the exact permissions that are required to create and
+query datasets, expand the
+Required permissions
+section:
+Required permissions
+Create new datasets:
+bigquery.datasets.create
+or
+bigquery.datasets.*
+to
+   perform additional actions on datasets.
+Query datasets:
+bigquery.jobs.create
+or
+bigquery.jobs.*
+to perform
+   additional actions on jobs.
+You might also be able to get these permissions with
+custom roles
+or other
+predefined roles
+.
+Discover listings
+To discover public and private listings, follow these steps:
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the
+Explorer
+pane, click
+add
+Add data
+.
+In the
+Add data
+dialog, click
+Analytics Hub
+. The
+Analytics Hub
+dialog appears containing listings that you can access. For Salesforce Data Cloud listings, there is a button in the
+Explorer
+pane that automatically filters related listings.
+Alternatively, to open the Analytics Hub dialog you can also go
+to
+Analytics Hub
+and click
+Search
+listings
+.
+To filter listings by their name or description, enter the name or
+description of the listing in the
+Search for listings
+field.
+In the
+Filter
+section, you can filter listings based on the following
+fields:
+Listings
+: select whether you want to view private listings, public
+listings, or
+listings
+within your org.
+Categories
+: select the desired categories.
+Location
+: select the desired location. For more information, see
+Supported regions
+.
+Provider
+: select the data provider. Some data providers require you to
+request access to their
+commercial datasets
+. After requesting access,
+the data provider contacts you to share their datasets.
+Browse through the filtered listings.
+Subscribe to listings
+Subscribing to a
+listing
+gives you
+read-only access
+to the data in the listing by creating a
+linked
+dataset
+in your
+project.
+Caution:
+We recommend that you don't put data into a project that is within a
+VPC Service Controls perimeter. If you do so, then you must add the appropriate
+ingress and egress rules
+.
 
 
 

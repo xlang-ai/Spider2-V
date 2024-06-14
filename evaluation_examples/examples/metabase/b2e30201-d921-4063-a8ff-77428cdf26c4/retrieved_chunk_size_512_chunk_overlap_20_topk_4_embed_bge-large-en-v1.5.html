@@ -12,19 +12,13 @@ Documentation Content:
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/api/email.html
+www.metabase.com/docs/v0.49/people-and-groups/managing.html
 
 Documentation Title:
-Email
+Managing people and groups
 
 Documentation Content:
-You must be a superuser or have <code>setting</code>permission to do this.</p><code>POST /api/email/test</code><p>Send a test email using the SMTP Settings. You must be a superuser or have <code>setting</code>permission to do this.
-  Returns <code>{:ok true}</code>if we were able to send the message successfully, otherwise a standard 400 error response.</p><code>PUT /api/email/</code><p>Update multiple email Settings. You must be a superuser or have <code>setting</code>permission to do this.</p><h3>PARAMS:</h3><li><code>settings</code>map.</li><a>« Back to API index</a></article><p>Read docs for other <a>versions of Metabase</a>.
-	      </p><div><div><div><p>Did this article help you?
-        </p><ul><button>Yes
-                </button><button>No
-                </button></ul></div><button>Send
-                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+If you haven’t yet setup email for your Metabase, Metabase will give you a temporary password that you’ll have to manually send to the person.</p><h2>Editing an account</h2><p>You can edit someone’s name and email address by clicking the three dots icon and choosing <strong>Edit user</strong>.</p><p>Be careful: changing an account’s email address <em>will change the address the person will use to log in to Metabase</em>.</p><h2>Adding a user attribute</h2><p>User attributes is only available on <a>Pro</a>and <a>Enterprise</a>plans (both self-hosted and on Metabase Cloud).</p><p>To add a user attribute manually:</p><ol><li>Go to <strong>Admin settings</strong>&gt; <strong>People</strong>.</li><li>Find the person’s account and click the <strong>three dot</strong>(…) menu.</li><li>Click <strong>Edit user</strong>.</li><li>Click <strong>+ Add an attribute</strong>.</li><li>Add the name of the user attribute under “Key”. For example, “Department”.</li><li>Add the value that applies to the specific person. For example, “Engineering”.</li><li>Optional: if a group for sandboxed people doesn’t exist, <a>create a group</a>to organize people who will get sandboxed table permissions, such as “Sandboxed people”.</li><li>Add the person to the group.</li></ol><p>You can also sync user attributes from your identity provider <a>via SSO</a>.</p><p>User attributes are required for <a>data sandbox</a>permissions.</p><p>You can also employ user attributes to specify what database role Metabase should use when that person queries a database. Check out <a>impersonation access</a>.</p><h2>Deactivating an account</h2><p>To deactivate someone’s account, click on the three dots icon on the right of a person’s row and select <strong>Deactivate</strong>from the dropdown.
 
 
 
@@ -45,23 +39,19 @@ This restriction only applies to sending email to people who lack an account wit
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/people-and-groups/account-settings.html
+www.metabase.com/docs/v0.49/api/email.html
 
 Documentation Title:
-Account settings
+Email
 
 Documentation Content:
-This change will also affect other applications, not just Metabase. Check out the instructions for how to set the user preferences for your operating system in the <a>MDN Web Docs</a>.</p><h2>Notifications</h2><p>If you subscribe or are added to dashboard subscriptions or alerts, you’ll be able to manage those notifications here (as well as on the relevant question or dashboard themselves).</p></article><p>Read docs for other <a>versions of Metabase</a>.
+You must be a superuser or have <code>setting</code>permission to do this.</p><code>POST /api/email/test</code><p>Send a test email using the SMTP Settings. You must be a superuser or have <code>setting</code>permission to do this.
+  Returns <code>{:ok true}</code>if we were able to send the message successfully, otherwise a standard 400 error response.</p><code>PUT /api/email/</code><p>Update multiple email Settings. You must be a superuser or have <code>setting</code>permission to do this.</p><h3>PARAMS:</h3><li><code>settings</code>map.</li><a>« Back to API index</a></article><p>Read docs for other <a>versions of Metabase</a>.
 	      </p><div><div><div><p>Did this article help you?
         </p><ul><button>Yes
                 </button><button>No
                 </button></ul></div><button>Send
-                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase. No spam, ever.</p></div><div><div><h6>Product</h6><a>Watch Demo</a><a>Data Sources</a><a>Security</a><a>Cloud</a><a>Roadmap</a><a>What's New</a><h6>Pricing</h6><a>Plans</a><a>Open Source</a></div><div><h6>Use Cases</h6><a>Self-Service Business Analytics
-        </a><a>Embedded Analytics
-        </a><h6>Metabase Plans</h6><a>Starter and Open Source</a><a>Pro</a><a>Enterprise</a></div><div><h6>Features</h6><a>Query Builder</a><a>Drill Through</a><a>Collections</a><a>Usage analytics
-          <span>New
-          </span></a><a>Analytics dashboards</a><a>SQL editor</a><a>Sandboxing</a><a>Models</a><a>Permissions</a><a>CSV upload</a></div><div><h6>Company</h6><a>Jobs
-          <div>We're hiring!
+                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
 
 
 

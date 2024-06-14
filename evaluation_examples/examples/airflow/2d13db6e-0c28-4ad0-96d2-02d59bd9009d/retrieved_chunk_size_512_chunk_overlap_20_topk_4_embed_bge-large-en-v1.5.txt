@@ -271,6 +271,210 @@ Documentation Title:
 Datasets and data-aware scheduling in Airflow | Astronomer Documentation
 
 Documentation Content:
+datasets
+import
+Dataset
+from
+airflow
+.
+decorators
+import
+dag
+,
+task
+INSTRUCTIONS
+=
+Dataset
+(
+"file://localhost/airflow/include/cocktail_instructions.txt"
+)
+INFO
+=
+Dataset
+(
+"file://localhost/airflow/include/cocktail_info.txt"
+)
+@dag
+(
+dag_id
+=
+"datasets_consumer_dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+10
+,
+1
+)
+,
+schedule
+=
+[
+INSTRUCTIONS
+,
+INFO
+]
+,
+# Scheduled on both Datasets
+catchup
+=
+False
+,
+)
+def
+datasets_consumer_dag
+(
+)
+:
+@task
+def
+read_about_cocktail
+(
+)
+:
+cocktail
+=
+[
+]
+for
+filename
+in
+(
+"info"
+,
+"instructions"
+)
+:
+with
+open
+(
+f"include/cocktail_
+{
+filename
+}
+.txt"
+,
+"r"
+)
+as
+f
+:
+contents
+=
+f
+.
+readlines
+(
+)
+cocktail
+.
+append
+(
+contents
+)
+return
+[
+item
+for
+sublist
+in
+cocktail
+for
+item
+in
+sublist
+]
+read_about_cocktail
+(
+)
+datasets_consumer_dag
+(
+)
+from
+pendulum
+import
+datetime
+from
+airflow
+import
+DAG
+,
+Dataset
+from
+airflow
+.
+operators
+.
+python
+import
+PythonOperator
+INSTRUCTIONS
+=
+Dataset
+(
+"file://localhost/airflow/include/cocktail_instructions.txt"
+)
+INFO
+=
+Dataset
+(
+"file://localhost/airflow/include/cocktail_info.txt"
+)
+def
+read_about_cocktail_func
+(
+)
+:
+cocktail
+=
+[
+]
+for
+filename
+in
+(
+"info"
+,
+"instructions"
+)
+:
+with
+open
+(
+f"include/cocktail_
+{
+filename
+}
+.txt"
+,
+"r"
+)
+as
+f
+:
+contents
+=
+f
+.
+readlines
+(
+)
+cocktail
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.txt
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
 For more information about datasets, see
 Data-aware scheduling
 .
@@ -319,98 +523,6 @@ request to the
 datasets endpoint of the Airflow REST API
 .
 A manual update in the Airflow UI.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/scheduling-in-airflow.txt
-
-Documentation Title:
-Schedule DAGs in Airflow | Astronomer Documentation
-
-Documentation Content:
-Schedule DAGs in Airflow | Astronomer Documentation
-Skip to main content
-Docs
-Docs
-Find what you're looking for
-Learn About Astronomer
-Get Started Free
-Home
-Astro
-Astro CLI
-Software
-Learn
-Try Astro
-Overview
-Get started
-Airflow concepts
-Basics
-BashOperator
-Connections
-DAGs
-Datasets and data-aware scheduling
-Hooks
-Manage Airflow code
-OpenLineage
-Operators
-Run SQL
-Schedule DAGs
-Sensors
-Task dependencies
-The Airflow UI
-Variables
-DAGs
-Infrastructure
-Advanced
-Airflow tutorials
-Integrations & connections
-Use cases
-Airflow glossary
-Support Knowledge Base
-Office Hours
-Webinars
-Astro Status
-Airflow concepts
-Basics
-Schedule DAGs
-On this page
-Schedule DAGs in Airflow
-One of the fundamental features of Apache Airflow is the ability to schedule jobs. Historically, Airflow users scheduled their DAGs by specifying a
-schedule
-with a cron expression, a timedelta object, or a preset Airflow schedule. Recent versions of Airflow have added new ways to schedule DAGs, including
-data-aware scheduling with datasets
-and the option to define complex custom schedules with
-timetables
-.
-In this guide, you'll learn Airflow scheduling concepts and the different ways you can schedule a DAG.
-Other ways to learn
-There are multiple resources for learning about this topic. See also:
-Astronomer Academy:
-Airflow: DAG Scheduling
-module.
-Webinar:
-Scheduling in Airflow: A Comprehensive Introduction
-.
-Assumed knowledge
-​
-To get the most out of this guide, you should have an existing knowledge of:
-Basic Airflow concepts. See
-Introduction to Apache Airflow
-.
-Configuring Airflow DAGs. See
-Introduction to Airflow DAGs
-.
-Date and time modules in Python3. See the
-Python documentation on the
-datetime
-package
-.
-Scheduling concepts
-​
-To gain a better understanding of DAG scheduling, it's important that you become familiar with the following terms and parameters:
-Data Interval
-: A property of each DAG run that represents the period of data that each task should operate on.
 
 
 

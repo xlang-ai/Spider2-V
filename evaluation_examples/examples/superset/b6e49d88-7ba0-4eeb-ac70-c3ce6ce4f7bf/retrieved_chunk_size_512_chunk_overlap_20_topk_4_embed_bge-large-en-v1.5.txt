@@ -132,6 +132,61 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
+Within Metrics, remove the default
+COUNT(*)
+metric and instead add
+AVG(Cost)
+, to show the mean value.
+Next, select
+Run Query
+to show the data on the chart.
+How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
+doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
+each ticket type.
+Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting
+Run
+Query
+again. Nice! We can see that on average single tickets are cheaper than returns and that the
+big spike in December is caused by return tickets.
+Our chart is looking pretty good already, but let’s customize some more by going to the Customize
+tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
+filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
+and Y Axis Label.
+Once you’re done, publish the chart in your Tutorial Dashboard.
+Markup
+​
+In this section, we will add some text to our dashboard. If you’re there already, you can navigate
+to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
+dashboards. Got into edit mode by selecting
+Edit dashboard
+.
+Within the Insert components pane, drag and drop a Markdown box on the dashboard. Look for the blue
+lines which indicate the anchor where the box will go.
+Now, to edit the text, select the box. You can enter text, in markdown format (see
+this Markdown Cheatsheet
+for
+more information about this format). You can toggle between Edit and Preview using the menu on the
+top of the box.
+To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
+Save changes
+.
+Publishing Your Dashboard
+​
+If you have followed all of the steps outlined in the previous section, you should have a dashboard
+that looks like the below. If you would like, you can rearrange the elements of the dashboard by
+selecting
+Edit dashboard
+and dragging and dropping.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.txt
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
 The three types of transformation are:
 Setting up the base chart
 In this section, we’re going to set up a base chart which we can then apply the different
@@ -177,87 +232,6 @@ Charts
 in the top menu and then
 selecting the visualization name in the list (alternatively, find the chart in the Tutorial
 Dashboard and select Explore chart from the menu for that visualization).
-
-
-
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.txt
-
-Documentation Title:
-Exploring Data in Superset | Superset
-
-Documentation Content:
-Next, in the Time Comparison subsection of
-Advanced Analytics
-, enter the Time Shift by typing in
-“minus 1 week” (note this box accepts input in natural language). Run Query to see the new chart,
-which has an additional series with the same values, shifted a week back in time.
-Then, change the
-Calculation type
-to Absolute difference and select
-Run Query
-. We can now
-see only one series again, this time showing the difference between the two series we saw
-previously.
-Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.
-Resampling the data
-​
-In this section, we’ll resample the data so that rather than having daily data we have weekly data.
-As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
-Next, in the Python Functions subsection of
-Advanced Analytics
-, enter 7D, corresponding to seven
-days, in the Rule and median as the Method and show the chart by selecting
-Run Query
-.
-Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
-the median value within the seven daily data points. For more information on the meaning of the
-various options in this section, refer to the
-Pandas documentation
-.
-Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
-tutorial dashboard to see the four charts side by side and compare the different outputs.
-Edit this page
-Previous
-Creating Your First Dashboard
-Next
-Issue Codes
-Exploring Data in Superset
-Enabling Data Upload Functionality
-Loading CSV Data
-Table Visualization
-Dashboard Basics
-Pivot Table
-Line Chart
-Markup
-Publishing Your Dashboard
-Annotations
-Advanced Analytics
-Rolling Mean
-Time Comparison
-Resampling the data
-We use
-Copyright © 2024,
-          The
-Apache Software Foundation
-,
-          Licensed under the Apache
-License
-.
-Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
-Apache Software Foundation
-resources
-Security
-|
-Donate
-|
-Thanks
-|
-Events
-|
-License
-|
-Privacy
 
 
 

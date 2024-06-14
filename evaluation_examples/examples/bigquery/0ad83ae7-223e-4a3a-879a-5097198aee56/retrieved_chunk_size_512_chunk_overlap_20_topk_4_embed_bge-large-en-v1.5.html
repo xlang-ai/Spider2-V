@@ -37,88 +37,113 @@ of the data backing the visualization.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+cloud.google.com/bigquery/docs/running-queries.html
 
 Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-The retailer can then use a
-binary logistic regression model that uses this customer information to predict
-which label best represents each customer.</p><p>In this tutorial, you create a binary logistic regression model that predicts
-whether a US Census respondent's income falls into one of two ranges based on
-the respondent's demographic attributes.</p><h2>Create a dataset</h2><p>Create a BigQuery dataset to store your model:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>pane, click your project name.</p><li><p>Click <span>more_vert</span><strong>View actions &gt; Create dataset</strong>.</p><img/></li><li><p>On the <strong>Create dataset</strong>page, do the following:</p><ul><p>For <strong>Dataset ID</strong>, enter <code>census</code>.</p><li><p>For <strong>Location type</strong>, select <strong>Multi-region</strong>, and then select <strong>US (multiple regions in United States)</strong>.</p><p>The public datasets are stored in the
-<code>US</code><a>multi-region</a>. For
-simplicity, store your dataset in the same location.</p></li><p>Leave the remaining default settings as they are, and click <strong>Create dataset</strong>.</p></ul></li></ol><h2>Examine the data</h2><p>Examine the dataset and identify which columns to use as
-training data for the logistic regression model.
+select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add_box</span><strong>Compose a new query</strong>.</p><li><p>In the query editor, enter a valid GoogleSQL query.</p><p>For example, query the
+<a>BigQuery public dataset <code>usa_names</code></a>to determine the most common names in the United States between the
+years 1910 and 2013:</p><code>SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+</code></li><p>Click <span>settings</span><strong>More</strong>, and then
+click <strong>Query settings</strong>.</p><p>In the <strong>Resource management</strong>section, select <strong>Batch</strong>.</p><li><p>Optional: Specify the destination table and
+<a>location</a>for the query results:</p><ol><li>In the <strong>Destination</strong>section, select
+<strong>Set a destination table for query results</strong>.</li><li>For <strong>Dataset</strong>, enter the name of an existing dataset for the
+destination table—for example, <code>myProject.myDataset</code>.</li><li>For <strong>Table Id</strong>, enter a name for the destination table—for
+example, <code>myTable</code>.</li><li><p>If the destination table is an existing table, then for
+<strong>Destination table write preference</strong>, select whether to append or
+overwrite the table with the query results.</p><p>If the destination table is a new table, then
+BigQuery creates the table when you run your query.</p></li><li><p>In the <strong>Additional settings</strong>section,
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.html
+cloud.google.com/bigquery/docs/running-queries.html
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-|    94105 | 152 |          62 |
- | 2020-09-08 18:00:00 |    94105 | 152 |          67 |
- | 2020-09-08 21:00:00 |    94105 | 143 |          74 |
- +---------------------+----------+-----+-------------*/
-</code><h3>Get a 3-hour minimum and maximum value</h3><p>In the following query, you compute 3-hour minimum and maximum temperatures for
-each zip code:</p><code>SELECT
-  TIMESTAMP_BUCKET(time, INTERVAL 3 HOUR) AS time,
-  zip_code,
-  MIN(temperature) AS temperature_min,
-  MAX(temperature) AS temperature_max,
-FROM mydataset.environmental_data_hourly
-GROUP BY zip_code, time
-ORDER BY zip_code, time;
-
-/*---------------------+----------+-----------------+-----------------+
- |        time         | zip_code | temperature_min | temperature_max |
- +---------------------+----------+-----------------+-----------------+
- | 2020-09-08 00:00:00 |    60606 |              60 |              66 |
- | 2020-09-08 03:00:00 |    60606 |              57 |              59 |
- | 2020-09-08 06:00:00 |    60606 |              55 |              56 |
- | 2020-09-08 09:00:00 |    60606 |              55 |
+select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add_box</span><strong>Compose a new query</strong>.</p><li><p>In the query editor, enter a valid GoogleSQL query.</p><p>For example, query the
+<a>BigQuery public dataset <code>usa_names</code></a>to determine the most common names in the United States between the
+years 1910 and 2013:</p><code>SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+</code></li><li><p>Optional: Specify the destination table and
+<a>location</a>for the query results:</p><ol><li>In the query editor, click
+<span>settings</span><strong>More</strong>, and then
+click <strong>Query settings</strong>.</li><li>In the <strong>Destination</strong>section, select
+<strong>Set a destination table for query results</strong>.</li><li>For <strong>Dataset</strong>, enter the name of an existing dataset for the
+destination table—for example, <code>myProject.myDataset</code>.</li><li>For <strong>Table Id</strong>, enter a name for the destination table—for
+example, <code>myTable</code>.</li><li><p>If the destination table is an existing table, then for
+<strong>Destination table write preference</strong>, select whether to append or
+overwrite the table with the query results.</p><p>If the destination table is a new table, then
+BigQuery creates the table when you run your query.</p></li><li><p>In the <strong>Additional settings</strong>section, click the
+<strong>Data location</strong>menu, and then select an option.</p><p>In this example,
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/geospatial-data.html
+cloud.google.com/bigquery/docs/running-queries.html
 
 Documentation Title:
-Working with geospatial data  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-For example:</p><pre>-- how many stations within 1 mile range of each zip code?
-SELECT
-    zip_code AS zip,
-    ANY_VALUE(zip_code_geom) AS polygon,
-    COUNT(*) AS bike_stations
-FROM
-    `bigquery-public-data.new_york.citibike_stations` AS bike_stations,
-    `bigquery-public-data.geo_us_boundaries.zip_codes` AS zip_codes
-WHERE ST_DWithin(
-         zip_codes.zip_code_geom,
-         ST_GeogPoint(bike_stations.longitude, bike_stations.latitude),
-         1609.34)
-GROUP BY zip
-ORDER BY bike_stations DESC
-</pre><p>Spatial joins perform better when your geography data is persisted. The example
-above creates the geography values in the query. It is more performant to store
-the geography values in a BigQuery table.</p><p>For example, the following query retrieves longitude, latitude pairs and
-converts them to geographic points. When you run this query, you specify a new
-destination table to store the query results:</p><pre>SELECT
-  *,
-  ST_GeogPoint(pLongitude, pLatitude) AS p
-FROM
-  mytable
-</pre><p>BigQuery implements optimized spatial JOINs for INNER JOIN and
-CROSS JOIN operators with the following GoogleSQL predicate functions:</p><ul><code>ST_DWithin</code><code>ST_Intersects</code><code>ST_Contains</code><code>ST_Within</code><code>ST_Covers</code><code>ST_CoveredBy</code><code>ST_Equals</code><code>ST_Touches</code></ul><p>Spatial joins are not optimized:</p><ul><li>For LEFT, RIGHT or FULL OUTER joins</li><li>In cases involving ANTI joins</li><li>When the spatial predicate is negated</li></ul><p>A JOIN that uses the <code>ST_DWithin</code>predicate is optimized only when
-the distance parameter is a constant expression.</p><h2>Exporting spatial data</h2><p>When you export spatial data from BigQuery, <code>GEOGRAPHY</code>column
-values are always formatted as WKT strings.
+For
+example, query the
+<a>BigQuery public dataset <code>usa_names</code></a>to determine the most common names in the United States between the years
+1910 and 2013:</p><code>bq query \
+    --batch \
+    --use_legacy_sql=false \
+    'SELECT
+      name, gender,
+      SUM(number) AS total
+    FROM
+      `bigquery-public-data.usa_names.usa_1910_2013`
+    GROUP BY
+      name, gender
+    ORDER BY
+      total DESC
+    LIMIT
+      10;'
+</code><p>The query job writes the output to a temporary (cache) table.</p><p>Optionally, you can specify the destination table and
+<a>location</a>for the query results. To write the results to an existing table, include
+the appropriate flag to append (<code>--append_table=true</code>) or overwrite
+(<code>--replace=true</code>) the table.</p><pre>bq query \
+    --batch \
+    --location=<var>LOCATION</var>\
+    --destination_table=<var>TABLE</var>\
+    --use_legacy_sql=false \
+    '<var>QUERY</var>'
+</pre><p>Replace the following:</p><ul><li><p><var>LOCATION</var>: the region or multi-region for the destination
+table—for example, <code>US</code></p><p>In this example, the <code>usa_names</code>dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be in
+the US multi-region. You cannot query a dataset in one location and
+write the results to a table in another location.</p><p>You can set a default value for the location using the
+<a>.bigqueryrc file</a>.</p></li><li><p><var>TABLE</var>: a name for the destination table—for example,
+<code>myDataset.myTable</code></p><p>If the destination table is a new table, then BigQuery
+creates the table when you run your query.
 
 
 

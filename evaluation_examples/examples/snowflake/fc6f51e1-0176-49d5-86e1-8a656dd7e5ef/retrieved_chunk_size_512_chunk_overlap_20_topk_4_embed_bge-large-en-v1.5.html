@@ -14,6 +14,18 @@ retrieving results and returns whatever query information is available at that t
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.html
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
+See <span>Monitor query activity with Query History</span>for details on using <span>Query History</span>.</p><p>To determine which filter is responsible for a filter query refresh, you must open the list of filters and open each filter to
+view the details.</p><section><h4>Troubleshoot failed filter query refreshes<a>¶</a></h4><p>Refreshes of the filter query can fail for one of the following reasons:</p><ul><p>The user that created or last modified the filter has been dropped or disabled in Snowflake.</p><p>The user is inactive because they have not signed in for 3 months.</p></ul><p>It is not possible to see which users created or last modified a given filter.
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-activity.html
 
 Documentation Title:
@@ -33,26 +45,17 @@ the full query text.</p><p>Filters and the <span>Started</span>and <span>End Tim
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/2023/ui/2023-12-12.html
+docs.snowflake.com/en/user-guide/ui-history.html
 
 Documentation Title:
-December 12–14, 2023 — Snowsight Release Notes | Snowflake Documentation
+Using the History Page to Monitor Queries | Snowflake Documentation
 
 Documentation Content:
-You can recover up to 500 worksheets for each dropped user.</p><p>For more details, see <span>Recover worksheets owned by a dropped user</span>.</p></section><section><h2>View Query History in worksheets —– <em>General Availability</em><a>¶</a></h2><p>With this release, we are pleased to announce the general availability of Query History in worksheets in Snowsight.
-When you view Query History for a worksheet, you can review the queries run in a Snowsight worksheet, as well as the query results.</p><p>For more information, see <span>View query history</span>.</p></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Recover worksheets for dropped users — Preview</a><a>View Query History in worksheets —– General Availability</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-filters.html
-
-Documentation Title:
-Filter query results in dashboards and worksheets | Snowflake Documentation
-
-Documentation Content:
-See <span>Monitor query activity with Query History</span>for details on using <span>Query History</span>.</p><p>To determine which filter is responsible for a filter query refresh, you must open the list of filters and open each filter to
-view the details.</p><section><h4>Troubleshoot failed filter query refreshes<a>¶</a></h4><p>Refreshes of the filter query can fail for one of the following reasons:</p><ul><p>The user that created or last modified the filter has been dropped or disabled in Snowflake.</p><p>The user is inactive because they have not signed in for 3 months.</p></ul><p>It is not possible to see which users created or last modified a given filter.
+Data Recovery</span><span>Performance Optimization</span><span>Cost &amp; Billing</span></ol><div><div><nav><a>Guides</a><a>Connecting to Snowflake</a><a>Classic Console</a><span>Monitoring Queries</span></nav><section><h1>Using the History Page to Monitor Queries<a>¶</a></h1><p>The <span>History</span><img/>page allows you to view and drill into the details of all queries executed in the last 14 days.
+The page displays a historical listing of queries, including queries
+executed from SnowSQL or other SQL clients.</p><div><p>Note</p><p>For details about reviewing query history in Snowsight, see <span>Monitor query activity with Query History</span>.</p></div><p>The default information displayed for each query includes:</p><ul><p>Current status of queries: waiting in queue, running, succeeded, failed.</p><p>SQL text of your query.</p><p>Query ID.</p><p>Information about the warehouse used to execute the query.</p><p>Query start and end time, as well as duration.</p><p>Information about the query, including number of bytes scanned and number of rows returned.</p></ul><div><p>Note</p><p>The <span>Start Time</span>and <span>End Time</span>columns display times in the logged-in user’s time zone. There is no option to change this setting.
+Session parameters do not affect this setting.</p></div><section><h2>Overview of Features<a>¶</a></h2><img/><div><p>Note</p><p>The <span>History</span>page columns are derived from the QUERY_HISTORY view.
+See <span>QUERY_HISTORY View</span>for more information, including column descriptions.</p></div><p>You can perform the following tasks in the <span>History</span>page:</p><ul><p>Use the <span>auto-refresh</span>checkbox in the upper right to enable/disable auto-refresh for the session. If selected, the page is refreshed every 10 seconds.
 
 
 

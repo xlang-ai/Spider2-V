@@ -72,99 +72,117 @@ Aggregate functions aren't allowed in calculated columns.
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/resources/index.txt
+superset.apache.org/docs/using-superset/exploring-data/index.txt
 
 Documentation Title:
-Resources | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-INTEGER
-name: VARCHAR(250)
-type: VARCHAR(12)
-AnnotationLayer (annotation_layer)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-descr: TEXT
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-name: VARCHAR(250)
-UserAttribute (user_attribute)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-user_id: INTEGER
-welcome_dashboard_id: INTEGER
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-avatar_url: VARCHAR(100)
-Dashboard (dashboards)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-position_json: TEXT
-description: TEXT
-css: TEXT
-certified_by: TEXT
-certification_details: TEXT
-json_metadata: TEXT
-published: BOOLEAN
-is_managed_externally: BOOLEAN
-external_url: TEXT
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-uuid: BINARY(16)
-dashboard_title: VARCHAR(500)
-slug: VARCHAR(255)
-Annotation (annotation)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-start_dttm: DATETIME
-end_dttm: DATETIME
-layer_id: INTEGER
-long_descr: TEXT
-json_metadata: TEXT
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-short_descr: VARCHAR(500)
-TaggedObject (tagged_object)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-tag_id: INTEGER
-object_id: INTEGER
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-object_type: VARCHAR(9)
-CssTemplate (css_templates)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-css: TEXT
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-template_name: VARCHAR(250)
-FavStar (favstar)
-id: INTEGER
-user_id: INTEGER
-obj_id: INTEGER
-dttm: DATETIME
-class_name: VARCHAR(50)
-Slice (slices)
-created_on: DATETIME
-changed_on: DATETIME
-id: INTEGER
-datasource_id: INTEGER
-params: TEXT
-query_context: TEXT
-description: TEXT
-cache_timeout: INTEGER
-last_saved_at: DATETIME
-last_saved_by_fk: INTEGER
-certified_by: TEXT
-certification_details: TEXT
-is_managed_externally:
+If you would like to make your dashboard available to other users, simply select Draft next to the
+title of your dashboard on the top left to change your dashboard to be in Published state. You can
+also favorite this dashboard by selecting the star.
+Annotations
+​
+Annotations allow you to add additional context to your chart. In this section, we will add an
+annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
+dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
+eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).
+First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
+save. We can use this layer to refer to a number of different annotations.
+Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
+selecting the green plus sign. Then, select the Volcanic Eruptions layer, add a short description
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.
+Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
+dialogue:
+Name the layer as Volcanic Eruptions
+Change the Annotation Layer Type to Event
+Set the Annotation Source as Superset annotation
+Specify the Annotation Layer as Volcanic Eruptions
+Select
+Apply
+to see your annotation shown on the chart.
+If you wish, you can change how your annotation looks by changing the settings in the Display
+configuration section. Otherwise, select
+OK
+and finally
+Save
+to save your chart. If you keep
+the default selection to overwrite the chart, your annotation will be saved to the chart and also
+appear automatically in the Tutorial Dashboard.
+Advanced Analytics
+​
+In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
+allows you to apply additional transformations to your data.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.txt
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+CAST(recovery_rate) as float
+).
+Aggregate functions aren't allowed in calculated columns.
+Creating charts in Explore view
+​
+Superset has 2 main interfaces for exploring data:
+Explore
+: no-code viz builder. Select your dataset, select the chart,
+customize the appearance, and publish.
+SQL Lab
+: SQL IDE for cleaning, joining, and preparing data for Explore workflow
+We'll focus on the Explore view for creating charts right now.
+To start the Explore workflow from the
+Datasets
+tab, start by clicking the name
+of the dataset that will be powering your chart.
+You're now presented with a powerful workflow for exploring data and iterating on charts.
+The
+Dataset
+view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.
+The
+Data
+preview below the chart area also gives you helpful data context.
+Using the
+Data
+tab and
+Customize
+tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.
+As you customize your chart using drop-down menus, make sure to click the
+Run
+button
+to get visual feedback.
+In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.
+Creating a slice and dashboard
+​
+To save your chart, first click the
+Save
+button. You can either:
+Save your chart and add it to an existing dashboard
+Save your chart and add it to a new dashboard
+In the following screenshot, we save the chart to a new "Superset Duper Sales Dashboard":
+To publish, click
+Save and goto Dashboard
+.
+Behind the scenes, Superset will create a slice and store all the information needed
+to create your chart in its thin data layer
+(the query, chart type, options selected, name, etc).
+To resize the chart, start by clicking the Edit Dashboard button in the top right corner.
+Then, click and drag the bottom right corner of the chart until the chart layout snaps
+into a position you like onto the underlying grid.
+Click
+Save
+to persist the changes.
+Congrats! You’ve successfully linked, analyzed, and visualized data in Superset.
 
 
 
@@ -236,104 +254,6 @@ as a
 DBAPI driver
 defined. Database that have limited
 SQL support may work as well.
-
-
-
-Documentation Source:
-superset.apache.org/docs/contributing/resources/index.txt
-
-Documentation Title:
-Resources | Superset
-
-Documentation Content:
-TEXT
-report_schedule_id: INTEGER
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-type: VARCHAR(50)
-ReportSchedule (report_schedule)
-created_on: DATETIME
-changed_on: DATETIME
-extra_json: TEXT
-id: INTEGER
-description: TEXT
-context_markdown: TEXT
-active: BOOLEAN
-sql: TEXT
-chart_id: INTEGER
-dashboard_id: INTEGER
-database_id: INTEGER
-last_eval_dttm: DATETIME
-last_value: FLOAT
-last_value_row_json: TEXT
-validator_config_json: TEXT
-log_retention: INTEGER
-grace_period: INTEGER
-working_timeout: INTEGER
-force_screenshot: BOOLEAN
-custom_width: INTEGER
-custom_height: INTEGER
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-type: VARCHAR(50)
-name: VARCHAR(150)
-crontab: VARCHAR(1000)
-creation_method: VARCHAR(255)
-timezone: VARCHAR(100)
-report_format: VARCHAR(50)
-last_state: VARCHAR(50)
-validator_type: VARCHAR(100)
-ReportExecutionLog (report_execution_log)
-id: INTEGER
-scheduled_dttm: DATETIME
-start_dttm: DATETIME
-end_dttm: DATETIME
-value: FLOAT
-value_row_json: TEXT
-error_message: TEXT
-report_schedule_id: INTEGER
-uuid: BINARY(16)
-state: VARCHAR(50)
-Apache Superset ERD
-SQL Lab
-Data Assets
-Core
-System
-Inherited from Flask App Builder (FAB)
-Alerts & Reports
-TableSchema (table_schema)
-created_on: DATETIME
-changed_on: DATETIME
-extra_json: TEXT
-id: INTEGER
-tab_state_id: INTEGER
-database_id: INTEGER
-description: TEXT
-expanded: BOOLEAN
-created_by_fk: INTEGER
-changed_by_fk: INTEGER
-schema: VARCHAR(256)
-catalog: VARCHAR(256)
-table: VARCHAR(256)
-Query (query)
-tracking_url: TEXT
-extra_json: TEXT
-id: INTEGER
-database_id: INTEGER
-user_id: INTEGER
-sql: TEXT
-select_sql: TEXT
-executed_sql: TEXT
-limit: INTEGER
-select_as_cta: BOOLEAN
-select_as_cta_used: BOOLEAN
-progress: INTEGER
-rows: INTEGER
-error_message: TEXT
-changed_on: DATETIME
-client_id: VARCHAR(11)
-tmp_table_name: VARCHAR(256)
-tmp_schema_name:
 
 
 

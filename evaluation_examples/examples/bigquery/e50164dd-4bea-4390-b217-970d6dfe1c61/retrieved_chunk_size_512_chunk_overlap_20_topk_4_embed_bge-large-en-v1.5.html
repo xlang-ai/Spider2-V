@@ -58,101 +58,54 @@ Documentation Title:
 Load and query data with the bq tool  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-'
-</code><p>The output is similar to the following:</p><code>+----------+-------+
-|   name   | count |
-+----------+-------+
-| Isabella | 22925 |
-| Sophia   | 20648 |
-| Emma     | 17354 |
-| Olivia   | 17030 |
-| Ava      | 15436 |
-+----------+-------+
-</code></li><li><p>Determine the least popular boys' names in the data:</p><code>bq query --use_legacy_sql=false \
-    'SELECT
-      name,
-      count
-    FROM
-      `babynames.names2010`
-    WHERE
-      assigned_sex_at_birth = "M"
-    ORDER BY
-      count ASC
-    LIMIT 5;'
-</code><p>The output is similar to the following:</p><code>+----------+-------+
-|   name   | count |
-+----------+-------+
-| Aamarion |     5 |
-| Aarian   |     5 |
-| Aaqib    |     5 |
-| Aaidan   |     5 |
-| Aadhavan |     5 |
-+----------+-------+
-</code><p>The minimum count is 5 because the source data omits names with fewer than
-5 occurrences.</p></li></ol></section><section><h2>Clean up</h2><p>To avoid incurring charges to your Google Cloud account for
-          the resources used on this page, delete the Google Cloud project with the
-          resources.
-        </p><h3>Delete the project</h3>If you used the <a>BigQuery sandbox</a>to query
-the public dataset, then billing is not enabled for your project.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p>The easiest way to eliminate billing is to delete the project that you
-  created for the tutorial.
+The file has no header row.</li><li>Move the file to your working directory.
+<ul><li>If you're working in Cloud Shell, click
+<walkthrough-spotlight-pointer><span>more_vert</span><strong>More</strong></walkthrough-spotlight-pointer>&gt; <strong>Upload</strong>, click <strong>Choose Files</strong>, choose the
+<code>yob2010.txt</code>file, and then click <strong>Upload</strong>.</li><li>If you're working in a local shell, copy or move the file <code>yob2010.txt</code>into the directory where you're running the bq tool.</li></ul></li></ol><h2>Create a dataset</h2><ol><li><p>Create a dataset named <code>babynames</code>:</p><code>bq mk babynames
+</code><p>The output is similar to the following:</p><code>Dataset 'myproject:babynames' successfully created.
+</code><p>A dataset name can be up to 1,024 characters long and consist of A-Z, a-z,
+0-9, and the underscore. The name cannot start with a number or underscore,
+and it cannot have spaces.</p></li><li><p>Confirm that the dataset <code>babynames</code>now appears in your project:</p><code>bq ls
+</code><p>The output is similar to the following:</p><code>datasetId
+-------------
+  babynames
+</code></li></ol><h2>Load data into a table</h2><ol><li><p>In the <code>babynames</code>dataset, load the source file <code>yob2010.txt</code>into a
+new table that's named <code>names2010</code>:</p><code>bq load babynames.names2010 yob2010.txt name:string,assigned_sex_at_birth:string,count:integer
+</code><p>The output is similar to the following:</p><code>Upload complete.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/loading-data-cloud-storage-json.html
+cloud.google.com/bigquery/docs/running-queries.html
 
 Documentation Title:
-Loading JSON data from Cloud Storage  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-This table contains
-information about people. It consists of the following fields:</p><ul><code>id</code><code>first_name</code><code>last_name</code><li><code>dob</code>(date of birth)</li><li><code>addresses</code>(a nested and repeated field)
-<ul><li><code>addresses.status</code>(current or previous)</li><code>addresses.address</code><code>addresses.city</code><code>addresses.state</code><code>addresses.zip</code><li><code>addresses.numberOfYears</code>(years at the address)</li></ul></li></ul><p>The JSON data file would look like the following. Notice that the address field
-contains an array of values (indicated by <code>[ ]</code>).
-</p><pre>{"id":"1","first_name":"John","last_name":"Doe","dob":"1968-01-22","addresses":[{"status":"current","address":"123 First Avenue","city":"Seattle","state":"WA","zip":"11111","numberOfYears":"1"},{"status":"previous","address":"456 Main Street","city":"Portland","state":"OR","zip":"22222","numberOfYears":"5"}]}
-{"id":"2","first_name":"Jane","last_name":"Doe","dob":"1980-10-16","addresses":[{"status":"current","address":"789 Any Avenue","city":"New York","state":"NY","zip":"33333","numberOfYears":"2"},{"status":"previous","address":"321 Main Street","city":"Hoboken","state":"NJ","zip":"44444","numberOfYears":"3"}]}
-</pre><p>The schema for this table would look like the following:
-</p><pre>[
-    {
-        "name": "id",
-        "type": "STRING",
-        "mode": "NULLABLE"
-    },
-    {
-        "name": "first_name",
-        "type": "STRING",
-        "mode": "NULLABLE"
-    },
-    {
-        "name": "last_name",
-        "type": "STRING",
+select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add_box</span><strong>Compose a new query</strong>.</p><li><p>In the query editor, enter a valid GoogleSQL query.</p><p>For example, query the
+<a>BigQuery public dataset <code>usa_names</code></a>to determine the most common names in the United States between the
+years 1910 and 2013:</p><code>SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+</code></li><li><p>Optional: Specify the destination table and
+<a>location</a>for the query results:</p><ol><li>In the query editor, click
+<span>settings</span><strong>More</strong>, and then
+click <strong>Query settings</strong>.</li><li>In the <strong>Destination</strong>section, select
+<strong>Set a destination table for query results</strong>.</li><li>For <strong>Dataset</strong>, enter the name of an existing dataset for the
+destination table—for example, <code>myProject.myDataset</code>.</li><li>For <strong>Table Id</strong>, enter a name for the destination table—for
+example, <code>myTable</code>.</li><li><p>If the destination table is an existing table, then for
+<strong>Destination table write preference</strong>, select whether to append or
+overwrite the table with the query results.</p><p>If the destination table is a new table, then
+BigQuery creates the table when you run your query.</p></li><li><p>In the <strong>Additional settings</strong>section, click the
+<strong>Data location</strong>menu, and then select an option.</p><p>In this example,
 
 
 

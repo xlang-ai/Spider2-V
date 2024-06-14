@@ -1,89 +1,42 @@
 Documentation Source:
-docs.getdbt.com/guides/manual-install0c17.txt
+docs.getdbt.com/guides/manual-install.txt
 
 Documentation Title:
 Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
-Checkout a new git branch
-​
-Check out a new git branch to work on new code:
-Create a new branch by using the
-checkout
-command and passing the
--b
-flag:
-$
-git
-checkout
--b
-add-customers-model
->
-Switched to a new branch
-`
-add-customer-model
-`
-Build your first model
-​
-Open your project in your favorite code editor.
-Create a new SQL file in the
-models
-directory, named
-models/customers.sql
+jaffle_shop
 .
-Paste the following query into the
+orders
+Edit the SQL in your
 models/customers.sql
-file.
-BigQuery
-Databricks
-Redshift
-Snowflake
+file as follows:
+models/customers.sql
 with
 customers
 as
 (
 select
-id
-as
-customer_id
-,
-first_name
-,
-last_name
+*
 from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-customers
+{{ ref
+(
+'stg_customers'
+)
+}}
 )
 ,
 orders
 as
 (
 select
-id
-as
-order_id
-,
-user_id
-as
-customer_id
-,
-order_date
-,
-status
+*
 from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-orders
+{{ ref
+(
+'stg_orders'
+)
+}}
 )
 ,
 customer_orders
@@ -147,6 +100,69 @@ coalesce
 (
 customer_orders
 .
+number_of_orders
+,
+0
+)
+as
+number_of_orders
+from
+customers
+left
+join
+customer_orders
+using
+(
+customer_id
+)
+)
+select
+*
+from
+final
+Execute
+dbt run
+.
+This time, when you performed a
+dbt run
+, separate views/tables were created for
+stg_customers
+,
+stg_orders
+and
+customers
+. dbt inferred the order to run these models. Because
+customers
+depends on
+stg_customers
+and
+stg_orders
+, dbt builds
+customers
+last. You do not need to explicitly define these dependencies.
+FAQs
+​
+As I create more models, how should I keep my project organized? What should I name my models?
+Next steps
+​
+Before moving on from building your first models, make a change and see how it affects your results:
+Write some bad SQL to cause an error — can you debug the error?
+Run only a single model at a time. For more information, see
+Syntax overview
+.
+Group your models with a
+stg_
+prefix into a
+staging
+subdirectory. For example,
+models/staging/stg_customers.sql
+.
+Configure your
+staging
+models to be views.
+Run only the
+staging
+models.
 
 
 
@@ -157,85 +173,38 @@ Documentation Title:
 Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
-Checkout a new git branch
-​
-Check out a new git branch to work on new code:
-Create a new branch by using the
-checkout
-command and passing the
--b
-flag:
-$
-git
-checkout
--b
-add-customers-model
->
-Switched to a new branch
-`
-add-customer-model
-`
-Build your first model
-​
-Open your project in your favorite code editor.
-Create a new SQL file in the
-models
-directory, named
-models/customers.sql
+jaffle_shop
 .
-Paste the following query into the
+orders
+Edit the SQL in your
 models/customers.sql
-file.
-BigQuery
-Databricks
-Redshift
-Snowflake
+file as follows:
+models/customers.sql
 with
 customers
 as
 (
 select
-id
-as
-customer_id
-,
-first_name
-,
-last_name
+*
 from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-customers
+{{ ref
+(
+'stg_customers'
+)
+}}
 )
 ,
 orders
 as
 (
 select
-id
-as
-order_id
-,
-user_id
-as
-customer_id
-,
-order_date
-,
-status
+*
 from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-orders
+{{ ref
+(
+'stg_orders'
+)
+}}
 )
 ,
 customer_orders
@@ -299,6 +268,237 @@ coalesce
 (
 customer_orders
 .
+number_of_orders
+,
+0
+)
+as
+number_of_orders
+from
+customers
+left
+join
+customer_orders
+using
+(
+customer_id
+)
+)
+select
+*
+from
+final
+Execute
+dbt run
+.
+This time, when you performed a
+dbt run
+, separate views/tables were created for
+stg_customers
+,
+stg_orders
+and
+customers
+. dbt inferred the order to run these models. Because
+customers
+depends on
+stg_customers
+and
+stg_orders
+, dbt builds
+customers
+last. You do not need to explicitly define these dependencies.
+FAQs
+​
+As I create more models, how should I keep my project organized? What should I name my models?
+Next steps
+​
+Before moving on from building your first models, make a change and see how it affects your results:
+Write some bad SQL to cause an error — can you debug the error?
+Run only a single model at a time. For more information, see
+Syntax overview
+.
+Group your models with a
+stg_
+prefix into a
+staging
+subdirectory. For example,
+models/staging/stg_customers.sql
+.
+Configure your
+staging
+models to be views.
+Run only the
+staging
+models.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/manual-install0c17.txt
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+jaffle_shop
+.
+orders
+Edit the SQL in your
+models/customers.sql
+file as follows:
+models/customers.sql
+with
+customers
+as
+(
+select
+*
+from
+{{ ref
+(
+'stg_customers'
+)
+}}
+)
+,
+orders
+as
+(
+select
+*
+from
+{{ ref
+(
+'stg_orders'
+)
+}}
+)
+,
+customer_orders
+as
+(
+select
+customer_id
+,
+min
+(
+order_date
+)
+as
+first_order_date
+,
+max
+(
+order_date
+)
+as
+most_recent_order_date
+,
+count
+(
+order_id
+)
+as
+number_of_orders
+from
+orders
+group
+by
+1
+)
+,
+final
+as
+(
+select
+customers
+.
+customer_id
+,
+customers
+.
+first_name
+,
+customers
+.
+last_name
+,
+customer_orders
+.
+first_order_date
+,
+customer_orders
+.
+most_recent_order_date
+,
+coalesce
+(
+customer_orders
+.
+number_of_orders
+,
+0
+)
+as
+number_of_orders
+from
+customers
+left
+join
+customer_orders
+using
+(
+customer_id
+)
+)
+select
+*
+from
+final
+Execute
+dbt run
+.
+This time, when you performed a
+dbt run
+, separate views/tables were created for
+stg_customers
+,
+stg_orders
+and
+customers
+. dbt inferred the order to run these models. Because
+customers
+depends on
+stg_customers
+and
+stg_orders
+, dbt builds
+customers
+last. You do not need to explicitly define these dependencies.
+FAQs
+​
+As I create more models, how should I keep my project organized? What should I name my models?
+Next steps
+​
+Before moving on from building your first models, make a change and see how it affects your results:
+Write some bad SQL to cause an error — can you debug the error?
+Run only a single model at a time. For more information, see
+Syntax overview
+.
+Group your models with a
+stg_
+prefix into a
+staging
+subdirectory. For example,
+models/staging/stg_customers.sql
+.
+Configure your
+staging
+models to be views.
+Run only the
+staging
+models.
 
 
 
@@ -309,85 +509,38 @@ Documentation Title:
 Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
-Checkout a new git branch
-​
-Check out a new git branch to work on new code:
-Create a new branch by using the
-checkout
-command and passing the
--b
-flag:
-$
-git
-checkout
--b
-add-customers-model
->
-Switched to a new branch
-`
-add-customer-model
-`
-Build your first model
-​
-Open your project in your favorite code editor.
-Create a new SQL file in the
-models
-directory, named
-models/customers.sql
+jaffle_shop
 .
-Paste the following query into the
+orders
+Edit the SQL in your
 models/customers.sql
-file.
-BigQuery
-Databricks
-Redshift
-Snowflake
+file as follows:
+models/customers.sql
 with
 customers
 as
 (
 select
-id
-as
-customer_id
-,
-first_name
-,
-last_name
+*
 from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-customers
+{{ ref
+(
+'stg_customers'
+)
+}}
 )
 ,
 orders
 as
 (
 select
-id
-as
-order_id
-,
-user_id
-as
-customer_id
-,
-order_date
-,
-status
+*
 from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-orders
+{{ ref
+(
+'stg_orders'
+)
+}}
 )
 ,
 customer_orders
@@ -451,158 +604,69 @@ coalesce
 (
 customer_orders
 .
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/manual-install5f72.txt
-
-Documentation Title:
-Quickstart for dbt Core from a manual install | dbt Developer Hub
-
-Documentation Content:
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
-Checkout a new git branch
-​
-Check out a new git branch to work on new code:
-Create a new branch by using the
-checkout
-command and passing the
--b
-flag:
-$
-git
-checkout
--b
-add-customers-model
->
-Switched to a new branch
-`
-add-customer-model
-`
-Build your first model
-​
-Open your project in your favorite code editor.
-Create a new SQL file in the
-models
-directory, named
-models/customers.sql
-.
-Paste the following query into the
-models/customers.sql
-file.
-BigQuery
-Databricks
-Redshift
-Snowflake
-with
-customers
-as
-(
-select
-id
-as
-customer_id
+number_of_orders
 ,
-first_name
-,
-last_name
-from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-customers
-)
-,
-orders
-as
-(
-select
-id
-as
-order_id
-,
-user_id
-as
-customer_id
-,
-order_date
-,
-status
-from
-`
-dbt-tutorial
-`
-.
-jaffle_shop
-.
-orders
-)
-,
-customer_orders
-as
-(
-select
-customer_id
-,
-min
-(
-order_date
-)
-as
-first_order_date
-,
-max
-(
-order_date
-)
-as
-most_recent_order_date
-,
-count
-(
-order_id
+0
 )
 as
 number_of_orders
 from
-orders
-group
-by
-1
-)
-,
-final
-as
-(
-select
 customers
-.
+left
+join
+customer_orders
+using
+(
 customer_id
+)
+)
+select
+*
+from
+final
+Execute
+dbt run
+.
+This time, when you performed a
+dbt run
+, separate views/tables were created for
+stg_customers
 ,
+stg_orders
+and
 customers
-.
-first_name
-,
+. dbt inferred the order to run these models. Because
 customers
+depends on
+stg_customers
+and
+stg_orders
+, dbt builds
+customers
+last. You do not need to explicitly define these dependencies.
+FAQs
+​
+As I create more models, how should I keep my project organized? What should I name my models?
+Next steps
+​
+Before moving on from building your first models, make a change and see how it affects your results:
+Write some bad SQL to cause an error — can you debug the error?
+Run only a single model at a time. For more information, see
+Syntax overview
 .
-last_name
-,
-customer_orders
+Group your models with a
+stg_
+prefix into a
+staging
+subdirectory. For example,
+models/staging/stg_customers.sql
 .
-first_order_date
-,
-customer_orders
-.
-most_recent_order_date
-,
-coalesce
-(
-customer_orders
-.
+Configure your
+staging
+models to be views.
+Run only the
+staging
+models.
 
 
 

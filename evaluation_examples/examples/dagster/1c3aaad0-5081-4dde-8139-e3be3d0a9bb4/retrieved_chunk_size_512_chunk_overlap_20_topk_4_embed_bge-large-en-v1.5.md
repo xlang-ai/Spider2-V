@@ -77,77 +77,6 @@ between sensor evaluations.
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/schedules-sensors.md
-
-Documentation Title:
-Dagster Docs
-
-Documentation Content:
-Each event ID must be before the latest\_consumed\_event\_idfield for the asset.
-
-Events marked as consumed via advance\_cursorwill be returned in future ticks until they
-are marked as consumed.
-
-To update the cursor to the latest materialization and clear the unconsumed events, call
-advance\_all\_cursors.
-
-monitored\_assets¶The assets monitored
-by the sensor. If an AssetSelection object is provided, it will only apply to assets
-within the Definitions that this sensor is part of.
-
-Type:Union[Sequence[AssetKey], AssetSelection]
-
-repository\_def¶The repository that the sensor belongs to.
-If needed by the sensor top-level resource definitions will be pulled from this repository.
-You can provide either this or definitions.
-
-Type:Optional[RepositoryDefinition]
-
-instance\_ref¶The serialized instance configured to run the schedule
-
-Type:Optional[InstanceRef]
-
-cursor¶The cursor, passed back from the last sensor evaluation via
-the cursor attribute of SkipReason and RunRequest. Must be a dictionary of asset key
-strings to a stringified tuple of (latest\_event\_partition, latest\_event\_storage\_id,
-trailing\_unconsumed\_partitioned\_event\_ids).
-
-Type:Optional[str]
-
-last\_tick\_completion\_time¶The last time that the sensor was evaluated for
-a tick (UTC).
-
-Type:Optional[float]
-
-last\_run\_key¶DEPRECATED The run key of the RunRequest most recently created by this
-sensor. Use the preferred cursorattribute instead.
-
-Type:str
-
-repository\_name¶The name of the repository that the sensor belongs to.
-
-Type:Optional[str]
-
-instance¶The deserialized instance can also be passed in
-directly (primarily useful in testing contexts).
-
-Type:Optional[DagsterInstance]
-
-definitions¶Definitionsobject that the sensor is defined in.
-If needed by the sensor, top-level resource definitions will be pulled from these
-definitions. You can provide either this or repository\_def.
-
-Type:Optional[Definitions]
-
-last\_sensor\_start\_time¶The last time the sensor was started.
-
-Type:Optional[float]
-
-Example
-
-
-
-Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.md
 
 Documentation Title:
@@ -170,6 +99,50 @@ Idempotence and cursors#
 When instigating runs based on external events, you usually want to run exactly one job run for each event. There are two ways to define your sensors to avoid creating duplicate runs for your events:
 
 Using a `run_key`Using cursors
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/_apidocs/schedules-sensors.md
+
+Documentation Title:
+Dagster Docs
+
+Documentation Content:
+Takes a SensorEvaluationContextand an EventLogEntry corresponding to an
+AssetMaterialization event.
+
+Parameters:**asset\_key**(*AssetKey*) – The asset\_key this sensor monitors.
+
+**name**(*Optional**[**str**]*) – The name of the sensor. Defaults to the name of the decorated
+function.
+
+**minimum\_interval\_seconds**(*Optional**[**int**]*) – The minimum number of seconds that will elapse
+between sensor evaluations.
+
+**description**(*Optional**[**str**]*) – A human-readable description of the sensor.
+
+**job**(*Optional**[**Union**[**GraphDefinition**,* *JobDefinition**,* *UnresolvedAssetJobDefinition**]**]*) – The
+job to be executed when the sensor fires.
+
+**jobs**(*Optional**[**Sequence**[**Union**[**GraphDefinition**,* *JobDefinition**,* *UnresolvedAssetJobDefinition**]**]**]*) – (experimental) A list of jobs to be executed when the sensor fires.
+
+**default\_status**(*DefaultSensorStatus*) – Whether the sensor starts as running or not. The default
+status can be overridden from the Dagster UI or via the GraphQL API.
+
+Example
+
+
+```
+fromdagsterimportAssetKey,EventLogEntry,SensorEvaluationContext,asset_sensor@asset_sensor(asset_key=AssetKey("my_table"),job=my_job)defmy_asset_sensor(context:SensorEvaluationContext,asset_event:EventLogEntry):returnRunRequest(run_key=context.cursor,run_config={"ops":{"read_materialization":{"config":{"asset_key":asset_event.dagster_event.asset_key.path,}}}},)
+```
+classdagster.AssetSensorDefinition(name, asset\_key, job\_name, asset\_materialization\_fn, *minimum\_interval\_seconds=None*, *description=None*, *job=None*, *jobs=None*, *default\_status=DefaultSensorStatus.STOPPED*, *required\_resource\_keys=None*)[source]¶Define an asset sensor that initiates a set of runs based on the materialization of a given
+asset.
+
+If the asset has been materialized multiple times between since the last sensor tick, the
+evaluation function will only be invoked once, with the latest materialization.
+
+Parameters:**name**(*str*) – The name of the sensor to create.
 
 
 

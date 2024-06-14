@@ -1,336 +1,408 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/ui_components.IRankedMenu.DEFAULT_RANK.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/csvviewer.DSVModel-1.txt
 
 Documentation Title:
-DEFAULT_RANK | @jupyterlab
+DSVModel | @jupyterlab
 
 Documentation Content:
-Tools
-IAdd
-Options
-IAdd
-Section
-Options
-ITool
-Notebook
-Content
-Factory
 IOptions
-Content
-Factory
-IContent
-Factory
-IOptions
-Notebook
-Actions
-access
-Next
-History
-access
-Previous
-History
-change
-Cell
-Type
-clear
-All
-Outputs
-clear
-Outputs
-collapse
-All
-Headings
-copy
-cut
-delete
-Cells
-deselect
-All
-disable
-Output
-Scrolling
-duplicate
-enable
-Output
-Scrolling
-expand
-All
-Headings
-expand
-Parent
-extend
-Selection
-Above
-extend
-Selection
-Below
-find
-Next
-Parent
-Heading
-focus
-Active
-Cell
+The options for initializing the data model.
+Returns
+DSVModel
+Overrides DataModel.constructor
+Defined in packages/csvviewer/lib/model.d.ts:15
+Properties
+Private
+_column
+Count
+_column
+Count
+:
+any
+Defined in packages/csvviewer/lib/model.d.ts:132
+Private
+_column
+Offsets
+_column
+Offsets
+:
+any
+The column offset cache, starting with row _columnOffsetsStartingRow
+Notes
+The index of the first character in the data string for row r, column c is
+_columnOffsets[(r-this._columnOffsetsStartingRow)*numColumns+c]
+Defined in packages/csvviewer/lib/model.d.ts:144
+Private
+_column
+Offsets
+Starting
+Row
+_column
+Offsets
+Starting
+Row
+:
+any
+The row that _columnOffsets[0] represents.
+Defined in packages/csvviewer/lib/model.d.ts:148
+Private
+_compute
+Row
+Offsets
+_compute
+Row
+Offsets
+:
+any
+Compute the row offsets and initialize the column offset cache.
+Param
+The last row to parse, from the start of the data (first
+row is row 1).
+Notes
+This method supports parsing the data incrementally by calling it with
+incrementally higher endRow. Rows that have already been parsed will not be
+parsed again.
+Defined in packages/csvviewer/lib/model.d.ts:112
+Private
+_delayed
+Parse
+_delayed
+Parse
+:
+any
+Defined in packages/csvviewer/lib/model.d.ts:162
+Private
+_delimiter
+_delimiter
+:
+any
+Defined in packages/csvviewer/lib/model.d.ts:125
+Private
+_done
+Parsing
+_done
+Parsing
+:
+any
+Defined in packages/csvviewer/lib/model.d.ts:164
+Private
+_get
+Field
+_get
+Field
+:
+any
+Get the parsed string field for a row and column.
+Param
+The row number of the data item.
+Param
+The column number of the data item.
+Returns
+The parsed string for the data item.
+Defined in packages/csvviewer/lib/model.d.ts:120
+Private
+_header
+_header
+:
+any
+The header strings.
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/csvviewer.DSVModel-1.txt
+
+Documentation Title:
+DSVModel | @jupyterlab
+
+Documentation Content:
+Returns
+number
+The column count for the region.
+Overrides DataModel.columnCount
+Defined in packages/csvviewer/lib/model.d.ts:66
+data
+data
+(
+region
+,
+row
+,
+column
+)
+:
+string
+Get the data value for a cell in the data model.
+Parameters
+region
+:
+CellRegion
+The cell region of interest.
+row
+:
+number
+The row index of the cell of interest.
+column
+:
+number
+The column index of the cell of interest.
+Returns
+string
+Overrides DataModel.data
+Defined in packages/csvviewer/lib/model.d.ts:78
+dispose
+dispose
+(
+)
+:
+void
+Dispose the resources held by this model.
+Returns
+void
+Implementation of IDisposable.dispose
+Defined in packages/csvviewer/lib/model.d.ts:82
+Protected
+emit
+Changed
+emit
+Changed
+(
+args
+)
+:
+void
+Emit the
+changed
+signal for the data model.
+Notes
+Subclasses should call this method whenever the data model has
+changed so that attached data grids can update themselves.
+Parameters
+args
+:
+ChangedArgs
+Returns
+void
+Inherited from DataModel.emitChanged
+Defined in node_modules/@lumino/datagrid/types/datamodel.d.ts:93
 get
+Offset
+Index
+get
+Offset
+Index
+(
+row
+,
+column
+)
+:
+number
+Get the index in the data string for the first character of a row and
+column.
+Parameters
+row
+:
+number
+The row of the data item.
+column
+:
+number
+The column of the data item.
+Returns
+number
+The index into the data string where the data item starts.
+Defined in packages/csvviewer/lib/model.d.ts:91
+group
+group
+(
+region
+,
+groupIndex
+)
+:
+CellGroup
+Get the merged cell group corresponding to a region and index number.
+Parameters
+region
+:
+CellRegion
+the cell region of cell group.
+groupIndex
+:
+number
+the group index of the cell group.
+Returns
+CellGroup
+a cell group.
+Inherited from DataModel.group
+Defined in node_modules/@lumino/datagrid/types/datamodel.d.ts:85
+group
+Count
+group
+Count
+(
+region
+)
+:
+number
+Get the count of merged cell groups pertaining to a given
+cell region.
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/filebrowser.DirListing-1.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/modules/extensionmanager.ListModel.txt
 
 Documentation Title:
-DirListing | @jupyterlab
+ListModel | @jupyterlab
 
 Documentation Content:
-ace
-Selection
-run
-run
-All
-run
-All
-Above
-run
-All
-Below
-run
-And
-Advance
-run
-And
-Insert
-run
-Cells
-select
-Above
-select
-All
-select
-Below
-select
-Heading
-Above
-Or
-Collapse
-Heading
-select
-Heading
-Below
-Or
-Expand
-Heading
-select
-Last
-Run
-Cell
-set
-Cell
-Collapse
-set
-Heading
-Collapse
-set
-Markdown
-Header
-show
-All
-Code
-show
-All
-Outputs
-show
-Code
-show
-Output
-split
-Cell
-toggle
-All
-Line
-Numbers
-toggle
-Current
-Heading
-Collapse
-trust
-undo
-Notebook
-Model
-IOptions
-Notebook
-Model
-Factory
-IOptio
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/filebrowser.DirListing.txt
-
-Documentation Title:
-DirListing | @jupyterlab
-
-Documentation Content:
-ame
-Level
-Heading
-Above
-insert
-Same
-Level
-Heading
-Below
-merge
-Cells
 move
-Down
-move
-Up
-paste
-redo
-render
-All
-Markdown
-render
-Default
-render
-Side
-By
-Side
-replace
-Selection
-run
-run
-All
-run
-All
-Above
-run
-All
-Below
-run
-And
-Advance
-run
-And
-Insert
-run
-Cells
-select
-Above
-select
-All
-select
-Below
-select
-Heading
-Above
-Or
-Collapse
-Heading
-select
-Heading
-Below
-Or
-Expand
-Heading
-select
-Last
-Run
-Cell
-set
-Cell
-Collapse
-set
-Heading
-Collapse
-set
-Markdown
-Header
-show
-All
-Code
-show
-All
-Outputs
+Slash
+resolve
+Text
+camel
+Case
+char
+Index
+To
+Js
+Index
+js
+Index
+To
+Char
+Index
+title
+Case
+Time
+format
+format
+Human
+URLExt
+IUrl
+encode
+Parts
+get
+Host
+Name
+is
+Local
+join
+normalize
+object
+To
+Query
+String
+parse
+query
+String
+To
+Object
+Activity
+Monitor
+Lru
+Cache
+IChanged
+Args
+signal
+To
+Promise
+csvviewer
+CSVDocument
+Widget
+IOptions
+CSVToolbar
+IOptions
+CSVViewer
+IOptions
+DSVModel
+IOptions
+IParser
+IOptions
+IResults
+CSVDelimiter
+CSVDocument
+Widget
+CSVViewer
+CSVViewer
+Factory
+DSVMo
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/documentsearch.SearchProviderRegistry.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/ui_components.WindowedList-1.txt
 
 Documentation Title:
-SearchProviderRegistry | @jupyterlab
+WindowedList | @jupyterlab
 
 Documentation Content:
-ok
-Tools
-IAdd
-Options
-IAdd
-Section
-Options
-ITool
-Notebook
-Content
-Factory
+URLExt
+IUrl
+encode
+Parts
+get
+Host
+Name
+is
+Local
+join
+normalize
+object
+To
+Query
+String
+parse
+query
+String
+To
+Object
+Activity
+Monitor
+Lru
+Cache
+IChanged
+Args
+signal
+To
+Promise
+csvviewer
+CSVDocument
+Widget
 IOptions
-Content
-Factory
-IContent
-Factory
+CSVToolbar
 IOptions
-Notebook
-Actions
-access
-Next
-History
-access
-Previous
-History
-change
-Cell
-Type
-clear
-All
-Outputs
-clear
-Outputs
-collapse
-All
-Headings
-copy
-cut
-delete
-Cells
-deselect
-All
-disable
-Output
-Scrolling
-duplicate
-enable
-Output
-Scrolling
-expand
-All
-Headings
-expand
-Parent
-extend
-Selection
-Above
-extend
-Selection
-Below
-find
-Next
-Parent
-Heading
-focus
-Active
-Cell
-ge
+CSVViewer
+IOptions
+DSVModel
+IOptions
+IParser
+IOptions
+IResults
+CSVDelimiter
+CSVDocument
+Widget
+CSVViewer
+CSVViewer
+Factory
+DSVModel
+Grid
+Search
+Service
+TSVViewer
+Factory
+Text
+Render
+Config
+IParser
+parseDSV
+parseDSVNo
+Quotes
+debugger
+Debugger
+Co
 
 
 

@@ -54,6 +54,37 @@ Documentation Title:
 Filter query results in dashboards and worksheets | Snowflake Documentation
 
 Documentation Content:
+DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatusOverview2. Connecting to SnowflakeEcosystem- SnowsightGetting started with SnowsightExploring the navigation menuAbout the Snowsight UpgradeUpgrading to SnowsightSearch Snowflake objects and resourcesGetting started with worksheetsManaging and using worksheetsQuerying data with SQL worksheetsUsing Snowflake Copilot in SQL worksheetsVisualizing worksheet resultsVisualizing data with dashboardsFilter query results in worksheets and dashboardsExplore and manage dataManage your user profileManage notification contactsManage support cases
+Classic ConsoleSnowSQLVisual Studio Code SQL ExtensionClient DownloadClient ConfigurationConnecting to Third-Party SystemsSnowflake Connector for Google Analytics Aggregate DataSnowflake Connector for Google Analytics Raw DataSnowflake Connector for Google Looker StudioSnowflake Connector for ServiceNow®Snowflake Connector for ServiceNow®v2
+Virtual warehousesDatabases, Tables, & ViewsData TypesData LoadingData UnloadingQueriesData Sharing & CollaborationSnowflake AI FeaturesSnowflake CortexAlerts & NotificationsSecurityData GovernancePrivacyOrganizations & AccountsBusiness Continuity & Data RecoveryPerformance OptimizationCost & Billing
+GuidesConnecting to SnowflakeSnowsightFilter query results in worksheets and dashboardsFilter query results in dashboards and worksheets¶
+==================================================
+
+You can filter your query results in dashboards and SQL worksheets using system filters, available to all roles in Snowflake,
+or with custom filters created by administrators.
+
+Create custom filters¶
+----------------------
+
+Custom filters let you change the results of a query without directly editing the query.
+
+Filters are implemented as special keywords that resolve as a subquery or list of values, which are then used in the execution of a query.
+As a result, there are some limitations when using a filter in a SQL query. See Specify a filter in a SQL query.
+
+Note
+
+Anyone in your account can view and use a custom filter after it is created. A custom filter has an associated role,
+but that role does not limit filter visibility.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.md
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
 Write a query to populate a filter¶
 
 To populate a list of filter options from a query, your query must follow certain guidelines:
@@ -91,37 +122,6 @@ To review custom filters in your account, open a worksheet or dashboard and then
 To make changes to any filters, such as changing the refresh frequency for the query used to populate a custom filter list,
 you must have the ACCOUNTADMIN role or a role with permissions to manage filters.
 See Manage refresh frequency for a custom filter.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-filters.md
-
-Documentation Title:
-Filter query results in dashboards and worksheets | Snowflake Documentation
-
-Documentation Content:
-DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatusOverview2. Connecting to SnowflakeEcosystem- SnowsightGetting started with SnowsightExploring the navigation menuAbout the Snowsight UpgradeUpgrading to SnowsightSearch Snowflake objects and resourcesGetting started with worksheetsManaging and using worksheetsQuerying data with SQL worksheetsUsing Snowflake Copilot in SQL worksheetsVisualizing worksheet resultsVisualizing data with dashboardsFilter query results in worksheets and dashboardsExplore and manage dataManage your user profileManage notification contactsManage support cases
-Classic ConsoleSnowSQLVisual Studio Code SQL ExtensionClient DownloadClient ConfigurationConnecting to Third-Party SystemsSnowflake Connector for Google Analytics Aggregate DataSnowflake Connector for Google Analytics Raw DataSnowflake Connector for Google Looker StudioSnowflake Connector for ServiceNow®Snowflake Connector for ServiceNow®v2
-Virtual warehousesDatabases, Tables, & ViewsData TypesData LoadingData UnloadingQueriesData Sharing & CollaborationSnowflake AI FeaturesSnowflake CortexAlerts & NotificationsSecurityData GovernancePrivacyOrganizations & AccountsBusiness Continuity & Data RecoveryPerformance OptimizationCost & Billing
-GuidesConnecting to SnowflakeSnowsightFilter query results in worksheets and dashboardsFilter query results in dashboards and worksheets¶
-==================================================
-
-You can filter your query results in dashboards and SQL worksheets using system filters, available to all roles in Snowflake,
-or with custom filters created by administrators.
-
-Create custom filters¶
-----------------------
-
-Custom filters let you change the results of a query without directly editing the query.
-
-Filters are implemented as special keywords that resolve as a subquery or list of values, which are then used in the execution of a query.
-As a result, there are some limitations when using a filter in a SQL query. See Specify a filter in a SQL query.
-
-Note
-
-Anyone in your account can view and use a custom filter after it is created. A custom filter has an associated role,
-but that role does not limit filter visibility.
 
 
 

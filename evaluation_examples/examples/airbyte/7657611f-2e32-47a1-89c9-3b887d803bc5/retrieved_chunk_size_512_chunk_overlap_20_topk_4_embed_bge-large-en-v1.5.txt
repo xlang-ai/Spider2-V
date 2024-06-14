@@ -1,4 +1,110 @@
 Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/core-concepts/sync-schedules.txt
+
+Documentation Title:
+Sync Schedules | Airbyte Documentation
+
+Documentation Content:
+For example:
+October 1st, 2pm
+, a user sets up a connection to sync data every 24 hours.
+October 1st, 2:01pm
+: sync job runs
+October 2nd, 2:01pm:
+24 hours have passed since the last sync, so a sync is triggered.
+October 2nd, 5pm
+: The user manually triggers a sync from the UI
+October 3rd, 2:01pm:
+since the last sync was less than 24 hours ago, no sync is run
+October 3rd, 5:01pm:
+It has been more than 24 hours since the last sync, so a sync is run
+Cron Syncs
+​
+If you prefer more precision in scheduling your sync, you can also use CRON scheduling to set a specific time of day or month.
+Airbyte uses the CRON scheduler from
+Quartz
+. We recommend reading their
+documentation
+to understand the required formatting. You can also refer to these examples:
+Cron string
+Sync Timing
+0 0 * * * ?
+Every hour, at 0 minutes past the hour
+0 0 15 * * ?
+At 15:00 every day
+0 0 15 * * MON,TUE
+At 15:00, only on Monday and Tuesday
+0 0 0,2,4,6 * * ?
+At 12:00 AM, 02:00 AM, 04:00 AM and 06:00 AM every day
+0 0 _/15 _ * ?
+At 0 minutes past the hour, every 15 hours
+When setting up the cron expression, you will also be asked to choose a time zone the sync will run in.
+Manual Syncs
+​
+When the connection is set to replicate with
+Manual
+frequency, the sync will not automatically run.
+It can be triggered by clicking the "Sync Now" button at any time through the UI or be triggered through the API.
+Edit this page
+Previous
+Configuring Connections
+Next
+Namespaces
+Sync Considerations
+Scheduled syncs
+Cron Syncs
+Manual Syncs
+Was this page helpful?
+Yes
+No
+
+
+
+Documentation Source:
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.txt
+
+Documentation Title:
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+
+Documentation Content:
+Create a source:
+Go to the Sources tab and click on "+ New source".
+Search for “faker” using the search bar and select "Sample Data (Faker)".
+Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+Click on "Set up source".
+Look fo Faker source connector
+Create a Faker source
+2. Create a destination:
+Go to the Destinations tab and click on "+ New destination".
+Search for “bigquery” using the search bar and select "BigQuery".
+Enter the connection details as needed.
+For simplicity, you can use "Standard Inserts" as the loading method.
+In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
+Click on "Set up destination".
+Look for BigQuery destination connector
+Create a BigQuery destination
+3. Create a connection:
+Go to the Connections tab and click on "+ New connection".
+Select the source and destination you just created.
+Enter the connection details as needed.
+For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.
+Click on "Set up connection".
+That’s it! Your connection is set up and ready to go! 🎉
+‍
+Establish a connector between Faker and BigQuery
+4. Setting Up the dbt Project
+dbt (data build tool)
+allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
+1. Navigate to the dbt Project Directory:
+Move to the dbt project directory in your project's file structure.
+cd ../../dbt_project
+This directory contains all the dbt-related configurations and SQL models.
+2. Update Connection Details:
+Within this directory, you'll find a <span class="text-style-code">profiles.yml file</span>. This file holds the configuration for dbt to connect to BigQuery.
+
+
+
+Documentation Source:
 airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
 
 Documentation Title:
@@ -111,127 +217,46 @@ Declare 'id' columns as primary keys.
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
+airbyte.com/tutorials/mysql-change-data-capture-cdc.txt
 
 Documentation Title:
-Faker | Airbyte Documentation
+MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
 
 Documentation Content:
-5.0.2
-2024-01-17
-34344
-Ensure unique state messages
-5.0.1
-2023-01-08
-34033
-Add standard entrypoints for usage with AirbyteLib
-5.0.0
-2023-08-08
-29213
-Change all
-*id
-fields and
-products.year
-to be integer
-4.0.0
-2023-07-19
-28485
-Bump to test publication
-3.0.2
-2023-07-07
-27807
-Bump to test publication
-3.0.1
-2023-06-28
-27807
-Fix bug with purchase stream updated_at
-3.0.0
-2023-06-23
-27684
-Stream cursor is now
-updated_at
-& remove
-records_per_sync
-option
-2.1.0
-2023-05-08
-25903
-Add user.address (object)
-2.0.3
-2023-02-20
-23259
-bump to test publication
-2.0.2
-2023-02-20
-23259
-bump to test publication
-2.0.1
-2023-01-30
-22117
-source-faker
-goes beta
-2.0.0
-2022-12-14
-20492
-and
-20741
-Decouple stream states for better parallelism
-1.0.0
-2022-11-28
-19490
-Faker uses the CDK; rename streams to be lower-case (breaking), add determinism to random purchases, and rename
-0.2.1
-2022-10-14
-19197
-Emit
-AirbyteEstimateTraceMessage
-0.2.0
-2022-10-14
-18021
-Move to mimesis for speed!
-
-
-
-Documentation Source:
-airbyte.com/tutorials/full-data-synchronization.txt
-
-Documentation Title:
-Explore Airbyte's full refresh data synchronization | Airbyte
-
-Documentation Content:
-261+00
- 68311abe-9fe4-4831-b529-42c018b00cfc | {"id": 2, "name": "John D"}  | 2022-07-28 12:56:35.261+00
-(12 rows)
-‍
-And look at the normalized data with:
-SELECT * FROM append_full_refresh_demo;
-‍
-Which should respond with something similar to:
-id |  name   |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     | _airbyte_append_full_refresh_demo_hashid 
-----+---------+--------------------------------------+----------------------------+-------------------------------+------------------------------------------
-  1 | Mary X  | 972a8d74-d840-4c43-826e-b0a1042c1681 | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | e20f46dc3a88fcf0ef2101b89d832709
-  2 | John D  | fc5bae3e-cbde-4790-921f-bab7a6dce51f | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | 85aefb77a6bc2acc426eedf5a822b8b3
-  1 | Mary X  | 15264229-8022-415e-8b5a-939f048dc15e | 2022-07-27 17:18:35.355+00 | 2022-07-28 12:19:16.246736+00 | e20f46dc3a88fcf0ef2101b89d832709
-  2 | John D  | f33488c0-ac2b-4c01-b054-7d8534ea0199 | 2022-07-27 17:18:35.355+00 | 2022-07-28 12:19:16.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/full-data-synchronization.txt
-
-Documentation Title:
-Explore Airbyte's full refresh data synchronization | Airbyte
-
-Documentation Content:
-‍
-Which should respond with a table that looks similar to the following:
-id |  name  |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     | _airbyte_append_full_refresh_demo_hashid 
-----+--------+--------------------------------------+----------------------------+-------------------------------+------------------------------------------
-  1 | Mary X | 972a8d74-d840-4c43-826e-b0a1042c1681 | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | e20f46dc3a88fcf0ef2101b89d832709
-  2 | John D | fc5bae3e-cbde-4790-921f-bab7a6dce51f | 2022-07-27 16:46:44.351+00 | 2022-07-27 17:24:38.025622+00 | 85aefb77a6bc2acc426eedf5a822b8b3
-  1 | Mary X | 15264229-8022-415e-8b5a-939f048dc15e | 2022-07-27 17:18:35.355+00 | 2022-07-27 17:24:38.025622+00 | e20f46dc3a88fcf0ef2101b89d832709
-  2 | John D | f33488c0-ac2b-4c01-b054-7d8534ea0199 | 2022-07-27 17:18:35.355+00 | 2022-07-27 17:24:38.025622+00 | 85aefb77a6bc2acc426eedf5a822b8b3
-  3 | Alex M | 8708359b-bad9-4a1f-9172-073cc5469d32 | 2022-07-27 17:18:35.
+Step 5: Create an Airbyte connection
+Go to connections and create a new connection. Then, select the existing MySQL source you have just created and then do the same for the Local JSON destination. Once you're done, you can set up the connection as follows.
+As you can see, I set the replication frequency to
+manual
+so I can trigger synchronization on demand. You can change the replication frequency, later on, to sync
+as frequently as every 5 minutes
+.
+Then, it's time to configure the
+streams
+, which in this case are the tables in your database. For now, you only have the
+cars
+table. If you expand it, you can see the columns it has.
+Now, you should select a sync mode. If you want to take full advantage of performing MySQL CDC, you should use
+Incremental | Append
+mode to only look at the rows that have changed in the source and sync them to the destination. Selecting a
+Full Refresh
+mode would sync the whole source table, which is most likely not what you want when using CDC. Learn more about sync modes in
+our documentation
+.
+When using an
+Incremental
+sync mode, you would generally need to provide a
+Cursor field
+, but when using CDC, that's not necessary since the changes in the source are detected via the Debezium connector stream.
+Once you're ready, save the changes. Then, you can run your first sync by clicking on
+Sync now
+. You can check your run logs to verify everything is going well. Just wait for the sync to be completed, and that's it! You've replicated data from MySQL using CDC.
+Step 6: Verify that the sync worked
+From the root directory of the Airbyte project, go to
+<span class="text-style-code-dark">tmp/airbyte_local/json_data/</span>
+, and you will find a file named
+<span class="text-style-code-dark">_airbyte_raw_cars.jsonl</span>
+where the data from the MySQL database was replicated.
+You can check the file's contents in your preferred IDE or run the following command.
 
 
 

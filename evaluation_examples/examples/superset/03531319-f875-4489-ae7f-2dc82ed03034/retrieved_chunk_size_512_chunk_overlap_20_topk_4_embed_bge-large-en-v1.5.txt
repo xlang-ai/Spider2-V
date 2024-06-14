@@ -174,77 +174,67 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
-Next, in the Time Comparison subsection of
-Advanced Analytics
-, enter the Time Shift by typing in
-“minus 1 week” (note this box accepts input in natural language). Run Query to see the new chart,
-which has an additional series with the same values, shifted a week back in time.
-Then, change the
-Calculation type
-to Absolute difference and select
-Run Query
-. We can now
-see only one series again, this time showing the difference between the two series we saw
-previously.
-Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.
-Resampling the data
-​
-In this section, we’ll resample the data so that rather than having daily data we have weekly data.
-As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
-Next, in the Python Functions subsection of
-Advanced Analytics
-, enter 7D, corresponding to seven
-days, in the Rule and median as the Method and show the chart by selecting
-Run Query
+Click on the entry to
+launch an Explore workflow using this dataset.
+In this section, we'll create a table visualization
+to show the number of flights and cost per travel class.
+By default, Apache Superset only shows the last week of data. In our example, we want to visualize all
+of the data in the dataset. Click the
+Time ‣ Time Range
+section and change
+the
+Range Type
+to
+No Filter
 .
-Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
-the median value within the seven daily data points. For more information on the meaning of the
-various options in this section, refer to the
-Pandas documentation
+Click
+Apply
+to save.
+Now, we want to specify the rows in our table by using the
+Group by
+option. Since in this
+example, we want to understand different Travel Classes, we select
+Travel Class
+in this menu.
+Next, we can specify the metrics we would like to see in our table with the
+Metrics
+option.
+COUNT(*)
+, which represents the number of rows in the table
+(in this case, quantity of flights in each Travel Class)
+SUM(Cost)
+, which represents the total cost spent by each Travel Class
+Finally, select
+Run Query
+to see the results of the table.
+To save the visualization, click on
+Save
+in the top left of the screen. In the following modal,
+Select the
+Save as
+option and enter the chart name as Tutorial Table (you will be able to find it again through the
+Charts
+screen, accessible in the top menu).
+Select
+Add To Dashboard
+and enter
+Tutorial Dashboard. Finally, select
+Save & Go To Dashboard
 .
-Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
-tutorial dashboard to see the four charts side by side and compare the different outputs.
-Edit this page
-Previous
-Creating Your First Dashboard
-Next
-Issue Codes
-Exploring Data in Superset
-Enabling Data Upload Functionality
-Loading CSV Data
-Table Visualization
 Dashboard Basics
+​
+Next, we are going to explore the dashboard interface. If you’ve followed the previous section, you
+should already have the dashboard open. Otherwise, you can navigate to the dashboard by selecting
+Dashboards on the top menu, then Tutorial dashboard from the list of dashboards.
+On this dashboard you should see the table you created in the previous section. Select
+Edit
+dashboard
+and then hover over the table. By selecting the bottom right hand corner of the table
+(the cursor will change too), you can resize it by dragging and dropping.
+Finally, save your changes by selecting Save changes in the top right.
 Pivot Table
-Line Chart
-Markup
-Publishing Your Dashboard
-Annotations
-Advanced Analytics
-Rolling Mean
-Time Comparison
-Resampling the data
-We use
-Copyright © 2024,
-          The
-Apache Software Foundation
-,
-          Licensed under the Apache
-License
-.
-Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
-Apache Software Foundation
-resources
-Security
-|
-Donate
-|
-Thanks
-|
-Events
-|
-License
-|
-Privacy
+​
+In this section, we will extend our analysis using a more complex visualization, Pivot Table.
 
 
 

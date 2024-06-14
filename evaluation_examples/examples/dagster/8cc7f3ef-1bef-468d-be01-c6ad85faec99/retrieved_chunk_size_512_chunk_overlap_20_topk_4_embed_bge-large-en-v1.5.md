@@ -39,38 +39,6 @@ Documentation Title:
 Tutorial, part five: Scheduling your pipeline | Dagster Docs
 
 Documentation Content:
-!To test the change, click the schedule's name to view its details. Click the **Test Schedule**button on the top right corner of the page to trigger the schedule immediately.
-
-!Schedules are just one way to start jobs. Jobs can also be run by using the CLI, a Python function, or the UI. Refer to theJobs documentationto learn more.### Other ways to automate your pipelines#
-
-You've used a schedule to update your data on a regular cadence. However, there are other ways to trigger jobs. For example, sensors can trigger a job after routinely polling a source. Check out the Automation guideto learn more.
-
-Next steps#
------------
-
-By now, you've:
-
-* Grouped your objects with a code location
-* Defined a sequence of materializations with a job
-* Run the job on a schedule
-
-In the next section, you'll learn how to build more robustness, reusability, and flexibility when connecting to external servicesby using resources.
-
-On This Page- Tutorial, part five: Scheduling your pipeline
-	1. Step 1: Defining what assets to updateAbout definitions
-	2. Step 2: Scheduling the materializationsOther ways to automate your pipelines
-	Next steps
-Edit Page on GitHubShare FeedbackStar
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.md
-
-Documentation Title:
-Tutorial, part five: Scheduling your pipeline | Dagster Docs
-
-Documentation Content:
 Ask AI!PlatformDagster+NewPricingBlogCommunityDocsSign inJoin us on Slack!Star usTry Dagster+PlatformDagster+PricingBlogCommunityDocsContact SalesSign inTry Dagster+Search the docsPress Ctrl and `K`to searchGetting startedWhat's Dagster?QuickstartInstallationCreating a new projectGetting helpTutorialConceptsDeploymentIntegrationsGuidesAPI ReferenceAbout1.7.2/ 0.23.2 (libs)### You are viewing an unreleased or outdated version of the documentation
 
 View Latest Documentation →Tutorial, part five: Scheduling your pipeline#
@@ -102,35 +70,55 @@ Once you have a job, you can execute it on a schedule, by clicking a button in t
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/schedules-sensors.md
+release-1-7-2.dagster.dagster-docs.io/tutorial/scheduling-your-pipeline.md
 
 Documentation Title:
-Dagster Docs
+Tutorial, part five: Scheduling your pipeline | Dagster Docs
 
 Documentation Content:
-```
-####################################### Job that targets partitioned assets######################################fromdagsterimport(DailyPartitionsDefinition,asset,build_schedule_from_partitioned_job,define_asset_job,)@asset(partitions_def=DailyPartitionsDefinition(start_date="2020-01-01"))defasset1():...asset1_job=define_asset_job("asset1_job",selection=[asset1])# The created schedule will fire dailyasset1_job_schedule=build_schedule_from_partitioned_job(asset1_job)defs=Definitions(assets=[asset1],schedules=[asset1_job_schedule])################# Non-asset job################fromdagsterimportDailyPartitionsDefinition,build_schedule_from_partitioned_job,jog@job(partitions_def=DailyPartitionsDefinition(start_date="2020-01-01"))defdo_stuff_partitioned():...# The created schedule will fire dailydo_stuff_partitioned_schedule=build_schedule_from_partitioned_job(do_stuff_partitioned,)defs=Definitions(schedules=[do_stuff_partitioned_schedule])
-```
-@dagster.hourly\_partitioned\_config(start\_date, *minute\_offset=0*, *timezone=None*, *fmt=None*, *end\_offset=0*, *tags\_for\_partition\_fn=None*)[source]Defines run config over a set of hourly partitions.
+!To test the change, click the schedule's name to view its details. Click the **Test Schedule**button on the top right corner of the page to trigger the schedule immediately.
 
-The decorated function should accept a start datetime and end datetime, which represent the date
-partition the config should delineate.
+!Schedules are just one way to start jobs. Jobs can also be run by using the CLI, a Python function, or the UI. Refer to theJobs documentationto learn more.### Other ways to automate your pipelines#
 
-The decorated function should return a run config dictionary.
+You've used a schedule to update your data on a regular cadence. However, there are other ways to trigger jobs. For example, sensors can trigger a job after routinely polling a source. Check out the Automation guideto learn more.
 
-The resulting object created by this decorator can be provided to the config argument of a Job.
-The first partition in the set will start at the start\_date at midnight. The last partition in
-the set will end before the current time, unless the end\_offset argument is set to a positive
-number. If minute\_offset is provided, the start and end times of each partition will be
-minute\_offset past the hour.
+Next steps#
+-----------
 
-Parameters:**start\_date**(*Union**[**datetime.datetime**,* *str**]*) – The first date in the set of partitions. Can
-provide in either a datetime or string format.
+By now, you've:
 
-**minute\_offset**(*int*) – Number of minutes past the hour to “split” the partition. Defaults
-to 0.
+* Grouped your objects with a code location
+* Defined a sequence of materializations with a job
+* Run the job on a schedule
 
-**fmt**(*Optional**[**str**]*) – The date format to use.
+In the next section, you'll learn how to build more robustness, reusability, and flexibility when connecting to external servicesby using resources.
+
+On This Page- Tutorial, part five: Scheduling your pipeline
+	1. Step 1: Defining what assets to updateAbout definitions
+	2. Step 2: Scheduling the materializationsOther ways to automate your pipelines
+	Next steps
+Edit Page on GitHubShare FeedbackStar
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/assets/asset-checks/define-execute-asset-checks.md
+
+Documentation Title:
+Defining and executing asset checks | Dagster Docs
+
+Documentation Content:
+Via sensors and schedules
+
+To define jobs that execute sets of assets and checks, you can use `define_asset_job`and then trigger the jobs via sensorsor schedules. By default, checks are included with the assets they check. You can also define jobs that include only checks, or only assets.
+
+`fromdagster import(AssetSelection,Definitions,ScheduleDefinition,asset,asset_check,define_asset_job,)@assetdefmy_asset():...@asset_check(asset=my_asset)defcheck_1():...@asset_check(asset=my_asset)defcheck_2():...# includes my_asset and both checksmy_job =define_asset_job("my_job",selection=AssetSelection.assets(my_asset))# includes only my_assetmy_asset_only_job =define_asset_job("my_asset_only_job",selection=AssetSelection.assets(my_asset).without_checks(),)# includes check_1 and check_2, but not my_assetchecks_only_job =define_asset_job("checks_only_job",selection=AssetSelection.checks_for_assets(my_asset))# includes only check_1check_1_job =define_asset_job("check_1_job",selection=AssetSelection.checks(check_1))# schedule my_job to run every day at midnightbasic_schedule =ScheduleDefinition(job=my_job,cron_schedule="0 0 * * *")defs =Definitions(assets=[my_asset],asset_checks=[check_1,check_2],jobs=[my_job,my_asset_only_job,checks_only_job,check_1_job],schedules=[basic_schedule],)`Testing checks#
+---------------
+
+Refer to the Asset checks sectionof the Testingdocumentation for more information.
+
+APIs in this guide#
+-------------------
 
 
 

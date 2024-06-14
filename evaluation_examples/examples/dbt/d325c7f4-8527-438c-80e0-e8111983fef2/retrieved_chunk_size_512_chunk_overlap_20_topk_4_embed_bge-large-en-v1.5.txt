@@ -326,86 +326,170 @@ dim_customers
 
 
 Documentation Source:
-docs.getdbt.com/reference/resource-properties/unit-tests.txt
+docs.getdbt.com/docs/build/unit-tests.txt
 
 Documentation Title:
-About unit tests property | dbt Developer Hub
+Unit tests | dbt Developer Hub
 
 Documentation Content:
-com
-,
-email_top_level_domain
-:
-example.com
-}
--
-{
-email
-:
-cool@unknown.com
-,
-email_top_level_domain
-:
-unknown.com
-}
--
-{
-email
-:
-badgmail.com
-,
-email_top_level_domain
-:
-gmail.com
-}
--
-{
-email
-:
-missingdot@gmailcom
-,
-email_top_level_domain
-:
-gmail.com
-}
--
-input
-:
-ref('top_level_email_domains')
-format
-:
-sql
-rows
-:
-|
-select 'example.com' as tld union all
-select 'gmail.com' as tld
-expect
-:
-# the expected output given the inputs above
-format
-:
-sql
-fixture
-:
-valid_email_address_fixture_output
+.,
+..
+.             ,
+..
+.
+16
+:03:51
+16
+:03:51    compiled Code at models/marts/unit_tests.yml
+16
+:03:51
+16
+:03:51  Done.
+PASS
+=
 0
-Edit this page
-Last updated
-on
-May 16, 2024
-Previous
-where
-Next
-Input
-Before you begin
-Examples
-Edit this page
-Terms of Service
-Privacy Policy
-Security
-Cookie Settings
-© 2024 dbt Labs, Inc. All Rights Reserved.
+WARN
+=
+0
+ERROR
+=
+1
+SKIP
+=
+0
+TOTAL
+=
+1
+The clever regex statement wasn’t as clever as initially thought, as the model incorrectly flagged
+cool@example.com
+as an invalid email address.
+Updating the regex logic to
+'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+(those pesky escape characters) and rerunning the unit test solves the problem:
+dbt
+test
+--select
+test_is_valid_email_address
+16
+:09:11  Running with
+dbt
+=
+1.8
+.0-a1
+16
+:09:12  Registered adapter:
+postgres
+=
+1.8
+.0-a1
+16
+:09:12  Found
+6
+models,
+5
+seeds,
+4
+data tests,
+0
+sources,
+0
+exposures,
+0
+metrics,
+410
+macros,
+0
+groups,
+0
+semantic models,
+1
+unit
+test
+16
+:09:12
+16
+:09:13  Concurrency:
+5
+threads
+(
+target
+=
+'postgres'
+)
+16
+:09:13
+16
+:09:13
+1
+of
+1
+START unit_test dim_customers::test_is_valid_email_address
+..
+..
+..
+..
+..
+..
+..
+..
+..
+.
+[
+RUN
+]
+16
+:09:13
+1
+of
+1
+PASS dim_customers::test_is_valid_email_address
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+[
+PASS
+in
+0
+.26s
+]
+16
+:09:13
+16
+:09:13  Finished running
+1
+unit_test
+in
+0
+hours
+0
+minutes and
+0.75
+seconds
+(
+0
+.75s
+)
+.
+16
+:09:13
+16
+:09:13  Completed successfully
+16
+:09:13
+16
+:09:13  Done.
 
 
 

@@ -33,46 +33,6 @@ Documentation Title:
 Building machine learning pipelines with Dagster | Dagster Docs
 
 Documentation Content:
-Ask AI!PlatformDagster+NewPricingBlogCommunityDocsSign inJoin us on Slack!Star usTry Dagster+PlatformDagster+PricingBlogCommunityDocsContact SalesSign inTry Dagster+Search the docsPress Ctrl and `K`to searchGetting startedWhat's Dagster?QuickstartInstallationCreating a new projectGetting helpTutorialConceptsDeploymentIntegrationsGuidesAPI ReferenceAbout1.7.2/ 0.23.2 (libs)### You are viewing an unreleased or outdated version of the documentation
-
-View Latest Documentation →Building machine learning pipelines with Dagster#
-=================================================
-
-In this guide, we’ll walk you through how to take your machine learning models and deploy and maintain them in production using Dagster, reliably and efficiently.
-
-We will work through building a machine learning pipeline, including using assets for different elements, how to automate model training, and monitoring your model's drift.
-
-Before you begin#
------------------
-
-This guide assumes you have familiarity with machine learning concepts and several Dagster concepts, including software-defined assetsand jobs.
-
-Benefits of building machine learning pipelines in Dagster#
------------------------------------------------------------
-
-* Dagster makes iterating on machine learning models and testing easy, and it is designed to use during the development process.
-* Dagster has a lightweight execution model means you can access the benefits of an orchestrator, like re-executing from the middle of a pipeline and parallelizing steps while you're experimenting.
-* Dagster models data assets, not just tasks, so it understands the upstream and downstream data dependencies.
-* Dagster is a one-stop shop for both the data transformations and the models that depend on the data transformations.
-
-Machine learning development#
------------------------------
-
-If you are already using Dagster for your ETL pipelines, it is a natural progression to build out and test your models in Dagster.
-
-For this guide, we will be using the Hacker News data demoed in the tutorial.
-
-The machine learning model we will walk through takes the Hacker News stories and uses the titles to predict the number of comments that a story will generate. This will be a supervised model since we have the number of comments for all the previous stories.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.md
-
-Documentation Title:
-Building machine learning pipelines with Dagster | Dagster Docs
-
-Documentation Content:
 @multi_asset(outs={"training_data":AssetOut(),"test_data":AssetOut()})deftraining_test_data(hackernews_stories):X =hackernews_stories.title
  y =hackernews_stories.descendants
  # Split the dataset to reserve 20% of records as the test setX_train,X_test,y_train,y_test =train_test_split(X,y,test_size=0.2)return(X_train,y_train),(X_test,y_test)`Next, we will take both the training and test data subsets and tokenize the titlese.g. take the words and turn them into columns with the frequency of terms for each record to create featuresfor the data. To do this, we will be using the training set to fit the tokenizer. In this case, we are using TfidfVectorizerand then transforming both the training and test set based on that tokenizer.
@@ -84,6 +44,37 @@ importnumpy asnp
 @multi_asset(outs={"tfidf_vectorizer":AssetOut(),"transformed_training_data":AssetOut()})deftransformed_train_data(training_data):X_train,y_train =training_data
  # Initiate and fit the tokenizer on the training data and transform the training datasetvectorizer =TfidfVectorizer()transformed_X_train =vectorizer.fit_transform(X_train)transformed_X_train =transformed_X_train.toarray()y_train =y_train.fillna(0)transformed_y_train =np.array(y_train)returnvectorizer,(transformed_X_train,transformed_y_train)@assetdeftransformed_test_data(test_data,tfidf_vectorizer):X_test,y_test =test_data
  # Use the fitted tokenizer to transform the test datasettransformed_X_test =tfidf_vectorizer.transform(X_test)transformed_y_test =np.array(y_test)y_test =y_test.fillna(0)transformed_y_test =np.array(y_test)returntransformed_X_test,transformed_y_test`We also transformed the dataframes into NumPy arrays and removed `nan`values to prepare the data for training.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.md
+
+Documentation Title:
+Building machine learning pipelines with Dagster | Dagster Docs
+
+Documentation Content:
+This will be a supervised model since we have the number of comments for all the previous stories.
+
+The assets graph will look like this at the end of this guide (click to expand):
+
+!### Ingesting data#
+
+First, we will create an asset that retrieves the most recent Hacker News records.
+
+`importrequests
+fromdagster importasset
+importpandas aspd
+
+
+@assetdefhackernews_stories():# Get the max ID number from hacker newslatest_item =requests.get("https://hacker-news.firebaseio.com/v0/maxitem.json").json()# Get items based on story ids from the HackerNews items endpointresults =[]scope =range(latest_item -1000,latest_item)foritem_id inscope:item =requests.get(f"https://hacker-news.firebaseio.com/v0/item/{item_id}.json").json()results.append(item)# Store the results in a dataframe and filter on stories with valid titlesdf =pd.DataFrame(results)iflen(df)>0:df =df[df.type=="story"]df =df[~df.title.isna()]returndf`### Transforming data#
+
+Now that we have a dataframe with all valid stories, we want to transform that data into something our machine learning model will be able to use.
+
+The first step is taking the dataframe and splitting it into a training and test set. In some of your models, you also might choose to have an additional split for a validation set. The reason we split the data is so that we can have a test and/or a validation dataset that is independent of the training set. We can then use that dataset to see how well our model did.
+
+`fromsklearn.model_selection importtrain_test_split
+fromdagster importmulti_asset,AssetOut
 
 
 

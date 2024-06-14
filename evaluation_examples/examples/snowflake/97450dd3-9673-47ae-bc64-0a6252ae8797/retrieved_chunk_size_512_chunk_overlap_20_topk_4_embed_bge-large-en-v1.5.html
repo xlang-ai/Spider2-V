@@ -12,49 +12,15 @@ been activated.</p><p>You should also verify that the table explorer widget in t
 
 
 Documentation Source:
-docs.snowflake.com/en/developer-guide/snowpark/reference/scala/com/snowflake/snowpark/index.html
+docs.snowflake.com/en/user-guide/spark-connector-qubole.html
 
 Documentation Title:
-
-   Snowpark 1.12.1  - com.snowflake.snowpark
-  
+Configuring Snowflake for Spark in Qubole | Snowflake Documentation
 
 Documentation Content:
-</a>.
-        <a>snowflake
-        </a></p><h1>snowpark
-        <i>
-          </i></h1></div><h4><span>package
-        </span><span>snowpark
-        </span></h4><div><div><i>
-        </i><i>
-        </i></div><div><div><span>Ordering
-         </span><span>Alphabetic
-           </span></div><div><span>Visibility
-         </span><ol><span>Public
-           </span><span>All
-           </span></ol></div></div></div><div><div><div><h3>Type Members
-         </h3><ol><li><i>
-             </i><span>class
-            </span><span><span>AsyncJob
-             </span><span>extends
-             <span>AnyRef
-             </span></span></span><p>Provides a way to track an asynchronous query in Snowflake.
-           </p><div><div><p>Provides a way to track an asynchronous query in Snowflake.
-             </p><p>You can use this object to check the status of an asynchronous query and retrieve the results.
-             </p><p>To check the status of an asynchronous query that you submitted earlier,
-call
-              <a>Session.createAsyncJob
-              </a>, and pass in the query ID. This returns an
-              <code>AsyncJob
-              </code>object
-that you can use to check the status of the query and retrieve the query results.
-             </p><p>Example 1: Create an AsyncJob by specifying a valid
-              <code>&lt;query_id&gt;
-              </code>, check whether
-the query is running or not, and get the result rows.
-             </p><pre><span>val</span>asyncJob = session.createAsyncJob(&lt;query_id&gt;)
-println(s<span>"Is query ${asyncJob.getQueryId()} running?
+For more information, see <span>Preparing an External Location For Files</span>.</p></section><section><h2>Adding Snowflake as a Data Store in the QDS UI<a>¶</a></h2><ol><p>From the <span>Home</span>menu, click <span>Explore</span>.</p><p>In the dropdown list on the <span>Explore</span>page, select <span>+ Add Data Store</span>.</p><li><p>Enter the required information in the following fields:</p><ul><p><span>Data Store Name</span>: Enter the name of the data store to be created.</p><p><span>Database Type</span>: Select ‘Snowflake’.</p><p><span>Catalog Name</span>: Enter the name of the Snowflake catalog.</p><p><span>Database Name</span>: Enter the name of the database in Snowflake where the data is stored.</p><p><span>Warehouse Name</span>: Enter the name of the Snowflake virtual warehouse to use for queries.</p><p><span>Host Address</span>: Enter the base URL of your Snowflake account (e.g.
+<span>myorganization-myaccount.snowflakecomputing.com</span>). See <span>Account identifiers</span>for details on
+specifying your account identifier in this URL.</p><p><span>Username</span>: Enter the login name for your Snowflake user (used to connect to the host).</p><p><span>Password</span>: Enter the password for your Snowflake user (used to connect to the host).</p></ul><p>Note that all the values are <span>case-sensitive</span>, except for <span>Host Address</span>.</p></li><p>Click <span>Save</span>to create the data store.</p></ol><p>Repeat these steps for each Snowflake database that you want to add as a data store. Or you can edit the data store to change the Snowflake database or any other properties for the data store (e.g.
 
 
 
@@ -65,20 +31,22 @@ Documentation Title:
 Using the Spark Connector | Snowflake Documentation
 
 Documentation Content:
-</span><span>Append</span><span>)</span><span>.</span><span>save</span><span>()</span></pre><span>Copy</span></div></li></ol></section><section><h3>Executing DDL/DML SQL Statements<a>¶</a></h3><p>Use the <span>runQuery()</span>method of the <span>Utils</span>object to execute DDL/DML SQL statements, in addition to queries, for example:</p><div><pre><span>var</span><span>sfOptions</span><span>=</span><span>Map</span><span>(</span><span>"sfURL"</span><span>-&gt;</span><span>"&lt;account_identifier&gt;snowflakecomputing.com"</span><span>,</span><span>"sfUser"</span><span>-&gt;</span><span>"&lt;user_name&gt;"</span><span>,</span><span>"sfPassword"</span><span>-&gt;</span><span>"&lt;password&gt;"</span><span>,</span><span>"sfDatabase"</span><span>-&gt;</span><span>"&lt;database&gt;"</span><span>,</span><span>"sfSchema"</span><span>-&gt;</span><span>"&lt;schema&gt;"</span><span>,</span><span>"sfWarehouse"</span><span>-&gt;</span><span>"&lt;warehouse&gt;"</span><span>)</span><span>Utils</span><span>.</span><span>runQuery</span><span>(</span><span>sfOptions</span><span>,</span><span>"CREATE TABLE MY_TABLE(A INTEGER)"</span><span>)</span></pre><span>Copy</span></div><p>where <span>sfOptions</span>is the parameters map used to read/write DataFrames.</p><p>The <span>runQuery</span>method returns only TRUE or FALSE.
+</span><span>properties</span><span>.</span><span>put</span><span>(</span><span>"db"</span><span>,</span><span>"mydb"</span><span>);</span><span>properties</span><span>.</span><span>put</span><span>(</span><span>"schema"</span><span>,</span><span>"public"</span><span>);</span><span>// get connection</span><span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>"Create JDBC connection"</span><span>);</span><span>Connection</span><span>connection</span><span>=</span><span>DriverManager</span><span>.</span><span>getConnection</span><span>(</span><span>jdbcUrl</span><span>,</span><span>properties</span><span>);</span><span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>"Done creating JDBC connection\n"</span><span>);</span><span>// create statement</span><span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>"Create JDBC statement"</span><span>);</span><span>Statement</span><span>statement</span><span>=</span><span>connection</span><span>.</span><span>createStatement</span><span>();</span><span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>"Done creating JDBC statement\n"</span><span>);</span><span>// create a table</span><span>System</span><span>.</span><span>out</span><span>.</span><span>println</span><span>(</span><span>"Create my_variant_table table"</span><span>);</span><span>statement</span><span>.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/clients-drivers/spark-connector-2022.html
+docs.snowflake.com/en/user-guide/spark-connector-qubole.html
 
 Documentation Title:
-Snowflake Connector for Spark release notes for 2022 | Snowflake Documentation
+Configuring Snowflake for Spark in Qubole | Snowflake Documentation
 
 Documentation Content:
-These methods
-return the query ID of the last query that read data from Snowflake and the last COPY INTO TABLE statement that
-was executed (respectively).</p></ul></section></section><section><h2>Version 2.10.0 (February 17, 2022)<a>¶</a></h2><p>Compatible JDBC Driver version: 3.13.14</p><section><h3>Behavior change<a>¶</a></h3><p>Added support for Spark, version 3.2. Beginning with this release, the Snowflake Connector for Spark only supports Spark 3.0, 3.1 and 3.2. Spark version 2.4 is no longer supported.</p></section><section><h3>Bug fix<a>¶</a></h3><p>Fixed an issue where string “null” is regarded as type <span>NULL</span>.</p></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+This topic provides step-by-step instructions for performing this task using the Qubole Data Service (QDS) UI.</p><div><p>Note</p><p>You can also use the QDS REST API to add Snowflake as a data store. For step-by-step instructions, see
+<a>Adding a Snowflake Data Warehouse as a Data Store</a>(in the Qubole Documentation).</p></div><section><h2>Prerequisites<a>¶</a></h2><ul><p>You must be a QDS system administrator to add a data store.</p><p>You must have a Qubole Enterprise edition account.</p><p>The role used in the connection needs USAGE and CREATE STAGE privileges
+on the schema that contains the table that you will read from or write to
+via Qubole.</p></ul></section><section><h2>Preparing an External Location for Long-running Queries<a>¶</a></h2><p>If some of your jobs exceed 36 hours in length, consider preparing an
+external location to use to exchange data between Snowflake and Spark.
 
 
 

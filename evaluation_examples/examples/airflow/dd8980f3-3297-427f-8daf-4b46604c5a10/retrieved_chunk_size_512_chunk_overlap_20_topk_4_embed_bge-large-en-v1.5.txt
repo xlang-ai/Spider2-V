@@ -5,84 +5,6 @@ Documentation Title:
 Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
 
 Documentation Content:
-{
-SCHEMA_NAME
-}
-.
-{
-MODEL_TO_QUERY
-}
-"
-,
-)
-transform_data
->>
-query_table
-my_simple_dbt_dag
-(
-)
-This DAG uses the
-DbtTaskGroup
-class from the Cosmos package to create a task group from the models in your dbt project. Dependencies between your dbt models are automatically turned into dependencies between Airflow tasks. Make sure to add your own values for
-YOUR_NAME
-,
-DB_NAME
-, and
-SCHEMA_NAME
-.
-Using the
-vars
-keyword in the dictionary provided to the
-operator_args
-parameter, you can inject variables into the dbt project. This DAG injects
-YOUR_NAME
-for the
-my_name
-variable. If your dbt project contains dbt tests, they will be run directly after a model has completed. Note that it is a best practice to set
-retries
-to at least 2 for all tasks that run dbt models.
-tip
-In some cases, especially in larger dbt projects, you might run into a
-DagBag import timeout
-error.
-This error can be resolved by increasing the value of the Airflow configuration
-core.dagbag_import_timeout
-.
-Run the DAG manually by clicking the play button and view the DAG in the graph view. Double click the task groups in order to expand them and see all tasks.
-Check the
-XCom
-returned by the
-query_table
-task to see your name in the
-model2
-table.
-info
-The DbtTaskGroup class populates an Airflow task group with Airflow tasks created from dbt models inside of a normal DAG. To directly define a full DAG containing only dbt models use the
-DbtDag
-class, as shown in the
-Cosmos documentation
-.
-Congratulations! You've run a DAG using Cosmos to automatically create tasks from dbt models. You can learn more about how to configure Cosmos in the
-Cosmos documentation
-.
-Alternative ways to run dbt Core with Airflow
-​
-While using Cosmos is recommended, there are several other ways to run dbt Core with Airflow.
-Using the BashOperator
-​
-You can use the
-BashOperator
-to execute specific dbt commands.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-dbt.txt
-
-Documentation Title:
-Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
-
-Documentation Content:
 Start Airflow by running
 astro dev start
 .
@@ -180,6 +102,192 @@ Documentation Title:
 Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
 
 Documentation Content:
+{
+SCHEMA_NAME
+}
+.
+{
+MODEL_TO_QUERY
+}
+"
+,
+)
+transform_data
+>>
+query_table
+my_simple_dbt_dag
+(
+)
+This DAG uses the
+DbtTaskGroup
+class from the Cosmos package to create a task group from the models in your dbt project. Dependencies between your dbt models are automatically turned into dependencies between Airflow tasks. Make sure to add your own values for
+YOUR_NAME
+,
+DB_NAME
+, and
+SCHEMA_NAME
+.
+Using the
+vars
+keyword in the dictionary provided to the
+operator_args
+parameter, you can inject variables into the dbt project. This DAG injects
+YOUR_NAME
+for the
+my_name
+variable. If your dbt project contains dbt tests, they will be run directly after a model has completed. Note that it is a best practice to set
+retries
+to at least 2 for all tasks that run dbt models.
+tip
+In some cases, especially in larger dbt projects, you might run into a
+DagBag import timeout
+error.
+This error can be resolved by increasing the value of the Airflow configuration
+core.dagbag_import_timeout
+.
+Run the DAG manually by clicking the play button and view the DAG in the graph view. Double click the task groups in order to expand them and see all tasks.
+Check the
+XCom
+returned by the
+query_table
+task to see your name in the
+model2
+table.
+info
+The DbtTaskGroup class populates an Airflow task group with Airflow tasks created from dbt models inside of a normal DAG. To directly define a full DAG containing only dbt models use the
+DbtDag
+class, as shown in the
+Cosmos documentation
+.
+Congratulations! You've run a DAG using Cosmos to automatically create tasks from dbt models. You can learn more about how to configure Cosmos in the
+Cosmos documentation
+.
+Alternative ways to run dbt Core with Airflow
+​
+While using Cosmos is recommended, there are several other ways to run dbt Core with Airflow.
+Using the BashOperator
+​
+You can use the
+BashOperator
+to execute specific dbt commands.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.txt
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
+profiles
+import
+PostgresUserPasswordProfileMapping
+profile_config
+=
+ProfileConfig
+(
+profile_name
+=
+"default"
+,
+target_name
+=
+"dev"
+,
+profile_mapping
+=
+PostgresUserPasswordProfileMapping
+(
+conn_id
+=
+"my_db_conn"
+,
+profile_args
+=
+{
+"schema"
+:
+"my_schema"
+}
+,
+)
+,
+)
+DbtTaskGroup
+(
+project_config
+=
+ProjectConfig
+(
+"path/to/my_project"
+)
+,
+profile_config
+=
+profile_config
+,
+default_args
+=
+{
+"retries"
+:
+2
+}
+,
+)
+Other ways to learn
+There are multiple resources for learning about this topic. See also:
+Webinar:
+Introducing Cosmos: The Easy Way to Run dbt Models in Airflow
+.
+Use case:
+ELT with Airflow and dbt Core
+including a a ready-to-use
+example Cosmos project repository
+.
+For a tutorial on how to use dbt Cloud with Airflow, see
+Orchestrate dbt Cloud with Airflow
+.
+Why use Airflow with dbt Core?
+​
+dbt Core offers the possibility to build modular, reuseable SQL components with built-in dependency management and
+incremental builds
+. With
+Cosmos
+you can integrate dbt jobs into your Airflow orchestration environment as a standalone DAG or as a task group within a DAG.
+The benefits of using Airflow with dbt Core include:
+Use Airflow's
+data-aware scheduling
+and
+Airflow sensors
+to run models depending on other events in your data ecosystem.
+Turn each dbt model into a task, complete with Airflow features like
+retries
+and
+error notifications
+, as well as full observability into past runs directly in the Airflow UI.
+Run
+dbt test
+on tables created by individual models immediately after a model has completed. Catch issues before moving downstream and integrate additional
+data quality checks
+with your preferred tool to run alongside dbt tests.
+Run dbt projects using
+Airflow connections
+instead of dbt profiles. You can store all your connections in one place, directly within Airflow or by using a
+secrets backend
+.
+Leverage native support for installing and running dbt in a virtual environment to avoid dependency conflicts with Airflow.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-dbt.txt
+
+Documentation Title:
+Orchestrate dbt Core jobs with Airflow and Cosmos | Astronomer Documentation
+
+Documentation Content:
 If you are using a different data warehouse, replace
 apache-airflow-providers-postgres
 with the provider package for your data warehouse. You can find information on all provider packages on the
@@ -260,55 +368,6 @@ You should now have the following structure within your Astro project:
 Step 3: Create an Airflow connection to your data warehouse
 ​
 Cosmos allows you to apply Airflow connections to your dbt project.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/airflow-and-dbt-cloud.txt
-
-Documentation Title:
-Airflow and dbt Cloud | dbt Developer Hub
-
-Documentation Content:
-​
-Because the Airflow DAG references dbt Cloud jobs, your analytics engineers can take responsibility for configuring the jobs in dbt Cloud.
-For example, to run some models hourly and others daily, there will be jobs like
-Hourly Run
-or
-Daily Run
-using the commands
-dbt run --select tag:hourly
-and
-dbt run --select tag:daily
-respectively. Once configured in dbt Cloud, these can be added as steps in an Airflow DAG as shown in this guide. Refer to our full
-node selection syntax docs here
-.
-How can I re-run models from the point of failure?
-​
-You can trigger re-run from point of failure with the
-rerun
-API endpoint. See the docs on
-retrying jobs
-for more information.
-Should Airflow run one big dbt job or many dbt jobs?
-​
-dbt jobs are most effective when a build command contains as many models at once as is practical. This is because dbt manages the dependencies between models and coordinates running them in order, which ensures that your jobs can run in a highly parallelized fashion. It also streamlines the debugging process when a model fails and enables re-run from point of failure.
-As an explicit example, it's not recommended to have a dbt job for every single node in your DAG. Try combining your steps according to desired run frequency, or grouping by department (finance, marketing, customer success...) instead.
-We want to kick off our dbt jobs after our ingestion tool (such as Fivetran) / data pipelines are done loading data. Any best practices around that?
-​
-Astronomer's DAG registry has a sample workflow combining Fivetran, dbt Cloud and Census
-here
-.
-How do you set up a CI/CD workflow with Airflow?
-​
-Check out these two resources for accomplishing your own CI/CD pipeline:
-Continuous Integration with dbt Cloud
-Astronomer's CI/CD Example
-Can dbt dynamically create tasks in the DAG like Airflow can?
-​
-As discussed above, we prefer to keep jobs bundled together and containing as many nodes as are necessary. If you must run nodes one at a time for some reason, then review
-this article
-for some pointers.
 
 
 

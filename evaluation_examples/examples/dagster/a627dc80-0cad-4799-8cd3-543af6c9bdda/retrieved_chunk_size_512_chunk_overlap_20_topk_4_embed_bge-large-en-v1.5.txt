@@ -100,146 +100,6 @@ downloads one of the official Dagster examples to the current directory.
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/getting-started/create-new-project.txt
-
-Documentation Title:
-Creating a new Dagster project | Dagster Docs
-
-Documentation Content:
-Check out the following resources to learn more about deployment options:
-Dagster+
-- Deploy using Dagster-managed infrastructure
-Your own infrastructure
-- Deploy to your infrastructure, such as Docker, Kubernetes, Amazon Web Services, etc.
-Related
-#
-Intro to Dagster tutorial
-Running Dagster locally
-Structuring your Dagster project
-Dagster project file reference
-Dagster example project repository
-On This Page
-Creating a new Dagster project
-Step 1: Bootstrap a new project
-Using the default project skeleton
-Using an official example
-Step 2: Install project dependencies
-Step 3: Start the Dagster UI
-Step 4: Development
-Adding new Python dependencies
-Using environment variables and secrets
-Adding and running unit tests
-Next steps
-Related
-Edit Page on GitHub
-Share Feedback
-Star
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/dagster-plus/getting-started.txt
-
-Documentation Title:
-Getting started with Dagster+ | Dagster+
-
-Documentation Content:
-Use a template
-#
-GitHub
-GitLab
-GitHub
-#
-Click
-Select
-to select a template.
-Sign in to your GitHub account, if prompted.
-In Dagster+, define the following:
-Git scope
-- Select the organization or account to create the new repository in.
-Repository Name
-- Enter a name for the new repository.
-Check the
-Make git repository private
-box to make the repository private.
-When finished, click
-Clone and deploy
-.
-When finished,
-continue to Step 5
-.
-GitLab
-#
-Click
-Select
-to select a template.
-Sign in to your Gitlab account, if prompted.
-In Dagster+, define the following:
-Namespace
-- Select the group or account to create the new project in.
-Project
-- Enter a name for the new project.
-Check the
-Make git project private
-box to make the project private.
-When finished, click
-Clone and deploy
-.
-When finished,
-continue to Step 5
-.
-Import an existing project
-#
-If you have existing Dagster code, you can use Dagster's GitHub / Gitlab app or the
-dagster-cloud
-CLI.
-GitHub
-GitLab
-dagster-plus CLI
-GitHub
-#
-Using the GitHub integration to import an existing GitHub repository also sets up CI/CD for you.
-Before you get started, note that the repository must have a
-dagster_cloud.yaml
-file
-in order for Dagster+ to deploy it. This file defines the
-code locations
-in your Dagster code.
-If this file doesn't currently exist, create it in the root of your repository with the following code:
-# dagster_cloud.yaml
-locations
-:
--
-location_name
-:
-my_location_name
-# the name of the code location
-code_source
-:
-package_name
-:
-hackernews
-# the name of the python package associated with the code location
-After you've committed the file to the repository, come back to Dagster+ to complete the import process:
-Click the
-Import an existing project
-tab.
-Sign in to your GitHub account, if prompted.
-In Dagster+, define the following:
-Git scope
-- Select the organization or account that the repository is in.
-Repository
-- Select the repository.
-Click
-Deploy
-.
-When finished,
-continue to Step 5
-.
-
-
-
-Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/_apidocs/cli.txt
 
 Documentation Title:
@@ -317,6 +177,128 @@ GraphQL document to execute passed as a file
 <predefined>
 ¶
 GraphQL document to execute, from a predefined set provided by dagster-graphql.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/create-new-project.txt
+
+Documentation Title:
+Creating a new Dagster project | Dagster Docs
+
+Documentation Content:
+Check out the following resources to learn more about deployment options:
+Dagster+
+- Deploy using Dagster-managed infrastructure
+Your own infrastructure
+- Deploy to your infrastructure, such as Docker, Kubernetes, Amazon Web Services, etc.
+Related
+#
+Intro to Dagster tutorial
+Running Dagster locally
+Structuring your Dagster project
+Dagster project file reference
+Dagster example project repository
+On This Page
+Creating a new Dagster project
+Step 1: Bootstrap a new project
+Using the default project skeleton
+Using an official example
+Step 2: Install project dependencies
+Step 3: Start the Dagster UI
+Step 4: Development
+Adding new Python dependencies
+Using environment variables and secrets
+Adding and running unit tests
+Next steps
+Related
+Edit Page on GitHub
+Share Feedback
+Star
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/getting-started/create-new-project.txt
+
+Documentation Title:
+Creating a new Dagster project | Dagster Docs
+
+Documentation Content:
+This command enables you to quickly bootstrap your project with an officially maintained example.
+For more info about the examples, visit the
+Dagster GitHub repository
+or use
+dagster project list-examples
+.
+Step 2: Install project dependencies
+#
+The newly generated
+my-dagster-project
+directory is a fully functioning
+Python package
+and can be installed with
+pip
+.
+To install it as a package and its Python dependencies, run:
+pip
+install
+-e
+".[dev]"
+Using the
+--editable
+(
+-e
+) flag instructs
+pip
+to install your code location as a Python package in
+"editable mode"
+so that as you develop, local code changes are automatically applied.
+Step 3: Start the Dagster UI
+#
+To start the
+Dagster UI
+, run:
+dagster dev
+Note
+: This command also starts the
+Dagster daemon
+. Refer to the
+Running Dagster locally guide
+for more info.
+Use your browser to open
+http://localhost:3000
+to view the project.
+Step 4: Development
+#
+Adding new Python dependencies
+Environment variables and secrets
+Unit testing
+Adding new Python dependencies
+#
+You can specify new Python dependencies in
+setup.py
+.
+Using environment variables and secrets
+#
+Environment variables, which are key-value pairs configured outside your source code, allow you to dynamically modify application behavior depending on environment.
+Using environment variables, you can define various configuration options for your Dagster application and securely set up secrets. For example, instead of hard-coding database credentials - which is bad practice and cumbersome for development - you can use environment variables to supply user details. This allows you to parameterize your pipeline without modifying code or insecurely storing sensitive data.
+Refer to the
+Using environment variables and secrets in Dagster code guide
+for more info and examples.
+Adding and running unit tests
+#
+Tests can be added in the
+my_dagster_project_tests
+directory and run using
+pytest
+:
+pytest my_dagster_project_tests
+Next steps
+#
+Once your project is ready to move to production, check out our recommendations for
+transitioning data pipelines from development to production
+.
 
 
 

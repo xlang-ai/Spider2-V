@@ -1,4 +1,48 @@
 Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load.md
+
+Documentation Title:
+Load and query sample data using Snowpark Python | Snowflake Documentation
+
+Documentation Content:
+```
+# Use SQL to create our Blob Stagesession.sql('CREATE OR REPLACE STAGE tasty_bytes_sample_data.public.blob_stage url = "s3://sfquickstarts/tastybytes/" file_format = (type = csv);').collect()
+```
+CopyThis line creates a stage named blob\_stage. A stage is a location that holds data files to load
+into a Snowflake database. This tutorial creates a stage that loads data from an Amazon S3 bucket. The
+tutorial uses an existing bucket with a CSV file that contains the data. It loads the data from this CSV
+file into the table that is created later in this tutorial. For more information, see Bulk loading from Amazon S3.
+3. This step in the worksheet includes the following code:
+
+
+```
+# Define our Menu Schemamenu_schema=StructType([StructField("menu_id",IntegerType()),\
+                     StructField("menu_type_id",IntegerType()),\
+                     StructField("menu_type",StringType()),\
+                     StructField("truck_brand_name",StringType()),\
+                     StructField("menu_item_id",IntegerType()),\
+                     StructField("menu_item_name",StringType()),\
+                     StructField("item_category",StringType()),\
+                     StructField("item_subcategory",StringType()),\
+                     StructField("cost_of_goods_usd",IntegerType()),\
+                     StructField("sale_price_usd",IntegerType()),\
+                     StructField("menu_item_health_metrics_obj",VariantType())])
+```
+CopyThis code creates a StructTypeobject named menu\_schema. This object consists of a listof StructFieldobjects that describe the fields in the CSV file in the stage. For more information,
+see Working With Files in a Stage.
+4. This step in the worksheet includes the following code:
+
+
+```
+# Create a Dataframe from our Menu file from our Blob Stagedf_blob_stage_read=session.read.schema(menu_schema).csv('@tasty_bytes_sample_data.public.blob_stage/raw_pos/menu/')
+```
+CopyThis line creates the df\_blob\_stage\_readDataFrame. This DataFrame is configured to read data from
+the CSV file located in the specified stage, using the specified menu\_schemaschema. The schema
+contains information about the types and names of the columns of data.
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.md
 
 Documentation Title:
@@ -47,27 +91,6 @@ CREATEORREPLACETABLEcloud_data_db.s3_data.calendar(full_dateDATE,day_nameVARCHAR
 Copy
 4. To confirm that the table was created successfully, place your cursor in the SELECT line,
 then select Run.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.md
-
-Documentation Title:
-Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
-
-Documentation Content:
-CSV¶
-
-
-```
-SELECT*FROMmycsvtable;
-```
-CopyThe query returns the following results:
-
-
-```
-+----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+--------------------------------+------------------+------------+| ID | LAST_NAME | FIRST_NAME | COMPANY                          | EMAIL                                  | WORKPHONE      | CELLPHONE      | STREETADDRESS                  | CITY             | POSTALCODE ||----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+--------------------------------+------------------+------------||  6 | Reed      | Moses      | Neque Corporation                | eget.lacus@facilisis.com               | 1-449-871-0780 | 1-454-964-5318 | Ap #225-4351 Dolor Ave         | Titagarh         |      62631 ||  7 | Audrey    | Franks     | Arcu Eu Limited                  | eu.dui@aceleifendvitae.org             | 1-527-945-8935 | 1-263-127-1173 | Ap #786-9241 Mauris Road       | Bergen           |      81958 ||  8 | Jakeem    | Erickson   | A Ltd                            | Pellentesque.habitant@liberoProinmi.ca | 1-381-591-9386 | 1-379-391-9490 | 319-1703 Dis Rd.               | Pangnirtung      |      62399 ||  9 | Xaviera   | Brennan    | Bibendum Ullamcorper Limited     | facilisi.Sed.neque@dictum.edu          | 1-260-757-1919 | 1-211-651-0925 | P.O. Box 146, 8385 Vel Road    | Béziers          |      13082 || 10 | Francis   | Ortega     | Vitae Velit Egestas Associates   | egestas.rhoncus.Proin@faucibus.com     | 1-257-584-6487 | 1-211-870-2111 | 733-7191 Neque Rd.
 
 
 
@@ -154,45 +177,68 @@ the worksheet for this tutorial, follow these steps:
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.md
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.md
 
 Documentation Title:
-Load data from cloud storage: Amazon S3 | Snowflake Documentation
+Load and query sample data using SQL | Snowflake Documentation
 
 Documentation Content:
 ```
-SELECT*FROMcloud_data_db.s3_data.calendar;
+SELECT*FROMtasty_bytes_sample_data.raw_pos.menu;
 ```
-CopyThe output shows the columns of the table you created. Currently, the table does not have any rows.
-Step 5. Create a storage integration¶
--------------------------------------
+CopyYour output shows the columns of the table you created. At this point in the tutorial, the
+table does not have any rows.
+Step 5. Create a stage and load the data¶
+-----------------------------------------
 
-Before you can load data from cloud storage, you must configure a storage integration that is
-specific to your cloud provider. The following example is specific to Amazon S3 storage.
+A stage is a location that holds data files to load into a Snowflake database. This tutorial creates
+a stage that loads data from an Amazon S3 bucket. This tutorial uses an existing bucket with
+a CSV file that contains the data. You load the data from this CSV file into the table you created
+previously. For information, see Bulk loading from Amazon S3.
 
-Storage integrations are named, first-class Snowflake objects that avoid the need for passing explicit cloud
-provider credentials such as secret keys or access tokens. Integration objects store an AWS identity
-and access management (IAM) user ID.
+To create a stage, do the following:
 
-To create a storage integration for Amazon S3, do the following:
-
-Use the AWS Management Console to create an IAM policy and an IAM role. These resources provide
-secure access to your S3 bucket for loading data. You will need these resources
-to create a storage integration in Snowflake. After logging into the console, complete
-Steps 1 and 2under
-Option 1: Configuring a Snowflake storage integration to access Amazon S3.
-
-2. In the open worksheet, place your cursor in the CREATE OR REPLACE STORAGE INTEGRATION lines, define
-the required parameters, and select Run. For example:
+1. In the open worksheet, place your cursor in the CREATE OR REPLACE STAGE lines, then select Run.
 
 
 ```
-CREATEORREPLACESTORAGEINTEGRATIONs3_data_integrationTYPE=EXTERNAL_STAGESTORAGE_PROVIDER='S3'STORAGE_AWS_ROLE_ARN='arn:aws:iam::631373164455:role/tutorial_role'ENABLED=TRUESTORAGE_ALLOWED_LOCATIONS=('s3://snow-tutorial-bucket/s3data/');
+CREATEORREPLACESTAGEtasty_bytes_sample_data.public.blob_stageurl='s3://sfquickstarts/tastybytes/'file_format=(type=csv);
 ```
-CopySet STORAGE\_AWS\_ROLE\_ARN to the unique identifier for the IAM role that you created previously.
-You can find this value under IAM > Rolesin the AWS Management Console.
-3. Place your cursor in the DESCRIBE INTEGRATION line, specify the name of the storage
-integration you created, and select Run.
+Copy
+2. To confirm that the stage was created successfully, place your cursor in the LIST line,
+then select Run.
+
+
+```
+LIST@tasty_bytes_sample_data.public.blob_stage/raw_pos/menu/;
+```
+CopyYour output looks similar to the following image.
+
+!
+3. To load the data into the table, place your cursor in the COPY INTO lines, then select Run.
+
+
+```
+COPYINTOtasty_bytes_sample_data.raw_pos.menuFROM@tasty_bytes_sample_data.public.blob_stage/raw_pos/menu/;
+```
+Copy
+Step 6. Query the data¶
+-----------------------
+
+Now that the data is loaded, you can run queries on the menutable.
+
+To run a query in the open worksheet, select the line or lines of the SELECT command,
+and then select Run.
+
+For example, to return the number of rows in the table, run the following query:
+
+
+```
+SELECTCOUNT(*)ASrow_countFROMtasty_bytes_sample_data.raw_pos.menu;
+```
+CopyYour output looks similar to the following image.
+
+!Run this query to return the top ten rows in the table:
 
 
 

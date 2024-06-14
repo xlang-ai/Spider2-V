@@ -10,13 +10,36 @@ ptionsTogglableHiddenFileBrowserModelIOptionsUploaderIOptionsBreadCrumbsDirListi
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/settingregistry.ISettingRegistry.IProperty.md
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/ui_components.LabIcon.IProps.md
 
 Documentation Title:
-IProperty | @jupyterlab
+IProps | @jupyterlab
 
 Documentation Content:
-witchTabBarSvgTabPanelSvgToolbarWindowedLayoutWindowedListWindowedListModelIButtonPropsIDisposableMenuItemIElementRefPropsIFilterBoxPropsIFormComponentPropsIFormRendererIFormRendererRegistryIHTMLSelectPropsIInputGroupPropsILabCustomizerOptionsILabIconManagerIOptionPropsIRankedMenuIScoreDEFAULT\_STYLE\_CLASSDEFAULT\_UI\_OPTIONSHTML\_SELECT\_CLASSIFormRendererRegistryILabIconManagerTABLE\_CLASSaddAboveIconaddBelowIconaddIconbadIconbellIconblankIconbugDotIconbugIconbuildIc
+`Optional`scale
+
+scale?:Scale| NonNullable[]The `scale`CSS property allows you to specify scale transforms individually and independently of the `transform`property. This maps better to typical user interface usage, and saves having to remember the exact order of transform functions to specify in the `transform`value.
+
+**Syntax**: `none | {1,3}`
+
+**Initial value**: `none`
+
+
+
+| Chrome | Firefox | Safari | Edge | IE |
+| --- | --- | --- | --- | --- |
+| No |**72****14.1** No | No |
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/docmanager.SavingStatus.Model.md
+
+Documentation Title:
+Model | @jupyterlab
+
+Documentation Content:
+Settings
 
 
 
@@ -28,26 +51,6 @@ IProperty | @jupyterlab
 
 Documentation Content:
 CellMetadataIBaseOutputICodeCellICodeCellJupyterMetadataICodeCellMetadataIDisplayDataIDisplayUpdateIErrorIExecuteResultIKernelspecMetadataILanguageInfoMetadataIMarkdownCellIMimeBundleINotebookContentINotebookMetadataIRawCellIRawCellMetadataIStreamIUnrecognizedCellIUnrecognizedOutputCellTypeExecutionCountICellICellMetadataIOutputMultilineStringOutputMetadataOutputTypeStreamTypeMAJOR\_VERSIONMINOR\_VERSIONisCodeisDisplayDataisDisplayUpdateisErrorisExecuteResultisMarkdowni
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookAdapter.md
-
-Documentation Title:
-NotebookAdapter | @jupyterlab
-
-Documentation Content:
-Parameters
-
-
-	+ ##### cells: CellList
-	
-	Observable list of changed cells
-	+ ##### change: IObservableList.IChangedArgs
-	
-	Changed data#### Returns Promise
-* Defined in packages/notebook/lib/notebooklspadapter.d.ts:89
 
 
 

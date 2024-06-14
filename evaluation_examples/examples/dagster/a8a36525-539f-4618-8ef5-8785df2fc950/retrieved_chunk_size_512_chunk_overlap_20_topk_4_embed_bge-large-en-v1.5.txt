@@ -5,129 +5,6 @@ Documentation Title:
 Using Dagster with DuckDB | Dagster Docs
 
 Documentation Content:
-DataFrame
-)
--
->
-pd
-.
-DataFrame
-:
-return
-iris_dataset
-[
-iris_dataset
-[
-"species"
-]
-==
-"Iris-setosa"
-]
-In this asset, you're providing the
-iris_dataset
-asset as a dependency to
-iris_setosa
-. By supplying
-iris_dataset
-as a parameter to
-iris_setosa
-, Dagster knows to use the
-DuckDBPandasIOManager
-to load this asset into memory as a Pandas DataFrame and pass it as an argument to
-iris_setosa
-. Next, a DataFrame that only contains the data for the
-Iris Setosa
-species is created and returned. Then the
-DuckDBPandasIOManager
-will store the DataFrame as the
-IRIS.IRIS_SETOSA
-table in DuckDB.
-Completed code example
-#
-When finished, your code should look like the following:
-import
-pandas
-as
-pd
-from
-dagster_duckdb_pandas
-import
-DuckDBPandasIOManager
-from
-dagster
-import
-Definitions
-,
-SourceAsset
-,
-asset
-
-iris_harvest_data
-=
-SourceAsset
-(
-key
-=
-"iris_harvest_data"
-)
-@asset
-def
-iris_dataset
-(
-)
--
->
-pd
-.
-DataFrame
-:
-return
-pd
-.
-read_csv
-(
-"https://docs.dagster.io/assets/iris.csv"
-,
-names
-=
-[
-"sepal_length_cm"
-,
-"sepal_width_cm"
-,
-"petal_length_cm"
-,
-"petal_width_cm"
-,
-"species"
-,
-]
-,
-)
-@asset
-def
-iris_setosa
-(
-iris_dataset
-:
-pd
-.
-DataFrame
-)
--
->
-pd
-.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/using-duckdb-with-dagster.txt
-
-Documentation Title:
-Using Dagster with DuckDB | Dagster Docs
-
-Documentation Content:
 You can accomplish this by creating
 source assets
 for these tables.
@@ -258,6 +135,129 @@ pd
 
 
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/using-duckdb-with-dagster.txt
+
+Documentation Title:
+Using Dagster with DuckDB | Dagster Docs
+
+Documentation Content:
+DataFrame
+)
+-
+>
+pd
+.
+DataFrame
+:
+return
+iris_dataset
+[
+iris_dataset
+[
+"species"
+]
+==
+"Iris-setosa"
+]
+In this asset, you're providing the
+iris_dataset
+asset as a dependency to
+iris_setosa
+. By supplying
+iris_dataset
+as a parameter to
+iris_setosa
+, Dagster knows to use the
+DuckDBPandasIOManager
+to load this asset into memory as a Pandas DataFrame and pass it as an argument to
+iris_setosa
+. Next, a DataFrame that only contains the data for the
+Iris Setosa
+species is created and returned. Then the
+DuckDBPandasIOManager
+will store the DataFrame as the
+IRIS.IRIS_SETOSA
+table in DuckDB.
+Completed code example
+#
+When finished, your code should look like the following:
+import
+pandas
+as
+pd
+from
+dagster_duckdb_pandas
+import
+DuckDBPandasIOManager
+from
+dagster
+import
+Definitions
+,
+SourceAsset
+,
+asset
+
+iris_harvest_data
+=
+SourceAsset
+(
+key
+=
+"iris_harvest_data"
+)
+@asset
+def
+iris_dataset
+(
+)
+-
+>
+pd
+.
+DataFrame
+:
+return
+pd
+.
+read_csv
+(
+"https://docs.dagster.io/assets/iris.csv"
+,
+names
+=
+[
+"sepal_length_cm"
+,
+"sepal_width_cm"
+,
+"petal_length_cm"
+,
+"petal_width_cm"
+,
+"species"
+,
+]
+,
+)
+@asset
+def
+iris_setosa
+(
+iris_dataset
+:
+pd
+.
+DataFrame
+)
+-
+>
+pd
+.
+
+
+
+Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/integrations/duckdb/reference.txt
 
 Documentation Title:
@@ -381,91 +381,67 @@ Documentation Title:
 Using Dagster with DuckDB | Dagster Docs
 
 Documentation Content:
-DataFrame
+When Dagster materializes the
+iris_dataset
+asset using the configuration from
+Step 1: Configure the DuckDB I/O manager
+, the DuckDB I/O manager will create the table
+IRIS.IRIS_DATASET
+if it does not exist and replace the contents of the table with the value returned from the
+iris_dataset
+asset.
+Make an existing table available in Dagster
+#
+If you already have existing tables in DuckDB and other assets defined in Dagster depend on those tables, you may want Dagster to be aware of those upstream dependencies. Making Dagster aware of these tables will allow you to track the full data lineage in Dagster. You can accomplish this by creating
+source assets
+for these tables.
+from
+dagster
+import
+SourceAsset
+
+iris_harvest_data
+=
+SourceAsset
+(
+key
+=
+"iris_harvest_data"
 )
--
->
+In this example, you're creating a
+SourceAsset
+for a pre-existing table containing iris harvests data. To make the data available to other Dagster assets, you need to tell the DuckDB I/O manager how to find the data.
+Because you already supplied the database and schema in the I/O manager configuration in
+Step 1: Configure the DuckDB I/O manager
+, you only need to provide the table name. This is done with the
+key
+parameter in
+SourceAsset
+. When the I/O manager needs to load the
+iris_harvest_data
+in a downstream asset, it will select the data in the
+IRIS.IRIS_HARVEST_DATA
+table as a Pandas DataFrame and provide it to the downstream asset.
+Step 3: Load DuckDB tables in downstream assets
+#
+Once you have created an asset that represents a table in DuckDB, you will likely want to create additional assets that work with the data. Dagster and the DuckDB I/O manager allow you to load the data stored in DuckDB tables into downstream assets.
+import
+pandas
+as
+pd
+from
+dagster
+import
+asset
+# this example uses the iris_dataset asset from Step 2
+@asset
+def
+iris_setosa
+(
+iris_dataset
+:
 pd
 .
-DataFrame
-:
-return
-iris_dataset
-[
-iris_dataset
-[
-"species"
-]
-==
-"Iris-setosa"
-]
-defs
-=
-Definitions
-(
-assets
-=
-[
-iris_dataset
-,
-iris_harvest_data
-,
-iris_setosa
-]
-,
-resources
-=
-{
-"io_manager"
-:
-DuckDBPandasIOManager
-(
-database
-=
-"path/to/my_duckdb_database.duckdb"
-,
-schema
-=
-"IRIS"
-,
-)
-}
-,
-)
-Related
-#
-For more DuckDB features, refer to the
-DuckDB reference
-.
-For more information on Software-defined Assets, refer to the
-tutorial
-or the
-Assets documentation
-.
-For more information on I/O managers, refer to the
-I/O manager documentation
-.
-On This Page
-Using Dagster with DuckDB
-Prerequisites
-Option 1: Using the DuckDB resource
-Step 1: Configure the DuckDB resource
-Step 2: Create tables in DuckDB
-Create DuckDB tables in Dagster
-Making Dagster aware of existing tables
-Step 3: Define downstream assets
-Completed code example
-Option 2: Using the DuckDB I/O manager
-Step 1: Configure the DuckDB I/O manager
-Step 2: Create tables in DuckDB
-Store a Dagster asset as a table in DuckDB
-Make an existing table available in Dagster
-Step 3: Load DuckDB tables in downstream assets
-Completed code example
-Related
-Edit Page on GitHub
-Share Feedback
-Star
 
 
 

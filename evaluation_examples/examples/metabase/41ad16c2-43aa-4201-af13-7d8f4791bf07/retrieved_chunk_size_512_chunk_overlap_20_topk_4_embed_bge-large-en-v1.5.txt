@@ -1,4 +1,171 @@
 Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-the-metabase-jar-file.txt
+
+Documentation Title:
+Running the Metabase JAR file
+
+Documentation Content:
+1. Install Java JRE
+You may already have Java installed. To check the version, open a terminal and run:
+java -version
+If Java isn’t installed, you’ll need to install Java before you can run Metabase. We recommend version 11 of JRE from
+Eclipse Temurin
+with HotSpot JVM. You can run Metabase wherever Java 11 runs. The particular processor architecture shouldn’t matter (although we only test Metabase for x86 and ARM).
+2. Download Metabase
+Download the JAR file:
+Metabase OSS
+Metabase Enterprise/Pro edition
+If you want to install the
+Pro or Enterprise editions
+of Metabase, see
+Activating your Metabase commercial license
+.
+3. Create a new directory and move the Metabase JAR into it
+When you run Metabase, Metabase will create some new files, so it’s important to put the Metabase Jar file in a new directory before running it (so move it out of your downloads folder and put it a new directory).
+On posix systems, the commands would look something like this:
+Assuming you downloaded to
+/Users/person/Downloads
+:
+mkdir ~/metabase
+then
+mv /Users/person/Downloads/metabase.jar ~/metabase
+4. Change into your new Metabase directory and run the jar
+Change into the directory you created in step 2:
+cd ~/metabase
+Now that you have Java working you can run the JAR from a terminal with:
+java -jar metabase.jar
+Metabase will start using the default settings. You should see some log entries starting to run in your terminal window showing you the application progress as it starts up.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-the-metabase-jar-file.txt
+
+Documentation Title:
+Running the Metabase JAR file
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Installation and Operation
+Running the Metabase OSS JAR file
+To run the free, Open Source version of Metabase via a JAR file, you will need to have a Java Runtime Environment (JRE) installed on your system.
+If you have a token for the
+Pro or Enterprise editions
+of Metabase, see
+Activating your Metabase commercial license
+.
+Quick start
+The quick start is intended for running Metabase locally. See below for instructions on
+running Metabase in production
+.
+If you have Java installed:
+Download the JAR file for Metabase OSS
+. If you’re on a
+Pro
+or
+Enterprise
+plan, download the
+JAR for the Enterprise Edition
+.
+Create a new directory and move the Metabase JAR into it.
+Change into your new Metabase directory and run the JAR.
+java -jar metabase.jar
+Metabase will log its progress in the terminal as it starts up. Wait until you see “Metabase Initialization Complete” and visit
+http://localhost:3000/setup
+.
+If you are using a paid version, be sure to
+activate your license
+.
+Local installation
+If you just want to try Metabase out, play around with Metabase, or just use Metabase on your local machine, Metabase ships with a default application database that you can use.
+This setup is not meant for production
+. If you intend to run Metabase for real at your organization, see
+Production installation
+.
+The below instructions are the same as the quick start above, just with a little more context around each step.
+1. Install Java JRE
+You may already have Java installed.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/running-the-metabase-jar-file.txt
+
+Documentation Title:
+Running the Metabase JAR file
+
+Documentation Content:
+Once Metabase is fully started you’ll see a confirmation such as:
+...
+06-19 10:29:34 INFO metabase.task :: Initializing task CheckForNewVersions
+06-19 10:29:34 INFO metabase.task :: Initializing task SendAnonymousUsageStats
+06-19 10:29:34 INFO metabase.task :: Initializing task SendAbandomentEmails
+06-19 10:29:34 INFO metabase.task :: Initializing task SendPulses
+06-19 10:29:34 INFO metabase.task :: Initializing task SendFollowUpEmails
+06-19 10:29:34 INFO metabase.task :: Initializing task TaskHistoryCleanup
+06-19 10:29:34 INFO metabase.core :: Metabase Initialization COMPLETE
+At this point you’re ready to go! You can access your new Metabase server on port 3000, most likely at
+http://localhost:3000
+.
+You can use another port than 3000 by setting the
+MB_JETTY_PORT
+environment variable
+before running the jar.
+If you are using a paid version of Metabase, be sure to
+activate your license
+.
+Production installation
+The steps are similar to those steps above with two important differences: if you want to run Metabase in production, you’ll want to:
+Use a
+production application database
+to store your Metabase application data.
+Run
+Metabase as a service
+.
+If you’d prefer to use Docker, check out
+running Metabase on Docker
+.
+Production application database
+Here are some
+databases we support
+.
+For example, say you want to use
+PostgreSQL
+. You would get a PostgreSQL service up and running and create an empty database:
+createdb metabaseappdb
+You can call your app db whatever you want. And there’s no need to create any tables in that database; Metabase will do that for you. You’ll just need to set environment variables for Metabase to use on startup so Metabase knows how to connect to this database.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/installation-and-operation/installing-metabase.txt
 
 Documentation Title:
@@ -83,354 +250,6 @@ Want to improve these docs?
 Propose a change.
 Subscribe to our newsletter
 Stay in touch with updates and news from Metabase. No spam, ever.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/installation-and-operation/monitoring-metabase.txt
-
-Documentation Title:
-Monitoring your Metabase
-
-Documentation Content:
-Assuming we are
-running Metabase using
-java -jar metabase.jar
-, we’d need change the
-invocation to the below command, which includes the properties:
-java --add-to-start=jmx,jmx-remote \
-     -Dcom.sun.management.jmxremote \
-     -Dcom.sun.management.jmxremote.port=1099 \
-     -Dcom.sun.management.jmxremote.rmi.port=1099 \
-     -Dcom.sun.management.jmxremote.authenticate=false \
-     -Dcom.sun.management.jmxremote.ssl=false \
-     -Dcom.sun.management.jmxremote.local.only=false \
-     -Djava.rmi.server.hostname=<Metabase Hostname> \
-     -jar metabase.jar
-Port
-1099
-is a typical RMI/JMX port, but it can be any accessible port.
-Note:
-The above command opens up your application to monitoring by
-anyone and should only be used when on a trusted network for a short
-period of time. Securing this connection is possible, see
-the Oracle
-docs
-for more information.
-Users running Metabase in a
-docker
-container will need to specify
-the system properties detailed above and will also need to ensure the
-port is open. Docker allows specifying environment variables via a
-separate file that can be passed into the
-docker run
-invocation.
-
-
-
-Documentation Source:
-www.metabase.com/learn/administration/metabase-in-production.txt
-
-Documentation Title:
-How to run Metabase in production
-
-Documentation Content:
-63
-ms
-p
-(
-90
-)
-=
-5.9
-µs
-p
-(
-95
-)
-=
-7.2
-µs
-http_req_connecting
-.:
-avg
-=
-211
-ns
-min
-=
-0
-s
-med
-=
-0
-s
-max
-=
-37.55
-ms
-p
-(
-90
-)
-=
-0
-s
-p
-(
-95
-)
-=
-0
-s
-http_req_duration
-.:
-avg
-=
-41
-ms
-min
-=
-1.21
-ms
-med
-=
-20.28
-ms
-max
-=
-8.1
-s
-p
-(
-90
-)
-=
-84.22
-ms
-p
-(
-95
-)
-=
-125.62
-ms
-{
-expected_response
-:
-true
-}.:
-avg
-=
-41
-ms
-min
-=
-1.21
-ms
-med
-=
-20.28
-ms
-max
-=
-8.1
-s
-p
-(
-90
-)
-=
-84.22
-ms
-p
-(
-95
-)
-=
-125.62
-ms
-http_req_failed
-.:
-0.00
-%
-✓
-0
-✗
-259596
-http_req_receiving
-.:
-avg
-=
-12.02
-ms
-min
-=
-8.64
-µs
-med
-=
-57.34
-µs
-max
-=
-778.49
-ms
-p
-(
-90
-)
-=
-41.43
-ms
-p
-(
-95
-)
-=
-67.33
-ms
-http_req_sending
-.:
-avg
-=
-17.39
-µs
-min
-=
-3.32
-µs
-med
-=
-15.13
-µs
-max
-=
-5.86
-ms
-p
-(
-90
-)
-=
-26.11
-µs
-p
-(
-95
-)
-=
-32.59
-µs
-http_req_tls_handshaking
-.:
-avg
-=
-0
-s
-min
-=
-0
-s
-med
-=
-0
-s
-max
-=
-0
-s
-p
-(
-90
-)
-=
-0
-s
-p
-(
-95
-)
-=
-0
-s
-http_req_waiting
-.:
-avg
-=
-28.96
-ms
-min
-=
-1.18
-ms
-med
-=
-14.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/installation-and-operation/running-metabase-on-debian.txt
-
-Documentation Title:
-Running Metabase on Debian as a service with nginx
-
-Documentation Content:
-sudo groupadd -r metabase
-sudo useradd -r -s /bin/false -g metabase metabase
-sudo chown -R metabase:metabase </your/path/to/metabase/directory>
-sudo touch /var/log/metabase.log
-sudo chown syslog:adm /var/log/metabase.log
-sudo touch /etc/default/metabase
-sudo chmod 640 /etc/default/metabase
-Create a Metabase Service
-Every service needs a script that tells
-systemd
-how to manage it, and what capabilities it supports. Services are typically registered at
-/etc/systemd/system/<servicename>
-. So, a Metabase service should live at
-/etc/systemd/system/metabase.service
-.
-The Metabase service file
-Create the
-/etc/systemd/system/metabase.service
-service file and open it in your editor:
-sudo touch /etc/systemd/system/metabase.service
-sudo <your-editor> /etc/systemd/system/metabase.service
-In
-/etc/systemd/system/metabase.service
-, replace configurable items (they look like
-<some-var-name>
-) with values sensible for your system. The Metabase script below has extra comments to help you know what everything is for.
-[Unit]
-Description=Metabase server
-After=syslog.target
-After=network.target
-
-[Service]
-WorkingDirectory=</your/path/to/metabase/directory/>
-ExecStart=/usr/bin/java -jar </your/path/to/metabase/directory/>metabase.jar
-EnvironmentFile=/etc/default/metabase
-User=metabase
-Type=simple
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=metabase
-SuccessExitStatus=143
-TimeoutStopSec=120
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-Create syslog conf
-Next we need to create a syslog conf to make sure systemd can handle the logs properly.
-sudo touch /etc/rsyslog.d/metabase.conf
-sudo <your-editor> /etc/rsyslog.d/metabase.conf
-
-if $programname == 'metabase' then /var/log/metabase.log
-& stop
-Restart the syslog service to load the new config.
 
 
 

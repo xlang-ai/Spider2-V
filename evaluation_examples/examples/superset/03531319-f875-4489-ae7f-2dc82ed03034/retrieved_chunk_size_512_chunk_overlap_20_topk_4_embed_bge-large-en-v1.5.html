@@ -30,29 +30,6 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
-Publish this chart
-to your existing Tutorial Dashboard you created earlier.</p><h3>Line Chart<a>​</a></h3><p>In this section, we are going to create a line chart to understand the average price of a ticket by
-month across the entire dataset.</p><p>In the Time section, as before, keep the Time Column as Travel Date and Time Grain as month but this
-time for the Time range select No filter as we want to look at entire dataset.</p><p>Within Metrics, remove the default <code>COUNT(*)</code>metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p><img/><p>Next, select <strong>Run Query</strong>to show the data on the chart.</p><p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
-doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
-each ticket type.</p><p>Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting <strong>Run
-Query</strong>again. Nice! We can see that on average single tickets are cheaper than returns and that the
-big spike in December is caused by return tickets.</p><p>Our chart is looking pretty good already, but let’s customize some more by going to the Customize
-tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
-filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
-and Y Axis Label.</p><img/><p>Once you’re done, publish the chart in your Tutorial Dashboard.</p><h3>Markup<a>​</a></h3><p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
-to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
-dashboards. Got into edit mode by selecting <strong>Edit dashboard</strong>.</p><p>Within the Insert components pane, drag and drop a Markdown box on the dashboard.
-
-
-
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.html
-
-Documentation Title:
-Exploring Data in Superset | Superset
-
-Documentation Content:
 By the
 end of this section, you will have created a table that shows the monthly spend on flights for the
 first six months, by department, by travel class.</p><p>Create a new chart by selecting <strong>+ ‣ Chart</strong>from the top right corner. Choose
@@ -69,6 +46,29 @@ SUM aggregate. Note that Apache Superset will indicate the type of the metric by
 left hand column of the list (ABC for string, # for number, a clock face for time, etc.).</p><p>In <strong>Group by</strong>select <strong>Time</strong>: this will automatically use the Time Column and Time Grain
 selections we defined in the Time section.</p><p>Within <strong>Columns</strong>, select first Department and then Travel Class. All set – let’s <strong>Run Query</strong>to
 see some data!</p><img/><p>You should see months in the rows and Department and Travel Class in the columns.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.html
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
+Publish this chart
+to your existing Tutorial Dashboard you created earlier.</p><h3>Line Chart<a>​</a></h3><p>In this section, we are going to create a line chart to understand the average price of a ticket by
+month across the entire dataset.</p><p>In the Time section, as before, keep the Time Column as Travel Date and Time Grain as month but this
+time for the Time range select No filter as we want to look at entire dataset.</p><p>Within Metrics, remove the default <code>COUNT(*)</code>metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p><img/><p>Next, select <strong>Run Query</strong>to show the data on the chart.</p><p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
+doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
+each ticket type.</p><p>Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting <strong>Run
+Query</strong>again. Nice! We can see that on average single tickets are cheaper than returns and that the
+big spike in December is caused by return tickets.</p><p>Our chart is looking pretty good already, but let’s customize some more by going to the Customize
+tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
+filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
+and Y Axis Label.</p><img/><p>Once you’re done, publish the chart in your Tutorial Dashboard.</p><h3>Markup<a>​</a></h3><p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
+to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
+dashboards. Got into edit mode by selecting <strong>Edit dashboard</strong>.</p><p>Within the Insert components pane, drag and drop a Markdown box on the dashboard.
 
 
 

@@ -30,31 +30,6 @@ Time period during which the query was run, up to 14 days.
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/2023/ui/2023-12-12.md
-
-Documentation Title:
-December 12–14, 2023 — Snowsight Release Notes | Snowflake Documentation
-
-Documentation Content:
-For more details, see Recover worksheets owned by a dropped user.
-
-View Query History in worksheets —– *General Availability*¶
------------------------------------------------------------
-
-With this release, we are pleased to announce the general availability of Query History in worksheets in Snowsight.
-When you view Query History for a worksheet, you can review the queries run in a Snowsight worksheet, as well as the query results.
-
-For more information, see View query history.
-
-Was this page helpful?
-
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
-
-Recover worksheets for dropped users — PreviewView Query History in worksheets —– General AvailabilityLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-activity.md
 
 Documentation Title:
@@ -112,43 +87,70 @@ the time it takes to retrieve results to under 15 seconds.
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/2023/7_36.md
+docs.snowflake.com/en/user-guide/ui-snowsight-activity.md
 
 Documentation Title:
-October 09-10, 2023 — 7.36 Release Notes | Snowflake Documentation
+Monitor query activity with Query History | Snowflake Documentation
 
 Documentation Content:
-Viewing Query History in worksheets — *Preview*¶
+Considerations for using Query History¶
 
-With this release, we are pleased to announce the preview of Query History in worksheets in Snowsight. When you view Query History
-for a worksheet, you can review the queries run in a Snowsight worksheet, as well as the query results.
+When reviewing the Query Historyfor your account, consider the following:
 
-For more information, see View query history.
+Details for queries executed more than 7 days ago do not include Userinformation due to the data retention policy for
+sessions. You can use the user filter to retrieve queries run by individual users.
+See Filter Query History.
 
-Release Notes Change Log¶
--------------------------
+For queries that failed due to syntax or parsing errors, you see instead of the SQL statement that was executed.
+If you are granted a role with appropriate privileges, you can set the ENABLE\_UNREDACTED\_QUERY\_SYNTAX\_ERRORparameter to view
+the full query text.
 
-
-
-|Announcement
-
-Update
-
-
-|  |
-|*Company name for listing analytics***Added**to *Data Collaboration Updates*
-
-
-|  |
-|*Logging and tracing from handler code — General Availability***Removed**from *New Features*
+Filters and the Startedand End Timecolumns use your current time zone. You can’t change this setting.
+Setting the TIMEZONEparameter for the session doesn’t change the time zone used.
 
 
 
-Was this page helpful?
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.md
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
 
-Extensibility UpdatesData Collaboration UpdatesWeb Interface UpdatesRelease Notes Change LogLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+Documentation Content:
+Troubleshoot failed filter query refreshes¶
+
+Refreshes of the filter query can fail for one of the following reasons:
+
+The user that created or last modified the filter has been dropped or disabled in Snowflake.
+
+The user is inactive because they have not signed in for 3 months.
+
+
+It is not possible to see which users created or last modified a given filter. If you have filters that are failing to refresh,
+you might see successful authentication attempts by the WORKSHEETS\_APP\_USER user followed by failed authentication
+attempts from a user in the LOGIN\_HISTORY Viewview of the ACCOUNT\_USAGE schema in the
+shared SNOWFLAKE database.
+
+For example, you can use the following query to identify login activity that uses an OAuth access token from the previous two days:
+
+
+```
+SELECT*FROMSNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORYWHEREFIRST_AUTHENTICATION_FACTOR='OAUTH_ACCESS_TOKEN'ANDREPORTED_CLIENT_TYPE='SNOWFLAKE_UI'ANDEVENT_TIMESTAMP>DATEADD('DAY',-2,CURRENT_DATE());ORDERBYEVENT_TIMESTAMPDESC;
+```
+CopyFailed authentication attempts associated with a failed query refresh frequency would happen at the same time each day or each hour,
+depending on the custom filter refresh frequency.
+
+Specify a filter in a SQL query¶
+--------------------------------
+
+You can use a system filteror a custom filter in a SQL query.
+You cannot use a filter in a stored procedure or a user-defined function (UDF).
+
+To add a filter to your SQL query, use one of the following formats:
+
+Specify the filter as part of a SELECT statement, like `SELECT:()`.
+
+* Specify the filter using an equals sign as the comparator. For example:
 
 
 

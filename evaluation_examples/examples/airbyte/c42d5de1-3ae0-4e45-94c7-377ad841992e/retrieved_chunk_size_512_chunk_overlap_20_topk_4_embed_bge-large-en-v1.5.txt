@@ -49,49 +49,6 @@ Documentation Title:
 MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
 
 Documentation Content:
-You can check the file's contents in your preferred IDE or run the following command.
-cat _airbyte_raw_cars.jsonl
-‍
-‍
-Step 7: Test CDC in action by creating and deleting an object from the database
-Now, let's test the MySQL CDC setup you have configured. To do that, run the following queries to insert and delete a row from the database.
-INSERT INTO cars VALUES(3, 'tesla');
-DELETE FROM cars WHERE NAME = 'tesla';
-‍
-Launch a sync and, once it finishes, check the local JSON file to verify that CDC has captured the change. The JSON file should now have two new lines, showing the addition and deletion of the row from the database.
-‍
-CDC allows you to see that a row was deleted, which would be impossible to detect when using the regular
-Incremental
-sync mode. The
-<span class="text-style-code-dark">_ab_cdc_deleted_at</span>
-meta field not being
-null
-means id=3 was deleted.
-Wrapping up
-In this tutorial, you have learned what the MySQL binlog is and how Airbyte reads it to implement log-based Change Data Capture (CDC). In addition, you have learned how to configure an Airbyte connection between a MySQL database and a local JSON file.
-Delve deeper into streamlining your data workflows by exploring our comprehensive article on migrating from
-MySQL to PostgreSQL
-using Airbyte. Gain insights into leveraging log-based Change Data Capture (CDC) and configuring Airbyte connections for near real-time ELT pipelines, extending your capabilities to seamlessly integrate with various databases, data warehouses, or data lakes.
-To learn more, you can check out our comprehensive article on
-Salesforce CDC
-and discover how this setup can be leveraged to create a near real-time ELT pipeline, extending the capabilities of CDC into various data destinations!
-If you found Airbyte helpful, you might want to check our fully managed solution:
-Airbyte Cloud
-. We also invite you to
-‍join the conversation
-on our community Slack Channel to share your ideas with thousands of data engineers and help make everyone’s project a success!
-About the Author
-Thalia Barrera is a data engineer and technical writer at Airbyte.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/mysql-change-data-capture-cdc.txt
-
-Documentation Title:
-MySQL CDC: Build an ELT pipeline from MySQL Database | Airbyte
-
-Documentation Content:
 Although the database can be accessed with the root user, it is advisable to use a less privileged read-only user to read data. The user will be called
 airbyte
 and the password should be updated with a strong password of your choice.
@@ -134,64 +91,93 @@ Go to connections and create a new connection.
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/using-airbyte/core-concepts/sync-schedules.txt
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.txt
 
 Documentation Title:
-Sync Schedules | Airbyte Documentation
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-For example:
-October 1st, 2pm
-, a user sets up a connection to sync data every 24 hours.
-October 1st, 2:01pm
-: sync job runs
-October 2nd, 2:01pm:
-24 hours have passed since the last sync, so a sync is triggered.
-October 2nd, 5pm
-: The user manually triggers a sync from the UI
-October 3rd, 2:01pm:
-since the last sync was less than 24 hours ago, no sync is run
-October 3rd, 5:01pm:
-It has been more than 24 hours since the last sync, so a sync is run
-Cron Syncs
-​
-If you prefer more precision in scheduling your sync, you can also use CRON scheduling to set a specific time of day or month.
-Airbyte uses the CRON scheduler from
-Quartz
-. We recommend reading their
-documentation
-to understand the required formatting. You can also refer to these examples:
-Cron string
-Sync Timing
-0 0 * * * ?
-Every hour, at 0 minutes past the hour
-0 0 15 * * ?
-At 15:00 every day
-0 0 15 * * MON,TUE
-At 15:00, only on Monday and Tuesday
-0 0 0,2,4,6 * * ?
-At 12:00 AM, 02:00 AM, 04:00 AM and 06:00 AM every day
-0 0 _/15 _ * ?
-At 0 minutes past the hour, every 15 hours
-When setting up the cron expression, you will also be asked to choose a time zone the sync will run in.
-Manual Syncs
-​
-When the connection is set to replicate with
-Manual
-frequency, the sync will not automatically run.
-It can be triggered by clicking the "Sync Now" button at any time through the UI or be triggered through the API.
-Edit this page
-Previous
-Configuring Connections
+Next, you can toggle which streams you want to replicate. Our test data consists of three streams, which we've enabled and set to
+Incremental - Append + Deduped
+sync mode.
+Your sync mode is already determined by your selection above, but you can change the sync mode for an individual stream. You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see
+this page
+.
+You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
+Click
 Next
-Namespaces
-Sync Considerations
-Scheduled syncs
-Cron Syncs
-Manual Syncs
-Was this page helpful?
-Yes
-No
+to complete your stream setup and move to the connection configuration. This is where you'll set up how often your data will sync and where it will live in the destination. For this demo, we'll set the connection to run at 8 AM every day and sync the connection to a custom namespace with a stream prefix.
+note
+To ensure your data is synced to the correct place, see our examples for
+Destination Namespace
+Once you've set up all the connection settings, click "Set up connection". You've successfully set up your first data pipeline with Airbyte. Your first sync is about to begin!
+Connection Overview
+​
+Once you've finished setting up the connection, you will be automatically redirected to a connection overview containing all the tools you need to keep track of your connection.
+Here's a basic overview of the tabs and their use:
+The
+Status
+tab shows you an overview of your connector's sync health.
+The
+Job History
+tab allows you to check the logs for each sync. If you encounter any errors or unexpected behaviors during a sync, checking the logs is always a good first step to finding the cause and solution.
+The
+Schema
+tab allows you to modify the streams you chose during the connection setup.
+The
+Transformation
+tab allows you to set up a custom post-sync transformations using dbt.
+The
+Settings
+tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
+By default the path that you specify will be located inside
+/tmp/airbyte_local
+. In this tutorial I set the destination to
+/json_from_faker
+, which means that the data will be copied to
+/tmp/airbyte_local/json_from_faker
+on the localhost where Airbyte is running. After specifying the Destination Path, click on Set up destination.
+Configure the Local JSON destination
+‍
+This will take you to a page to set up the connection. Set the replication frequency to
+Manual
+(since we will use Airflow to trigger Airbyte syncs rather than using Airbyte’s scheduler) and then click on
+Set up connection
+as highlighted in the image below.
+Specify connection settings
+‍
+Trigger a sync from the
+Sample Data (faker)
+source to the
+Local JSON
+output by clicking on
+Sync now
+as highlighted in the image below.
+Manually trigger a sync from the UI
+‍
+The sync should take a few seconds, at which point you should see that the sync has succeed as shown below.
+After the sync has completed
+‍
+You can now confirm if some sample data has been copied to the expected location. As previously mentioned, for this example the JSON data can be seen in
+/tmp/airbyte_local_json_from_faker
+. Because there were three streams generated, the following three JSON files should be available:
+_airbyte_raw_products.jsonl	
+_airbyte_raw_users.jsonl
+_airbyte_raw_purchases.jsonl
+You have now created a simple example connection in Airbyte which can be manually triggered. A manually triggered connection is ideal for situations where you wish to use an external orchestrator.
+In the next section you will see how to trigger a manual sync on this connection by hitting a REST endpoint directly. After that, you will see how Airflow can be used to hit that same endpoint to trigger synchronizations.
+Test the API endpoints with cURL
+Before using the REST endpoint from within Airflow, it is useful to verify that it is working as expected.
 
 
 

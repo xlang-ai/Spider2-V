@@ -1,4 +1,45 @@
 Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.md
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+Create a connection between the source and destination
+
+In this section you will create a connection that will be used for demonstrating the functionality of database replication with **Incremental Sync | Append****.** This new connection will make use of the connectors that you have just created. 
+
+Create a new connection by clicking on *Connections*and then on*+ New connection*as shown below (Note that this button may appear in the top right corner if you already have some connections instantiated):
+
+!‍
+
+Then select the *Incremental-source* source as follows:
+
+!‍
+
+Select the*Incremental-destination* as follows:
+
+!‍
+
+You will see a set up page as shown below. Set the name of the connection to *incremental-sync-demo*, and configure it as shown below:
+
+!‍
+
+There are a few areas that are annotated in the above configuration:
+
+1. Define the name which will identify this connection - in this case I have called it *incremental-sync-demo*.
+2. Select the*incremental append* replication mode for the table called *table\_one*.
+3. Select *updated\_at*as the cursor for the *table\_one*table.
+
+After you click on *Set up connection***,**the initial sync will start. Once it completes you should see the following status in the *Sync History*:
+
+!‍
+
+Make a note of the*job ID* and the*attempt ID* which in this case are 149 and 0 respectively, as can be seen in the path to the*logs.log* (/tmp/workspace/149/0/logs.log) in the screenshot above. You will need these values to find the SQL code used for the first*incremental append* sync.
+
+
+
+Documentation Source:
 airbyte.com/tutorials/validate-data-replication-postgres-snowflake.md
 
 Documentation Title:
@@ -26,142 +67,69 @@ I also recommend setting up a role that is specific for loading data in your des
 
 
 Documentation Source:
-airbyte.com/quickstart/postgres-snowflake-data-integration-stack.md
+airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.md
 
 Documentation Title:
-Postgres Snowflake Data Integration Stack | Airbyte
+Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
 
 Documentation Content:
-`terraform apply`**6. Verify in Airbyte UI**:
+Instantiate a Postgres source connector
 
-Once Terraform completes its tasks, navigate to the Airbyte UI. Here, you should see your source and destination connectors, as well as the connection between them, set up and ready to go.
+Create a new data source by clicking *+ New source*as follows. 
 
-Next Steps
-----------
 
-Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:
+> ℹ️ If you already have some connectors defined, then *+ New source*may appear in the top right corner of the window.
 
-**Extend the Project**:
+!Then select *Postgres*as the source as follows:
 
-The real beauty of this integration is its extensibility. Whether you want to add more data sources, integrate additional tools, or add some transformation logic – the floor is yours. With the foundation set, sky's the limit for how you want to extend and refine your data processes.
+!Define a source connector called *cdc-source*as follows, and be sure to select *Logical Replication (CDC)*as demonstrated below”:
 
-Getting started is easy
------------------------
+!After selecting Logical Replication (CDC), enter the parameters that will be used for CDC replication as shown below.
 
-Start breaking your data siloes with Airbyte
-
-Get Started on Airbyte Cloud!View repoSimilar quickstarts
--------------------
-
-!!35 minutes
-
-Airbyte, dbt, Snowflake and Looker (ADSL) Stack!!15 minutes
-
-MySQL to PostgreSQL Incremental Data Stack!!!20 minutes
-
-Airbyte, dbt and Airflow (ADA) Stack with Snowflake!Airbyte is an open-source data integration engine that helps you consolidate your data in your data warehouses, lakes and databases.!!!!!© 2024 Airbyte, Inc.ProductFeaturesDemo AppConnectorsConnector Builder and CDKPyAirbyteAirbyte Open SourceAirbyte CloudAirbyte Self-ManagedCompare Airbyte offersPricingChangelogRoadmapCompare top ELT solutionsRESOURCESDocumentationBlogAirbyte API DocsTerraform Provider DocsCommunityData Engineering ResourcesTutorialsQuickstartsPyAirbyte TutorialsResource centerCommunity CallTop ETL Tools"How to Sync" TutorialsConnectors DirectoryCOMPANYNewsletterCompany HandbookAbout UsCareersOpen employee referral programAirbyte YC Startup ProgramPartnersPressData protection - Trust reportTerms of ServicePrivacy PolicyCookie PreferencesDo Not Sell/Share My Personal InformationContact Sales!!!!!!!Get answers quick on Airbyte Slack
-----------------------------------
-
-Hi there! Did you know our Slack is the most active Slack community on data integration? It’s also the easiest way to get help from our vibrant community.
-
-Join Airbyte SlackI’m not interested in joining
+!Then click on the *Set up source*button to create the source connector,
 
 
 
 Documentation Source:
-airbyte.com/quickstart/postgres-snowflake-data-integration-stack.md
+airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.md
 
 Documentation Title:
-Postgres Snowflake Data Integration Stack | Airbyte
+Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
 
 Documentation Content:
-20k+ subscribers!Support centerAccess our knowledge base!CommunityJoin our 15,000+ data  community!Community Reward ProgramLeave your mark in the OSS community!Events & community callsLive events by the Airbyte team#### Our Social Platform
+Instantiate a Postgres destination connector
 
-!Community forumGitHub Discussions for questions, ideas!Slack15,000+  share tips and get support!YoutubeLearn more about Airbyte and data engineering!Discourse (read-only)Previous forum (still lots of knowledge)ConnectorsPricingStarTalk to SalesTry it  freeBack to all quickstartsData engineeringPostgres Snowflake Data Integration Stack
-=========================================
+Select Postgres as the destination as follows:
 
-Navigate Postgres to Snowflake integrations effortlessly with Airbyte and terraform. Launch into a world of data connectivity with our streamlined template.
+!Create a destination called *cdc-destination*as follows:
 
-!Try Airbyte Cloud freeView Repo!TL;DRView RepoGet your data syncing in minutes
---------------------------------
+!And click on the *Set up destination*button to create the destination connector. 
 
-Try Airbyte freeWelcome to the "Postgres Snowflake Data Integration Stack" repository! This repo provides a quickstart template for integrating postgres data to snowflake warehouses using Airbyte powering terraform. We will easily integrate data from Postgres databases with Airbyte using terraform airbyte provider. This template could be act as a starter for integrating and also adding new sources, etc... the limits are endless.
+Set up the CDC connection with incremental dedupe synchronization
+-----------------------------------------------------------------
 
-This quickstart is designed to minimize setup hassles and propel you forward.
-
-Infrastructure Layout
----------------------
-
-!Prerequisites
--------------
-
-Before you embark on this integration, ensure you have the following set up and ready:
-
-1. **Python 3.10 or later**: If not installed, download and install it from Python's official website.
-2. **Docker and Docker Compose (Docker Desktop)**: Install Dockerfollowing the official documentation for your specific OS.
-3. **Airbyte OSS version**: Deploy the open-source version of Airbyte. Follow the installation instructions from the Airbyte Documentation.
-4. **Terraform**: Terraform will help you provision and manage the Airbyte resources. If you haven't installed it, follow the official Terraform installation guide.
-
-1. Setting an environment for your project
-------------------------------------------
-
-Get the project up and running on your local machine by following these steps:
-
-**1.
+The orchestration for CDC syncing is similar to non-CDC database sources – in other words, CDC replication works in conjunction with the various Sync modesthat Airbyte supports. In this tutorial I will demonstrate CDC replication only with the incremental dedupe synchronization mode.
 
 
+> ℹ️ The steps presented in this section could also be used for testing other sync modes.
 
-Documentation Source:
-airbyte.com/quickstart/postgres-snowflake-data-integration-stack.md
+Define a new connection that will be used for incremental CDC replication as follows: 
 
-Documentation Title:
-Postgres Snowflake Data Integration Stack | Airbyte
+!
+> ℹ️  In the definition of a CDC replication connection, notice that a *cursor field*is not required (as opposed to “standard” incremental replication). Furthermore, the *primary key*is automatically determined from the source table, and is therefore not selected.
 
-Documentation Content:
-Clone the repository (Clone only this quickstart)**:
+Once you click on *Set up connection*, Airbyte will start a sync operation from the source to the destination. Once the sync has completed, you should see  a response similar to the following:
 
-`git clone --filter=blob:none --sparse  https://github.com/airbytehq/quickstarts.git``cd quickstarts``git sparse-checkout add postgres_snowflake_integration`**2. Navigate to the directory**:
+!‍
 
-`cd postgres_snowflake_integration`**3. Set Up a Virtual Environment (You may skip this and the following step if you don't want to develop or contribute)**:
+View the destination database
+-----------------------------
 
-For Linux and Mac:
+Open a Postgres shell to the destination as follows:
 
-`python3 -m venv venv``source venv/bin/activate`For Windows:
+`docker exec -it airbyte-destination psql --username=postgres`You can then view the names of the tables in the destination with the following command:
 
-`python -m venv venv``.\venv\Scripts\activate`**4. Install Dependencies**:
-
-`pip install -e ".[dev]"`2. Setting Up Airbyte Connectors with Terraform
------------------------------------------------
-
-Airbyte allows you to create connectors for sources and destinations, facilitating data synchronization between various platforms. In this project, we're harnessing the power of Terraform to automate the creation of these connectors and the connections between them. Here's how you can set this up:
-
-**1. Navigate to the Airbyte Configuration Directory**:
-
-Change to the relevant directory containing the Terraform configuration for Airbyte:
-
-`cd infra/airbyte`**2. Modify Configuration Files**:
-
-Within the infra/airbyte directory, you'll find three crucial Terraform files:
-
-* **provider.tf:**Defines the Airbyte provider.
-* **main.tf:**Contains the main configuration for creating Airbyte resources.
-* **variables.tf:**Holds various variables, including credentials.
-
-Adjust the configurations in these files to suit your project's needs. Specifically, provide credentials for your Postgres connections. You can utilize the variables.tf file to manage these credentials.
-
-**3. Initialize Terraform**:
-
-This step prepares Terraform to create the resources defined in your configuration files.
-
-`terraform init`**4. Review the Plan**:
-
-Before applying any changes, review the plan to understand what Terraform will do.
-
-`terraform plan`**5. Apply Configuration**:
-
-After reviewing and confirming the plan, apply the Terraform configurations to create the necessary Airbyte resources.
-
-`terraform apply`**6.
+`\dt;`Which should respond with the following.
 
 
 

@@ -91,86 +91,38 @@ Documentation Title:
 Incremental data synchronization between Postgres databases | Airbyte
 
 Documentation Content:
-`create table "postgres".public."table_one"
- as (
- 
-with __dbt__cte__table_one_ab1 as (
-
--- SQL model to parse JSON blob stored in a single column and extract into separated field columns as described by the JSON Schema
--- depends_on: "postgres".public._airbyte_raw_table_one
-select
- jsonb_extract_path_text(_airbyte_data, 'id') as "id",
- jsonb_extract_path_text(_airbyte_data, 'name') as "name",
- jsonb_extract_path_text(_airbyte_data, 'updated_at') as updated_at,
- _airbyte_ab_id,
- _airbyte_emitted_at,
- now() as _airbyte_normalized_at
-from "postgres".public._airbyte_raw_table_one as table_alias
--- table_one
-where 1 = 1
-),`‍
-
-The next part of the SQL casts each field to the appropriate type as follows:
-
-`__dbt__cte__table_one_ab2 as (
-
--- SQL model to cast each column to its adequate SQL type converted from the JSON schema type
--- depends_on: __dbt__cte__table_one_ab1
-select
- cast("id" as 
- bigint
-) as "id",
- cast("name" as text) as "name",
- cast(nullif(updated_at, '') as 
- timestamp
-) as updated_at,
- _airbyte_ab_id,
- _airbyte_emitted_at,
- now() as _airbyte_normalized_at
-from __dbt__cte__table_one_ab1
--- table_one
-where 1 = 1
-
-),`‍
-
-The next part of the SQL adds an md5 hash.  
-
-`__dbt__cte__table_one_ab3 as (
-
--- SQL model to build a hash column based on the values of this record
--- depends_on: __dbt__cte__table_one_ab2
-select
- md5(cast(coalesce(cast("id" as text), '') || '-' || coalesce(cast("name" as text), '') || '-' || coalesce(cast(updated_at as text), '') as text)) as _airbyte_table_one_hashid,
- tmp.
+* Learn **when****incremental synchronization**may be a good choice.
+* Learn**what a cursor**is, and why it is required for incremental synchronization.
+* Learn **why a primary key**is required for deduplication.
+* Create an **Airbyte source**connector to read data from a source database.
+* Create an **Airbyte destination**connector to write data into a destination database.
+* Explore incremental database replication using the **Incremental Sync - Append** sync mode**.**
+* Explore incremental database replication using the **Incremental Sync - Deduped History** sync mode.
+* Inspect **raw JSON data**that is replicated into a destination database.
+* Inspect the **normalized data**that is created from raw JSON.
+* Review the **SQL code**that Airbyte uses for normalizing JSON data.
+* See how **inserts**, **updates**, and **deletes**on the source database are reflected in the destination.
 
 
 
 Documentation Source:
-airbyte.com/blog/synchronize-data-from-mongodb-to-postgresql-in-minutes.md
+airbyte.com/docs.airbyte.com/integrations/sources/mysql/mysql-troubleshooting.md
 
 Documentation Title:
-Synchronize Data from MongoDB to PostgreSQL in Minutes! | Airbyte
+Troubleshooting MySQL Sources | Airbyte Documentation
 
 Documentation Content:
-20k+ subscribers!Support centerAccess our knowledge base!CommunityJoin our 15,000+ data  community!Community Reward ProgramLeave your mark in the OSS community!Events & community callsLive events by the Airbyte team#### Our Social Platform
+Follow the instructions in Airbyte documentationto
+run SQL queries on Airbyte database.
 
-!Community forumGitHub Discussions for questions, ideas!Slack15,000+  share tips and get support!YoutubeLearn more about Airbyte and data engineering!Discourse (read-only)Previous forum (still lots of knowledge)ConnectorsPricingStarTalk to SalesTry it  freeCommunityVideoSynchronize Data from MongoDB to PostgreSQL in Minutes!
-=======================================================
+If you have connections with MySQL Source using *Standard*replication method, run this SQL:
 
-!Chris Sean•!•February 28, 2023•12 min watch!!!Limitless data movement with free Alpha and Beta connectorsIntroducing: our Free Connector Program ->The data movement infrastructure for the modern data teams.Try a 14-day free trial !### About the Author
+`updatepublic.actor setconfiguration =jsonb_set(configuration,'{replication_method}','{"method": "STANDARD"}',true)WHEREactor_definition_id ='435bb9a5-7887-4809-aa58-28c27df0d7ad'AND(configuration->>'replication_method'='STANDARD');`If you have connections with MySQL Source using *Logical Replication (CDC)*method, run this SQL:
 
-!### About the Author
-
-Table of contents
------------------
-
-Example H2Example H3Example H4Example H5Example H6Example H2Example H3Example H4Example H5Example H6Join our newsletter to get all the insights on the data stack
--------------------------------------------------------------
-
-Related posts
--------------
-
-VideoAre Building Custom ETL Pipelines Outdated?Chris Sean•April 28, 2023•8 min readArticleInk-credible Data People: Airbyte OSS Contributor Vincent KocKaren Bajza-Terlouw•March 1, 2023•6 min ArticleInk-credible Data People: Airbyte Blog Guest Author Madison MaeKaren Bajza-Terlouw•January 30, 2023•5 minArticleInk-credible Data People: Airbyte OSS Maintainer Yiyang LiKaren Bajza-Terlouw•December 6, 2022•5 min!Airbyte is an open-source data integration engine that helps you consolidate your data in your data warehouses, lakes and databases.!!!!
+`updatepublic.actor setconfiguration =jsonb_set(configuration,'{replication_method}','{"method": "CDC"}',true)WHEREactor_definition_id ='435bb9a5-7887-4809-aa58-28c27df0d7ad'AND(configuration->>'replication_method'='CDC');`Edit this pagePreviousMySQLNextN8nGeneral LimitationsCDC Requirements* Troubleshooting
+	Common Config ErrorsUnder CDC incremental mode, there are still full refresh syncsEventDataDeserializationException errors during initial snapshot(Advanced) Enable GTIDs(Advanced) Setting up initial CDC waiting time(Advanced) Set up server timezone
+Upgrading from 0.6.8 and older versions to 0.6.9 and later versions
+Was this page helpful?YesNo
 
 
 

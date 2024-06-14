@@ -1,4 +1,15 @@
 Documentation Source:
+docs.getdbt.com/guides/manual-install.html
+
+Documentation Title:
+Quickstart for dbt Core from a manual install | dbt Developer Hub
+
+Documentation Content:
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+
+
+
+Documentation Source:
 docs.getdbt.com/docs/collaborate/documentation.html
 
 Documentation Title:
@@ -10,35 +21,24 @@ we recommend that you check out our <a>quickstart guide</a>to build your first d
 
 
 Documentation Source:
-docs.getdbt.com/faqs/Project/schema-yml-name.html
+docs.getdbt.com/guides/manual-install5f72.html
 
 Documentation Title:
-Does my `.yml` file containing tests and descriptions need to be named `schema.yml`? | dbt Developer Hub
+Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-<div><a>Skip to main content</a><div>Join our biweekly demos and see dbt Cloud in action!</div><div><div><div><img/><img/></div><a>Docs</a><a>Reference</a><div><a>v </a><ul><a>1.8</a><a>1.7</a><a>1.6</a><a>1.5</a><a>1.4</a><a>1.3</a><a>1.2</a></ul></div></div><div><div><a>Resources</a><ul><a>Courses</a><a>Best Practices</a><a>Guides</a><a>Developer Blog</a><a>Glossary</a></ul></div><div><a>Community</a><ul><a>Join the Community</a><a>Become a contributor</a><a>Community Forum</a><a>Events</a><a>Spotlight</a></ul></div><a>Create a free account</a><span>Search</span></div></div><div><div><a><img/><img/></a><ul><a>What is dbt?</a><a>Get started with dbt</a><a>Supported data platforms</a><a>About dbt Cloud</a><a>Set up dbt</a><a>Develop with dbt Cloud</a><a>Build dbt projects</a><a>Deploy dbt</a><a>Collaborate with others</a><a>Use the dbt Semantic Layer</a><a>dbt Cloud APIs</a><a>Available dbt versions</a><a>dbt support</a><li><a>Frequently asked questions</a><ul><a>API</a><a>Accounts</a><a>dbt Core</a><a>dbt Docs</a><a>Environments</a><a>Git</a><a>Jinja</a><a>Models</a><li><a>Projects</a><ul><a>Add a seed file</a><a>How to consolidate
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
 
 
 
 Documentation Source:
-docs.getdbt.com/reference/resource-properties/description.html
+docs.getdbt.com/guides/manual-install121c.html
 
 Documentation Title:
-description | dbt Developer Hub
+Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-accessibility, and ease of collaboration.</p><p>To include images from the web, specify the image URL in your model's <code>description</code>field:</p><div><span>models/schema.yml</span><code><span><span>version</span><span>:</span><span>2</span></span><span><span>models</span><span>:</span></span><span><span>-</span><span>name</span><span>:</span><span>customers</span></span><span><span>description: "!</span><span>[dbt Logo](https://github.com/dbt-labs/dbt-core/blob/main/etc/dbt-core.svg)</span><span>"</span></span><span><span>columns</span><span>:</span></span><span><span>-</span><span>name</span><span>:</span><span>customer_id</span></span><span><span>description</span><span>:</span><span>Primary key</span></span></code></div><p>If mixing images and text, also consider using a docs block.</p></div><div>0</div><div><a>Edit this page</a><span>Last updatedon <time>May 16,
-
-
-
-Documentation Source:
-docs.getdbt.com/faqs/Project/schema-yml-name.html
-
-Documentation Title:
-Does my `.yml` file containing tests and descriptions need to be named `schema.yml`? | dbt Developer Hub
-
-Documentation Content:
-a seed file</a><a>How to consolidate projects</a><a>Accessing Source Freshness results</a><a>Debugging Jinja</a><a>How to define a column type</a><a>How to delete a project</a><a>dbt project examples</a><a>Exclude a table from freshness snapshot </a><a>Does dbt offer extract and load functionality?</a><a>Ways to structure your project/files</a><a>Types of properties defined in config blocks</a><a>How to name your files</a><a>How to name your tests and descriptions files</a><a>Profiles stored outside project</a><a>Source is in a poorly-named scheme or table</a><a>Source is in a different database to target database</a><a>How to structure project</a><a>What materializations to use</a><a>dbt builds models in your target schema</a><a>Why not write in DML</a><a>dbt project has a lot of macros</a><a>Why does yml file start with version 2</a><a>.yml file extension search</a></ul></li><a>Runs</a><a>Seeds</a><a>Snapshots</a><a>Tests</a><a>Troubleshooting</a><a>Warehouse</a></ul></li></ul></div><div><article><ul><span>Frequently asked questions</span><span>Projects</span><span>How to name your tests and descriptions files</span></ul><div><h1>Does my `.yml` file containing tests and descriptions need to be named `schema.yml`?</h1><p>No!
+Update your <code>models</code>config block to:</p><div><span>dbt_project.yml</span><code><span><span>models</span><span>:</span></span><span><span>jaffle_shop</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>table</span></span><span><span>example</span><span>:</span></span><span><span>+materialized</span><span>:</span><span>view</span></span></code></div></li><p>Click <strong>Save</strong>.</p></ul></li><li><p>Enter the <code>dbt run</code>command. Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
 
 
 

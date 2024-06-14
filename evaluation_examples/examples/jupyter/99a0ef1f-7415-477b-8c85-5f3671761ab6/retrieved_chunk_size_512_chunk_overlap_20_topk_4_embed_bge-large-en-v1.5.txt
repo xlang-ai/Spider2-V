@@ -1,81 +1,4 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/cells.CellModel-1.txt
-
-Documentation Title:
-CellModel | @jupyterlab
-
-Documentation Content:
-create
-Cut
-Button
-create
-Insert
-Button
-create
-Paste
-Button
-create
-Restart
-Run
-All
-Button
-create
-Run
-Button
-create
-Save
-Button
-get
-Default
-Items
-Running
-Status
-Cell
-List
-Cell
-Type
-Switcher
-Command
-Edit
-Status
-Execution
-Indicator
-Kernel
-Error
-Notebook
-Notebook
-Actions
-Notebook
-Adapter
-Notebook
-Model
-Notebook
-Model
-Factory
-Notebook
-Panel
-Notebook
-Search
-Provider
-Notebook
-ToCFactory
-Notebook
-ToCModel
-Notebook
-Tools
-Notebook
-Tracker
-Notebook
-Trust
-Status
-Notebook
-View
-Model
-N
-
-
-
-Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/modules/cells.CellModel.txt
 
 Documentation Title:
@@ -156,6 +79,90 @@ Stat
 
 
 Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus.Model.txt
+
+Documentation Title:
+Model | @jupyterlab
+
+Documentation Content:
+e
+run
+And
+Insert
+run
+Cells
+select
+Above
+select
+All
+select
+Below
+select
+Heading
+Above
+Or
+Collapse
+Heading
+select
+Heading
+Below
+Or
+Expand
+Heading
+select
+Last
+Run
+Cell
+set
+Cell
+Collapse
+set
+Heading
+Collapse
+set
+Markdown
+Header
+show
+All
+Code
+show
+All
+Outputs
+show
+Code
+show
+Output
+split
+Cell
+toggle
+All
+Line
+Numbers
+toggle
+Current
+Heading
+Collapse
+trust
+undo
+Notebook
+Model
+IOptions
+Notebook
+Model
+Factory
+IOptions
+Notebook
+Panel
+Content
+Factory
+IConfig
+IContent
+Factory
+IContent
+
+
+
+Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/docregistry.DocumentRegistry.ICodeModel.txt
 
 Documentation Title:
@@ -231,20 +238,12 @@ No
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/codeeditor.IPositionModel-1.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/cells.CellModel-1.txt
 
 Documentation Title:
-IPositionModel | @jupyterlab
+CellModel | @jupyterlab
 
 Documentation Content:
-tems
-create
-Cell
-Type
-Item
-create
-Copy
-Button
 create
 Cut
 Button
@@ -304,7 +303,14 @@ ToCModel
 Notebook
 Tools
 Notebook
-Tra
+Tracker
+Notebook
+Trust
+Status
+Notebook
+View
+Model
+N
 
 
 

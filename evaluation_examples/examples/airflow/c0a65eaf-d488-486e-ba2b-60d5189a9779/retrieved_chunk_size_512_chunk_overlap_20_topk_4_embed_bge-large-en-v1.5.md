@@ -1,37 +1,55 @@
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.md
+docs.astronomer.io/learn/airflow-sql-data-quality.md
 
 Documentation Title:
-Debug DAGs | Astronomer Documentation
+Run data quality checks using SQL check operators | Astronomer Documentation
 
 Documentation Content:
-!
+You can use an in-memory SQLite database for which you'll need to install the SQLite provider. Note that currently the operators cannot support BigQuery `job_id`s.
+* A love for birds.
 
-noteTesting connections is disabled by default in Airflow 2.7+. You can enable connection testing by defining the environment variable `AIRFLOW__CORE__TEST_CONNECTION=Enabled`in your Airflow environment. Astronomer recommends not enabling this feature until you are sure that only highly trusted UI/API users have "edit connection" permissions.
+Step 1: Configure your Astro project​
+-------------------------------------
 
-To find information about what parameters are required for a specific connection:
+To use SQL check operators, install the Common SQL providerin your Astro project.
 
-* Read provider documentation in the Astronomer Registryto access the Apache Airflow documentation for the provider. Most commonly used providers will have documentation on each of their associated connection types. For example, you can find information on how to set up different connections to Azure in the Azure provider docs.
-* Check the documentation of the external tool you are connecting to and see if it offers guidance on how to authenticate.
-* View the source code of the hook that is being used by your operator.
+1. Run the following commands to create a new Astro project:
 
-You can also test connections from within your IDE by using the `dag.test()`method. See Debug interactively with dag.test()and How to test and debug your Airflow connections.
+`$ mkdirastro-sql-check-tutorial &&cdastro-sql-check-tutorial$ astro dev init`
+2. Add the Common SQL provider and the SQLite provider to your Astro project `requirements.txt`file.
 
-I need more help​
------------------
+`apache-airflow-providers-common-sql==1.5.2apache-airflow-providers-sqlite==3.4.2`
 
-The information provided here should help you resolve the most common issues. If your issue was not covered in this guide, try the following resources:
+Step 2: Create a connection to SQLite​
+--------------------------------------
 
-* If you are an Astronomer customer contact our customer support.
-* Post your question to Stack Overflow, tagged with `airflow`and other relevant tools you are using. Using Stack Overflow is ideal when you are unsure which tool is causing the error, since experts for different tools will be able to see your question.
-* Join the Apache Airflow Slackand open a thread in `#newbie-questions`or `#troubleshooting`. The Airflow slack is the best place to get answers to more complex Airflow specific questions.
-* If you found a bug in Airflow or one of its core providers, please open an issue in the Airflow GitHub repository. For bugs in Astronomer open source tools please open an issue in the relevant Astronomer repository.
+In the Airflow UI, go to **Admin**> **Connections**and click **+**.
 
-To get more specific answers to your question, include the following information in your question or issue:
+2. Create a new connection named `sqlite_conn`and choose the `SQLite`connection type. Enter the following information:
 
-* Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
-* Your Airflow version and the version of relevant providers.
-* The full error with the error trace if applicable.
+
+	* **Connection Id**: `sqlite_conn`.
+	* **Connection Type**: `SQLite`.
+	* **Host**: `/tmp/sqlite.db`.
+
+Step 3: Add a SQL file with a custom check​
+-------------------------------------------
+
+In your `include`folder, create a file called `custom_check.sql`.
+
+Copy and paste the following SQL statement into the file:
+
+
+`WITHall_combinations_unique AS(SELECTDISTINCTbird_name,observation_year AScombos_uniqueFROM'{{ params.table_name }}')SELECTCASEWHENCOUNT(*)=COUNT(combos_unique)THEN1ELSE0ENDASis_uniqueFROM'{{ params.table_name }}'JOINall_combinations_unique;`This SQL statement returns 1 if all combinations of `bird_name`and `observation_year`in a templated table are unique, and 0 if not.
+
+Step 4: Create a DAG using SQL check operators​
+-----------------------------------------------
+
+Start Airflow by running `astro dev start`.
+
+Create a new file in your `dags`folder called `sql_data_quality.py`.
+
+3.
 
 
 
@@ -82,63 +100,46 @@ Documentation Title:
 Debug DAGs | Astronomer Documentation
 
 Documentation Content:
+!
+
+noteTesting connections is disabled by default in Airflow 2.7+. You can enable connection testing by defining the environment variable `AIRFLOW__CORE__TEST_CONNECTION=Enabled`in your Airflow environment. Astronomer recommends not enabling this feature until you are sure that only highly trusted UI/API users have "edit connection" permissions.
+
+To find information about what parameters are required for a specific connection:
+
+* Read provider documentation in the Astronomer Registryto access the Apache Airflow documentation for the provider. Most commonly used providers will have documentation on each of their associated connection types. For example, you can find information on how to set up different connections to Azure in the Azure provider docs.
+* Check the documentation of the external tool you are connecting to and see if it offers guidance on how to authenticate.
+* View the source code of the hook that is being used by your operator.
+
+You can also test connections from within your IDE by using the `dag.test()`method. See Debug interactively with dag.test()and How to test and debug your Airflow connections.
+
+I need more help​
+-----------------
+
+The information provided here should help you resolve the most common issues. If your issue was not covered in this guide, try the following resources:
+
+* If you are an Astronomer customer contact our customer support.
+* Post your question to Stack Overflow, tagged with `airflow`and other relevant tools you are using. Using Stack Overflow is ideal when you are unsure which tool is causing the error, since experts for different tools will be able to see your question.
+* Join the Apache Airflow Slackand open a thread in `#newbie-questions`or `#troubleshooting`. The Airflow slack is the best place to get answers to more complex Airflow specific questions.
+* If you found a bug in Airflow or one of its core providers, please open an issue in the Airflow GitHub repository. For bugs in Astronomer open source tools please open an issue in the relevant Astronomer repository.
+
+To get more specific answers to your question, include the following information in your question or issue:
+
+* Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
+* Your Airflow version and the version of relevant providers.
 * The full error with the error trace if applicable.
-* The full code of the DAG causing the error if applicable.
-* What you are trying to accomplish in as much detail as possible.
-* What you changed in your environment when the problem started.
-Was this page helpful?
-----------------------
-
-YesNoSign up for Developer Updates
------------------------------
-
-Get a summary of new Astro features once a month.
-
-SubmitYou can unsubscribe at any time. By proceeding you agree to our Privacy Policy, our Website Termsand to receive emails from Astronomer.
-
-Edit this pagePreviousDAG writing best practicesNextDynamic tasksAssumed knowledgeGeneral Airflow debugging approachAirflow is not starting on the Astro CLI* Common DAG issues
-	DAGs don't appear in the Airflow UIImport errors due to dependency conflictsDAGs are not running correctly
-* Common task issues
-	Tasks are not running correctlyTasks are failingIssues with dynamically mapped tasks
-Missing LogsTroubleshooting connectionsI need more helpLegal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various trademarks held by their respective owners.
 
 
 
 Documentation Source:
-docs.astronomer.io/learn/airflow-databricks.md
+docs.astronomer.io/learn/airflow-sql-data-quality.md
 
 Documentation Title:
-Orchestrate Databricks jobs with Airflow | Astronomer Documentation
+Run data quality checks using SQL check operators | Astronomer Documentation
 
 Documentation Content:
-Repairing a Databricks Workflow​
+3. Copy and paste the following DAG code into the file:
 
-The Astro Databricks provider includes functionality to repair a failed Databricks Workflow by making a repair request to the Databricks Jobs API. Databricks expects a single repair request for all tasks that need to be rerun in one cluster, this can be achieved via the Airflow UI by using the operator extra link **Repair All Failed Tasks**. If you would be using Airflow's built in retry functionalitya separete cluster would be created for each failed task.
-
-!If you only want to rerun specific tasks within your Workflow, you can use the **Repair a single failed task**operator extra link on an individual task in the Databricks Workflow.
-
-!Alternative ways to run Databricks with Airflow​
-------------------------------------------------
-
-The Astro Databricks provider is under active development, and support for more Databricks task types is still being added. If you want to orchestrate an action in your Databricks environment that is not yet supported by the Astro Databricks provider such as updating a Databricks repository, check the community-managed Databricks providerfor relevant operators.
-
-Additionally, the community-managed Databricks provider contains hooks (for example the DatabricksHook) that simplify interaction with Databricks, including writing your own custom Databricks operators.
-
-You can find several example DAGs that use the community-managed Databricks provider on the Astronomer Registry.
-
-Was this page helpful?
-----------------------
-
-YesNoSign up for Developer Updates
------------------------------
-
-Get a summary of new Astro features once a month.
-
-SubmitYou can unsubscribe at any time. By proceeding you agree to our Privacy Policy, our Website Termsand to receive emails from Astronomer.
-
-**Tags:**IntegrationsDAGsEdit this pagePreviousConnectionNextdbt CloudWhy use Airflow with DatabricksTime to completeAssumed knowledgePrerequisitesStep 1: Configure your Astro projectStep 2: Create Databricks NotebooksStep 3: Configure the Databricks connectionStep 4: Create your DAG* How it works
-	ParametersRepairing a Databricks Workflow
-Alternative ways to run Databricks with AirflowLegal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various trademarks held by their respective owners.
+`"""## Check data quality using SQL check operatorsThis DAG creates a toy table about birds in SQLite to run data quality checks on using the SQLColumnCheckOperator, SQLTableCheckOperator, and SQLCheckOperator."""fromairflow.decorators importdagfromairflow.providers.common.sql.operators.sql import(SQLColumnCheckOperator,SQLTableCheckOperator,SQLCheckOperator,)fromairflow.providers.sqlite.operators.sqlite importSqliteOperatorfrompendulum importdatetime_CONN_ID ="sqlite_conn"_TABLE_NAME ="birds"@dag(start_date=datetime(2023,7,1),schedule=None,catchup=False,template_searchpath=["/usr/local/airflow/include/"],)defsql_data_quality():create_table =SqliteOperator(task_id="create_table",sqlite_conn_id=_CONN_ID,sql=f"""CREATE TABLE IF NOT EXISTS {_TABLE_NAME}(bird_name VARCHAR,observation_year INT,bird_happiness INT);""",)populate_data =SqliteOperator(task_id="populate_data",sqlite_conn_id=_CONN_ID,sql=f"""INSERT INTO {_TABLE_NAME}(bird_name, observation_year, bird_happiness) VALUES('King vulture (Sarcoramphus papa)', 2022, 9),('Victoria Crowned Pigeon (Goura victoria)', 2021, 10),('Orange-bellied parrot (Neophema chrysogaster)', 2021, 9),('Orange-bellied parrot (Neophema chrysogaster)', 2020, 8),(NULL, 2019, 8),('Indochinese green magpie (Cissa hypoleuca)', 2018, 10);""",)column_checks =SQLColumnCheckOperator(task_id="column_checks",conn_id=_CONN_ID,table=_TABLE_NAME,partition_clause="bird_name IS NOT NULL",column_mapping={"bird_name":{"null_check":{"equal_to":0},"distinct_check":{"geq_to":2},},"observation_year":{"max":{"less_than":2023}},"bird_happiness":{"min":{"greater_than":0},"max":{"leq_to":10}},},
 
 
 

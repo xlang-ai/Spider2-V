@@ -72,13 +72,96 @@ instance, but many people like to run that tooling from their host.
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/index.txt
+superset.apache.org/docs/installation/docker-compose/index.txt
 
 Documentation Title:
-Contributing to Superset | Superset
+Docker Compose | Superset
 
 Documentation Content:
-Contributing to Superset | Superset
+1. Clone Superset's GitHub repository
+​
+Clone Superset's repo
+in your terminal with the
+following command:
+git
+clone --depth
+=
+1
+https://github.com/apache/superset.git
+Once that command completes successfully, you should see a new
+superset
+folder in your
+current directory.
+2. Launch Superset Through Docker Compose
+​
+First let's assume you're familiar with docker-compose mechanics. Here we'll refer generally
+to
+docker compose up
+even though in some cases you may want to force a check for newer remote
+images using
+docker compose pull
+, force a build with
+docker compose build
+or force a build
+on latest base images using
+docker compose build --pull
+. In most cases though, the simple
+up
+command should do just fine. Refer to docker compose docs for more information on the topic.
+Option #1 - for an interactive development environment
+​
+docker
+compose up
+tip
+When running in development mode the
+superset-node
+container needs to finish building assets in order for the UI to render properly. If you would just
+like to try out Superset without making any code changes follow the steps documented for
+production
+or a specific version below.
+tip
+By default, we mount the local superset-frontend folder here and run
+npm install
+as well
+as
+npm run dev
+which triggers webpack to compile/bundle the frontend code. Depending
+on your local setup, especially if you have less than 16GB of memory,  it may be very slow to
+perform those operations. In this case, we recommend you set the env var
+BUILD_SUPERSET_FRONTEND_IN_DOCKER
+to
+false
+, and to run this locally instead in a terminal.
+Simply trigger
+npm i && npm run dev
+, this should be MUCH faster.
+Option #2 - build a set of immutable images from the local branch
+​
+docker
+compose -f docker-compose-non-dev.yml up
+Option #3 - boot up an official release
+​
+export
+TAG
+=
+3.1
+.1
+docker
+compose -f docker-compose-image-tag.yml up
+Here various release tags, github SHA, and latest
+master
+can be referenced by the TAG env var.
+
+
+
+Documentation Source:
+superset.apache.org/docs/quickstart/index.txt
+
+Documentation Title:
+Quickstart | Superset
+
+Documentation Content:
+Quickstart | Superset
 Skip to main content
 Documentation
 Getting Started
@@ -97,186 +180,134 @@ Installation
 Configuration
 Using Superset
 Contributing
-Contributing to Superset
-Guidelines
-Setting up a Development Environment
-Development How-tos
-Resources
-Misc.
 Security
 FAQ
 API
 Edit this page on GitHub
-Contributing
-Contributing to Superset
+Quickstart
 On this page
-Contributing to Superset
-Superset is an
-Apache Software foundation
-project.
-The core contributors (or committers) to Superset communicate primarily in the following channels (
-which can be joined by anyone):
-Mailing list
-Apache Superset Slack community
-GitHub issues
-GitHub pull requests
-GitHub discussions
-Superset Community Calendar
-More references:
-Comprehensive Tutorial for Contributing Code to Apache Superset
-Superset Wiki (code guidelines and additional resources)
-Orientation
+Quickstart
+Ready to give Apache Superset a try?
+This quickstart guide will help you
+get up and running on your local machine in
+3 simple steps
+. Note that
+it assumes that you have
+Docker
+,
+Docker Compose
+, and
+Git
+installed.
+caution
+While we recommend using
+Docker Compose
+for a quick start in a sandbox-type
+environment and for other development-type use cases,
+we
+do not recommend this setup for production
+. For this purpose please
+refer to our
+Installing on Kubernetes
+page.
+1. Get Superset
 ​
-Here's a list of repositories that contain Superset-related packages:
-apache/superset
-is the main repository containing the
-apache-superset
-Python package
-distributed on
-pypi
-. This repository
-also includes Superset's main TypeScript/JavaScript bundles and react apps under
-the
-superset-frontend
-folder.
-github.com/apache-superset
-is the
-GitHub organization under which we manage Superset-related
-small tools, forks and Superset-related experimental ideas.
-Types of Contributions
+$
+git
+clone https://github.com/apache/superset
+2. Start the latest official release of Superset
 ​
-Report Bug
+# Enter the repository you just cloned
+$
+cd
+superset
+# Fire up Superset using Docker Compose
+$
+docker
+compose -f docker-compose-image-tag.yml up
+This may take a moment as Docker Compose will fetch the underlying
+container images and will load up some examples. Once all containers
+are downloaded and the output settles, you're ready to log in.
+3. Log into Superset
 ​
-The best way to report a bug is to file an issue on GitHub. Please include:
-Your operating system name and version.
-Superset version.
-Detailed steps to reproduce the bug.
-Any details about your local setup that might be helpful in troubleshooting.
-When posting Python stack traces, please quote them using
-Markdown blocks
+Now head over to
+http://localhost:8088
+and log in with the default created account:
+username: admin
+password: admin
+🎉 Congratulations! Superset is now up and running on your machine! 🎉
+​
+Wrapping Up
+​
+Once you're done with Superset, you can stop and delete just like any other container environment:
+$
+docker
+compose down
+tip
+You can use the same environment more than once, as Superset will persist data locally. However, make sure to properly stop all
+processes by running Docker Compose
+stop
+command. By doing so, you can avoid data corruption and/or loss of data.
+What's next?
+
+
+
+Documentation Source:
+superset.apache.org/docs/installation/pypi/index.txt
+
+Documentation Title:
+PyPI | Superset
+
+Documentation Content:
+In particular, Superset will not start without a user-specified value of SECRET_KEY. Please see
+Configuring Superset
 .
-Please note that feature requests opened as GitHub Issues will be moved to Discussions.
-Submit Ideas or Feature Requests
-​
-The best way is to start an
-"Ideas" Discussion thread
-on GitHub:
-Explain in detail how it would work.
-Keep the scope as narrow as possible, to make it easier to implement.
-
-
-
-Documentation Source:
-superset.apache.org/docs/configuration/databases/index.txt
-
-Documentation Title:
-Connecting to Databases | Superset
-
-Documentation Content:
-database.windows.net:1433/TestSchema
-ClickHouse
-pip install clickhouse-connect
-clickhousedb://{username}:{password}@{hostname}:{port}/{database}
-CockroachDB
-pip install cockroachdb
-cockroachdb://root@{hostname}:{port}/{database}?sslmode=disable
-Dremio
-pip install sqlalchemy_dremio
-dremio://user:pwd@host:31010/
-Elasticsearch
-pip install elasticsearch-dbapi
-elasticsearch+http://{user}:{password}@{host}:9200/
-Exasol
-pip install sqlalchemy-exasol
-exa+pyodbc://{username}:{password}@{hostname}:{port}/my_schema?CONNECTIONLCALL=en_US.UTF-8&driver=EXAODBC
-Google BigQuery
-pip install sqlalchemy-bigquery
-bigquery://{project_id}
-Google Sheets
-pip install shillelagh[gsheetsapi]
-gsheets://
-Firebolt
-pip install firebolt-sqlalchemy
-firebolt://{client_id}:{client_secret}@{database}/{engine_name}?account_name={name}
-Hologres
-pip install psycopg2
-postgresql+psycopg2://<UserName>:<DBPassword>@<Database Host>/<Database Name>
-IBM Db2
-pip install ibm_db_sa
-db2+ibm_db://
-IBM Netezza Performance Server
-pip install nzalchemy
-netezza+nzpy://<UserName>:<DBPassword>@<Database Host>/<Database Name>
-MySQL
-pip install mysqlclient
-mysql://<UserName>:<DBPassword>@<Database Host>/<Database Name>
-Oracle
-pip install cx_Oracle
-oracle://
-PostgreSQL
-pip install psycopg2
-postgresql://<UserName>:<DBPassword>@<Database Host>/<Database Name>
-Presto
-pip install pyhive
-presto://
-Rockset
-pip install rockset-sqlalchemy
-rockset://<api_key>:@<api_server>
-SAP Hana
-pip install hdbcli sqlalchemy-hana
-or
-pip install apache-superset[hana]
-hana://{username}:{password}@{host}:{port}
-StarRocks
-pip install starrocks
-starrocks://<User>:<Password>@<Host>:<Port>/<Catalog>.
-
-
-
-Documentation Source:
-superset.apache.org/docs/configuration/databases/index.txt
-
-Documentation Title:
-Connecting to Databases | Superset
-
-Documentation Content:
-{region_name}.amazonaws.com?connector=superset
-AWS Redshift
-pip install sqlalchemy-redshift
-redshift+psycopg2://<userName>:<DBPassword>@<AWS End Point>:5439/<Database Name>
-Apache Doris
-pip install pydoris
-doris://<User>:<Password>@<Host>:<Port>/<Catalog>.<Database>
-Apache Drill
-pip install sqlalchemy-drill
-drill+sadrill:// For JDBC drill+jdbc://
-Apache Druid
-pip install pydruid
-druid://<User>:<password>@<Host>:<Port-default-9088>/druid/v2/sql
-Apache Hive
-pip install pyhive
-hive://hive@{hostname}:{port}/{database}
-Apache Impala
-pip install impyla
-impala://{hostname}:{port}/{database}
-Apache Kylin
-pip install kylinpy
-kylin://<username>:<password>@<hostname>:<port>/<project>?<param1>=<value1>&<param2>=<value2>
-Apache Pinot
-pip install pinotdb
-pinot://BROKER:5436/query?server=http://CONTROLLER:5983/
-Apache Solr
-pip install sqlalchemy-solr
-solr://{username}:{password}@{hostname}:{port}/{server_path}/{collection}
-Apache Spark SQL
-pip install pyhive
-hive://hive@{hostname}:{port}/{database}
-Ascend.io
-pip install impyla
-ascend://{username}:{password}@{hostname}:{port}/{database}?auth_mechanism=PLAIN;use_ssl=true
-Azure MS SQL
-pip install pymssql
-mssql+pymssql://UserName@presetSQL:TestPassword@presetSQL.database.windows.
+Finish installing by running through the following commands:
+# Create an admin user in your metadata database (use `admin` as username to be able to load the examples)
+export FLASK_APP=superset
+superset fab create-admin
+# Load some data to play with
+superset load_examples
+# Create default roles and permissions
+superset init
+# To start a development web server on port 8088, use -p to bind to another port
+superset run -p 8088 --with-threads --reload --debugger
+If everything worked, you should be able to navigate to
+hostname:port
+in your browser (e.g.
+locally by default at
+localhost:8088
+) and login using the username and password you created.
+Edit this page
+Previous
+Kubernetes
+Next
+Docker Compose
+OS Dependencies
+Python Virtual Environment
+Installing and Initializing Superset
+We use
+Copyright © 2024,
+          The
+Apache Software Foundation
+,
+          Licensed under the Apache
+License
+.
+Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+Apache Software Foundation
+resources
+Security
+|
+Donate
+|
+Thanks
+|
+Events
+|
+License
+|
+Privacy
 
 
 

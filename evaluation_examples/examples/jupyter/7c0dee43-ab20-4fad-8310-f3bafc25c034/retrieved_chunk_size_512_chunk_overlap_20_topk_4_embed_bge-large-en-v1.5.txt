@@ -1,97 +1,4 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/csvviewer.txt
-
-Documentation Title:
-csvviewer | @jupyterlab
-
-Documentation Content:
-move
-Down
-move
-Up
-paste
-redo
-render
-All
-Markdown
-render
-Default
-render
-Side
-By
-Side
-replace
-Selection
-run
-run
-All
-run
-All
-Above
-run
-All
-Below
-run
-And
-Advance
-run
-And
-Insert
-run
-Cells
-select
-Above
-select
-All
-select
-Below
-select
-Heading
-Above
-Or
-Collapse
-Heading
-select
-Heading
-Below
-Or
-Expand
-Heading
-select
-Last
-Run
-Cell
-set
-Cell
-Collapse
-set
-Heading
-Collapse
-set
-Markdown
-Header
-show
-All
-Code
-show
-All
-Outputs
-show
-Code
-show
-Output
-split
-Cell
-toggle
-All
-Line
-Numbers
-toggle
-Curre
-
-
-
-Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/modules/csvviewer.CSVViewer.txt
 
 Documentation Title:
@@ -185,17 +92,12 @@ Ou
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/csvviewer.CSVViewer-1.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/modules/csvviewer.txt
 
 Documentation Title:
-CSVViewer | @jupyterlab
+csvviewer | @jupyterlab
 
 Documentation Content:
-Level
-Heading
-Below
-merge
-Cells
 move
 Down
 move
@@ -273,16 +175,32 @@ show
 Output
 split
 Cell
+toggle
+All
+Line
+Numbers
+toggle
+Curre
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/csvviewer.CSVToolbar.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/modules/csvviewer.DSVModel.txt
 
 Documentation Title:
-CSVToolbar | @jupyterlab
+DSVModel | @jupyterlab
 
 Documentation Content:
+Code
+hide
+Output
+insert
+Above
+insert
+Below
+insert
+Same
+Level
 Heading
 Above
 insert
@@ -353,6 +271,42 @@ Cell
 Collapse
 set
 Heading
+Collap
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/fileeditor.EditorSyntaxStatus.Model.txt
+
+Documentation Title:
+Model | @jupyterlab
+
+Documentation Content:
+select
+All
+select
+Below
+select
+Heading
+Above
+Or
+Collapse
+Heading
+select
+Heading
+Below
+Or
+Expand
+Heading
+select
+Last
+Run
+Cell
+set
+Cell
+Collapse
+set
+Heading
 Collapse
 set
 Markdown
@@ -364,7 +318,42 @@ show
 All
 Outputs
 show
-Co
+Code
+show
+Output
+split
+Cell
+toggle
+All
+Line
+Numbers
+toggle
+Current
+Heading
+Collapse
+trust
+undo
+Notebook
+Model
+IOptions
+Notebook
+Model
+Factory
+IOptions
+Notebook
+Panel
+Content
+Factory
+IConfig
+IContent
+Factory
+IContent
+Factory
+Notebook
+Tools
+Metadata
+Editor
+T
 
 
 

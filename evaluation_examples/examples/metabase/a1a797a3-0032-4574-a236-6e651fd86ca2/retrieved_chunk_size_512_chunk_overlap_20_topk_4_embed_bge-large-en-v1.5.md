@@ -1,4 +1,44 @@
 Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/managing.md
+
+Documentation Title:
+Managing people and groups
+
+Documentation Content:
+* If they log in using Google credentials, Metabase displays a Google icon.
+* If they log in using an email address and password stored in Metabase, no icon is shown.
+
+Note that the type of user is set when the account is first created: if you create a user in Metabase, but that person then logs in via Google or some other form of SSO, the latter’s icon will *not*show up next to their name.
+
+Resetting someone’s password
+----------------------------
+
+If you’ve already configured your email settings, people can reset their passwords using the “forgot password” link on the login screen. If you haven’t yet configured your email settings, they will see a message telling them to ask an admin to reset their password for them.
+
+To reset a password for someone, just click the three dots icon next to their account and choose **Reset Password**. If you haven’t configured your email settingsyet, you’ll be given a temporary password that you’ll have to share with that person. Otherwise, they’ll receive a password reset email.
+
+Resetting the admin password
+----------------------------
+
+If you’re using Metabase Cloud, contact supportto reset your admin password.
+
+If you’re a Metabase admin and have access to the server console, you can get Metabase to send you a password reset token:
+
+1. Stop the running Metabase application.
+2. Restart Metabase with `reset-password email@example.com`, where “email@example.com” is the email associated with the admin account:
+ `java -jar metabase.jar reset-password email@example.com`
+3. Metabase will print out a random token like this:
+
+`...
+Resetting password for email@example.com...
+
+OK [[[1_7db2b600-d538-4aeb-b4f7-0cf5b1970d89]]]`
+4. Start Metabase normally again (*without*the `reset-password`option).
+5. Navigate to it in your browser using the path `/auth/reset_password/:token`, where “:token” is the token that was generated from the step above.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.md
 
 Documentation Title:
@@ -66,86 +106,6 @@ Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/api/util.md
-
-Documentation Title:
-Util
-
-Documentation Content:
-PARAMS:
-
-- `password`password is too common.
-« Back to API indexRead docs for other versions of Metabase.
- 
-
-Did this article help you?
- 
-
-Yes
- No
- Send
- Thanks for your feedback!
-
-Want to improve these docs? Propose a change.##### Subscribe to our newsletter
-
-Stay in touch with updates and news from Metabase. No spam, ever.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.md
-
-Documentation Title:
-Setting up Metabase
-
-Documentation Content:
-We won’t be able to connect to your database without it, but you’d like to deal with all of this later, that’s okay: just click **I’ll add my data later**. Metabase comes with a Sample Databasethat you can play around with to get a feel for how Metabase works.
-
-If you’re ready to connect, here’s what you’ll need:
-
-* The **hostname**of the server where your database lives
-* The **port**the database server uses
-* The **database name**
-* The **username**you use for the database
-* The **password**you use for the database
-
-If you don’t have this information handy, the person responsible for administering the database should have it.
-
-Connect to your database
-------------------------
-
-Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click **Next**.
-
-!For more on connecting to databases, see Adding and managing databases.
-
-Usage data preferences
-----------------------
-
-One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:
-
-* Metabase never collects anything about your data or question results.
-* All collection is completely anonymous.
-* Collection can be turned off at any point in your admin settings.
-
-!If you’re ready to start using Metabase, go ahead and click **Next**.
-
-Staying in touch
-----------------
-
-At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!
-
-!Once you’re done here simply follow the link to **Take me to Metabase**. And if you decided to skip the newsletter sign-up, it’s cool, we still like you :)
-
-Getting started with Metabase
------------------------------
-
-For a tutorial on getting up and running with questions and dashboards, head over to Learn Metabase.
-
-If you’d like more technical resources to set up your data stack with Metabase, connect with a Metabase Expert.
-
-
-
-Documentation Source:
 www.metabase.com/learn/administration/metabase-api.md
 
 Documentation Title:
@@ -172,6 +132,24 @@ Have fun
 --------
 
 If you have found this tutorial interesting, you can spin up a local instance of Metabase, experiment with the API, and have fun! If you get stuck, check out our forumto see if anyone’s run into a similar issue, or post a new question.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/api/session.md
+
+Documentation Title:
+Session
+
+Documentation Content:
+PARAMS:
+
+`username`value must be a non-blank string.
+
+`password`value must be a non-blank string.
+
+`request`
+`POST /api/session/forgot_password`Send a reset email when user has forgotten their password.
 
 
 

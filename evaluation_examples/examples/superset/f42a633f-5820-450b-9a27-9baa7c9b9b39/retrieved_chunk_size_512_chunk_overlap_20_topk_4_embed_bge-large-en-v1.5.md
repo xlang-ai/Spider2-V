@@ -93,67 +93,101 @@ dashboard**and then hover over the table. By selecting the bottom right hand cor
 
 
 Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.md
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.md
 
 Documentation Title:
-Exploring Data in Superset | Superset
+Creating Your First Dashboard | Superset
 
 Documentation Content:
-Skip to main content!!DocumentationGetting StartedFAQCommunityResourcesGitHubSlackMailing ListStack OverflowGet StartedSearchIntroductionQuickstartInstallationConfiguration* Using Superset
-	Creating Your First DashboardExploring Data in SupersetIssue Codes
-ContributingSecurityFAQAPI
-Edit this page on GitHubUsing SupersetExploring Data in Superset
-On this pageExploring Data in Superset​
----------------------------
+As you customize your chart using drop-down menus, make sure to click the **Run**button
+to get visual feedback.
 
-In this tutorial, we will introduce key concepts in Apache Superset through the exploration of a
-real dataset which contains the flights made by employees of a UK-based organization in 2011. The
-following information about each flight is given:
+!In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.
 
-* The traveller’s department. For the purposes of this tutorial the departments have been renamed
-Orange, Yellow and Purple.
-* The cost of the ticket.
-* The travel class (Economy, Premium Economy, Business and First Class).
-* Whether the ticket was a single or return.
-* The date of travel.
-* Information about the origin and destination.
-* The distance between the origin and destination, in kilometers (km).
+!### Creating a slice and dashboard​
+
+To save your chart, first click the **Save**button. You can either:
+
+* Save your chart and add it to an existing dashboard
+* Save your chart and add it to a new dashboard
+
+In the following screenshot, we save the chart to a new "Superset Duper Sales Dashboard":
+
+!To publish, click **Save and goto Dashboard**.
+
+Behind the scenes, Superset will create a slice and store all the information needed
+to create your chart in its thin data layer
+(the query, chart type, options selected, name, etc).
+
+!To resize the chart, start by clicking the Edit Dashboard button in the top right corner.
+
+!Then, click and drag the bottom right corner of the chart until the chart layout snaps
+into a position you like onto the underlying grid.
+
+!Click **Save**to persist the changes.
+
+Congrats! You’ve successfully linked, analyzed, and visualized data in Superset. There are a wealth
+of other table configuration and visualization options, so please start exploring and creating
+slices and dashboards of your own
+
+ֿ
 
 
 
 Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.md
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.md
 
 Documentation Title:
-Exploring Data in Superset | Superset
+Creating Your First Dashboard | Superset
 
 Documentation Content:
-Line Chart​
+Customizing column properties​
 
-In this section, we are going to create a line chart to understand the average price of a ticket by
-month across the entire dataset.
+Now that you've registered your dataset, you can configure column properties
+for how the column should be treated in the Explore workflow:
 
-In the Time section, as before, keep the Time Column as Travel Date and Time Grain as month but this
-time for the Time range select No filter as we want to look at entire dataset.
+* Is the column temporal? (should it be used for slicing & dicing in time series charts?)
+* Should the column be filterable?
+* Is the column dimensional?
+* If it's a datetime column, how should Superset parse
+the datetime format? (using the ISO-8601 string pattern)
 
-Within Metrics, remove the default `COUNT(*)`metric and instead add `AVG(Cost)`, to show the mean value.
+!### Superset semantic layer​
 
-!Next, select **Run Query**to show the data on the chart.
+Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+The Superset semantic layer can store 2 types of computed data:
 
-How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
-doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
-each ticket type.
+- Virtual metrics: you can write SQL queries that aggregate values
+from multiple column (e.g. `SUM(recovered) / SUM(confirmed)`) and make them
+available as columns for (e.g. `recovery_rate`) visualization in Explore.
+Aggregate functions are allowed and encouraged for metrics.
+!You can also certify metrics if you'd like for your team in this view.
 
-Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting **Run
-Query**again. Nice! We can see that on average single tickets are cheaper than returns and that the
-big spike in December is caused by return tickets.
+- Virtual calculated columns: you can write SQL queries that
+customize the appearance and behavior
+of a specific column (e.g. `CAST(recovery_rate) as float`).
+Aggregate functions aren't allowed in calculated columns.
+!### Creating charts in Explore view​
 
-Our chart is looking pretty good already, but let’s customize some more by going to the Customize
-tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
-filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
-and Y Axis Label.
+Superset has 2 main interfaces for exploring data:
 
-!Once you’re done, publish the chart in your Tutorial Dashboard.
+* **Explore**: no-code viz builder. Select your dataset, select the chart,
+customize the appearance, and publish.
+* **SQL Lab**: SQL IDE for cleaning, joining, and preparing data for Explore workflow
+
+We'll focus on the Explore view for creating charts right now.
+To start the Explore workflow from the **Datasets**tab, start by clicking the name
+of the dataset that will be powering your chart.
+
+!You're now presented with a powerful workflow for exploring data and iterating on charts.
+
+* The **Dataset**view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.
+* The **Data**preview below the chart area also gives you helpful data context.
+* Using the **Data**tab and **Customize**tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.
 
 
 

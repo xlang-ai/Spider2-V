@@ -1,11 +1,22 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/types/statedb.StateDB.DataTransform.md
+jupyterlab.readthedocs.io/en/4.1.x/api/variables/ui_components.tableRowsIcon.md
 
 Documentation Title:
-DataTransform | @jupyterlab
+tableRowsIcon | @jupyterlab
 
 Documentation Content:
 tHeadingIdgetHeadingsisMarkdownIHTMLHeadingNUMBERING\_CLASSaddPrefixclearNumberingfilterHeadingsgetHTMLHeadingsgetPrefixisHTMLTableOfContentsFactoryTableOfContentsItemTableOfContentsModelTableOfContentsPanelTableOfContentsRegistryTableOfContentsTrackerTableOfContentsTreeTableOfContentsWidgetITableOfContentsItemsPropsITableOfContentsRegistryITableOfContentsTrackerITableOfContentsTreePropsITableOfContentsRegistryITableOfContentsTrackertooltipITooltipManagerIOptionsTooltipI
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/apputils.Toolbar.createKernelStatusItem.md
+
+Documentation Title:
+createKernelStatusItem | @jupyterlab
+
+Documentation Content:
+eCellIBaseCellJupyterMetadataIBaseCellMetadataIBaseOutputICodeCellICodeCellJupyterMetadataICodeCellMetadataIDisplayDataIDisplayUpdateIErrorIExecuteResultIKernelspecMetadataILanguageInfoMetadataIMarkdownCellIMimeBundleINotebookContentINotebookMetadataIRawCellIRawCellMetadataIStreamIUnrecognizedCellIUnrecognizedOutputCellTypeExecutionCountICellICellMetadataIOutputMultilineStringOutputMetadataOutputTypeStreamTypeMAJOR\_VERSIONMINOR\_VERSIONisCodeisDisplayDataisDisplayUpd
 
 
 
@@ -16,57 +27,22 @@ Documentation Title:
 IProps | @jupyterlab
 
 Documentation Content:
-`Optional`columnRuleColor
+See
 
-columnRuleColor?:string[]| ColumnRuleColorThe `column-rule-color`CSS property sets the color of the line drawn between columns in a multi-column layout.
+https://developer.mozilla.org/docs/Web/CSS/column-countInherited from LabIconStyle.IProps.columnCount
 
-**Syntax**: ``
-
-**Initial value**: `currentcolor`
-
-
-
-| Chrome | Firefox | Safari | Edge | IE |
-| --- | --- | --- | --- | --- |
-|**50****52****9****12****10**
-|  |
-| 1 *-x-* | 3 *-x-* |
+- Defined in node\_modules/csstype/index.d.ts:1360
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/ui_components.lineFormIcon.md
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/apputils.Toolbar.createKernelStatusItem.md
 
 Documentation Title:
-lineFormIcon | @jupyterlab
+createKernelStatusItem | @jupyterlab
 
 Documentation Content:
-tHeadingIdgetHeadingsisMarkdownIHTMLHeadingNUMBERING\_CLASSaddPrefixclearNumberingfilterHeadingsgetHTMLHeadingsgetPrefixisHTMLTableOfContentsFactoryTableOfContentsItemTableOfContentsModelTableOfContentsPanelTableOfContentsRegistryTableOfContentsTrackerTableOfContentsTreeTableOfContentsWidgetITableOfContentsItemsPropsITableOfContentsRegistryITableOfContentsTrackerITableOfContentsTreePropsITableOfContentsRegistryITableOfContentsTrackertooltipITooltipManagerIOptionsTooltipI
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/ui_components.LabIcon.IProps.md
-
-Documentation Title:
-IProps | @jupyterlab
-
-Documentation Content:
-`Optional`columnRuleStyle
-
-columnRuleStyle?:string[]| ColumnRuleStyleThe `column-rule-style`CSS property sets the style of the line drawn between columns in a multi-column layout.
-
-**Syntax**: ``
-
-**Initial value**: `none`
-
-
-
-| Chrome | Firefox | Safari | Edge | IE |
-| --- | --- | --- | --- | --- |
-|**50****52****9****12****10**
-|  |
-| 1 *-x-* | 3 *-x-* |
+ryILabIconManagerTABLE\_CLASSaddAboveIconaddBelowIconaddIconbadIconbellIconblankIconbugDotIconbugIconbuildIconcaretDownEmptyIconcaretDownEmptyThinIconcaretDownIconcaretLeftIconcaretRightIconcaretUpEmptyThinIconcaretUpIconcaseSensitiveIconcheckIconcircleEmptyIconcircleIconclearIconcloseIconcodeCheckIconcodeIconcollapseAllIconcollapseIconconsoleIconcopyIconcopyrightIconcutIcondeleteIcondownloadIconduplicateIconeditIconellipsesIconerrorIconexpandAllIconexpandIconextensio
 
 
 

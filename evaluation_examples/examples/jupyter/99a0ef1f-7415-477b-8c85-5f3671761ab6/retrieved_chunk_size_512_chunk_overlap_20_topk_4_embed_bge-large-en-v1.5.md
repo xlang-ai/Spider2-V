@@ -27,19 +27,6 @@ Documentation Title:
 Model | @jupyterlab
 
 Documentation Content:
-`Private`\_totalCells
-
-\_totalCells:any- Defined in packages/notebook/lib/truststatus.d.ts:64
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus.Model.md
-
-Documentation Title:
-Model | @jupyterlab
-
-Documentation Content:
 Constructors
 
 constructor### Properties
@@ -57,6 +44,19 @@ constructor* new Model(): NotebookTrustStatus.Model
 Inherited from VDomModel.constructor
 Properties
 ----------
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus.Model.md
+
+Documentation Title:
+Model | @jupyterlab
+
+Documentation Content:
+`Private`\_totalCells
+
+\_totalCells:any- Defined in packages/notebook/lib/truststatus.d.ts:64
 
 
 

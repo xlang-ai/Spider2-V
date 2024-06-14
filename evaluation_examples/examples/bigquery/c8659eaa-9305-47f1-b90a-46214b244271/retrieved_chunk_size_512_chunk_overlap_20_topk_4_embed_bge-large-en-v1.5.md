@@ -91,32 +91,73 @@ Documentation Title:
 Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-data as a DataFrame.
-h = bpd.read_gbq(
- "bigquery-public-data.london_bicycles.cycle_hire",
- col_order=["start_station_name", "start_station_id", "start_date", "duration"],
-).rename(
- columns={
- "start_station_name": "station_name",
- "start_station_id": "station_id",
- }
-)
+For more information about these functions, see
+Geography
+functions. For more
+information about geospatial analytics, see Introduction to
+geospatial analytics.
 
-s = bpd.read_gbq(
- # Use ST_GEOPOINT and ST_DISTANCE to analyze geographical
- # data. These functions determine spatial relationships between
- # geographical features.
- """
- SELECT
- id,
- ST_DISTANCE(
- ST_GEOGPOINT(s.longitude, s.latitude),
- ST_GEOGPOINT(-0.1, 51.5)
- ) / 1000 AS distance_from_city_center
- FROM
- `bigquery-public-data.london_bicycles.cycle_stations` s
- """
-)
+**Run the query**The following query compiles your training data, and is also used in the
+`CREATE MODEL`statement later in this tutorial.
+
+To run the query:
+
+- Go to the **BigQuery**page.
+Go to BigQuery1. In the editor pane, run the following SQL statement:
+
+
+```
+WITH
+  hs AS (
+  SELECT
+    h.start_station_name AS station_name,
+    IF
+    (EXTRACT(DAYOFWEEK
+      FROM
+        h.start_date) = 1
+      OR EXTRACT(DAYOFWEEK
+      FROM
+        h.start_date) = 7,
+      "weekend",
+      "weekday") AS isweekday,
+    h.duration,
+    ST_DISTANCE(ST_GEOGPOINT(s.longitude,
+        s.latitude),
+      ST_GEOGPOINT(-0.1,
+        51.5))/1000 AS distance_from_city_center
+  FROM
+    `bigquery-public-data.london_bicycles.cycle_hire` AS h
+  JOIN
+    `bigquery-public-data.london_bicycles.cycle_stations` AS s
+  ON
+    h.start_station_id = s.id
+  WHERE
+    h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
+    AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
+  stationstats AS (
+  SELECT
+    station_name,
+    isweekday,
+    AVG(duration) AS duration,
+    COUNT(duration) AS num_trips,
+    MAX(distance_from_city_center) AS distance_from_city_center
+  FROM
+    hs
+  GROUP BY
+    station_name, isweekday )
+SELECT
+  *
+FROM
+  stationstats
+ORDER BY
+  distance_from_city_center ASC
+
+
+```
+When the query is complete, click the **Results**tab below the query text
+area. The results tab shows the columns you queried that are used to train
+your model: `station_name`, `duration`, `num_trips`, `distance_from_city_center`.
+The results should look like the following.
 
 
 
@@ -127,7 +168,70 @@ Documentation Title:
 Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Expected output results: >>> stationstats.head(3)
+SQL
+
+The following GoogleSQL query is used to
+examine the data used to train your k-means model.
+
+
+```
+#standardSQL
+WITH
+hs AS (
+SELECT
+  h.start_station_name AS station_name,
+  IF
+  (EXTRACT(DAYOFWEEK
+    FROM
+      h.start_date) = 1
+    OR EXTRACT(DAYOFWEEK
+    FROM
+      h.start_date) = 7,
+    "weekend",
+    "weekday") AS isweekday,
+  h.duration,
+  ST_DISTANCE(ST_GEOGPOINT(s.longitude,
+      s.latitude),
+    ST_GEOGPOINT(-0.1,
+      51.5))/1000 AS distance_from_city_center
+FROM
+  `bigquery-public-data.london_bicycles.cycle_hire` AS h
+JOIN
+  `bigquery-public-data.london_bicycles.cycle_stations` AS s
+ON
+  h.start_station_id = s.id
+WHERE
+  h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
+  AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
+stationstats AS (
+SELECT
+  station_name,
+  isweekday,
+  AVG(duration) AS duration,
+  COUNT(duration) AS num_trips,
+  MAX(distance_from_city_center) AS distance_from_city_center
+FROM
+  hs
+GROUP BY
+  station_name, isweekday )
+SELECT
+*
+FROM
+stationstats
+ORDER BY
+distance_from_city_center ASC
+
+```
+**Query details**This query extracts data on cycle hires, including `start_station_name`, and
+`duration`and joins it against station information, including `distance-from-city-center`. Then, it computes attributes of
+the station in `stationstats`, including the average duration of rides and the
+number of trips, and passes through the station attribute `distance_from_city_center`.
+
+This query uses the
+`WITH`clause
+to define subqueries. The query also uses the `ST_DISTANCE`and `ST_GEOGPOINT`geospatial analytics functions. For more information about these functions, see
+Geography
+functions.
 
 
 

@@ -94,27 +94,25 @@ Documentation Title:
 Validate data replication pipelines from Postgres to Snowflake with data-diff | Airbyte
 
 Documentation Content:
-Understanding data-diff output
+`data-diff \
+"snowflake://external_user:[password]@[account]/development/customers?warehouse=validator_wh&role=validator" customer_contacts \
+"postgresql://madison'[password]@localhost:5432/development" customer_contacts \
+-c customer_contact_id customer_name phone_number email_address updated_at`Another thing to note, if your primary keys are not `id`, then you’ll have to specify another parameter called `key column` in your connection string. This just lets data-diff know which column acts as a primary key, allowing the two tables to be compared using that.
 
-Once you run the command, data-diff will give you the primary key values of the rows in the tables that differ. Each value will have a + or - in front of it. A + signifies that the rows exists in the second table but not the first. A - sign indicates that the row exists in the first table but not the second. Now, you can dig deeper into your validation process and explore *why* these primary keys are in one database and not the other.
+Since the primary key of these tables is `customer\_contact\_id` I would add that to the `key-columns` (or just `k`)  flag in my command. Like this:
 
-!Also, note that one primary key can be present with a + and a - sign in the output. This means that the row *exists* in both tables but has a column value that varies. So not only does data-diff let you know when one table is missing a primary key, but it also lets you know when the column values for the rows with that primary key differ. 
+`data-diff \
+"snowflake://external_user:[password]@[password]/development/customers?warehouse=validator_wh&role=validator" customer_contacts \
+"postgresql://madison:[password]@localhost:5432/development" customer_contacts \
+-columns customer_contact_id customer_name phone_number email_address updated_at \
+-key-columns customer_contact_id`And, lastly, if you ever want to filter the column values that you are comparing, you can specify a `where` (or just `w`) flag in the command. This acts as a where clause for your query, allowing you to filter for certain conditions. This is particularly helpful if you have a fast-changing source and need to validate a new batch of data that has been ingested after a previous validation check. Using this will prevent false positives of rows that have been updated since being ingested when checking for differing rows. We can add this to our command like so:
 
-I can see here that the row with a `customer\_contact\_id` of 14339589 is present in Postgres but not Snowflake. I’ll want to look into why this row wasn’t replicated from my source table to my destination. This will involve a deeper dive into your data and understanding its behavior. You may want to look into the following:
-
-* Did my connection stop mid-way through its sync?
-* Is there a condition in this particular row that’s now being met?
-* Was this row created after the latest sync time?
-
-If the opposite were to occur, where a row is present in Snowflake but not Postgres, you should ask yourself the following questions:
-
-- Was this record deleted in my source table? Is that accurate? Did this happen after the latest sync?
-And, if you have a row whose column values vary between the two tables, you should be thinking about these questions:
-
-* Was this row updated after the latest sync time?
-* What conditions could cause this value to be one thing in one table and something else in the other?
-
-Data-diff frees up the most time-consuming, tedious task of finding the rows that differ in column values. It also allows you to fix these issues right then and there rather than reloading all of the data.
+`data-diff \
+"snowflake://external_user:[password]@[account]/development/customers?warehouse=validator_wh&role=validator" customer_contacts \
+"postgresql://madison:[password]@localhost:5432/development" customer_contacts \
+-columns customer_contact_id customer_name phone_number email_address updated_at \
+-key-columns customer_contact_id \
+-where “updated_at <= '10-31-2022'"`Now we are ready to run data-diff!
 
 
 

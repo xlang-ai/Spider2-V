@@ -129,60 +129,53 @@ are also commonly used in time-series analysis.
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.md
+docs.snowflake.com/en/user-guide/ui-snowsight-dashboards.md
 
 Documentation Title:
-Visualizing worksheet data | Snowflake Documentation
+Visualizing data with dashboards | Snowflake Documentation
 
 Documentation Content:
-```
-SELECTCOUNT(O_ORDERDATE)asorders,O_ORDERDATEasdateFROMSNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERSWHEREO_ORDERDATE=:daterangeGROUPBY:datebucket(O_ORDERDATE),O_ORDERDATEORDERBYO_ORDERDATELIMIT10;
-```
-CopyCharts and new query results¶
------------------------------
+Create a dashboard from an existing worksheet¶
 
-Your chart updates automatically as long as the columns used by the chart are available in the query results. If a column name changes, you
-must update the chart to use the new column name. Charts indicate any columns that cannot be found.
+You can also use an existing worksheet to create a dashboard.
 
-Aggregate and bucket data¶
---------------------------
+When you use a worksheet to create a dashboard, the worksheet is removed from the list of worksheets and can only be accessed from
+the dashboard. The worksheet query is stored in the dashboard and can be modified in that context.
 
-Charts simplify grouping numbers, dates, and timestamps of more or less continuous values into various *buckets*. For example, suppose your
-query retrieves per-day data over a period of time. Without modifying your query, you can easily select a different bucket of time (e.g.
-weekly or monthly data) in the inspector panel to change the time dimension of the results displayed in the chart.
+To create a dashboard using an existing worksheet, complete the following steps:
 
-Charts can bucket by date, week, month, and year for date columns. For numeric columns, charts can bucket by integer values.
+Open a worksheet.
 
-Charts use aggregation functions to determine a single value from multiple data points in a bucket. These functions are as follows:
+Hover over the name of the worksheet and select !, and then select Move to.
 
-average
+Select New dashboard.
 
-count
+4. Enter a name for the dashboard, and then select Create Dashboard.
 
-minimum
+The dashboard opens, displaying a tile based on the worksheet you used.
 
-maximum
+Note
 
-median
+If the worksheet is shared with other users, those users lose access to the worksheet when you create a dashboard because the worksheet
+is removed when the dashboard is created. Permissions on the worksheet are revoked and links to the worksheet
+no longer function. For more details about sharing dashboards, see Share dashboards.
 
-mode
+About using dashboards¶
+-----------------------
 
-sum
+After you create a dashboard, you can manage, add tiles, filters, and share the dashboard with other users.
 
-Download charts¶
-----------------
+Tiles visualize data on your dashboards as charts and tables. Hover over charts to view details about each data point.
 
-Snowsight provides PNG-formatted files of charts.
+!### Open a dashboard¶
 
-To download a chart, select Download chart(!).
+To open a dashboard, complete the following steps:
 
-Was this page helpful?
+Sign in to Snowsight.
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
+In the navigation menu, select Projects» Dashboards.
 
-Create a chartModify a chartCharts and new query resultsAggregate and bucket dataDownload chartsRelated content
-
-Getting started with SnowsightManaging and using worksheets in SnowsightGetting started with worksheetsQuerying data using worksheetsVisualizing data with dashboardsLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+3. Locate the dashboard that you want to open:
 
 
 

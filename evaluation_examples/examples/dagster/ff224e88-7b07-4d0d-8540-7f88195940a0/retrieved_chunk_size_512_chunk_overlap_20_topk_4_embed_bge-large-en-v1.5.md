@@ -1,4 +1,50 @@
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/io-management/io-managers.md
+
+Documentation Title:
+I/O managers | Dagster
+
+Documentation Content:
+Rather than update the I/O manager of the first asset to be able to load as a Pandas DataFrame and a NumPy array, you can write a new loader for the new asset.
+
+In this example, we store `upstream_asset`as a Pandas DataFrame, and we write a new I/O manager to load is as a NumPy array in `downstream_asset`
+
+`classPandasAssetIOManager(ConfigurableIOManager):defhandle_output(self,context:OutputContext,obj):file_path =self._get_path(context)store_pandas_dataframe(name=file_path,table=obj)def_get_path(self,context):returnos.path.join("storage",f"{context.asset_key.path[-1]}.csv",)defload_input(self,context:InputContext)->pd.DataFrame:file_path =self._get_path(context)returnload_pandas_dataframe(name=file_path)classNumpyAssetIOManager(PandasAssetIOManager):defload_input(self,context:InputContext)->np.ndarray:file_path =self._get_path(context)returnload_numpy_array(name=file_path)@asset(io_manager_key="pandas_manager")defupstream_asset()->pd.DataFrame:returnpd.DataFrame([1,2,3])@asset(ins={"upstream":AssetIn(key_prefix="public",input_manager_key="numpy_manager")})defdownstream_asset(upstream:np.ndarray)->tuple:returnupstream.shape
+
+
+defs =Definitions(assets=[upstream_asset,downstream_asset],resources={"pandas_manager":PandasAssetIOManager(),"numpy_manager":NumpyAssetIOManager(),},)`Testing an I/O manager#
+-----------------------
+
+The easiest way to test an I/O manager is to construct an `OutputContext`or `InputContext`and pass it to the `handle_output`or `load_input`method of the I/O manager. The `build_output_context`and `build_input_context`functions allow for easy construction of these contexts.
+
+Here's an example for a simple I/O manager that stores outputs in an in-memory dictionary that's keyed on the step and name of the output.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/io-management/io-managers-legacy.md
+
+Documentation Title:
+IO Managers (Legacy) | Dagster
+
+Documentation Content:
+In this example, we store `upstream_asset`as a Pandas DataFrame, and we write a new IO manager to load is as a NumPy array in `downstream_asset`
+
+`classPandasAssetIOManager(IOManager):defhandle_output(self,context,obj):file_path =self._get_path(context)store_pandas_dataframe(name=file_path,table=obj)def_get_path(self,context):returnos.path.join("storage",f"{context.asset_key.path[-1]}.csv",)defload_input(self,context):file_path =self._get_path(context)returnload_pandas_dataframe(name=file_path)@io_managerdefpandas_asset_io_manager():returnPandasAssetIOManager()classNumpyAssetIOManager(PandasAssetIOManager):defload_input(self,context):file_path =self._get_path(context)returnload_numpy_array(name=file_path)@io_managerdefnumpy_asset_io_manager():returnNumpyAssetIOManager()@asset(io_manager_key="pandas_manager")defupstream_asset():returnpd.DataFrame([1,2,3])@asset(ins={"upstream":AssetIn(key_prefix="public",input_manager_key="numpy_manager")})defdownstream_asset(upstream):returnupstream.shape
+
+
+defs =Definitions(assets=[upstream_asset,downstream_asset],resources={"pandas_manager":pandas_asset_io_manager,"numpy_manager":numpy_asset_io_manager,},)`Testing an IO manager#
+----------------------
+
+The easiest way to test an IO manager is to construct an `OutputContext`or `InputContext`and pass it to the `handle_output`or `load_input`method of the IO manager. The `build_output_context`and `build_input_context`functions allow for easy construction of these contexts.
+
+Here's an example for a simple IO manager that stores outputs in an in-memory dictionary that's keyed on the step and name of the output.
+
+`fromdagster importIOManager,build_input_context,build_output_context,io_manager
+
+
+
+Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/partitioning-assets.md
 
 Documentation Title:
@@ -31,62 +77,28 @@ Documentation Title:
 I/O managers | Dagster
 
 Documentation Content:
-Rather than update the I/O manager of the first asset to be able to load as a Pandas DataFrame and a NumPy array, you can write a new loader for the new asset.
+A custom I/O manager that stores Pandas DataFrames in tables
 
-In this example, we store `upstream_asset`as a Pandas DataFrame, and we write a new I/O manager to load is as a NumPy array in `downstream_asset`
+If your ops produce Pandas DataFrames that populate tables in a data warehouse, you might write something like the following. This I/O manager uses the name assigned to the output as the name of the table to write the output to.
 
-`classPandasAssetIOManager(ConfigurableIOManager):defhandle_output(self,context:OutputContext,obj):file_path =self._get_path(context)store_pandas_dataframe(name=file_path,table=obj)def_get_path(self,context):returnos.path.join("storage",f"{context.asset_key.path[-1]}.csv",)defload_input(self,context:InputContext)->pd.DataFrame:file_path =self._get_path(context)returnload_pandas_dataframe(name=file_path)classNumpyAssetIOManager(PandasAssetIOManager):defload_input(self,context:InputContext)->np.ndarray:file_path =self._get_path(context)returnload_numpy_array(name=file_path)@asset(io_manager_key="pandas_manager")defupstream_asset()->pd.DataFrame:returnpd.DataFrame([1,2,3])@asset(ins={"upstream":AssetIn(key_prefix="public",input_manager_key="numpy_manager")})defdownstream_asset(upstream:np.ndarray)->tuple:returnupstream.shape
-
-
-defs =Definitions(assets=[upstream_asset,downstream_asset],resources={"pandas_manager":PandasAssetIOManager(),"numpy_manager":NumpyAssetIOManager(),},)`Testing an I/O manager#
------------------------
-
-The easiest way to test an I/O manager is to construct an `OutputContext`or `InputContext`and pass it to the `handle_output`or `load_input`method of the I/O manager. The `build_output_context`and `build_input_context`functions allow for easy construction of these contexts.
-
-Here's an example for a simple I/O manager that stores outputs in an in-memory dictionary that's keyed on the step and name of the output.
+`fromdagster importConfigurableIOManager,io_manager
 
 
+classDataframeTableIOManager(ConfigurableIOManager):defhandle_output(self,context:OutputContext,obj):# name is the name given to the Out that we're storing fortable_name =context.name
+ write_dataframe_to_table(name=table_name,dataframe=obj)defload_input(self,context:InputContext):# upstream_output.name is the name given to the Out that we're loading forifcontext.upstream_output:table_name =context.upstream_output.name
+ returnread_dataframe_from_table(name=table_name)@job(resource_defs={"io_manager":DataframeTableIOManager()})defmy_job():op_2(op_1())`### Custom filesystem-based I/O manager#
 
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/io-management/io-managers.md
+Dagster provides a feature-rich base class for filesystem-based I/O managers: `UPathIOManager`. It's compatible with both local and remote filesystems (like S3 or GCS) by using `universal-pathlib`and `fsspec`. The full list of supported filesystems can be found here. The `UPathIOManager`also has other important features:
 
-Documentation Title:
-I/O managers | Dagster
+* handles partitioned assets
+* handles loading a single upstream partition
+* handles loading multiple upstream partitions (with respect to `PartitionMapping`)
+* the `get_metadata`method can be customized to add additional metadata to the output
+* the `allow_missing_partitions`metadata value can be set to `True`to skip missing partitions (the default behavior is to raise an error)
 
-Documentation Content:
-@assetdefupstream_asset():return[1,2,3]@assetdefdownstream_asset(upstream_asset):returnupstream_asset +[4]resources_by_env ={"prod":{"io_manager":S3PickleIOManager(s3_resource=S3Resource(),s3_bucket="my-bucket")},"local":{"io_manager":FilesystemIOManager()},}defs =Definitions(assets=[upstream_asset,downstream_asset],resources=resources_by_env[os.getenv("ENV","local")],)`### Asset input I/O managers#
+The default I/O manager inherits from the `UPathIOManager`and therefore has these features too.
 
-In some cases you may need to load the input to an asset with different logic than that specified by the upstream asset's I/O manager.
-
-To set an I/O manager for a particular input, use the `input_manager_key`argument on `AssetIn`.
-
-In this example,`first_asset`and `second_asset`will be stored using the default I/O manager, but will be loaded as inputs to `third_asset`using the logic defined in the `PandasSeriesIOManager`(in this case loading as Pandas Series rather than Python lists).
-
-`@assetdeffirst_asset()->List[int]:return[1,2,3]@assetdefsecond_asset()->List[int]:return[4,5,6]@asset(ins={"first_asset":AssetIn(input_manager_key="pandas_series"),"second_asset":AssetIn(input_manager_key="pandas_series"),})defthird_asset(first_asset:pd.Series,second_asset:pd.Series)->pd.Series:returnpd.concat([first_asset,second_asset,pd.Series([7,8])])defs =Definitions(assets=[first_asset,second_asset,third_asset],resources={"pandas_series":PandasSeriesIOManager(),},)`Using I/O managers with non-asset jobs#
----------------------------------------
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/io-management/io-managers-legacy.md
-
-Documentation Title:
-IO Managers (Legacy) | Dagster
-
-Documentation Content:
-In this example, we store `upstream_asset`as a Pandas DataFrame, and we write a new IO manager to load is as a NumPy array in `downstream_asset`
-
-`classPandasAssetIOManager(IOManager):defhandle_output(self,context,obj):file_path =self._get_path(context)store_pandas_dataframe(name=file_path,table=obj)def_get_path(self,context):returnos.path.join("storage",f"{context.asset_key.path[-1]}.csv",)defload_input(self,context):file_path =self._get_path(context)returnload_pandas_dataframe(name=file_path)@io_managerdefpandas_asset_io_manager():returnPandasAssetIOManager()classNumpyAssetIOManager(PandasAssetIOManager):defload_input(self,context):file_path =self._get_path(context)returnload_numpy_array(name=file_path)@io_managerdefnumpy_asset_io_manager():returnNumpyAssetIOManager()@asset(io_manager_key="pandas_manager")defupstream_asset():returnpd.DataFrame([1,2,3])@asset(ins={"upstream":AssetIn(key_prefix="public",input_manager_key="numpy_manager")})defdownstream_asset(upstream):returnupstream.shape
-
-
-defs =Definitions(assets=[upstream_asset,downstream_asset],resources={"pandas_manager":pandas_asset_io_manager,"numpy_manager":numpy_asset_io_manager,},)`Testing an IO manager#
-----------------------
-
-The easiest way to test an IO manager is to construct an `OutputContext`or `InputContext`and pass it to the `handle_output`or `load_input`method of the IO manager. The `build_output_context`and `build_input_context`functions allow for easy construction of these contexts.
-
-Here's an example for a simple IO manager that stores outputs in an in-memory dictionary that's keyed on the step and name of the output.
-
-`fromdagster importIOManager,build_input_context,build_output_context,io_manager
+The `UPathIOManager`already implements the `load_input`and `handle_output`methods. Instead, if you want to write a custom `UPathIOManager`the `UPathIOManager.dump_to_path`and `UPathIOManager.load_from_path`for a given `universal_pathlib.UPath`should to be implemented.
 
 
 

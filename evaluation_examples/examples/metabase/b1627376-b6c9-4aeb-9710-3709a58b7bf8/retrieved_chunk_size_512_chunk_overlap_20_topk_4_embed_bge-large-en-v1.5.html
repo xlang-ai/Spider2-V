@@ -21,19 +21,13 @@ If you <em>don’t</em>provide a default, Metabase won’t execute the query unt
 
 
 Documentation Source:
-www.metabase.com/learn/sql-questions/sql-cte.html
+www.metabase.com/docs/v0.49/exploration-and-organization/exploration.html
 
 Documentation Title:
-Simplify complex queries with Common Table Expressions (CTEs)
+Basic exploration
 
 Documentation Content:
-We’d like to see a list of all orders with a <code>total</code>that’s greater than the average order’s total.</p><code><span>SELECT</span><span>id</span><span>,</span><span>total</span><span>FROM</span><span>orders</span><span>WHERE</span><span>-- filter for orders with above-average totals</span><span>total</span><span>&gt;</span><span>(</span><span>SELECT</span><span>AVG</span><span>(</span><span>total</span><span>)</span><span>FROM</span><span>orders</span><span>)</span></code><p>This query gives us:</p><code>|ID  |TOTAL  |
-|----|-------|
-|2   |117.03 |
-|4   |115.22 |
-|5   |134.91 |
-|... |...    |
-</code><p>It seems simple enough: we have a subquery, <code>SELECT AVG(total) FROM orders</code>, nested in the <code>WHERE</code>clause that calculates the average order total. But what if grabbing the average were more involved?
+For example, you can click on a table cell, and select the less than operator <code>&lt;</code>to filter for values that are less than the selected value.</p><img/><p>Lastly, clicking on the ID of an item in a table gives you the option to go to a detail view for that single record. For example, you can click on a customer’s ID to see the profile view for that customer.</p><img/><p>When you add questions to a dashboard, you can have even more control over what happens when people click on your chart. In addition to the default drill-through menu, you can add a <a>custom destination</a>or <a>update a filter</a>. Check out <a>interactive dashboards</a>. to learn more.</p><h2>Exploring saved questions</h2><p>In Metabase parlance, every chart on a dashboard is called a “question.” Clicking on the title of a question on a dashboard will take you to a detail view of that question. You’ll also end up at this detail view if you use one of the actions mentioned above.</p><p>When you’re looking at the detail view of a question, you can use all the same actions mentioned above. You can also click on the headings of tables to see more options, like summing the values of a column, or filtering based on that column.</p><img/><p>One of our personal favorite ways to explore is with the <strong>Distribution</strong>option. This will show you how many rows there are in a given table, grouped by the column you clicked on. So if you have a Users table, if you click on an Age column and select Distribution, you’ll see a bar chart with the count of users you have in each age bracket.</p><h2>Search</h2><p>Use the search bar to find dashboards, questions, collections, subscriptions, and alerts. You can select a result from the dropdown, or hit enter to view a search results page.
 
 
 

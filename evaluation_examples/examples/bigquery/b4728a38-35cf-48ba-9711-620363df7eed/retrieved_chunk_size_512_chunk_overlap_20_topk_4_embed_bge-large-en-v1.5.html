@@ -1,37 +1,21 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+cloud.google.com/bigquery/docs/default-values.html
 
 Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+Specify default column values  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-</p><code>import bigframes.pandas as bpd
-
-df = bpd.read_gbq(
-    "bigquery-public-data.ml_datasets.census_adult_income",
-    columns=(
-        "age",
-        "workclass",
-        "marital_status",
-        "education_num",
-        "occupation",
-        "hours_per_week",
-        "income_bracket",
-        "functional_weight",
-    ),
-    max_results=100,
-)
-df.peek()
-# Output:
-# age      workclass       marital_status  education_num          occupation  hours_per_week income_bracket  functional_weight
-#  47      Local-gov   Married-civ-spouse             13      Prof-specialty              40           &gt;50K             198660
-#  56        Private        Never-married              9        Adm-clerical              40          &lt;=50K              85018
-#  40        Private   Married-civ-spouse             12        Tech-support              40           &gt;50K             285787
-#  34   Self-emp-inc   Married-civ-spouse              9        Craft-repair              54           &gt;50K             207668
-#  23        Private   Married-civ-spouse             10   Handlers-cleaners              40          &lt;=50K              40060</code></section></div><p>The query results show that the <code>income_bracket</code>column in the
-<code>census_adult_income</code>table has only one of two values: <code>&lt;=50K</code>or <code>&gt;50K</code>. The
-<code>functional_weight</code>column is the number of individuals that the census
-organization believes a particular row represents.
+The following example creates a table called <code>complex_table</code>and sets a
+default value for the column <code>struct_col</code>, which contains nested fields,
+including an <code>ARRAY</code>type:</p><pre>CREATE TABLE mydataset.complex_table (
+  struct_col STRUCT&lt;x STRUCT&lt;x1 TIMESTAMP, x2 NUMERIC&gt;, y ARRAY&lt;DATE&gt;&gt;
+    DEFAULT ((CURRENT_TIMESTAMP(), NULL),
+             [DATE '2022-01-01', CURRENT_DATE()])
+);
+</pre><p>You can't set default values that violate a constraint on the column, such as
+a default value that doesn't conform to a
+<a>parameterized type</a>or a <code>NULL</code>default value when the column's <a>mode</a>is <code>REQUIRED</code>.</p><h2>Change default values</h2><p>To change the default value for a column, select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>panel, expand your project and dataset, then select
+the table.</p><p>In the details panel, click the <strong>Schema</strong>tab.</p><p>Click <strong>Edit schema</strong>.
 
 
 
@@ -67,16 +51,18 @@ Documentation Title:
 Specify default column values  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-The following example creates a table called <code>complex_table</code>and sets a
-default value for the column <code>struct_col</code>, which contains nested fields,
-including an <code>ARRAY</code>type:</p><pre>CREATE TABLE mydataset.complex_table (
-  struct_col STRUCT&lt;x STRUCT&lt;x1 TIMESTAMP, x2 NUMERIC&gt;, y ARRAY&lt;DATE&gt;&gt;
-    DEFAULT ((CURRENT_TIMESTAMP(), NULL),
-             [DATE '2022-01-01', CURRENT_DATE()])
-);
-</pre><p>You can't set default values that violate a constraint on the column, such as
-a default value that doesn't conform to a
-<a>parameterized type</a>or a <code>NULL</code>default value when the column's <a>mode</a>is <code>REQUIRED</code>.</p><h2>Change default values</h2><p>To change the default value for a column, select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>panel, expand your project and dataset, then select
+It does not change any existing table data. The following example sets the
+default value of column <code>a</code>to <code>SESSION_USER()</code>;</p><pre>ALTER TABLE mydataset.simple_table ALTER COLUMN a SET DEFAULT SESSION_USER();
+</pre><p>If you insert a row into <code>simple_table</code>that omits column <code>a</code>, the current
+session user is used instead.</p><pre>INSERT mydataset.simple_table (b) VALUES ('goodbye');
+</pre><p>The table <code>simple_table</code>contains the following values:</p><pre>+------------------+---------+
+| a                | b       |
++------------------+---------+
+| val1             | hello   |
+| val2             | hello   |
+| user@example.com | goodbye |
++------------------+---------+
+</pre><h2>Remove default values</h2><p>To remove the default value for a column, select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>panel, expand your project and dataset, then select
 the table.</p><p>In the details panel, click the <strong>Schema</strong>tab.</p><p>Click <strong>Edit schema</strong>.
 
 

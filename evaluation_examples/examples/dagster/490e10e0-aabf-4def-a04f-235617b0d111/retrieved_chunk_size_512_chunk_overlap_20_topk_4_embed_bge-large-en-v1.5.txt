@@ -183,97 +183,106 @@ Description
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/cli.txt
+release-1-7-2.dagster.dagster-docs.io/deployment/dagster-daemon.txt
 
 Documentation Title:
-Dagster Docs
+Dagster daemon | Dagster
 
 Documentation Content:
-For example, DAGSTER_WEBSERVER_PORT=3333 dagster-webserver
-dagster-webserver
-[
-OPTIONS
-]
-Options
---use-ssl
-¶
-Use a secure channel when connecting to the gRPC server
---grpc-host
-<grpc_host>
-¶
-Host to use to connect to gRPC server, defaults to localhost
---grpc-socket
-<grpc_socket>
-¶
-Named socket to use to connect to gRPC server
---grpc-port
-<grpc_port>
-¶
-Port to use to connect to gRPC server
--a
+Dagster daemon | Dagster
+Ask AI
+Platform
+Dagster+
+New
+Pricing
+Blog
+Community
+Docs
+Sign in
+Join us on Slack
+Star us
+Try Dagster+
+Platform
+Dagster+
+Pricing
+Blog
+Community
+Docs
+Contact Sales
+Sign in
+Try Dagster+
+Search
+the docs
+Press
+Ctrl
+and
+K
+to search
+Getting started
+What's Dagster?
+Quickstart
+Installation
+Creating a new project
+Getting help
+Tutorial
+Concepts
+Deployment
+Integrations
+Guides
+API Reference
+About
+1.7.2
+/ 0.23.2 (libs)
+You are viewing an unreleased or outdated version of the documentation
+View Latest Documentation
+→
+Dagster daemon
+#
+Several Dagster features, like
+schedules
 ,
---attribute
-<attribute>
-¶
-Attribute that is either a 1) repository or job or 2) a function that returns a repository or job
---package-name
-<package_name>
-¶
-Specify Python package where repository or job function lives
--m
-,
---module-name
-<module_name>
-¶
-Specify module or modules (flag can be used multiple times) where dagster definitions reside as top-level symbols/variables and load each module as a code location in the current python environment.
--f
-,
---python-file
-<python_file>
-¶
-Specify python file or files (flag can be used multiple times) where dagster definitions reside as top-level symbols/variables and load each file as a code location in the current python environment.
--d
-,
---working-directory
-<working_directory>
-¶
-Specify working directory to use when loading the repository or job
--w
-,
---workspace
-<workspace>
-¶
-Path to workspace file. Argument can be provided multiple times.
---empty-workspace
-¶
-Allow an empty workspace
--h
-,
---host
-<host>
-¶
-Host to run server on
-Default
-:
-127.0.0.1
--p
-,
---port
-<port>
-¶
-Port to run server on - defaults to 3000
--l
-,
---path-prefix
-<path_prefix>
-¶
-The path prefix where server will be hosted (eg: /dagster-webserver)
-Default
-:
---db-statement-timeout
-<db_statement_timeout>
-¶
-The timeout in milliseconds to set on database statements sent to the DagsterInstance. Not respected in all configurations.
+sensors
+, and
+run queueing
+, require a long-running
+dagster-daemon
+process to be included with your deployment.
+Starting the daemon
+#
+Running locally
+Deploying the daemon
+Running locally
+#
+Running the daemon and webserver
+Running only the daemon
+The easiest way to run the Dagster daemon locally is to run the
+dagster dev
+command:
+dagster dev
+This command launches both the
+Dagster webserver/UI
+and the Dagster daemon, allowing you to start a full local deployment of Dagster from the command line. Refer to the
+Running Dagster locally guide
+for more information about
+dagster dev
+.
+To run the Dagster daemon by itself:
+dagster-daemon run
+This command takes the same arguments as
+dagster dev
+for specifying where to find your code.
+Deploying the daemon
+#
+For information on deploying the daemon to environments like Docker or Kubernetes, refer to the
+deployment guides
+.
+Available daemons
+#
+The
+dagster-daemon
+process reads from your
+Dagster instance
+file to determine which daemons should be included. Each of the included daemons then runs on a regular interval in its own threads.
 
 
 

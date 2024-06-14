@@ -1,76 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/geospatial-get-started.html
-
-Documentation Title:
-Get started with geospatial analytics  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-</p></slot><slot><li><p>In the Google Cloud console, on the project selector page,
-        select or <a>create a Google Cloud project</a>.</p><aside><b>Note</b>: If you don't plan to keep the
-    resources that you create in this procedure, create a project instead of
-    selecting an existing project. After you finish these steps, you can
-    delete the project, removing all resources associated with the project.</aside><a>Go to project selector</a></li><p><a>Make sure that billing is enabled for your Google Cloud project</a>.
-    </p></slot></cloudx-free-trial-eligible-content><li>BigQuery is automatically enabled in new projects.
-  To activate BigQuery in an existing project, go to
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-    
-      <p>Enable the BigQuery API.
-            
-          
-        
-      </p><a>Enable the API</a></li></ol></section><section><h2>Explore the sample data</h2><p>This tutorial uses a dataset available through the
-<a>Google Cloud Public Dataset Program</a>.
-A public dataset is any dataset that is stored in BigQuery and
-made available to the general public. The
-public datasets are datasets that BigQuery hosts for
-you to access and integrate into your applications. Google pays for the storage
-of these datasets and provides public access to the data via a
-<a>project</a>. You pay only for the queries that
-you perform on the data (the first 1 TB per month is free, subject to
-<a>query pricing details</a>.)</p><h3>The NYC Citi Bike Trips dataset</h3><a>NYC Citi Bike Trips</a><p>Citi Bike is the nation's largest bike share program, with 10,000 bikes and 600
-stations across Manhattan, Brooklyn, Queens, and Jersey City. This dataset
-includes Citi Bike trips since Citi Bike launched in September 2013 and is
-updated daily.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/geospatial-get-started.html
-
-Documentation Title:
-Get started with geospatial analytics  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-</dd></dl><dl><code>FROM `bigquery-public-data.new_york.citibike_stations`</code><dd>The <code>FROM</code>clause specifies the table being queried: <code>citibike_stations</code>.</dd></dl><dl><code>WHERE num_bikes_available &gt; 30</code><dd>The <code>WHERE</code>clause filters the values in the <code>num_bikes_available</code>column to
-just those stations with more than 30 bikes.</dd></dl></ul><h3>Run the query</h3><p>To run the query by using the Google Cloud console:</p><ol><li><p>Go to the BigQuery page in the Google Cloud console.</p><a>Go to the BigQuery page</a></li><li><p>Enter the following GoogleSQL query in the <strong>Query editor</strong>text area.</p><pre>-- Finds Citi Bike stations with &gt; 30 bikes
-SELECT
-  ST_GeogPoint(longitude, latitude)  AS WKT,
-  num_bikes_available
-FROM
-  `bigquery-public-data.new_york.citibike_stations`
-WHERE num_bikes_available &gt; 30
-</pre></li><li><p>Click <strong>Run</strong>.</p><p>The query takes a moment to complete.
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/kmeans-tutorial.html
 
 Documentation Title:
@@ -119,61 +47,109 @@ s = bpd.read_gbq(
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/visualize-looker-studio.html
+
+Documentation Title:
+Analyze data with Looker Studio  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+This is useful if you want to modify the data in
+BigQuery before working with it in Looker Studio,
+or if you only need a subset of the fields in the table.</p><aside><strong>Note:</strong><span>You can visualize a maximum of 5,000 rows of data in
+Looker Studio charts.</span></aside><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Select your <a>billing project</a>.</p><p>In the <strong>Explorer</strong>pane, enter <code>bikeshare_trips</code>in the
+<strong>Type to search</strong>field.</p><p>Go to <strong>bigquery-public-data <span>&gt;</span>austin_bikeshare <span>&gt;</span>bikeshare_trips</strong>.</p><p>Click <span>more_vert</span><strong>View actions</strong>,
+and then click <strong>Query</strong>.</p><li><p>In the query editor, construct your query. For example:</p><pre>SELECT
+  *
+FROM
+  `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+LIMIT
+  1000;
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p><li><p>In the <strong>Query results</strong>section, click <strong>Explore data</strong>, and then click
+<strong>Explore with Looker Studio</strong>.</p><img/></li><p>On the <strong>Welcome to Looker Studio</strong>page, click
+<strong>Get Started</strong>if you agree to the Google Looker Studio and
+Google Terms of Service.</p><li><p>On the <strong>Authorize Looker Studio access</strong>page, click <strong>Authorize</strong>to authorize the connection if you agree to the terms of service, and
+then select your marketing preferences.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/geospatial-get-started.html
+
+Documentation Title:
+Get started with geospatial analytics  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</dd></dl><dl><code>FROM `bigquery-public-data.new_york.citibike_stations`</code><dd>The <code>FROM</code>clause specifies the table being queried: <code>citibike_stations</code>.</dd></dl><dl><code>WHERE num_bikes_available &gt; 30</code><dd>The <code>WHERE</code>clause filters the values in the <code>num_bikes_available</code>column to
+just those stations with more than 30 bikes.</dd></dl></ul><h3>Run the query</h3><p>To run the query by using the Google Cloud console:</p><ol><li><p>Go to the BigQuery page in the Google Cloud console.</p><a>Go to the BigQuery page</a></li><li><p>Enter the following GoogleSQL query in the <strong>Query editor</strong>text area.</p><pre>-- Finds Citi Bike stations with &gt; 30 bikes
+SELECT
+  ST_GeogPoint(longitude, latitude)  AS WKT,
+  num_bikes_available
+FROM
+  `bigquery-public-data.new_york.citibike_stations`
+WHERE num_bikes_available &gt; 30
+</pre></li><li><p>Click <strong>Run</strong>.</p><p>The query takes a moment to complete.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/kmeans-tutorial.html
 
 Documentation Title:
 Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-In this tutorial,
-you cluster bike stations based on the following attributes:</p><ul><li>Duration of rentals</li><li>Number of trips per day</li><li>Distance from city center</li></ul><div><section><h3>SQL </h3><p>The following GoogleSQL query is used to
-examine the data used to train your k-means model.</p><pre>#standardSQL
-WITH
-hs AS (
+For more information about these functions, see
+<a>Geography
+functions</a>. For more
+information about geospatial analytics, see <a>Introduction to
+geospatial analytics</a>.</p><strong>Run the query</strong><p>The following query compiles your training data, and is also used in the
+<code>CREATE MODEL</code>statement later in this tutorial.</p><p>To run the query:</p><li>Go to the <strong>BigQuery</strong>page.</li><a>Go to BigQuery</a><ol><li><p>In the editor pane, run the following SQL statement:</p><pre>WITH
+  hs AS (
+  SELECT
+    h.start_station_name AS station_name,
+    IF
+    (EXTRACT(DAYOFWEEK
+      FROM
+        h.start_date) = 1
+      OR EXTRACT(DAYOFWEEK
+      FROM
+        h.start_date) = 7,
+      "weekend",
+      "weekday") AS isweekday,
+    h.duration,
+    ST_DISTANCE(ST_GEOGPOINT(s.longitude,
+        s.latitude),
+      ST_GEOGPOINT(-0.1,
+        51.5))/1000 AS distance_from_city_center
+  FROM
+    `bigquery-public-data.london_bicycles.cycle_hire` AS h
+  JOIN
+    `bigquery-public-data.london_bicycles.cycle_stations` AS s
+  ON
+    h.start_station_id = s.id
+  WHERE
+    h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
+    AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
+  stationstats AS (
+  SELECT
+    station_name,
+    isweekday,
+    AVG(duration) AS duration,
+    COUNT(duration) AS num_trips,
+    MAX(distance_from_city_center) AS distance_from_city_center
+  FROM
+    hs
+  GROUP BY
+    station_name, isweekday )
 SELECT
-  h.start_station_name AS station_name,
-  IF
-  (EXTRACT(DAYOFWEEK
-    FROM
-      h.start_date) = 1
-    OR EXTRACT(DAYOFWEEK
-    FROM
-      h.start_date) = 7,
-    "weekend",
-    "weekday") AS isweekday,
-  h.duration,
-  ST_DISTANCE(ST_GEOGPOINT(s.longitude,
-      s.latitude),
-    ST_GEOGPOINT(-0.1,
-      51.5))/1000 AS distance_from_city_center
+  *
 FROM
-  `bigquery-public-data.london_bicycles.cycle_hire` AS h
-JOIN
-  `bigquery-public-data.london_bicycles.cycle_stations` AS s
-ON
-  h.start_station_id = s.id
-WHERE
-  h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
-  AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
-stationstats AS (
-SELECT
-  station_name,
-  isweekday,
-  AVG(duration) AS duration,
-  COUNT(duration) AS num_trips,
-  MAX(distance_from_city_center) AS distance_from_city_center
-FROM
-  hs
-GROUP BY
-  station_name, isweekday )
-SELECT
-*
-FROM
-stationstats
+  stationstats
 ORDER BY
-distance_from_city_center ASC
-</pre><strong>Query details</strong><p>This query extracts data on cycle hires, including <code>start_station_name</code>, and
-<code>duration</code>and joins it against station information, including <code>distance-from-city-center</code>.
+  distance_from_city_center ASC
+
+</pre></li><p>When the query is complete, click the <strong>Results</strong>tab below the query text
+area.
 
 
 

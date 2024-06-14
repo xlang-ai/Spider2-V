@@ -1,50 +1,4 @@
 Documentation Source:
-www.metabase.com/docs/v0.49/questions/native-editor/writing-sql.md
-
-Documentation Title:
-The SQL editor
-
-Documentation Content:
-Running query selections
-
-You can run your SQL query by pressing **ctrl + enter**on Windows and Linux, or **⌘ + return**on a Mac. You can also run only part of a query by highlighting the part you’d like to run before clicking the run button or using the run shortcut key.
-
-Questions asked using SQL can be saved, downloaded, converted to models, and added to dashboards just like questions asked using the query builder.
-
-You can also refer to models and saved questionsin your SQL queries.
-
-Using SQL filters
------------------
-
-If you or someone else wrote a SQL query that includes variables, that question might have filter widgets at the top of the screen above the editor. Filter widgets let you modify the SQL query before it’s run, changing the results you might get.
-
-!Writing SQL queries that use variables or parameters can be very powerful, but it’s also a bit more advanced, so that topic has its own page if you’d like to learn more.
-
-SQL snippets
-------------
-
-You can use SQL snippetsto save, reuse, and share SQL code across multiple questions that are composed using the SQL editor.
-
-How Metabase executes SQL queries
----------------------------------
-
-When you run a query from the SQL editor, Metabase sends the query to your database exactly as it is written. Any results or errors displayed in Metabase are the same as the results or errors that you would get if you ran the query directly against your database. If the SQL syntax of your query doesn’t match the SQL dialect used by your database, your database won’t be able to run the query.
-
-Question version history
-------------------------
-
-For questions, dashboards, and models, Metabase keeps a version history for the previous fifteen versions of that item.
-
-See History.
-
-Your SQL syntax must match the dialect used by the database
------------------------------------------------------------
-
-Make sure your SQL dialect matches the database you’ve selected. Common errors:
-
-
-
-Documentation Source:
 www.metabase.com/docs/v0.49/questions/query-builder/introduction.md
 
 Documentation Title:
@@ -97,32 +51,84 @@ Once you select your data, Metabase will take you to the query builder. Say you 
 
 
 Documentation Source:
-www.metabase.com/learn/sql-questions/organizing-sql.md
+www.metabase.com/docs/v0.49/questions/query-builder/introduction.md
 
 Documentation Title:
-SQL Snippets vs. Saved Questions vs. Views
+Asking questions
 
 Documentation Content:
-Subscribe to our newsletter
+Creating custom columns
 
-Stay in touch with updates and news from Metabase. No spam, ever.
+!Custom columns are helpful when you need to create a new column based on a calculation, such as subtracting the value of one column from another, or extracting a portion of an existing text column. Custom columns that you add aren’t permanently added to your table; they’ll only be present in the given question.
+
+You can use the following math operators in your formulas: `+`, `–`, `*`(multiplication), and `/`(division), along with a whole host of spreadsheet-like functions. You can also use parentheses to clarify the order of operations.
+
+Adding or removing columns in a table
+-------------------------------------
+
+When viewing tables, you can click on the **gear**icon in the bottom left to bring up the columns picker. Click **Add or remove columns**to search for and pick columns, including columns from related tables.
+
+!Sorting results
+---------------
+
+!The sorting step lets you pick one or more columns to sort your results by. For each column you pick, you can also choose whether to sort ascending or descending; just click the arrow to change from ascending (up arrow) to descending (down arrow).
+
+Setting a row limit
+-------------------
+
+The row limit step lets you limit how many rows you want from the previous results. When used in conjunction with sorting, this can let you do things like create a top-10 list, by first sorting by one of the columns in your result, then adding a row limit of 10. Unlike other steps, the row limit step can only be added at the end of your question.
+
+Viewing the SQL that powers your question
+-----------------------------------------
+
+Under the hood, all Metabase questions are SQL (gasp!). If you’re curious to see the SQL that will get run when you ask your question, you can click the little console icon in the top-right of the notebook editor. In the modal that opens up, you’ll also be given the option to start a new query in the SQL editor using this generated SQL as a starting point (assuming you have SQL permissionsto that database). It’s a nice little shortcut to have Metabase write some boilerplate SQL for you, but then allows you to tweak and customize the query.
+
+Play around with saved questions
+--------------------------------
+
+Each time you start modifying a saved question, Metabase will create a new question for you.
 
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/permissions/data-sandboxes.md
+www.metabase.com/learn/questions/drill-through.md
 
 Documentation Title:
-Data sandboxes
+Create interactive charts
 
 Documentation Content:
-Creating a SQL question for Metabase to display in an custom sandbox
+Use SQL to create a model
 
-In an advanced data sandbox, Metabase will display a saved question in place of an original table to a particular group.
+If you write a question using SQL, you won’t get drill-through out of the box. But you can still get the Action Menu if you:
 
-**Use a SQL question**to define the exact rows and columns to be included in the sandbox. If you use a query builder (GUI) question, you might accidentally expose extra data, since GUI questions can include data from other saved questions or models.
+1. Write a question in SQL that brings together the starting data you need, like you’re creating a view for people to query. So don’t pre-filter or pre-summarize the data (aside from filtering out rows and columns you wish to exclude from the “view”).
+2. Save that question and turn it into a model.
+3. Edit the model’s metadatato specify each column’s type. If Metabase knows which type of data each column contains, it can work its drill-through sorcery.
 
-Make sure to save the SQL question in an admin-only collection (collection permissionsset to **No access**for all groups except Administrators). For more info, see Permissions conflicts: saved SQL questions.
+From there, you can either let people use the model as the starting point for people to ask questions with the query builder, or you can create query builder questions based on that model for people to play around with.
+
+The other option for SQL-based questions is to…
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/tour-of-metabase.md
+
+Documentation Title:
+A tour of Metabase
+
+Documentation Content:
+Native queries
+
+Use the **native query editor**to compose questions in the database’s native query languages (typically SQL for relational databases, but also other query languages for data sources like MongoDB). For questions written in SQL, you can use variables in your code to create SQL templates, including field filtervariables that can create smart dropdown filters.
+
+!Like query builder questions, you can use the results of models or saved questionsas starting points for new questions, just as you would a table or view. For example, to reference question 123 like so:
+
+`WITHgizmo_ordersAS#{123}`### Create models to use as starting data for new questions
+
+Modelsare built with questions from either the query builder or the SQL editor. You can use them to pull together data from multiple tables, with custom, calculated columns, and column descriptions and other metadata, to create great starting data for people to ask new questions. For example, you could build a model for “Active users”, or “Priority orders”, or however you want to model your business.
+
+If you find that you’re using the same saved question over and over as your starting data for new questions, you may want to convert that saved question to a model, which will let you add metadata like column descriptions and column types. You can also refer to models in SQL queries, just like we did above with saved questions.
 
 
 

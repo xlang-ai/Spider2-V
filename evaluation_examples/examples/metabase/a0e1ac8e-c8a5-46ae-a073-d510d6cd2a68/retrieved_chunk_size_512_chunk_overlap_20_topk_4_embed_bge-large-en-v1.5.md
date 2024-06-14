@@ -114,17 +114,48 @@ Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/databases/connections/mysql.md
+www.metabase.com/docs/v0.49/data-modeling/metadata-editing.md
 
 Documentation Title:
-MySQL
+Table metadata admin settings
 
 Documentation Content:
-Unfold JSON Columns
+Column cache actions
 
-For MySQL databases, Metabase can unfold JSON columns into component fields to yield a table where each JSON key becomes a column. JSON unfolding is on by default, but you can turn off JSON unfolding if performance is slow.
+1. Go to **Admin settings**> **Table Metadata**.
+2. Find your database and table.
+3. Click the **gear**icon at the right of a column’s settings box.
+4. Scroll to **Cached field values**.
+5. Select a cache action.
 
-If you turn on JSON unfolding, you can also toggle the unfolding for individual columns in table metadata.
+Unfold JSON
+-----------
+
+If Metabase supports JSON unfolding for your database, you can decide whether to unfold JSON into component fields, where each JSON key becomes a column. You can turn this off if performance is slow.
+
+1. Go to **Admin settings**> **Table Metadata**.
+2. Find your database and table.
+3. Click the **gear**icon at the right of a column’s settings box.
+4. Scroll to **Unfold JSON**.
+5. Toggle JSON unfolding.
+
+Further reading
+---------------
+
+Segments and metricsKeeping your analytics organizedData modeling tutorialsRead docs for other versions of Metabase.
+ 
+
+Did this article help you?
+ 
+
+Yes
+ No
+ Send
+ Thanks for your feedback!
+
+Want to improve these docs? Propose a change.##### Subscribe to our newsletter
+
+Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 

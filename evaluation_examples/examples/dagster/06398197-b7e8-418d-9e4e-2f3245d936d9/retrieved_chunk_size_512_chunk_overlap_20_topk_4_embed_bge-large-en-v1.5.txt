@@ -151,6 +151,186 @@ Documentation Title:
 Using Dagster Pipes, Part two: Modify external code | Dagster Docs
 
 Documentation Content:
+get
+(
+)
+# send structured metadata back to Dagster
+context
+.
+report_asset_materialization
+(
+metadata
+=
+{
+"total_orders"
+:
+total_orders
+}
+)
+# report data quality check result back to Dagster
+context
+.
+report_asset_check
+(
+passed
+=
+orders_df
+[
+[
+"item_id"
+]
+]
+.
+notnull
+(
+)
+.
+all
+(
+)
+.
+bool
+(
+)
+,
+check_name
+=
+"no_empty_order_check"
+,
+)
+if
+__name__
+==
+"__main__"
+:
+# connect to Dagster Pipes
+with
+open_dagster_pipes
+(
+)
+:
+main
+(
+)
+import
+shutil
+from
+dagster
+import
+(
+AssetCheckSpec
+,
+AssetExecutionContext
+,
+Definitions
+,
+PipesSubprocessClient
+,
+asset
+,
+file_relative_path
+,
+)
+@asset
+(
+check_specs
+=
+[
+AssetCheckSpec
+(
+name
+=
+"no_empty_order_check"
+,
+asset
+=
+"subprocess_asset"
+)
+]
+,
+)
+def
+subprocess_asset
+(
+context
+:
+AssetExecutionContext
+,
+pipes_subprocess_client
+:
+PipesSubprocessClient
+)
+:
+cmd
+=
+[
+shutil
+.
+which
+(
+"python"
+)
+,
+file_relative_path
+(
+__file__
+,
+"external_code.py"
+)
+,
+]
+return
+pipes_subprocess_client
+.
+run
+(
+command
+=
+cmd
+,
+context
+=
+context
+)
+.
+get_materialize_result
+(
+)
+defs
+=
+Definitions
+(
+assets
+=
+[
+subprocess_asset
+]
+,
+resources
+=
+{
+"pipes_subprocess_client"
+:
+PipesSubprocessClient
+(
+)
+}
+,
+)
+What's next?
+#
+In this tutorial, you learned how to get access to Dagster Pipes context, report log messages events from the external process, and send structured events back to Dagster.
+What's next?
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/modify-external-code.txt
+
+Documentation Title:
+Using Dagster Pipes, Part two: Modify external code | Dagster Docs
+
+Documentation Content:
 notnull
 (
 )
@@ -352,155 +532,16 @@ PipesContext
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/modify-external-code.txt
+release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/reference.txt
 
 Documentation Title:
-Using Dagster Pipes, Part two: Modify external code | Dagster Docs
+Dagster Pipes subprocess reference | Dagster Docs
 
 Documentation Content:
-get
-(
-)
-# send structured metadata back to Dagster
-context
-.
-report_asset_materialization
-(
-metadata
-=
-{
-"total_orders"
-:
-total_orders
-}
-)
-# report data quality check result back to Dagster
-context
-.
-report_asset_check
-(
-passed
-=
-orders_df
-[
-[
-"item_id"
-]
-]
-.
-notnull
-(
+op_execution_context
 )
 .
-all
-(
-)
-.
-bool
-(
-)
-,
-check_name
-=
-"no_empty_order_check"
-,
-)
-if
-__name__
-==
-"__main__"
-:
-# connect to Dagster Pipes
-with
-open_dagster_pipes
-(
-)
-:
-main
-(
-)
-import
-shutil
-from
-dagster
-import
-(
-AssetCheckSpec
-,
-AssetExecutionContext
-,
-Definitions
-,
-PipesSubprocessClient
-,
-asset
-,
-file_relative_path
-,
-)
-@asset
-(
-check_specs
-=
-[
-AssetCheckSpec
-(
-name
-=
-"no_empty_order_check"
-,
-asset
-=
-"subprocess_asset"
-)
-]
-,
-)
-def
-subprocess_asset
-(
-context
-:
-AssetExecutionContext
-,
-pipes_subprocess_client
-:
-PipesSubprocessClient
-)
-:
-cmd
-=
-[
-shutil
-.
-which
-(
-"python"
-)
-,
-file_relative_path
-(
-__file__
-,
-"external_code.py"
-)
-,
-]
-return
-pipes_subprocess_client
-.
-run
-(
-command
-=
-cmd
-,
-context
-=
-context
-)
-.
-get_materialize_result
+get_asset_check_result
 (
 )
 defs
@@ -510,7 +551,13 @@ Definitions
 assets
 =
 [
-subprocess_asset
+my_asset
+]
+,
+asset_checks
+=
+[
+no_empty_order_check
 ]
 ,
 resources
@@ -524,20 +571,51 @@ PipesSubprocessClient
 }
 ,
 )
-What's next?
+Working with multi-assets
 #
-In this tutorial, you learned how to get access to Dagster Pipes context, report log messages events from the external process, and send structured events back to Dagster.
-What's next?
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/create-subprocess-asset.txt
-
-Documentation Title:
-Using Dagster Pipes, Part 1: Define a Dagster asset that invokes subprocess | Dagster Docs
-
-Documentation Content:
+Sometimes, you may invoke a single call to an API that results in multiple tables being updated, or you may have a single script that computes multiple assets. In these cases, you can use Dagster Pipes to report back on multiple assets at once.
+External code in external_code.py
+Dagster code in dagster_code.py
+Note
+: when working with multi-assets,
+`
+PipesContext.report_asset_materialization
+may only be called once per unique asset key. If called more than once, an error similar to the following will surface:
+Calling
+{
+method
+}
+with asset key
+{
+asset_key
+}
+is undefined. Asset has already been materialized, so no additional data can be reported
+for
+it
+Instead, you’ll need to set the
+asset_key
+parameter for each instance of
+PipesContext.report_asset_materialization
+:
+import
+pandas
+as
+pd
+from
+dagster_pipes
+import
+PipesContext
+,
+open_dagster_pipes
+def
+main
+(
+)
+:
+orders_df
+=
+pd
+.
 DataFrame
 (
 {
@@ -547,6 +625,8 @@ DataFrame
 1
 ,
 2
+,
+3
 ]
 ,
 "item_id"
@@ -555,6 +635,18 @@ DataFrame
 432
 ,
 878
+,
+102
+]
+,
+"user_id"
+:
+[
+"a"
+,
+"b"
+,
+"a"
 ]
 }
 )
@@ -564,102 +656,43 @@ len
 (
 orders_df
 )
-print
+total_users
+=
+orders_df
+[
+"user_id"
+]
+.
+nunique
 (
-f"processing total
+)
+# get the Dagster Pipes context
+context
+=
+PipesContext
+.
+get
+(
+)
+# send structured metadata back to Dagster. asset_key is required when there are multiple assets
+context
+.
+report_asset_materialization
+(
+asset_key
+=
+"orders"
+,
+metadata
+=
 {
+"total_orders"
+:
 total_orders
 }
-orders"
 )
-if
-__name__
-==
-"__main__"
-:
-main
-(
-)
-Step 1.1: Define the asset
-#
-First, create a new file named
-dagster_code.py
-in the same directory as the
-external_code.py
-file you created earlier in the
-Prerequisites
-step.
-Next, you’ll define the asset. Copy and paste the following into the file:
-import
-shutil
-from
-dagster
-import
-(
-AssetExecutionContext
-,
-MaterializeResult
-,
-PipesSubprocessClient
-,
-asset
-,
-file_relative_path
-,
-)
-@asset
-def
-subprocess_asset
-(
 context
-:
-AssetExecutionContext
-,
-pipes_subprocess_client
-:
-PipesSubprocessClient
-)
--
->
-MaterializeResult
-:
-cmd
-=
-[
-shutil
 .
-which
-(
-"python"
-)
-,
-file_relative_path
-(
-__file__
-,
-"external_code.py"
-)
-]
-Here’s what we did in this example:
-Created an asset named
-subprocess_asset
-Provided
-AssetExecutionContext
-as the
-context
-argument to the asset. This object provides system information such as resources, config, and logging. We’ll come back to this a bit later in this section.
-Specified a resource for the asset to use,
-PipesSubprocessClient
-. We’ll also come back to this in a little bit.
-Declared a command list
-cmd
-to run the external script. In the list:
-First, found the path to the Python executable on the system using
-shutil.which("python")
-.
-Then, provided the file path to the file that we want to execute. In this case, it’s the
-external_code.py
-file that you created earlier.
 
 
 

@@ -64,113 +64,65 @@ Copy
 
 
 Documentation Source:
-docs.snowflake.com/en/developer-guide/snowpark/reference/scala/com/snowflake/snowpark/index.md
+docs.snowflake.com/en/developer-guide/jdbc/jdbc-using.md
 
 Documentation Title:
-
-   Snowpark 1.12.1  - com.snowflake.snowpark
-  
+Using the JDBC Driver | Snowflake Documentation
 
 Documentation Content:
-package
- snowpark
-
-** ** Ordering
- Alphabetic
- Visibility
- Public
- All
- ### Type Members
-
-1. ** class
- AsyncJob
- extends
- AnyRef
- Provides a way to track an asynchronous query in Snowflake.
- 
-
-Provides a way to track an asynchronous query in Snowflake.
- 
-
-You can use this object to check the status of an asynchronous query and retrieve the results.
- 
-
-To check the status of an asynchronous query that you submitted earlier,
-call
- Session.createAsyncJob, and pass in the query ID. This returns an
- `AsyncJob` object
-that you can use to check the status of the query and retrieve the query results.
- 
-
-Example 1: Create an AsyncJob by specifying a valid
- `` , check whether
-the query is running or not, and get the result rows.
- 
-
-
 ```
-valasyncJob = session.createAsyncJob()
-println(s"Is query ${asyncJob.getQueryId()} running? ${asyncJob.isRunning()}")
-valrows = asyncJob.getRows()
+Stringsql_command="";ResultSetresultSet;StringqueryID="";System.out.println("Create JDBC statement.");Statementstatement=connection.createStatement();sql_command="SELECT PI() * 2";System.out.println("Simple SELECT query: "+sql_command);resultSet=statement.unwrap(SnowflakeStatement.class).executeAsyncQuery(sql_command);queryID=resultSet.unwrap(SnowflakeResultSet.class).getQueryID();System.out.println("INFO: Closing statement.");statement.close();System.out.println("INFO: Closing connection.");connection.close();System.out.println("INFO: Re-opening connection.");connection=create_connection(args);use_warehouse_db_and_schema(connection);resultSet=connection.unwrap(SnowflakeConnection.class).createResultSet(queryID);// Assume that the query isn't done yet.QueryStatusqueryStatus=QueryStatus.RUNNING;while(queryStatus==QueryStatus.RUNNING){Thread.sleep(2000);// 2000 milliseconds.queryStatus=resultSet.unwrap(SnowflakeResultSet.class).getStatus();}if(queryStatus==QueryStatus.FAILED_WITH_ERROR){System.out.format("ERROR %d: %s%n",queryStatus.getErrorMessage(),queryStatus.getErrorCode());}elseif(queryStatus!=QueryStatus.SUCCESS){System.out.println("ERROR: unexpected QueryStatus: "+queryStatus);}else{booleanresult_exists=resultSet.next();if(!result_exists){System.out.println("ERROR: No rows returned.");}else{floatpi_result=resultSet.getFloat(1);System.out.println("pi = "+pi_result);}}
 ```
-Example 2: Create an AsyncJob by specifying a valid
- `` and cancel the query if
-it is still running.
- 
+Copy### Upload data files directly from a stream to an internal stage¶
 
-
-```
-session.createAsyncJob().cancel()
-```
-Since
- 0.11.0
-2. ** class
- CaseExpr
- extends
- ColumnRepresents a
- CASEexpression.
- 
-
-Represents a
- CASEexpression.
- 
-
-To construct this object for a CASE expression, call the
- functions.when. specifying a condition and the
-corresponding result for that condition. Then, call the
- whenand
- otherwisemethods to
-specify additional conditions and results.
- 
-
-For example:
+You can upload data files using the PUT command. However, sometimes it makes sense to transfer data directly from a
+stream to an internal (i.e. Snowflake) stage as a file. (The stagecan be any internal stage type: table stage, user stage, or named stage. The JDBC driver does not support uploading to an external
+stage.) Here is the method exposed in the SnowflakeConnectionclass:
 
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/clients-drivers/jdbc-2022.md
+docs.snowflake.com/en/user-guide/snowflake-client-repository.md
 
 Documentation Title:
-JDBC Driver release notes for 2022 | Snowflake Documentation
+Downloading Snowflake Clients, Connectors, Drivers, and Libraries | Snowflake Documentation
 
 Documentation Content:
-New features and updates¶
+|Client / Connector / Driver / Library
 
-* Upgraded the following libraries:
+Download Page
 
 
-	arrow from version 8.0.0 to 9.0.0
-	
-	jacksondatabind from version 2.13.2.2 to 2.13.4.2
-	
-	google-cloud-storage from version 2.5.0 to 2.6.2
-The Statement.getMoreResults()function now returns TRUE when more statements are available to iterate
-through in a multi-statement query.
+|  |
+|SnowSQL (CLI client)SnowSQL Download
+|  |
+|ODBC DriverODBC Download
+|Snowpark APISnowpark Client Download
+|DriversDrivers and Libraries
+|Scala and Java connectorsDrivers and Libraries
+|SnowCDDrivers and Libraries
+|Snowpark MLDrivers and Libraries
 
-The Statement.getupdateCount()function now returns 0 instead of -1 for non-DML queries.
+Snowflake Client Repository¶
+----------------------------
 
-Version 3.13.23 (September 30, 2022)¶
--------------------------------------
+To download SnowSQL, the ODBC Driver, the Snowpark Library, or SnowCD over HTTP programmatically (e.g. using curl), use the
+Snowflake Client Repository. The Snowflake Client Repository serves the packages for these clients through CDN (Content Delivery
+Network) using the following endpoints:
+
+https://sfc-repo.azure.snowflakecomputing.com/index.html(mirror on Azure Blob)
+
+If the endpoint is not specified explicitly, the client upgrader (e.g., the SnowSQL auto-upgrader) uses the AWS endpoint. For instructions on specifying the endpoint, see the installation documentation for the client.
+
+Note
+
+Users can download Snowflake clients from either endpoint regardless of which cloud provider hosts their Snowflake account.
+
+Was this page helpful?
+
+YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
+
+Snowflake Developer Center Download PagesSnowflake Client RepositoryLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
 
 
 

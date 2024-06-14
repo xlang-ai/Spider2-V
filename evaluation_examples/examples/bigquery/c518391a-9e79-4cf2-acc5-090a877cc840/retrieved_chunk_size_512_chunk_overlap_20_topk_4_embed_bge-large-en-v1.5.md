@@ -5,6 +5,44 @@ Documentation Title:
 Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
 
 Documentation Content:
+!1. Enter the following GoogleSQL query in the **Query editor**text area.
+
+
+```
+#standardSQL
+CREATE MODEL `bqml_tutorial.sample_model`
+OPTIONS(model_type='logistic_reg') AS
+SELECT
+IF(totals.transactions IS NULL, 0, 1) AS label,
+IFNULL(device.operatingSystem, "") AS os,
+device.isMobile AS is_mobile,
+IFNULL(geoNetwork.country, "") AS country,
+IFNULL(totals.pageviews, 0) AS pageviews
+FROM
+`bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE
+_TABLE_SUFFIX BETWEEN '20160801' AND '20170630'
+
+```
+2. Click **Run**.
+
+The query takes several minutes to complete. After the first iteration is
+complete, your model (`sample_model`) appears in the navigation panel.
+Because the query uses a `CREATE MODEL`statement to create a model, you do
+not see query results.
+
+You can observe the model as it's being trained by viewing the **Model stats**tab. As soon as the first iteration completes, the tab is updated. The stats
+continue to update as each iteration completes.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/create-machine-learning-model.md
+
+Documentation Title:
+Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+
+Documentation Content:
 SQL
 
 The following GoogleSQL query is used to
@@ -60,144 +98,177 @@ Documentation Title:
 Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
 
 Documentation Content:
-languages, frameworks, and tools
- Costs and usage management
- Infrastructure as code
- Migration
- Google Cloud Home
- Free Trial and Free Tier
- Architecture Center
- Blog
- Contact Sales
- Google Cloud Developer Center
- Google Developer Center
- Google Cloud Marketplace (in console)
- Google Cloud Marketplace Documentation
- Google Cloud Skills Boost
- Google Cloud Solution Center
- Google Cloud Support
- Google Cloud Tech Youtube Channel
- HomeBigQueryDocumentationGuides
-Send feedback
+**Note**: If you don't plan to keep the
+ resources that you create in this procedure, create a project instead of
+ selecting an existing project. After you finish these steps, you can
+ delete the project, removing all resources associated with the project.Go to project selector
+Make sure that billing is enabled for your Google Cloud project.
  
- Stay organized with collections
- Save and categorize content based on your preferences.
- Create machine learning models in BigQuery ML
-=============================================
 
-This tutorial introduces users to BigQuery ML using the Google Cloud console.
-
-BigQuery ML enables users to create and execute machine learning models in
-BigQuery by using SQL queries and Python code. The goal is to democratize machine
-learning by enabling SQL practitioners to build models using their existing
-tools and to increase development speed by eliminating the need for data
-movement.
-
-In this tutorial, you use the sample
-Google Analytics sample dataset for BigQueryto create a model that predicts whether a website visitor will make a
-transaction. For information on the schema of the Analytics dataset, see
-BigQuery export schemain the Analytics Help Center.
-
-Objectives
-----------
-
-In this tutorial, you use:
-
-* BigQuery ML to create a binary logistic regression model using the
-`CREATE MODEL`statement
-* The `ML.EVALUATE`function to evaluate the ML model
-* The `ML.PREDICT`function to make predictions using the ML model
-
-Costs
------
-
-This tutorial uses billable components of Google Cloud,
-including the following:
-
-* BigQuery
-* BigQuery ML
-
-For more information on BigQuery costs, see the
-BigQuery pricingpage.
-
-For more information on BigQuery ML costs, see
-BigQuery ML pricing.
-
-Before you begin
-----------------
-
-- Sign in to your Google Cloud account. If you're new to
- Google Cloud, create an accountto evaluate how our products perform in
- real-world scenarios. New customers also get $300 in free credits to
- run, test, and deploy workloads.
 - In the Google Cloud console, on the project selector page,
  select or create a Google Cloud project.
 
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/create-machine-learning-model.md
-
-Documentation Title:
-Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
-
-Documentation Content:
-a confidence score that the data is in one of the classes.
-model = LogisticRegression()
-model.fit(features, label)
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.md
-
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-```
-CREATE OR REPLACE MODEL
-`census.census_model`
-OPTIONS
-( model_type='LOGISTIC_REG',
-  auto_class_weights=TRUE,
-  data_split_method='NO_SPLIT',
-  input_label_cols=['income_bracket'],
-  max_iterations=15) AS
-SELECT * EXCEPT(dataframe)
-FROM
-`census.input_data`
-WHERE
-dataframe = 'training'
-
-```
-In the **Explorer**pane, expand the `census`dataset and then the **Models**folder.
-
-Click the **census\_model**model to open the information pane.
-
-Click the **Schema**tab. The model schema lists the attributes
-that BigQuery ML used to perform logistic regression. The schema
-should look similar to the following:
-
-
-!### BigQuery DataFrames
-
-Use the
-`fit`method to train the model and the
-`to_gbq`method to save it to your dataset.
-
-Before trying this sample, follow the BigQuery DataFrames
- setup instructions in the BigQuery quickstart
- using BigQuery DataFrames.
- For more information, see the
- BigQuery DataFrames reference documentation.
-
-To authenticate to BigQuery, set up Application Default Credentials.
- For more information, see Set 
- up authentication for a local development environment.
+**Note**: If you don't plan to keep the
+ resources that you create in this procedure, create a project instead of
+ selecting an existing project. After you finish these steps, you can
+ delete the project, removing all resources associated with the project.Go to project selector
+Make sure that billing is enabled for your Google Cloud project.
  
 
-`import bigframes.ml.linear_model
+2. BigQuery is automatically enabled in new projects.
+ To activate BigQuery in a pre-existing project, go to
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ Enable the BigQuery API.
+ 
+ 
+ 
+ 
+
+Enable the API
+Create your dataset
+-------------------
+
+Create a BigQuery dataset to store your ML model:
+
+1. In the Google Cloud console, go to the BigQuery page.
+
+Go to the BigQuery page
+In the **Explorer**pane, click your project name.
+
+3. Click more\_vert**View actions > Create dataset**.
+
+!
+4. On the **Create dataset**page, do the following:
+
+
+	For **Dataset ID**, enter `bqml_tutorial`.
+	
+	* For **Location type**, select **Multi-region**, and then select
+	**US (multiple regions in United States)**.
+	
+	The public datasets are stored in the `US`multi-region. For simplicity,
+	store your dataset in the same location.
+	* Leave the remaining default settings as they are, and click
+	**Create dataset**.
+	
+	!
+
+Create your model
+-----------------
+
+Next, you create a logistic regression model using the Analytics sample
+dataset for BigQuery.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/export-model-tutorial.md
+
+Documentation Title:
+Export a BigQuery ML model for online prediction  |  Google Cloud
+
+Documentation Content:
+**Note**: If you don't plan to keep the
+ resources that you create in this procedure, create a project instead of
+ selecting an existing project. After you finish these steps, you can
+ delete the project, removing all resources associated with the project.Go to project selector
+Make sure that billing is enabled for your Google Cloud project.
+ 
+
+- In the Google Cloud console, on the project selector page,
+ select or create a Google Cloud project.
+
+**Note**: If you don't plan to keep the
+ resources that you create in this procedure, create a project instead of
+ selecting an existing project. After you finish these steps, you can
+ delete the project, removing all resources associated with the project.Go to project selector
+Make sure that billing is enabled for your Google Cloud project.
+ 
+
+2. BigQuery is automatically enabled in new projects.
+ To activate BigQuery in a pre-existing project, go to
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ Enable the BigQuery API.
+ 
+ 
+ 
+ 
+
+Enable the API
+3. Enable the AI Platform Training and Prediction API and Compute Engine APIs.
+ 
+ 
+ 
+ 
+
+Enable the APIs
+4. Install the Google Cloud CLIand the Google Cloud CLI.
+Create your dataset
+-------------------
+
+Create a BigQuery dataset to store your ML model:
+
+1. In the Google Cloud console, go to the BigQuery page.
+
+Go to the BigQuery page
+In the **Explorer**pane, click your project name.
+
+3. Click more\_vert**View actions > Create dataset**.
+
+!
+4. On the **Create dataset**page, do the following:
+
+
+	For **Dataset ID**, enter `bqml_tutorial`.
+	
+	* For **Location type**, select **Multi-region**, and then select
+	**US (multiple regions in United States)**.
+	
+	The public datasets are stored in the `US`multi-region. For simplicity,
+	store your dataset in the same location.
+	* Leave the remaining default settings as they are, and click
+	**Create dataset**.
+	
+	!
+
+Train and deploy a logistic regression model
+--------------------------------------------
 
 
 

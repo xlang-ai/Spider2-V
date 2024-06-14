@@ -14,35 +14,37 @@ Then, open a terminal, and go to a location you want to download Airbyte in and 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/github.html
+airbyte.com/docs.airbyte.com/deploying-airbyte/local-deployment.html
 
 Documentation Title:
-GitHub | Airbyte Documentation
+Local Deployment | Airbyte Documentation
 
 Documentation Content:
-</p><h2>Prerequisites<a>​</a></h2><li>List of GitHub Repositories (and access for them in case they are private)</li><strong>For Airbyte Cloud:</strong><ul><li>OAuth</li><li>Personal Access Token (see <a>Permissions and scopes</a>)</li></ul><strong>For Airbyte Open Source:</strong><li>Personal Access Token (see <a>Permissions and scopes</a>)</li><h2>Setup guide<a>​</a></h2><h3>Step 1: Set up GitHub<a>​</a></h3><p>Create a <a>GitHub Account</a>.</p><strong>Airbyte Open Source additional setup steps</strong><p>Log into <a>GitHub</a>and then generate a <a>personal access token</a>. To load balance your API quota consumption across multiple API tokens, input multiple tokens separated with <code>,</code>.</p><h3>Step 2: Set up the GitHub connector in Airbyte<a>​</a></h3><strong>For Airbyte Cloud:</strong><ol><li><a>Log into your Airbyte Cloud</a>account.</li><li>In the left navigation bar, click <strong>Sources</strong>.</li><li>On the source selection page, select <strong>GitHub</strong>from the list of Sources.</li><li>Add a name for your GitHub connector.</li><li>To authenticate:</li></ol><ul><p><strong>For Airbyte Cloud:</strong><strong>Authenticate your GitHub account</strong>to authorize your GitHub account. Airbyte will authenticate the GitHub account you are already logged in to. Please make sure you are logged into the right account.</p><p><strong>For Airbyte Open Source:</strong>Authenticate with <strong>Personal Access Token</strong>. To generate a personal access token, log into <a>GitHub</a>and then generate a <a>personal access token</a>. Enter your GitHub personal access token.
+After the first run
+users should be able to run the command from the terminal. Airbyte suggests mac users to use <code>brew</code>if it is available.</p></div><span>./abctl local install</span><ul><li>Your browser should open to the Airbyte Application, if it does not visit <a>http://localhost</a></li><li>You will be asked for a username and password. By default, that's username <code>airbyte</code>and password <code>password</code>. You can set these values through command line flags or environment variables.
 
 
 
 Documentation Source:
-airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.html
+airbyte.com/docs.airbyte.com/deploying-airbyte/local-deployment.html
 
 Documentation Title:
-Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+Local Deployment | Airbyte Documentation
 
 Documentation Content:
-Finally, we are running the container in the background with the -d flag.</p><p>Now that we have set up the destination database, let's head over to the Airbyte web app and create a connection from the Airbyte GitHub source to our Postgres database.</p><h3>Creating the Airbyte connection</h3><p>Back in the Airbyte web app in your browser, click on the <em>new source</em>button in the top right corner of the app to go to the page to add a new Airbyte source.</p><p>Enter the name <strong>github-source</strong>as the source name and click the drop down and select Github connector as source type. After selecting the GitHub source type, you will be presented with two text boxes.The first is to enter a repository you want. In this box, type in <strong>airbytehq/airbyte</strong>, and then, in the second box, you will need to provide a GitHub access token which you can obtain from<a>here</a>.</p><p>Make sure you grant the token the repo and write:discussion permissions. After you've filled all fields, hit the set up source button.</p><img/><p>If the setup was successful, you will be taken to the destination screen where you will add a new destination.</p><p>Click the <em>add destination</em>button, and, in the drop down that follows, click <em>add new destination</em>. Then, you will see a page to add the destination name. Type in the name we gave the Postgres container we created earlier (github-destination), and then choose Postgres as the destination type.</p><p>After, you will be presented with some text boxes to enter the database connection details.
+You can set these values through command line flags or environment variables. For example, to set the username and password to <code>foo</code>and <code>bar</code>respectively, you can run the following command:</li></ul><code><span>./abctl local install --username foo --password bar</span><span># Or as Environment Variables</span><span>ABCTL_LOCAL_INSTALL_PASSWORD=foo</span><span>ABCTL_LOCAL_INSTALL_USERNAME=bar</span></code><li>Start moving some data!</li><h2>Troubleshooting<a>​</a></h2><p>If you have any questions about the local setup and deployment process, head over to our <a>Getting Started FAQ</a>on our Airbyte Forum that answers the following questions and more:</p><ul><li>How long does it take to set up Airbyte?</li><li>Where can I see my data once I've run a sync?</li><li>Can I set a start time for my sync?</li></ul><p>If you encounter any issues, check out <a>Getting Support</a>documentation
+for options how to get in touch with the community or us.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Deploy Airbyte</div></a><a><div>Next</div><div>Docker Compose</div></a></nav></div><div><ul><a>Setup &amp; launch Airbyte</a><a>Troubleshooting</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/github.html
+airbyte.com/docs.airbyte.com/deploying-airbyte/docker-compose.html
 
 Documentation Title:
-GitHub | Airbyte Documentation
+Docker Compose | Airbyte Documentation
 
 Documentation Content:
-1.2</td><td>2021-07-13</td><a>4708</a><td>Fix bug with IssueEvents stream and add handling for rate limiting</td></tr><tr><td>0.1.1</td><td>2021-07-07</td><a>4590</a><td>Fix schema in the <code>pull_request</code>stream</td></tr><tr><td>0.1.0</td><td>2021-07-06</td><a>4174</a><td>New Source: GitHub</td></tr></tbody></table></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Genesys</div></a><a><div>Next</div><div>GitLab</div></a></nav></div><div><ul><a>Prerequisites</a><li><a>Setup guide</a><ul><a>Step 1: Set up GitHub</a><a>Step 2: Set up the GitHub connector in Airbyte</a></ul></li><a>Supported sync modes</a><li><a>Supported Streams</a><a>Notes</a></li><li><a>Limitations &amp; Troubleshooting</a><ul><a>Connector limitations</a><a>Troubleshooting</a></ul></li><a>Reference</a><a>Changelog</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+Compose</h1><div><div>info</div><p>These instructions have been tested on MacOS, Windows 10 and Ubuntu 22.04.</p></div><h2>Setup &amp; launch Airbyte<a>​</a></h2><ul><li>Install <code>Docker Engine</code>and the <code>Docker Compose plugin</code>on your workstation (see <a>instructions</a>).</li><li>After Docker is installed, you can immediately get started locally by running:</li></ul><code><span># clone Airbyte from GitHub</span><span>git clone --depth=1 https://github.com/airbytehq/airbyte.git</span><span># switch into Airbyte directory</span><span>cd airbyte</span><span># start Airbyte</span><span>./run-ab-platform.sh</span></code><ul><li>In your browser, visit <a>http://localhost:8000</a></li><li>You will be asked for a username and password. By default, that's username <code>airbyte</code>and password <code>password</code>. Once you deploy Airbyte to your servers, be sure to change these in your <code>.env</code>file:</li></ul><code><span># Proxy Configuration</span><span># Set to empty values, e.g. "" to disable basic auth</span><span>BASIC_AUTH_USERNAME=your_new_username_here</span><span>BASIC_AUTH_PASSWORD=your_new_password_here</span></code><li>Start moving some data!</li><h2>Deploy on Windows<a>​</a></h2><p>After installing the WSL 2 backend and Docker you should be able to run containers using Windows PowerShell. Additionally, as we note frequently, you will need <code>docker-compose</code>to build Airbyte from source. The suggested guide already installs <code>docker-compose</code>on Windows.</p><h3>Setup Guide<a>​</a></h3><strong>1.
 
 
 

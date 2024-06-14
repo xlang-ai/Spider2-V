@@ -100,6 +100,174 @@ Dashboards for Engineering Teams
 
 
 Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.txt
+
+Documentation Title:
+Visualizing data
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Questions
+Visualizing data
+While tables are useful for looking up information or finding specific numbers, it’s usually easier to see trends and make sense of data using charts.
+To change how the answer to your question is displayed, click on the
+Visualization
+button in the bottom-left of the screen to open the visualization sidebar.
+If a particular visualization doesn’t really make sense for your answer, that option will appear in the “Other charts” section. You can still select one of these other charts, though you might need to fiddle with the chart options to make the chart work with your data.
+Not sure which visualization type to use? Check out
+Which chart should you use?
+Visualization options
+Each visualization type has its own advanced options.
+To change the settings for a specific chart, for example a row chart, you could either:
+Click on the gear icon in the bottom left of the chart (next to the
+Visualization
+button, or
+Click on
+Visualization
+in the bottom left of the chart, then hover over the currently selected chart and click on the
+gear
+icon that pops up.
+Visualization types
+Metabase ships with a bunch of different visualizations types:
+Numbers
+The
+Numbers
+option is for displaying a single number, nice and big.
+Trends
+The
+Trend
+visualization is great for displaying how a single number has changed between two time periods.
+Detail
+The
+Detail
+visualization shows a single result record (row) in an easy-to-read, two-column display.
+Progress bars
+Progress bars
+are for comparing a single number to a goal value that you set.
+Gauges
+Gauges
+allow you to show a single number in the context of a set of colored ranges that you can specify.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/pie-or-donut-chart.txt
+
+Documentation Title:
+Pie or donut charts
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Questions
+Pie or donut charts
+A
+pie or donut chart
+can be used when breaking out a metric by a single dimension, especially when the number of possible breakouts is small, like users by gender. If you have more than a few breakouts, like users per country, it’s usually better to use a bar chart so that your users can more easily compare the relative sizes of each bar.
+The options for pie charts let you choose which field to use as your measurement, and which one to use for the dimension (i.e. the pie slices). You can also customize the color of each slice, the pie chart’s legend, whether or not to show each slice’s percent of the whole in the legend, and the minimum size a slice needs to be in order for Metabase to display it.
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/questions/sharing/visualizations/detail.txt
 
 Documentation Title:
@@ -219,176 +387,6 @@ Dashboard for Marketing Teams
 Dashboards for Sales Teams
 Dashboards for Engineering Teams
 © Metabase 2024
-
-
-
-Documentation Source:
-www.metabase.com/learn/visualization/index.txt
-
-Documentation Title:
-Visualizing data
-
-Documentation Content:
-Read more
-Article 6
-Almost everything you can do with the table visualization
-Learn how to set up conditional formatting, mini bar charts, value formatting, and more.
-Read more
-Article 7
-Creating pivot tables
-Learn how to create pivot tables using different databases in Metabase.
-Read more
-Article 8
-Funnel charts
-Use funnel charts to show progression through steps.
-Read more
-Subscribe to our newsletter
-Stay in touch with updates and news from Metabase. No spam, ever.
-Product
-Watch Demo
-Data Sources
-Security
-Cloud
-Roadmap
-What's New
-Pricing
-Plans
-Open Source
-Use Cases
-Self-Service Business Analytics
-Embedded Analytics
-Metabase Plans
-Starter and Open Source
-Pro
-Enterprise
-Features
-Query Builder
-Drill Through
-Collections
-Usage analytics
-New
-Analytics dashboards
-SQL editor
-Sandboxing
-Models
-Permissions
-CSV upload
-Company
-Jobs
-We're hiring!
-Privacy Policy
-Terms of Service
-License
-Brand Guidelines
-Support
-Documentation
-Help
-Professional Services
-Onboarding
-New
-Status
-Github
-Resources
-Case Studies
-Blog
-Learn
-Community Stories
-Data and Business Intelligence Glossary
-Partners
-The Startup's Guide to Financial Modeling
-The 2023 Metabase Community Data Stack Report
-More Resources
-Example Dashboards
-SQL Best Practices
-Choosing a Data Warehouse
-How to Create Pivot Tables
-Types of SQL Joins
-SQL Cheat Sheet
-Data Bias Examples
-Modern Data Stack
-Dashboard for Marketing Teams
-Dashboards for Sales Teams
-Dashboards for Engineering Teams
-© Metabase 2024
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.txt
-
-Documentation Title:
-Visualizing data
-
-Documentation Content:
-when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-Documentation
-Resources
-Learn
-Blog
-Events
-Customers
-Discussion
-Partners
-Community Stories
-Startup Guide to Financial Modeling
-New
-Community Data Stack Report
-New
-Pricing
-Log in
-v0.49
-Questions
-Visualizing data
-While tables are useful for looking up information or finding specific numbers, it’s usually easier to see trends and make sense of data using charts.
-To change how the answer to your question is displayed, click on the
-Visualization
-button in the bottom-left of the screen to open the visualization sidebar.
-If a particular visualization doesn’t really make sense for your answer, that option will appear in the “Other charts” section. You can still select one of these other charts, though you might need to fiddle with the chart options to make the chart work with your data.
-Not sure which visualization type to use? Check out
-Which chart should you use?
-Visualization options
-Each visualization type has its own advanced options.
-To change the settings for a specific chart, for example a row chart, you could either:
-Click on the gear icon in the bottom left of the chart (next to the
-Visualization
-button, or
-Click on
-Visualization
-in the bottom left of the chart, then hover over the currently selected chart and click on the
-gear
-icon that pops up.
-Visualization types
-Metabase ships with a bunch of different visualizations types:
-Numbers
-The
-Numbers
-option is for displaying a single number, nice and big.
-Trends
-The
-Trend
-visualization is great for displaying how a single number has changed between two time periods.
-Detail
-The
-Detail
-visualization shows a single result record (row) in an easy-to-read, two-column display.
-Progress bars
-Progress bars
-are for comparing a single number to a goal value that you set.
-Gauges
-Gauges
-allow you to show a single number in the context of a set of colored ranges that you can specify.
 
 
 

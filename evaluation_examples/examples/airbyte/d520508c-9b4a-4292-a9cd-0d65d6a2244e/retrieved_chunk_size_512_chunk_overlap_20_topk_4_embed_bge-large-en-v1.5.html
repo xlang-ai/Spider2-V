@@ -20,6 +20,19 @@ Documentation Title:
 A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
 
 Documentation Content:
+For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password
+</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figure><img/><figcaption>Airbyte OSS login prompt</figcaption></figure><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figure><img/><figcaption>Create your first connection prompt</figcaption></figure><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figure><img/><figcaption>Select Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figure><img/><figcaption>Configure Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figure><img/><figcaption>Select Local JSON as a destination</figcaption></figure><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
+
+Documentation Title:
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
+
+Documentation Content:
 After specifying the Destination Path, click on Set up destination. </p><figure><img/><figcaption>Configure the Local JSON destination</figcaption></figure><p>‍</p><p>This will take you to a page to set up the connection. Set the replication frequency to <strong>Manual</strong>(since we will use Airflow to trigger Airbyte syncs rather than using Airbyte’s scheduler) and then click on <strong>Set up connection</strong>as highlighted in the image below.</p><figure><img/><figcaption>Specify connection settings</figcaption></figure><p>‍</p><p>Trigger a sync from the <strong>Sample Data (faker)</strong>source to the <strong>Local JSON</strong>output by clicking on <strong>Sync now</strong>as highlighted in the image below.</p><figure><img/><figcaption>Manually trigger a sync from the UI</figcaption></figure><p>‍</p><p>The sync should take a few seconds, at which point you should see that the sync has succeed as shown below.</p><figure><img/><figcaption>After the sync has completed</figcaption></figure><p>‍</p><p>You can now confirm if some sample data has been copied to the expected location. As previously mentioned, for this example the JSON data can be seen in <strong>/tmp/airbyte_local_json_from_faker</strong>. Because there were three streams generated, the following three JSON files should be available: </p><code>_airbyte_raw_products.jsonl	
 _airbyte_raw_users.jsonl
 _airbyte_raw_purchases.jsonl
@@ -35,19 +48,6 @@ E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airby
 
 Documentation Content:
 Link Airbyte connection to the Airflow DAG</strong>:</h3><p>The last step being being able to execute the DAG in Airflow, is to include the connection ID from Airbyte:</p><ol><li>Visit the Airbyte UI at <a>http://localhost:8000/</a>.</li><li>In the "Connections" tab, select the "Faker to BigQuery" connection and copy its connection id from the URL.</li><li>Update the &lt;span class="text-style-code"&gt;connection_id&lt;/span&gt; in the &lt;span class="text-style-code"&gt;extract_data&lt;/span&gt; task within &lt;span class="text-style-code"&gt;orchestration/airflow/dags/elt_dag.py&lt;/span&gt; with this id.</li></ol><p>That's it! Airflow has been configured to work with dbt and Airbyte. 🎉</p><h2>6. Orchestrating with Airflow</h2><p>Now that everything is set up, it's time to run your data pipeline!</p><ol><li>In the Airflow UI, go to the "DAGs" section.</li><li>Locate &lt;span class="text-style-code"&gt;elt_dag&lt;/span&gt; and click on "Trigger DAG" under the "Actions" column.</li></ol><p>This will initiate the complete data pipeline, starting with the Airbyte sync from Faker to BigQuery, followed by dbt transforming the raw data into staging and marts models.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.html
-
-Documentation Title:
-A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
-
-Documentation Content:
-For this tutorial I use the following default values: </p><code>BASIC_AUTH_USERNAME=airbyte
-BASIC_AUTH_PASSWORD=password
-</code><p>Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:</p><figure><img/><figcaption>Airbyte OSS login prompt</figcaption></figure><h2>Create a connection</h2><p>Create a connection that sends data from the <strong>Sample Data (Faker)</strong>source to the <strong>Local JSON</strong>(file system) output. Click on “Create your first connection” as shown below:</p><figure><img/><figcaption>Create your first connection prompt</figcaption></figure><p>‍</p><p>You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.</p><figure><img/><figcaption>Select Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>After selecting Sample Data as the source, you will see a screen that should look as follows. Click on <strong>Set up source</strong>as shown below. </p><figure><img/><figcaption>Configure Sample Data (Faker) as a source</figcaption></figure><p>‍</p><p>You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select <strong>Local JSON</strong>as shown below:</p><figure><img/><figcaption>Select Local JSON as a destination</figcaption></figure><p>‍</p><p>After selecting Local JSON as the output, you will need to specify where the JSON files should be written. By default the path that you specify will be located inside <strong>/tmp/airbyte_local</strong>. In this tutorial I set the destination to <strong>/json_from_faker</strong>, which means that the data will be copied to<strong>/tmp/airbyte_local/json_from_faker</strong>on the localhost where Airbyte is running.
 
 
 

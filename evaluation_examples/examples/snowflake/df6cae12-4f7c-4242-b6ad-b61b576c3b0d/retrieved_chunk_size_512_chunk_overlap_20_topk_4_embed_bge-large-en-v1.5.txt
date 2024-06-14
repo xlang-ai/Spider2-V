@@ -5,6 +5,95 @@ Documentation Title:
 Filter query results in dashboards and worksheets | Snowflake Documentation
 
 Documentation Content:
+See
+Manage ownership of custom filters
+for more details.
+For
+Warehouse
+, select a warehouse to use to refresh filter values, if the filter is based on a query.
+The owner role for the filter must have the USAGE privilege on the warehouse you select.
+If you want to run and validate your query as part of these steps, the warehouse must be running.
+For
+Options via
+, choose whether the filter values are populated by a query or a list:
+If you select
+Query
+, select
+Write Query
+and see
+Write a query to populate a filter
+for guidance writing a
+filter query.
+If you select
+List
+, do the following:
+Select
+Edit List
+.
+Optionally, for
+Name
+, enter a name for the list item. The name appears in the drop-down list for the filter.
+If you do not provide a name, the
+Value
+is used.
+For
+Value
+, enter the value of the column name to use in the filter.
+Continue adding name and value pairs until your list is complete, then select
+Save
+.
+In the
+Add Filter
+dialog, for
+Value Type
+, choose whether the list items are
+Text
+or
+Number
+types of data.
+If you want users to be able to select multiple items in the drop-down list of filter options,
+turn on the toggle for
+Multiple values can be selected
+.
+If you want users to be able to see results for all items in the column, turn on the toggle for
+Include an “All” option
+, then select
+how you want the
+All
+option to function:
+Select
+Any value
+to have the
+All
+in the filter mean that the column to which the filter applies can have any value in
+the results, whether or not the value exists in the filter list.
+Select
+Any value in list of options
+to have
+All
+in the filter mean that the column to which the filter applies contains
+any item in the filter list.
+If you want users to be able to see results for items not specified in the filter, turn on the toggle for
+Include an “Other” option
+.
+Select
+Save
+.
+Select
+Done
+to close the
+Filters
+dialog.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.txt
+
+Documentation Title:
+Filter query results in dashboards and worksheets | Snowflake Documentation
+
+Documentation Content:
 Filter query results in dashboards and worksheets | Snowflake Documentation
 DOCUMENTATION
 /
@@ -160,95 +249,6 @@ Users with the ACCOUNTADMIN role can view and edit every filter in the account.
 If the role associated with a filter is dropped, the role dropping the filter role does
 not
 inherit ownership of the custom filter.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-filters.txt
-
-Documentation Title:
-Filter query results in dashboards and worksheets | Snowflake Documentation
-
-Documentation Content:
-See
-Manage ownership of custom filters
-for more details.
-For
-Warehouse
-, select a warehouse to use to refresh filter values, if the filter is based on a query.
-The owner role for the filter must have the USAGE privilege on the warehouse you select.
-If you want to run and validate your query as part of these steps, the warehouse must be running.
-For
-Options via
-, choose whether the filter values are populated by a query or a list:
-If you select
-Query
-, select
-Write Query
-and see
-Write a query to populate a filter
-for guidance writing a
-filter query.
-If you select
-List
-, do the following:
-Select
-Edit List
-.
-Optionally, for
-Name
-, enter a name for the list item. The name appears in the drop-down list for the filter.
-If you do not provide a name, the
-Value
-is used.
-For
-Value
-, enter the value of the column name to use in the filter.
-Continue adding name and value pairs until your list is complete, then select
-Save
-.
-In the
-Add Filter
-dialog, for
-Value Type
-, choose whether the list items are
-Text
-or
-Number
-types of data.
-If you want users to be able to select multiple items in the drop-down list of filter options,
-turn on the toggle for
-Multiple values can be selected
-.
-If you want users to be able to see results for all items in the column, turn on the toggle for
-Include an “All” option
-, then select
-how you want the
-All
-option to function:
-Select
-Any value
-to have the
-All
-in the filter mean that the column to which the filter applies can have any value in
-the results, whether or not the value exists in the filter list.
-Select
-Any value in list of options
-to have
-All
-in the filter mean that the column to which the filter applies contains
-any item in the filter list.
-If you want users to be able to see results for items not specified in the filter, turn on the toggle for
-Include an “Other” option
-.
-Select
-Save
-.
-Select
-Done
-to close the
-Filters
-dialog.
 
 
 

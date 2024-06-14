@@ -1,44 +1,44 @@
 Documentation Source:
-docs.getdbt.com/guides/mesh-qs5f72.html
+docs.getdbt.com/guides/manual-install0c17.html
 
 Documentation Title:
-Quickstart with dbt Mesh | dbt Developer Hub
+Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-</li></ul><p>For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.</p><div><img/><span>Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance' </span></div><p>To <a>create</a>a new project in dbt Cloud:</p><ol><li>From <strong>Account settings</strong>, click <strong>+ New Project</strong>.</li><li>Enter a project name and click <strong>Continue</strong>.<ul><li>Use "Jaffle | Data Analytics" for one project</li><li>Use "Jaffle | Finance" for the other project</li></ul></li><li>Select your data platform, then <strong>Next</strong>to set up your connection.</li><li>In the <strong>Configure your environment</strong>section, enter the <strong>Settings</strong>for your new project.</li><li>Click <strong>Test Connection</strong>. This verifies that dbt Cloud can access your data platform account.</li><li>Click <strong>Next</strong>if the test succeeded. If it fails, you might need to go back and double-check your settings.<li>For this guide, make sure you create a single <a>development</a>and <a>Deployment</a>per project.<ul><li>For "Jaffle | Data Analytics", set the default database to <code>jaffle_da</code>.</li><li>For "Jaffle | Finance", set the default database to <code>jaffle_finance</code></li></ul></li></li></ol><div><img/><span>Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud</span></div><li>Continue the prompts to complete the project setup.
+dbt Core includes an <code>init</code>command that helps scaffold a dbt project.</p><p>To create your dbt project:</p><li>Make sure you have dbt Core installed and check the version using the <code>dbt --version</code>command:</li><span><span>dbt </span><span>--version</span></span><li>Initiate the <code>jaffle_shop</code>project using the <code>init</code>command:</li><span>dbt init jaffle_shop</span><li>Navigate into your project's directory:</li><span><span>cd</span><span>jaffle_shop</span></span><li>Use <code>pwd</code>to confirm that you are in the right spot:</li><code><span><span>$ </span><span>pwd</span></span><span><span>&gt;</span><span>Users/BBaggins/dbt-tutorial/jaffle_shop</span></span></code><li>Use a code editor like Atom or VSCode to open the project directory you created in the previous steps, which we named jaffle_shop.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/mesh-qsd41b.html
+docs.getdbt.com/guides/manual-install121c.html
 
 Documentation Title:
-Quickstart with dbt Mesh | dbt Developer Hub
+Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-</li></ul><p>For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.</p><div><img/><span>Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance' </span></div><p>To <a>create</a>a new project in dbt Cloud:</p><ol><li>From <strong>Account settings</strong>, click <strong>+ New Project</strong>.</li><li>Enter a project name and click <strong>Continue</strong>.<ul><li>Use "Jaffle | Data Analytics" for one project</li><li>Use "Jaffle | Finance" for the other project</li></ul></li><li>Select your data platform, then <strong>Next</strong>to set up your connection.</li><li>In the <strong>Configure your environment</strong>section, enter the <strong>Settings</strong>for your new project.</li><li>Click <strong>Test Connection</strong>. This verifies that dbt Cloud can access your data platform account.</li><li>Click <strong>Next</strong>if the test succeeded. If it fails, you might need to go back and double-check your settings.<li>For this guide, make sure you create a single <a>development</a>and <a>Deployment</a>per project.<ul><li>For "Jaffle | Data Analytics", set the default database to <code>jaffle_da</code>.</li><li>For "Jaffle | Finance", set the default database to <code>jaffle_finance</code></li></ul></li></li></ol><div><img/><span>Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud</span></div><li>Continue the prompts to complete the project setup.
+dbt Core includes an <code>init</code>command that helps scaffold a dbt project.</p><p>To create your dbt project:</p><li>Make sure you have dbt Core installed and check the version using the <code>dbt --version</code>command:</li><span><span>dbt </span><span>--version</span></span><li>Initiate the <code>jaffle_shop</code>project using the <code>init</code>command:</li><span>dbt init jaffle_shop</span><li>Navigate into your project's directory:</li><span><span>cd</span><span>jaffle_shop</span></span><li>Use <code>pwd</code>to confirm that you are in the right spot:</li><code><span><span>$ </span><span>pwd</span></span><span><span>&gt;</span><span>Users/BBaggins/dbt-tutorial/jaffle_shop</span></span></code><li>Use a code editor like Atom or VSCode to open the project directory you created in the previous steps, which we named jaffle_shop.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/mesh-qs.html
+docs.getdbt.com/guides/manual-install5f72.html
 
 Documentation Title:
-Quickstart with dbt Mesh | dbt Developer Hub
+Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-</li></ul><p>For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.</p><div><img/><span>Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance' </span></div><p>To <a>create</a>a new project in dbt Cloud:</p><ol><li>From <strong>Account settings</strong>, click <strong>+ New Project</strong>.</li><li>Enter a project name and click <strong>Continue</strong>.<ul><li>Use "Jaffle | Data Analytics" for one project</li><li>Use "Jaffle | Finance" for the other project</li></ul></li><li>Select your data platform, then <strong>Next</strong>to set up your connection.</li><li>In the <strong>Configure your environment</strong>section, enter the <strong>Settings</strong>for your new project.</li><li>Click <strong>Test Connection</strong>. This verifies that dbt Cloud can access your data platform account.</li><li>Click <strong>Next</strong>if the test succeeded. If it fails, you might need to go back and double-check your settings.<li>For this guide, make sure you create a single <a>development</a>and <a>Deployment</a>per project.<ul><li>For "Jaffle | Data Analytics", set the default database to <code>jaffle_da</code>.</li><li>For "Jaffle | Finance", set the default database to <code>jaffle_finance</code></li></ul></li></li></ol><div><img/><span>Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud</span></div><li>Continue the prompts to complete the project setup.
+dbt Core includes an <code>init</code>command that helps scaffold a dbt project.</p><p>To create your dbt project:</p><li>Make sure you have dbt Core installed and check the version using the <code>dbt --version</code>command:</li><span><span>dbt </span><span>--version</span></span><li>Initiate the <code>jaffle_shop</code>project using the <code>init</code>command:</li><span>dbt init jaffle_shop</span><li>Navigate into your project's directory:</li><span><span>cd</span><span>jaffle_shop</span></span><li>Use <code>pwd</code>to confirm that you are in the right spot:</li><code><span><span>$ </span><span>pwd</span></span><span><span>&gt;</span><span>Users/BBaggins/dbt-tutorial/jaffle_shop</span></span></code><li>Use a code editor like Atom or VSCode to open the project directory you created in the previous steps, which we named jaffle_shop.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/mesh-qs0c17.html
+docs.getdbt.com/guides/manual-install8722.html
 
 Documentation Title:
-Quickstart with dbt Mesh | dbt Developer Hub
+Quickstart for dbt Core from a manual install | dbt Developer Hub
 
 Documentation Content:
-</li></ul><p>For example, the always-enterprising and fictional account "Jaffle Labs" will create two projects for their data analytics and finance team: Jaffle | Data Analytics and Jaffle | Finance.</p><div><img/><span>Create two new dbt Cloud projects named 'Jaffle | Data Analytics' and 'Jaffle Finance' </span></div><p>To <a>create</a>a new project in dbt Cloud:</p><ol><li>From <strong>Account settings</strong>, click <strong>+ New Project</strong>.</li><li>Enter a project name and click <strong>Continue</strong>.<ul><li>Use "Jaffle | Data Analytics" for one project</li><li>Use "Jaffle | Finance" for the other project</li></ul></li><li>Select your data platform, then <strong>Next</strong>to set up your connection.</li><li>In the <strong>Configure your environment</strong>section, enter the <strong>Settings</strong>for your new project.</li><li>Click <strong>Test Connection</strong>. This verifies that dbt Cloud can access your data platform account.</li><li>Click <strong>Next</strong>if the test succeeded. If it fails, you might need to go back and double-check your settings.<li>For this guide, make sure you create a single <a>development</a>and <a>Deployment</a>per project.<ul><li>For "Jaffle | Data Analytics", set the default database to <code>jaffle_da</code>.</li><li>For "Jaffle | Finance", set the default database to <code>jaffle_finance</code></li></ul></li></li></ol><div><img/><span>Navigate to 'Account settings' and then click + 'New Project' to create new projects in dbt Cloud</span></div><li>Continue the prompts to complete the project setup.
+dbt Core includes an <code>init</code>command that helps scaffold a dbt project.</p><p>To create your dbt project:</p><li>Make sure you have dbt Core installed and check the version using the <code>dbt --version</code>command:</li><span><span>dbt </span><span>--version</span></span><li>Initiate the <code>jaffle_shop</code>project using the <code>init</code>command:</li><span>dbt init jaffle_shop</span><li>Navigate into your project's directory:</li><span><span>cd</span><span>jaffle_shop</span></span><li>Use <code>pwd</code>to confirm that you are in the right spot:</li><code><span><span>$ </span><span>pwd</span></span><span><span>&gt;</span><span>Users/BBaggins/dbt-tutorial/jaffle_shop</span></span></code><li>Use a code editor like Atom or VSCode to open the project directory you created in the previous steps, which we named jaffle_shop.
 
 
 

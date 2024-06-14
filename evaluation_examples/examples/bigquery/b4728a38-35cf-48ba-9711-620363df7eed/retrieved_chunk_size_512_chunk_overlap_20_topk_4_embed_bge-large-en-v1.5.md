@@ -43,55 +43,30 @@ To change the default value for a column, select one of the following options:
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax.md
+cloud.google.com/bigquery/docs/default-values.md
 
 Documentation Title:
-Data manipulation language (DML) statements in GoogleSQL  |  BigQuery  |  Google Cloud
+Specify default column values  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-`INSERT`using explicit values
+Console
 
-`INSERT dataset.Inventory (product, quantity)
-VALUES('top load washer', 10),
- ('front load washer', 20),
- ('dryer', 30),
- ('refrigerator', 10),
- ('microwave', 20),
- ('dishwasher', 30),
- ('oven', 5)`
-```
-+-------------------+----------+--------------------+
-|      product      | quantity | supply_constrained |
-+-------------------+----------+--------------------+
-| dishwasher        |       30 |               NULL |
-| dryer             |       30 |               NULL |
-| front load washer |       20 |               NULL |
-| microwave         |       20 |               NULL |
-| oven              |        5 |               NULL |
-| refrigerator      |       10 |               NULL |
-| top load washer   |       10 |               NULL |
-+-------------------+----------+--------------------+
+1. In the Google Cloud console, go to the **BigQuery**page.
 
-```
-If you set a default value for a column, then you can use the `DEFAULT`keyword
-in place of a value to insert the default value:
+Go to BigQuery
+In the **Explorer**panel, expand your project and dataset, then select
+the table.
 
-`ALTER TABLE dataset.NewArrivals ALTER COLUMN quantity SET DEFAULT 100;
+In the details panel, click the **Schema**tab.
 
-INSERT dataset.NewArrivals (product, quantity, warehouse)
-VALUES('top load washer', DEFAULT, 'warehouse #1'),
- ('dryer', 200, 'warehouse #2'),
- ('oven', 300, 'warehouse #3');`
-```
-+-----------------+----------+--------------+
-|     product     | quantity |  warehouse   |
-+-----------------+----------+--------------+
-| dryer           |      200 | warehouse #2 |
-| oven            |      300 | warehouse #3 |
-| top load washer |      100 | warehouse #1 |
-+-----------------+----------+--------------+
+Click **Edit schema**. You might need to scroll to see this button.
 
-```
+In the **Current schema**page, locate the top-level field that you want
+to change.
+
+Enter the default value for that field.
+
+Click **Save**.
 
 
 
@@ -130,69 +105,76 @@ Documentation Title:
 Specify default column values  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-```
-+-------+-------+------+
-| a     | b     | c    |
-+-------+-------+------+
-| val_a | val_b | NULL |
-| val_a | NULL  | NULL |
-+-------+-------+------+
+languages, frameworks, and tools
+ Costs and usage management
+ Infrastructure as code
+ Migration
+ Google Cloud Home
+ Free Trial and Free Tier
+ Architecture Center
+ Blog
+ Contact Sales
+ Google Cloud Developer Center
+ Google Developer Center
+ Google Cloud Marketplace (in console)
+ Google Cloud Marketplace Documentation
+ Google Cloud Skills Boost
+ Google Cloud Solution Center
+ Google Cloud Support
+ Google Cloud Tech Youtube Channel
+ HomeBigQueryDocumentationGuides
+Send feedback
+ 
+ Stay organized with collections
+ Save and categorize content based on your preferences.
+ Specify default column values
+=============================
+
+This page describes how to set a default value for a column in a
+BigQuery table. When you add a row to a table that doesn't contain
+data for a column with a default value, the default value is written to the
+column instead.
+
+Default value expression
+------------------------
+
+The default value expression for a column must be a
+literalor one of the
+following functions:
+
+`CURRENT_DATE``CURRENT_DATETIME``CURRENT_TIME``CURRENT_TIMESTAMP``GENERATE_UUID``RAND``SESSION_USER``ST_GEOGPOINT`
+You can compose a STRUCT or ARRAY default value with these functions, such as
+`[CURRENT_DATE(), DATE '2020-01-01']`.
+
+Functions are evaluated when the data is written to the table.
+The type of the default value must match or
+coerceto the type of the column it applies to. If no default value is set, the default
+value is `NULL`.
+
+Set default values
+------------------
+
+You can set the default value for columns when you create a new table. You use the
+`CREATE TABLE`DDL statementand add the `DEFAULT`keyword and default value expression after the column name
+and type. The following example creates a table called `simple_table`with two
+`STRING`columns, `a`and `b`. Column `b`has the default value `'hello'`.
+
 
 ```
-You can specify connection-level default values settings in
-`default_missing_value_interpretation`within the `AppendRowsRequest`message. If the value is set to
-`DEFAULT_VALUE`, the missing value will pick up the default value even when the column is
-presented in the user schema.
+CREATE TABLE mydataset.simple_table (
+  a STRING,
+  b STRING DEFAULT 'hello');
 
-You can also specify request-level default values in the
-`missing_value_interpretations`map within the
-`AppendRowsRequest`message.
-Each key is the name of a column and its
-valueindicates how to interpret missing values.
-
-For example, the map `{'col1': NULL_VALUE, 'col2': DEFAULT_VALUE}`means that all missing values in `col1`are interpreted as `NULL`, and
-all missing values in `col2`are interpreted as the default value set for `col2`in the table schema.
-
-If a field is not in this map and has missing values, then the missing values
-are interpreted as `NULL`.
-
-Keys can only be top-level column names. Keys can't be struct subfields, such as
-`col1.subfield1`.
-
-Use the `insertAll`API method
------------------------------
-
-The `tabledata.insertAll`API methodpopulates default values at the row level when data is written to a table.
-If a row is missing columns with default values, then the default values are
-applied to those columns.
-
-For example, suppose you have the following
-table schema:
+```
+When you insert data into `simple_table`that omits column `b`, the default
+value `'hello'`is used instead—for example:
 
 
 ```
-[
-  {
-    "name": "a",
-    "mode": "NULLABLE",
-    "type": "STRING",
-  },
-  {
-    "name": "b",
-    "mode": "NULLABLE",
-    "type": "STRING",
-    "defaultValueExpression": "'default_b'"
-  },
-  {
-    "name": "c",
-    "mode": "NULLABLE",
-    "type": "STRING",
-    "defaultValueExpression": "'default_c'"
-  }
-]
+INSERT mydataset.simple_table (a) VALUES ('val1'), ('val2');
 
 ```
-Suppose you stream the following values to the table:
+The table `simple_table`contains the following values:
 
 
 

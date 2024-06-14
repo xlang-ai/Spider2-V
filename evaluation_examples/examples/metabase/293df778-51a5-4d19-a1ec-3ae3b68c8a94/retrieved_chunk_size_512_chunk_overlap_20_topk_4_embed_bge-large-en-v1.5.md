@@ -53,6 +53,41 @@ Documentation Title:
 Visualizing data with maps
 
 Documentation Content:
+Matches are case-sensitive; if the country or state codes listed in your database are lowercase or contain extra spaces, Metabase won’t recognize them.
+
+Pin map
+-------
+
+A pin map represents data geographically using discrete markers, and requires coordinates — latitude and longitude — to generate. Let’s start an example by visualizing the `People`table found within the `Sample Database`. Once you’re viewing the table, you’ll notice that this table contains four pieces of geographic information: city, state, latitude, and longitude.
+
+Select **Visualization**, and scroll to the **Map**icon. With your latitude and longitude fields set correctly, Metabase will produce a pin map by default, placing markers on the map at those coordinates. The pins are locating customers, but you can also use a pin map to locate businesses partners, company branch locations, or shipping addresses, as long as those records contains coordinates.
+
+!Hovering over a pin provides additional information.
+
+Other cool things you can do with pin maps:
+
+* Double click to zoom in on an area.
+* Click and drag the map to move to a different area.
+* Click on a pin to drill-throughto additional information.
+
+!If your pin is linked to other tables, or there’s too much information to fit in the tooltip, clicking on the point will take you to a details page that displays a list of fields, as well as a list of connected tables. Clicking a relationship to another table directs you to a list of the instances where the current pin and the other table intersect. In this case, Metabase displays orders placed by that person.
+
+Region map
+----------
+
+Region maps display data across a geographic area by coloring parts of that area according to a value. Grouping people by region can be a great way to detect patterns in your customer base. Let’s generate a region map using the same `People`table within the `Sample Database`. Summarize the data by selecting the green **Summarize**button at the top righthand corner of your screen. If you count the number of records by `State`, Metabase will produce a region map, displaying a map of the United States, with the varying shades representing how many records are present for each state.
+
+Here’s a drill-throughon Texas to see how user creation has been tracking.
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/maps.md
+
+Documentation Title:
+Visualizing data with maps
+
+Documentation Content:
 How to use pin maps, region maps, and grid maps to visualize data in Metabase.
 
 Map typesMake your data compatible with mappingPin mapRegion mapGrid map* Additional features (pin map and grid map)
@@ -85,41 +120,6 @@ Field typesCountry codes
 To edit metadata, go to your Data Model admin settings. Confirm that all your field types are set as a `Location`data type. For example, the `State`and `Longitude`fields both have their corresponding field type listed, but `Latitude`has no field type. To add the field type, click the dropdown menu in the `Type`column and select `Latitude`.
 
 !To create a world map or US region map, make sure that your country or state codes match the standardized two-letter format specified by the International Organization for Standardization (ISO).
-
-
-
-Documentation Source:
-www.metabase.com/learn/visualization/maps.md
-
-Documentation Title:
-Visualizing data with maps
-
-Documentation Content:
-Matches are case-sensitive; if the country or state codes listed in your database are lowercase or contain extra spaces, Metabase won’t recognize them.
-
-Pin map
--------
-
-A pin map represents data geographically using discrete markers, and requires coordinates — latitude and longitude — to generate. Let’s start an example by visualizing the `People`table found within the `Sample Database`. Once you’re viewing the table, you’ll notice that this table contains four pieces of geographic information: city, state, latitude, and longitude.
-
-Select **Visualization**, and scroll to the **Map**icon. With your latitude and longitude fields set correctly, Metabase will produce a pin map by default, placing markers on the map at those coordinates. The pins are locating customers, but you can also use a pin map to locate businesses partners, company branch locations, or shipping addresses, as long as those records contains coordinates.
-
-!Hovering over a pin provides additional information.
-
-Other cool things you can do with pin maps:
-
-* Double click to zoom in on an area.
-* Click and drag the map to move to a different area.
-* Click on a pin to drill-throughto additional information.
-
-!If your pin is linked to other tables, or there’s too much information to fit in the tooltip, clicking on the point will take you to a details page that displays a list of fields, as well as a list of connected tables. Clicking a relationship to another table directs you to a list of the instances where the current pin and the other table intersect. In this case, Metabase displays orders placed by that person.
-
-Region map
-----------
-
-Region maps display data across a geographic area by coloring parts of that area according to a value. Grouping people by region can be a great way to detect patterns in your customer base. Let’s generate a region map using the same `People`table within the `Sample Database`. Summarize the data by selecting the green **Summarize**button at the top righthand corner of your screen. If you count the number of records by `State`, Metabase will produce a region map, displaying a map of the United States, with the varying shades representing how many records are present for each state.
-
-Here’s a drill-throughon Texas to see how user creation has been tracking.
 
 
 

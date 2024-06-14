@@ -46,147 +46,6 @@ SyntaxParametersExamplesLanguage: **English**EnglishFrançaisDeutsch日本語한
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-worksheet.md
-
-Documentation Title:
-Using Worksheets for Queries / DML / DDL | Snowflake Documentation
-
-Documentation Content:
-Worksheets are designed to meet all your business and workflow needs, including:
-
-Running ad hoc queries and performing other SQL operations.
-
-Opening multiple, concurrent worksheets, each with its own separate session, allowing you to run queries in different worksheets with different contexts without any degradation in UI performance.
-
-Saving a worksheet for later use.
-
-* Opening a worksheet from your library of saved worksheets.
-
-Note
-
-
-	Saved worksheets are not accessible outside of the Classic Console.
-	
-	Saved worksheets cannot currently be shared with other users.
-Loading SQL script files from your workstation or network into a worksheet. After you’ve loaded a script file, you can optionally edit and save it to your library of saved worksheets.
-
-* Logging out without losing your work. Snowflake retains the static contents of each worksheet, so you can log in again later and resume working where you left off. Snowflake displays the worksheets
-that were open when you logged out.
-
-Note that resized/collapsed panes, width changes to the result/data preview columns, and even the cursor position in the SQL editor, are persisted:
-
-
-	When switching between open worksheets.
-	
-	When closing and reopening the same worksheet.
-	
-	Between user sessions.
-* Specifying a different role for each worksheet and switching roles without losing your work. You can execute specific statements in a worksheet, then switch roles before continuing your work
-in the same worksheet.
-
-Note
-
-Your current interface role determines the default role for worksheets that you open, but the worksheets are not tied to the interface role. Each worksheet has its own role that can be set
-independently.
-Logging into Snowflake in another browser or tab. Any worksheet changes you made in one Snowflake instance persist to the other instance after a minute or two. You can continue working in the
-other browser (or tab) without re-entering your work.
-
-Refreshing your browser, if necessary. If you’re in the middle of running queries, they will resume running when the refresh is completed. Note that if you log out of Snowflake, any active
-queries stop running.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/transactions.md
-
-Documentation Title:
-Transactions | Snowflake Documentation
-
-Documentation Content:
-```
-create procedure log_message(MESSAGE VARCHAR)
-returns varchar
-language javascript
-AS
-$$
-    // This is an independent transaction. Anything inserted as part of this
-    // transaction is committed or rolled back based on this transaction.
-    snowflake.execute (
-        {sqlText: "begin transaction"}
-        );
-    snowflake.execute (
-        {sqlText: "insert into log_table values ('" + MESSAGE + "')"}
-        );
-    snowflake.execute (
-        {sqlText: "commit"}
-        );
-
-    // Dummy value.
-    return "";
-$$;
-
-create procedure update_data()
-returns varchar
-language javascript
-AS
-$$
-    snowflake.execute (
-        {sqlText: "begin transaction"}
-        );
-    snowflake.execute (
-        {sqlText: "insert into data_table (id) values (17)"}
-        );
-    snowflake.execute (
-        {sqlText: "call log_message('You should see this saved.')"}
-        );
-    snowflake.execute (
-        {sqlText: "rollback"}
-        );
-
-    // Dummy value.
-    return "";
-$$;
-
-```
-CopyCall the stored procedure:
-
-
-```
-begintransaction;callupdate_data();rollback;
-```
-CopyThe data table is empty because the transaction was rolled back:
-
-
-```
-select*fromdata_table;+----+| ID ||----|+----+
-```
-CopyHowever, the logging table is not empty; the insert into the logging table was done in a separate transaction from
-the insert into data\_table.
-
-
-```
-select*fromlog_table;+----------------------------+| MESSAGE                    ||----------------------------|| You should see this saved. |+----------------------------+
-```
-Copy### Examples of Scoped Transactions and Stored Procedures¶
-
-The next few examples use the tables and stored procedures shown below. By passing appropriate parameters, the caller
-can control where `BEGINTRANSACTION`, COMMIT, and ROLLBACKstatements are executed inside the stored procedures.
-
-Create the tables:
-
-
-```
-create table tracker_1 (id integer, name varchar);
-create table tracker_2 (id integer, name varchar);
-create table tracker_3 (id integer, name varchar);
-
-```
-CopyThis procedure is the enclosing stored procedure, and depending upon the parameters passed to it, can create an
-enclosing transaction.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.md
 
 Documentation Title:
@@ -244,6 +103,139 @@ YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedba
 Viewing worksheets in SnowsightImport worksheets from the Classic ConsoleCreate worksheets in SnowsightOpening worksheets in tabsRelated content
 
 Getting started with SnowsightManaging and using worksheets in SnowsightQuerying data using worksheetsVisualizing worksheet dataLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/transactions.md
+
+Documentation Title:
+Transactions | Snowflake Documentation
+
+Documentation Content:
+```
+create procedure sp2_inner(
+    USE_BEGIN varchar,
+    USE_COMMIT_OR_ROLLBACK varchar)
+returns varchar
+language javascript
+AS
+$$
+    snowflake.execute (
+        {sqlText: "insert into tracker_2 values (21, 'p2_alpha')"}
+        );
+
+    if (USE_BEGIN != '')  {
+        snowflake.execute (
+            {sqlText: USE_BEGIN}
+            );
+        }
+    snowflake.execute (
+        {sqlText: "insert into tracker_3 values (22, 'p2_bravo')"}
+        );
+    if (USE_COMMIT_OR_ROLLBACK != '')  {
+        snowflake.execute (
+            {sqlText: USE_COMMIT_OR_ROLLBACK}
+            );
+        }
+
+    snowflake.execute (
+        {sqlText: "insert into tracker_2 values (23, 'p2_charlie')"}
+        );
+
+    // Dummy value.
+    return "";
+$$;
+
+```
+Copy#### Commit the Middle Level of Three Levels¶
+
+This example contains 3 transactions. This example commits the “middle” level (the transaction enclosed by the
+outer-most transaction and enclosing the inner-most transaction). This rolls back the outer-most and
+inner-most transactions.
+
+
+```
+begin transaction;
+insert into tracker_1 values (00, 'outer_alpha');
+call sp1_outer('begin transaction', 'begin transaction', 'rollback', 'commit');
+insert into tracker_1 values (09, 'outer_charlie');
+rollback;
+
+```
+CopyThe result is that only the rows in the middle transaction (12, 21, and 23) are committed. The rows in the outer
+transaction and the inner transaction are not committed.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/sql-reference/transactions.md
+
+Documentation Title:
+Transactions | Snowflake Documentation
+
+Documentation Content:
+```
+-- Should return only 12, 21, 23.
+select id, name from tracker_1
+union all
+select id, name from tracker_2
+union all
+select id, name from tracker_3
+order by id;
++----+------------+
+| ID | NAME       |
+|----+------------|
+| 12 | p1_bravo   |
+| 21 | p2_alpha   |
+| 23 | p2_charlie |
++----+------------+
+
+```
+Copy#### Roll Back the Middle Level of Three Levels¶
+
+This example contains 3 transactions. This example rolls back the “middle” level (the transaction enclosed by the
+outer-most transaction and enclosing the inner-most transaction). This commits the outer-most and inner-most
+transactions.
+
+
+```
+begin transaction;
+insert into tracker_1 values (00, 'outer_alpha');
+call sp1_outer('begin transaction', 'begin transaction', 'commit', 'rollback');
+insert into tracker_1 values (09, 'outer_charlie');
+commit;
+
+```
+CopyThe result is that all rows except the rows in the middle transaction (12, 21, and 23) are committed.
+
+
+```
+select id, name from tracker_1
+union all
+select id, name from tracker_2
+union all
+select id, name from tracker_3
+order by id;
++----+---------------+
+| ID | NAME          |
+|----+---------------|
+|  0 | outer_alpha   |
+|  9 | outer_charlie |
+| 11 | p1_alpha      |
+| 13 | p1_charlie    |
+| 22 | p2_bravo      |
++----+---------------+
+
+```
+Copy### Using Error Handling with Transactions in Stored Procedures¶
+
+The following code shows simple error handling for a transaction in a stored procedure. If the parameter value ‘fail’
+is passed, the stored procedure tries to delete from two tables that exist and one table that doesn’t exist, and the
+stored procedure catches the error and returns an error message. If the parameter value ‘fail’ is not passed, the
+procedure tries to delete from two tables that do exist, and succeeds.
+
+Create the tables and stored procedure:
 
 
 

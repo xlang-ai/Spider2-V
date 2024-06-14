@@ -82,6 +82,57 @@ Google AppsAmazon SESMandrill
 
 
 Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/managing.md
+
+Documentation Title:
+Managing people and groups
+
+Documentation Content:
+when!Analytics dashboards
+ Share insights with anyone, anywhere!SQL editor
+ For advanced data users!Sandboxing
+ Set boundaries around your data!Models
+ A starting point for questions!Permissions
+ Keep your data secure and private!CSV upload
+ Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
+ New!Community Data Stack Report
+ NewPricingLog inv0.49People and Groups
+Managing people and groups
+==========================
+
+To start managing people, click on the **gear**icon > **Admin settings**> **People**. You’ll see a list of all the people in your organization.
+
+!Creating an account
+-------------------
+
+To add a new person, click **Invite someone**in the upper right corner. You’ll be prompted to enter their email, and optionally their first and last names–only the email is required.
+
+Click **Create**to activate an account. An account becomes active once you click **Create**, even if the person never signs into the account. The account remains active until you deactivate the account. If you’re on a paid Metabase plan, all active accounts will count toward your user account total. If one person has more than one account, each account will count toward the total (see how billing works).
+
+If you’ve already configured Metabase to use email, Metabase will send the person an email inviting them to log into Metabase. If you haven’t yet setup email for your Metabase, Metabase will give you a temporary password that you’ll have to manually send to the person.
+
+Editing an account
+------------------
+
+You can edit someone’s name and email address by clicking the three dots icon and choosing **Edit user**.
+
+Be careful: changing an account’s email address *will change the address the person will use to log in to Metabase*.
+
+Adding a user attribute
+-----------------------
+
+User attributes is only available on Proand Enterpriseplans (both self-hosted and on Metabase Cloud).
+
+To add a user attribute manually:
+
+1. Go to **Admin settings**> **People**.
+2. Find the person’s account and click the **three dot**(…) menu.
+3. Click **Edit user**.
+4.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/api/email.md
 
 Documentation Title:
@@ -108,24 +159,6 @@ Email
  Returns `{:ok true}`if we were able to send the message successfully, otherwise a standard 400 error response.
 
 `PUT /api/email/`Update multiple email Settings. You must be a superuser or have `setting`permission to do this.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/configuring-metabase/email.md
-
-Documentation Title:
-Email
-
-Documentation Content:
-Google Apps
-
-1. In the **SMTP host**field, enter smtp.gmail.com
-2. Fill in 465 for the **SMTP port**field
-3. For the **SMTP Security**field, enter **SSL**
-4. In the **SMTP username**field, enter your Google Apps email address (e.g. hello@yourdomain.com)
-5. Enter your Google Apps password in the **SMTP password**field
-6. Enter the email address you would like to be used as the sender of system notifications in the \**From Address*field.
 
 
 

@@ -82,54 +82,51 @@ Overview#
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/deployment/guides/docker.md
+release-1-7-2.dagster.dagster-docs.io/deployment/dagster-daemon.md
 
 Documentation Title:
-Deploying Dagster to Docker | Dagster
+Dagster daemon | Dagster
 
 Documentation Content:
-For example, if you are using the Dagster daemonto run schedules and sensors or manage a queue of runs, you'll likely want a separate container running the `dagster-daemon`service.
+Running locally
 
-This service must have access to your `dagster.yaml`and `workspace.yaml`files, just like the webserver container. You can also configure your code location server (gRPC server) so that your code can be updated and deployed separately in its own container, without needing to redeploy the other Dagster services. To enable this setup, include a container exposing a gRPC server at a port and add that port in your `workspace.yaml`file.
+Running the daemon and webserverRunning only the daemonThe easiest way to run the Dagster daemon locally is to run the `dagster dev`command:
 
-For example, your user code container might have the following Dockerfile:
-
-`FROMpython:3.10-slim# Checkout and install dagster libraries needed to run the gRPC server by exposing# your code location to dagster-webserver and dagster-daemon, and loading the# DagsterInstance.RUNpip install \dagster \dagster-postgres \dagster-docker# Set $DAGSTER_HOME and copy dagster instance thereENVDAGSTER_HOME=/opt/dagster/dagster_homeRUNmkdir -p $DAGSTER_HOMECOPYdagster.yaml $DAGSTER_HOME# Add repository codeWORKDIR/opt/dagster/appCOPYrepo.py /opt/dagster/app# Run dagster gRPC server on port 4000EXPOSE4000# Using CMD rather than ENTRYPOINT allows the command to be overridden in# run launchers or executors to run other commands using this imageCMD["dagster", "api", "grpc", "-h", "0.0.0.0", "-p", "4000", "-f", "repo.py"]`And your code location server might look like:
-
-`load_from:# Each entry here corresponds to a container that exposes a gRPC server.-grpc_server:host:docker_example_user_code
- port:4000location_name:"example_user_code"`When you update your code, you can rebuild and restart your user code container without needing to redeploy other parts of the system. The Dagster UI will automatically notice that a new server has been redeployed and prompt you to refresh.
+`dagster dev`This command launches both the Dagster webserver/UIand the Dagster daemon, allowing you to start a full local deployment of Dagster from the command line. Refer to the Running Dagster locally guidefor more information about `dagster dev`.
 
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/deployment/guides/docker.md
+release-1-7-2.dagster.dagster-docs.io/deployment/guides/service.md
 
 Documentation Title:
-Deploying Dagster to Docker | Dagster
+Running Dagster as a Service | Dagster"
 
 Documentation Content:
-A minimal skeleton `Dockerfile`that will run the webserver is shown below:
+Ask AI!PlatformDagster+NewPricingBlogCommunityDocsSign inJoin us on Slack!Star usTry Dagster+PlatformDagster+PricingBlogCommunityDocsContact SalesSign inTry Dagster+Search the docsPress Ctrl and `K`to searchGetting startedWhat's Dagster?QuickstartInstallationCreating a new projectGetting helpTutorialConceptsDeploymentIntegrationsGuidesAPI ReferenceAbout1.7.2/ 0.23.2 (libs)### You are viewing an unreleased or outdated version of the documentation
 
-`FROMpython:3.10-slimRUNmkdir -p /opt/dagster/dagster_home /opt/dagster/appRUNpip install dagster-webserver dagster-postgres dagster-aws# Copy your code and workspace to /opt/dagster/appCOPYrepo.py workspace.yaml /opt/dagster/app/ENVDAGSTER_HOME=/opt/dagster/dagster_home/# Copy dagster instance YAML to $DAGSTER_HOMECOPYdagster.yaml /opt/dagster/dagster_home/WORKDIR/opt/dagster/appEXPOSE3000ENTRYPOINT["dagster-webserver", "-h", "0.0.0.0", "-p", "3000"]`You'll also need to include a workspace file (`workspace.yaml`)file in the same directory as the Dockerfile to configure your code location server:
+View Latest Documentation →Running Dagster as a Service#
+=============================
 
-`load_from:# References the file copied into your Dockerfile-python_file:repo.py`As well as a `dagster.yaml`file to configure your Dagster instance:
+Running the Dagster webserver#
+------------------------------
 
-`storage:postgres:postgres_db:username:env:DAGSTER_PG_USERNAME
- password:env:DAGSTER_PG_PASSWORD
- hostname:env:DAGSTER_PG_HOST
- db_name:env:DAGSTER_PG_DB
- port:5432compute_logs:module:dagster_aws.s3.compute_log_manager
- class:S3ComputeLogManager
- config:bucket:"mycorp-dagster-compute-logs"prefix:"dagster-test-"local_artifact_storage:module:dagster.core.storage.root
- class:LocalArtifactStorage
- config:base_dir:"/opt/dagster/local/"`In cases where you're using environment variables to configure the instance, you should ensure these environment variables are exposed in the container running `dagster-webserver`.
+The core of any deployment of Dagster is the Dagster webserver, a process that serves the Dagster UI and responds to GraphQL queries.
 
-The webserver exposes a health check endpoint at `/server_info`, which returns a JSON response like:
+To run the webserver locally, first ensure that you are running a recent Python version. Typically, you'll want to run the webserver inside a virtualenv. Then, you can install the webserver and any additional libraries you might need.
 
-`{"dagster_webserver_version":"0.12.0","dagster_graphql_version":"0.12.0","dagster_version":"0.12.0"}`Multi-container Docker deployment#
-----------------------------------
+`pip installdagster-webserver`To run the webserver, use a command like the following:
 
-More advanced Dagster deployments will require deploying more than one container.
+`DAGSTER_HOME=/opt/dagster/dagster_home dagster-webserver -h 0.0.0.0 -p 3000`In this configuration, the webserver will write execution logs to `$DAGSTER_HOME/logs`and listen on *0.0.0.0:3000*.
+
+Running the Dagster daemon#
+---------------------------
+
+If you're using schedules, sensors, or backfills, or want to set limits on the number of runs that can be executed at once, you'll want to also run a dagster-daemon serviceas part of your deployment. To run this service locally, run the following command:
+
+`pip installdagster
+
+DAGSTER_HOME=/opt/dagster/dagster_home dagster-daemon run`The `dagster-daemon`process will periodically check your instance for any new runs that should be launched from your run queue or triggered by your running schedules or sensors.
 
 
 

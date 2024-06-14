@@ -70,80 +70,112 @@ Cookie Preferences
 
 
 Documentation Source:
-docs.astronomer.io/astro/cli/troubleshoot-locally.txt
+docs.astronomer.io/astro/cli/get-started-cli.txt
 
 Documentation Title:
-Troubleshoot a local Airflow environment | Astronomer Documentation
+Get started with Airflow using the Astro CLI | Astronomer Documentation
 
 Documentation Content:
-If the webserver and scheduler containers exist but are unhealthy, check their logs by running:
-$ astro dev logs
---webserver
-$ astro dev logs
---scheduler
-(Optional) Run the following command to prune all unused Docker objects including volumes and free disk space:
-docker
-system prune
---volumes
-See
-docker system prune
-for more information about pruning.
-These logs should help you understand why your webserver or scheduler is unhealthy. Possible reasons why these containers might be unhealthy include:
-Not enough Docker resources.
-A failed Airflow or Astro Runtime version upgrade.
-Misconfigured Dockerfile or Docker override file.
-Misconfigured Airflow settings including
-packages.txt
-or
-requirements.txt
+To start running your project in a local Airflow environment, run the following command from your project directory:
+astro dev start
+This command builds your project and spins up 4 Docker containers on your machine, each for a different Airflow component:
+Postgres:
+Airflow's metadata database
+Webserver:
+The Airflow component responsible for rendering the Airflow UI
+Scheduler:
+The Airflow component responsible for monitoring and triggering tasks
+Triggerer:
+The Airflow component responsible for running Triggers and signaling tasks to resume when their conditions have been met. The triggerer is used exclusively for tasks that are run with
+deferrable operators
+After your project builds successfully, open the Airflow UI in your web browser at
+https://localhost:8080/
 .
-Ports are not available for my local Airflow webserver
-​
-By default, the Astro CLI uses port
+Find your DAGs in the
+dags
+directory in the Airflow UI.
+In this directory, you can find several example DAGs including
+example-dag-basic
+DAG, which was generated with your Astro project. To provide a basic demonstration of an ETL pipeline, this DAG creates an example JSON string, calculates a value based on the string, and prints the results of the calculation to the Airflow logs.
+info
+The Astro CLI uses port
 8080
 for the Airflow webserver and port
 5432
-for the Airflow metadata database in a local Airflow environment. If these ports are already in use on your local computer, an error message similar to the following appears:
-Error: error building, (re)creating or starting project containers: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:5432 → 0.0.0.0:0: listen tcp 0.0.0.0:5432: bind: address already in use
-To resolve a port availability error, you have the following options:
-Stop all running Docker containers and restart your local environment using
-astro dev restart
+for the Airflow metadata database by default. If these ports are already in use on your local computer, an error message might appear. To resolve this error message, see
+Run Airflow locally
 .
-Change the default ports for these components. For example, you can use
-astro config set webserver.port 8081
-for the webserver and
-astro config set postgres.port 5433
-for Postgres. See
-Configure CLI
-for all available configurations.
-Stop all running Docker containers
+Step 3: Develop locally with the CLI
 ​
-Run
-docker ps
-to identify the Docker containers running on your computer.
-Copy the values in the
-CONTAINER ID
-column.
-Select one of the following options:
-Run
-docker stop <container_id>
-to stop a specific Docker container. Replace
-<container_id>
-with one of the values you copied in step 2.
-Run
-docker stop $(docker ps -q)
-to stop all running Docker containers.
+Now that you have a locally running project, you can start to develop your Astro project by adding DAGs, dependencies, environment variables, and more. See
+Develop your project
+for more details on how to modify all aspects of your Astro project.
+Most changes you make, including updates to your DAG code, are applied automatically to your running environment and don't require rebuilding your project. However, you must rebuild your project and restart your environment to apply changes from any of the following files in your Astro project:
+packages.txt
+Dockerfile
+requirements.txt
+airflow_settings.yaml
+To restart your local Airflow environment, run:
+astro dev restart
+This command rebuilds your image and restarts the Docker containers running on your local machine with the new image.
 
 
 
 Documentation Source:
-docs.astronomer.io/astro/cli/local-airflow-overview.txt
+docs.astronomer.io/learn/get-started-with-airflow.txt
 
 Documentation Title:
-Run Airflow locally | Astronomer Documentation
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
 
 Documentation Content:
-Run Airflow locally | Astronomer Documentation
+(Optional) A local installation of
+Python 3
+to improve your Python developer experience.
+Step 1: Create an Astro project
+​
+To run data pipelines on Astro, you first need to create an Astro project, which contains the set of files necessary to run Airflow locally. This can be done with the
+Astro CLI
+.
+Create a new directory for your Astro project:
+mkdir
+<
+your-astro-project-name
+>
+Open the directory:
+cd
+<
+your-astro-project-name
+>
+Run the following Astro CLI command to initialize an Astro project in the directory:
+astro dev init
+The Astro project is built to run Airflow with Docker.
+Docker
+is a service to run software in virtualized containers within a machine. When you run Airflow on your machine with the Astro CLI, Docker creates a container for each Airflow component that is required to run DAGs. For this tutorial, you don't need an in-depth knowledge of Docker. All you need to know is that Airflow runs on the compute resources of your machine, and that all necessary files for running Airflow are included in your Astro project.
+The default Astro project structure includes a collection of folders and files that you can use to run and customize Airflow. For this tutorial, you only need to know the following files and folders:
+/dags
+: A directory of DAG files. Each Astro project includes an example DAG called
+example_astronauts
+. For more information on DAGs, see
+Introduction to Airflow DAGs
+.
+Dockerfile
+: This is where you specify your version of
+Astro Runtime
+, which is a runtime software based on Apache Airflow that is built and maintained by Astronomer. The CLI generates new Astro projects with the latest version of Runtime, which is equivalent to the latest version of Airflow. For advanced use cases, you can also configure this file with Docker-based commands to run locally at build time.
+Step 2: Start Airflow
+​
+Now that you have an Astro project ready, the next step is to actually start Airflow on your machine.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cli/get-started-cli.txt
+
+Documentation Title:
+Get started with Airflow using the Astro CLI | Astronomer Documentation
+
+Documentation Content:
+Get started with Airflow using the Astro CLI | Astronomer Documentation
 Skip to main content
 Docs
 Docs
@@ -161,10 +193,6 @@ Install the CLI
 Quickstart
 Develop your project
 Run Airflow locally
-Overview
-Basic setup
-Use Airflow connections from Astro
-Troubleshoot a local environment
 Test your DAGs
 Release notes
 Release and lifecycle policy
@@ -174,126 +202,28 @@ Support Knowledge Base
 Office Hours
 Webinars
 Astro Status
-Run Airflow locally
-Overview
-Run Airflow locally
-Running Airflow locally with the Astro CLI lets you preview and debug DAG changes before deploying to production. In a local Airflow environment, you can fix issues with your DAGs without consuming infrastructure resources or waiting on code deploy processes.
-To run Airflow locally, the Astro CLI creates and runs containers for core Airflow components. It uses Docker by default to orchestrate these containers, but you can also use
-Podman
-. All tasks run locally in the scheduler container using the
-local executor
-.
-See the following documentation to get started:
-Run Airflow locally
-Test your DAGs
-Troubleshoot locally
-Sync Deployment connections from Astro
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-Develop your project
-Next
-Basic setup
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/astro/cli/develop-project.txt
-
-Documentation Title:
-Develop your Astro project | Astronomer Documentation
-
-Documentation Content:
-To apply changes from this folder to a local Airflow environment,
-restart your local environment
-.
-To learn more about Airflow plugins and how to build them, see
-Airflow Plugins
-in Airflow documentation or the Astronomer
-Airflow plugins
-guide.
-Unsupported project configurations
-​
-You can't use
-airflow.cfg
-or
-airflow_local_settings.py
-files in an Astro project.
-airflow_local_settings.py
-has no effect on Astro Deployments, and
-airflow.cfg
-has no effect on local environments and Astro Deployments.
-An alternative to using
-airflow.cfg
-is to set Airflow environment variables in your
-.env
-file. See
-Set environment variables locally
-.
-See also
-​
-For more advanced project configurations, see:
-Customize your Astro project Dockerfile
-Install Python packages from private sources
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
 Quickstart
-Next
-Overview
+On this page
+Get started with Airflow using the Astro CLI
+One of the Astro CLI's main features is its ability to run Airflow on your local machine. After you install the Astro CLI and Docker Desktop, follow this quickstart to build an Airflow project and run it in a local Airflow environment using just a few commands. At the end of the tutorial, you'll have all of the files and components you need to develop and test Airflow DAGs locally.
 Prerequisites
+​
+The
+Astro CLI
+Docker Desktop
+(v18.09 or higher).
+Step 1: Create an Astro project
+​
+An
+Astro project
+contains the set of files necessary to run Airflow, including dedicated folders for your DAG files, plugins, and dependencies. All new Astro projects contain two example DAGs. This set of files builds a Docker image that you can both run on your local machine with Airflow and deploy to Astro.
+astro dev init
+This command generates all of the project files you need to run Airflow locally, including example DAGs that you can run out of the box. See
 Create an Astro project
-Add DAGs
-Add utility files
-Add Airflow connections, pools, variables
-Add test data or files for local testing
-Configure
-airflow_settings.yaml
-(Local development only)
-Add Python, OS-level packages, and Airflow providers
-Set environment variables locally
-Use multiple .env files
-Add Airflow plugins
-Unsupported project configurations
-See also
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
+for more information about the default project structure.
+Step 2: Run Airflow locally
+​
+Running your project locally allows you to test your DAGs before you deploy them to a production environment. While this step is not required for deploying and running your code on Astro, Astronomer recommends always using the Astro CLI to test locally before deploying.
 
 
 

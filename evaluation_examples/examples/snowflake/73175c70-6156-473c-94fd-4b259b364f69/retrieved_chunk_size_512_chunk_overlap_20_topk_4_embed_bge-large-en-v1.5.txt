@@ -88,122 +88,6 @@ All Rights Reserved
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-worksheet.txt
-
-Documentation Title:
-Using Worksheets for Queries / DML / DDL | Snowflake Documentation
-
-Documentation Content:
-To organize your worksheets, double-click on the worksheet label in the tab
-(e.g.
-Worksheet
-2
-) and type a new, more meaningful name for the worksheet (e.g.
-Sales
-Analysis
-).
-To open a closed worksheet, click the down-arrow to the right of the open worksheet tabs, and click
-Open Worksheet
-. The
-Open Worksheet
-dialog opens.
-Search for worksheets by label.
-Delete selected worksheets.
-Click on a row to select a single worksheet.
-Click the
-CMD
-(Mac) or
-CTRL
-(Windows) key once and then click on multiple rows to select multiple worksheets.
-Double-click a label to edit it.
-Open selected worksheets.
-The
-Open Worksheet
-dialog supports the following actions:
-Action
-Steps
-Search for individual worksheets by label.
-Enter text in the
-Search
-field. The list of existing worksheets is filtered automatically.
-Edit worksheet labels.
-Double-click on a worksheet label, and edit the text. Worksheet labels are limited to 255 characters.
-Open or delete one or more worksheets.
-Select a single worksheet by clicking on the table row for the worksheet.
-To select multiple worksheets, click the CMD (Mac) or CTRL (Windows) key once and then click on multiple table rows.
-Click on the
-Open
-button to open the worksheets in separate tabs,
-or
-click on the
-Delete
-button to delete the worksheets.
-Using the Object Browser
-¶
-Preview table data.
-Double-click to insert name into SQL editor.
-The object browser enables users to explore all databases, schemas, tables, and views accessible by the role selected for a worksheet.
-The list of databases and other objects refreshes automatically when the worksheet context is changed. Users can also click the refresh button at the top of the object browser to view object
-changes immediately.
-The object browser can be collapsed at any time to make more room for the SQL editor and results/history panes.
-Exploring Database Objects
-¶
-Click on a database or schema to explore the database objects contained within. You can then drill down to the table and view level.
-Action
-Options
-Notes
-Preview table/view data in the data preview pane
-Click the desired table/view,
-or
-Hover your mouse over the desired table/view and click:
-…
-»
-Preview Data
-Data previews are limited to the first 100 rows.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/ui-worksheet.txt
-
-Documentation Title:
-Using Worksheets for Queries / DML / DDL | Snowflake Documentation
-
-Documentation Content:
-Opening multiple, concurrent worksheets, each with its own separate session, allowing you to run queries in different worksheets with different contexts without any degradation in UI performance.
-Saving a worksheet for later use.
-Opening a worksheet from your library of saved worksheets.
-Note
-Saved worksheets are not accessible outside of the Classic Console.
-Saved worksheets cannot currently be shared with other users.
-Loading SQL script files from your workstation or network into a worksheet. After you’ve loaded a script file, you can optionally edit and save it to your library of saved worksheets.
-Logging out without losing your work. Snowflake retains the static contents of each worksheet, so you can log in again later and resume working where you left off. Snowflake displays the worksheets
-that were open when you logged out.
-Note that resized/collapsed panes, width changes to the result/data preview columns, and even the cursor position in the SQL editor, are persisted:
-When switching between open worksheets.
-When closing and reopening the same worksheet.
-Between user sessions.
-Specifying a different role for each worksheet and switching roles without losing your work. You can execute specific statements in a worksheet, then switch roles before continuing your work
-in the same worksheet.
-Note
-Your current interface role determines the default role for worksheets that you open, but the worksheets are not tied to the interface role. Each worksheet has its own role that can be set
-independently.
-Logging into Snowflake in another browser or tab. Any worksheet changes you made in one Snowflake instance persist to the other instance after a minute or two. You can continue working in the
-other browser (or tab) without re-entering your work.
-Refreshing your browser, if necessary. If you’re in the middle of running queries, they will resume running when the refresh is completed. Note that if you log out of Snowflake, any active
-queries stop running.
-You can also perform other tasks on this page, including:
-Resizing the current warehouse to dynamically increase or decrease the compute resources utilized for executing your queries and other DML statements.
-Exporting the result for a selected query/statement (if the result is still available). For more information, see
-Exporting Query Results
-.
-Saving and Managing Worksheets
-¶
-Snowflake automatically saves worksheets as you type and persists the current state of a worksheet between user sessions.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-query.txt
 
 Documentation Title:
@@ -277,6 +161,165 @@ more menu »
 Place Name in Editor
 .
 The fully qualified object name appears after your cursor location in the worksheet.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.txt
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+The fully qualified object name appears after your cursor location in the worksheet.
+For database tables and views, you can also add the column names to the worksheet that you’re editing:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open a worksheet.
+Locate the database object in the
+Databases
+explorer.
+Hover over the object name and select
+…
+more menu »
+Add Columns in Editor
+.
+The comma-separated column names appear after your cursor location in the worksheet.
+Format your queries
+¶
+When a worksheet is open, you can select the name of the worksheet to format the queries in your worksheet, and view the keyboard shortcuts.
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open a worksheet.
+Hover over the tab for the worksheet and select
+.
+In the drop-down list, select
+Format query
+to format the query text for readability.
+Load data to a table
+¶
+If you’re using a worksheet and want to add some data to work with, you can load data into a table without leaving your worksheet:
+Sign in to Snowsight.
+In the navigation menu, select
+Projects
+»
+Worksheets
+Open a worksheet.
+Select
+Objects
+to view the object explorer.
+Locate a specific table using search or browsing.
+Hover over a specific table name and select
+»
+Load Data
+.
+Follow the prompts to upload one or more structured or unstructured files of 50MB or less.
+Refer to
+Loading data using the web interface
+for more details.
+Executing and running queries
+¶
+You can run a single query or multiple queries sequentially in the same worksheet.
+To run a single query, in the query editor link, place your cursor in the query, and then select the
+Run
+button.
+To run the entire worksheet, from the
+More options
+dropdown menu next to the
+Run
+button, select
+Run All
+.
+Running worksheets in folders
+¶
+Folders no longer have a role assigned to them. An owner or editor of a worksheet in a folder can change the worksheet to run as any role.
+You can also add
+USE ROLE
+to a worksheet in a folder to run different statements in the worksheet as different roles.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-worksheet.txt
+
+Documentation Title:
+Using Worksheets for Queries / DML / DDL | Snowflake Documentation
+
+Documentation Content:
+To organize your worksheets, double-click on the worksheet label in the tab
+(e.g.
+Worksheet
+2
+) and type a new, more meaningful name for the worksheet (e.g.
+Sales
+Analysis
+).
+To open a closed worksheet, click the down-arrow to the right of the open worksheet tabs, and click
+Open Worksheet
+. The
+Open Worksheet
+dialog opens.
+Search for worksheets by label.
+Delete selected worksheets.
+Click on a row to select a single worksheet.
+Click the
+CMD
+(Mac) or
+CTRL
+(Windows) key once and then click on multiple rows to select multiple worksheets.
+Double-click a label to edit it.
+Open selected worksheets.
+The
+Open Worksheet
+dialog supports the following actions:
+Action
+Steps
+Search for individual worksheets by label.
+Enter text in the
+Search
+field. The list of existing worksheets is filtered automatically.
+Edit worksheet labels.
+Double-click on a worksheet label, and edit the text. Worksheet labels are limited to 255 characters.
+Open or delete one or more worksheets.
+Select a single worksheet by clicking on the table row for the worksheet.
+To select multiple worksheets, click the CMD (Mac) or CTRL (Windows) key once and then click on multiple table rows.
+Click on the
+Open
+button to open the worksheets in separate tabs,
+or
+click on the
+Delete
+button to delete the worksheets.
+Using the Object Browser
+¶
+Preview table data.
+Double-click to insert name into SQL editor.
+The object browser enables users to explore all databases, schemas, tables, and views accessible by the role selected for a worksheet.
+The list of databases and other objects refreshes automatically when the worksheet context is changed. Users can also click the refresh button at the top of the object browser to view object
+changes immediately.
+The object browser can be collapsed at any time to make more room for the SQL editor and results/history panes.
+Exploring Database Objects
+¶
+Click on a database or schema to explore the database objects contained within. You can then drill down to the table and view level.
+Action
+Options
+Notes
+Preview table/view data in the data preview pane
+Click the desired table/view,
+or
+Hover your mouse over the desired table/view and click:
+…
+»
+Preview Data
+Data previews are limited to the first 100 rows.
 
 
 

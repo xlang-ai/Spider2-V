@@ -89,41 +89,69 @@ tables, and then compare the results.</p><h2>Clean up</h2><ol><aside><strong>Cau
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/vector-search.html
+cloud.google.com/bigquery/docs/visualize-jupyter.html
 
 Documentation Title:
-Search embeddings with vector search  |  BigQuery  |  Google Cloud
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
 
 Documentation Content:
-and click
-<strong>Create dataset</strong>.</p></ul></li></ol><h2>Create test tables</h2><ol><li><p>Create the <code>patents</code>table that contains patents embeddings, based on a
-subset of the
-<a>Google Patents</a>public dataset:</p><pre>CREATE TABLE vector_search.patents AS
-SELECT * FROM `patents-public-data.google_patents_research.publications`
-WHERE ARRAY_LENGTH(embedding_v1) &gt; 0
- AND publication_number NOT IN ('KR-20180122872-A')
-LIMIT 1000000;
-</pre></li><li><p>Create the <code>patents2</code>table that contains a patent embedding to find
-nearest neighbors for:</p><pre>CREATE TABLE vector_search.patents2 AS
-SELECT * FROM `patents-public-data.google_patents_research.publications`
-WHERE publication_number = 'KR-20180122872-A';
-</pre></li></ol><h2>Create a vector index</h2><ol><li><p>Create the <code>my_index</code>vector index on the <code>embeddings_v1</code>column of the
-<code>patents</code>table:</p><pre>CREATE VECTOR INDEX my_index ON vector_search.patents(embedding_v1)
-OPTIONS(distance_type='COSINE', index_type='IVF', ivf_options='{"num_lists": 1000}');
-</pre></li><li><p>Wait several minutes for the vector index to be created, then run the
-following query and confirm that the <code>coverage_percentage</code>value is <code>100</code>:</p><pre>SELECT * FROM vector_search.INFORMATION_SCHEMA.VECTOR_INDEXES;
-</pre></li></ol><h2>Use the <code>VECTOR_SEARCH</code>function with an index</h2><p>After the vector index is created and populated, use the <code>VECTOR_SEARCH</code>function to find the nearest neighbor for the embedding in the <code>embedding_v1</code>column in the <code>patents2</code>table. This query uses the vector index in the search,
+You provide that
+name by using an argument with the <code>%%bigquery</code>magic command.</p><pre>%%bigquery regions_by_country
+SELECT
+  country_code,
+  country_name,
+  COUNT(DISTINCT region_code) AS num_regions
+FROM
+  `bigquery-public-data.google_trends.international_top_terms`
+WHERE
+  refresh_date = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
+GROUP BY
+  country_code, country_name
+ORDER BY
+  num_regions DESC;
+</pre><p><strong>Note:</strong>For more information about available arguments for the
+<code>%%bigquery</code>command, see the <a>client library magics documentation</a>.</p></li><p>Click <span>play_circle_filled</span><strong>Run cell</strong>.</p><li><p>In the next cell, enter the following command to look at the first few
+rows of the query results that you just read in:</p><code>regions_by_country.head()
+</code></li><li><p>Click <span>play_circle_filled</span><strong>Run cell</strong>.</p><p>The pandas DataFrame <code>regions_by_country</code>is ready to plot.</p></li></ol><h2>Query data in a notebook using the BigQuery client library directly</h2><p>In this section, you use the BigQuery client library for Python
+directly to read data into the Python notebook.</p><p>The client library gives you more control over your queries and lets you use
+more complex configurations for queries and jobs. The library's integrations
+with pandas enable you to combine the power of declarative SQL with imperative
+code (Python) to help you analyze, visualize, and transform your data.</p><p><strong>Note:</strong>You can use a number of Python data analysis, data wrangling, and
+visualization libraries, such as <code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, and many
+others.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/reference/rest/v2/models.html
+cloud.google.com/bigquery/docs/visualize-jupyter.html
 
 Documentation Title:
-REST Resource: models  |  BigQuery  |  Google Cloud
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
 
 Documentation Content:
-</td></tr><tr><code>AE</code><td>United Arab Emirates</td></tr><tr><code>AR</code><td>Argentina</td></tr><tr><code>AT</code><td>Austria</td></tr><tr><code>AU</code><td>Australia</td></tr><tr><code>BE</code><td>Belgium</td></tr><tr><code>BR</code><td>Brazil</td></tr><tr><code>CA</code><td>Canada</td></tr><tr><code>CH</code><td>Switzerland</td></tr><tr><code>CL</code><td>Chile</td></tr><tr><code>CN</code><td>China</td></tr><tr><code>CO</code><td>Colombia</td></tr><tr><code>CS</code><td>Czechoslovakia</td></tr><tr><code>CZ</code><td>Czech Republic</td></tr><tr><code>DE</code><td>Germany</td></tr><tr><code>DK</code><td>Denmark</td></tr><tr><code>DZ</code><td>Algeria</td></tr><tr><code>EC</code><td>Ecuador</td></tr><tr><code>EE</code><td>Estonia</td></tr><tr><code>EG</code><td>Egypt</td></tr><tr><code>ES</code><td>Spain</td></tr><tr><code>FI</code><td>Finland</td></tr><tr><code>FR</code><td>France</td></tr><tr><code>GB</code><td>Great Britain (United Kingdom)</td></tr><tr><code>GR</code><td>Greece</td></tr><tr><code>HK</code><td>Hong
+The BigQuery client library for Python is automatically
+installed in a managed notebooks instance. Behind the scenes, the <code>%%bigquery</code>magic
+command uses the BigQuery client library for Python to run the
+given query, convert the results to a pandas DataFrame, optionally save the
+results to a variable, and then display the results.</p><p><strong>Note</strong>: As of version 1.26.0 of the <code>google-cloud-bigquery</code>Python package,
+the <a>BigQuery Storage API</a>is used by default to download results from the <code>%%bigquery</code>magics.</p><ol><p>To open a notebook file, select <strong>File <span>&gt;</span>New <span>&gt;</span>Notebook</strong>.</p><li><p>In the <strong>Select Kernel</strong>dialog, select <strong>Python (Local)</strong>, and then click
+<strong>Select</strong>.
+</p><p>Your new IPYNB file opens.</p></li><li><p>To get the number of regions by country in the <code>international_top_terms</code>dataset, enter the following statement:</p><pre>%%bigquery
+SELECT
+  country_code,
+  country_name,
+  COUNT(DISTINCT region_code) AS num_regions
+FROM
+  `bigquery-public-data.google_trends.international_top_terms`
+WHERE
+  refresh_date = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
+GROUP BY
+  country_code,
+  country_name
+ORDER BY
+  num_regions DESC;
+</pre></li><li><p>Click <span>play_circle_filled</span><strong>Run cell</strong>.</p><p>The output is similar to the following:</p><pre>Query complete after 0.07s: 100%|██████████| 4/4 [00:00&lt;00:00, 1440.60query/s]
+Downloading: 100%|██████████| 41/41 [00:02&lt;00:00, 20.
 
 
 

@@ -1,4 +1,124 @@
 Documentation Source:
+airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.txt
+
+Documentation Title:
+Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
+
+Documentation Content:
+Then select
+Postgres
+as the source as follows:
+Define a source connector called
+cdc-source
+as follows, and be sure to select
+Logical Replication (CDC)
+as demonstrated below”:
+After selecting Logical Replication (CDC), enter the parameters that will be used for CDC replication as shown below.
+Then click on the
+Set up source
+button to create the source connector,
+Instantiate a Postgres destination connector
+Select Postgres as the destination as follows:
+Create a destination called
+cdc-destination
+as follows:
+And click on the
+Set up destination
+button to create the destination connector.
+Set up the CDC connection with incremental dedupe synchronization
+The orchestration for CDC syncing is similar to non-CDC database sources – in other words, CDC replication works in conjunction with the
+various Sync modes
+that Airbyte supports. In this tutorial I will demonstrate CDC replication only with the incremental dedupe synchronization mode.
+ℹ️ The steps presented in this section could also be used for testing other sync modes.
+Define a new connection that will be used for incremental CDC replication as follows:
+ℹ️  In the definition of a CDC replication connection, notice that a
+cursor field
+is not required (as opposed to “standard”
+incremental replication
+). Furthermore, the
+primary key
+is automatically determined from the source table, and is therefore not selected.
+Once you click on
+Set up connection
+, Airbyte will start a sync operation from the source to the destination. Once the sync has completed, you should see  a response similar to the following:
+‍
+View the destination database
+Open a Postgres shell to the destination as follows:
+docker exec -it airbyte-destination psql --username=postgres
+You can then view the names of the tables in the destination with the following command:
+\dt;
+Which should respond with the following.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgresql-change-data-capture-elt.txt
+
+Documentation Title:
+Build an EL(T) from Postgres CDC (Change Data Capture) | Airbyte
+
+Documentation Content:
+We advise users to add only the tables that they want to sync in the publication and not all tables.
+CREATE PUBLICATION pub1 FOR TABLE cars;
+Should you build or buy your data pipelines?
+Download our free guide and discover the best approach for your needs, whether it's building your ELT solution in-house or opting for Airbyte Open Source or Airbyte Cloud.
+Download now
+Step 3: Configure a PostgreSQL source in Airbyte
+To set up a new PostgreSQL Airbyte source, go to
+Airbyte's UI
+, click on sources and add a new source.
+As the connector type, select
+Postgres
+. As demonstrated in the subsequent illustrations, fill in the following configuration fields if you used the instructions above to configure your Postgres database.
+Name:
+Postgres CDC Tutorial (or any name you'd like)
+Host:
+localhost
+Port:
+5432
+DB Name:
+postgres
+Schemas:
+postgres
+User:
+airbyte
+Password:
+password (or any password you assigned to the airbyte user)
+Connect using SSL:
+disabled
+Replication method:
+Logical replication (CDC)
+Plugin:
+pgoutput
+Replication_slot:
+airbyte_slot
+Publication:
+pub1
+SSH Tunnel Method:
+No Tunnel
+Then click on
+Set up source
+and Airbyte will test the connection. If everything goes well, you should see a successful message.
+Step 4: Configure a local JSON destination in Airbyte
+Go to destinations and add a new one. As demonstrated in the following diagram, select
+Local JSON
+as the destination type and fill in with the following details.
+Name:
+JSON CDC Tutorial (or any name you would like)
+Destination_path:
+/cdc_tutorial (or any path where you'd like to store the Postgres data)
+‍
+Then click on
+Set up source
+and let Airbyte test the destination.
+Step 5: Create an Airbyte connection
+Go to connections and create a new connection. Then, select the existing Postgres source you have just created and then do the same for the Local JSON destination. Once you're done, you can set up the connection as follows.
+Replication Frequency:
+I recommend setting it to "manual" if you're testing. You can change to any frequency that makes sense to your use case when you're ready.
+
+
+
+Documentation Source:
 airbyte.com/docs.airbyte.com/integrations/sources/postgres/postgres-troubleshooting.txt
 
 Documentation Title:
@@ -52,87 +172,70 @@ Using logical replication increases disk space used on the database server. The 
 
 
 Documentation Source:
-airbyte.com/tutorials/postgresql-change-data-capture-elt.txt
+airbyte.com/tutorials/incremental-data-synchronization.txt
 
 Documentation Title:
-Build an EL(T) from Postgres CDC (Change Data Capture) | Airbyte
+Incremental data synchronization between Postgres databases | Airbyte
 
 Documentation Content:
-CDC enables organizations to make informed decisions based on up-to-date data and ensures that data across multiple systems remains consistent and accurate.
-What are the prerequisites for setting up CDC in PostgreSQL, and what components are required?
-To set up CDC in PostgreSQL, you'll need a PostgreSQL database instance configured with logical replication enabled. Additionally, you'll require a logical decoding plugin, such as pgoutput or wal2json, which converts the WAL records into a format that can be consumed by downstream applications or systems.
-Can CDC in PostgreSQL capture all types of data modifications, including inserts, updates, and deletions?
-Yes, CDC in PostgreSQL can capture all types of data modifications, including inserts, updates, and deletions. By monitoring changes at the database level and utilizing logical decoding, PostgreSQL CDC ensures that all modifications to database records are captured and made available for replication or analysis.
-How does CDC ensure data consistency and integrity when replicating data from PostgreSQL using a data replication tool?
-CDC guarantees data consistency and integrity when replicating PostgreSQL data with Airbyte by continuously monitoring database changes, capturing all modifications (inserts, updates, and deletions), and preserving the order of operations during replication. Airbyte's incremental replication minimizes latency, and its built-in data validation and error handling mechanisms ensure accuracy and reliability.
-About the Author
-Thalia Barrera is a data engineer and technical writer at Airbyte. She has over a decade of experience as an engineer in the IT industry. She enjoys crafting technical and training materials for fellow engineers. Drawing on her computer science expertise and client-oriented nature, she loves turning complex topics into easy-to-understand content.
-About the Author
-Text Link
-Join our newsletter to get all the insights on the data stack
-Should you build or buy your data pipelines?
-Download our free guide and discover the best approach for your needs, whether it's building your ELT solution in-house or opting for Airbyte Open Source or Airbyte Cloud.
-Download now
-About the Author
-Thalia Barrera is a data engineer and technical writer at Airbyte. She has over a decade of experience as an engineer in the IT industry. She enjoys crafting technical and training materials for fellow engineers. Drawing on her computer science expertise and client-oriented nature, she loves turning complex topics into easy-to-understand content.
-
-
-
-Documentation Source:
-airbyte.com/blog/behind-the-performance-improvements-of-our-mysql-source.txt
-
-Documentation Title:
-Behind Performance Improvements of MySQL source | Airbyte
-
-Documentation Content:
-Change Data Capture
-(CDC) is the default sync setting when creating new MySQL connectors. CDC offers numerous advantages, including the ability to capture changes made to data and database schema, all while imposing minimal additional load on the database itself. This provides users with a robust, high-performance default configuration for MySQL data synchronization.
-As for Postgres, we built logic in the MySQL connector to automatically switch from checkpointing by primary key during the initial snapshot to the incremental mode of choice, typically CDC. The primary key load is useful only for the initial sync. After that point, we need to transition to another method to only sync data which has changed. But modifications & inserts can happen to a primary key continuously which requires us to switch to CDC mode or user-defined cursor mode.
-With these improvements to both initial and incremental syncs, we also had to address a certain number of edge cases, including:
-No primary keys:
-Some tables do not have primary keys defined. In such rare cases, we have to default to the legacy method of loading data which can be inefficient.
-Storage Engines:
-MySQL allows users to specify their own storage engines. We’ve built this flow primarily for the default storage engine (InnoDB), which handles the most common scenario. Future work will include understanding different storage engines and optimizing for those use cases as well.
-Composite Indexes:
-When
-optimizing the MySQL table
-, it's important to note that tables can have composite indexes. In these cases, the first field associated with the composite primary key (e.g. a user_id field) is the field that represents the order in which table rows are stored on disk and the one that should be used for checkpointing an initial sync.
-One area of future improvement is to read changes from the
-binlog
-during the initial sync. This will prevent a data re-sync scenario where an initial sync for a very large MySQL dataset could take longer than the binlog retention time configured in your MySQL instance.
-Compressing State in Logical Replication (CDC) Mode
-State messages play a pivotal role in tracking sync progress within the Airbyte platform. In CDC mode, these messages are passed to Debezium, which reads binlogs to determine where to resume
-data replication
+Create a connection between the source and destination
+In this section you will create a connection that will be used for demonstrating the functionality of database replication with
+Incremental Sync | Append
 .
-
-
-
-Documentation Source:
-airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.txt
-
-Documentation Title:
-Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
-
-Documentation Content:
-Non-CDC (i.e. standard)
-incremental replication
-periodically executes queries on a source system for new or updated records, and then transmits the results of these queries to the destination. However, because a query cannot return deleted records, standard incremental replication does not correctly transmit deletions from the source to the destination. Additionally, the records that are transmitted in each sync only represent the state of the source database at the moment the sync is executed – any intermediate changes (such as multiple updates to a single record) will not be correctly captured. Furthermore, because each incremental sync executes queries against the source to detect modifications, it requires the source data to have a suitable
-cursor field
-such as
+This new connection will make use of the connectors that you have just created.
+Create a new connection by clicking on
+Connections
+and then on
++ New connection
+as shown below (Note that this button may appear in the top right corner if you already have some connections instantiated):
+‍
+Then select the
+Incremental-source
+source as follows:
+‍
+Select the
+Incremental-destination
+as follows:
+‍
+You will see a set up page as shown below. Set the name of the connection to
+incremental-sync-demo
+, and configure it as shown below:
+‍
+There are a few areas that are annotated in the above configuration:
+Define the name which will identify this connection - in this case I have called it
+incremental-sync-demo
+.
+Select the
+incremental append
+replication mode for the table called
+table_one
+.
+Select
 updated_at
-, which is used to keep track of which records have already been replicated.
-On the other hand, CDC incremental replication reads a log of the changes that have been made to the source database and transmits these changes to the destination. Because changes are read from a transaction log when using CDC, it is not necessary for the source data to have a suitable cursor field. Additionally, intermediate changes and deletions on the source are correctly transmitted to the destination because they are logged just like any other modification to the source data.
-The differences between CDC incremental replication and non-CDC incremental replication are summarized in the table below:
-CDC replication can also be used in conjunction with full
-refresh replication
-. However, as mentioned in the
-CDC documentation
-, full refresh replication mode is done with the same process both with and without CDC.
-Launch a Postgres source and destination
-The above discussion has given a brief overview of how CDC sync modes work. The remainder of this article is focussed on a step-by-step overview of CDC with incremental deduped history replication.
-ℹ️  The examples in this tutorial are presented with new/empty Postgres containers, but it is not a requirement that your source and destination databases are empty. Furthermore, these examples use the root postgres users which should not be done for production. For instructions on how to set up a more secure configuration, see the tutorial:
-Build an EL(T) from PostgreSQL using Change Data Capture (CDC)
-.
+as the cursor for the
+table_one
+table.
+After you click on
+Set up connection
+,
+the initial sync will start. Once it completes you should see the following status in the
+Sync History
+:
+‍
+Make a note of the
+job ID
+and the
+attempt ID
+which in this case are 149 and 0 respectively, as can be seen in the path to the
+logs.log
+(/tmp/workspace/149/0/logs.log) in the screenshot above. You will need these values to find the SQL code used for the first
+incremental append
+sync.
+Initial creation: Overview
+In the first synchronization, Airbyte replicates all of the records from the source table into a raw table in the destination database. Then, dbt-generated SQL commands are executed to normalize the raw data into the final destination table as shown below:
+‍
+Initial creation: Look at the Postgres destination
+After the first sync has completed you can take a look at the Postgres destination to see how the replicated data looks.
 
 
 

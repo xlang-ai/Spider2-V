@@ -11,17 +11,6 @@ Documentation Content:
 
 
 Documentation Source:
-www.metabase.com/learn/data-modeling/models.html
-
-Documentation Title:
-Models in Metabase
-
-Documentation Content:
-</span><span>user_id</span><span>AS</span><span>id</span><span>,</span><span>people</span><span>.</span><span>created_at</span><span>AS</span><span>join_date</span><span>,</span><span>people</span><span>.</span><span>state</span><span>AS</span><span>state</span><span>,</span><span>people</span><span>.</span><span>source</span><span>AS</span><span>source</span><span>,</span><span>Sum</span><span>(</span><span>orders</span><span>.</span><span>total</span><span>)</span><span>AS</span><span>total</span><span>,</span><span>Count</span><span>(</span><span>*</span><span>)</span><span>AS</span><span>order_count</span><span>,</span><span>Sum</span><span>(</span><span>orders</span><span>.</span><span>total</span><span>)</span><span>/</span><span>Count</span><span>(</span><span>*</span><span>)</span><span>AS</span><span>avg_total</span><span>FROM</span><span>orders</span><span>LEFT</span><span>JOIN</span><span>people</span><span>ON</span><span>orders</span><span>.</span><span>user_id</span><span>=</span><span>people</span><span>.</span><span>id</span><span>GROUP</span><span>BY</span><span>id</span><span>,</span><span>city</span><span>,</span><span>state</span><span>,</span><span>zip</span><span>,</span><span>source</span></code><p>Metabase wouldn’t automatically know what kind of data type the <code>state</code>or <code>total</code>or any other column was.
-
-
-
-Documentation Source:
 www.metabase.com/learn/visualization/maps.html
 
 Documentation Title:
@@ -29,6 +18,17 @@ Visualizing data with maps
 
 Documentation Content:
 If your data contains names of U.S. states, or two-letter state codes, Metabase will select the map of the United States.</p><h2>Make your data compatible with mapping</h2><p>If you plan on using a map visualization, you’ll need to make sure your data is compatible with map visualizations in two ways:</p><ul><li>Field types in your metadata</li><a>Field types</a><a>Country codes</a></ul><p>To edit metadata, go to your <a>Data Model admin settings</a>. Confirm that all your field types are set as a <code>Location</code>data type. For example, the <code>State</code>and <code>Longitude</code>fields both have their corresponding field type listed, but <code>Latitude</code>has no field type. To add the field type, click the dropdown menu in the <code>Type</code>column and select <code>Latitude</code>.</p><img/><p>To create a world map or US region map, make sure that your country or state codes match the standardized two-letter format specified by the <a>International Organization for Standardization (ISO)</a>.</p><p>Matches are case-sensitive; if the country or state codes listed in your database are lowercase or contain extra spaces, Metabase won’t recognize them.</p><h2>Pin map</h2><p>A pin map represents data geographically using discrete markers, and requires coordinates — latitude and longitude — to generate. Let’s start an example by visualizing the <code>People</code>table found within the <code>Sample Database</code>. Once you’re viewing the table, you’ll notice that this table contains four pieces of geographic information: city, state, latitude, and longitude.</p><p>Select <strong>Visualization</strong>, and scroll to the <strong>Map</strong>icon. With your latitude and longitude fields <a>set correctly</a>, Metabase will produce a pin map by default, placing markers on the map at those coordinates.
+
+
+
+Documentation Source:
+www.metabase.com/learn/data-modeling/models.html
+
+Documentation Title:
+Models in Metabase
+
+Documentation Content:
+</span><span>user_id</span><span>AS</span><span>id</span><span>,</span><span>people</span><span>.</span><span>created_at</span><span>AS</span><span>join_date</span><span>,</span><span>people</span><span>.</span><span>state</span><span>AS</span><span>state</span><span>,</span><span>people</span><span>.</span><span>source</span><span>AS</span><span>source</span><span>,</span><span>Sum</span><span>(</span><span>orders</span><span>.</span><span>total</span><span>)</span><span>AS</span><span>total</span><span>,</span><span>Count</span><span>(</span><span>*</span><span>)</span><span>AS</span><span>order_count</span><span>,</span><span>Sum</span><span>(</span><span>orders</span><span>.</span><span>total</span><span>)</span><span>/</span><span>Count</span><span>(</span><span>*</span><span>)</span><span>AS</span><span>avg_total</span><span>FROM</span><span>orders</span><span>LEFT</span><span>JOIN</span><span>people</span><span>ON</span><span>orders</span><span>.</span><span>user_id</span><span>=</span><span>people</span><span>.</span><span>id</span><span>GROUP</span><span>BY</span><span>id</span><span>,</span><span>city</span><span>,</span><span>state</span><span>,</span><span>zip</span><span>,</span><span>source</span></code><p>Metabase wouldn’t automatically know what kind of data type the <code>state</code>or <code>total</code>or any other column was.
 
 
 

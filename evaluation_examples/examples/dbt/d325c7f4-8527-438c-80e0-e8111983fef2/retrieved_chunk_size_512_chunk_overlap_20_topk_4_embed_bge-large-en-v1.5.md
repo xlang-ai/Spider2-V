@@ -22,18 +22,6 @@ Generally, it’d be useful to leverage a regular expression to strip and pull d
 
 
 Documentation Source:
-docs.getdbt.com/reference/resource-properties/unit-tests.md
-
-Documentation Title:
-About unit tests property | dbt Developer Hub
-
-Documentation Content:
-comgmail.comexpect:# the expected output given the inputs aboveformat:csvfixture:valid_email_address_fixture_output``unit_tests:-name:test_is_valid_email_address # this is the unique name of the testmodel:dim_customers # name of the model I'm unit testinggiven:# the mock data for your inputs-input:ref('stg_customers')rows:-{email:cool@example.com,email_top_level_domain:example.com}-{email:cool@unknown.com,email_top_level_domain:unknown.com}-{email:badgmail.com,email_top_level_domain:gmail.com}-{email:missingdot@gmailcom,email_top_level_domain:gmail.com}-input:ref('top_level_email_domains')format:sqlrows:|select 'example.com' as tld union allselect 'gmail.com' as tldexpect:# the expected output given the inputs aboveformat:sqlfixture:valid_email_address_fixture_output`0Edit this pageLast updatedon May 16, 2024PreviouswhereNextInputBefore you beginExamples
-Edit this pageTerms of ServicePrivacy PolicySecurityCookie Settings© 2024 dbt Labs, Inc. All Rights Reserved.
-
-
-
-Documentation Source:
 docs.getdbt.com/docs/build/unit-tests.md
 
 Documentation Title:
@@ -54,30 +42,38 @@ When testing an incremental model, the expected output is the **result of the ma
 
 
 Documentation Source:
+docs.getdbt.com/reference/resource-properties/unit-tests.md
+
+Documentation Title:
+About unit tests property | dbt Developer Hub
+
+Documentation Content:
+comgmail.comexpect:# the expected output given the inputs aboveformat:csvfixture:valid_email_address_fixture_output``unit_tests:-name:test_is_valid_email_address # this is the unique name of the testmodel:dim_customers # name of the model I'm unit testinggiven:# the mock data for your inputs-input:ref('stg_customers')rows:-{email:cool@example.com,email_top_level_domain:example.com}-{email:cool@unknown.com,email_top_level_domain:unknown.com}-{email:badgmail.com,email_top_level_domain:gmail.com}-{email:missingdot@gmailcom,email_top_level_domain:gmail.com}-input:ref('top_level_email_domains')format:sqlrows:|select 'example.com' as tld union allselect 'gmail.com' as tldexpect:# the expected output given the inputs aboveformat:sqlfixture:valid_email_address_fixture_output`0Edit this pageLast updatedon May 16, 2024PreviouswhereNextInputBefore you beginExamples
+Edit this pageTerms of ServicePrivacy PolicySecurityCookie Settings© 2024 dbt Labs, Inc. All Rights Reserved.
+
+
+
+Documentation Source:
 docs.getdbt.com/docs/build/unit-tests.md
 
 Documentation Title:
 Unit tests | dbt Developer Hub
 
 Documentation Content:
-"model:dim_customersgiven:-input:ref('stg_customers')rows:-{email:cool@example.com,email_top_level_domain:example.com}-{email:cool@unknown.com,email_top_level_domain:unknown.com}-{email:badgmail.com,email_top_level_domain:gmail.com}-{email:missingdot@gmailcom,email_top_level_domain:gmail.com}-input:ref('top_level_email_domains')rows:-{tld:example.com}-{tld:gmail.com}expect:rows:-{email:cool@example.com,is_valid_email_address:true}-{email:cool@unknown.com,is_valid_email_address:false}-{email:badgmail.com,is_valid_email_address:false}-{email:missingdot@gmailcom,is_valid_email_address:false}`The previous example defines the mock data using the inline `dict`format, but you can also use `csv`or `sql`either inline or in a separate fixture file. 
+When to run unit tests​
 
-When using the `dict`or `csv`format, you only have to define the mock data for the columns relevant to you. This enables you to write succinct and *specific*unit tests.
+dbt Labs strongly recommends only running unit tests in development or CI environments. Since the inputs of the unit tests are static, there's no need to use additional compute cycles running them in production. Use them in development for a test-driven approach and CI to ensure changes don't break them. 
 
-noteThe direct parents of the model that you’re unit testing (in this example, `stg_customers`and `top_level_email_domains`) need to exist in the warehouse before you can execute the unit test.
+Use the resource typeflag `--exclude-resource-type`or the `DBT_EXCLUDE_RESOURCE_TYPE`environment variable to exclude unit tests from your production builds and save compute. 
 
-Use the `--empty`flag to build an empty version of the models to save warehouse spend. 
+Unit testing a model​
+---------------------
 
-dbt run --select"stg\_customers top\_level\_email\_domains"--emptyAlternatively, use `dbt build`to, in lineage order:
+This example creates a new `dim_customers`model with a field `is_valid_email_address`that calculates whether or not the customer’s email is valid: 
 
-* Run the unit tests on your model.
-* Materialize your model in the warehouse.
-* Run the data tests on your model.
-Now you’re ready to run this unit test. You have a couple of options for commands depending on how specific you want to be: 
+`withcustomers as(select*from{{ ref('stg_customers')}}),accepted_email_domains as(select*from{{ ref('top_level_email_domains')}}),check_valid_emails as(selectcustomers.customer_id,customers.first_name,customers.last_name,customers.email,coalesce(regexp_like(customers.email,'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')=trueandaccepted_email_domains.tld isnotnull,false)asis_valid_email_addressfromcustomersleftjoinaccepted_email_domainsoncustomers.email_top_level_domain =lower(accepted_email_domains.tld))select*fromcheck_valid_emails`The logic posed in this example can be challenging to validate. You can add a unit test to this model to ensure the `is_valid_email_address`logic captures all known edge cases: emails without `.`, emails without `@`, and emails from invalid domains.
 
-* `dbt test --select dim_customers`runs *all*of the tests on `dim_customers`.
-* `dbt test --select "dim_customers,test_type:unit"`runs all of the *unit*tests on `dim_customers`.
-* `dbt test --select test_is_valid_email_address`runs the test named `test_is_valid_email_address`.
+`unit_tests:-name:test_is_valid_email_addressdescription:"Check my is_valid_email_address logic captures all known edge cases - emails without ., emails without @, and emails from invalid domains.
 
 
 

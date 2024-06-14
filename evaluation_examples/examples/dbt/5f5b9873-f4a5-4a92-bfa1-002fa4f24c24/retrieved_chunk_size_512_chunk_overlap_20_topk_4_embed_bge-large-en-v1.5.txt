@@ -1,195 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigqueryconnection-create-connection.txt
-
-Documentation Title:
-Create a Cloud SQL connection  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-def main() -> None:
-    # TODO(developer): Set all variables for your Cloud SQL for MySQL connection.
-    project_id = "your-project-id"  # set project_id
-    location = "US"  # set location
-    # See: https://cloud.google.com/bigquery/docs/locations for a list of
-    # available locations.
-    database = "my-database"  # set database name
-    username = "my-username"  # set database username
-    password = "my-password"  # set database password
-    cloud_sql_conn_name = ""  # set the name of your connection
-    transport = "grpc"  # Set the transport to either "grpc" or "rest"
-    connection_id = "my-sample-connection"
-
-    cloud_sql_credential = bq_connection.CloudSqlCredential(
-        {
-            "username": username,
-            "password": password,
-        }
-    )
-    cloud_sql_properties = bq_connection.CloudSqlProperties(
-        {
-            "type_": bq_connection.CloudSqlProperties.DatabaseType.MYSQL,
-            "database": database,
-            "instance_id": cloud_sql_conn_name,
-            "credential": cloud_sql_credential,
-        }
-    )
-    create_mysql_connection(
-        connection_id, project_id, location, cloud_sql_properties, transport
-    )
-
-
-def create_mysql_connection(
-    connection_id: str,
-    project_id: str,
-    location: str,
-    cloud_sql_properties: bq_connection.CloudSqlProperties,
-    transport: str,
-) -> None:
-    connection = bq_connection.types.Connection({"cloud_sql": cloud_sql_properties})
-    client = bq_connection.ConnectionServiceClient(transport=transport)
-    parent = client.common_location_path(project_id, location)
-    request = bq_connection.CreateConnectionRequest(
-        {
-            "parent": parent,
-            "connection": connection,
-            # connection_id is optional, but can be useful to identify
-            # connections by name. If not supplied, one is randomly
-            # generated.
-            "connection_id": connection_id,
-        }
-    )
-    response = client.create_connection(request)
-    print(f"Created connection successfully: {response.name}")
-What's next
-To search and filter code samples for other Google Cloud products, see the
-Google Cloud sample browser
-.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/reference/bigqueryconnection/rpc/google.cloud.bigquery.connection.txt
-
-Documentation Title:
-Package google.cloud.bigquery.connection.v1  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-v1
-Stay organized with collections
-Save and categorize content based on your preferences.
-Index
-ConnectionService
-(interface)
-AwsAccessRole
-(message)
-AwsProperties
-(message)
-AzureProperties
-(message)
-CloudResourceProperties
-(message)
-CloudSpannerProperties
-(message)
-CloudSqlCredential
-(message)
-CloudSqlProperties
-(message)
-CloudSqlProperties.DatabaseType
-(enum)
-Connection
-(message)
-ConnectorConfiguration
-(message)
-ConnectorConfiguration.Asset
-(message)
-ConnectorConfiguration.Authentication
-(message)
-ConnectorConfiguration.Endpoint
-(message)
-ConnectorConfiguration.Network
-(message)
-ConnectorConfiguration.PrivateServiceConnect
-(message)
-ConnectorConfiguration.Secret
-(message)
-ConnectorConfiguration.Secret.SecretType
-(enum)
-ConnectorConfiguration.UsernamePassword
-(message)
-CreateConnectionRequest
-(message)
-DeleteConnectionRequest
-(message)
-GetConnectionRequest
-(message)
-ListConnectionsRequest
-(message)
-ListConnectionsResponse
-(message)
-MetastoreServiceConfig
-(message)
-SalesforceDataCloudProperties
-(message)
-SparkHistoryServerConfig
-(message)
-SparkProperties
-(message)
-UpdateConnectionRequest
-(message)
-ConnectionService
-Manages external data source connections and credentials.
-CreateConnection
-rpc CreateConnection(
-CreateConnectionRequest
-) returns (
-Connection
-)
-Creates a new connection.
-Authorization scopes
-Requires one of the following OAuth scopes:
-https://www.googleapis.com/auth/bigquery
-https://www.googleapis.com/auth/cloud-platform
-For more information, see the
-Authentication Overview
-.
-DeleteConnection
-rpc DeleteConnection(
-DeleteConnectionRequest
-) returns (
-Empty
-)
-Deletes connection and associated credential.
-Authorization scopes
-Requires one of the following OAuth scopes:
-https://www.googleapis.com/auth/bigquery
-https://www.googleapis.com/auth/cloud-platform
-For more information, see the
-Authentication Overview
-.
-GetConnection
-rpc GetConnection(
-GetConnectionRequest
-) returns (
-Connection
-)
-Returns specified connection.
-Authorization scopes
-Requires one of the following OAuth scopes:
-https://www.googleapis.com/auth/bigquery
-https://www.googleapis.com/auth/cloud-platform
-For more information, see the
-Authentication Overview
-.
-GetIamPolicy
-rpc GetIamPolicy(
-GetIamPolicyRequest
-) returns (
-Policy
-)
-Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/connect-to-sql.txt
 
 Documentation Title:
@@ -246,102 +55,309 @@ public class CreateConnection {
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/reference/bigqueryconnection/rpc/google.cloud.bigquery.connection-2.txt
+cloud.google.com/bigquery/docs/oracle-transfer.txt
 
 Documentation Title:
-Package google.cloud.bigquery.connection.v1beta1  |  BigQuery  |  Google Cloud
+Schedule an Oracle transfer  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-database
-string
-Database name.
-type
-DatabaseType
-Type of the Cloud SQL database.
-credential
-CloudSqlCredential
-Input only. Cloud SQL credential.
-service_account_id
-string
-Output only. The account ID of the service used for the purpose of this connection.
-When the connection is used in the context of an operation in BigQuery, this service account will serve as the identity being used for connecting to the CloudSQL instance specified in this connection.
-DatabaseType
-Supported Cloud SQL database types.
-Enums
-DATABASE_TYPE_UNSPECIFIED
-Unspecified database type.
-POSTGRES
-Cloud SQL for PostgreSQL.
-MYSQL
-Cloud SQL for MySQL.
-Connection
-Configuration parameters to establish connection with an external data source, except the credential attributes.
-Fields
-name
-string
-The resource name of the connection in the form of:
-projects/{project_id}/locations/{location_id}/connections/{connection_id}
-friendly_name
-string
-User provided display name for the connection.
-description
-string
-User provided description.
-creation_time
-int64
-Output only. The creation timestamp of the connection.
-last_modified_time
-int64
-Output only. The last update timestamp of the connection.
-has_credential
-bool
-Output only. True, if credential is configured for this connection.
-Union field
-properties
-. Properties specific to the underlying data source.
-properties
-can be only one of the following:
-cloud_sql
-CloudSqlProperties
-Cloud SQL properties.
-ConnectionCredential
-Credential to use with a connection.
-Fields
-Union field
-credential
-. Credential specific to the underlying data source.
-credential
-can be only one of the following:
-cloud_sql
-CloudSqlCredential
-Credential for Cloud SQL database.
-CreateConnectionRequest
-The request for
-ConnectionService.CreateConnection
+Set up an Oracle data transfer
+Select one of the following options:
+Console
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+Click
+Data transfers
+>
+Create a transfer
 .
-Fields
-parent
-string
-Required. Parent resource name. Must be in the format
-projects/{project_id}/locations/{location_id}
-Authorization requires the following
-IAM
-permission on the specified resource
-parent
-:
-bigquery.connections.create
-connection_id
-string
-Optional. Connection id that should be assigned to the created connection.
+In the
+Source type
+section, for
+Source
+, select
+Oracle
+.
+In the
+Transfer config name
+section, for
+Display name
+, enter a
+name for the transfer.
+In the
+Schedule options
+section:
+In the
+Repeat frequency
+list, select an option to specify how
+often this transfer runs. To specify a custom repeat frequency,
+select
+Custom
+. If you select
+On-demand
+, then this transfer
+runs when you
+manually trigger the transfer
+.
+If applicable, select either
+Start now
+or
+Start at set time
+and provide a start date and run time.
+In the
+Destination settings
+section, for
+Dataset
+, select the
+dataset you created to store your data.
+In the
+Data source details
+section, do the following:
+For
+Network attachment
+, select an existing network attachment or click
+Create Network Attachment
+.
+For
+Host
+, enter the hostname or IP of the database.
+For
+Port
+, enter the port number that the Oracle
+database is using for incoming connections, such as
+1520
+.
+For
+Database name
+, enter the name of the Oracle
+database.
+For
+Connection type
+, enter the connection URL type, either
+SERVICE
+,
+SID
+, or
+TNS
+.
+For
+Username
+, enter the username of the user initiating the Oracle
+database connection.
+For
+Password
+, enter the password of the user initiating the Oracle
+database connection.
+For
+Oracle objects to transfer
+, click
+BROWSE
+to select any
+tables to be transferred to the BigQuery destination
+dataset.
+You can also manually enter any objects to include in the
+transfer in this field.
+In the
+Service Account
+menu, select a
+service account
+associated with your Google Cloud project. The selected service
+account must have the
+required roles
+to run this
+transfer.
+If you signed in with a
+federated identity
+,
+then a service account is required to create a transfer.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connect-to-sql.txt
+
+Documentation Title:
+Connect to Cloud SQL  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+String projectId = "MY_PROJECT_ID";
+    String location = "MY_LOCATION";
+    String connectionId = "MY_CONNECTION_ID";
+    String database = "MY_DATABASE";
+    String instance = "MY_INSTANCE";
+    String instanceLocation = "MY_INSTANCE_LOCATION";
+    String username = "MY_USERNAME";
+    String password = "MY_PASSWORD";
+    String instanceId = String.format("%s:%s:%s", projectId, instanceLocation, instance);
+    CloudSqlCredential cloudSqlCredential =
+        CloudSqlCredential.newBuilder().setUsername(username).setPassword(password).build();
+    CloudSqlProperties cloudSqlProperties =
+        CloudSqlProperties.newBuilder()
+            .setType(CloudSqlProperties.DatabaseType.MYSQL)
+            .setDatabase(database)
+            .setInstanceId(instanceId)
+            .setCredential(cloudSqlCredential)
+            .build();
+    Connection connection = Connection.newBuilder().setCloudSql(cloudSqlProperties).build();
+    createConnection(projectId, location, connectionId, connection);
+  }
+
+  static void createConnection(
+      String projectId, String location, String connectionId, Connection connection)
+      throws IOException {
+    try (ConnectionServiceClient client = ConnectionServiceClient.create()) {
+      LocationName parent = LocationName.of(projectId, location);
+      CreateConnectionRequest request =
+          CreateConnectionRequest.newBuilder()
+              .setParent(parent.toString())
+              .setConnection(connection)
+              .setConnectionId(connectionId)
+              .build();
+      Connection response = client.createConnection(request);
+      System.out.println("Connection created successfully :" + response.getName());
+    }
+  }
+}
+Grant access to the service account
+A
+service account
+is automatically created when you
+create the first connection to Cloud SQL within the project.
+The service account's name is
+BigQuery Connection Service
+Agent
+. To get the service account ID,
+view your connection details
+. The service account ID is of the
+following format:
+service-
+PROJECT_NUMBER
+@gcp-sa-bigqueryconnection.iam.gserviceaccount.com
+.
+To connect to Cloud SQL, you must give the new connection read-only
+access to Cloud SQL so that BigQuery can access files on
+behalf of users.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connect-to-sql.txt
+
+Documentation Title:
+Connect to Cloud SQL  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+The service account must have the following permissions:
+cloudsql.instances.connect
+cloudsql.instances.get
+You can grant the service account associated with the connection the
+Cloud SQL Client IAM role
+(
+roles/cloudsql.client
+), which has these permissions assigned.
+You can omit this step if the service account already has the required
+permissions.
+Console
+Go to the
+IAM & Admin
+page.
+Go to IAM & Admin
+Click
+person_add
+Grant Access
+.
+The
+Add principals
+dialog opens.
+In the
+New principals
+field, enter the service account name
+BigQuery Connection Service Agent
+or the service account ID taken from
+the
+connection information
+.
+In the
+Select a role
+field, select
+Cloud SQL
+, and then select
+Cloud SQL Client
+.
+Click
+Save
+.
+gcloud
+Use the
+gcloud projects add-iam-policy-binding
+command:
+gcloud projects add-iam-policy-binding
+PROJECT_ID
+--member=serviceAccount:
+SERVICE_ACCOUNT_ID
+--role=roles/cloudsql.client
+Provide the following values:
+PROJECT_ID
+: Your Google Cloud project ID.
+SERVICE_ACCOUNT_ID
+: The service account ID taken
+from the
+connection information
+.
+Note:
+For more information on how to grant and revoke IAM roles,
+see
+Manage access to projects, folders, and
+organizations
+.
+Share connections with users
+You can grant the following roles to let users query data and manage connections:
+roles/bigquery.connectionUser
+: enables users to use connections to connect
+with external data sources and run queries on them.
+roles/bigquery.connectionAdmin
+: enables users to manage connections.
+For more information about IAM roles and permissions in
+BigQuery, see
+Predefined roles and permissions
+.
+Select one of the following options:
+Console
+Go to the
+BigQuery
+page.
+Go to BigQuery
+Connections are listed in your project,
+in a group called
+External connections
+.
+In the
+Explorer
+pane, click your
+project name
+>
+External connections
+>
 connection
-Connection
-Required. Connection to create.
-DeleteConnectionRequest
-The request for [ConnectionService.DeleteConnectionRequest][].
-Fields
-name
-string
-Required.
+.
+In the
+Details
+pane, click
+Share
+to share a connection.
+Then do the following:
+In the
+Connection permissions
+dialog, share the
+connection with other principals by adding or editing
+principals.
+Click
+Save
+.
+bq
+You cannot share a connection with the bq command-line tool.
 
 
 

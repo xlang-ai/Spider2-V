@@ -1,36 +1,73 @@
 Documentation Source:
-docs.astronomer.io/astro/cli/test-your-astro-project-locally.txt
+docs.astronomer.io/learn/debugging-dags.txt
 
 Documentation Title:
-Test your Astro project | Astronomer Documentation
+Debug DAGs | Astronomer Documentation
 
 Documentation Content:
-The report shows all Airflow providers and packages that have been removed, added, or updated.
-When you read the results of this test, pay close attention to the
-Major Updates
-section. Major updates to Python packages are more likely to cause your DAGs to fail. Visit the changelog for any providers listed in this section (for example, the
-HTTP provider changelog
-) to see if the major upgrade will affect your environment. You should also pay attention to anything listed under
-Unknown Updates
-. These are updates that Astro CLI could not categorize, which can include major upgrades that might cause DAGs to break.
-To run only the DAG test against the latest version of Astro Runtime, run the following command in your Astro Project:
-astro dev upgrade-test --version-test
-DAG test
+If you want all DAGs unpaused by default, you can set
+dags_are_paused_at_creation=False
+in your Airflow config. If you do this, remember to set
+catchup=False
+in your DAGs to prevent automatic backfilling of DAG runs. Paused DAGs are unpaused automatically when you manually trigger them.
+Double check that each DAG has a unique
+dag_id
+. If two DAGs with the same id are present in one Airflow instance the scheduler will pick one at random every 30 seconds to display.
+Make sure your DAG has a
+start_date
+in the past. A DAG with a
+start_date
+in the future will result in a successful DAG run with no task runs. Do not use
+datetime.now()
+as a
+start_date
+.
+Test the DAG using
+astro dev dags test <dag_id>
+. With the Airflow CLI, run
+airflow dags test <dag_id>
+.
+If no DAGs are running, check the state of your scheduler
+using
+astro dev logs -s
+.
+If too many runs of your DAG are being scheduled after you unpause it, you most likely need to set
+catchup=False
+in your DAG's parameters.
+If your DAG is running, but not on the schedule you expected, review the
+DAG Schedule DAGs in Airflow
+guide. If you are using a custom timetable, ensure that the data interval for your DAG run does not precede the DAG start date.
+Common task issues
 ​
-When you upgrade, any Python packages that changed can generate import errors and cause your DAGs to break. These import errors are visible in the UI after you upgrade, but you can address them before upgrading by running the DAG test.
-This test uses the
-astro dev parse
-command against the upgrade version and produces a report called
-dag-test-report.html
-in
-upgrade-test-<current-version>--<upgrade-version>
-. This HTML report lists the DAGs that will have import errors, along with the first error encountered if you complete an upgrade. You can use this report along with the dependency test report to fix errors in your DAGs before your upgrade.
-To run only the DAG test against the latest version of Astro Runtime, run the following command in your Astro Project:
-astro dev upgrade-test --dag-test
-See also
+This section covers common issues related to individual tasks you might encounter. If your entire DAG is not working, see the
+DAGs are not running correctly
+section above.
+Tasks are not running correctly
 ​
-Debug DAGs
-astro dev pytest
+It is possible for a DAG to start but its tasks to be stuck in various states or to not run in the desired order. If your tasks are not running as intended, try the following debugging methods:
+Double check that your DAG's
+start_date
+is in the past. A future
+start_date
+will result in a successful DAG run even though no tasks ran.
+If your tasks stay in a
+scheduled
+or
+queued
+state, ensure your scheduler is running properly. If needed, restart the scheduler or increase scheduler resources in your Airflow infrastructure.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/rerunning-dags.txt
+
+Documentation Title:
+Rerun Airflow DAGs and tasks | Astronomer Documentation
+
+Documentation Content:
+If you have a small number of DAG runs to backfill, you can trigger them manually from the Airflow UI via
+Trigger DAG w/ config
+and choose the desired logical date as shown in the following image:
 Was this page helpful?
 Yes
 No
@@ -43,6 +80,27 @@ Privacy Policy
 , our
 Website Terms
 and to receive emails from Astronomer.
+Edit this page
+Previous
+Pass data between tasks
+Next
+SubDAGs
+Assumed knowledge
+Automatically retry tasks
+Automatically pause a failing DAG
+Manually rerun tasks or DAGs
+Add notes to cleared tasks and DAGs
+Clear all tasks
+Catchup
+Backfill
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
 
 
 
@@ -53,374 +111,135 @@ Documentation Title:
 Test Airflow DAGs | Astronomer Documentation
 
 Documentation Content:
-import_errors
+PyCharm
 .
-items
-(
-)
-]
-@pytest
+Tools like
+The Python Debugger
+and the built-in
+breakpoint()
+function. These allow you to run
+dag.test()
+from the command line by running
+python <path-to-dag-file>
 .
-mark
-.
-parametrize
-(
-"rel_path,rv"
-,
-get_import_errors
-(
-)
-,
-ids
-=
-[
-x
-[
-0
-]
-for
-x
-in
-get_import_errors
-(
-)
-]
-)
-def
-test_file_imports
-(
-rel_path
-,
-rv
-)
-:
-"""Test for import errors on a file"""
-if
-rel_path
-and
-rv
-:
-raise
-Exception
-(
-f"
-{
-rel_path
-}
-failed to import with message \n
-{
-rv
-}
-"
-)
-Check for custom code requirements
+Use
+dag.test()
+with the Astro CLI
 ​
-Airflow DAGs support many types of custom plugins and code. It is common for data engineering teams to define best practices and custom rules around how their DAGs should be written and create DAG validation tests to ensure those standards are met.
-The code snippet below includes a test which checks that all DAGs have their
-tags
-parameter set to one or more of the
-APPROVED_TAGS
-.
-import
-os
-import
-pytest
-from
+If you use the Astro CLI exclusively and do not have the
 airflow
-.
-models
+package installed locally, you can still debug using
+dag.test()
+by running
+astro dev start
+, entering the scheduler container with
+astro dev bash -s
+, and executing
+python <path-to-dag-file>
+from within the Docker container. Unlike using the base
+airflow
+package, this testing method requires starting up a complete Airflow environment.
+Use variables and connections in dag.test()
+​
+To debug your DAGs in a more realistic environment, you can pass the following Airflow environment configurations to
+dag.test()
+:
+execution_date
+passed as a
+pendulum.datetime
+object.
+Airflow connections
+passed as a
+.yaml
+file.
+Airflow variables passed as a
+.yaml
+file.
+DAG configuration passed as a dictionary.
+This is useful for testing your DAG for different dates or with different connections and configurations. The following code snippet shows the syntax for passing various parameters to
+dag.test()
+:
+from
+pendulum
 import
-DagBag
-def
-get_dags
-(
-)
+datetime
+if
+__name__
+==
+"__main__"
 :
-"""
-Generate a tuple of dag_id, <DAG objects> in the DagBag
-"""
-dag_bag
+conn_path
 =
-DagBag
-(
-include_examples
+"connections.yaml"
+variables_path
 =
-False
-)
-def
-strip_path_prefix
-(
-path
-)
-:
-return
-os
-.
-path
-.
-relpath
-(
-path
-,
-os
-.
-environ
-.
-get
-(
-"AIRFLOW_HOME"
-)
-)
-return
-[
-(
-k
-,
-v
-,
-strip_path_prefix
-(
-v
-.
-fileloc
-)
-)
-for
-k
-,
-v
-in
-dag_bag
-.
-dags
-.
-items
-(
-)
-]
-APPROVED_TAGS
+"variables.yaml"
+my_conf_var
 =
-{
-"customer_success"
-,
-"op_analytics"
-,
-"product"
-}
-@pytest
-.
-mark
-.
-parametrize
-(
-"dag_id,dag,fileloc"
-,
-get_dags
-(
-)
-,
-ids
-=
-[
-x
-[
-2
-]
-for
-x
-in
-get_dags
-(
-)
-]
-)
-def
-test_dag_tags
-(
-dag_id
-,
-dag
-,
-fileloc
-)
-:
-"""
-test if a DAG is tagged and if those TAGs are in the approved list
-"""
-assert
+23
 dag
 .
 
 
 
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.txt
+docs.astronomer.io/astro/cli/troubleshoot-locally.txt
 
 Documentation Title:
-Debug DAGs | Astronomer Documentation
+Troubleshoot a local Airflow environment | Astronomer Documentation
 
 Documentation Content:
-Is called when defined with the
-@dag
-decorator. See also
-Introduction to Airflow decorators
-.
-Import errors due to dependency conflicts
-​
-A frequent cause of DAG import errors is not having the necessary packages installed in your Airflow environment. You might be missing
-provider packages
-that are required for using specific operators or hooks, or you might be missing Python packages used in Airflow tasks.
-In an Astro project, you can install OS-level packages by adding them to your
-packages.txt
-file. You can install Python-level packages, such as provider packages, by adding them to your
-requirements.txt
-file. If you need to install packages using a specific package manager, consider doing so by adding a bash command to your Dockerfile.
-To prevent compatibility issues when new packages are released, Astronomer recommends pinning a package version to your project. For example, adding
-astronomer-providers[all]==1.14.0
-to your
-requirements.txt
-file ensures that no future releases of
-astronomer-providers
-causes compatibility issues. If no version is pinned, Airflow will always use the latest available version.
-If you are using the Astro CLI, packages are installed in the scheduler Docker container. You can confirm that a package is installed correctly by running:
+Run the following command to build your Astro project into a Docker image and start a local Docker container for each Airflow component:
+astro dev start
+Run the following command to open a bash terminal in your scheduler container:
 astro dev
 bash
 --scheduler
-"pip freeze | grep <package-name>"
-If you have conflicting package versions or need to run multiple Python versions, you can run tasks in different environments using a few different operators:
-KubernetesPodOperator
-: Runs a task in a separate Kubernetes Pod.
-ExternalPythonOperator
-: Runs a task in a predefined virtual environment.
-PythonVirtualEnvOperator
-: Runs a task in a temporary virtual environment.
-If many Airflow tasks share a set of alternate package and version requirements a common pattern is to run them in two or more separate Airflow deployments.
-DAGs are not running correctly
+In the bash terminal for your container, run the following command to install a package and review any error messages that are returned:
+apt-get
+install
+<
+package-name
+>
+For example, to install the GNU Compiler Collection (GCC) compiler, you would run:
+apt-get
+install
+gcc
+Open your Astro project
+packages.txt
+file and add the package references you removed in Step 1 individually until you find the package that is the source of the error.
+New DAGs aren't visible in the Airflow UI
 ​
-If your DAGs are either not running or running differently than you intended, consider checking the following common causes:
-DAGs need to be unpaused in order to run on their schedule. You can unpause a DAG by clicking the toggle on the left side of the Airflow UI or by using the
-Airflow CLI
-.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/testing-airflow.txt
-
-Documentation Title:
-Test Airflow DAGs | Astronomer Documentation
-
-Documentation Content:
-At a minimum, you should run DAG validation tests to check for
-import errors
-. Additional tests can check things like custom logic, ensuring that
-catchup
-is set to False for every DAG in your Airflow instance, or making sure only
-tags
-from a defined list are used in the DAGs.
-DAG validation tests apply to all DAGs in your Airflow environment, so you only need to create one test suite.
-Common DAG validation tests
-​
-This section covers the most common types of DAG validation tests with full code examples.
-Check for import errors
-​
-The most common DAG validation test is to check for import errors. Checking for import errors through a validation test is faster than starting your Airflow environment and checking for errors in the Airflow UI. In the following test,
-get_import_errors
-checks the
-.import_errors
-attribute of the current
-DagBag
-.
-import
-os
-import
-pytest
-from
-airflow
-.
-models
-import
-DagBag
-def
-get_import_errors
-(
-)
-:
-"""
-Generate a tuple for import errors in the dag bag
-"""
-dag_bag
-=
-DagBag
-(
-include_examples
-=
-False
-)
-def
-strip_path_prefix
-(
-path
-)
-:
-return
-os
-.
-path
-.
-relpath
-(
-path
-,
-os
-.
-environ
-.
-get
-(
-"AIRFLOW_HOME"
-)
-)
-# prepend "(None,None)" to ensure that a test object is always created even if it's a no op.
-return
-[
-(
-None
-,
-None
-)
-]
-+
-[
-(
-strip_path_prefix
-(
-k
-)
-,
-v
-.
-strip
-(
-)
-)
-for
-k
-,
-v
-in
-dag_bag
-.
-import_errors
-.
-items
-(
-)
-]
-@pytest
-.
-mark
-.
+Make sure that no DAGs have duplicate
+dag_ids
+. When two DAGs use the same
+dag_id
+, the newest DAG won't appear in the Airflow UI and you won't receive an error message.
+By default, the Airflow scheduler scans the
+dags
+directory of your Astro project for new files every 300 seconds (5 minutes). For this reason, it might take a few minutes for new DAGs to appear in the Airflow UI. Changes to existing DAGs appear immediately.
+To have the scheduler check for new DAGs more frequently, you can set the
+AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL
+environment variable to less than 300 seconds. If you have less than 200 DAGs in a Deployment, it's safe to set
+AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL
+to
+30
+(30 seconds). See
+Set environment variables
+for how to set this on Astro.
+In Astro Runtime 7.0 and later, the Airflow UI
+Code
+page includes a
+Parsed at
+value which shows when a DAG was last parsed. This value can help you determine when a DAG was last rendered in the Airflow UI. To view the
+Parsed at
+value in the Airflow UI, click
+DAGs
+, select a DAG, and then click
+Code
+. The
+Parsed at
+value appears at the top of the DAG code pane.
 
 
 

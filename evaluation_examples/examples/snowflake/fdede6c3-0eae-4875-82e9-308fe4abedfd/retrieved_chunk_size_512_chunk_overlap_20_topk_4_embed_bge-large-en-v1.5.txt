@@ -74,43 +74,168 @@ contain the database objects required for a specific application.
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/cleanrooms/demo-flows/basic-flow-data-analysis.txt
+
+Documentation Title:
+Snowflake Data Clean Rooms: Provider Data Analysis | Snowflake Documentation
+
+Documentation Content:
+To view the top 10 rows, call the following procedure.
+select
+*
+from
+SAMOOHA_SAMPLE_DATABASE_NAV2
+.
+DEMO
+.
+CUSTOMERS
+limit
+10
+;
+Copy
+Set the columns the consumer can group, aggregate (for example, SUM or AVG) and generally use in an analysis for every table and template combination. This gives flexibility so the same table can allow different column selections depending on the underlying template. This should only be called after adding the template.
+Note that the column policy is
+replace only
+, so if the function is called again, then the previously set column policy is completely replaced by the new one.
+Column policy should not be used on identity columns like email, HEM, or RampID because you don’t want the consumer to be able to group by these columns. In the production environment, the system will intelligently infer PII columns and block this operation, but this feature is not available in the sandbox environment. It should only be used on columns that you want the consumer to be able to aggregate and group by, like Status, Age Band, Channel, or Days Active.
+call
+samooha_by_snowflake_local_db
+.
+provider
+.
+set_column_policy
+($
+cleanroom_name
+,
+[
+'prod_provider_data_analysis:SAMOOHA_SAMPLE_DATABASE_NAV2.DEMO.CUSTOMERS:STATUS'
+,
+'prod_provider_data_analysis:SAMOOHA_SAMPLE_DATABASE_NAV2.DEMO.CUSTOMERS:AGE_BAND'
+,
+'prod_provider_data_analysis:SAMOOHA_SAMPLE_DATABASE_NAV2.DEMO.CUSTOMERS:DAYS_ACTIVE'
+,
+'prod_provider_data_analysis:SAMOOHA_SAMPLE_DATABASE_NAV2.DEMO.CUSTOMERS:REGION_CODE'
+]);
+Copy
+If you want to view the column policy that has been added to the clean room, call the following procedure.
+call
+samooha_by_snowflake_local_db
+.
+provider
+.
+view_column_policy
+($
+cleanroom_name
+);
+Copy
+Share with a consumer
+¶
+Finally, add a data consumer to the clean room by adding their Snowflake account locator and account names as shown below. The Snowflake account name must be of the form <ORGANIZATION>.<ACCOUNT_NAME>.
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.txt
 
 Documentation Title:
 Snowflake in 20 minutes | Snowflake Documentation
 
 Documentation Content:
-Retrieve all data
+For example, to insert two additional rows into the table:
+INSERT
+INTO
+emp_basic
+VALUES
+(
+'Clementine'
+,
+'Adamou'
+,
+'cadamou@sf_tuts.com'
+,
+'10510 Sachs Road'
+,
+'Klenak'
+,
+'2017-9-22'
+)
+,
+(
+'Marlowe'
+,
+'De Anesy'
+,
+'madamouc@sf_tuts.co.uk'
+,
+'36768 Northfield Plaza'
+,
+'Fangshan'
+,
+'2017-1-26'
+);
+Copy
+Query rows based on email address
 ¶
-Return all rows and columns from the table:
+Return a list of email addresses with United Kingdom top-level domains using the
+[ NOT ] LIKE
+function:
 SELECT
-*
+email
 FROM
 emp_basic
+WHERE
+email
+LIKE
+'%.uk'
 ;
 Copy
-The following is a partial result:
-+
-------------+--------------+---------------------------+-----------------------------+--------------------+------------+
-| FIRST_NAME | LAST_NAME    | EMAIL                     | STREETADDRESS               | CITY               | START_DATE |
-|------------+--------------+---------------------------+-----------------------------+--------------------+------------|
-| Arlene     | Davidovits   | adavidovitsk@sf_tuts.com  | 7571 New Castle Circle      | Meniko             | 2017-05-03 |
-| Violette   | Shermore     | vshermorel@sf_tuts.com    | 899 Merchant Center         | Troitsk            | 2017-01-19 |
-| Ron        | Mattys       | rmattysm@sf_tuts.com      | 423 Lien Pass               | Bayaguana          | 2017-11-15 |
-...
-...
-...
-| Carson     | Bedder       | cbedderh@sf_tuts.co.au    | 71 Clyde Gallagher Place    | Leninskoye         | 2017-03-29 |
-| Dana       | Avory        | davoryi@sf_tuts.com       | 2 Holy Cross Pass           | Wenlin             | 2017-05-11 |
-| Ronny      | Talmadge     | rtalmadgej@sf_tuts.co.uk  | 588 Chinook Street          | Yawata             | 2017-06-02 |
-+
-------------+--------------+---------------------------+-----------------------------+--------------------+------------+
-Copy
-Insert additional data rows
+The following is an example result:
++--------------------------+
+| EMAIL                    |
+|--------------------------|
+| gbassfordo@sf_tuts.co.uk |
+| rtalmadgej@sf_tuts.co.uk |
+| madamouc@sf_tuts.co.uk   |
++--------------------------+
+Query rows based on start date
 ¶
-In addition to loading data from staged files into a table, you can insert rows directly into a table using the
-INSERT
-DML command.
+For example, to calculate when certain employee benefits might start, add 90 days to employee start
+dates using the
+DATEADD
+function. Filter the list by employees whose start date occurred earlier than January 1, 2017:
+SELECT
+first_name
+,
+last_name
+,
+DATEADD
+(
+'day'
+,
+90
+,
+start_date
+)
+FROM
+emp_basic
+WHERE
+start_date
+<=
+'2017-01-01'
+;
+Copy
+The following is an example result:
++------------+-----------+------------------------------+
+| FIRST_NAME | LAST_NAME | DATEADD('DAY',90,START_DATE) |
+|------------+-----------+------------------------------|
+| Granger    | Bassford  | 2017-03-30                   |
+| Catherin   | Devereu   | 2017-03-17                   |
+| Cesar      | Hovie     | 2017-03-21                   |
+| Wallis     | Sizey     | 2017-03-30                   |
++------------+-----------+------------------------------+
+Summary, clean up, and additional resources
+¶
+Congratulations!
 
 
 
@@ -204,143 +329,6 @@ lineitem
 Copy
 Note
 You must have a running, current warehouse in your session to perform queries.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/match-recognize-introduction.txt
-
-Documentation Title:
-Identifying Sequences of Rows That Match a Pattern | Snowflake Documentation
-
-Documentation Content:
-00
-,
-UP
-AS
-price
->
-LAG
-(
-price
-),
-DOWN
-AS
-price
-<
-LAG
-(
-price
-)
-)
-WHERE
-company
-=
-'XYZ'
-ORDER
-BY
-price_date
-;
-+
----------+------------+-------+
-| COMPANY | PRICE_DATE | PRICE |
-|---------+------------+-------|
-| XYZ     | 2020-10-02 |    24 |
-| XYZ     | 2020-10-03 |    37 |
-| XYZ     | 2020-10-04 |    63 |
-| XYZ     | 2020-10-05 |    65 |
-| XYZ     | 2020-10-06 |    56 |
-| XYZ     | 2020-10-07 |    50 |
-+
----------+------------+-------+
-Copy
-SELECT
-company
-,
-price_date
-,
-price
-FROM
-stock_price_history
-MATCH_RECOGNIZE
-(
-PARTITION
-BY
-company
-ORDER
-BY
-price_date
-ALL
-ROWS
-PER
-MATCH
-PATTERN
-(
-{-
-LESS_THAN_45
--}
-UP
-{-
-UP
-*
--}
-DOWN
-{-
-DOWN
-*
--}
-)
-DEFINE
-LESS_THAN_45
-AS
-price
-<
-45
-.
-00
-,
-UP
-AS
-price
->
-LAG
-(
-price
-),
-DOWN
-AS
-price
-<
-LAG
-(
-price
-)
-)
-WHERE
-company
-=
-'XYZ'
-ORDER
-BY
-price_date
-;
-+
----------+------------+-------+
-| COMPANY | PRICE_DATE | PRICE |
-|---------+------------+-------|
-| XYZ     | 2020-10-03 |    37 |
-+
----------+------------+-------+
-Copy
-Returning Information About the Match
-¶
-Basic Match Information
-¶
-In many cases, you want your query to list not only information from the table that contains the data, but also
-information about the patterns that were found. When you want information about the matches themselves, you specify
-that information in the
-MEASURES
-clause.
 
 
 

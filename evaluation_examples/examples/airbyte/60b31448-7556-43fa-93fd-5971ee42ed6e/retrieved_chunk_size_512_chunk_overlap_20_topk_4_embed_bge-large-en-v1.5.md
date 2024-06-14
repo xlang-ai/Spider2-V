@@ -1,60 +1,4 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/marketo.md
-
-Documentation Title:
-Marketo | Airbyte Documentation
-
-Documentation Content:
-Step 1.5: Obtain your Endpoint and Identity URLs provided by Marketo​
-
-Follow the Marketo documentation for obtaining your base URL. Specifically, copy your **Endpoint**without "/rest" and keep them handy for use in the Airbyte UI.
-
-We're almost there! Armed with your Endpoint & Identity URLs and your Client ID and Secret, head over to the Airbyte UI to setup Marketo as a source.
-
-Step 2: Set up the Marketo connector in Airbyte​
-------------------------------------------------
-
-**For Airbyte Cloud:**1. Log into your Airbyte Cloudaccount.
-2. In the left navigation bar, click Sources. In the top-right corner, click **+new source**.
-3. On the Set up the source page, enter the name for the Marketo connector and select **Marketo**from the Source type dropdown.
-4. Enter the start date, domain URL, client ID and secret
-5. Submit the form
-
-**For Airbyte Open Source:**1. Navigate to the Airbyte Open Source dashboard
-2. Set the name for your source
-3. Enter the start date
-4. Enter the domain URL
-5. Enter client ID and secret
-6. Click **Set up source**
-
-Supported sync modes​
----------------------
-
-The Marketo source connector supports the followingsync modes:
-
-* Full Refresh | Overwrite
-* Full Refresh | Append
-* Incremental | Append
-* Incremental | Deduped
-
-Supported Streams​
-------------------
-
-This connector can be used to sync the following tables from Marketo:
-
-* **Activities\_X**where X is an activity type contains information about lead activities of the type X. For example, activities\_send\_email contains information about lead activities related to the activity type `send_email`. See the Marketo docsfor a detailed explanation of what each column means.
-* **Activity types**Contains metadata about activity types. See the Marketo docsfor a detailed explanation of columns.
-* Campaigns: Contains info about your Marketo campaigns.
-* Leads: Contains info about your Marketo leads.
-
-cautionAvailable fields are limited by what is presented in the static schema.
-
-* Lists: Contains info about your Marketo static lists.
-* Programs: Contains info about your Marketo programs.
-
-
-
-Documentation Source:
 airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.md
 
 Documentation Title:
@@ -92,31 +36,45 @@ Next, you can toggle which streams you want to replicate. Our test data consists
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/sftp.md
+airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.md
 
 Documentation Title:
-SFTP | Airbyte Documentation
+E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
 
 Documentation Content:
-Step 2: Set up the SFTP connector in Airbyte​
+3.2. Setting Up Airbyte Connectors Using the UI
 
-1. Log in to your Airbyte Cloudaccount, or navigate to your Airbyte Open Source dashboard.
-2. In the left navigation bar, click **Sources**. In the top-right corner, click **+ New source**.
-3. Find and select **SFTP**from the list of available sources.**For Airbyte Cloud users**: If you do not see the **SFTP**source listed, please make sure the **Alpha**checkbox at the top of the page is checked.
-4. Enter a **Source name**of your choosing.
-5. Enter your **Username**, as well as the **Host Address**and **Port**. The default port for SFTP is 22. If your remote server is using a different port, please enter it here.
-6. In the **Authentication**section, use the dropdown menu to select **Password Authentication**or **SSH Key Authentication**, then fill in the required credentials. If you are authenticating with a private key, you can upload the file containing the private key (usually named `rsa_id`) using the **Upload file**button.
-7. If you wish to configure additional optional settings, please refer to the next section. Otherwise, click **Set up source**and wait for the tests to complete.
+Start by launching the Airbyte UI by going to http://localhost:8000/in your browser. Then:
 
-Optional fields​
-----------------
+**1. Create a source**:
 
-The **Optional fields**can be used to further configure the SFTP source connector. If you do not wish to set additional configurations, these fields can be left at their default settings.
+1. Go to the "Sources" tab and click on "+ New source".
+2. Search for “faker” using the search bar and select "Sample Data (Faker)".
+3. Adjust the count and optional fields as needed for your use case. You can also leave as is.
+4. Click on "Set up source".
 
-1. **File Types**: Enter the desired file types to replicate as comma-separated values. Currently, only CSV and JSON are supported. The default value is `csv,json`.
-2. **Folder Path**: Enter a folder path to specify the directory on the remote server to be synced. For example, given the file structure:
+**2. Create a destination**:
 
-`Root| - logs| | - 2021| | - 2022|| - files| | - 2021| | - 2022`An input of `/logs/2022`will only replicate data contained within the specified folder, ignoring the `/files`and `/logs/2021`folders. Leaving this field blank will replicate all applicable files in the remote server's designated entry point.
+1. Go to the "Destinations" tab and click on "+ New destination".
+2. Search for “bigquery” using the search bar and select BigQuery.
+3. Enter the connection details as needed.
+4. For simplicity, you can use "Standard Inserts" as the loading method.
+5. In the Service Account Key JSON field, enter the contents of the JSON file. Yes, the full JSON.
+6. Click on Set up destination.
+
+**3. Create a connection**:
+
+1. Go to the "Connections" tab and click on "+ New connection".
+2. Select the source and destination you just created.
+3. Enter the connection details as needed.
+4. Click on "Set up connection".
+
+That’s it! Your connection is set up and ready to go! 🎉 
+
+4. Setting Up the dbt Project
+-----------------------------
+
+dbt (data build tool)allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
 
 
 
@@ -150,6 +108,43 @@ Once you've finished setting up the connection, you will be automatically redire
 3. The **Schema**tab allows you to modify the streams you chose during the connection setup.
 4. The **Transformation**tab allows you to set up a custom post-sync transformations using dbt.
 5. The **Settings**tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.md
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+Check the data from your first sync​
+
+Once the first sync has completed, you can verify the sync has completed by checking the data in your destination.
+
+* Cloud
+* Self Hosted
+
+If you followed along and created your own connection using a **Google Sheets**destination, you will now see three tabs created in your Google Sheet, `products`, `users`, and `purchases`.
+
+If you followed along and created your own connection using a `Local JSON`destination, you can use this command to check the file's contents to make sure the replication worked as intended (be sure to replace YOUR\_PATH with the path you chose in your destination setup, and YOUR\_STREAM\_NAME with the name of an actual stream you replicated):
+
+cat /tmp/airbyte\_local/YOUR\_PATH/\_airbyte\_raw\_YOUR\_STREAM\_NAME.jsonlYou should see a list of JSON objects, each containing a unique `airbyte_ab_id`, an `emitted_at`timestamp, and `airbyte_data`containing the extracted record.
+
+tipIf you are using Airbyte on Windows with WSL2 and Docker, refer to this guideto locate the replicated folder and file.
+
+What's next?​
+-------------
+
+Congratulations on successfully setting up your first connection using Airbyte! We hope that this will be just the first step on your journey with us. We support a large, ever-growing catalog of sources and destinations, and you can even contribute your own.
+
+If you have any questions at all, please reach out to us on Slack. If you would like to see a missing feature or connector added, please create an issue on our Github. Our community's participation is invaluable in helping us grow and improve every day, and we always welcome your feedback.
+
+Thank you, and we hope you enjoy using Airbyte!
+
+Edit this pagePreviousAdd a DestinationNextConfiguring ConnectionsConfigure the connection* Connection OverviewCheck the data from your first sync
+What's next?
+Was this page helpful?YesNo
 
 
 

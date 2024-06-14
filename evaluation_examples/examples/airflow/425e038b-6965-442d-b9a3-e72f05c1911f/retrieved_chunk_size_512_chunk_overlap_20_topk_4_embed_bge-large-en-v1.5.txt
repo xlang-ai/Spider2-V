@@ -50,101 +50,6 @@ Airflow CLI
 
 
 Documentation Source:
-docs.astronomer.io/learn/cross-dag-dependencies.txt
-
-Documentation Title:
-Cross-DAG dependencies | Astronomer Documentation
-
-Documentation Content:
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-Context
-Next
-Custom hooks and operators
-Assumed knowledge
-Implement cross-DAG dependencies
-Dataset dependencies
-TriggerDagRunOperator
-ExternalTaskSensor
-Airflow API
-DAG dependencies view
-Cross-deployment dependencies
-Cross-deployment dependencies on Astro
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/debugging-dags.txt
-
-Documentation Title:
-Debug DAGs | Astronomer Documentation
-
-Documentation Content:
-To get more specific answers to your question, include the following information in your question or issue:
-Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
-Your Airflow version and the version of relevant providers.
-The full error with the error trace if applicable.
-The full code of the DAG causing the error if applicable.
-What you are trying to accomplish in as much detail as possible.
-What you changed in your environment when the problem started.
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-DAG writing best practices
-Next
-Dynamic tasks
-Assumed knowledge
-General Airflow debugging approach
-Airflow is not starting on the Astro CLI
-Common DAG issues
-DAGs don't appear in the Airflow UI
-Import errors due to dependency conflicts
-DAGs are not running correctly
-Common task issues
-Tasks are not running correctly
-Tasks are failing
-Issues with dynamically mapped tasks
-Missing Logs
-Troubleshooting connections
-I need more help
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
 docs.astronomer.io/learn/testing-airflow.txt
 
 Documentation Title:
@@ -207,6 +112,155 @@ All provider packages that your DAG uses.
 An initialized
 Airflow metadata database
 , if your DAG uses elements of the metadata database like XCom. The Airflow metadata database is created when Airflow is first run in an environment.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/view-logs.txt
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+Click the
+Logs
+tab to switch from
+Graph
+view.
+View task logs in the Airflow UI
+​
+Access the Airflow UI.
+To access the Airflow UI for a Deployment, open the Deployment in the Astro UI and click
+Open Airflow
+.
+To access the Airflow UI in a local environment, open a browser and go to
+http://localhost:8080
+.
+Click a DAG.
+Click
+Graph
+.
+Click a task run.
+Click
+Instance Details
+.
+Click
+Log
+.
+See also
+​
+Export task logs and metrics to Datadog
+Export task logs to AWS Cloudwatch
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Deployment API keys (Deprecated)
+Next
+DAGs
+Airflow Component Logs
+Airflow component log levels
+View Airflow component logs in the Astro UI
+View Airflow component logs locally
+Airflow task logs
+Airflow task log levels
+View task logs on the Astro UI
+View task logs in the Airflow UI
+See also
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/error-notifications-in-airflow.txt
+
+Documentation Title:
+Manage Airflow DAG notifications | Astronomer Documentation
+
+Documentation Content:
+Manage Airflow DAG notifications | Astronomer Documentation
+Skip to main content
+Docs
+Docs
+Find what you're looking for
+Learn About Astronomer
+Get Started Free
+Home
+Astro
+Astro CLI
+Software
+Learn
+Try Astro
+Overview
+Get started
+Airflow concepts
+Basics
+DAGs
+Astro Python SDK for ETL
+Branches
+Context
+Cross-DAG dependencies
+Custom hooks and operators
+DAG notifications
+DAG parameters
+DAG writing best practices
+Debug DAGs
+Dynamic tasks
+Jinja templates
+Params
+Pass data between tasks
+Rerun DAGs and tasks
+SubDAGs
+TaskFlow API & decorators
+Task groups
+Infrastructure
+Advanced
+Airflow tutorials
+Integrations & connections
+Use cases
+Airflow glossary
+Support Knowledge Base
+Office Hours
+Webinars
+Astro Status
+Airflow concepts
+DAGs
+DAG notifications
+On this page
+Manage Airflow DAG notifications
+When you're using a data orchestration tool, how do you know when something has gone wrong? Airflow users can check the Airflow UI to determine the status of their DAGs, but this is an inefficient way of managing errors systematically, especially if certain failures need to be addressed promptly or by multiple team members. Fortunately, Airflow has built-in notification mechanisms that can be leveraged to configure error notifications in a way that works for your organization.
+In this guide, you'll learn the basics of Airflow notifications and how to set up common notification mechanisms including email, pre-built and custom notifiers, and SLAs. You'll also learn how to leverage Airflow alerting when using Astro.
+Other ways to learn
+There are multiple resources for learning about this topic. See also:
+Webinar:
+How to monitor your pipelines with Airflow and Astro alerts
+.
+Assumed knowledge
+​
+To get the most out of this guide, you should have an understanding of:
+Airflow DAGs. See
+Introduction to Airflow DAGs
+.
+Task dependencies. See
+Managing dependencies in Apache Airflow
+.
 
 
 

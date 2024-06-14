@@ -45,143 +45,223 @@ name by using an argument with the `%%bigquery`magic command.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-query-external-sheets-perm.md
+cloud.google.com/bigquery/docs/running-queries.md
 
 Documentation Title:
-Query Sheets with a permanent table  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Wait for the query to complete.
-w_states = list(results)
-print(
- "There are {} states with names starting with W in the selected range.".format(
- len(w_states)
- )
-)`What's next
------------
+Console
 
-To search and filter code samples for other Google Cloud products, see the
- Google Cloud sample browser.
- 
+1. Go to the **BigQuery**page.
 
-Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the Google Developers Site Policies. Java is a registered trademark of Oracle and/or its affiliates.
+Go to BigQuery
+Click add\_box**Compose a new query**.
 
-* ### Why Google
+3. In the query editor, enter a valid GoogleSQL query.
+
+For example, query the
+BigQuery public dataset `usa_names`to determine the most common names in the United States between the
+years 1910 and 2013:
+
+`SELECT
+ name, gender,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name, gender
+ORDER BY
+ total DESC
+LIMIT
+ 10;`
+Click settings**More**, and then
+click **Query settings**.
+
+In the **Resource management**section, select **Batch**.
+
+6. Optional: Specify the destination table and
+locationfor the query results:
 
 
-	Choosing Google CloudTrust and securityOpen cloudMulticloudGlobal infrastructureCustomers and case studiesAnalyst reportsWhitepapersBlog
-* ### Products and pricing
+	1. In the **Destination**section, select
+	**Set a destination table for query results**.
+	2. For **Dataset**, enter the name of an existing dataset for the
+	destination table—for example, `myProject.myDataset`.
+	3. For **Table Id**, enter a name for the destination table—for
+	example, `myTable`.
+	4. If the destination table is an existing table, then for
+	**Destination table write preference**, select whether to append or
+	overwrite the table with the query results.
+	
+	If the destination table is a new table, then
+	BigQuery creates the table when you run your query.
+	5. In the **Additional settings**section, click the
+	**Data location**menu, and then select an option.
+	
+	In this example, the `usa_names`dataset is stored in the US
+	multi-region location. If you specify a destination table for this
+	query, the dataset that contains the destination table must also be
+	in the US multi-region. You cannot query a dataset in one location
+	and write the results to a table in another location.
+Click **Save**.
 
+8. Click play\_circle**Run**.
 
-	Google Cloud pricingGoogle Workspace pricingSee all products
-* ### Solutions
-
-
-	Infrastructure modernizationDatabasesApplication modernizationSmart analyticsArtificial IntelligenceSecurityProductivity & work transformationIndustry solutionsDevOps solutionsSmall business solutionsSee all solutions
-* ### Resources
-
-
-	Google Cloud documentationGoogle Cloud quickstartsGoogle Cloud MarketplaceLearn about cloud computingSupportCode samplesCloud Architecture CenterTrainingCertificationsGoogle for DevelopersGoogle Cloud for StartupsSystem statusRelease Notes
-* ### Engage
-
-
-	Contact salesFind a PartnerBecome a PartnerEventsPodcastsDeveloper CenterPress CornerGoogle Cloud on YouTubeGoogle Cloud Tech on YouTubeFollow on XJoin User ResearchWe're hiring. Join Google Cloud!Google Cloud Community
-
-About GooglePrivacySite termsGoogle Cloud termsManage cookiesOur third decade of climate action: join us* Sign up for the Google Cloud newsletterSubscribe
-EnglishDeutschEspañol – América LatinaFrançaisIndonesiaItalianoPortuguês – Brasil中文 – 简体日本語한국어
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-query-external-sheets-temp.md
+cloud.google.com/bigquery/docs/running-queries.md
 
 Documentation Title:
-Query Sheets with a temporary table  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Wait for the query to complete.
-w_states = list(query_job)
-print(
- "There are {} states with names starting with W in the selected range.".format(
- len(w_states)
- )
-)`What's next
------------
+Console
 
-To search and filter code samples for other Google Cloud products, see the
- Google Cloud sample browser.
- 
+1. Go to the **BigQuery**page.
 
-Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the Google Developers Site Policies. Java is a registered trademark of Oracle and/or its affiliates.
+Go to BigQuery
+Click add\_box**Compose a new query**.
 
-* ### Why Google
+3. In the query editor, enter a valid GoogleSQL query.
 
+For example, query the
+BigQuery public dataset `usa_names`to determine the most common names in the United States between the
+years 1910 and 2013:
 
-	Choosing Google CloudTrust and securityOpen cloudMulticloudGlobal infrastructureCustomers and case studiesAnalyst reportsWhitepapersBlog
-* ### Products and pricing
-
-
-	Google Cloud pricingGoogle Workspace pricingSee all products
-* ### Solutions
-
-
-	Infrastructure modernizationDatabasesApplication modernizationSmart analyticsArtificial IntelligenceSecurityProductivity & work transformationIndustry solutionsDevOps solutionsSmall business solutionsSee all solutions
-* ### Resources
+`SELECT
+ name, gender,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name, gender
+ORDER BY
+ total DESC
+LIMIT
+ 10;`
+4. Optional: Specify the destination table and
+locationfor the query results:
 
 
-	Google Cloud documentationGoogle Cloud quickstartsGoogle Cloud MarketplaceLearn about cloud computingSupportCode samplesCloud Architecture CenterTrainingCertificationsGoogle for DevelopersGoogle Cloud for StartupsSystem statusRelease Notes
-* ### Engage
+	1. In the query editor, click
+	settings**More**, and then
+	click **Query settings**.
+	2. In the **Destination**section, select
+	**Set a destination table for query results**.
+	3. For **Dataset**, enter the name of an existing dataset for the
+	destination table—for example, `myProject.myDataset`.
+	4. For **Table Id**, enter a name for the destination table—for
+	example, `myTable`.
+	5. If the destination table is an existing table, then for
+	**Destination table write preference**, select whether to append or
+	overwrite the table with the query results.
+	
+	If the destination table is a new table, then
+	BigQuery creates the table when you run your query.
+	6. In the **Additional settings**section, click the
+	**Data location**menu, and then select an option.
+	
+	In this example, the `usa_names`dataset is stored in the US
+	multi-region location. If you specify a destination table for this
+	query, the dataset that contains the destination table must also be
+	in the US multi-region. You cannot query a dataset in one location
+	and write the results to a table in another location.
+	Click **Save**.
+5. Click play\_circle**Run**.
 
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
 
-	Contact salesFind a PartnerBecome a PartnerEventsPodcastsDeveloper CenterPress CornerGoogle Cloud on YouTubeGoogle Cloud Tech on YouTubeFollow on XJoin User ResearchWe're hiring. Join Google Cloud!Google Cloud Community
-
-About GooglePrivacySite termsGoogle Cloud termsManage cookiesOur third decade of climate action: join us* Sign up for the Google Cloud newsletterSubscribe
-EnglishDeutschEspañol – América LatinaFrançaisIndonesiaItalianoPortuguês – Brasil中文 – 简体日本語한국어
+You can now explore the query results in the **Results**tab of the
+**Query results**pane.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/merchant-center-best-sellers-schema.md
+cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.md
 
 Documentation Title:
-Google Merchant Center Best Sellers table schemas  |  BigQuery  |  Google Cloud
+Query a public dataset with the Google Cloud console  |  BigQuery
 
 Documentation Content:
-|**Column****BigQuery data type****Description****Example data**
-|  |
-|`brand``STRING` best selling brand. |
-| --- |
-|`category_id``INTEGER` Google product category ID of the best selling brand. |
-|`country_code``STRING` Country in which the best selling brand has been sold. |
-|`rank``INTEGER` Rank of the best selling brand (the lower the more sold). |
-|`previous_rank``INTEGER` Rank of the best selling brand in the previous period (week or month). |
-|`relative_demand``STRING` Product's estimated demand in relation to the product with the highest rank in the same category and country. | very\_high, high, medium, low, very\_low |
-|`previous_relative_demand``STRING` Relative demand in the previous period (week or month). | very\_high, high, medium, low, very\_low |
-|`relative_demand_change``STRING` Change in demand compared to the previous period (week or month). |
+4. Ensure that the BigQuery API is enabled.
 
-**Note:**To access best sellers data, you must meet the eligibility requirements for market insights.Send feedback
- 
- Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the Google Developers Site Policies. Java is a registered trademark of Oracle and/or its affiliates.
+Enable the APIIf you created a new project, the BigQuery API is automatically
+ enabled.
+Open a public dataset
+---------------------
 
-Last updated 2024-05-13 UTC.
+BigQuery public datasets are available by default in the
+Google Cloud console.
 
-* ### Why Google
+In the following example, you access datasets in the public project
+`bigquery-public-data`.
 
+1. In the Google Cloud console, go to the
+**BigQuery**page.
 
-	Choosing Google CloudTrust and securityOpen cloudMulticloudGlobal infrastructureCustomers and case studiesAnalyst reportsWhitepapersBlog
-* ### Products and pricing
+Go to BigQuery
+In the **Explorer**pane, click **+Add**.
 
+In the **Add**dialog, search `public datasets`, and then click !**Public Datasets**.
 
-	Google Cloud pricingGoogle Workspace pricingSee all products
-* ### Solutions
+4. Select a dataset, and then click **View dataset**.
 
+In the **Explorer**pane, your dataset is selected and you can view its
+details.
+5. Optional: Click more\_vert**View actions**next to your dataset to view more options.
 
-	Infrastructure modernizationDatabasesApplication modernizationSmart analyticsArtificial IntelligenceSecurityProductivity & work transformationIndustry solutionsDevOps solutionsSmall business solutionsSee all solutions
-* ### Resources
+Each dataset contains tables, which you can view by clicking
+arrow\_right**Toggle node**next to any dataset.
 
+Query a public dataset
+----------------------
 
-	Google Cloud documentationGoogle Cloud quickstartsGoogle Cloud MarketplaceLearn about cloud computingSupportCode samplesCloud Architecture CenterTrainingCertificationsGoogle for DevelopersGoogle Cloud for StartupsSystem statusRelease Notes
-* ### Engage
+In the following steps, you query the USA Names public dataset to determine
+the most common names in the United States between 1910 and 2013:
+
+1. In the Google Cloud console, go to the
+**BigQuery**page.
+
+Go to BigQuery
+2. Go to the
+**Editor**field.
+
+If the **Editor**field is not visible, then click
+add\_box**Compose new query**.
+
+!
+3. In the **Editor**field, copy the following
+query:
+
+`SELECT
+ name,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name
+ORDER BY
+ total DESC
+LIMIT
+ 10;`If the query is valid, then a check mark appears along with the amount of
+data that the query processes. If the query is invalid, then an
+exclamation point appears along with an error message.
+
+!
+4. Click
+**Run**.
+
+The most common names are listed in the **Query results**section.
+The table's header row contains each column name that you selected in the
+query.
+
+!
 
 
 

@@ -50,6 +50,71 @@ Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 Documentation Source:
+www.metabase.com/docs/v0.49/api/database.md
+
+Documentation Title:
+Database
+
+Documentation Content:
+PARAMS:
+
+- `id`value must be an integer greater than zero.
+`POST /api/database/sample_database`Add the sample database as a new `Database`.
+
+You must be a superuser to do this.
+
+`POST /api/database/validate`Validate that we can connect to a database given a set of details.
+
+You must be a superuser to do this.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/introduction.md
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+Get to know your way around Metabase and create your first question using the sample database.
+
+Installation and setupThe Metabase home pageAsking a new questionFiltering dataPreviewing resultsSummarizing dataGrouping our resultsChanging the visualizationNext up
+Metabase is a simple and powerful analytics tool which lets anyone learn and make decisions from their company’s data—no technical knowledge required.
+
+Installation and setup
+----------------------
+
+If your Metabase isn’t up and running yet, check out:
+
+Installing MetabaseSetting up Metabase
+The Metabase home page
+----------------------
+
+!Fresh out of the box, Metabase will show you a few things on the home page:
+
+* Some automatic explorationsof your tables that you can look at and save as dashboard.
+* A navigation sidebar that lists:
+	+ **Home**button to return to your Metabase home page.
+	+ **Collections**, where you’ll store all of your questions, dashboards, and models. You have your own personal collection to store drafts and experiments that aren’t yet ready to share.
+	+ **Data**section, which lists all of the data sources your Metabase is connected to.
+	+ **Settings**(the **gear**icon in the upper right).
+
+You can also **Bookmark**your favorite items, and they’ll appear toward the top of the navigation sidebar.
+
+To open and close the navigation sidebar, click on the Metabase logo in the upper left.
+
+!Asking a new question
+---------------------
+
+A questionin Metabase is a query, the results of that query, and the visualization and formatting of those results (even if that visualization is just a table). Questions have titles, IDs, and unique URLs you can copy and share with others.
+
+You can play around with a question by filtering and summarizing its results, save those explorations as new questions, and add questions to dashboards. But we’re getting ahead of ourselves; for the next few examples, we’ll be using the Sample Databasethat comes with Metabase.
+
+Click on **+ New**in the main nav, and select **Question**.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.md
 
 Documentation Title:
@@ -99,53 +164,6 @@ Getting started with Metabase
 For a tutorial on getting up and running with questions and dashboards, head over to Learn Metabase.
 
 If you’d like more technical resources to set up your data stack with Metabase, connect with a Metabase Expert.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/api/database.md
-
-Documentation Title:
-Database
-
-Documentation Content:
-PARAMS:
-
-- `id`value must be an integer greater than zero.
-`POST /api/database/sample_database`Add the sample database as a new `Database`.
-
-You must be a superuser to do this.
-
-`POST /api/database/validate`Validate that we can connect to a database given a set of details.
-
-You must be a superuser to do this.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/api/database.md
-
-Documentation Title:
-Database
-
-Documentation Content:
-when!Analytics dashboards
- Share insights with anyone, anywhere!SQL editor
- For advanced data users!Sandboxing
- Set boundaries around your data!Models
- A starting point for questions!Permissions
- Keep your data secure and private!CSV upload
- Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
- New!Community Data Stack Report
- NewPricingLog inv0.49Api
-Database
-========
-
-/api/database endpoints.
-
-`DELETE /api/database/:id`Delete a `Database`.
-
-You must be a superuser to do this.
 
 
 

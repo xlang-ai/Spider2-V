@@ -1,37 +1,15 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+cloud.google.com/bigquery/docs/arima-speed-up-tutorial.html
 
 Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+Scalable forecasting with millions of time-series in BigQuery  |  Google Cloud
 
 Documentation Content:
-</p><h3>Delete your dataset</h3><p>Deleting your project removes all datasets and all tables in the project. If you
+If you
 prefer to reuse the project, you can delete the dataset you created in this
 tutorial:</p><ol><li><p>If necessary, open the BigQuery page in the
-Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the navigation, click the <strong>census</strong>dataset you created.</p><p>Click <strong>Delete dataset</strong>on the right side of the window.
-This action deletes the dataset and the model.</p><p>In the <strong>Delete dataset</strong>dialog box, confirm the delete command by typing
-the name of your dataset (<code>census</code>) and then click <strong>Delete</strong>.</p></ol><h3>Delete your project</h3><p>To delete the project:</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
-  <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
-      the tasks in this document, when you delete it, you also delete any other work you've
-      done in the project.
-    </li><li><strong>Custom project IDs are lost.</strong>When you created this project, you might have created a custom project ID that you want to use in
-      the future. To preserve the URLs that use the project ID, such as an <code>appspot.com</code>URL, delete selected resources inside the project instead of deleting the whole project.
-    </li></ul><p>If you plan to explore multiple architectures, tutorials, or quickstarts, reusing projects
-    can help you avoid exceeding project quota limits.
-  </p></aside><li>In the Google Cloud console, go to the <b>Manage resources</b>page.
-    <a>Go to Manage resources</a></li><li>In the project list, select the project that you
-    want to delete, and then click <b>Delete</b>.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/arima-time-series-forecasting-with-hierarchical-time-series.html
-
-Documentation Title:
-Hierarchical time series forecasting  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-This action deletes the dataset, the table, and all the data.</p><p>In the <strong>Delete dataset</strong>dialog, confirm the delete command by typing
+Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the navigation, click the <strong>bqml_tutorial</strong>dataset you created.</p><p>Click <strong>Delete dataset</strong>to delete the dataset, the table, and all of the
+data.</p><p>In the <strong>Delete dataset</strong>dialog, confirm the delete command by typing
 the name of your dataset (<code>bqml_tutorial</code>) and then click <strong>Delete</strong>.</p></ol><h3>Delete your project</h3><p>To delete the project:</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
   <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
       the tasks in this document, when you delete it, you also delete any other work you've
@@ -49,13 +27,18 @@ the name of your dataset (<code>bqml_tutorial</code>) and then click <strong>Del
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/arima-plus-xreg-single-time-series-forecasting-tutorial.html
+cloud.google.com/bigquery/docs/bigqueryml-mf-implicit-tutorial.html
 
 Documentation Title:
-Multivariate time-series forecasting from Seattle air quality data  |  BigQuery  |  Google Cloud
+Use BigQuery ML to make recommendations from Google analytics data  |  Google Cloud
 
 Documentation Content:
-If you
+For <strong>Processing location</strong>, choose <code>US</code>. This step is optional because the
+processing location is automatically detected based on the dataset's location.</p><img/></li><p>Click <strong>Run</strong>.</p><li><p>When the query is complete, click the <strong>Results</strong>tab below the query text
+area. The results should look like the following:</p><img/></li></ol></section><section><h2>Clean up</h2><p>To avoid incurring charges to your Google Cloud account for the resources used in this
+        tutorial, either delete the project that contains the resources, or keep the project and
+        delete the individual resources.
+      </p><ul><li>You can delete the project you created.</li><li>Or you can keep the project and delete the dataset.</li></ul><h3>Delete your dataset</h3><p>Deleting your project removes all datasets and all tables in the project. If you
 prefer to reuse the project, you can delete the dataset you created in this
 tutorial:</p><ol><li><p>If necessary, open the BigQuery page in the
 Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the navigation, click the <strong>bqml_tutorial</strong>dataset you created.</p><p>Click <strong>Delete dataset</strong>on the right side of the window.
@@ -64,39 +47,49 @@ the name of your dataset (<code>bqml_tutorial</code>) and then click <strong>Del
   <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
       the tasks in this document, when you delete it, you also delete any other work you've
       done in the project.
-    </li><li><strong>Custom project IDs are lost.</strong>When you created this project, you might have created a custom project ID that you want to use in
-      the future. To preserve the URLs that use the project ID, such as an <code>appspot.com</code>URL, delete selected resources inside the project instead of deleting the whole project.
-    </li></ul><p>If you plan to explore multiple architectures, tutorials, or quickstarts, reusing projects
-    can help you avoid exceeding project quota limits.
-  </p></aside><li>In the Google Cloud console, go to the <b>Manage resources</b>page.
-    <a>Go to Manage resources</a></li><li>In the project list, select the project that you
-    want to delete, and then click <b>Delete</b>.
-  </li><li>In the dialog, type the project ID, and then click
-    <b>Shut down</b>to delete the project.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/arima-single-time-series-forecasting-tutorial.html
+cloud.google.com/bigquery/docs/managing-datasets.html
 
 Documentation Title:
-Single time-series forecasting from Google Analytics data  |  BigQuery  |  Google Cloud
+Manage datasets  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+For information about data encryption, see <a>Encryption at rest</a>.</p><h2>Delete datasets</h2><p>When you delete a dataset by using the Google Cloud console, tables and views
+in the dataset, including their data, are deleted. When you delete a
+dataset by using the bq command-line tool, you must use the <code>-r</code>flag to delete the
+tables and views.</p><p>To delete a dataset, select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>pane, expand your project and select a dataset.</p><p>Expand the
+<span>more_vert</span><strong>Actions</strong>option and click <strong>Delete</strong>.</p><p>In the <strong>Delete dataset</strong>dialog, type <code>delete</code>into the field, and then
+click <strong>Delete</strong>.</p></ol><aside><strong>Note:</strong><span>When you delete a dataset using the Google Cloud console, the tables
+are automatically removed.</span></aside></section><section><h3>SQL </h3><p>To delete a dataset, use the
+<a><code>DROP SCHEMA</code>DDL statement</a>.</p><p>The following example deletes a dataset named <code>mydataset</code>:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, enter the following statement:</p><pre>DROP SCHEMA IF EXISTS mydataset;
+</pre><p>By default, this only works to delete an empty dataset.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/export-model-tutorial.html
+
+Documentation Title:
+Export a BigQuery ML model for online prediction  |  Google Cloud
+
+Documentation Content:
+If you
+prefer to reuse the project, you can delete the dataset you created in this
+tutorial:</p><ol><li><p>If necessary, open the BigQuery page in the
+Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the navigation, click the <strong>bqml_tutorial</strong>dataset you created.</p><p>Click <strong>Delete dataset</strong>on the right side of the window.
 This action deletes the dataset, the table, and all the data.</p><p>In the <strong>Delete dataset</strong>dialog box, confirm the delete command by typing
-the name of your dataset (<code>bqml_tutorial</code>) and then click <strong>Delete</strong>.</p></ol><h3>Delete your project</h3><p>To delete the project:</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
+the name of your dataset (<code>bqml_tutorial</code>) and then click <strong>Delete</strong>.</p></ol><h3>Delete your Cloud Storage bucket</h3><p>Deleting your project removes all Cloud Storage buckets in the project. If
+you prefer to reuse the project, you can delete the bucket you created in this
+tutorial</p><ol><li>In the Google Cloud console, go to the Cloud Storage <b>Buckets</b>page.<a>Go to Buckets</a></li><p>Select the checkbox of the bucket you want to delete.</p><p>Click <strong>Delete</strong>.</p><p>In the overlay window that appears, confirm you want to delete the
+bucket and its contents by clicking <strong>Delete</strong>.</p></ol><h3>Delete your project</h3><p>To delete the project:</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
   <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
       the tasks in this document, when you delete it, you also delete any other work you've
       done in the project.
     </li><li><strong>Custom project IDs are lost.</strong>When you created this project, you might have created a custom project ID that you want to use in
       the future. To preserve the URLs that use the project ID, such as an <code>appspot.com</code>URL, delete selected resources inside the project instead of deleting the whole project.
-    </li></ul><p>If you plan to explore multiple architectures, tutorials, or quickstarts, reusing projects
-    can help you avoid exceeding project quota limits.
-  </p></aside><li>In the Google Cloud console, go to the <b>Manage resources</b>page.
-    <a>Go to Manage resources</a></li><li>In the project list, select the project that you
-    want to delete, and then click <b>Delete</b>.
-  </li><li>In the dialog, type the project ID, and then click
-    <b>Shut down</b>to delete the project.
 
 
 

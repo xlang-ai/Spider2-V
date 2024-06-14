@@ -1,224 +1,172 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/codemirror.pythonBuiltin-1.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.ToolbarItems.createCopyButton.txt
 
 Documentation Title:
-pythonBuiltin | @jupyterlab
+createCopyButton | @jupyterlab
 
 Documentation Content:
-lbar
-Items
-create
-Cell
-Type
-Item
-create
-Copy
-Button
-create
-Cut
-Button
-create
-Insert
-Button
-create
-Paste
-Button
-create
-Restart
-Run
-All
-Button
-create
-Run
-Button
-create
-Save
-Button
-get
-Default
-Items
-Running
-Status
-Cell
-List
-Cell
-Type
-Switcher
-Command
+r
+IView
+Menu
+IEditor
+Viewer
 Edit
-Status
-Execution
-Indicator
+Menu
+File
+Menu
+Help
+Menu
 Kernel
-Error
-Notebook
-Notebook
-Actions
-Notebook
-Adapter
-Notebook
-Model
-Notebook
-Model
-Factory
-Notebook
-Panel
-Notebook
-Search
-Provider
-Notebook
-ToCFactory
-Notebook
-ToCModel
-Notebook
-Tools
-Notebo
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/codemirror.jupyterTheme.txt
-
-Documentation Title:
-jupyterTheme | @jupyterlab
-
-Documentation Content:
-ton
-create
-Insert
-Button
-create
-Paste
-Button
-create
-Restart
+Menu
+Main
+Menu
 Run
-All
-Button
-create
-Run
-Button
-create
-Save
-Button
-get
-Default
-Items
-Running
-Status
-Cell
-List
-Cell
-Type
-Switcher
-Command
-Edit
-Status
-Execution
-Indicator
-Kernel
-Error
-Notebook
-Notebook
-Actions
-Notebook
-Adapter
-Notebook
-Model
-Notebook
-Model
-Factory
-Notebook
-Panel
-Notebook
-Search
-Provider
-Notebook
-ToCFactory
-Notebook
-ToCModel
-Notebook
-Tools
-Notebook
-Tracker
-Notebook
-Trust
-Status
-Notebook
+Menu
+Settings
+Menu
+Tabs
+Menu
 View
-Model
-Notebook
-Widge
+Menu
+IEdit
+Menu
+IFile
+Menu
+IHelp
+Menu
+IKernel
+Menu
+IMain
+Menu
+IRun
+Menu
+ISettings
+Menu
+ITabs
+Menu
+IView
+Menu
+IMain
+Menu
+mainmenu-
+extension
+CommandIDs
+activate
+By
+Id
+activate
+Previously
+Used
+Tab
+change
+Kernel
+clear
+All
+clear
+Current
+close
+And
+Cleanup
+create
+Console
+find
+get
+Kernel
+go
+To
+Line
+interrupt
+Kernel
+line
+Numbering
+logout
+match
+Brackets
+open
+Edi
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.copy.txt
+jupyterlab.readthedocs.io/en/4.1.x/user/notebook.txt
 
 Documentation Title:
-copy | @jupyterlab
+Notebooks — JupyterLab 4.1.8 documentation
 
 Documentation Content:
-utton
-Class
-add
-Toolbar
-Button
-Class
-create
-Default
-Factory
-create
-Toolbar
-Factory
-set
-Toolbar
-show
-Dialog
-show
-Error
-Message
-translate
-Kernel
-Statuses
-attachments
-Attachments
-Model
-Content
-Factory
-default
-Content
-Factory
-Attachments
-Resolver
-IOptions
-IAttachments
-Model
-IContent
-Factory
-IOptions
-Changed
-Args
-Attachments
-Model
-Attachments
-Resolver
-IAttachments
-Model
-cells
-Attachments
-Cell
-Model
-Content
-Factory
-IContent
-Factory
-IOptions
-default
-Content
-Factory
-Cell
-Content
+Notebooks — JupyterLab 4.1.8 documentation
+Skip to main content
+Back to top
+Ctrl
++
+K
+Get Started
+User Guide
+Develop Extensions
+Contribute
+Privacy policies
+GitHub
+Discourse
+Gitter
+Get Started
+User Guide
+Develop Extensions
+Contribute
+Privacy policies
+GitHub
+Discourse
+Gitter
+Section Navigation
+Announcements
+The JupyterLab Interface
+JupyterLab URLs
+Working with Files
+Text Editor
+Notebooks
+Code Consoles
+Completer
+Terminals
+Managing Kernels and Terminals
+Commands
+Documents and Kernels
+File and Output Formats
+Debugger
+Table Of Contents
+Extensions
+JupyterLab on JupyterHub
+Exporting Notebooks
+Localization and language
+Real Time Collaboration
+Language Server Protocol support
+Interface Customization
+Advanced Usage
+JupyterLab on Binder
+User Guide
+Notebooks
+Notebooks
+#
+Jupyter notebooks are documents that combine live runnable code with
+narrative text (Markdown), equations (LaTeX), images, interactive
+visualizations and other rich output:
+Jupyter notebooks (.ipynb files) are fully supported in JupyterLab.
+The
+notebook document format
+used in
+JupyterLab is the same as in the classic Jupyter Notebook. Your existing notebooks
+should open correctly in JupyterLab. If they don’t, please open an issue on our
+GitHub issues
+page.
+Create a notebook by clicking the
++
+button in the file browser and
+then selecting a kernel in the new Launcher tab:
+A new file is created with a default name. Rename a file by
+right-clicking on its name in the file browser and selecting “Rename”
+from the context menu:
+The user interface for notebooks in JupyterLab closely follows that of
+the classic Jupyter Notebook. The keyboard shortcuts of the classic
+Notebook continue to work (with command and edit mode). However, a
+number of new things are possible with notebooks in JupyterLab.
 
 
 
@@ -229,74 +177,157 @@ Documentation Title:
 createCopyButton | @jupyterlab
 
 Documentation Content:
-lt
-Notebook
-Config
+e
+New
+Markdown
+To
+Launcher
+add
+Create
+New
+To
+Launcher
+add
+Kernel
+Language
+Launcher
+Items
+add
+Kernel
+Language
+Menu
+Items
+add
+Kernel
+Language
+Palette
+Items
+add
+Launcher
+Items
+add
+Menu
+Items
+add
+Open
+Code
+Viewer
+Command
+add
+Palette
+Items
+update
+Settings
+update
+Tracker
+update
+Widget
+default
+tab
+Space
+Status
+htmlviewer
 Toolbar
 Items
 create
-Cell
-Type
-Item
-create
-Copy
+Refresh
 Button
 create
-Cut
+Trust
 Button
-create
-Insert
-Button
-create
-Paste
-Button
-create
-Restart
-Run
+HTMLViewer
+HTMLViewer
+Factory
+IHTMLViewer
+Tracker
+IHTMLViewer
+Tracker
+hub-
+extension
+CommandIDs
+contr
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.ToolbarItems.createCopyButton.txt
+
+Documentation Title:
+createCopyButton | @jupyterlab
+
+Documentation Content:
+lls
+select
+Above
+select
 All
-Button
-create
+select
+Below
+select
+Heading
+Above
+Or
+Collapse
+Heading
+select
+Heading
+Below
+Or
+Expand
+Heading
+select
+Last
 Run
-Button
-create
-Save
-Button
-get
-Default
-Items
-Running
-Status
 Cell
-List
+set
 Cell
-Type
-Switcher
-Command
-Edit
-Status
-Execution
-Indicator
-Kernel
-Error
-Notebook
-Notebook
-Actions
-Notebook
-Adapter
+Collapse
+set
+Heading
+Collapse
+set
+Markdown
+Header
+show
+All
+Code
+show
+All
+Outputs
+show
+Code
+show
+Output
+split
+Cell
+toggle
+All
+Line
+Numbers
+toggle
+Current
+Heading
+Collapse
+trust
+undo
 Notebook
 Model
+IOptions
 Notebook
 Model
 Factory
+IOptions
 Notebook
 Panel
+Content
+Factory
+IConfig
+IContent
+Factory
+IContent
+Factory
 Notebook
-Search
-Provider
-Notebook
-ToCFactory
-Notebook
-ToCModel
+Too
 
 
 

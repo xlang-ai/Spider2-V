@@ -146,75 +146,6 @@ Select a file type to customize, and then select the relevant settings for your 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-internal-tutorial.txt
-
-Documentation Title:
-Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
-
-Documentation Content:
-Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
-DOCUMENTATION
-/
-Getting Started
-Guides
-Developer
-Reference
-Releases
-Tutorials
-Status
-Tutorial: Bulk loading from a local file system using COPY
-Getting Started
-Tutorials
-Bulk Loading
-Bulk Loading from a Local File System
-Tutorial: Bulk loading from a local file system using COPY
-¶
-This tutorial describes how to load data from files in your local file system into a table.
-Introduction
-¶
-In this tutorial, you will learn how to:
-Create named file format objects that describe your data files.
-Create named stage objects.
-Upload your data to the internal stages.
-Load your data into tables.
-Resolve errors in your data files.
-The tutorial covers loading of both CSV and JSON data.
-Prerequisites
-¶
-The tutorial assumes the following:
-You have a Snowflake account and a user with a role that grants the necessary
-privileges to create a database, tables, and virtual warehouse objects.
-You have SnowSQL installed.
-The
-Snowflake in 20 minutes
-tutorial provides the related step-by-step instructions to meet these requirements.
-In addition, you need to do the following before you start the tutorial:
-Download sample files provided for this exercise.
-Create a database, tables, and a virtual warehouse for this tutorial.
-These are the basic Snowflake objects needed for most Snowflake activities.
-Downloading the sample data files
-¶
-For this tutorial you need to download the sample data files provided by Snowflake.
-To download and unzip the sample data files:
-Right-click the name of the
-archive file,
-data-load-internal.zip
-and save the link/file to your local file system.
-Unzip the sample files. The tutorial assumes you unpacked files in
-to the following directories:
-Linux/macOS:
-/tmp/load
-Windows:
-C:\tempload
-These data files include sample contact data in the following formats:
-CSV files that contain a header row and five records. The field
-delimiter is the pipe (
-|
-) character.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/sql-reference/sql/copy-into-table.txt
 
 Documentation Title:
@@ -275,6 +206,82 @@ FORCE
 TRUE
 to a COPY command to reload (duplicate) data from a set of staged data files that have not changed (i.e. have
 the same checksum as when they were first loaded).
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/data-load-web-ui.txt
+
+Documentation Title:
+Loading data using the web interface | Snowflake Documentation
+
+Documentation Content:
+You can load data from one of the following:
+Your local machine.
+An internal or external stage.
+A cloud storage location on Amazon S3, Google Cloud Storage, or Microsoft Azure that is not yet added to Snowflake as an external stage.
+Determine the size of your data files. Each file that you load can be up to 250 MB. If you want to load larger files, or large numbers of
+files, use the Snowflake client, SnowSQL, instead. Refer to
+Bulk loading from a local file system
+.
+The role that you use to load data must have appropriate privileges:
+To load data, your role must have the USAGE privilege on the database and the schema that contain the table that you load data into.
+To create a stage when you load data, your role must have the CREATE STAGE privilege on the database schema.
+To create a file format when you load data, your role must have the CREATE FILE FORMAT privilege on the database schema.
+Start loading data
+¶
+To start loading a file into a specific table, do the following:
+Select
+Databases
+.
+Select a specific database and schema.
+Select the
+Tables
+tab.
+Locate the table into which you want to load data.
+Start loading data into a specific table by doing one of the following:
+Select a table row, then select
+Load Data
+.
+Select a table name to open the table details page, then select
+Load Table
+.
+The
+Load Data
+wizard opens.
+Select a warehouse to use to load data into the table. The drop-down includes any warehouse on which you have the USAGE privilege.
+Select
+Next
+.
+Select the data to load
+¶
+Depending on where you choose to load data from, follow the relevant steps. If you want to load data from multiple locations,
+use the
+Load Data
+wizard multiple times.
+To load data from your computer:
+Select the
+Load files from your computer
+option, and select
+Select Files
+to browse to the files that you want to load.
+Select one or more local data files and select
+Open
+.
+Select
+Next
+.
+To load data from an existing stage:
+Select the
+Load files from external stage
+option.
+Select an existing stage from the
+Stage
+dropdown list.
+(Optional) Specify a path to the files in the stage.
+Select
+Next
+.
 
 
 

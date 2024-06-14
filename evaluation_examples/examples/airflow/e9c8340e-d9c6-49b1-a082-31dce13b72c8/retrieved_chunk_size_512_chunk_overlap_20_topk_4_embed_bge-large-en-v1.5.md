@@ -1,17 +1,4 @@
 Documentation Source:
-docs.astronomer.io/astro/release-notes.md
-
-Documentation Title:
-Astro release notes | Astronomer Documentation
-
-Documentation Content:
-Trigger a DAG from an Astro alert​
-
-You can now configure Astro alertsto trigger any DAG in your Workspace through the Airflow REST API. You can configure the triggered DAG to complete any action, such as sending an alert through a custom communication channel or writing data about the incident to a table.
-
-
-
-Documentation Source:
 docs.astronomer.io/learn/get-started-with-airflow.md
 
 Documentation Title:
@@ -46,21 +33,45 @@ Each column in the grid represents a complete DAG run, and each block in the col
 
 
 Documentation Source:
-docs.astronomer.io/astro/alerts74bb.md
+docs.astronomer.io/astro/first-dag-cli.md
 
 Documentation Title:
-Set up Astro alerts | Astronomer Documentation
+Run your first DAG with the Astro CLI | Astronomer Documentation
 
 Documentation Content:
-* `note`: By default, this is `Triggering DAG on Airflow `.
-The following is an example alert payload that would be passed through the API:
+If your code passes the parse, the Astro CLI deploys your DAGs to Astro. If you run into issues deploying your DAGs, check to make sure that you have the latest version of the Astro CLI. See Upgrade the CLI.
 
-`{"dagName":"fail_dag","alertType":"PIPELINE_FAILURE","alertId":"d75e7517-88cc-4bab-b40f-660dd79df216","message":"[Astro Alerts] Pipeline failure detected on DAG fail_dag. \\nStart time: 2023-11-17 17:32:54 UTC. \\nFailed at: 2023-11-17 17:40:10 UTC. \\nAlert notification time: 2023-11-17 17:40:10 UTC. \\nClick link to investigate in Astro UI: https://cloud.astronomer.io/clkya6zgv000401k8zafabcde/dags/clncyz42l6957401bvfuxn8zyxw/fail_dag/c6fbe201-a3f1-39ad-9c5c-817cbf99d123?utm_source=alert\"\\n"}`These parameters are accessible in the triggered DAG using DAG params.
+Step 5: Trigger your DAG on Astro​
+----------------------------------
 
-- Create a DAG that you want to run when the alert is triggered. For example, you can use the following DAG to run arbitrary Python code when the alert is triggered:
-`importdatetimefromtyping importAnyfromairflow.models.dag importDAGfromairflow.operators.python importPythonOperatorwithDAG(dag_id="register_incident",start_date=datetime.datetime(2023,1,1),schedule=None,):def_register_incident(params:dict[str,Any]):failed_dag =params["dagName"]print(f"Register an incident in my system for DAG {failed_dag}.")PythonOperator(task_id="register_incident",python_callable=_register_incident)`Deploy the DAG to any Deployment in the Workspace where you want to create the alert. The DAG that triggers the alert and the DAG that the alert runs can be in different Deployments, but they must be deployed in the same Workspace.
+Newly-deployed DAGs are paused by default and will not start running automatically. To run one of the example DAGs in your Astro project according to its schedule, you must unpause it from the Airflow UI hosted on your Deployment.
 
-Create a Deployment API tokenfor the Deployment where you deployed the DAG that the alert will run. Copy the token to use in the next step.
+In the Deployment page of the Astro UI, click the **Open Airflow**button.
+
+2. In the main DAGs view of the Airflow UI, click the slider button next to `example-dag-basic`to unpause it. If you hover over the DAG, it says `DAG is Active`. When you do this, the DAG starts to run on the schedule that is defined in its code.
+
+!
+3. Manually trigger a DAG run of `example-dag-basic`by clicking the play button in the **Actions**column. When you develop DAGs on Astro, triggering a DAG run instead of waiting for the DAG schedule can help you quickly identify and resolve issues.
+
+After you press **Play**, the **Runs**and **Recent Tasks**sections for the DAG start to populate with data.
+
+!These circles represent different statesthat your DAG and task runs can be in.
+Click on the name of the DAG, **example-dag-basic**, to open the **Grid**view for the DAG. To see if your DAG ran successfully, the most recent entry in the grid should have green squares for all of your tasks.
+
+Pause your DAG by clicking the slider button next to `example-dag-basic`. This prevents your example DAG from running automatically and consuming your Deployment resources.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/release-notes.md
+
+Documentation Title:
+Astro release notes | Astronomer Documentation
+
+Documentation Content:
+Trigger a DAG from an Astro alert​
+
+You can now configure Astro alertsto trigger any DAG in your Workspace through the Airflow REST API. You can configure the triggered DAG to complete any action, such as sending an alert through a custom communication channel or writing data about the incident to a table.
 
 
 

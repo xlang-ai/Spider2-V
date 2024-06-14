@@ -77,68 +77,48 @@ You must be a superuser to do this.
 
 
 Documentation Source:
-www.metabase.com/learn/getting-started/introduction.md
+www.metabase.com/docs/v0.49/databases/uploads.md
 
 Documentation Title:
-Getting started with Metabase
+Uploading data
 
 Documentation Content:
-Get to know your way around Metabase and create your first question using the sample database.
+Models
 
-Installation and setupThe Metabase home pageAsking a new questionFiltering dataPreviewing resultsSummarizing dataGrouping our resultsChanging the visualizationNext up
-Metabase is a simple and powerful analytics tool which lets anyone learn and make decisions from their company’s data—no technical knowledge required.
+You can archive a model by clicking on the three dots in the upper right and selecting **Archive**.
 
-Installation and setup
-----------------------
-
-If your Metabase isn’t up and running yet, check out:
-
-Installing MetabaseSetting up Metabase
-The Metabase home page
-----------------------
-
-!Fresh out of the box, Metabase will show you a few things on the home page:
-
-* Some automatic explorationsof your tables that you can look at and save as dashboard.
-* A navigation sidebar that lists:
-	+ **Home**button to return to your Metabase home page.
-	+ **Collections**, where you’ll store all of your questions, dashboards, and models. You have your own personal collection to store drafts and experiments that aren’t yet ready to share.
-	+ **Data**section, which lists all of the data sources your Metabase is connected to.
-	+ **Settings**(the **gear**icon in the upper right).
-
-You can also **Bookmark**your favorite items, and they’ll appear toward the top of the navigation sidebar.
-
-To open and close the navigation sidebar, click on the Metabase logo in the upper left.
-
-!Asking a new question
----------------------
-
-A questionin Metabase is a query, the results of that query, and the visualization and formatting of those results (even if that visualization is just a table). Questions have titles, IDs, and unique URLs you can copy and share with others.
-
-You can play around with a question by filtering and summarizing its results, save those explorations as new questions, and add questions to dashboards. But we’re getting ahead of ourselves; for the next few examples, we’ll be using the Sample Databasethat comes with Metabase.
-
-Click on **+ New**in the main nav, and select **Question**.
+For deleting models completely, see Deleting items permanently.
 
 
 
 Documentation Source:
-www.metabase.com/learn/permissions/data-permissions.md
+www.metabase.com/docs/v0.49/exploration-and-organization/history.md
 
 Documentation Title:
-Guide to data permissions
+History
 
 Documentation Content:
-2. Click on the dropdown menu at the **All Users**row and **Data access**column.
-3. Select **No self-service**.
-4. Click **Save changes**in the banner that appears at the top.
+Unarchiving multiple items
 
-!Selecting **No self-service**for All Users to the Sample Database will:
+You can unarchive multiple items at once from the same collection:
 
-Prevent All Users from seeing any data from the Sample Database in the data browser.
+1. Go to the collection.
+2. Hover over the icon beside the name of the item and click the checkbox that appears.
+3. When you’re done selecting your items, click **Unarchive**at the bottom of the page.
 
-Prevent All Users from using the query builder to create questions using data from the Sample Database.
+Deleting items permanently
+--------------------------
 
-Continue to allow All Users to *view the results*(but not access the underlying data) from questions and dashboards that use Sample Database tables, as long as these questions and dashboards are saved in collections that match the collection permissionsfor your All Users group.
+1. Open the main Metabase sidebar.
+2. Click the `...`beside the “Collections” header in the sidebar.
+3. Click **View archive**.
+4. Hover over the item and click the **trash bin**icon.
+
+The item will get permanently deleted from your application database.
+
+Remember that archivingand deleting items can have unanticipated ripple effects on related dashboards, subscriptions, and SQL questions.
+
+We recommend archiving because you can always unarchive if something breaks. If you delete an item and accidentally break something, you might have to recreate all of that work from scratch (unless you’re prepared to revert to a backup of your application database).
 
 
 

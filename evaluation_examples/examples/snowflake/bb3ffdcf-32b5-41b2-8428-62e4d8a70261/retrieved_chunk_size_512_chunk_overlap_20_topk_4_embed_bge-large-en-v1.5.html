@@ -1,12 +1,11 @@
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/list.html
+docs.snowflake.com/en/user-guide/querying-metadata.html
 
 Documentation Title:
-LIST | Snowflake Documentation
+Querying Metadata for Staged Files | Snowflake Documentation
 
 Documentation Content:
-all file names containing the string <span>data_0</span>) in the stage for the <span>mytable</span>table:</p><div><pre><span>LIST</span><span>@%</span><span>mytable</span><span>PATTERN</span><span>=</span><span>'.*data_0.*'</span><span>;</span></pre><span>Copy</span></div><p>List the files in the <span>/analysis/</span>path of the <span>my_csv_stage</span>named stage that match a regular expression (i.e. all file names containing
-the string <span>data_0</span>):</p><div><pre><span>LIST</span><span>@</span><span>my_csv_stage</span><span>/</span><span>analysis</span><span>/</span><span>PATTERN</span><span>=</span><span>'.*data_0.*'</span><span>;</span></pre><span>Copy</span></div><p>Use the abbreviated form of the command to list all the files in the stage for the current user:</p><div><pre><span>LS</span><span>@~;</span></pre><span>Copy</span></div></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+</span><span>+</span><span>-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+----+----+</span><span>| METADATA$FILENAME | METADATA$FILE_ROW_NUMBER | METADATA$FILE_CONTENT_KEY | METADATA$FILE_LAST_MODIFIED |      METADATA$START_SCAN_TIME | $1 | $2 |</span><span>|-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+----+----|</span><span>| data2.csv.gz      |                        1 | aaa11bb2cccccaaaaac1234d9 |     2022-05-01 10:15:57.000 |  2023-02-02 01:31:00.713 +0000| e  | f  |</span><span>| data2.csv.gz      |                        2 | aa387aabb2ccedaaaaac123b8 |     2022-05-01 10:05:35.000 |  2023-02-02 01:31:00.755 +0000| g  | h  |</span><span>| data1.csv.gz      |                        1 | 39ab11bb2cdeacdcdac1234d9 |     2022-08-03 10:15:26.000 |  2023-02-02 01:31:00.778 +0000| a  | b  |</span><span>| data1.csv.gz      |                        2 | 2289aab2abcdeaacaaac348d0 |     2022-09-10 11:15:55.000 |  2023-02-02 01:31:00.778 +0000| c  | d  |</span><span>+</span><span>-------------------+--------------------------+---------------------------+-----------------------------+-------------------------------+----+----+</span><span>SELECT</span><span>METADATA</span><span>$</span><span>FILENAME</span><span>,</span><span>METADATA</span><span>$</span><span>FILE_ROW_NUMBER</span><span>,
 
 
 
@@ -22,24 +21,27 @@ Documentation Content:
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/querying-stage.html
+docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.html
 
 Documentation Title:
-Querying Data in Staged Files | Snowflake Documentation
+Snowflake in 20 minutes | Snowflake Documentation
 
 Documentation Content:
-<div><div><nav><div><span>DOCUMENTATION</span><span>/</span></div><div><a>Getting Started</a><a>Guides</a><a>Developer</a><a>Reference</a><a>Releases</a><a>Tutorials</a><a>Status</a></div></nav><main><ol><span>Overview</span><span>Connecting to Snowflake</span><span>Virtual warehouses</span><span>Databases, Tables, &amp;
+csv.gz | LOADED |           5 |           5 |           1 |           0 | NULL        |             NULL |                  NULL | NULL                    |</span><span>| employees01.csv.gz | LOADED |           5 |           5 |           1 |           0 | NULL        |             NULL |                  NULL | NULL                    |</span><span>+--------------------+--------+-------------+-------------+-------------+-------------+-------------+------------------+-----------------------+-------------------------+</span></pre></section><section><h2>Query loaded data<a>¶</a></h2><p>You can query the data loaded in the <span>emp_basic</span>table using standard <span>SQL</span>and any supported
+<span>functions</span>and
+<span>operators</span>.</p><p>You can also manipulate the data, such as updating the loaded data or inserting more data, using standard <span>DML commands</span>.</p><section><h3>Retrieve all data<a>¶</a></h3><p>Return all rows and columns from the table:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>emp_basic</span><span>;</span></pre><span>Copy</span></div><p>The following is a partial result:</p><div><pre><span>+</span><span>------------+--------------+---------------------------+-----------------------------+--------------------+------------+</span><span>| FIRST_NAME | LAST_NAME    | EMAIL                     | STREETADDRESS               | CITY               | START_DATE |</span><span>|------------+--------------+---------------------------+-----------------------------+--------------------+------------|</span><span>| Arlene     | Davidovits   | adavidovitsk@sf_tuts.com  | 7571 New Castle Circle      | Meniko             | 2017-05-03 |</span><span>| Violette   | Shermore     | vshermorel@sf_tuts.com    | 899 Merchant Center         | Troitsk            | 2017-01-19 |</span><span>| Ron        | Mattys       | rmattysm@sf_tuts.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/querying-metadata.html
+docs.snowflake.com/en/user-guide/data-load-dirtables-pipeline.html
 
 Documentation Title:
-Querying Metadata for Staged Files | Snowflake Documentation
+Building a data processing pipeline using a directory table | Snowflake Documentation
 
 Documentation Content:
-<div><div><nav><div><span>DOCUMENTATION</span><span>/</span></div><div><a>Getting Started</a><a>Guides</a><a>Developer</a><a>Reference</a><a>Releases</a><a>Tutorials</a><a>Status</a></div></nav><main><ol><span>Overview</span><span>Connecting to Snowflake</span><span>Virtual warehouses</span><span>Databases, Tables, &amp;
+|</span><span>|                  |   "Recommend": "MayBe"           |</span><span>|                  | }                                |</span><span>+</span><span>------------------+----------------------------------+</span></pre><span>Copy</span></div><p>Finally, you can create a view that parses the objects in the <span>FILE_DATA</span>column into separate columns.
+You can then query the view to analyze and work with the file contents.</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>VIEW</span><span>prod_review_info_v</span><span>AS</span><span>WITH</span><span>file_data</span><span>AS</span><span>(</span><span>SELECT</span><span>file_name</span><span>,</span><span>parse_json</span><span>(</span><span>file_data</span><span>)</span><span>AS</span><span>file_data</span><span>FROM</span><span>prod_reviews</span><span>)</span><span>SELECT</span><span>file_name</span><span>,</span><span>file_data</span><span>:FirstName</span><span>::varchar</span><span>AS</span><span>first_name</span><span>,</span><span>file_data</span><span>:LastName</span><span>::varchar</span><span>AS</span><span>last_name</span><span>,</span><span>file_data</span><span>:</span><span>"Middle Name"</span><span>::varchar</span><span>AS</span><span>middle_name</span><span>,</span><span>file_data</span><span>:Product</span><span>::varchar</span><span>AS</span><span>product</span><span>,</span><span>file_data</span><span>:</span><span>"Purchase Date"</span><span>::date</span><span>AS</span><span>purchase_date</span><span>,
 
 
 

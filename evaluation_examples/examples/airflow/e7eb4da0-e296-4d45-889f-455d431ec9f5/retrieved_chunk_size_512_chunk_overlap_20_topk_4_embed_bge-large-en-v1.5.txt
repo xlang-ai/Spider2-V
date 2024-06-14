@@ -72,67 +72,25 @@ Cookie Preferences
 
 
 Documentation Source:
-docs.astronomer.io/astro/astro-support.txt
+docs.astronomer.io/learn/get-started-with-airflow.txt
 
 Documentation Title:
-Submit a support request | Astronomer Documentation
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
 
 Documentation Content:
-Additionally, if the immediate problem is solved but there are follow up investigations ongoing, those follow ups will be conducted in a separate ticket at a lower priority.
-P2:
-High impact. Ability to use Astro is severely impaired but does not affect critical, previously working pipelines in production.
-Examples:
-A newly deployed production DAG is not working, even though it ran successfully in a development or test environment.
-The Airflow UI is unavailable.
-You are unable to deploy code to your Deployment, but existing DAGs and tasks are running as expected.
-You need to
-modify a Hybrid cluster setting
-that is required for running tasks, such as adding a new worker instance type.
-Task logs are missing in the Airflow UI.
-P3:
-Medium impact. Service is partially impaired.
-Examples:
-A newly deployed DAG is not working in a development Deployment, even though it ran successfully in a local environment using the Astro CLI.
-You need to
-modify a Hybrid cluster setting
-that affects your cluster's performance but isn't required to run tasks, such as changing the size of your cluster's database or adding a new VPC peering connection.
-Astro CLI usage is impaired (for example, there are incompatibility errors between installed packages).
-There is an Airflow issue that has a code-based solution.
-You received a log alert on Astronomer.
-You have lost the ability to use a
-Public Preview
-feature that does not affect general services.
-P4:
-Low impact. Astro is fully usable but you have a question for our team.
-Examples:
-There are package incompatibilities caused by a specific, complex use case.
-You have an inquiry or a small bug report for a Public Preview feature.
-Be as descriptive as possible
+You've also learned how to navigate the Airflow UI and view task logs. To continue learning about Airflow, see
+Get started with Apache Airflow, Part 2: Providers, connections, and variables
+.
+See also
 ​
-The more information you can provide about the issue you're experiencing, the quicker Astronomer support can start the troubleshooting and resolution process. When submitting a support request, include the following information:
-Have you made any recent changes to your Deployment or running DAGs?
-What solutions have you already tried?
-Is this a problem in more than one Deployment?
-Include logs or code snippets
-​
-If you've already copied task logs or Airflow component logs, send them as a part of your request. The more context you can provide, the better.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/debugging-dags.txt
-
-Documentation Title:
-Debug DAGs | Astronomer Documentation
-
-Documentation Content:
-To get more specific answers to your question, include the following information in your question or issue:
-Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
-Your Airflow version and the version of relevant providers.
-The full error with the error trace if applicable.
-The full code of the DAG causing the error if applicable.
-What you are trying to accomplish in as much detail as possible.
-What you changed in your environment when the problem started.
+An introduction to the Airflow UI
+Introduction to Airflow DAGs
+Airflow operators
+Introduction to the TaskFlow API and Airflow decorators
+Datasets and data-aware scheduling in Airflow
+Pass data between tasks
+Manage task and task group dependencies in Airflow
+Create dynamic Airflow tasks
 Was this page helpful?
 Yes
 No
@@ -147,23 +105,22 @@ Website Terms
 and to receive emails from Astronomer.
 Edit this page
 Previous
-DAG writing best practices
+Quickstart
 Next
-Dynamic tasks
+Part 1: Write your first DAG
+Time to complete
 Assumed knowledge
-General Airflow debugging approach
-Airflow is not starting on the Astro CLI
-Common DAG issues
-DAGs don't appear in the Airflow UI
-Import errors due to dependency conflicts
-DAGs are not running correctly
-Common task issues
-Tasks are not running correctly
-Tasks are failing
-Issues with dynamically mapped tasks
-Missing Logs
-Troubleshooting connections
-I need more help
+Prerequisites
+Step 1: Create an Astro project
+Step 2: Start Airflow
+Step 3: Log in to the Airflow UI
+Step 4: Trigger a DAG run
+Step 5: Explore the Airflow UI
+Step 6: Write a new DAG
+Step 7: Run the new DAG
+Step 8: View task logs
+Next steps
+See also
 Legal
 ·
 Privacy
@@ -172,6 +129,47 @@ Security
 ·
 Cookie Preferences
 © Astronomer 2023. Various trademarks held by their respective owners.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.txt
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+This view is useful for seeing DAG runs over time and troubleshooting previously failed task instances.
+Click on a green square to display additional information about the related task instance on the right side of the Airflow UI. The task instance view includes tabs with additional information for the task instance, such as its logs and historic runs. This is one of many available views that show details about your DAG.
+To access information about mapped task instances of a dynamically mapped task, click the green square of the mapping task instance and then click on
+[] Mapped task
+to view a list of all dynamically mapped task instances. Click on any entry in the list to access information about the dynamically mapped task instance.
+In the
+Grid
+view, click the
+Graph
+tab. This view shows task dependencies and relationships and can help you troubleshoot dependency issues. When you select a DAG run in the Grid view, the Graph tab shows the last state of each task instance in this DAG run.
+In the
+Grid
+view, click the
+Code
+tab to display your DAG source code. Viewing code in the Airflow UI helps you confirm which version of your code is currently running on Airflow.
+info
+While you can view DAG code within the Airflow UI, code edits must be completed in the Python file within the
+/dags
+folder. The displayed code updates every 30 seconds.
+Step 6: Write a new DAG
+​
+Now that we can run DAGs and navigate the UI, let's write our own DAG and run it.
+In this step, you'll write a DAG that:
+Retrieves the number of people currently in space from the Airflow XCom table. This table is part of the Airflow metadata database and is used to pass data between tasks and DAGs. The
+example_astronauts
+DAG already pushed the number of astronauts to XCom when you ran it in
+Step 4
+.
+Prints the number of people currently in space to logs.
+Runs a bash statement reacting to the number of people in space.
+You'll copy most of the code, trigger the DAG, and then confirm the expected output is returned.
 
 
 

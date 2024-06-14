@@ -10,6 +10,18 @@ Documentation Content:
 
 
 Documentation Source:
+docs.snowflake.com/en/sql-reference/sql/rollback.html
+
+Documentation Title:
+ROLLBACK | Snowflake Documentation
+
+Documentation Content:
+Unloading</span><span>File Staging</span><span>Alerts</span><span>Native Apps Framework</span><span>Streamlit</span><span>Snowpark Container Services</span></div></li><span>Function and Stored Procedure Reference</span><span>Class Reference</span><span>Scripting Reference</span><span>General Reference</span><span>API Reference</span></ol><div><div><nav><a>Reference</a><a>SQL Command Reference</a><a>Transactions</a><span>ROLLBACK</span></nav><section><h1>ROLLBACK<a>¶</a></h1><p>Rolls back an open transaction in the current session.</p><dl><dt>See also:</dt><p><span>BEGIN</span>, <span>COMMIT</span>, <span>SHOW TRANSACTIONS</span>, <span>DESCRIBE TRANSACTION</span></p></dl><section><h2>Syntax<a>¶</a></h2><div><pre><span>ROLLBACK</span><span>[</span><span>WORK</span><span>]</span></pre><span>Copy</span></div></section><section><h2>Parameters<a>¶</a></h2><dl><span>WORK</span><p>Optional keyword that provides compatibility with other database systems.</p></dl></section><section><h2>Examples<a>¶</a></h2><p>Begin a transaction, insert some values into a table, and then complete the transaction by rolling back the changes made in the
+transaction:</p><div><pre><span>SELECT</span><span>COUNT</span><span>(*)</span><span>FROM</span><span>A1</span><span>;</span><span>----------+</span><span>COUNT(*) |</span><span>----------+</span><span>0        |</span><span>----------+</span><span>BEGIN</span><span>NAME</span><span>T4</span><span>;</span><span>SELECT</span><span>CURRENT_TRANSACTION</span><span>();
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/ui-worksheet.html
 
 Documentation Title:
@@ -23,18 +35,6 @@ independently.</p></div></li><p>Logging into Snowflake in another browser or tab
 other browser (or tab) without re-entering your work.</p><p>Refreshing your browser, if necessary. If you’re in the middle of running queries, they will resume running when the refresh is completed. Note that if you log out of Snowflake, any active
 queries stop running.</p></ul><p>You can also perform other tasks on this page, including:</p><ul><p>Resizing the current warehouse to dynamically increase or decrease the compute resources utilized for executing your queries and other DML statements.</p><p>Exporting the result for a selected query/statement (if the result is still available). For more information, see <span>Exporting Query Results</span>.</p></ul></section><section><h2>Saving and Managing Worksheets<a>¶</a></h2><p>Snowflake automatically saves worksheets as you type and persists the current state of a worksheet between user sessions. To organize your worksheets, double-click on the worksheet label in the tab
 (e.g.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/rollback.html
-
-Documentation Title:
-ROLLBACK | Snowflake Documentation
-
-Documentation Content:
-Unloading</span><span>File Staging</span><span>Alerts</span><span>Native Apps Framework</span><span>Streamlit</span><span>Snowpark Container Services</span></div></li><span>Function and Stored Procedure Reference</span><span>Class Reference</span><span>Scripting Reference</span><span>General Reference</span><span>API Reference</span></ol><div><div><nav><a>Reference</a><a>SQL Command Reference</a><a>Transactions</a><span>ROLLBACK</span></nav><section><h1>ROLLBACK<a>¶</a></h1><p>Rolls back an open transaction in the current session.</p><dl><dt>See also:</dt><p><span>BEGIN</span>, <span>COMMIT</span>, <span>SHOW TRANSACTIONS</span>, <span>DESCRIBE TRANSACTION</span></p></dl><section><h2>Syntax<a>¶</a></h2><div><pre><span>ROLLBACK</span><span>[</span><span>WORK</span><span>]</span></pre><span>Copy</span></div></section><section><h2>Parameters<a>¶</a></h2><dl><span>WORK</span><p>Optional keyword that provides compatibility with other database systems.</p></dl></section><section><h2>Examples<a>¶</a></h2><p>Begin a transaction, insert some values into a table, and then complete the transaction by rolling back the changes made in the
-transaction:</p><div><pre><span>SELECT</span><span>COUNT</span><span>(*)</span><span>FROM</span><span>A1</span><span>;</span><span>----------+</span><span>COUNT(*) |</span><span>----------+</span><span>0        |</span><span>----------+</span><span>BEGIN</span><span>NAME</span><span>T4</span><span>;</span><span>SELECT</span><span>CURRENT_TRANSACTION</span><span>();
 
 
 

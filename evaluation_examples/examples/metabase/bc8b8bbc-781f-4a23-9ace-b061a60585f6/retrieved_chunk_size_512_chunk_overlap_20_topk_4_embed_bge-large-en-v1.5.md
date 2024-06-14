@@ -1,4 +1,52 @@
 Documentation Source:
+www.metabase.com/docs/v0.49/data-modeling/models.md
+
+Documentation Title:
+Models
+
+Documentation Content:
+Create a model from a saved question
+
+1. Ask a questionusing either the query builder or the SQL editor, or select an existing saved question that you want to convert to a model.
+2. Save the question.
+3. Click on the **…**> **Turn this into a model**.
+
+!Model detail page
+-----------------
+
+To view a model’s detail page:
+
+* From a collection: click on the **book**icon next to a model.
+* From a model: click on the **info**button in the upper right, then click **Model details**.
+
+!Here you’ll see several tabs:
+
+* **Used by**: lists the items based on the model.
+* **Schema**: lists the fields in the model.
+* **Actions**: lists the actions in the model, and allows you to create new actions.
+
+The model detail page also shows some basic info about the model:
+
+* Description
+* Contact (who wrote the model)
+* Backing table(s)
+
+To start a new question based on the model, click **Explore**.
+
+To edit the model’s underlying query, click **Edit definition**.
+
+You can also edit the model’s metadata.
+
+Add metadata to columns in a model
+----------------------------------
+
+Metadata is the secret sauce of models. When you write a SQL query, Metabase can display the results, but it can’t “know” what kind of data it’s returning (like it can with questions built using the query builder). What this means in practice is that people won’t be able to drill-through the results, or explore the results with the query builder, because Metabase doesn’t understand what the results are. With models, however, you can tell Metabase what kind of data is in each returned column so that Metabase can still do its drill-through magic. Metadata will also make filtering nicer by showing the correct filter widget, and it will help Metabase to pick the right visualization for the results.
+
+If you only set one kind of metadata, set the **Column type**to let Metabase know what kind of data it’s working with.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/questions/native-editor/writing-sql.md
 
 Documentation Title:
@@ -55,93 +103,33 @@ Documentation Title:
 Models
 
 Documentation Content:
-Create a model from a saved question
-
-1. Ask a questionusing either the query builder or the SQL editor, or select an existing saved question that you want to convert to a model.
-2. Save the question.
-3. Click on the **…**> **Turn this into a model**.
-
-!Model detail page
------------------
-
-To view a model’s detail page:
-
-* From a collection: click on the **book**icon next to a model.
-* From a model: click on the **info**button in the upper right, then click **Model details**.
-
-!Here you’ll see several tabs:
-
-* **Used by**: lists the items based on the model.
-* **Schema**: lists the fields in the model.
-* **Actions**: lists the actions in the model, and allows you to create new actions.
-
-The model detail page also shows some basic info about the model:
-
-* Description
-* Contact (who wrote the model)
-* Backing table(s)
-
-To start a new question based on the model, click **Explore**.
-
-To edit the model’s underlying query, click **Edit definition**.
-
-You can also edit the model’s metadata.
-
-Add metadata to columns in a model
-----------------------------------
-
-Metadata is the secret sauce of models. When you write a SQL query, Metabase can display the results, but it can’t “know” what kind of data it’s returning (like it can with questions built using the query builder). What this means in practice is that people won’t be able to drill-through the results, or explore the results with the query builder, because Metabase doesn’t understand what the results are. With models, however, you can tell Metabase what kind of data is in each returned column so that Metabase can still do its drill-through magic. Metadata will also make filtering nicer by showing the correct filter widget, and it will help Metabase to pick the right visualization for the results.
-
-If you only set one kind of metadata, set the **Column type**to let Metabase know what kind of data it’s working with.
-
-
-
-Documentation Source:
-www.metabase.com/learn/data-modeling/models.md
-
-Documentation Title:
-Models in Metabase
-
-Documentation Content:
-!Adding metadata to a model is key
----------------------------------
-
-This is the model’s superpower, and it’s especially useful for models built with SQL queries, as Metabase doesn’t know the column types returned by a SQL query.
-
-!Clicking on the model’s name will bring up the model sidebar, which gives us the option to **Customize metadata**. Here we can give columns friendlier names, add descriptions to the columns (which will show up on hover), and tell Metabase what type of data the column contains.
-
-!If we were instead to use a *SQL query*to create that same customer model (see A model exampleabove), Metabase wouldn’t automatically be able to do its usual drill-though magic.
-
-But we can restore the drill-through menu and all the other Metabase magic if we add some metadata to the model’s columns (that is, to the fields returned by the model’s definition, its query).
-
-For example, if this was the query defining our model:
-
-`SELECTorders.user_idASid,people.created_atASjoin_date,people.stateASstate,people.sourceASsource,Sum(orders.total)AStotal,Count(*)ASorder_count,Sum(orders.total)/Count(*)ASavg_totalFROMordersLEFTJOINpeopleONorders.user_id=people.idGROUPBYid,city,state,zip,source`Metabase wouldn’t automatically know what kind of data type the `state`or `total`or any other column was. If, however, we manually set the type for each result column in the model’s metadata, Metabase will then be able to present the drill-through menu on charts, as well as know which kind of filters it should use for that column (e.g., filters for numbers will have different options than for dates or categories).
-
-Models can surface individual records in search
------------------------------------------------
-
-Another neat metadata feature with models: you can opt to index values from a modelso that they show up in Metabase’s search results.
-
-Here we’re toggling on the option to **Surface individual records in search by matching against this column**(bottom right):
-
-!For example, you could index a column in a model with customer names so people can type in a customer like Hudson Borer and jump straight to the detail view for that customer.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/data-modeling/models.md
-
-Documentation Title:
-Models
-
-Documentation Content:
 Create a model from scratch
 
 1. In the upper right, click **New +**> **Model**.
 2. Choose either the query builder or a native query (if you want to use SQL). The advantage of using the query builder is that Metabase will be able to fill out some of the metadata for you; if you use SQL, you’ll have to fill out that metadata manually.
 3. Select your data.
 4. Create and save your query.
+
+
+
+Documentation Source:
+www.metabase.com/learn/getting-started/tour-of-metabase.md
+
+Documentation Title:
+A tour of Metabase
+
+Documentation Content:
+Native queries
+
+Use the **native query editor**to compose questions in the database’s native query languages (typically SQL for relational databases, but also other query languages for data sources like MongoDB). For questions written in SQL, you can use variables in your code to create SQL templates, including field filtervariables that can create smart dropdown filters.
+
+!Like query builder questions, you can use the results of models or saved questionsas starting points for new questions, just as you would a table or view. For example, to reference question 123 like so:
+
+`WITHgizmo_ordersAS#{123}`### Create models to use as starting data for new questions
+
+Modelsare built with questions from either the query builder or the SQL editor. You can use them to pull together data from multiple tables, with custom, calculated columns, and column descriptions and other metadata, to create great starting data for people to ask new questions. For example, you could build a model for “Active users”, or “Priority orders”, or however you want to model your business.
+
+If you find that you’re using the same saved question over and over as your starting data for new questions, you may want to convert that saved question to a model, which will let you add metadata like column descriptions and column types. You can also refer to models in SQL queries, just like we did above with saved questions.
 
 
 

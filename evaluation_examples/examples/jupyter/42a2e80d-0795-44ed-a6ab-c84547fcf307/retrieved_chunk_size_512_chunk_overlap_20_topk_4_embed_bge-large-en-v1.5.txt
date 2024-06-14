@@ -1,14 +1,11 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/notebook.NotebookPanel.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.copy.txt
 
 Documentation Title:
-NotebookPanel | @jupyterlab
+copy | @jupyterlab
 
 Documentation Content:
-e
-All
-Outputs
-hide
+ide
 Code
 hide
 Output
@@ -87,109 +84,40 @@ Cell
 set
 Cell
 Collapse
+set
+Heading
+Co
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/notebook.Notebook.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/apputils.Clipboard.copyToSystem.txt
 
 Documentation Title:
-Notebook | @jupyterlab
+copyToSystem | @jupyterlab
 
 Documentation Content:
-g
-Above
-insert
-Same
-Level
-Heading
-Below
-merge
-Cells
-move
-Down
-move
-Up
-paste
-redo
-render
-All
-Markdown
-render
-Default
-render
-Side
-By
-Side
-replace
+arent
+extend
 Selection
-run
-run
-All
-run
-All
 Above
-run
-All
+extend
+Selection
 Below
-run
-And
-Advance
-run
-And
-Insert
-run
-Cells
-select
-Above
-select
-All
-select
-Below
-select
+find
+Next
+Parent
 Heading
-Above
-Or
-Collapse
-Heading
-select
-Heading
-Below
-Or
-Expand
-Heading
-select
-Last
-Run
+focus
+Active
 Cell
-set
-Cell
-Collapse
-set
+get
 Heading
-Collapse
-set
-Markdown
-Header
-show
+Info
+hide
 All
 Code
-show
-All
-Outputs
-show
-Code
-show
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookAdapter.txt
-
-Documentation Title:
-NotebookAdapter | @jupyterlab
-
-Documentation Content:
+hide
 All
 Outputs
 hide
@@ -249,41 +177,102 @@ Cells
 select
 Above
 select
-All
-select
-Below
-select
-Heading
-Above
-Or
-Collapse
-Heading
-select
-Heading
-Below
-Or
-Expand
-Heading
-select
-Last
-Run
-Cell
-set
-Cell
-Collapse
-s
+Al
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.Notebook-1.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.runAndInsert.txt
 
 Documentation Title:
-Notebook | @jupyterlab
+runAndInsert | @jupyterlab
 
 Documentation Content:
-nd
+copy
+cut
+delete
+Cells
+deselect
 All
+disable
+Output
+Scrolling
+duplicate
+enable
+Output
+Scrolling
+expand
+All
+Headings
+expand
+Parent
+extend
+Selection
+Above
+extend
+Selection
+Below
+find
+Next
+Parent
+Heading
+focus
+Active
+Cell
+get
+Heading
+Info
+hide
+All
+Code
+hide
+All
+Outputs
+hide
+Code
+hide
+Output
+insert
+Above
+insert
+Below
+insert
+Same
+Level
+Heading
+Above
+insert
+Same
+Level
+Heading
+Below
+merge
+Cells
+move
+Down
+move
+Up
+paste
+redo
+render
+All
+Markdown
+render
+Default
+render
+Side
+By
+Side
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/variables/debugger.Debugger.CommandIDs.copyToClipboard.txt
+
+Documentation Title:
+copyToClipboard | @jupyterlab
+
+Documentation Content:
 Headings
 expand
 Parent
@@ -363,7 +352,7 @@ And
 Insert
 run
 Cells
-se
+selec
 
 
 

@@ -89,47 +89,6 @@ Which should respond with a table that looks very similar to the raw table that 
 
 
 Documentation Source:
-airbyte.com/tutorials/incremental-data-synchronization.md
-
-Documentation Title:
-Incremental data synchronization between Postgres databases | Airbyte
-
-Documentation Content:
-Create a connection between the source and destination
-
-In this section you will create a connection that will be used for demonstrating the functionality of database replication with **Incremental Sync | Append****.** This new connection will make use of the connectors that you have just created. 
-
-Create a new connection by clicking on *Connections*and then on*+ New connection*as shown below (Note that this button may appear in the top right corner if you already have some connections instantiated):
-
-!‍
-
-Then select the *Incremental-source* source as follows:
-
-!‍
-
-Select the*Incremental-destination* as follows:
-
-!‍
-
-You will see a set up page as shown below. Set the name of the connection to *incremental-sync-demo*, and configure it as shown below:
-
-!‍
-
-There are a few areas that are annotated in the above configuration:
-
-1. Define the name which will identify this connection - in this case I have called it *incremental-sync-demo*.
-2. Select the*incremental append* replication mode for the table called *table\_one*.
-3. Select *updated\_at*as the cursor for the *table\_one*table.
-
-After you click on *Set up connection***,**the initial sync will start. Once it completes you should see the following status in the *Sync History*:
-
-!‍
-
-Make a note of the*job ID* and the*attempt ID* which in this case are 149 and 0 respectively, as can be seen in the path to the*logs.log* (/tmp/workspace/149/0/logs.log) in the screenshot above. You will need these values to find the SQL code used for the first*incremental append* sync.
-
-
-
-Documentation Source:
 airbyte.com/tutorials/full-data-synchronization.md
 
 Documentation Title:
@@ -145,6 +104,52 @@ Database synchronization with full refresh append
 -------------------------------------------------
 
 In this section you will create an Airbyte connectionthat reads data from the Postgres source and drives it into the Postgres destination using the **full refresh | append**replication mode. In this mode, as with the **full refresh | overwrite**replication mode, all data in the source database is sent to the destination database, regardless of whether it has been synced before or not. However, in the **append**variant, new syncs will take all data from the most recent sync and append it to the raw destination table. If normalization is enabled, then records that have recently been appended to the raw table will be normalized and appended to the normalized table. This is easiest to see for yourself via a hands-on example, as presented below.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/full-data-synchronization.md
+
+Documentation Title:
+Explore Airbyte's full refresh data synchronization | Airbyte
+
+Documentation Content:
+Update a record on the source
+
+Update a record on the **full\_refresh\_demo**table on the source Postgres database, and view the source table by running the following commands:
+
+`UPDATE full_refresh_demo SET name='New Jane' WHERE id=3;
+SELECT * FROM full_refresh_demo;`‍
+
+And the source **full\_refresh\_demo**table should now look as follows: 
+
+`id | name 
+----+----------
+ 1 | Mary X
+ 2 | John D
+ 3 | New Jane
+(3 rows)`‍
+
+As before, execute a new sync by clicking on **Sync Now**in the connection pane and wait for it to complete. The UI will indicate that 3 records have been emitted as follows:
+
+‍
+
+!‍
+
+Have a look at the **\_airbyte\_raw\_overwrite\_full\_refresh\_demo**table in the destination Postgres database with the following command:
+
+`SELECT * FROM _airbyte_raw_overwrite_full_refresh_demo;`‍
+
+Which should respond with a table similar to the following
+
+`_airbyte_ab_id | _airbyte_data | _airbyte_emitted_at 
+--------------------------------------+-------------------------------+----------------------------
+ 9d647452-21cd-4e6b-b9e6-1021b4eea06f | {"id": 1, "name": "Mary X"} | 2022-07-27 14:38:26.594+00
+ d0c7d8a6-ed0e-4280-a768-08dfc424abda | {"id": 2, "name": "John D"} | 2022-07-27 14:38:26.594+00
+ 23472df3-9ac7-48fb-8675-84b240367dc4 | {"id": 3, "name": "New Jane"} | 2022-07-27 14:38:26.594+00
+(3 rows)`‍
+
+Once again, by comparing the value of **\_airbyte\_emitted\_at**to the prior values (shown earlier in this tutorial), you can see that every record has been overwritten, not just the record that was updated.
 
 
 

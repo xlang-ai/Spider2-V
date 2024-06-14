@@ -46,6 +46,63 @@ allows you to apply additional transformations to your data.
 
 
 Documentation Source:
+superset.apache.org/docs/contributing/development/index.txt
+
+Documentation Title:
+Setting up a Development Environment | Superset
+
+Documentation Content:
+To contribute a plugin to Superset, your plugin must meet the following criteria:
+The plugin should be applicable to the community at large, not a particularly specialized use case
+The plugin should be written with TypeScript
+The plugin should contain sufficient unit/e2e tests
+The plugin should use appropriate namespacing, e.g. a folder name of
+plugin-chart-whatever
+and a package name of
+@superset-ui/plugin-chart-whatever
+The plugin should use them variables via Emotion, as passed in by the ThemeProvider
+The plugin should provide adequate error handling (no data returned, malformed data, invalid controls, etc.)
+The plugin should contain documentation in the form of a populated
+README.md
+file
+The plugin should have a meaningful and unique icon
+Above all else, the plugin should come with a
+commitment to maintenance
+from the original author(s)
+Submissions will be considered for submission (or removal) on a case-by-case basis.
+Adding a DB migration
+​
+Alter the model you want to change. This example will add a
+Column
+Annotations model.
+Example commit
+Generate the migration file
+superset db migrate -m
+'add_metadata_column_to_annotation_model'
+This will generate a file in
+migrations/version/{SHA}_this_will_be_in_the_migration_filename.py
+.
+Example commit
+Upgrade the DB
+superset db upgrade
+The output should look like this:
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 1a1d627ebd8e -> 40a0a483dd12, add_metadata_column_to_annotation_model.py
+Add column to view
+Since there is a new column, we need to add it to the AppBuilder Model view.
+Example commit
+Test the migration's
+down
+method
+superset db downgrade
+The output should look like this:
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+
+
+
+Documentation Source:
 superset.apache.org/docs/contributing/resources/index.txt
 
 Documentation Title:
@@ -143,143 +200,62 @@ is_managed_externally:
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/development/index.txt
+superset.apache.org/docs/contributing/howtos/index.txt
 
 Documentation Title:
-Setting up a Development Environment | Superset
+Development How-tos | Superset
 
 Documentation Content:
-./scripts/po2json.sh
-If you get errors running
-po2json
-, you might be running the Ubuntu package with the same
-name, rather than the Node.js package (they have a different format for the arguments). If
-there is a conflict, you may need to update your
-PATH
-environment variable or fully qualify
-the executable path (e.g.
-/usr/local/bin/po2json
-instead of
-po2json
-).
-If you get a lot of
-[null,***]
-in
-messages.json
-, just delete all the
-null,
-.
-For example,
-"year":["年"]
-is correct while
-"year":[null,"年"]
-is incorrect.
-For the translations to take effect we need to compile translation catalogs into binary MO files.
-pybabel compile -d superset/translations
-Creating a new language dictionary
+Note:
+Additional community-generated resources about creating and deploying custom visualization plugins can be found on the
+Superset Wiki
+Prerequisites
 ​
-To create a dictionary for a new language, run the following, where
-LANGUAGE_CODE
-is replaced with
-the language code for your target language, e.g.
-es
-(see
-Flask AppBuilder i18n documentation
-for more details):
-pip
-install
--r superset/translations/requirements.txt
-pybabel init -i superset/translations/messages.pot -d superset/translations -l LANGUAGE_CODE
-Then,
-Updating language files
-.
-Tips
+In order to create a new viz plugin, you need the following:
+Run MacOS or Linux (Windows is not officially supported, but may work)
+Node.js 16
+npm 7 or 8
+A general familiarity with
+React
+and the npm/Node system is
+also recommended.
+Creating a simple Hello World viz plugin
 ​
-Adding a new datasource
-​
-Create Models and Views for the datasource, add them under superset folder, like a new my_models.py
-with models for cluster, datasources, columns and metrics and my_views.py with clustermodelview
-and datasourcemodelview.
-Create DB migration files for the new models
-Specify this variable to add the datasource model and from which module it is from in config.py:
-For example:
-ADDITIONAL_MODULE_DS_MAP
-=
-{
-'superset.my_models'
-:
-[
-'MyDatasource'
-,
-'MyOtherDatasource'
-]
-}
-This means it'll register MyDatasource and MyOtherDatasource in superset.my_models module in the source registry.
-Visualization Plugins
-​
-The topic of authoring new plugins, whether you'd like to contribute
-it back or not has been well documented in the
-the documentation
-, and in
-this blog post
-.
-
-
-
-Documentation Source:
-superset.apache.org/docs/contributing/development/index.txt
-
-Documentation Title:
-Setting up a Development Environment | Superset
-
-Documentation Content:
-To contribute a plugin to Superset, your plugin must meet the following criteria:
-The plugin should be applicable to the community at large, not a particularly specialized use case
-The plugin should be written with TypeScript
-The plugin should contain sufficient unit/e2e tests
-The plugin should use appropriate namespacing, e.g. a folder name of
-plugin-chart-whatever
-and a package name of
-@superset-ui/plugin-chart-whatever
-The plugin should use them variables via Emotion, as passed in by the ThemeProvider
-The plugin should provide adequate error handling (no data returned, malformed data, invalid controls, etc.)
-The plugin should contain documentation in the form of a populated
-README.md
-file
-The plugin should have a meaningful and unique icon
-Above all else, the plugin should come with a
-commitment to maintenance
-from the original author(s)
-Submissions will be considered for submission (or removal) on a case-by-case basis.
-Adding a DB migration
-​
-Alter the model you want to change. This example will add a
-Column
-Annotations model.
-Example commit
-Generate the migration file
-superset db migrate -m
-'add_metadata_column_to_annotation_model'
-This will generate a file in
-migrations/version/{SHA}_this_will_be_in_the_migration_filename.py
-.
-Example commit
-Upgrade the DB
-superset db upgrade
-The output should look like this:
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume transactional DDL.
-INFO  [alembic.runtime.migration] Running upgrade 1a1d627ebd8e -> 40a0a483dd12, add_metadata_column_to_annotation_model.py
-Add column to view
-Since there is a new column, we need to add it to the AppBuilder Model view.
-Example commit
-Test the migration's
-down
-method
-superset db downgrade
-The output should look like this:
-INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume transactional DDL.
+To get started, you need the Superset Yeoman Generator. It is recommended to use the
+version of the template that ships with the version of Superset you are using. This
+can be installed by doing the following:
+npm
+i -g yo
+cd
+superset-frontend/packages/generator-superset
+npm
+i
+npm
+link
+After this you can proceed to create your viz plugin. Create a new directory for your
+viz plugin with the prefix
+superset-plugin-chart
+and run the Yeoman generator:
+mkdir
+/tmp/superset-plugin-chart-hello-world
+cd
+/tmp/superset-plugin-chart-hello-world
+Initialize the viz plugin:
+yo @superset-ui/superset
+After that the generator will ask a few questions (the defaults should be fine):
+$ yo @superset-ui/superset
+_-----_     ╭──────────────────────────╮
+|       |    │      Welcome to the      │
+|--(o)--|    │    generator-superset    │
+`---------´   │        generator!        │
+( _´U`_ )    ╰──────────────────────────╯
+/___A___\   /
+|  ~  |
+__'.___.'__
+´   `  |° ´ Y `
+? Package name: superset-plugin-chart-hello-world
+? Description: Hello World
+? What type of chart would you like?
 
 
 

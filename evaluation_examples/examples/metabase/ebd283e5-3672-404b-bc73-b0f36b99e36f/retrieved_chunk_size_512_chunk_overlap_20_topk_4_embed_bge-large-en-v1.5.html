@@ -22,32 +22,25 @@ Metabase comes with a <a>Sample Database</a>that you can play around with to get
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.html
+www.metabase.com/docs/v0.49/databases/sync-scan.html
 
 Documentation Title:
-People can't log in to Metabase
+Syncing and scanning databases
 
 Documentation Content:
-<strong>Admin settings</strong>&gt; <strong>General</strong>.</li><li>Check if the <a>account is deactivated</a>.</li></ol><h2>No access to Metabase Cloud account</h2><p>The admin password for <code>store.metabase.com</code>(where you can find payment and subscription info) is not necessarily the same as the password for your Metabase instance (where you log in to look at data).</p><p>If you’ve forgotten your Metabase Cloud admin password, you can <a>contact support</a>to reset the password.</p><h2>Related topics</h2><ul><li><a>Troubleshooting SAML</a>.</li><li><a>Troubleshooting LDAP</a>.</li><li><a>Resetting someone’s password</a>.</li><li><a>Resetting the admin password</a>.</li><li><a>Deleting an account that’s set up incorrectly</a>.</li></ul><h2>Are you still stuck?</h2><p>If you can’t solve your problem using the troubleshooting guides:</p><ul><li>Search or ask the <a>Metabase community</a>.</li><li>Search for <a>known bugs or limitations</a>.</li></ul></article><p>Read docs for other <a>versions of Metabase</a>.
-	      </p><div><div><div><p>Did this article help you?
-        </p><ul><button>Yes
-                </button><button>No
-                </button></ul></div><button>Send
-                </button></div><p>Thanks for your feedback!</p><span>Want to improve these docs? <a>Propose a change.</a></span></div></div><footer><div><h5>Subscribe to our newsletter</h5><p>Stay in touch with updates and news from Metabase.
+</li></ul><h2>Manually syncing tables and columns</h2><ol><li>Go to <strong>Admin settings</strong>&gt; <strong>Databases</strong>&gt; your database.</li><li>Click <strong>Sync database schema now</strong>.</li></ol><h2>Manually scanning column values</h2><p>To scan values from all the columns in a table:</p><ol><li>Go to <strong>Admin settings</strong>&gt; <strong>Table Metadata</strong>&gt; your database.</li><li>Select the table that you want to bring up to date with your database.</li><li>Click the <strong>gear icon</strong>at the top of the page.</li><li>Click <strong>Re-scan this table</strong>.</li></ol><p>To scan values from a specific column:</p><ol><li>Go to <strong>Admin settings</strong>&gt; <strong>Table Metadata</strong>&gt; your database.</li><li>Select the table.</li><li>Find the column you want bring up to date with your database.</li><li>Click the <strong>gear icon</strong>in the panel for that column.</li><li>Click <strong>Re-scan this field</strong>.</li></ol><h2>Clearing cached values for a table or field</h2><p>To clear the <a>scanned field values for a table</a>:</p><ol><li>Go to <strong>Admin settings</strong>&gt; <strong>Table Metadata</strong>.</li><li>Select the database and table.</li><li>Click the <strong>gear icon</strong>in the upper right.</li><li>Click <strong>Discard cached field values</strong>.</li></ol><p>You can also tell Metabase to forget the cached values for individual fields by clicking the <strong>gear</strong>icon on a field and clicking on <strong>Discard cached field values</strong>.
 
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/troubleshooting-guide/cant-see-tables.html
+www.metabase.com/docs/v0.49/installation-and-operation/backing-up-metabase-application-data.html
 
 Documentation Title:
-I can't see my tables
+Backing up Metabase
 
 Documentation Content:
-or</li><li>you can no longer see tables that you used to be able to see.</li></ul><h2>Check for browser issues</h2><ol><li>Clear your browser cache.</li><li>Check if a browser extension or plugin is interfering with Metabase:
-    <ul><li>Disable all extensions and plugins,</li><li>Open Metabase in an incognito browser session, or</li><li>Open Metabase in a different browser.</li></ul></li></ol><strong>Explanation</strong><p>Sometimes your browser will show an old cached list of tables. Browser extensions can also prevent pages from loading correctly.</p><h2>Test the database connection</h2><ol><li>Go to the Metabase <a>SQL editor</a>.</li><li>Test the connection to your database by running:
-    <code>SELECT 1
-</code></li></ol><p>If you get an error, see <a>Troubleshooting database connections</a>.</p><strong>Explanation</strong><p>Something may have changed on the database side (if you were previously connected).
+so all you need to do is back up that database and you’re good to go. You can use that backup to restore your Metabase installation if anything goes wrong (like during an upgrade).</p><h2>Backing up the default H2 database</h2><p>If you didn’t specify an application database using environment variables when you launched Metabase, Metabase will have created an embedded H2 database in its directory.</p><p>But if you’re at the point where you have questions and dashboards that you want to keep, you should consider migrating to a <a>production-ready database</a>before you upgrade.</p><p>If you’re just using Metabase for personal use and want to keep your application data, here’s what you’ll need to do.</p><h3>If you’re running the Metabase JAR</h3><ol><li>Navigate to your Metabase directory.</li><li>If your Metabase is running, stop the Metabase process. You can either close the terminal or kill the process with CTRL-C. If you are running the process as a service, then stop the service.</li><li>Copy the application database file (called <code>metabase.db.mv.db</code>) and keep that copy somewhere safe. That’s it.</li><li>Restart Metabase: <code>java -jar metabase.jar</code>or start the service again.</li></ol><h3>If you’re running the Metabase Docker image</h3><p>If you’re running Docker, you should already have switched to a <a>production-ready database</a>.</p><p>Before migrating to a production application database, you should copy the H2 app db file out of the Docker container. For example, if the container is called metabase, you’d run:</p><code>docker cp metabase:/metabase.db/metabase.db.mv.db ./
+</code><p>The above command would copy the database file to the directory you ran the command from. You can also create a copy of this H2 file and use it to migrate the data to a production-ready database.
 
 
 

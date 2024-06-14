@@ -113,18 +113,29 @@ Edit this pagePreviousCreate Airflow listenersNextClean up the metadata database
 
 
 Documentation Source:
-docs.astronomer.io/astro/create-and-link-connections.md
+docs.astronomer.io/learn/operator-extra-link-tutorial.md
 
 Documentation Title:
-Create Airflow connections in the Astro UI | Astronomer Documentation
+Customize Operator Extra Links | Astronomer Documentation
 
 Documentation Content:
-Link connections to Deployments​
---------------------------------
+!
+Click on the button to visit the HTTP docs on Mozilla.
 
-After you create a connection at the Workspace level, you can link it to multiple Deployments. Linking connections is useful for standardizing external resource usage across your entire team.
 
-For the most flexibility, you can set default connections and override the connection details per-Deployment based on details like the Deployment's usage and environment type (production or development).
+Step 6: Create a custom operator​
+---------------------------------
+
+Another core feature of extra links is that you can dynamically generate them based on information returned by an operator at run time. The second half of this tutorial will cover how to modify an operator to push the value you need to XComsand retrieve that value for use in an extra link.
+
+Create a new file called `cat_http.py`in the `include`folder of your Airflow project.
+
+2. Copy the following code into the file.
+
+`fromairflow.providers.http.operators.http importSimpleHttpOperatorfromairflow.providers.http.hooks.http importHttpHookfromairflow.utils.operator_helpers importdetermine_kwargsfromairflow.exceptions importAirflowExceptionclassCatHttpOperator(SimpleHttpOperator):# initialize with identical arguments to the parent classdef__init__(self,**kwargs):super().__init__(**kwargs)defexecute(self,context):http =HttpHook(self.method,http_conn_id=self.http_conn_id,auth_type=self.auth_type,tcp_keep_alive=self.tcp_keep_alive,tcp_keep_alive_idle=self.tcp_keep_alive_idle,tcp_keep_alive_count=self.tcp_keep_alive_count,tcp_keep_alive_interval=self.tcp_keep_alive_interval,)self.log.info("Calling HTTP method")response =http.run(self.endpoint,self.data,self.headers,self.extra_options)ifself.log_response:self.log.info(response.text)ifself.response_check:kwargs =determine_kwargs(self.response_check,[response],context)ifnotself.response_check(response,**kwargs):raiseAirflowException("Response check returned False.")ifself.response_filter:kwargs =determine_kwargs(self.response_filter,[response],context)returnself.response_filter(response,**kwargs)# pushing the HTTP status response to XComscontext["ti"].xcom_push(key="status_code",value=response.status_code)returnresponse.text`This code defines a custom version of the `SimpleHttpOperator`called the `CatHttpOperator`. This operator has a one-line customization before the `return`statement of the `.execute()`method:`context["ti"].xcom_push(key="status_code", value=response.status_code)`.
+
+This line pushes the `status_code`attribute of the `response`object to XComs where it can be called from your plugin.
+Add an empty Python file called `__init__.py`to your `include`folder. This file enables module imports from the folder.
 
 
 

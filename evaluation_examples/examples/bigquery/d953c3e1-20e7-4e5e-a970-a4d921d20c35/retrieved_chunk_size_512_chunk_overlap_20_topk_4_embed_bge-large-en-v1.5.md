@@ -48,113 +48,197 @@ the **Schema**tab.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.md
+cloud.google.com/bigquery/docs/quickstarts/query-public-dataset-console.md
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Query a public dataset with the Google Cloud console  |  BigQuery
 
 Documentation Content:
-environmental_data_hourly
-GROUP BY zip_code, time
-ORDER BY zip_code, time;
+4. Ensure that the BigQuery API is enabled.
 
-/*---------------------+----------+-----------------+-----------------+
- | time | zip_code | temperature_min | temperature_max |
- +---------------------+----------+-----------------+-----------------+
- | 2020-09-08 00:00:00 | 60606 | 60 | 66 |
- | 2020-09-08 03:00:00 | 60606 | 57 | 59 |
- | 2020-09-08 06:00:00 | 60606 | 55 | 56 |
- | 2020-09-08 09:00:00 | 60606 | 55 | 56 |
- | 2020-09-08 12:00:00 | 60606 | 56 | 59 |
- | 2020-09-08 15:00:00 | 60606 | 63 | 68 |
- | 2020-09-08 18:00:00 | 60606 | 67 | 69 |
- | 2020-09-08 21:00:00 | 60606 | 63 | 67 |
- | 2020-09-08 00:00:00 | 94105 | 71 | 74 |
- | 2020-09-08 03:00:00 | 94105 | 66 | 69 |
- | 2020-09-08 06:00:00 | 94105 | 64 | 65 |
- | 2020-09-08 09:00:00 | 94105 | 62 | 63 |
- | 2020-09-08 12:00:00 | 94105 | 61 | 62 |
- | 2020-09-08 15:00:00 | 94105 | 62 | 63 |
- | 2020-09-08 18:00:00 | 94105 | 64 | 69 |
- | 2020-09-08 21:00:00 | 94105 | 72 | 76 |
- +---------------------+----------+-----------------+-----------------*/`### Get a 3-hour average with custom alignment
+Enable the APIIf you created a new project, the BigQuery API is automatically
+ enabled.
+Open a public dataset
+---------------------
 
-When you perform time series aggregation,
+BigQuery public datasets are available by default in the
+Google Cloud console.
 
+In the following example, you access datasets in the public project
+`bigquery-public-data`.
 
+1. In the Google Cloud console, go to the
+**BigQuery**page.
 
-Documentation Source:
-cloud.google.com/bigquery/docs/reference/standard-sql/window-function-calls.md
+Go to BigQuery
+In the **Explorer**pane, click **+Add**.
 
-Documentation Title:
-Window function calls  |  BigQuery  |  Google Cloud
+In the **Add**dialog, search `public datasets`, and then click !**Public Datasets**.
 
-Documentation Content:
-The
-`Produce`table is referenced.
+4. Select a dataset, and then click **View dataset**.
 
-* fruit
-	+ (banana, **apple**) = apple is most popular
-	+ (**banana**, apple) = apple is most popular
-* vegetable
-	+ (leek, **cabbage**, **lettuce**, **kale**) = kale is most popular
-	+ (**leek**, cabbage, **lettuce**, **kale**) = kale is most popular
-	+ (**leek**, **cabbage**, lettuce, **kale**) = kale is most popular
-	+ (**leek**, **cabbage**, **lettuce**, kale) = kale is most popular
+In the **Explorer**pane, your dataset is selected and you can view its
+details.
+5. Optional: Click more\_vert**View actions**next to your dataset to view more options.
 
-`SELECT item, purchases, category, LAST_VALUE(item)
- OVER (
- PARTITION BY category
- ORDER BY purchases
- ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
- ) AS most_popular
-FROM Produce
+Each dataset contains tables, which you can view by clicking
+arrow\_right**Toggle node**next to any dataset.
 
-/*----------------------------------------------------*
- | item | purchases | category | most_popular |
- +----------------------------------------------------+
- | banana | 2 | fruit | apple |
- | apple | 8 | fruit | apple |
- | leek | 2 | vegetable | kale |
- | cabbage | 9 | vegetable | kale |
- | lettuce | 10 | vegetable | kale |
- | kale | 23 | vegetable | kale |
- *----------------------------------------------------*/`### Get the last value in a range
+Query a public dataset
+----------------------
 
-This example gets the most popular item in a specific window frame, using
-the `Produce`table. The window frame analyzes up to three
-rows at a time. Take a close look at the `most_popular`column for vegetables.
-Instead of getting the most popular item in a specific category, it gets the
-most popular item in a specific range in that category.
+In the following steps, you query the USA Names public dataset to determine
+the most common names in the United States between 1910 and 2013:
 
+1. In the Google Cloud console, go to the
+**BigQuery**page.
 
+Go to BigQuery
+2. Go to the
+**Editor**field.
 
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.md
+If the **Editor**field is not visible, then click
+add\_box**Compose new query**.
 
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
 !
-4. On the **Create dataset**page, do the following:
+3. In the **Editor**field, copy the following
+query:
+
+`SELECT
+ name,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name
+ORDER BY
+ total DESC
+LIMIT
+ 10;`If the query is valid, then a check mark appears along with the amount of
+data that the query processes. If the query is invalid, then an
+exclamation point appears along with an error message.
+
+!
+4. Click
+**Run**.
+
+The most common names are listed in the **Query results**section.
+The table's header row contains each column name that you selected in the
+query.
+
+!
 
 
-	For **Dataset ID**, enter `census`.
+
+Documentation Source:
+cloud.google.com/bigquery/docs/data-canvas.md
+
+Documentation Title:
+Analyze with data canvas  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Example 3
+
+**Prompt 1**
+```
+Find data about USA names
+```
+**Potential result**BigQuery data canvas generates a list of tables. For this example, we are going to
+select the `bigquery-public-data.usa_names.usa_1910_current`table.
+
+Click **Query**to query the data. Enter a prompt to query the data.
+
+**Potential result**BigQuery data canvas generates the following query:
+
+
+```
+SELECT
+  state,
+  gender,
+  year,
+  name,
+  number
+FROM
+  `bigquery-public-data.usa_names.usa_1910_current`
+
+```
+BigQuery data canvas generates the results of the query. We are going to ask an
+additional query to filter this data. Click **Query these results**.
+
+**Prompt 2**
+```
+Get me the top 10 most popular names in 1980
+```
+**Potential result**BigQuery data canvas generates the following query:
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/running-queries.md
+
+Documentation Title:
+Run a query  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Console
+
+1. Go to the **BigQuery**page.
+
+Go to BigQuery
+Click add\_box**Compose a new query**.
+
+3. In the query editor, enter a valid GoogleSQL query.
+
+For example, query the
+BigQuery public dataset `usa_names`to determine the most common names in the United States between the
+years 1910 and 2013:
+
+`SELECT
+ name, gender,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name, gender
+ORDER BY
+ total DESC
+LIMIT
+ 10;`
+Click settings**More**, and then
+click **Query settings**.
+
+In the **Resource management**section, select **Batch**.
+
+6. Optional: Specify the destination table and
+locationfor the query results:
+
+
+	1. In the **Destination**section, select
+	**Set a destination table for query results**.
+	2. For **Dataset**, enter the name of an existing dataset for the
+	destination table—for example, `myProject.myDataset`.
+	3. For **Table Id**, enter a name for the destination table—for
+	example, `myTable`.
+	4. If the destination table is an existing table, then for
+	**Destination table write preference**, select whether to append or
+	overwrite the table with the query results.
 	
-	* For **Location type**, select **Multi-region**, and then select **US (multiple regions in United States)**.
+	If the destination table is a new table, then
+	BigQuery creates the table when you run your query.
+	5. In the **Additional settings**section, click the
+	**Data location**menu, and then select an option.
 	
-	The public datasets are stored in the
-	`US`multi-region. For
-	simplicity, store your dataset in the same location.
-	Leave the remaining default settings as they are, and click **Create dataset**.
+	In this example, the `usa_names`dataset is stored in the US
+	multi-region location. If you specify a destination table for this
+	query, the dataset that contains the destination table must also be
+	in the US multi-region. You cannot query a dataset in one location
+	and write the results to a table in another location.
+Click **Save**.
 
-Examine the data
-----------------
+8. Click play\_circle**Run**.
 
-Examine the dataset and identify which columns to use as
-training data for the logistic regression model. Select 100 rows from the
-`census_adult_income`table:
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
 
 
 

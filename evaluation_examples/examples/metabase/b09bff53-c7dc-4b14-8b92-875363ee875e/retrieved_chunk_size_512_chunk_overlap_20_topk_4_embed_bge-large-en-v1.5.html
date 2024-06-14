@@ -23,13 +23,29 @@ Documentation Content:
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.html
+www.metabase.com/docs/v0.49/installation-and-operation/configuring-application-database.html
 
 Documentation Title:
-Setting up Metabase
+Configuring the Metabase application database
 
 Documentation Content:
-Metabase comes with a <a>Sample Database</a>that you can play around with to get a feel for how Metabase works.</p><p>If you’re ready to connect, here’s what you’ll need:</p><ul><li>The <strong>hostname</strong>of the server where your database lives</li><li>The <strong>port</strong>the database server uses</li><li>The <strong>database name</strong></li><li>The <strong>username</strong>you use for the database</li><li>The <strong>password</strong>you use for the database</li></ul><p>If you don’t have this information handy, the person responsible for administering the database should have it.</p><h2>Connect to your database</h2><p>Now that you have your database info you can connect to your database. Sweet, sweet data at last. Just go ahead and put your info into this form and click <strong>Next</strong>.</p><img/><p>For more on connecting to databases, see <a>Adding and managing databases</a>.</p><h2>Usage data preferences</h2><p>One last quick thing that you’ll have to decide is if it’s okay for us to collect some anonymous info about how you use the product — it helps us make Metabase better. Like the box says:</p><ul><li>Metabase never collects anything about your data or question results.</li><li>All collection is completely anonymous.</li><li>Collection can be turned off at any point in your admin settings.</li></ul><img/><p>If you’re ready to start using Metabase, go ahead and click <strong>Next</strong>.</p><h2>Staying in touch</h2><p>At this point you are all set and ready to use Metabase. Since we like keeping in touch with our friends we made it easy to sign up for our newsletter (infrequent emails) with a single click!</p><img/><p>Once you’re done here simply follow the link to <strong>Take me to Metabase</strong>.
+In other words, <code>MB_DB_FILE</code>should be something like <code>/path/to/metabase.db</code>, rather than something like <code>/path/to/metabase.db.mv.db</code>(even though this is the file that actually gets created).</p><a>Postgres</a><p>You can change the application database to use Postgres using a few simple environment variables. For example:</p><code>export MB_DB_TYPE=postgres
+export MB_DB_DBNAME=metabase
+export MB_DB_PORT=5432
+export MB_DB_USER=&lt;username&gt;
+export MB_DB_PASS=&lt;password&gt;
+export MB_DB_HOST=localhost
+java -jar metabase.jar
+</code><p>Metabase will not create this database for you. Example command to create the database:</p><code>createdb --encoding=UTF8 -e metabase
+</code><p>This will tell Metabase to look for its application database using the supplied Postgres connection information.
+Metabase also supports providing a full JDBC connection string if you have additional parameters:</p><code>export MB_DB_CONNECTION_URI="jdbc:postgresql://localhost:5432/metabase?user=&lt;username&gt;&amp;password=&lt;password&gt;"
+java -jar metabase.jar
+</code><p><code>MB_DB_CONNECTION_URI</code>can also be used in combination with <code>MB_DB_USER</code>and/or <code>MB_DB_PASS</code>if you want to pass one
+or both separately from the rest of the JDBC connection string (useful if the password contains special characters):</p><code>export MB_DB_CONNECTION_URI="jdbc:postgresql://localhost:5432/metabase"
+export MB_DB_USER=&lt;username&gt;
+export MB_DB_PASS=&lt;password&gt;
+java -jar metabase.jar
+</code><h2>Upgrading from a Metabase version pre-0.38</h2><p>If you’re upgrading from a previous version of Metabase, note that for Metabase 0.38 we’ve removed the use of the PostgreSQL <code>NonValidatingFactory</code>for SSL validation.
 
 
 

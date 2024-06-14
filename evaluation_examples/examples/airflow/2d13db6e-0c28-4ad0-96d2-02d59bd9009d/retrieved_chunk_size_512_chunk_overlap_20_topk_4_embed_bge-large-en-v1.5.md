@@ -5,6 +5,19 @@ Documentation Title:
 Datasets and data-aware scheduling in Airflow | Astronomer Documentation
 
 Documentation Content:
+")f =open("include/cocktail_info.txt","a")f.write(msg)f.close()withDAG(dag_id="datasets_producer_dag",start_date=datetime(2022,10,1),schedule=None,catchup=False,render_template_as_native_obj=True,):get_cocktail =PythonOperator(task_id="get_cocktail",python_callable=get_cocktail_func,op_kwargs={"api":API},)write_instructions_to_file =PythonOperator(task_id="write_instructions_to_file",python_callable=write_instructions_to_file_func,op_kwargs={"response":"{{ ti.xcom_pull(task_ids='get_cocktail') }}"},outlets=[INSTRUCTIONS],)write_info_to_file =PythonOperator(task_id="write_info_to_file",python_callable=write_info_to_file_func,op_kwargs={"response":"{{ ti.xcom_pull(task_ids='get_cocktail') }}"},outlets=[INFO],)get_cocktail >>write_instructions_to_file >>write_info_to_file`A consumer DAG runs whenever the dataset(s) it is scheduled on is updated by a producer task, rather than running on a time-based schedule. For example, if you have a DAG that should run when the `INSTRUCTIONS`and `INFO`datasets are updated, you define the DAG's schedule using the names of those two datasets.
+
+Any DAG that is scheduled with a dataset is considered a consumer DAG even if that DAG doesn't actually access the referenced dataset. In other words, it's up to you as the DAG author to correctly reference and use datasets.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-datasets.md
+
+Documentation Title:
+Datasets and data-aware scheduling in Airflow | Astronomer Documentation
+
+Documentation Content:
 * Airflow monitors datasets only within the context of DAGs and tasks. It does not monitor updates to datasets that occur outside of Airflow.
 * Consumer DAGs that are scheduled on a dataset are triggered every time a task that updates that dataset completes successfully. For example, if `task1`and `task2`both produce `dataset_a`, a consumer DAG of `dataset_a`runs twice - first when `task1`completes, and again when `task2`completes.
 * Consumer DAGs scheduled on a dataset are triggered as soon as the first task with that dataset as an outlet finishes, even if there are downstream producer tasks that also operate on the dataset.
@@ -22,19 +35,6 @@ The **Datasets**tab, and the **DAG Dependencies**view in the Airflow UI give you
 On the **DAGs**view, you can see that your `dataset_downstream_1_2`DAG is scheduled on two producer datasets (one in `dataset_upstream1`and `dataset_upstream2`). When Datasets are provided as a list, the DAG is scheduled to run after all Datasets in the list have received at least one update. In the following screenshot, the `dataset_downstream_1_2`DAG's next run is pending one dataset update. At this point the `dataset_upstream`DAG has run and updated its dataset, but the `dataset_upstream2`DAG has not.
 
 !The **Datasets**tab shows a list of all datasets in your Airflow environment and a graph showing how your DAGs and datasets are connected. You can filter the lists of Datasets by recent updates.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-datasets.md
-
-Documentation Title:
-Datasets and data-aware scheduling in Airflow | Astronomer Documentation
-
-Documentation Content:
-")f =open("include/cocktail_info.txt","a")f.write(msg)f.close()withDAG(dag_id="datasets_producer_dag",start_date=datetime(2022,10,1),schedule=None,catchup=False,render_template_as_native_obj=True,):get_cocktail =PythonOperator(task_id="get_cocktail",python_callable=get_cocktail_func,op_kwargs={"api":API},)write_instructions_to_file =PythonOperator(task_id="write_instructions_to_file",python_callable=write_instructions_to_file_func,op_kwargs={"response":"{{ ti.xcom_pull(task_ids='get_cocktail') }}"},outlets=[INSTRUCTIONS],)write_info_to_file =PythonOperator(task_id="write_info_to_file",python_callable=write_info_to_file_func,op_kwargs={"response":"{{ ti.xcom_pull(task_ids='get_cocktail') }}"},outlets=[INFO],)get_cocktail >>write_instructions_to_file >>write_info_to_file`A consumer DAG runs whenever the dataset(s) it is scheduled on is updated by a producer task, rather than running on a time-based schedule. For example, if you have a DAG that should run when the `INSTRUCTIONS`and `INFO`datasets are updated, you define the DAG's schedule using the names of those two datasets.
-
-Any DAG that is scheduled with a dataset is considered a consumer DAG even if that DAG doesn't actually access the referenced dataset. In other words, it's up to you as the DAG author to correctly reference and use datasets.
 
 
 

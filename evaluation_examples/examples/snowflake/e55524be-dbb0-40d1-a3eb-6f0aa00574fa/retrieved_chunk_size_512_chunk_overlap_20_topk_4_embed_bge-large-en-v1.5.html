@@ -1,4 +1,16 @@
 Documentation Source:
+docs.snowflake.com/en/user-guide/ui-worksheet.html
+
+Documentation Title:
+Using Worksheets for Queries / DML / DDL | Snowflake Documentation
+
+Documentation Content:
+Copy and paste the contents of individual worksheets into files that you can safeguard. Backing up your worksheets prevents them from accidental deletion.</p><p>Worksheet metadata is stored in the Snowflake user stage, in the <span>worksheet_data</span>directory. Executing the <span>REMOVE</span>command and removing the <span>worksheet_data</span>directory deletes your own worksheets, which cannot be restored.</p><div><p>Note</p><p>This precaution applies to worksheets in the <span>Worksheets</span><img/>tab in the Classic Console only.
+Worksheets in <span>Snowsight</span>are stored elsewhere and are not prone to accidental deletion.</p></div></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Overview of Features</a><a>Saving and Managing Worksheets</a><a>Using the Object Browser</a><a>Managing Warehouses</a><a>Managing Queries</a><a>Formatting Queries Using Keyboard Shortcuts</a><a>Backing Up Your Own Worksheets</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+
+
+
+Documentation Source:
 docs.snowflake.com/en/sql-reference/sql/delete.html
 
 Documentation Title:
@@ -11,36 +23,29 @@ table, which lists the IDs of the bicycles to be deleted from the leased_bicycle
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/delete.html
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.html
 
 Documentation Title:
-DELETE | Snowflake Documentation
+Managing and using worksheets in Snowsight | Snowflake Documentation
 
 Documentation Content:
-These bicycles need be removed from the table of
-leased bicycles.</p></ul><p>Create tables:</p><div><pre><span>CREATE</span><span>TABLE</span><span>leased_bicycles</span><span>(</span><span>bicycle_id</span><span>INTEGER</span><span>,</span><span>customer_id</span><span>INTEGER</span><span>);</span><span>CREATE</span><span>TABLE</span><span>returned_bicycles</span><span>(</span><span>bicycle_id</span><span>INTEGER</span><span>);</span></pre><span>Copy</span></div><p>Load data:</p><div><pre><span>INSERT</span><span>INTO</span><span>leased_bicycles</span><span>(</span><span>bicycle_ID</span><span>,</span><span>customer_ID</span><span>)</span><span>VALUES</span><span>(</span><span>101</span><span>,</span><span>1111</span><span>),</span><span>(</span><span>102</span><span>,</span><span>2222</span><span>),</span><span>(</span><span>103</span><span>,</span><span>3333</span><span>),</span><span>(</span><span>104</span><span>,</span><span>4444</span><span>),</span><span>(</span><span>105</span><span>,</span><span>5555</span><span>);</span><span>INSERT</span><span>INTO</span><span>returned_bicycles</span><span>(</span><span>bicycle_ID</span><span>)</span><span>VALUES</span><span>(</span><span>102</span><span>),</span><span>(</span><span>104</span><span>);</span></pre><span>Copy</span></div><p>This example shows how to use the <span>WHERE</span>clause to delete a specified row(s).
+To recover the worksheets, do the following:</p><ol><p><span>Download recovered worksheets</span>owned by a dropped user.</p><p><span>Create worksheets from a SQL file</span>to add the recovered worksheets back to Snowflake.</p></ol><p>If you want to change ownership or retain access to worksheets before dropping a user, ask that user to share the worksheets.
+See <span>Sharing worksheets and folders</span>.</p><section><h3>Download recovered worksheets owned by a dropped user<a>¶</a></h3><p>To recover worksheets owned by a dropped user, download a <span>.tar.gz</span>archive file of up to 500 worksheets owned by that user.</p><div><p>Note</p><p>You must be granted the ACCOUNTADMIN role to recover worksheets of dropped users.</p></div><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>.</p><p>Select <img/>» <span>Recover Worksheets from Dropped User</span>.</p><li><p>In the dialog box, enter the username of a dropped user in your account.</p><div><p>Important</p><p>The case and spelling of the username must exactly match the username as it was stored in Snowflake.</p></div></li><li><p>Select <span>Recover</span>.</p><p>Your web browser downloads a <span>.tar</span>file containing up to 500 worksheets. If the dropped user has more than 500 worksheets,
+only the 500 most recently modified worksheets are downloaded.</p></li></ol><p>After downloading worksheets owned by a dropped user, add the recovered worksheets to Snowsight by creating worksheets from
+the SQL files.</p><p>You must expand the downloaded <span>.tar</span>file into a folder of <span>.sql</span>files before you can add recovered worksheets to
+Snowsight.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/delete.html
+docs.snowflake.com/en/sql-reference/sql/insert.html
 
 Documentation Title:
-DELETE | Snowflake Documentation
+INSERT | Snowflake Documentation
 
 Documentation Content:
-</span><span>COMMIT</span><span>WORK</span><span>;</span></pre><span>Copy</span></div><p>Show the data after the delete:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>leased_bicycles</span><span>ORDER</span><span>BY</span><span>bicycle_ID</span><span>;</span><span>+</span><span>------------+-------------+</span><span>| BICYCLE_ID | CUSTOMER_ID |</span><span>|------------+-------------|</span><span>|        101 |        1111 |</span><span>+</span><span>------------+-------------+</span></pre><span>Copy</span></div></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>On this page</p><ol><a>Syntax</a><a>Required parameters</a><a>Optional parameters</a><a>Usage notes</a><a>Examples</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/functions/database_storage_usage_history.html
-
-Documentation Title:
-DATABASE_STORAGE_USAGE_HISTORY | Snowflake Documentation
-
-Documentation Content:
-the database cannot be recovered using Time Travel), then the database name is reported as <code><span>DROPPED_</span><span>id</span></code>, where <span>id</span>is an internally-generated identifier. This ID can be used to match entries across rows returned by the table function.</p></section><section><h2>Examples<a>¶</a></h2><p>Retrieve average daily storage usage for the past 10 days, per database, for all databases in your account:</p><div><pre><span>select</span><span>*</span><span>from</span><span>table</span><span>(</span><span>information_schema</span><span>.</span><span>database_storage_usage_history</span><span>(</span><span>dateadd</span><span>(</span><span>'days'</span><span>,-</span><span>10</span><span>,</span><span>current_date</span><span>()),</span><span>current_date</span><span>()));</span></pre><span>Copy</span></div></section></section></article><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+</span><span>"email": "denise.holloway@digigen.net",</span><span>"phone": "+1 (979) 587-3021",</span><span>"address": "441 Dover Street, Ada, New Mexico, 5922"</span><span>}'</span><span>);</span></pre><span>Copy</span></div></section><section><h3>Insert using overwrite<a>¶</a></h3><p>This example uses INSERT with OVERWRITE to rebuild the <span>sf_employees</span>table from <span>employees</span>after new records were added
+to the <span>employees</span>table.</p><p>Here is the initial data for both tables:</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>employees</span><span>;</span><span>+</span><span>------------+-----------+----------------+---------------+-------------+</span><span>| FIRST_NAME | LAST_NAME | WORKPHONE      | CITY          | POSTAL_CODE |</span><span>|------------+-----------+----------------+---------------+-------------|</span><span>| May        | Franklin  | 1-650-111-1111 | San Francisco | 94115       |</span><span>| Gillian    | Patterson | 1-650-222-2222 | San Francisco | 94115       |</span><span>| Lysandra   | Reeves    | 1-212-222-2222 | New York      | 10018       |</span><span>| Michael    | Arnett    | 1-650-333-3333 | San Francisco | 94116       |</span><span>+</span><span>------------+-----------+----------------+---------------+-------------+</span><span>SELECT</span><span>*</span><span>FROM</span><span>sf_employees</span><span>;
 
 
 

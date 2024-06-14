@@ -1,28 +1,41 @@
 Documentation Source:
-docs.snowflake.com/en/sql-reference/info-schema/tables.html
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.html
 
 Documentation Title:
-TABLES View | Snowflake Documentation
+Managing and using worksheets in Snowsight | Snowflake Documentation
 
 Documentation Content:
-If the user has been dropped, shows
-<span>DROPPED_USER(&lt;id&gt;)</span>.</p><p>For dropped users, you can join the <span>&lt;id&gt;</span>with the USER_ID column in the <span>USERS view</span>.</p></td></tr><tr><p>AUTO_CLUSTERING_ON</p><p>BOOLEAN</p><p>Indicates whether automatic clustering is enabled for the table.</p></tr><tr><p>COMMENT</p><p>TEXT</p><p>Comment for this table.</p></tr><tr><p>IS_TEMPORARY</p><p>TEXT</p><p>Indicates whether this is a temporary table. Valid values are <span>YES</span>and <span>NO</span>.</p></tr><tr><p>IS_ICEBERG</p><p>TEXT</p><p>Indicates whether the table is an <span>Iceberg table</span>. Valid values are <span>YES</span>or <span>NO</span>.</p></tr><tr><p>IS_DYNAMIC</p><p>TEXT</p><p>Indicates whether the table is a <span>dynamic table</span>. Valid values are <span>YES</span>or <span>NO</span>.</p></tr><tr><p>IS_IMMUTABLE</p><p>TEXT</p><p>Indicates whether the table was created with the  <span>READ ONLY</span>property. Valid values are <span>YES</span>or <span>NO</span>. This column is visible in output only if you <span>enable</span>the <span>2024_04 behavior change bundle</span>in your account.</p></tr></tbody></table></section><section><h2>Usage Notes<a>¶</a></h2><ul><li><p>The view only displays objects for which the current role for the session has been granted access privileges.
+To recover the worksheets, do the following:</p><ol><p><span>Download recovered worksheets</span>owned by a dropped user.</p><p><span>Create worksheets from a SQL file</span>to add the recovered worksheets back to Snowflake.</p></ol><p>If you want to change ownership or retain access to worksheets before dropping a user, ask that user to share the worksheets.
+See <span>Sharing worksheets and folders</span>.</p><section><h3>Download recovered worksheets owned by a dropped user<a>¶</a></h3><p>To recover worksheets owned by a dropped user, download a <span>.tar.gz</span>archive file of up to 500 worksheets owned by that user.</p><div><p>Note</p><p>You must be granted the ACCOUNTADMIN role to recover worksheets of dropped users.</p></div><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>.</p><p>Select <img/>» <span>Recover Worksheets from Dropped User</span>.</p><li><p>In the dialog box, enter the username of a dropped user in your account.</p><div><p>Important</p><p>The case and spelling of the username must exactly match the username as it was stored in Snowflake.</p></div></li><li><p>Select <span>Recover</span>.</p><p>Your web browser downloads a <span>.tar</span>file containing up to 500 worksheets. If the dropped user has more than 500 worksheets,
+only the 500 most recently modified worksheets are downloaded.</p></li></ol><p>After downloading worksheets owned by a dropped user, add the recovered worksheets to Snowsight by creating worksheets from
+the SQL files.</p><p>You must expand the downloaded <span>.tar</span>file into a folder of <span>.sql</span>files before you can add recovered worksheets to
+Snowsight.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/drop-schema.html
+docs.snowflake.com/en/sql-reference/sql-all.html
 
 Documentation Title:
-DROP SCHEMA | Snowflake Documentation
+All Commands (Alphabetical) | Snowflake Documentation
 
 Documentation Content:
-When the schema leaves Fail-safe, it is purged.</p><p>A transient schema has no Fail-safe, so it is purged when it moves out of Time Travel.</p></ul></li><p>Once a dropped schema has been purged, it cannot be recovered; it must be recreated.</p></ol></li><p>Currently, when a schema is dropped, the data retention period for child tables, if explicitly set to be different from the retention
-of the schema, is not honored. The child tables are retained for the same period of time as the schema. To honor the data retention
-period for these tables, drop them explicitly <span>before</span>you drop the schema.</p><li><p>After dropping a schema, creating a schema with the same name creates a new version of the schema. The dropped version of the previous
-schema can still be restored using the following method:</p><ol><p>Rename the current version of the schema to a different name.</p><p>Use the <span>UNDROP SCHEMA</span>command to restore the previous version.</p></ol></li><p>If a policy or tag is attached a table or view column, dropping the schema successfully requires the policy or tag to be self-contained
-within the database and schema. For example, <span>database_1</span>contains <span>policy_1</span>and <span>policy_1</span>is only used in <span>database_1</span>.
-Otherwise, a <span>dangling reference</span>occurs.</p><p>The DROP operation fails if a session policy or password policy is set on a user or the account.</p></ul></section><section><h2>Examples<a>¶</a></h2><p>Drop a schema named <span>myschema</span>(from the <span>CREATE SCHEMA</span>examples):</p><div><pre><span>DROP</span><span>SCHEMA</span><span>myschema</span><span>;</span><span>+</span><span>--------------------------------+</span><span>| status                         |</span><span>|--------------------------------|</span><span>| MYSCHEMA successfully dropped.
+object&gt;</span><p>Restores the specified object to the system.</p></tr><tr><span>UNDROP ACCOUNT</span><p>Restores a <span>dropped account</span>that has not yet been permanently deleted (a dropped account that is within its grace period).</p></tr><tr><span>UNDROP DATABASE</span><p>Restores the most recent version of a dropped database.</p></tr><tr><span>UNDROP DYNAMIC TABLE</span><p>Restores the most recent version of a dropped <span>dynamic table</span>.</p></tr><tr><span>UNDROP EXTERNAL VOLUME</span><p>Restores the most recent version of a dropped <span>external volume</span>.</p></tr><tr><span>UNDROP ICEBERG TABLE</span><p>Restores the most recent version of a dropped <span>Iceberg table</span>.</p></tr><tr><span>UNDROP SCHEMA</span><p>Restore the most recent version of a dropped schema.</p></tr><tr><span>UNDROP TABLE</span><p>Restores the most recent version of a dropped table.</p></tr><tr><span>UNDROP TAG</span><p>Restores the most recent version of a tag to the system.</p></tr><tr><span>UNSET</span><p>Drops a <span>session variable</span>.</p></tr><tr><span>UPDATE</span><p>Updates specified rows in the target table with new values.</p></tr><tr><span>USE &lt;object&gt;</span><p>Specifies the role, warehouse, database, or schema to use for the current session.</p></tr><tr><span>USE DATABASE</span><p>Specifies the active/current database for the session.</p></tr><tr><span>USE ROLE</span><p>Specifies the active/current primary role for the session.</p></tr><tr><span>USE SCHEMA</span><p>Specifies the active/current schema for the session.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets.html
+
+Documentation Title:
+Managing and using worksheets in Snowsight | Snowflake Documentation
+
+Documentation Content:
+You can only add one worksheet at a time to Snowsight, and the user who adds the recovered worksheets to
+Snowsight becomes the new owner of the worksheets.</p><p>See <span>Create worksheets from a SQL file</span>for details.</p></section><section><h3>Considerations for recovering worksheets owned by dropped users<a>¶</a></h3><p>Considerations when recovering worksheets:</p><ul><p>Only the title and contents of the most recently executed version of a worksheet are recovered. Worksheet version history,
+sharing recipients and permissions, query results, and worksheet metadata are not recovered.</p><p>A maximum of 500 worksheets are recovered. For dropped users with more than 500 worksheets, only the 500 most recently modified worksheets
+are recovered.</p><p>Only worksheets in Snowsight are recovered. Worksheets in Classic Console owned by dropped users cannot be recovered with
+this method.</p><p>If multiple dropped users have the same username, worksheets owned by all dropped users with that username are recovered.</p></ul><p>If the worksheet recovery fails for unexpected reasons, contact <a>Snowflake Support</a>.</p></section></section><section><h2>Internal Snowflake objects for worksheets<a>¶</a></h2><p>Snowflake creates the following internal objects to support using worksheets in Snowsight:</p><table><tr><p>Object Type</p><p>Name</p></tr><tbody><tr><p>Security integration</p><p>WORKSHEETS</p></tr><tr><p>Blobs</p><p>WORKSHEETS_APP</p></tr><tr><p>Database</p><p>WORKSHEETS_APP</p></tr><tr><p>User</p><p>WORKSHEETS_APP_USER</p></tr><tr><p>Roles</p><p>APPADMIN, WORKSHEETS_APP_RL</p></tr></tbody></table><p>These internal objects are used to cache query results in an internal stage in your account.
 
 
 
@@ -35,18 +48,6 @@ DROP TABLE | Snowflake Documentation
 Documentation Content:
 Dropping a table referenced by a view invalidates the view
 (i.e. querying the view returns an “object does not exist” error).</p><p>To drop a table, you must be using a role that has ownership privilege on the table.</p></ul></section><section><h2>Examples<a>¶</a></h2><p>Drop a table:</p><div><pre><span>SHOW</span><span>TABLES</span><span>LIKE</span><span>'t2%'</span><span>;</span><span>+</span><span>---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+</span><span>| created_on                      | name | database_name | schema_name | kind      | comment    | cluster_by | rows | bytes | owner        | retention_time |</span><span>|</span><span>---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+</span><span>| Tue, 17 Mar 2015 16:48:16 -0700 | T2   | TESTDB        | PUBLIC      | TABLE     |            |            |    5 | 4096  | PUBLIC       |              1 |</span><span>+</span><span>---------------------------------+------+---------------+-------------+-----------+------------+------------+------+-------+--------------+----------------+</span><span>DROP</span><span>TABLE</span><span>t2</span><span>;</span><span>+</span><span>--------------------------+</span><span>| status                   |</span><span>|--------------------------|</span><span>| T2 successfully dropped.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/account-usage/tables.html
-
-Documentation Title:
-TABLES View | Snowflake Documentation
-
-Documentation Content:
-If the user has been dropped, shows
-<span>DROPPED_USER(&lt;id&gt;)</span>.</p><p>For dropped users, you can join the <span>&lt;id&gt;</span>with the USER_ID column in the <span>USERS view</span>.</p></td></tr><tr><p>DELETED</p><p>TIMESTAMP_LTZ</p><p>Date and time when the table was dropped.</p></tr><tr><p>AUTO_CLUSTERING_ON</p><p>TEXT</p><p>Status of Automatic Clustering for a table. For details, see <span>Viewing the Automatic Clustering Status for a Table</span>.</p></tr><tr><p>COMMENT</p><p>TEXT</p><p>Comment for the table.</p></tr><tr><p>OWNER_ROLE_TYPE</p><p>TEXT</p><p>The type of role that owns the object, either <span>ROLE</span>or <span>DATABASE_ROLE</span>. <span>.</span>If a Snowflake Native App owns the object, the value is <span>APPLICATION</span>. <span>.</span>Snowflake returns NULL if you delete the object because a deleted object does not have an owner role.</p></tr><tr><p>INSTANCE_ID</p><p>NUMBER</p><p>Internal/system-generated identifier for the instance which the object belongs to.</p></tr><tr><p>IS_ICEBERG</p><p>TEXT</p><p>Indicates whether the table is an <span>Iceberg table</span>. Valid values are <span>YES</span>or <span>NO</span>.</p></tr><tr><p>IS_DYNAMIC</p><p>TEXT</p><p>Indicates whether the table is a <span>dynamic table</span>.
 
 
 

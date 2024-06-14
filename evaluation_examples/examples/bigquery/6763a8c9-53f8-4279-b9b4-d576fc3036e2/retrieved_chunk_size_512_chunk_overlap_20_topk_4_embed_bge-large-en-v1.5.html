@@ -5,13 +5,136 @@ Documentation Title:
 Add an empty column  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Data Transfer Service Samples</span><ul><span>Copy a dataset</span><span>Create a scheduled query</span><span>Create a scheduled query with a service account</span><span>Create a transfer configuration with run notifications</span><span>Delete a scheduled query</span><span>Delete a transfer configuration</span><span>Disable a transfer configuration</span><span>Get configuration metadata</span><span>Get transfer run metadata</span><span>List run history</span><span>List supported data sources</span><span>List transfer configurations</span><span>Load data from Amazon Redshift</span><span>Load data from Amazon S3</span><span>Load data from Campaign Manager</span><span>Load data from Cloud Storage</span><span>Load data from Google Ad Manager</span><span>Load data from Google Ads</span><span>Load data from Google Play</span><span>Load data from Teradata</span><span>Load data from YouTube Channel reports</span><span>Load data from YouTube Content Owner reports</span><span>Re-enable a transfer configuration</span><span>Schedule a backfill run</span><span>Update configuration metadata</span><span>Update transfer configuration credentials</span></ul></div><div><span>BigQuery Migration Samples</span><span>Demonstrate batch query translation</span></div><div><span>BigQuery Reservation Samples</span><span>Report capacity commitments and reservations</span></div><div><span>BigQuery Storage Samples</span><ul><span>Append buffered records</span><span>Append committed records</span><span>Append data for a complex schema</span><span>Append pending records</span><span>Append records using default client</span><span>Append rows with a static protocol buffer</span><span>Download table data in the Arrow data format</span><span>Download table data in the Avro data format</span></ul></div></ul><ul><span>AI solutions, generative AI, and ML
-   </span><span>Application development
-   </span><span>Application hosting
-   </span><span>Compute
-   </span><span>Data analytics and pipelines
-   </span><span>Databases
-   </span><span>Distributed,
+\n" + e.toString());
+    }
+  }
+}</code></section><section><span>Node.js</span><p>Before trying this sample, follow the <span>Node.js</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Node.js</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>// Import the Google Cloud client library and create a client
+const {BigQuery} = require('@google-cloud/bigquery');
+const bigquery = new BigQuery();
+
+async function addEmptyColumn() {
+  // Adds an empty column to the schema.
+
+  /**
+   * TODO(developer): Uncomment the following lines before running the sample.
+   */
+  // const datasetId = 'my_dataset';
+  // const tableId = 'my_table';
+  const column = {name: 'size', type: 'STRING'};
+
+  // Retrieve current table metadata
+  const table = bigquery.dataset(datasetId).table(tableId);
+  const [metadata] = await table.getMetadata();
+
+  // Update table schema
+  const schema = metadata.schema;
+  const new_schema = schema;
+  new_schema.fields.push(column);
+  metadata.schema = new_schema;
+
+  const [result] = await table.setMetadata(metadata);
+  console.log(result.schema.fields);
+}</code></section><section><span>Python</span><p>Before trying this sample, follow the <span>Python</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Python</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>from google.cloud import bigquery
+
+# Construct a BigQuery client object.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.html
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For more information, see the
+  <a>BigQuery <span>Go</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>import (
+	"context"
+	"fmt"
+
+	"cloud.google.com/go/bigquery"
+)
+
+// updateTableAddColumn demonstrates modifying the schema of a table to append an additional column.
+func updateTableAddColumn(projectID, datasetID, tableID string) error {
+	// projectID := "my-project-id"
+	// datasetID := "mydataset"
+	// tableID := "mytable"
+	ctx := context.Background()
+	client, err := bigquery.NewClient(ctx, projectID)
+	if err != nil {
+		return fmt.Errorf("bigquery.NewClient: %w", err)
+	}
+	defer client.Close()
+
+	tableRef := client.Dataset(datasetID).Table(tableID)
+	meta, err := tableRef.Metadata(ctx)
+	if err != nil {
+		return err
+	}
+	newSchema := append(meta.Schema,
+		&amp;bigquery.FieldSchema{Name: "phone", Type: bigquery.StringFieldType},
+	)
+	update := bigquery.TableMetadataToUpdate{
+		Schema: newSchema,
+	}
+	if _, err := tableRef.Update(ctx, update, meta.ETag); err != nil {
+		return err
+	}
+	return nil
+}
+</code></section><section><span>Java</span><p>Before trying this sample, follow the <span>Java</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Java</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
 
 
 
@@ -104,28 +227,6 @@ public class AddEmptyColumn {
       System.out.println("Empty column successfully added to table");
     } catch (BigQueryException e) {
       System.out.println("Empty column was not added.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.html
-
-Documentation Title:
-Add an empty column  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Join Google Cloud!
-          
-          </a><a>Google Cloud Community
-          
-          </a></ul></li></ul><nav><ul><a>About Google
-        </a><a>Privacy
-        </a><a>Site terms
-        </a><a>Google Cloud terms
-        </a><a>Manage cookies
-        </a><a>Our third decade of climate action: join us
-        </a><li><span>Sign up for the Google Cloud newsletter</span><a>Subscribe
-        </a></li></ul><ul><a>English</a><a>Deutsch</a><a>Español – América Latina</a><a>Français</a><a>Indonesia</a><a>Italiano</a><a>Português – Brasil</a><a>中文 – 简体</a><a>日本語</a><a>한국어</a></ul></nav></section></section>
 
 
 

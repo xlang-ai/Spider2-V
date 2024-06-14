@@ -1,4 +1,169 @@
 Documentation Source:
+cloud.google.com/bigquery/docs/quickstarts/load-data-console.md
+
+Documentation Title:
+Load and query data with the Google Cloud console  |  BigQuery
+
+Documentation Content:
+Load data into a table
+----------------------
+
+Next, load the data into a new table.
+
+1. In the
+ **Explorer**panel, click your project name.
+2. Next to the **babynames**dataset, click
+ **More actions**more\_vertand select **Open**.
+3. In the details panel, click
+ add\_box**Create
+ table**. Unless otherwise indicated, use the default values for all settings.
+4. On the **Create table**page, do the following:
+1. In the **Source**section, choose **Upload**from the
+ **Create table
+ from**list.
+2. In the **Select file**field, click **Browse**.
+3. Navigate to and open your local `yob2014.txt`file, and click **Open**.
+4. From the
+ **File
+ format**list, choose **CSV**
+5. In the **Destination**section, enter
+ `names_2014`for
+ **Table
+ name**.
+6. In the **Schema**section, click the
+ **Edit as
+ text**toggle, and paste the following
+ schema definition into the text field:
+`name:string,assigned_sex_at_birth:string,count:integer`8. Click
+ **Create
+ table**.
+
+Wait for BigQuery to create the table and load the data.
+ When BigQuery finishes loading the data, expand the
+ **Personal
+ history**and **Project history**panel to review the job details.
+
+Preview table data
+------------------
+
+To preview the table data, follow these steps:
+
+1. In the
+ **Explorer**panel, expand your project and `babynames`dataset, and then
+ select the `names_2014`table.
+2. In the details panel, click **Preview**. BigQuery displays the first few
+ rows of the table.
+!
+The **Preview**tab is not available for all table types. For example, the
+**Preview**tab is not displayed for external tables or views.
+
+
+Query table data
+----------------
+
+Next, query the table. The process is identical to the previous example,
+except that this time, you're querying your table instead of a public table.
+
+1. Click add\_box**Compose new query**. A new **Editor**tab opens.
+2.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/tables.md
+
+Documentation Title:
+Create and use tables  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Example 3:
+
+The following example retrieves `table_name`and `ddl`columns from the `INFORMATION_SCHEMA.TABLES`view for the `population_by_zip_2010`table in the
+`census_bureau_usa`dataset. This dataset is part of the BigQuery
+public dataset program.
+
+Because the table you're querying is in another project, you add the project ID to the dataset in
+the following format:
+``project_id`.dataset.INFORMATION_SCHEMA.view`.
+In this example, the value is
+``bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES`.
+
+
+```
+SELECT
+  table_name, ddl
+FROM
+  `bigquery-public-data`.census_bureau_usa.INFORMATION_SCHEMA.TABLES
+WHERE
+  table_name = 'population_by_zip_2010';
+
+```
+The result is similar to the following:
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/batch-loading-data.md
+
+Documentation Title:
+Batch loading data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Console
+
+1. Open the BigQuery page in the Google Cloud console.
+
+Go to the BigQuery page
+In the **Explorer**panel, expand your project and select a dataset.
+
+Expand the
+more\_vert**Actions**option and click **Open**.
+
+In the details panel, click **Create table**add\_box.
+
+5. On the **Create table**page, in the **Source**section:
+
+
+	* For **Create table from**, select **Upload**.
+	* For **Select file**, click **Browse**.
+	* Browse to the file, and click **Open**. Note that wildcards
+	and comma-separated lists are not supported for local files.
+	* For **File format**, select **CSV**, **JSON (newline delimited)**,
+	**Avro**, **Parquet**, or **ORC**.
+6. On the **Create table**page, in the **Destination**section:
+
+
+	* For **Project**, choose the appropriate project.
+	* For **Dataset**, choose the appropriate dataset.
+	* In the **Table**field, enter the name of the table you're
+	creating in BigQuery.
+	* Verify that **Table type**is set to **Native table**.
+7. In the **Schema**section, enter the schemadefinition.
+
+
+	For CSV and JSON files, you can check the **Auto-detect**option to
+	enable schema auto-detect. Schema
+	information is self-described in the source data for other supported
+	file types.
+	
+	* You can also enter schema information manually by:
+	
+	
+		+ Clicking **Edit as text**and entering the table schema as a JSON
+		array:
+		
+		**Note:**You can view the schema of an existing table in JSON
+		format by entering the following command:
+		`bq show --format=prettyjson dataset.table`.
+		Using **Add Field**to manually input the schema.
+Select applicable items in the **Advanced options**section For information on the available options, see
+CSV optionsand JSON options.
+
+9. Optional: In the **Advanced options**choose the write disposition:
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/logistic-regression-prediction.md
 
 Documentation Title:
@@ -7,13 +172,21 @@ Build and use a classification model on census data  |  BigQuery  |  Google 
 Documentation Content:
 SQL
 
+To prepare your sample data, create a viewto
+contain the training data. This view is used by the `CREATE MODEL`statement
+later in this tutorial.
+
+Run the query that prepares the sample data:
+
 1. In the Google Cloud console, go to the **BigQuery**page.
 
 Go to BigQuery
-2. In the query editor, run the following GoogleSQL query:
+2. In the query editor, run the following query:
 
 
 ```
+CREATE OR REPLACE VIEW
+`census.input_data` AS
 SELECT
 age,
 workclass,
@@ -22,180 +195,20 @@ education_num,
 occupation,
 hours_per_week,
 income_bracket,
-functional_weight
+CASE
+  WHEN MOD(functional_weight, 10) < 8 THEN 'training'
+  WHEN MOD(functional_weight, 10) = 8 THEN 'evaluation'
+  WHEN MOD(functional_weight, 10) = 9 THEN 'prediction'
+END AS dataframe
 FROM
 `bigquery-public-data.ml_datasets.census_adult_income`
-LIMIT
-100;
 
 ```
-3. The results look similar to the following:
+In the **Explorer**pane, expand the `census`dataset and locate the
+`input_data`view.
 
-!
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.md
-
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-!
-4. On the **Create dataset**page, do the following:
-
-
-	For **Dataset ID**, enter `census`.
-	
-	* For **Location type**, select **Multi-region**, and then select **US (multiple regions in United States)**.
-	
-	The public datasets are stored in the
-	`US`multi-region. For
-	simplicity, store your dataset in the same location.
-	Leave the remaining default settings as they are, and click **Create dataset**.
-
-Examine the data
-----------------
-
-Examine the dataset and identify which columns to use as
-training data for the logistic regression model. Select 100 rows from the
-`census_adult_income`table:
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.md
-
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-languages, frameworks, and tools
- Costs and usage management
- Infrastructure as code
- Migration
- Google Cloud Home
- Free Trial and Free Tier
- Architecture Center
- Blog
- Contact Sales
- Google Cloud Developer Center
- Google Developer Center
- Google Cloud Marketplace (in console)
- Google Cloud Marketplace Documentation
- Google Cloud Skills Boost
- Google Cloud Solution Center
- Google Cloud Support
- Google Cloud Tech Youtube Channel
- HomeBigQueryDocumentationGuides
-Send feedback
- 
- Build and use a classification model on census data
-===================================================
-
-Stay organized with collections
- Save and categorize content based on your preferences.
- In this tutorial, you use a binary
-logistic regression modelin BigQuery ML to predict the income range of individuals based on their
-demographic data. A binary logistic regression model predicts whether a
-value falls into one of two categories, in this case whether an individual's
-annual income falls above or below $50,000.
-
-This tutorial uses the
-`bigquery-public-data.ml_datasets.census_adult_income`dataset. This dataset contains the demographic and income information of US
-residents from 2000 and 2010.
-
-Objectives
-----------
-
-In this tutorial you will perform the following tasks:
-
-* Create a logistic regression model.
-* Evaluate the model.
-* Make predictions by using the model.
-* Explain the results produced by the model.
-Costs
------
-
-This tutorial uses billable components of Google Cloud, including the following:
-
-* BigQuery
-* BigQuery ML
-
-For more information on BigQuery costs, see the
-BigQuery pricingpage.
-
-For more information on BigQuery ML costs, see
-BigQuery ML pricing.
-
-Before you begin
-----------------
-
-1. In the Google Cloud console, on the project selector page,
- select or create a Google Cloud project.
-
-**Note**: If you don't plan to keep the
- resources that you create in this procedure, create a project instead of
- selecting an existing project. After you finish these steps, you can
- delete the project, removing all resources associated with the project.Go to project selector
-Make sure that billing is enabled for your Google Cloud project.
- 
-
-3. Enable the BigQuery API.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.md
-
-Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-```
-CREATE OR REPLACE MODEL
-`census.census_model`
-OPTIONS
-( model_type='LOGISTIC_REG',
-  auto_class_weights=TRUE,
-  data_split_method='NO_SPLIT',
-  input_label_cols=['income_bracket'],
-  max_iterations=15) AS
-SELECT * EXCEPT(dataframe)
-FROM
-`census.input_data`
-WHERE
-dataframe = 'training'
-
-```
-In the **Explorer**pane, expand the `census`dataset and then the **Models**folder.
-
-Click the **census\_model**model to open the information pane.
-
-Click the **Schema**tab. The model schema lists the attributes
-that BigQuery ML used to perform logistic regression. The schema
-should look similar to the following:
-
-
-!### BigQuery DataFrames
-
-Use the
-`fit`method to train the model and the
-`to_gbq`method to save it to your dataset.
-
-Before trying this sample, follow the BigQuery DataFrames
- setup instructions in the BigQuery quickstart
- using BigQuery DataFrames.
- For more information, see the
- BigQuery DataFrames reference documentation.
-
-To authenticate to BigQuery, set up Application Default Credentials.
- For more information, see Set 
- up authentication for a local development environment.
- 
-
-`import bigframes.ml.linear_model
+Click the view name to open the information pane. The view schema appears in
+the **Schema**tab.
 
 
 

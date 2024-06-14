@@ -86,77 +86,10 @@ Reply-to address
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/configuring-metabase/email.txt
+www.metabase.com/docs/v0.49/people-and-groups/managing.txt
 
 Documentation Title:
-Email
-
-Documentation Content:
-Now you can go back to the Metabase Admin Panel form and enter the info there.
-Approved domains for notifications
-Approved domains for notifications is only available on
-Pro
-and
-Enterprise
-plans (both self-hosted and on Metabase Cloud).
-Allowed email address domain(s) for new
-dashboard subscriptions
-and
-alerts
-.
-Adding approved domains allows you to restrict which email addresses people can send alerts and subscriptions to. This restriction only applies to sending email to people who lack an account with that Metabase. People with accounts in a Metabase who aren’t
-sandboxed
-will be able to email any other person with an account in that same Metabase.
-To allow all domains, leave the field empty (allowing all domains is the default).
-To specify multiple domains, separate each domain with a comma, with no space in between (e.g., “domain1,domain2”).
-You can also set this property using the environment variable
-MB_SUBSCRIPTION_ALLOWED_DOMAINS
-.
-This setting doesn’t affect existing subscriptions and alerts.
-Suggest recipients on dashboard subscriptions and alerts
-Configuring suggested recipients is only available on
-Pro
-and
-Enterprise
-plans (both self-hosted and on Metabase Cloud).
-Control which recipients people can see when they create a new
-dashboard subscription
-or
-alert
-. For example, you may want to restrict people to viewing potential recipients that belong to the same
-groups
-they are a member of.
-Options include:
-Suggest all users
-Only suggest users in the same groups
-Don’t show suggestions
-People who are sandboxed won’t see suggestions.
-Further reading
-Alerts
-Dashboard subscriptions
-Notification permissions
-Setting up Slack
-Auditing Metabase
-Read docs for other
-versions of Metabase
-.
-Did this article help you?
-Yes
-No
-Send
-Thanks for your feedback!
-Want to improve these docs?
-Propose a change.
-Subscribe to our newsletter
-Stay in touch with updates and news from Metabase. No spam, ever.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/api/email.txt
-
-Documentation Title:
-Email
+Managing people and groups
 
 Documentation Content:
 when
@@ -188,72 +121,59 @@ New
 Pricing
 Log in
 v0.49
-Api
-Email
-/api/email endpoints.
-DELETE /api/email/
-Clear all email related settings. You must be a superuser or have
-setting
-permission to do this.
-POST /api/email/test
-Send a test email using the SMTP Settings. You must be a superuser or have
-setting
-permission to do this.
-  Returns
-{:ok true}
-if we were able to send the message successfully, otherwise a standard 400 error response.
-PUT /api/email/
-Update multiple email Settings. You must be a superuser or have
-setting
-permission to do this.
-PARAMS:
-settings
-map.
-« Back to API index
-Read docs for other
-versions of Metabase
+People and Groups
+Managing people and groups
+To start managing people, click on the
+gear
+icon >
+Admin settings
+>
+People
+. You’ll see a list of all the people in your organization.
+Creating an account
+To add a new person, click
+Invite someone
+in the upper right corner. You’ll be prompted to enter their email, and optionally their first and last names–only the email is required.
+Click
+Create
+to activate an account. An account becomes active once you click
+Create
+, even if the person never signs into the account. The account remains active until you
+deactivate the account
+. If you’re on a paid Metabase plan, all active accounts will count toward your user account total. If one person has more than one account, each account will count toward the total (see
+how billing works
+).
+If you’ve already
+configured Metabase to use email
+, Metabase will send the person an email inviting them to log into Metabase. If you haven’t yet setup email for your Metabase, Metabase will give you a temporary password that you’ll have to manually send to the person.
+Editing an account
+You can edit someone’s name and email address by clicking the three dots icon and choosing
+Edit user
 .
-Did this article help you?
-Yes
-No
-Send
-Thanks for your feedback!
-Want to improve these docs?
-Propose a change.
-Subscribe to our newsletter
-Stay in touch with updates and news from Metabase. No spam, ever.
-Product
-Watch Demo
-Data Sources
-Security
-Cloud
-Roadmap
-What's New
-Pricing
-Plans
-Open Source
-Use Cases
-Self-Service Business Analytics
-Embedded Analytics
-Metabase Plans
-Starter and Open Source
+Be careful: changing an account’s email address
+will change the address the person will use to log in to Metabase
+.
+Adding a user attribute
+User attributes is only available on
 Pro
+and
 Enterprise
-Features
-Query Builder
-Drill Through
-Collections
-Usage analytics
-New
-Analytics dashboards
-SQL editor
-Sandboxing
-Models
-Permissions
-CSV upload
-Company
-Jobs
-We're hiring!
+plans (both self-hosted and on Metabase Cloud).
+To add a user attribute manually:
+Go to
+Admin settings
+>
+People
+.
+Find the person’s account and click the
+three dot
+(…) menu.
+Click
+Edit user
+.
+Click
++ Add an attribute
+.
 
 
 
@@ -320,6 +240,73 @@ prefers-reduced-motion
 CSS media feature. This change will also affect other applications, not just Metabase. Check out the instructions for how to set the user preferences for your operating system in the
 MDN Web Docs
 .
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/configuring-metabase/email.txt
+
+Documentation Title:
+Email
+
+Documentation Content:
+Now you can go back to the Metabase Admin Panel form and enter the info there.
+Approved domains for notifications
+Approved domains for notifications is only available on
+Pro
+and
+Enterprise
+plans (both self-hosted and on Metabase Cloud).
+Allowed email address domain(s) for new
+dashboard subscriptions
+and
+alerts
+.
+Adding approved domains allows you to restrict which email addresses people can send alerts and subscriptions to. This restriction only applies to sending email to people who lack an account with that Metabase. People with accounts in a Metabase who aren’t
+sandboxed
+will be able to email any other person with an account in that same Metabase.
+To allow all domains, leave the field empty (allowing all domains is the default).
+To specify multiple domains, separate each domain with a comma, with no space in between (e.g., “domain1,domain2”).
+You can also set this property using the environment variable
+MB_SUBSCRIPTION_ALLOWED_DOMAINS
+.
+This setting doesn’t affect existing subscriptions and alerts.
+Suggest recipients on dashboard subscriptions and alerts
+Configuring suggested recipients is only available on
+Pro
+and
+Enterprise
+plans (both self-hosted and on Metabase Cloud).
+Control which recipients people can see when they create a new
+dashboard subscription
+or
+alert
+. For example, you may want to restrict people to viewing potential recipients that belong to the same
+groups
+they are a member of.
+Options include:
+Suggest all users
+Only suggest users in the same groups
+Don’t show suggestions
+People who are sandboxed won’t see suggestions.
+Further reading
+Alerts
+Dashboard subscriptions
+Notification permissions
+Setting up Slack
+Auditing Metabase
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 

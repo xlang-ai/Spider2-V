@@ -32,90 +32,219 @@ Last updated 2024-05-13 UTC.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.txt
+cloud.google.com/bigquery/docs/visualize-jupyter.txt
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
 
 Documentation Content:
-time
-ORDER BY zip_code, time;
-
-/*---------------------+----------+-----+-------------+
- |        time         | zip_code | aqi | temperature |
- +---------------------+----------+-----+-------------+
- | 2020-09-08 00:00:00 |    60606 |  22 |          63 |
- | 2020-09-08 03:00:00 |    60606 |  21 |          58 |
- | 2020-09-08 06:00:00 |    60606 |  27 |          55 |
- | 2020-09-08 09:00:00 |    60606 |  36 |          56 |
- | 2020-09-08 15:00:00 |    60606 |  43 |          67 |
- | 2020-09-08 18:00:00 |    60606 |  33 |          68 |
- | 2020-09-08 21:00:00 |    60606 |  25 |          65 |
- | 2020-09-08 00:00:00 |    94105 |  60 |          73 |
- | 2020-09-08 03:00:00 |    94105 |  70 |          67 |
- | 2020-09-08 06:00:00 |    94105 |  75 |          64 |
- | 2020-09-08 09:00:00 |    94105 | 101 |          62 |
- | 2020-09-08 12:00:00 |    94105 | 125 |          62 |
- | 2020-09-08 18:00:00 |    94105 | 151 |          68 |
- | 2020-09-08 21:00:00 |    94105 | 143 |          74 |
- +---------------------+----------+-----+-------------*/
-Note how the output has gaps at certain time intervals.
+To show a dataset's tables, views, and models, expand the dataset.
+To open a summary description as a tab in JupyterLab, double-click a
+table, view, or model.
+Note:
+On the summary description for a table, click the
+Preview
+tab to preview a table's data. The following image shows a preview of the
+international_top_terms
+table
+found in the
+google_trends
+dataset in the
+bigquery-public-data
+project:
+Query notebook data using the
+%%bigquery
+magic command
+In this section, you write SQL directly in notebook cells and read data from
+BigQuery into the Python notebook.
+Magic commands that use a single or double percentage character (
+%
+or
+%%
+)
+let you use minimal syntax to interact with BigQuery within the
+notebook. The BigQuery client library for Python is automatically
+installed in a managed notebooks instance. Behind the scenes, the
+%%bigquery
+magic
+command uses the BigQuery client library for Python to run the
+given query, convert the results to a pandas DataFrame, optionally save the
+results to a variable, and then display the results.
+Note
+: As of version 1.26.0 of the
+google-cloud-bigquery
+Python package,
+the
+BigQuery Storage API
+is used by default to download results from the
+%%bigquery
+magics.
+To open a notebook file, select
+File
+>
+New
+>
+Notebook
+.
+In the
+Select Kernel
+dialog, select
+Python (Local)
+, and then click
+Select
+.
+Your new IPYNB file opens.
+To get the number of regions by country in the
+international_top_terms
+dataset, enter the following statement:
+%%bigquery
+SELECT
+  country_code,
+  country_name,
+  COUNT(DISTINCT region_code) AS num_regions
+FROM
+  `bigquery-public-data.google_trends.international_top_terms`
+WHERE
+  refresh_date = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
+GROUP BY
+  country_code,
+  country_name
+ORDER BY
+  num_regions DESC;
+Click
+play_circle_filled
+Run cell
+.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.txt
+cloud.google.com/bigquery/docs/quickstarts/quickstart-client-libraries.txt
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Query a public dataset with the BigQuery client libraries  |  Google Cloud
 
 Documentation Content:
-2020-10-01) |   21 |    31 |
- |         2 | [2020-10-01, 2021-01-01) |   21 |    31 |
- |         2 | [2021-01-01, 2021-04-01) |   21 |    31 |
- |         2 | [2021-04-01, 2021-07-01) |   21 |    31 |
- |         2 | [2021-04-01, 2021-07-01) |   21 |    12 |
- |         2 | [2021-07-01, 2021-10-01) |   21 |    12 |
- |         2 | [2021-10-01, 2022-01-01) |   21 |    12 |
- |         2 | [2022-01-01, 2022-04-01) |   21 |    12 |
- |         2 | [2022-04-01, 2022-07-01) |   21 |    12 |
- +-----------+--------------------------+------+-------*/
-In the previous query, the row with the range
-[2020-04-15, 2021-04-15)
-is
-split into 5 ranges, starting with the range
-[2020-04-01, 2020-07-01)
-. Note
-that the start boundary now extends beyond the original start boundary, in order
-to align with the common origin. If you don't want the start boundary to not
-extend beyond the original start boundary, you can restrict the
-JOIN
-condition:
-WITH sensor_data AS (
-  SELECT * FROM UNNEST(
-    ARRAY<STRUCT<sensor_id INT64, duration RANGE<DATE>, flow INT64, spins INT64>>[
-    (1, RANGE<DATE> "[2020-01-01, 2020-12-31)", 10, 21),
-    (1, RANGE<DATE> "[2021-01-01, 2021-12-31)", 11, 4),
+// Create a client
+  const bigqueryClient = new BigQuery();
+
+  // The SQL query to run
+  const sqlQuery = `SELECT
+    CONCAT(
+      'https://stackoverflow.com/questions/',
+      CAST(id as STRING)) as url,
+    view_count
+    FROM \`bigquery-public-data.stackoverflow.posts_questions\`
+    WHERE tags like '%google-bigquery%'
+    ORDER BY view_count DESC
+    LIMIT 10`;
+
+  const options = {
+    query: sqlQuery,
+    // Location must match that of the dataset(s) referenced in the query.
+    location: 'US',
+  };
+
+  // Run the query
+  const [rows] = await bigqueryClient.query(options);
+
+  console.log('Query Results:');
+  rows.forEach(row => {
+    const url = row['url'];
+    const viewCount = row['view_count'];
+    console.log(`url: ${url}, ${viewCount} views`);
+  });
+}
+queryStackOverflow();
+In the terminal, run the
+app.js
+script. If you are prompted to
+authorize Cloud Shell and agree to the terms, click
+Authorize
+.
+node app.js
+The result is similar to the following:
+Query Results:
+url: https://stackoverflow.com/questions/35159967, 170023 views
+url: https://stackoverflow.com/questions/22879669, 142581 views
+url: https://stackoverflow.com/questions/10604135, 132406 views
+url: https://stackoverflow.com/questions/44564887, 128781 views
+url: https://stackoverflow.com/questions/27060396, 127008 views
+url: https://stackoverflow.com/questions/12482637, 120766 views
+url: https://stackoverflow.com/questions/20673986, 115720 views
+url: https://stackoverflow.com/questions/39109817, 108368 views
+url: https://stackoverflow.com/questions/11057219, 105175 views
+url: https://stackoverflow.com/questions/43195143, 101878 views
+You have successfully queried a public dataset with the
+BigQuery Node.js client library.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.txt
+cloud.google.com/bigquery/docs/quickstarts/quickstart-client-libraries.txt
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Query a public dataset with the BigQuery client libraries  |  Google Cloud
 
 Documentation Content:
-|
- | 2020-09-08 15:00:00 |    60606 |              63 |              68 |
- | 2020-09-08 18:00:00 |    60606 |              67 |              69 |
- | 2020-09-08 21:00:00 |    60606 |              63 |              67 |
- | 2020-09-08 00:00:00 |    94105 |              71 |              74 |
- | 2020-09-08 03:00:00 |    94105 |              66 |              69 |
- | 2020-09-08 06:00:00 |    94105 |              64 |              65 |
- | 2020-09-08 09:00:00 |    94105 |              62 |              63 |
- | 2020-09-08 12:00:00 |    94105 |              61 |              62 |
- | 2020-09-08 15:00:00 |    94105 |              62 |
+Click the
+Program.cs
+file to open it.
+To create a query against the
+bigquery-public-data.stackoverflow
+dataset that returns the
+top 10 most viewed Stack Overflow pages and their view counts, replace
+the contents of the file with the following code:
+using System;
+using Google.Cloud.BigQuery.V2;
+
+namespace GoogleCloudSamples
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            string projectId = Environment.GetEnvironmentVariable("GOOGLE_PROJECT_ID");
+            var client = BigQueryClient.Create(projectId);
+            string query = @"SELECT
+                CONCAT(
+                    'https://stackoverflow.com/questions/',
+                    CAST(id as STRING)) as url, view_count
+                FROM `bigquery-public-data.stackoverflow.posts_questions`
+                WHERE tags like '%google-bigquery%'
+                ORDER BY view_count DESC
+                LIMIT 10";
+            var result = client.ExecuteQuery(query, parameters: null);
+            Console.Write("\nQuery Results:\n------------\n");
+            foreach (var row in result)
+            {
+                Console.WriteLine($"{row["url"]}: {row["view_count"]} views");
+            }
+        }
+    }
+}
+In the terminal, run the
+Program.cs
+script. If you are prompted to
+authorize Cloud Shell and agree to the terms, click
+Authorize
+.
+dotnet run
+The result is similar to the following:
+Query Results:
+------------
+https://stackoverflow.com/questions/35159967: 170023 views
+https://stackoverflow.com/questions/22879669: 142581 views
+https://stackoverflow.com/questions/10604135: 132406 views
+https://stackoverflow.com/questions/44564887: 128781 views
+https://stackoverflow.com/questions/27060396: 127008 views
+https://stackoverflow.com/questions/12482637: 120766 views
+https://stackoverflow.com/questions/20673986: 115720 views
+https://stackoverflow.com/questions/39109817: 108368 views
+https://stackoverflow.com/questions/11057219: 105175 views
+https://stackoverflow.com/questions/43195143: 101878 views
+You have successfully queried a public dataset with the
+BigQuery C# client library.
 
 
 

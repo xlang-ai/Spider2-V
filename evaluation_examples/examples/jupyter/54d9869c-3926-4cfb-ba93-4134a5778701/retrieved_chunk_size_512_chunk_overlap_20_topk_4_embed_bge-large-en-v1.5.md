@@ -10,6 +10,20 @@ elCellCellFooterCellHeaderCellModelCellSearchProviderCodeCellCodeCellLayoutCodeC
 
 
 Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/cells.CellModel-1.md
+
+Documentation Title:
+CellModel | @jupyterlab
+
+Documentation Content:
+Implements
+
+ICellModel* Defined in packages/cells/lib/model.d.ts:155
+* Defined in packages/cells/lib/model.d.ts:234
+
+
+
+Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus.Model.md
 
 Documentation Title:
@@ -21,24 +35,29 @@ delCellCellFooterCellHeaderCellModelCellSearchProviderCodeCellCodeCellLayoutCode
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/cells.CellModel-1.md
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus.Model.md
 
 Documentation Title:
-CellModel | @jupyterlab
+Model | @jupyterlab
 
 Documentation Content:
-i-componentsCollapserCommandToolbarButtonCommandToolbarButtonComponentHoverBoxIFrameIUseSignalPropsIUseSignalStateReactWidgetSpinnerStylingToolbarButtonToolbarButtonComponentUseSignalVDomModelVDomRendereraddCommandToolbarButtonClassaddToolbarButtonClassCommandPaletteSvgRendererdefaultRendererDockPanelSvgRendererdefaultRendererFormComponentIAddButtonPropsIButtonPropsIDropButtonPropsILabCustomizerPropsIMoveButtonPropsIRankedMenuIItemOptionsIOptionsDEFAULT\_RANKLabIconIIconI
+Constructors
 
+constructor### Properties
 
+\_activeCellTrusted\_deriveCellTrustState\_getAllState\_notebook\_onActiveCellChanged\_onModelChanged\_totalCells\_triggerChange\_trustedCellsstateChanged### Accessors
 
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/cells.CellModel-1.md
+activeCellTrustedisDisposednotebooktotalCellstrustedCells### Methods
 
-Documentation Title:
-CellModel | @jupyterlab
+disposeConstructors
+------------
 
-Documentation Content:
-`Optional`options: CellModel.IOptions<ISharedCell>
+constructor* new Model(): NotebookTrustStatus.Model
+* #### Returns NotebookTrustStatus.Model
+
+Inherited from VDomModel.constructor
+Properties
+----------
 
 
 

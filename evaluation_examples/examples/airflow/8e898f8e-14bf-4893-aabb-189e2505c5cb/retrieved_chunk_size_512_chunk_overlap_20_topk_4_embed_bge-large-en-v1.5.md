@@ -33,48 +33,6 @@ Legal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various tradem
 
 
 Documentation Source:
-docs.astronomer.io/astro/airflow-api.md
-
-Documentation Title:
-Make requests to the Airflow REST API | Astronomer Documentation
-
-Documentation Content:
-cURL​
-
-`curl-XPATCH https:///api/v1/dags/\-H'Content-Type: application/json'\-H'Cache-Control: no-cache'\-H'Authorization: Bearer '\-d'{"is_paused": true}'`#### Python​
-
-`importrequeststoken =""deployment_url =""dag_id =""response =requests.patch(url=f"https://{deployment_url}/api/v1/dags/{dag_id}",headers={"Authorization":f"Bearer {token}","Content-Type":"application/json"},data='{"is_paused": true}')print(response.json())# Prints data about the DAG with id `### Trigger DAG runs across Deployments​
-
-You can use the Airflow REST API to make a request in one Deployment that triggers a DAG run in a different Deployment. This is sometimes necessary when you have interdependent workflows across multiple Deployments. On Astro, you can do this for any Deployment in any Workspace or cluster.
-
-This topic has guidelines on how to trigger a DAG run, but you can modify the example DAG provided to trigger any request that's supported in the Airflow REST API.
-
-Create a Deployment API tokenfor the Deployment that contains the DAG you want to trigger.
-
-2. In the Deployment that contains the triggering DAG, create an Airflow HTTP connectionwith the following values:
-
-
-
-Documentation Source:
-docs.astronomer.io/astro/airflow-api.md
-
-Documentation Title:
-Make requests to the Airflow REST API | Astronomer Documentation
-
-Documentation Content:
-cURL​
-
-`curl-XGET https:///api/v1/dags \-H'Cache-Control: no-cache'\-H'Authorization: Bearer '`#### Python​
-
-`importrequeststoken =""deployment_url =""response =requests.get(url=f"https://{deployment_url}/api/v1/dags",headers={"Authorization":f"Bearer {token}"})print(response.json())# Prints data about all DAGs in your Deployment`### Trigger a DAG run​
-
-You can trigger a DAG run by executing a `POST`request to Airflow's `dagRuns`endpoint.
-
-This will trigger a DAG run for the DAG you specify with a `logical_date`value of `NOW()`, which is equivalent to clicking the **Play**button in the main **DAGs**view of the Airflow UI.
-
-
-
-Documentation Source:
 docs.astronomer.io/learn/get-started-with-airflow-part-2.md
 
 Documentation Title:
@@ -104,6 +62,48 @@ Now that your Airflow environment is configured correctly, look at the DAG code 
 At the top of the file, the DAG is described in a docstring. It's highly recommended to always document your DAGs and include any additional connections or variables that are required for the DAG to work.
 
 `"""## Find the International Space StationThis DAG waits for a specific commit message to appear in a GitHub repository, and then pulls the current location of the International Space Station from an APIand print it to the logs.This DAG needs a GitHub connection with the name `my_github_conn` and an HTTP connection with the name `open_notify_api_conn`and the host `https://api.open-notify.org/` to work.Additionally you need to set an Airflow variable with the name `open_notify_api_endpoint` and the value `iss-now.json`."""`After the docstring, all necessary packages are imported. Notice how both the HttpOperator as well as the GithubSensor are part of provider packages.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/airflow-api.md
+
+Documentation Title:
+Make requests to the Airflow REST API | Astronomer Documentation
+
+Documentation Content:
+cURL​
+
+`curl-XGET https:///api/v1/dags \-H'Cache-Control: no-cache'\-H'Authorization: Bearer '`#### Python​
+
+`importrequeststoken =""deployment_url =""response =requests.get(url=f"https://{deployment_url}/api/v1/dags",headers={"Authorization":f"Bearer {token}"})print(response.json())# Prints data about all DAGs in your Deployment`### Trigger a DAG run​
+
+You can trigger a DAG run by executing a `POST`request to Airflow's `dagRuns`endpoint.
+
+This will trigger a DAG run for the DAG you specify with a `logical_date`value of `NOW()`, which is equivalent to clicking the **Play**button in the main **DAGs**view of the Airflow UI.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/airflow-api.md
+
+Documentation Title:
+Make requests to the Airflow REST API | Astronomer Documentation
+
+Documentation Content:
+cURL​
+
+`curl-XPATCH https:///api/v1/dags/\-H'Content-Type: application/json'\-H'Cache-Control: no-cache'\-H'Authorization: Bearer '\-d'{"is_paused": true}'`#### Python​
+
+`importrequeststoken =""deployment_url =""dag_id =""response =requests.patch(url=f"https://{deployment_url}/api/v1/dags/{dag_id}",headers={"Authorization":f"Bearer {token}","Content-Type":"application/json"},data='{"is_paused": true}')print(response.json())# Prints data about the DAG with id `### Trigger DAG runs across Deployments​
+
+You can use the Airflow REST API to make a request in one Deployment that triggers a DAG run in a different Deployment. This is sometimes necessary when you have interdependent workflows across multiple Deployments. On Astro, you can do this for any Deployment in any Workspace or cluster.
+
+This topic has guidelines on how to trigger a DAG run, but you can modify the example DAG provided to trigger any request that's supported in the Airflow REST API.
+
+Create a Deployment API tokenfor the Deployment that contains the DAG you want to trigger.
+
+2. In the Deployment that contains the triggering DAG, create an Airflow HTTP connectionwith the following values:
 
 
 

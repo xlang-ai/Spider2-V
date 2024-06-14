@@ -144,37 +144,127 @@ then all data will be written to
 
 
 Documentation Source:
-airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.txt
+airbyte.com/docs.airbyte.com/integrations/destinations/local-json.txt
 
 Documentation Title:
-Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
+Local JSON | Airbyte Documentation
 
 Documentation Content:
-You should see a table similar to the following:
-_airbyte_ab_id            |                                                                    _airbyte_data                                                                     |    _airbyte_emitted_at     
---------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------
- a91183c5-4860-4d47-8c50-3b566a0643f3 | {"id": 1, "name": "A1 CDCSyn", "_ab_cdc_lsn": 26348272, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:07:07.967Z"}                | 2022-09-26 18:07:07.009+00
- fe00aa1c-9a29-4e5b-8d12-2236ddac2969 | {"id": 2, "name": "A2 CDCSyn", "_ab_cdc_lsn": 26348272, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:07:07.970Z"}                | 2022-09-26 18:07:07.009+00
- 2ceec2ef-747a-4878-b404-4e1621498672 | {"id": 3, "name": "B3 CDCSyn", "_ab_cdc_lsn": 26348544, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:11:05.133Z"}                | 2022-09-26 18:11:49.83+00
- fc3ce622-2e27-44c0-bd37-e69ed37ba57c | {"id": 4, "name": "B4 CDCSyn", "_ab_cdc_lsn": 26348984, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:11:05.137Z"}                | 2022-09-26 18:11:49.
+Access Replicated Data Files
+​
+If your Airbyte instance is running on the same computer that you are navigating with, you can open your browser and enter
+file:///tmp/airbyte_local
+to look at the replicated data locally. If the first approach fails or if your Airbyte instance is running on a remote server, follow the following steps to access the replicated files:
+Access the scheduler container using
+docker exec -it airbyte-server bash
+Navigate to the default local mount using
+cd /tmp/airbyte_local
+Navigate to the replicated file directory you specified when you created the destination, using
+cd /{destination_path}
+List files containing the replicated data using
+ls
+Execute
+cat {filename}
+to display the data in a particular file
+You can also copy the output file to your host machine, the following command will copy the file to the current working directory you are using:
+docker cp airbyte-server:/tmp/airbyte_local/{destination_path}/{filename}.jsonl .
+Note: If you are running Airbyte on Windows with Docker backed by WSL2, you have to use similar step as above or refer to this
+link
+for an alternative approach.
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+0.2.11
+2022-02-14
+14641
+Include lifecycle management
+Edit this page
+Previous
+Vector Database (powered by LangChain) Migration Guide
+Next
+Mariadb Columnstore
+Overview
+Sync Overview
+Getting Started
+Example:
+Access Replicated Data Files
+Changelog
+Was this page helpful?
+Yes
+No
 
 
 
 Documentation Source:
-airbyte.com/tutorials/incremental-change-data-capture-cdc-replication.txt
+airbyte.com/docs.airbyte.com/integrations/destinations/csv.txt
 
 Documentation Title:
-Airbyte's incremental Change Data Capture (CDC) replication | Airbyte
+Local CSV | Airbyte Documentation
 
 Documentation Content:
-SELECT * FROM _airbyte_raw_cdc_tut;
-Which should respond with a table that looks as follows:
-_airbyte_ab_id            |                                                             _airbyte_data                                                             |    _airbyte_emitted_at     
---------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------+----------------------------
- a91183c5-4860-4d47-8c50-3b566a0643f3 | {"id": 1, "name": "A1 CDCSyn", "_ab_cdc_lsn": 26348272, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:07:07.967Z"} | 2022-09-26 18:07:07.009+00
- fe00aa1c-9a29-4e5b-8d12-2236ddac2969 | {"id": 2, "name": "A2 CDCSyn", "_ab_cdc_lsn": 26348272, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:07:07.970Z"} | 2022-09-26 18:07:07.009+00
- 2ceec2ef-747a-4878-b404-4e1621498672 | {"id": 3, "name": "B3 CDCSyn", "_ab_cdc_lsn": 26348544, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:11:05.133Z"} | 2022-09-26 18:11:49.83+00
- fc3ce622-2e27-44c0-bd37-e69ed37ba57c | {"id": 4, "name": "B4 CDCSyn", "_ab_cdc_lsn": 26348984, "_ab_cdc_deleted_at": null, "_ab_cdc_updated_at": "2022-09-26T18:11:05.137Z"} | 2022-09-26 18:11:49.
+Access Replicated Data Files
+​
+If your Airbyte instance is running on the same computer that you are navigating with, you can open your browser and enter
+file:///tmp/airbyte_local
+to look at the replicated data locally. If the first approach fails or if your Airbyte instance is running on a remote server, follow the following steps to access the replicated files:
+Access the scheduler container using
+docker exec -it airbyte-server bash
+Navigate to the default local mount using
+cd /tmp/airbyte_local
+Navigate to the replicated file directory you specified when you created the destination, using
+cd /{destination_path}
+List files containing the replicated data using
+ls
+Execute
+cat {filename}
+to display the data in a particular file
+You can also copy the output file to your host machine, the following command will copy the file to the current working directory you are using:
+docker cp airbyte-server:/tmp/airbyte_local/{destination_path}/{filename}.csv .
+Note: If you are running Airbyte on Windows with Docker backed by WSL2, you have to use similar step as above or refer to this
+link
+for an alternative approach.
+Changelog
+​
+Version
+Date
+Pull Request
+Subject
+1.0.0
+2022-12-20
+17998
+Breaking changes: non backwards compatible. Adds delimiter dropdown.
+0.2.10
+2022-06-20
+13932
+Merging published connector changes
+0.2.9
+2022-02-14
+10256
+Add ExitOnOutOfMemoryError to java connectors and bump versions
+0.2.8
+2021-07-21
+3555
+Checkpointing: Partial Success in BufferedStreamConsumer (Destination)
+0.2.7
+2021-06-09
+3973
+add AIRBYTE_ENTRYPOINT for kubernetes support
+0.2.6
+2021-05-25
+3290
+Checkpointing: Worker use destination (instead of source) for state
+0.2.5
+2021-05-10
+3327
+don't split lines on LSEP unicode characters when reading lines in destinations
+0.2.4
+2021-05-10
+3289
+bump all destination versions to support outputting messages
+0.2.
 
 
 

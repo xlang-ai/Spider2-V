@@ -136,18 +136,33 @@ Documentation Title:
 Creating Your First Dashboard | Superset
 
 Documentation Content:
-Registering a new table​
+Connecting to a new database​
 
-Now that you’ve configured a data source, you can select specific tables (called **Datasets**in Superset)
-that you want exposed in Superset for querying.
+Superset itself doesn't have a storage layer to store your data but instead pairs with
+your existing SQL-speaking database or data store.
 
-Navigate to **Data ‣ Datasets**and select the **+ Dataset**button in the top right corner.
+First things first, we need to add the connection credentials to your database to be able
+to query and visualize data from it. If you're using Superset locally via
+Docker compose, you can
+skip this step because a Postgres database, named **examples**, is included and
+pre-configured in Superset for you.
 
-!A modal window should pop up in front of you. Select your **Database**,
-**Schema**, and **Table**using the drop downs that appear. In the following example,
-we register the **cleaned\_sales\_data**table from the **examples**database.
+Under the **+**menu in the top right, select Data, and then the *Connect Database*option:
 
-!To finish, click the **Add**button in the bottom right corner. You should now see your dataset in the list of datasets.
+!Then select your database type in the resulting modal:
+
+!Once you've selected a database, you can configure a number of advanced options in this window,
+or for the purposes of this walkthrough, you can click the link below all these fields:
+
+!Once you've clicked that link you only need to specify two things (the database name and SQLAlchemy URI):
+
+!As noted in the text below the form, you should refer to the SQLAlchemy documentation on
+creating new connection URIsfor your target database.
+
+Click the **Test Connection**button to confirm things work end to end. If the connection looks good, save the configuration
+by clicking the **Connect**button in the bottom right corner of the modal window:
+
+Congratulations, you've just added a new data source in Superset!
 
 
 

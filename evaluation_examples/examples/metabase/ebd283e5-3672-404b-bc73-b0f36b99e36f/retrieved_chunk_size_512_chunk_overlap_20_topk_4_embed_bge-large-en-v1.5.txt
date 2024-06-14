@@ -225,95 +225,73 @@ Did this article help you?
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/troubleshooting-guide/cant-log-in.txt
+www.metabase.com/learn/administration/serialization.txt
 
 Documentation Title:
-People can't log in to Metabase
+Serialization: preloading dashboards in a new Metabase instance
 
 Documentation Content:
-when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-Documentation
-Resources
-Learn
-Blog
-Events
-Customers
-Discussion
-Partners
-Community Stories
-Startup Guide to Financial Modeling
-New
-Community Data Stack Report
-New
-Pricing
-Log in
-v0.49
-Troubleshooting Guide
-People can’t log in to Metabase
-No access to Metabase login page
-If you’re not a Metabase admin, you’ll have to tag them for help here.
-Check that you have the correct
-site URL
-from
-Settings
->
-Admin settings
->
-General
+The user ID is
+admin@metabase.local
+and the password is
+Metapass123
 .
-Check if the
-account is deactivated
+You should see a fresh instance of Metabase.
+Once you log in,
+activate your license key
 .
-No access to Metabase Cloud account
-The admin password for
-store.metabase.com
-(where you can find payment and subscription info) is not necessarily the same as the password for your Metabase instance (where you log in to look at data).
-If you’ve forgotten your Metabase Cloud admin password, you can
-contact support
-to reset the password.
-Related topics
-Troubleshooting SAML
+Step 3 - Create dashboards and collections in the source Metabase
+We’ll need some application data to export, so let’s create some dashboards using the
+Sample Database
+included with Metabase. Or rather, let’s let Metabase create some dashboards for us!
+In the
+Try These X-Rays Based On Your Data
+section, click on the card with a
+yellow lightning bolt
+that says something like
+A look at Products
+. Metabase will generate a set of questions for you that you can save as a dashboard.
+Click on the
+Save this
+button, and Metabase will save the dashboard and its questions in a
+collection
+titled something like
+A look at Products
 .
-Troubleshooting LDAP
+This collection will be saved to a parent collection titled
+Automatically Generated Dashboards
+. You can find this collection by clicking on the Metabase logo in the upper left of the navigation bar to return to the home screen. From the home page, in the
+Our Analytics
+section, click on the
+Automatically Generated Dashboards
+section. From there you should see the collection
+A look at your Products table
 .
-Resetting someone’s password
+Next, create a new collection. You can call it whatever you like; we’ll use the exciting name
+Default collection
+, and save it to the
+Our Analytics
+collection.
+Then we’ll move the
+A look at Products
+collection to our newly created
+Default collection
+. On the
+A look at Products
+collection page, click on the ellipses
+…
+and select
+Move
 .
-Resetting the admin password
-.
-Deleting an account that’s set up incorrectly
-.
-Are you still stuck?
-If you can’t solve your problem using the troubleshooting guides:
-Search or ask the
-Metabase community
-.
-Search for
-known bugs or limitations
-.
-Read docs for other
-versions of Metabase
-.
-Did this article help you?
-Yes
-No
-Send
-Thanks for your feedback!
-Want to improve these docs?
-Propose a change.
-Subscribe to our newsletter
-Stay in touch with updates and news from Metabase. No spam, ever.
+Step 4 - Export from source Metabase
+Here’s where we actually start using Metabase’s
+serialization
+feature.
+With our
+metabase-source
+instance set up with some questions, now it’s time to export this data and import it into our
+metabase-target
+. That way we don’t have to manually recreate our Default Collection in the target Metabase.
 
 
 

@@ -1,11 +1,22 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.html
+airbyte.com/docs.airbyte.com/using-airbyte/core-concepts/sync-schedules.html
 
 Documentation Title:
-Faker | Airbyte Documentation
+Sync Schedules | Airbyte Documentation
 
 Documentation Content:
-0.0</td><td>2023-06-23</td><a>27684</a><td>Stream cursor is now <code>updated_at</code>&amp; remove <code>records_per_sync</code>option</td></tr><tr><td>2.1.0</td><td>2023-05-08</td><a>25903</a><td>Add user.address (object)</td></tr><tr><td>2.0.3</td><td>2023-02-20</td><a>23259</a><td>bump to test publication</td></tr><tr><td>2.0.2</td><td>2023-02-20</td><a>23259</a><td>bump to test publication</td></tr><tr><td>2.0.1</td><td>2023-01-30</td><a>22117</a><td><code>source-faker</code>goes beta</td></tr><tr><td>2.0.0</td><td>2022-12-14</td><td><a>20492</a>and <a>20741</a></td><td>Decouple stream states for better parallelism</td></tr><tr><td>1.0.0</td><td>2022-11-28</td><a>19490</a><td>Faker uses the CDK; rename streams to be lower-case (breaking), add determinism to random purchases, and rename</td></tr><tr><td>0.2.1</td><td>2022-10-14</td><a>19197</a><td>Emit <code>AirbyteEstimateTraceMessage</code></td></tr><tr><td>0.2.0</td><td>2022-10-14</td><a>18021</a><td>Move to mimesis for speed!</td></tr><tr><td>0.1.
+We recommend reading their <a>documentation</a>to understand the required formatting. You can also refer to these examples:</p><table><tr><th>Cron string</th><th>Sync Timing</th></tr><tbody><tr><td>0 0 * * * ?</td><td>Every hour, at 0 minutes past the hour</td></tr><tr><td>0 0 15 * * ?</td><td>At 15:00 every day</td></tr><tr><td>0 0 15 * * MON,TUE</td><td>At 15:00, only on Monday and Tuesday</td></tr><tr><td>0 0 0,2,4,6 * * ?</td><td>At 12:00 AM, 02:00 AM, 04:00 AM and 06:00 AM every day</td></tr><tr><td>0 0 _/15 _ * ?</td><td>At 0 minutes past the hour, every 15 hours</td></tr></tbody></table><p>When setting up the cron expression, you will also be asked to choose a time zone the sync will run in.</p><h2>Manual Syncs<a>​</a></h2><p>When the connection is set to replicate with <code>Manual</code>frequency, the sync will not automatically run.</p><p>It can be triggered by clicking the "Sync Now" button at any time through the UI or be triggered through the API.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Configuring Connections</div></a><a><div>Next</div><div>Namespaces</div></a></nav></div><div><ul><a>Sync Considerations</a><a>Scheduled syncs</a><a>Cron Syncs</a><a>Manual Syncs</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/faker-migrations.html
+
+Documentation Title:
+Sample Data (Faker) Migration Guide | Airbyte Documentation
+
+Documentation Content:
+Existing sync jobs should still work as expected but you may need to reset your sync and/or update write mode after upgrading to the latest connector version.</p><h2>Upgrading to 5.0.0<a>​</a></h2><p>Some columns are narrowing from <code>number</code>to <code>integer</code>. You may need to force normalization to rebuild your destination tables by manually dropping the SCD and final tables, refreshing the connection schema (skipping the reset), and running a sync. Alternatively, you can just run a reset.</p><h2>Upgrading to 4.0.0<a>​</a></h2><p>Nothing to do here - this was a test breaking change.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Faker</div></a><a><div>Next</div><div>Fastbill</div></a></nav></div><div><ul><a>Upgrading to 6.0.0</a><a>Upgrading to 5.0.0</a><a>Upgrading to 4.0.0</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
 
 
 
@@ -24,25 +35,13 @@ subsequent sync.</p><h3>Requirements<a>​</a></h3><p>None!</p><h2>Reference<a>�
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker-migrations.html
+airbyte.com/docs.airbyte.com/using-airbyte/core-concepts/sync-schedules.html
 
 Documentation Title:
-Sample Data (Faker) Migration Guide | Airbyte Documentation
+Sync Schedules | Airbyte Documentation
 
 Documentation Content:
-Existing sync jobs should still work as expected but you may need to reset your sync and/or update write mode after upgrading to the latest connector version.</p><h2>Upgrading to 5.0.0<a>​</a></h2><p>Some columns are narrowing from <code>number</code>to <code>integer</code>. You may need to force normalization to rebuild your destination tables by manually dropping the SCD and final tables, refreshing the connection schema (skipping the reset), and running a sync. Alternatively, you can just run a reset.</p><h2>Upgrading to 4.0.0<a>​</a></h2><p>Nothing to do here - this was a test breaking change.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Faker</div></a><a><div>Next</div><div>Fastbill</div></a></nav></div><div><ul><a>Upgrading to 6.0.0</a><a>Upgrading to 5.0.0</a><a>Upgrading to 4.0.0</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/tvmaze-schedule.html
-
-Documentation Title:
-TVMaze Schedule | Airbyte Documentation
-
-Documentation Content:
-Can be left blank for all countries and global
-channels, or set to 'global' for only global channels.</li></ul><h2>Reference<a>​</a></h2><div><h4>Config fields reference</h4><div><div>Field</div><div>Type</div><div>Property name</div><button><div>›</div><div>start_date</div><div>required</div></button><div>string</div><div>start_date</div><button><div>›</div><div>domestic_schedule_country_code</div><div>required</div></button><div>string</div><div>domestic_schedule_country_code</div><button><div>›</div><div>end_date</div></button><div>string</div><div>end_date</div><button><div>›</div><div>web_schedule_country_code</div></button><div>string</div><div>web_schedule_country_code</div></div></div><h2>Changelog<a>​</a></h2><table><tr><th>Version</th><th>Date</th><th>Pull Request</th><th>Subject</th></tr><tr><td>0.1.0</td><td>2022-10-22</td><a>18333</a><td>New source</td></tr></table></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>TrustPilot</div></a><a><div>Next</div><div>Twilio</div></a></nav></div><div><ul><li><a>Sync overview</a><ul><a>Output schema</a><a>Features</a><a>Performance considerations</a></ul></li><li><a>Getting started</a><ul><a>Requirements</a><a>Setup guide</a></ul></li><a>Reference</a><a>Changelog</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
+Enterprise</span></span></div><p>For each connection, you can select between three options that allow a sync to run. The three options for <code>Schedule Type</code>are:</p><ul><li>Scheduled (e.g. every 24 hours, every 2 hours)</li><li>Cron</li><li>Manual</li></ul><h2>Sync Considerations<a>​</a></h2><ul><li>Only one sync per connection can run at a time.</li><li>If a sync is scheduled to run before the previous sync finishes, the scheduled sync will start after the completion of the previous sync.</li><li>Syncs can run at most every 60 minutes in Airbyte Cloud. Reach out to <a>Sales</a>if you require replication more frequently than once per hour.</li></ul><div><div>note</div><p>For Scheduled or cron scheduled syncs, Airbyte guarantees syncs will initiate with a schedule accuracy of +/- 30 minutes.</p></div><h2>Scheduled syncs<a>​</a></h2><p>You can choose between the following scheduled options:</p><ul><li>Every 24 hours (most common)</li><li>Every 12 hours</li><li>Every 8 hours</li><li>Every 6 hours</li><li>Every 3 hours</li><li>Every 2 hours</li><li>Every 1 hour</li></ul><p>When a scheduled connection is first created, a sync is executed immediately after creation. After that, a sync is run once the time since the last sync (whether it was triggered manually or due to a schedule) has exceeded the schedule interval.
 
 
 

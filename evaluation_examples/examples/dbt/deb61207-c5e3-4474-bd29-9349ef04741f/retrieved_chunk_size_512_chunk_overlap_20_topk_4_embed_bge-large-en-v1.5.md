@@ -1,122 +1,152 @@
 Documentation Source:
-docs.getdbt.com/blog/kimball-dimensional-model.md
+docs.getdbt.com/guides/redshift8722.md
 
 Documentation Title:
-Building a Kimball dimensional model with dbt | dbt Developer Blog
+Quickstart for dbt Cloud and Redshift | dbt Developer Hub
 
 Documentation Content:
-`version:2models:-name:dim_productcolumns:-name:product_key description:The surrogate key of the producttests:-not_null-unique-name:productid description:The natural key of the producttests:-not_null-unique-name:product_name description:The product nametests:-not_null`### Step 8: Build dbt models​
+FAQs​
 
-Execute the dbt runand dbt testcommands to run and test your dbt models: 
+Change the way your model is materialized​
+------------------------------------------
 
-dbt run && dbt test We have now completed all the steps to create a dimension table. We can now repeat the same steps to all dimension tables that we have identified earlier. Make sure to create all dimension tables before moving on to the next part. 
+One of the most powerful features of dbt is that you can change the way a model is materialized in your warehouse, simply by changing a configuration value. You can change things between tables and views by changing a keyword rather than writing the data definition language (DDL) to do this behind the scenes.
 
-Part 5: Create the fact table​
-------------------------------
+By default, everything gets created as a view. You can override that at the directory level so everything in that directory will materialize to a different materialization.
 
-After we have created all required dimension tables, we can now create the fact table for `fct_sales`.
+1. Edit your `dbt_project.yml`file.
+
+
+	* Update your project `name`to:
+	
+	dbt\_project.ymlname:'jaffle\_shop'
+	* Configure `jaffle_shop`so everything in it will be materialized as a table; and configure `example`so everything in it will be materialized as a view. Update your `models`config block to:
+	
+	dbt\_project.yml`models:jaffle_shop:+materialized:tableexample:+materialized:view`
+	Click **Save**.
+2. Enter the `dbt run`command. Your `customers`model should now be built as a table!
+
+infoTo do this, dbt had to first run a `drop view`statement (or API call on BigQuery), then a `create table as`statement.
+3. Edit `models/customers.sql`to override the `dbt_project.yml`for the `customers`model only by adding the following snippet to the top, and click **Save**: 
+
+models/customers.sql`{{config(materialized='view')}}withcustomers as(selectid ascustomer_id...)`
+4. Enter the `dbt run`command. Your model, `customers`, should now build as a view.
+5. BigQuery users need to run `dbt run --full-refresh`instead of `dbt run`to full apply materialization changes.
+Enter the `dbt run --full-refresh`command for this to take effect in your warehouse.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/manual-install0c17.md
+docs.getdbt.com/guides/redshift5f72.md
 
 Documentation Title:
-Quickstart for dbt Core from a manual install | dbt Developer Hub
+Quickstart for dbt Cloud and Redshift | dbt Developer Hub
 
 Documentation Content:
-Build your first models​
+FAQs​
 
-Now that you set up your sample project, you can get to the fun part — building models!
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
+Change the way your model is materialized​
+------------------------------------------
 
-Checkout a new git branch​
---------------------------
+One of the most powerful features of dbt is that you can change the way a model is materialized in your warehouse, simply by changing a configuration value. You can change things between tables and views by changing a keyword rather than writing the data definition language (DDL) to do this behind the scenes.
 
-Check out a new git branch to work on new code:
+By default, everything gets created as a view. You can override that at the directory level so everything in that directory will materialize to a different materialization.
 
-- Create a new branch by using the `checkout`command and passing the `-b`flag:
-`$ gitcheckout -badd-customers-model>Switched to a new branch `add-customer-model``Build your first model​
------------------------
+1. Edit your `dbt_project.yml`file.
 
-1. Open your project in your favorite code editor.
-2. Create a new SQL file in the `models`directory, named `models/customers.sql`.
-3. Paste the following query into the `models/customers.sql`file.
 
-* BigQuery
-* Databricks
-* Redshift
-* Snowflake
+	* Update your project `name`to:
+	
+	dbt\_project.ymlname:'jaffle\_shop'
+	* Configure `jaffle_shop`so everything in it will be materialized as a table; and configure `example`so everything in it will be materialized as a view. Update your `models`config block to:
+	
+	dbt\_project.yml`models:jaffle_shop:+materialized:tableexample:+materialized:view`
+	Click **Save**.
+2. Enter the `dbt run`command. Your `customers`model should now be built as a table!
 
-`withcustomers as(selectid ascustomer_id,first_name,last_namefrom`dbt-tutorial`.jaffle_shop.customers),orders as(selectid asorder_id,user_id ascustomer_id,order_date,statusfrom`dbt-tutorial`.jaffle_shop.orders),customer_orders as(selectcustomer_id,min(order_date)asfirst_order_date,max(order_date)asmost_recent_order_date,count(order_id)asnumber_of_ordersfromordersgroupby1),final as(selectcustomers.customer_id,customers.first_name,customers.last_name,customer_orders.first_order_date,customer_orders.most_recent_order_date,coalesce(customer_orders.number_of_orders,0)asnumber_of_ordersfromcustomersleftjoincustomer_orders using(customer_id))select*fromfinal``withcustomers as(selectid ascustomer_id,first_name,last_namefromjaffle_shop_customers),orders as(selectid asorder_id,user_id ascustomer_id,order_date,statusfromjaffle_shop_orders),customer_orders as(selectcustomer_id,min(order_date)asfirst_order_date,max(order_date)asmost_recent_order_date,count(order_id)asnumber_of_ordersfromordersgroupby1),final as(selectcustomers.customer_id,customers.first_name,customers.last_name,customer_orders.first_order_date,customer_orders.most_recent_order_date,coalesce(customer_orders.
+infoTo do this, dbt had to first run a `drop view`statement (or API call on BigQuery), then a `create table as`statement.
+3. Edit `models/customers.sql`to override the `dbt_project.yml`for the `customers`model only by adding the following snippet to the top, and click **Save**: 
+
+models/customers.sql`{{config(materialized='view')}}withcustomers as(selectid ascustomer_id...)`
+4. Enter the `dbt run`command. Your model, `customers`, should now build as a view.
+5. BigQuery users need to run `dbt run --full-refresh`instead of `dbt run`to full apply materialization changes.
+Enter the `dbt run --full-refresh`command for this to take effect in your warehouse.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/manual-install121c.md
+docs.getdbt.com/guides/databricks5f72.md
 
 Documentation Title:
-Quickstart for dbt Core from a manual install | dbt Developer Hub
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
 
 Documentation Content:
-Build your first models​
+FAQs​
 
-Now that you set up your sample project, you can get to the fun part — building models!
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
+Change the way your model is materialized​
+------------------------------------------
 
-Checkout a new git branch​
---------------------------
+One of the most powerful features of dbt is that you can change the way a model is materialized in your warehouse, simply by changing a configuration value. You can change things between tables and views by changing a keyword rather than writing the data definition language (DDL) to do this behind the scenes.
 
-Check out a new git branch to work on new code:
+By default, everything gets created as a view. You can override that at the directory level so everything in that directory will materialize to a different materialization.
 
-- Create a new branch by using the `checkout`command and passing the `-b`flag:
-`$ gitcheckout -badd-customers-model>Switched to a new branch `add-customer-model``Build your first model​
------------------------
+1. Edit your `dbt_project.yml`file.
 
-1. Open your project in your favorite code editor.
-2. Create a new SQL file in the `models`directory, named `models/customers.sql`.
-3. Paste the following query into the `models/customers.sql`file.
 
-* BigQuery
-* Databricks
-* Redshift
-* Snowflake
+	* Update your project `name`to:
+	
+	dbt\_project.ymlname:'jaffle\_shop'
+	* Configure `jaffle_shop`so everything in it will be materialized as a table; and configure `example`so everything in it will be materialized as a view. Update your `models`config block to:
+	
+	dbt\_project.yml`models:jaffle_shop:+materialized:tableexample:+materialized:view`
+	Click **Save**.
+2. Enter the `dbt run`command. Your `customers`model should now be built as a table!
 
-`withcustomers as(selectid ascustomer_id,first_name,last_namefrom`dbt-tutorial`.jaffle_shop.customers),orders as(selectid asorder_id,user_id ascustomer_id,order_date,statusfrom`dbt-tutorial`.jaffle_shop.orders),customer_orders as(selectcustomer_id,min(order_date)asfirst_order_date,max(order_date)asmost_recent_order_date,count(order_id)asnumber_of_ordersfromordersgroupby1),final as(selectcustomers.customer_id,customers.first_name,customers.last_name,customer_orders.first_order_date,customer_orders.most_recent_order_date,coalesce(customer_orders.number_of_orders,0)asnumber_of_ordersfromcustomersleftjoincustomer_orders using(customer_id))select*fromfinal``withcustomers as(selectid ascustomer_id,first_name,last_namefromjaffle_shop_customers),orders as(selectid asorder_id,user_id ascustomer_id,order_date,statusfromjaffle_shop_orders),customer_orders as(selectcustomer_id,min(order_date)asfirst_order_date,max(order_date)asmost_recent_order_date,count(order_id)asnumber_of_ordersfromordersgroupby1),final as(selectcustomers.customer_id,customers.first_name,customers.last_name,customer_orders.first_order_date,customer_orders.most_recent_order_date,coalesce(customer_orders.
+infoTo do this, dbt had to first run a `drop view`statement (or API call on BigQuery), then a `create table as`statement.
+3. Edit `models/customers.sql`to override the `dbt_project.yml`for the `customers`model only by adding the following snippet to the top, and click **Save**: 
+
+models/customers.sql`{{config(materialized='view')}}withcustomers as(selectid ascustomer_id...)`
+4. Enter the `dbt run`command. Your model, `customers`, should now build as a view.
+5. BigQuery users need to run `dbt run --full-refresh`instead of `dbt run`to full apply materialization changes.
+Enter the `dbt run --full-refresh`command for this to take effect in your warehouse.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/manual-install5f72.md
+docs.getdbt.com/guides/databricks121c.md
 
 Documentation Title:
-Quickstart for dbt Core from a manual install | dbt Developer Hub
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
 
 Documentation Content:
-Build your first models​
+FAQs​
 
-Now that you set up your sample project, you can get to the fun part — building models!
-In the next steps, you will take a sample query and turn it into a model in your dbt project.
+Change the way your model is materialized​
+------------------------------------------
 
-Checkout a new git branch​
---------------------------
+One of the most powerful features of dbt is that you can change the way a model is materialized in your warehouse, simply by changing a configuration value. You can change things between tables and views by changing a keyword rather than writing the data definition language (DDL) to do this behind the scenes.
 
-Check out a new git branch to work on new code:
+By default, everything gets created as a view. You can override that at the directory level so everything in that directory will materialize to a different materialization.
 
-- Create a new branch by using the `checkout`command and passing the `-b`flag:
-`$ gitcheckout -badd-customers-model>Switched to a new branch `add-customer-model``Build your first model​
------------------------
+1. Edit your `dbt_project.yml`file.
 
-1. Open your project in your favorite code editor.
-2. Create a new SQL file in the `models`directory, named `models/customers.sql`.
-3. Paste the following query into the `models/customers.sql`file.
 
-* BigQuery
-* Databricks
-* Redshift
-* Snowflake
+	* Update your project `name`to:
+	
+	dbt\_project.ymlname:'jaffle\_shop'
+	* Configure `jaffle_shop`so everything in it will be materialized as a table; and configure `example`so everything in it will be materialized as a view. Update your `models`config block to:
+	
+	dbt\_project.yml`models:jaffle_shop:+materialized:tableexample:+materialized:view`
+	Click **Save**.
+2. Enter the `dbt run`command. Your `customers`model should now be built as a table!
 
-`withcustomers as(selectid ascustomer_id,first_name,last_namefrom`dbt-tutorial`.jaffle_shop.customers),orders as(selectid asorder_id,user_id ascustomer_id,order_date,statusfrom`dbt-tutorial`.jaffle_shop.orders),customer_orders as(selectcustomer_id,min(order_date)asfirst_order_date,max(order_date)asmost_recent_order_date,count(order_id)asnumber_of_ordersfromordersgroupby1),final as(selectcustomers.customer_id,customers.first_name,customers.last_name,customer_orders.first_order_date,customer_orders.most_recent_order_date,coalesce(customer_orders.number_of_orders,0)asnumber_of_ordersfromcustomersleftjoincustomer_orders using(customer_id))select*fromfinal``withcustomers as(selectid ascustomer_id,first_name,last_namefromjaffle_shop_customers),orders as(selectid asorder_id,user_id ascustomer_id,order_date,statusfromjaffle_shop_orders),customer_orders as(selectcustomer_id,min(order_date)asfirst_order_date,max(order_date)asmost_recent_order_date,count(order_id)asnumber_of_ordersfromordersgroupby1),final as(selectcustomers.customer_id,customers.first_name,customers.last_name,customer_orders.first_order_date,customer_orders.most_recent_order_date,coalesce(customer_orders.
+infoTo do this, dbt had to first run a `drop view`statement (or API call on BigQuery), then a `create table as`statement.
+3. Edit `models/customers.sql`to override the `dbt_project.yml`for the `customers`model only by adding the following snippet to the top, and click **Save**: 
+
+models/customers.sql`{{config(materialized='view')}}withcustomers as(selectid ascustomer_id...)`
+4. Enter the `dbt run`command. Your model, `customers`, should now build as a view.
+5. BigQuery users need to run `dbt run --full-refresh`instead of `dbt run`to full apply materialization changes.
+Enter the `dbt run --full-refresh`command for this to take effect in your warehouse.
 
 
 

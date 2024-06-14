@@ -1,99 +1,100 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.md
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.md
 
 Documentation Title:
-Local JSON | Airbyte Documentation
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-Features​
+You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see this page.
 
+You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
+!
 
+Click **Next**to complete your stream setup and move to the connection configuration. This is where you'll set up how often your data will sync and where it will live in the destination. For this demo, we'll set the connection to run at 8 AM every day and sync the connection to a custom namespace with a stream prefix.
 
-| Feature | Supported |
-| --- | --- |
-| Full Refresh Sync | Yes |
-| --- | --- |
-| Incremental - Append Sync | Yes |
-| Incremental - Append + Deduped | No |
-| Namespaces | No |
+noteTo ensure your data is synced to the correct place, see our examples for Destination Namespace
+
+Once you've set up all the connection settings, click "Set up connection". You've successfully set up your first data pipeline with Airbyte. Your first sync is about to begin!
+
+Connection Overview​
+--------------------
+
+Once you've finished setting up the connection, you will be automatically redirected to a connection overview containing all the tools you need to keep track of your connection.
+
+!Here's a basic overview of the tabs and their use:
+
+1. The **Status**tab shows you an overview of your connector's sync health.
+2. The **Job History**tab allows you to check the logs for each sync. If you encounter any errors or unexpected behaviors during a sync, checking the logs is always a good first step to finding the cause and solution.
+3. The **Schema**tab allows you to modify the streams you chose during the connection setup.
+4. The **Transformation**tab allows you to set up a custom post-sync transformations using dbt.
+5. The **Settings**tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.md
+airbyte.com/blog/manage-and-orchestrate-airbyte-connections-using-python.md
 
 Documentation Title:
-Local JSON | Airbyte Documentation
+You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
 
 Documentation Content:
-Sync Overview​
+Getting your Airbyte API Key
+
+To interact with Airbyte programmatically, you’ll need an API key for authentication. Here's how to get it:
+
+* Navigate to the Airbyte Developer Portaland enter your credentials to login.
+* Once logged in, look for the option to create a new API key. The portal will guide you through the steps to generate this key.
+* After obtaining your API key, make sure to store it safely. We recommend using your favorite secrets manager for this purpose. You'll need this key later.
 
 
 
 Documentation Source:
-airbyte.com/tutorials/extract-data-from-the-webflow-api.md
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.md
 
 Documentation Title:
-Build a connector to extract data from the Webflow API | Airbyte
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-Once this is done, you will see that the first sync has already started as follows: 
+Skip to main content!!About AirbyteTutorialsSupportCloud StatusTry Airbyte CloudSearch* Airbyte Connectors
+Connector CatalogBuild a ConnectorConnector Support Levels* Using Airbyte
+* Getting Started
+	Core ConceptsAdd a SourceAdd a DestinationSet up a Connection
+Configuring ConnectionsManaging Syncs* Managing Airbyte
+Deploy AirbyteSelf-Managed EnterpriseUpgrading AirbyteConfiguring AirbyteAccess ManagementAirbyte at ScaleSecurityIntegrating with AirbyteAccount Management* Developer Guides
+API documentationTerraform DocumentationUsing PyAirbyteUnderstand AirbyteContribute to AirbyteLicenses* Community
+Getting SupportCode of Conduct* Product Updates
+RoadmapRelease Notes
+Getting StartedSet up a Connection
+On this pageSet up a Connection
+===================
 
-!‍
+AvailableCloud AvailableSelf-Managed Community (OSS)AvailableSelf-Managed EnterpriseNow that you've learned how to set up your first sourceand destination, it's time to finish the setup by creating your very first connection!
 
-And after a few minutes, if everything has gone as expected, you should see that the connection succeeded as follows:
+On the left side of your main Airbyte dashboard, select **Connections**. You will be prompted to choose which source and destination to use for this connection. For this example, we'll use the **Google Sheets**source and the destination you previously set up, either **Local JSON**or **Google Sheets**.
 
-!‍
+Configure the connection​
+-------------------------
 
-You can then look in the local directory at */tmp/airbyte\_local/webflow-blog-test*to verify that several json files have been created, with each file corresponding to a Webflow collection. In my case, the output looks as follows: 
+Once you've chosen your source and destination you can configure the connection. You'll first be asked a few questions about how your data should sync, these correlate to our sync modes which you can read more about on this page.
 
-!‍
+Most users select "Mirror Source", which will simply copy the data from the source to the destination where you'll see one row in the destination for each row in the source. If you prefer to Append Historical Changes or take a Full Snapshot with each sync, you can optionally select those options, but keep in mind those will create duplicate records in your destination. The sync mode we choose for all the enabled streams will reflect your selection here.
 
-This confirms that all of the collections have been pulled from Webflow, and copied to a directory on my local host!
+Next, you can toggle which streams you want to replicate. Our test data consists of three streams, which we've enabled and set to `Incremental - Append + Deduped`sync mode.
+
+!Your sync mode is already determined by your selection above, but you can change the sync mode for an individual stream.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.md
+airbyte.com/blog/manage-and-orchestrate-airbyte-connections-using-python.md
 
 Documentation Title:
-Local JSON | Airbyte Documentation
+You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
 
 Documentation Content:
-Example:​
+Familiarity with Airbyte
 
-* If `destination_path`is set to `/local/cars/models`
-* the local mount is using the `/tmp/airbyte_local`default
-* then all data will be written to `/tmp/airbyte_local/cars/models`directory.
-
-Access Replicated Data Files​
------------------------------
-
-If your Airbyte instance is running on the same computer that you are navigating with, you can open your browser and enter file:///tmp/airbyte\_localto look at the replicated data locally. If the first approach fails or if your Airbyte instance is running on a remote server, follow the following steps to access the replicated files:
-
-1. Access the scheduler container using `docker exec -it airbyte-server bash`
-2. Navigate to the default local mount using `cd /tmp/airbyte_local`
-3. Navigate to the replicated file directory you specified when you created the destination, using `cd /{destination_path}`
-4. List files containing the replicated data using `ls`
-5. Execute `cat {filename}`to display the data in a particular file
-
-You can also copy the output file to your host machine, the following command will copy the file to the current working directory you are using:
-
-docker cp airbyte-server:/tmp/airbyte\_local/{destination\_path}/{filename}.jsonl .Note: If you are running Airbyte on Windows with Docker backed by WSL2, you have to use similar step as above or refer to this linkfor an alternative approach.
-
-Changelog​
-----------
-
-
-
-| Version | Date | Pull Request | Subject |
-| --- | --- | --- | --- |
-| 0.2.11 | 2022-02-14 |14641 Include lifecycle management |
-
-Edit this pagePreviousVector Database (powered by LangChain) Migration GuideNextMariadb Columnstore* OverviewSync Overview
-* Getting StartedExample:
-Access Replicated Data FilesChangelog
-Was this page helpful?YesNo
+If you're already an Airbyte user, you’ll find this post particularly useful, as it builds on what you might already know about the platform. And if you’re somewhat new to Airbyte or just need a quick overview, there’s a helpful tutorialto get you started on setting up your first connection.
 
 
 

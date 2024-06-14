@@ -224,118 +224,55 @@ set correctly
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/people-and-groups/start.txt
+www.metabase.com/learn/visualization/maps.txt
 
 Documentation Title:
-People overview
+Visualizing data with maps
 
 Documentation Content:
-People overview
-Upcoming
-Metabase for advanced users
-Register Now
-×
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Self-service BI in 5 minutes
-Pro
-Advanced tools and controls
-Enterprise
-White-glove treatment
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Watch a 5-minute demo
-to see how to set up and publish a dashboard
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-New
-Metabase 49:
-New tools for dashboard creators, data sharers, and more
-Documentation
-Resources
-Learn
-Guides on working with data
-Blog
-News, updates, and ideas
-Events
-Join a live event or watch on demand
-Customers
-Real companies, real data, real stories
-Discussion
-Share and connect with other users
-Metabase Experts
-Find an expert partner
-Community Stories
-Practical advice from our community
-Startup Guide to Financial Modeling
-New
-Modeling financial data with Metabase
-Community Data Stack Report
-New
-See how others work with data
-Recent Blog Posts
-Set up a basic pipeline for log analysis
-Embed a Metabase dashboard in Zendesk
-Keeping tabs on embedded analytics
-Pricing
-Log in
-Get started
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Pro
-Enterprise
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Collections and verified items
-Keep things organized
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone,
+Hovering over a pin provides additional information.
+Other cool things you can do with pin maps:
+Double click to zoom in on an area.
+Click and drag the map to move to a different area.
+Click on a pin to
+drill-through
+to additional information.
+If your pin is linked to other tables, or there’s too much information to fit in the tooltip, clicking on the point will take you to a details page that displays a list of fields, as well as a list of connected tables. Clicking a relationship to another table directs you to a list of the instances where the current pin and the other table intersect. In this case, Metabase displays orders placed by that person.
+Region map
+Region maps display data across a geographic area by coloring parts of that area according to a value. Grouping people by region can be a great way to detect patterns in your customer base. Let’s generate a region map using the same
+People
+table within the
+Sample Database
+. Summarize the data by selecting the green
+Summarize
+button at the top righthand corner of your screen. If you count the number of records by
+State
+, Metabase will produce a region map, displaying a map of the United States, with the varying shades representing how many records are present for each state.
+Here’s a
+drill-through
+on Texas to see how user creation has been tracking.
+Region maps require your data to have columns with the (
+correctly formatted
+) field type
+State
+or
+Country
+.
+Like the
+pin map
+, you can
+drill through
+states, but the interface and options are slightly different. With regional maps, you have data points that have been grouped together by state or country, so drilling through will reveal an
+action-menu
+instead of additional details about a single data.
+Grid map
+Grid maps create a colorful gradient that overlays the map. Grid maps are an excellent way to visualize answers to questions about where most of your customers come from, or where your company is experiencing the most activity. They are also a great alternative to
+pin maps
+for huge quantities of data displayed across a single map.
+To create a grid map, you need to bin latitude and longitude.
+Click
+Browse Data
+from the button at the top of the screen.
 
 
 

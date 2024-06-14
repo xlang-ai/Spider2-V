@@ -24,78 +24,76 @@ GROUP BY 1, 2;
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.html
+cloud.google.com/bigquery/docs/visualize-jupyter.html
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
 
 Documentation Content:
-time
-ORDER BY zip_code, time;
-
-/*---------------------+----------+-----+-------------+
- |        time         | zip_code | aqi | temperature |
- +---------------------+----------+-----+-------------+
- | 2020-09-08 00:00:00 |    60606 |  22 |          63 |
- | 2020-09-08 03:00:00 |    60606 |  21 |          58 |
- | 2020-09-08 06:00:00 |    60606 |  27 |          55 |
- | 2020-09-08 09:00:00 |    60606 |  36 |          56 |
- | 2020-09-08 15:00:00 |    60606 |  43 |          67 |
- | 2020-09-08 18:00:00 |    60606 |  33 |          68 |
- | 2020-09-08 21:00:00 |    60606 |  25 |          65 |
- | 2020-09-08 00:00:00 |    94105 |  60 |          73 |
- | 2020-09-08 03:00:00 |    94105 |  70 |          67 |
- | 2020-09-08 06:00:00 |    94105 |  75 |          64 |
- | 2020-09-08 09:00:00 |    94105 | 101 |          62 |
- | 2020-09-08 12:00:00 |    94105 | 125 |          62 |
- | 2020-09-08 18:00:00 |    94105 | 151 |          68 |
- | 2020-09-08 21:00:00 |    94105 | 143 |          74 |
- +---------------------+----------+-----+-------------*/
-</code><p>Note how the output has gaps at certain time intervals. For example,
+The BigQuery client library for Python is automatically
+installed in a managed notebooks instance. Behind the scenes, the <code>%%bigquery</code>magic
+command uses the BigQuery client library for Python to run the
+given query, convert the results to a pandas DataFrame, optionally save the
+results to a variable, and then display the results.</p><p><strong>Note</strong>: As of version 1.26.0 of the <code>google-cloud-bigquery</code>Python package,
+the <a>BigQuery Storage API</a>is used by default to download results from the <code>%%bigquery</code>magics.</p><ol><p>To open a notebook file, select <strong>File <span>&gt;</span>New <span>&gt;</span>Notebook</strong>.</p><li><p>In the <strong>Select Kernel</strong>dialog, select <strong>Python (Local)</strong>, and then click
+<strong>Select</strong>.
+</p><p>Your new IPYNB file opens.</p></li><li><p>To get the number of regions by country in the <code>international_top_terms</code>dataset, enter the following statement:</p><pre>%%bigquery
+SELECT
+  country_code,
+  country_name,
+  COUNT(DISTINCT region_code) AS num_regions
+FROM
+  `bigquery-public-data.google_trends.international_top_terms`
+WHERE
+  refresh_date = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
+GROUP BY
+  country_code,
+  country_name
+ORDER BY
+  num_regions DESC;
+</pre></li><li><p>Click <span>play_circle_filled</span><strong>Run cell</strong>.</p><p>The output is similar to the following:</p><pre>Query complete after 0.07s: 100%|██████████| 4/4 [00:00&lt;00:00, 1440.60query/s]
+Downloading: 100%|██████████| 41/41 [00:02&lt;00:00, 20.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.html
+cloud.google.com/bigquery/docs/writing-results.html
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Writing query results  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-55 |              56 |
- | 2020-09-08 12:00:00 |    60606 |              56 |              59 |
- | 2020-09-08 15:00:00 |    60606 |              63 |              68 |
- | 2020-09-08 18:00:00 |    60606 |              67 |              69 |
- | 2020-09-08 21:00:00 |    60606 |              63 |              67 |
- | 2020-09-08 00:00:00 |    94105 |              71 |              74 |
- | 2020-09-08 03:00:00 |    94105 |              66 |              69 |
- | 2020-09-08 06:00:00 |    94105 |              64 |              65 |
- | 2020-09-08 09:00:00 |    94105 |              62 |              63 |
- | 2020-09-08 12:00:00 |
+To help control costs, you can
+<a>preview data</a>before running the query.</p><div><section><h3>Console </h3><section><ol><li><p>Open the BigQuery page in the Google Cloud console.</p><a>Go to the BigQuery page</a></li><p>In the <strong>Explorer</strong>panel, expand your project and select a dataset.</p><p>Enter a valid SQL query.</p><li><p>Click <strong>More</strong>and then select <strong>Query settings</strong>.</p><img/></li><li><p>Select the <strong>Set a destination table for query results</strong>option.</p><img/></li><p>In the <strong>Destination</strong>section, select the <strong>Dataset</strong>in which you want
+to create the table, and then choose a <strong>Table Id</strong>.</p><li><p>In the <strong>Destination table write preference</strong>section, choose one of
+the following:</p><ul><li><strong>Write if empty</strong>— Writes the query results to the table only
+if the table is empty.</li><li><strong>Append to table</strong>— Appends the query results to an existing
+table.</li><li><strong>Overwrite table</strong>— Overwrites an existing table with the same
+name using the query results.</li></ul></li><p>Optional: For <strong>Data location</strong>, choose
+your <a>location</a>.</p><p>To update the query settings, click <strong>Save</strong>.</p><p>Click <strong>Run</strong>.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.html
+cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv.html
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Loading CSV data from Cloud Storage  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-|  22 |          63 |
- | 2020-09-08 03:00:00 |    60606 |  21 |          58 |
- | 2020-09-08 06:00:00 |    60606 |  27 |          55 |
- | 2020-09-08 09:00:00 |    60606 |  36 |          56 |
- | 2020-09-08 12:00:00 |    60606 |  36 |          62 |
- | 2020-09-08 15:00:00 |    60606 |  43 |          67 |
- | 2020-09-08 18:00:00 |    60606 |  33 |          68 |
- | 2020-09-08 21:00:00 |    60606 |  25 |          65 |
- | 2020-09-08 00:00:00 |    94105 |  60 |          73 |
- | 2020-09-08 03:00:00 |    94105 |  70 |          67 |
- | 2020-09-08 06:00:00 |    94105 |  75 |          64 |
- | 2020-09-08 09:00:00 |    94105 | 101 |          62 |
- | 2020-09-08 12:00:00 |    94105 | 125 |          62 |
- |
+load_job.result()  # Wait for the job to complete.
+
+table = client.get_table(table_id)
+print("Loaded {} rows to table {}".format(table.num_rows, table_id))</code></section></div><h2>Appending to or overwriting a table with CSV data</h2><p>You can load additional data into a table either from source files or by
+appending query results.</p><p>In the Google Cloud console, use the <strong>Write preference</strong>option to specify
+what action to take when you load data from a source file or from a query
+result.</p><p>You have the following options when you load additional data into a table:</p><table><tr><th>Console option</th><th>bq tool flag</th><th>BigQuery API property</th><th>Description</th></tr><tr><td>Write if empty</td><td>Not supported</td><code>WRITE_EMPTY</code><td>Writes the data only if the table is empty.</td></tr><tr><td>Append to table</td><td><code>--noreplace</code>or <code>--replace=false</code>; if
+      <code>--[no]replace</code>is unspecified, the default is append</td><code>WRITE_APPEND</code><td>(<a>Default</a>)
+      Appends the data to the end of the table.</td></tr><tr><td>Overwrite table</td><td><code>--replace</code>or <code>--replace=true</code></td><code>WRITE_TRUNCATE</code><td>Erases all existing data in a table before writing the new data.
+      This action also deletes the table schema, row level security, and removes any
+      Cloud KMS key.
+      </td></tr></table><p>If you load data into an existing table, the load job can append the data or
+overwrite the table.</p><aside><strong>Note:</strong><span>This page does not cover appending or overwriting partitioned tables.
 
 
 

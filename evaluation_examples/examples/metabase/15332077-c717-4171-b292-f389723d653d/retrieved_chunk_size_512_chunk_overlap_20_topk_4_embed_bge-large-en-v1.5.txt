@@ -39,119 +39,6 @@ Metabase will start using the default settings. You should see some log entries 
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/installation-and-operation/upgrading-metabase.txt
-
-Documentation Title:
-Upgrading Metabase
-
-Documentation Content:
-Back up your application database
-.
-Download the latest version of the JAR file:
-Metabase Open Source JAR
-Metabase Pro or Enterprise JAR
-Stop the Metabase service. Aassuming you called your service
-metabase.service
-), you’ll run:
-sudo systemctl stop metabase.service
-In your Metabase directory on your server, replace the current (older) Metabase JAR file with the newer JAR you downloaded.
-Restart the service:
-sudo systemctl restart metabase.service
-Upgrading the Docker image
-If you’re running Metabase in a Docker container:
-Back up your application database
-.
-WARNING: If you’re not using a
-production-ready database
-, your application data (questions, dashboards, and so on) will have been stored in an H2 database
-inside
-your container. Upgrading requires swapping out your existing container for a new image with the upgraded Metabase JAR, which will wipe out your application data. We recommend switching to a production-ready database before you upgrade.
-Stop the current Docker container.
-Pull the latest Metabase Docker image.
-Metabase Open Source:
-docker pull metabase/metabase:latest
-Metabase Pro or Enterprise:
-docker pull metabase/metabase-enterprise:latest
-Start the new Docker container. Depending on the ports and what you want to name the container, the command will look something like:
-Metabase Open Source:
-docker run -d -p 3000:3000 -e MB_DB_CONNECTION_URI="jdbc:postgresql://<host>:5432/metabase?user=<username>&password=<password>" --name metabase metabase/metabase:latest
-Metabase Pro or Enterprise:
-docker run -d -p 3000:3000 -e MB_DB_CONNECTION_URI="jdbc:postgresql://<host>:5432/metabase?user=<username>&password=<password>" --name metabase metabase/metabase-enterprise:latest
-On startup, Metabase will perform the upgrade automatically. Once Metabase has completed the upgrade, you’ll be running the new version.
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/installation-and-operation/upgrading-metabase.txt
-
-Documentation Title:
-Upgrading Metabase
-
-Documentation Content:
-when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-Documentation
-Resources
-Learn
-Blog
-Events
-Customers
-Discussion
-Partners
-Community Stories
-Startup Guide to Financial Modeling
-New
-Community Data Stack Report
-New
-Pricing
-Log in
-v0.49
-Installation and Operation
-Upgrading Metabase
-Instructions for upgrading to a new
-Metabase release
-.
-Backing up your application database
-The application database keeps track of all of your people, dashboards, questions, collections, permissions: all the application data in Metabase (that is, everything but the data you’ve connected to Metabase). While it’s unlikely you’ll need to roll back to your current version, a backup will do wonders for your peace of mind.
-See
-Backing up Metabase application data
-.
-Swapping in the new Metabase version
-Steps differ depending on whether you’re running the JAR or a Docker image.
-Upgrading a JAR running locally
-If you’re running the JVM Jar file directly:
-Back up your application database
-.
-Download the latest version of the JAR file:
-Metabase Open Source JAR
-Metabase Pro or Enterprise JAR
-Use a terminal to access your existing Metabase process and kill it (usually CTRL-C).
-Replace the existing JAR file (
-metabase.jar
-) in your Metabase directory with the newer version.
-Restart the server:
-java -jar metabase.jar
-On startup, Metabase will perform any tasks it needs to complete the upgrade. Once Metabase has completed those tasks, you’ll be running the new version.
-Upgrading a JAR running in production as a service
-To upgrade, you’ll need to stop the service, replace the JAR with the newer version, and restart the service.
-E.g., if you’re running Metabase on Debian as a service using Nginx.
-Back up your application database
-.
-
-
-
-Documentation Source:
 www.metabase.com/docs/v0.49/installation-and-operation/running-the-metabase-jar-file.txt
 
 Documentation Title:
@@ -226,6 +113,139 @@ Production installation
 The below instructions are the same as the quick start above, just with a little more context around each step.
 1. Install Java JRE
 You may already have Java installed.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/upgrading-metabase.txt
+
+Documentation Title:
+Upgrading Metabase
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Installation and Operation
+Upgrading Metabase
+Instructions for upgrading to a new
+Metabase release
+.
+Backing up your application database
+The application database keeps track of all of your people, dashboards, questions, collections, permissions: all the application data in Metabase (that is, everything but the data you’ve connected to Metabase). While it’s unlikely you’ll need to roll back to your current version, a backup will do wonders for your peace of mind.
+See
+Backing up Metabase application data
+.
+Swapping in the new Metabase version
+Steps differ depending on whether you’re running the JAR or a Docker image.
+Upgrading a JAR running locally
+If you’re running the JVM Jar file directly:
+Back up your application database
+.
+Download the latest version of the JAR file:
+Metabase Open Source JAR
+Metabase Pro or Enterprise JAR
+Use a terminal to access your existing Metabase process and kill it (usually CTRL-C).
+Replace the existing JAR file (
+metabase.jar
+) in your Metabase directory with the newer version.
+Restart the server:
+java -jar metabase.jar
+On startup, Metabase will perform any tasks it needs to complete the upgrade. Once Metabase has completed those tasks, you’ll be running the new version.
+Upgrading a JAR running in production as a service
+To upgrade, you’ll need to stop the service, replace the JAR with the newer version, and restart the service.
+E.g., if you’re running Metabase on Debian as a service using Nginx.
+Back up your application database
+.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/installation-and-operation/backing-up-metabase-application-data.txt
+
+Documentation Title:
+Backing up Metabase
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Installation and Operation
+Backing up Metabase
+Avoid losing your application data (all of your questions, dashboards, collections and so on) by backing up your data.
+Metabase uses a single SQL database for all of its runtime application data, so all you need to do is back up that database and you’re good to go. You can use that backup to restore your Metabase installation if anything goes wrong (like during an upgrade).
+Backing up the default H2 database
+If you didn’t specify an application database using environment variables when you launched Metabase, Metabase will have created an embedded H2 database in its directory.
+But if you’re at the point where you have questions and dashboards that you want to keep, you should consider migrating to a
+production-ready database
+before you upgrade.
+If you’re just using Metabase for personal use and want to keep your application data, here’s what you’ll need to do.
+If you’re running the Metabase JAR
+Navigate to your Metabase directory.
+If your Metabase is running, stop the Metabase process. You can either close the terminal or kill the process with CTRL-C. If you are running the process as a service, then stop the service.
+Copy the application database file (called
+metabase.db.mv.db
+) and keep that copy somewhere safe. That’s it.
+Restart Metabase:
+java -jar metabase.jar
+or start the service again.
+If you’re running the Metabase Docker image
+If you’re running Docker, you should already have switched to a
+production-ready database
+.
+Before migrating to a production application database, you should copy the H2 app db file out of the Docker container.
 
 
 

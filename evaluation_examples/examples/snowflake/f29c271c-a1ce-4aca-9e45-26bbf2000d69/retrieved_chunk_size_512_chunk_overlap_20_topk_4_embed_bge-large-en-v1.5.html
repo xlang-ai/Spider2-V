@@ -35,20 +35,13 @@ By default, no data is loaded from the file.</p><li><p>Select <span>Load</span>.
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-internal-tutorial.html
+docs.snowflake.com/en/user-guide/data-load-web-ui.html
 
 Documentation Title:
-Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
+Loading data using the web interface | Snowflake Documentation
 
 Documentation Content:
-The statement also sets <code><span>AUTO_RESUME</span><span>=</span><span>true</span></code>, which starts the warehouse automatically
-when you execute SQL statements that require compute resources.</p></section></section><section><h2>Step 1. Create file format objects<a>¶</a></h2><p>When you load data from a file into a table, you must describe the format of the file
-and specify how the data in the file should be interpreted and processed. For example,
-if you are loading pipe-delimited data from a CSV file, you must specify that the file
-uses the CSV format with pipe symbols as delimiters.</p><p>When you execute the <span>COPY INTO &lt;table&gt;</span>command, you specify this format information. You can
-either specify this information as options in the command (e.g.
-<code><span>TYPE</span><span>=</span><span>CSV</span></code>, <code><span>FIELD_DELIMITER</span><span>=</span><span>'|'</span></code>, etc.) or you can specify a
-file format object that contains this format information.
+By default, no data is loaded from the file.</p><li><p>Select <span>Load</span>.</p><p>Snowsight loads your file from the stage to the table.</p></li></ol><p>Alternatively, you can load a staged file into a table by copying the path of the staged file.</p><ol><p>Follow steps 1-3 in the previous procedure.</p><p>In the ellipsis dropdown menu of the selected file on the stage, select <span>Copy path</span>.</p><p>In the navigation menu, select <span>Data</span>» <span>Add Data</span>.</p><p>On the <span>Add Data</span>page, select <span>Load files into a Stage</span>.</p><p>In the object explorer, select the table that you want to load data into.</p><p>Select <span>Load Data</span>.</p><p>In the <span>Load Data into Table</span>dialog that appears, select <span>Add from Stage</span>.</p><li><p>Paste the path that you copied into the path field, and then select <span>Add</span>.</p><p>The staged file name appears.</p></li><p>Select <span>Next</span>.</p><li><p>Do one of the following:</p><ul><p>Select a <span>file format</span>from the current database.</p><p>Select a file type to customize, and then select the relevant settings for your data file.</p></ul></li><p>(Optional) Select what should happen if an error occurs during loading. By default, no data is loaded from the file.</p><li><p>Select <span>Load</span>.</p><p>Snowsight loads your file and displays the number of rows successfully inserted into the table.</p></li></ol></section><section><h3>Create a table when loading a file<a>¶</a></h3><p>You can create a new table when loading a file by taking the following steps.</p><div><p>Note</p><p>This feature supports delimited files, JSON, Parquet, Avro, and ORC files.
 
 
 

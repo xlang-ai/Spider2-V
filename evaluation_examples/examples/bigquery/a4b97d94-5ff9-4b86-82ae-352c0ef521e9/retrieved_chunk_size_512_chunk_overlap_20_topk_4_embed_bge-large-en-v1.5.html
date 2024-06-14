@@ -1,24 +1,41 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/generate-text.html
+cloud.google.com/bigquery/docs/bigquery-ml-remote-model-tutorial.html
 
 Documentation Title:
-Generate text by using the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
+Make predictions with remote models on Vertex AI  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-</p><li><p>Enable the BigQuery, BigQuery Connection, and Vertex AI APIs.
-            
-          
-        
-      </p><a>Enable the APIs</a></li></ol><p>If you want to use <code>ML.GENERATE_TEXT</code>with a <code>gemini-pro-vision</code>model in order
-to analyze visual content in an object table, you must have an
-<a>Enterprise or Enterprise Plus reservation</a>.
-For more information, see
-<a>Create reservations</a>.</p><h2>Create a connection</h2><p>Create a
-<a>Cloud resource connection</a>and get the connection's service account.</p><p>Select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>To create a connection, click <span>add</span><strong>Add</strong>, and then click <strong>Connections to external data sources</strong>.</p><p>In the <strong>Connection type</strong>list, select <strong>Vertex AI remote models,
+and then click <strong>Connections to external data sources</strong>.</p><p>In the <strong>Connection type</strong>list, select <strong>Vertex AI remote models,
 remote functions and BigLake (Cloud Resource)</strong>.</p><p>In the <strong>Connection ID</strong>field, enter a name for your
 connection.</p><p>Click <strong>Create connection</strong>.</p><p>Click <strong>Go to connection</strong>.</p><p>In the <strong>Connection info</strong>pane, copy the service account ID for use in a
 later step.</p></ol></section><section><h3>bq </h3><ol><li><p>In a command-line environment, create a connection:</p><pre>bq mk --connection --location=<var>REGION</var>--project_id=<var>PROJECT_ID</var>\
-    --connection_type=CLOUD_RESOURCE <var>CONNECTION_ID</var></pre><p>The <code>--project_id</code>parameter overrides the default project.
+    --connection_type=CLOUD_RESOURCE <var>CONNECTION_ID</var></pre><p>The <code>--project_id</code>parameter overrides the default project.</p><p>Replace the following:</p><ul><li><var>REGION</var>: your
+<a>connection region</a></li><li><var>PROJECT_ID</var>: your Google Cloud project ID</li><li><var>CONNECTION_ID</var>: an ID for your
+connection</li></ul><p>When you create a connection resource, BigQuery creates a
+unique system service account and associates it with the connection.</p><p><strong>Troubleshooting</strong>: If you get the following connection error,
+<a>update the Google Cloud SDK</a>:</p><pre>Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of.
+</pre></li><li><p>Retrieve and copy the service account ID for use in a later
+step:</p><pre>bq show --connection <var>PROJECT_ID</var>.<var>REGION</var>.<var>CONNECTION_ID</var></pre><p>The output is similar to the following:</p><pre>name                          properties
+1234.<var>REGION</var>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/generate-text-tuning.html
+
+Documentation Title:
+Tune a model using your data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</p><p>Select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>To create a connection, click <span>add</span><strong>Add</strong>, and then click <strong>Connections to external data sources</strong>.</p><p>In the <strong>Connection type</strong>list, select <strong>Vertex AI remote models,
+remote functions and BigLake (Cloud Resource)</strong>.</p><p>In the <strong>Connection ID</strong>field, enter a name for your
+connection.</p><p>Click <strong>Create connection</strong>.</p><p>Click <strong>Go to connection</strong>.</p><p>In the <strong>Connection info</strong>pane, copy the service account ID for use in a
+later step.</p></ol></section><section><h3>bq </h3><ol><li><p>In a command-line environment, create a connection:</p><pre>bq mk --connection --location=<var>REGION</var>--project_id=<var>PROJECT_ID</var>\
+    --connection_type=CLOUD_RESOURCE <var>CONNECTION_ID</var></pre><p>The <code>--project_id</code>parameter overrides the default project.</p><p>Replace the following:</p><ul><li><var>REGION</var>: your
+<a>connection region</a></li><li><var>PROJECT_ID</var>: your Google Cloud project ID</li><li><var>CONNECTION_ID</var>: an ID for your
+connection</li></ul><p>When you create a connection resource, BigQuery creates a
+unique system service account and associates it with the connection.</p><p><strong>Troubleshooting</strong>: If you get the following connection error,
+<a>update the Google Cloud SDK</a>:</p><pre>Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of.
 
 
 
@@ -50,35 +67,6 @@ Documentation Title:
 Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-iam.gserviceaccount.com"}
-</pre></li></ol></section><section><h3>Terraform </h3><p>Append the following section into your <code>main.tf</code>file.
- </p><pre>## This creates a cloud resource connection.
- ## Note: The cloud resource nested object has only one output only field - serviceAccountId.
- resource "google_bigquery_connection" "connection" {
-    connection_id = "<var>CONNECTION_ID</var>"
-    project = "<var>PROJECT_ID</var>"
-    location = "<var>REGION</var>"
-    cloud_resource {}
-}        </pre>Replace the following:
-
-<ul><li><var>CONNECTION_ID</var>: an ID for your
-connection</li><li><var>PROJECT_ID</var>: your Google Cloud project ID</li><li><var>REGION</var>: your
-<a>connection region</a></li></ul></section></div><h2>Grant permissions to the connection's service account</h2><p>To grant the connection's service account an appropriate role to access the
-Vertex AI service, follow these steps:</p><ol><li><p>Go to the <strong>IAM &amp; Admin</strong>page.</p><a>Go to IAM &amp; Admin</a></li><p>Click <span>person_add</span><strong>Grant Access</strong>.</p><p>In the <strong>New principals</strong>field, enter the service account ID that you
-copied earlier.</p><p>In the <strong>Select a role</strong>field, choose <strong>Vertex AI</strong>, and then
-select <strong>Vertex AI User role</strong>.</p><p>Click <strong>Save</strong>.</p></ol><h2>Create the remote model</h2><p>Create a remote model that represents a hosted Vertex AI
-large language model (LLM):</p><div><section><h3>SQL </h3><li>In the Google Cloud console, go to the <strong>BigQuery</strong>page.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/generate-text-tuning.html
-
-Documentation Title:
-Tune a model using your data  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-</p><p>Select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>To create a connection, click <span>add</span><strong>Add</strong>, and then click <strong>Connections to external data sources</strong>.</p><p>In the <strong>Connection type</strong>list, select <strong>Vertex AI remote models,
 remote functions and BigLake (Cloud Resource)</strong>.</p><p>In the <strong>Connection ID</strong>field, enter a name for your
 connection.</p><p>Click <strong>Create connection</strong>.</p><p>Click <strong>Go to connection</strong>.</p><p>In the <strong>Connection info</strong>pane, copy the service account ID for use in a
 later step.</p></ol></section><section><h3>bq </h3><ol><li><p>In a command-line environment, create a connection:</p><pre>bq mk --connection --location=<var>REGION</var>--project_id=<var>PROJECT_ID</var>\
@@ -87,6 +75,9 @@ later step.</p></ol></section><section><h3>bq </h3><ol><li><p>In a command-line 
 connection</li></ul><p>When you create a connection resource, BigQuery creates a
 unique system service account and associates it with the connection.</p><p><strong>Troubleshooting</strong>: If you get the following connection error,
 <a>update the Google Cloud SDK</a>:</p><pre>Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of.
+</pre></li><li><p>Retrieve and copy the service account ID for use in a later
+step:</p><pre>bq show --connection <var>PROJECT_ID</var>.<var>REGION</var>.<var>CONNECTION_ID</var></pre><p>The output is similar to the following:</p><pre>name                          properties
+1234.<var>REGION</var>.<var>CONNECTION_ID</var>{"serviceAccountId": "connection-1234-9u56h9@gcp-sa-bigquery-condel.iam.gserviceaccount.
 
 
 

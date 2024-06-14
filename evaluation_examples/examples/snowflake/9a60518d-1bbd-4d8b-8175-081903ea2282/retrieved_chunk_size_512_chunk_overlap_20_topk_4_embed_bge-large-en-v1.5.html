@@ -1,62 +1,45 @@
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.html
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.html
 
 Documentation Title:
-Snowflake in 20 minutes | Snowflake Documentation
+Managing data listings | Snowflake Documentation
 
 Documentation Content:
-</span><span>'36768 Northfield Plaza'</span><span>,</span><span>'Fangshan'</span><span>,</span><span>'2017-1-26'</span><span>);</span></pre><span>Copy</span></div></section><section><h3>Query rows based on email address<a>¶</a></h3><p>Return a list of email addresses with United Kingdom top-level domains using the <span>[ NOT ] LIKE</span>function:</p><div><pre><span>SELECT</span><span>email</span><span>FROM</span><span>emp_basic</span><span>WHERE</span><span>email</span><span>LIKE</span><span>'%.uk'</span><span>;</span></pre><span>Copy</span></div><p>The following is an example result:</p><pre><span>+--------------------------+</span><span>| EMAIL                    |</span><span>|--------------------------|</span><span>| gbassfordo@sf_tuts.co.uk |</span><span>| rtalmadgej@sf_tuts.co.uk |</span><span>| madamouc@sf_tuts.co.uk   |</span><span>+--------------------------+</span></pre></section><section><h3>Query rows based on start date<a>¶</a></h3><p>For example, to calculate when certain employee benefits might start, add 90 days to employee start
-dates using the <span>DATEADD</span>function.
+If a share does not exist, navigate to the desired database and select the database objects you wish to add to the share.</p><div><p>Note</p><p>If you do not see a share, it is either already attached to another listing, or has been previously shared with consumers.</p></div></li><p>Select <span>Done</span>.</p><p>(Optional) You can change the default name for the secure share.</p><li><p>Select <span>Fullfill Request</span>.</p><div><p>Tip</p><p>If you receive an error when fulfilling a request for a remote region, consider the following:</p><ul><p>Has the remote account been added to the Marketplace as a provider?</p><p>Is the remote account part of the same organization as the account you published the listing from?</p><p>Did you create a new share using the ACCOUNTADMIN role?</p><p>Have you added other consumers to the share you are trying to attach?</p></ul></div></li></ol></section><section><h3>Viewing fulfilled listing requests<a>¶</a></h3><p>Providers who fulfill free or personalized listing requests using <span>Snowsight</span>can view records of consumers added to the
+share by navigating to <span>Data Products</span>» <span>Private Sharing</span>and selecting the <span>Shared by My Account</span>tab.</p><p>These records are also available in the <span>QUERY_HISTORY View</span>.</p></section></section><section><h2>Managing existing data listings<a>¶</a></h2><section><h3>Editing a data listing<a>¶</a></h3><p>When you publish a new version of the listing, it overwrites the previously published listing.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/data-types-geospatial.html
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.html
 
 Documentation Title:
-Geospatial Data Types | Snowflake Documentation
+Managing data listings | Snowflake Documentation
 
 Documentation Content:
-(The result is
-356,379 km^2.)</p><p>With GEOMETRY input values, the input coordinates in degrees, and the output value is in square degrees. (The result is
-45.930 square degrees.)</p></ul></section><section><h4>Example 3: Querying the Names of Countries Overlapping the Line from Berlin to San Francisco<a>¶</a></h4><p>The following table compares the output of <span>ST_INTERSECTS</span>for GEOGRAPHY types and GEOMETRY types:</p><table><tr><p>ST_INTERSECTS Using <span>.</span>GEOGRAPHY Input</p><p>ST_INTERSECTS Using <span>.</span>GEOMETRY Input</p></tr><tbody><tr><td><div><pre><span>SELECT</span><span>name</span><span>FROM</span><span>world_countries</span><span>WHERE</span><span>ST_INTERSECTS</span><span>(</span><span>border</span><span>,</span><span>TO_GEOGRAPHY</span><span>(</span><span>'LINESTRING(13.4814 52.5015, -121.8212 36.8252)'</span><span>));</span></pre><span>Copy</span></div><div><pre>+--------------------------+
-| NAME                     |
-|--------------------------|
-| Germany                  |
-| Denmark                  |
-| Iceland                  |
-| Greenland                |
-| Canada                   |
-| United States of America |
-+--------------------------+
-</pre><span>Copy</span></div></td><td><div><pre><span>SELECT</span><span>name</span><span>FROM</span><span>world_countries_geom</span><span>WHERE</span><span>ST_INTERSECTS</span><span>(</span><span>border</span><span>,</span><span>TO_GEOMETRY</span><span>(</span><span>'LINESTRING(13.4814 52.5015, -121.8212 36.8252)'</span><span>));
+This will allow consumers to get the share instantly without submitting a request.</p><p>To see a list of shares attached to a listing in a remote region, you must log in to the remote account from which you attached the share to the listing.</p></ul></section><section><h3>Creating and publishing a data listing<a>¶</a></h3><p>To create a free or personalized data listing:</p><ol><p>In <span>Snowsight</span>, navigate to <span>Data Products</span>» <span>Private Sharing</span>.</p><p>Select the <span>Share Data</span>drop-down list and select a data exchange.</p><p>In the <span>New Listing</span>dialog box, enter the listing title as it appears to the consumers and select the listing type. For more information about listing type, see <a>Types of Listings</a>.</p><li><p>Complete each of the sections for the new listing. You can save the draft at any time to finish it later. For a description of each section and related fields, see <a>Listings Capabilities Reference</a>.</p><p>For a free listing, to associate a share with the listing, when editing the <span>Data</span>section:</p><div><p>Note</p><p>Until a listing is published, it can only be associated with a share in the local/primary account. After the listing is published, it can be associated with a share in additional regions that you have selected.</p></div><ol><p>Select <span>Select Data</span>.</p><li><p>If a secure share exists, navigate to the share and select it.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-quality-tutorial-start.html
+docs.snowflake.com/en/user-guide/data-exchange-using.html
 
 Documentation Title:
-Tutorial: Getting started with data metric functions | Snowflake Documentation
+Configuring and using a Data Exchange | Snowflake Documentation
 
 Documentation Content:
-</span><span>country</span><span>,</span><span>email</span><span>,</span><span>first_name</span><span>,</span><span>last_name</span><span>,</span><span>phone</span><span>,</span><span>state</span><span>,</span><span>street</span><span>,</span><span>zip_code</span><span>)</span><span>VALUES</span><span>(</span><span>8028387</span><span>,</span><span>'san francisco'</span><span>,</span><span>'usa'</span><span>,</span><span>'bart.simpson@example.com'</span><span>,</span><span>'bart'</span><span>,</span><span>'simpson'</span><span>,</span><span>1012023030</span><span>,</span><span>null</span><span>,</span><span>'market st'</span><span>,</span><span>94102</span><span>);</span><span>INSERT</span><span>INTO</span><span>customers</span><span>(</span><span>account_number</span><span>,</span><span>city</span><span>,</span><span>country</span><span>,</span><span>email</span><span>,</span><span>first_name</span><span>,</span><span>last_name</span><span>,</span><span>phone</span><span>,</span><span>state</span><span>,</span><span>street</span><span>,</span><span>zip_code</span><span>)</span><span>VALUES</span><span>(</span><span>1589420</span><span>,</span><span>'san francisco'</span><span>,</span><span>'usa'</span><span>,</span><span>'john.doe@example.com'</span><span>,</span><span>'john'</span><span>,</span><span>'doe'</span><span>,</span><span>1234567890</span><span>,
+In such cases, you can make the necessary adjustments and resubmit your request.</p></section><section><h3>Accessing the shared data<a>¶</a></h3><p>If your request for a listing in the Data Exchange is approved:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Data Products</span>» <span>Private Sharing</span>.</p><p>Select the <span>Shared With You</span>tab.</p><p>Locate the listing you requested and select <span>Get Data</span>for the listing.</p><p>Enter the name for the database to create in your account from the share.</p><p>Select roles that you want to have access to the database created from the share.</p><li><p>Accept Snowflake’s consumer terms and the provider’s terms of use. You only need to accept the listing terms when you create a database from a share for the first time.</p><div><p>Note</p><p>Accepting terms using SQL is not supported.</p></div></li><p>Select <span>Create Database</span>.</p></ol><p>After you create the database from share, the <span>Get Data</span>button is replaced with the <span>View Database</span>button.</p><p>See also: <span>Usage metrics shared with providers</span></p></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/2023/7_26.html
+docs.snowflake.com/en/user-guide/data-exchange-managing-data-listings.html
 
 Documentation Title:
-August 01-02, 2023 — 7.26 Release Notes | Snowflake Documentation
+Managing data listings | Snowflake Documentation
 
 Documentation Content:
-Vectorized Python UDTFs allow for easy integration with libraries that
-operate on pandas DataFrames or pandas arrays.</p><p>For more information, see <span>Vectorized Python UDTFs</span>.</p></section></section><section><h2>Data Collaboration Updates<a>¶</a></h2><section><h3>Recurring Subscription-based Pricing Plans for Paid Listings — <em>Preview</em><a>¶</a></h3><p>With this release, we are pleased to announce the preview of recurring subscription-based pricing plans for paid listings. With this plan,
-you can bill consumers upfront on a recurring basis for access to your listing.</p><p>For more information, see <a>Paid Listings Pricing Models</a>.</p></section><section><h3>Non-Recurring Subscription-based Pricing Plans for Paid Listings — <em>General Availability</em><a>¶</a></h3><p>With this release, we are pleased to announce the general availability of one time subscription-based pricing plans for paid listings. With
-this plan, you only need to bill consumers once for access to your listing, with no option to repurchase or renew.</p><p>For more information, see <a>Paid Listings Pricing Models</a>.</p></section></section><section><h2>Documentation and Learning Resources<a>¶</a></h2><section><h3>Weekly Release Notes in the Snowflake Documentation<a>¶</a></h3><p>With this release, we are pleased to announce an update to the format of the Release Notes in the Snowflake Documentation:</p><ul><p>Historically, we have published the details for each weekly release, including the version and release dates, only in the
-<a>Release Notes</a>and
-<a>Announcements</a>(in the Snowflake Community).</p><li><p>Starting in August 2023:</p><ul><p>We will no longer aggregate the <span>Release Notes</span>(in the Snowflake Documentation) by month.
+If a share does not exist, navigate to the desired database and select the database objects you wish to add to the share.</p><div><p>Note</p><p>If you do not see a share, it is either already attached to another listing, or has been previously shared with consumers.</p></div></li><p>Select <span>Done</span>.</p><p>(Optional) You can change the default name for the secure share.</p><p>Select <span>Save</span>.</p></ol></li><li><p>Once you complete all of the sections, select <span>Publish</span>to publish the listing to the selected regions.</p><p>The <span>Publish</span>button is not activated if:</p><ul><p>Any of the provided sample SQL queries fail validation. For more information, see <span>Data listing fields</span>.</p><p>You are not the share owner.</p></ul></li></ol><section><h4>Data listing fields<a>¶</a></h4><p>The following table describes parameters required for creating and configuring a data listing in the Data Exchange.</p><table><tr><p>Section</p><p>Field Name</p><p>Description</p><p>Example</p></tr><tbody><tr><strong>Basic Information</strong><strong>Listing Type</strong><p>See <a>Types of Listings</a>.</p><p>Available Values: Free, Personalized</p></tr><tr><strong>Profile</strong><p>The name of the provider profile that owns the share. You must create a provider profile before you can publish a listing.</p></tr><tr><strong>Title</strong><p>Title of the data listing. The title cannot exceed 110 characters.</p><p>Historical Weather by Postcode.</p></tr><tr><strong>Subtitle</strong><p>Subtitle of the data listing. The subtitle cannot exceed 110 characters.
 
 
 

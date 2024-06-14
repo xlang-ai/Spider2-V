@@ -77,49 +77,115 @@ when!Analytics dashboards
 
 
 Documentation Source:
-www.metabase.com/learn/index.md
+www.metabase.com/docs/v0.49/questions/sharing/visualizing-results.md
 
 Documentation Title:
-Learn Metabase
+Visualizing data
 
 Documentation Content:
-This guide will help you pick the right visualization for the job.
-	2. Guide to line chartsWhat we talk about when we talk about line charts: time series, trend lines, alerts, and more.
-	3. Master the bar chart visualizationCreate a bar chart and customize it with visualization settings.
-	4. Visualize your data as a histogramLearn when to use a histogram, and how Metabase makes it easy to create histograms.
-	5. Visualizing data with mapsHow to use pin maps, region maps, and grid maps to visualize data in Metabase.
-	6. Almost everything you can do with the table visualizationLearn how to set up conditional formatting, mini bar charts, value formatting, and more.
-	7. Creating pivot tablesLearn how to create pivot tables using different databases in Metabase.
-	8. Funnel chartsUse funnel charts to show progression through steps.Explore this topic
- !!
-7. TopicBuilding dashboards
--------------------How to build interactive dashboards.
+when!Analytics dashboards
+ Share insights with anyone, anywhere!SQL editor
+ For advanced data users!Sandboxing
+ Set boundaries around your data!Models
+ A starting point for questions!Permissions
+ Keep your data secure and private!CSV upload
+ Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
+ New!Community Data Stack Report
+ NewPricingLog inv0.49Questions
+Visualizing data
+================
 
-8 articles
- !
-	1. BI dashboard best practicesLearn how to make great business intelligence dashboards.
-	2. Linking filters in dashboardsLink filters in dashboards to limit the choices available in one filter based on the current selection of another filter.
-	3. Custom destinations: choose what happens when people click on charts in your dashboardYou can set up dashboard cards to send people to dashboards, saved questions, and URLs, and use values from the card to update filters at the destination, or parameterize links to external sites.
-	4. Cross-filtering: using a chart to update a dashboard filterWith just a few clicks, you can configure any chart or table to update a dashboard filter.
-	5. Adding filters to dashboards with SQL questionsHow to add filter widgets to dashboards and connect them to Field Filter variables in a SQL question.
-	6. Build a record lookup tool with MetabaseHow to use Metabase to build an internal lookup tool to quickly find details about your customers, orders, or other data.
-	7. Why you should regularly edit your dashboardsEditing dashboards is more than just maintaining your tools; it helps keep you focused on the right priorities.
-	8.
+While tables are useful for looking up information or finding specific numbers, it’s usually easier to see trends and make sense of data using charts.
+
+To change how the answer to your question is displayed, click on the **Visualization**button in the bottom-left of the screen to open the visualization sidebar.
+
+!If a particular visualization doesn’t really make sense for your answer, that option will appear in the “Other charts” section. You can still select one of these other charts, though you might need to fiddle with the chart options to make the chart work with your data.
+
+Not sure which visualization type to use? Check out Which chart should you use?
+
+Visualization options
+---------------------
+
+!Each visualization type has its own advanced options.
+
+To change the settings for a specific chart, for example a row chart, you could either:
+
+* Click on the gear icon in the bottom left of the chart (next to the **Visualization**button, or
+* Click on **Visualization**in the bottom left of the chart, then hover over the currently selected chart and click on the **gear**icon that pops up.
+
+Visualization types
+-------------------
+
+Metabase ships with a bunch of different visualizations types:
+
+Numbers
+-------
+
+The Numbersoption is for displaying a single number, nice and big.
+
+!Trends
+------
+
+The Trendvisualization is great for displaying how a single number has changed between two time periods.
+
+!Detail
+------
+
+The Detailvisualization shows a single result record (row) in an easy-to-read, two-column display.
+
+!Progress bars
+-------------
+
+Progress barsare for comparing a single number to a goal value that you set.
+
+!Gauges
+------
+
+Gaugesallow you to show a single number in the context of a set of colored ranges that you can specify.
 
 
 
 Documentation Source:
-www.metabase.com/learn/visualization/chart-guide.md
+www.metabase.com/docs/v0.49/questions/sharing/visualizations/combo-chart.md
 
 Documentation Title:
-Which chart should you use?
+Combo charts
 
 Documentation Content:
-Tables
+when!Analytics dashboards
+ Share insights with anyone, anywhere!SQL editor
+ For advanced data users!Sandboxing
+ Set boundaries around your data!Models
+ A starting point for questions!Permissions
+ Keep your data secure and private!CSV upload
+ Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
+ New!Community Data Stack Report
+ NewPricingLog inv0.49Questions
+Combo charts
+============
 
-Often you’ll want to see a lot of measures at once, list their exact values, and be able to sort those measures. Maybe you simply want to add or remove a few columns, or add a couple of filters to make it easy for people to look up certain values. And that’s what tables are for. Tables in Metabase are one of the most versatile visualization types, so check out our article on Everything you can do with the table visualization.
+Combo charts let you combine bars and lines (or areas) on the same chart.
 
-!If you additionally want to summarize groupings of rows (like seeing the annual subtotal in a grouping of quarterly results), or switch up the columns and rows, you’ll want to use a pivot table. Check out How to create a pivot table to summarize your data.
+!Metabase will pick one of your series to display as a line, and another to display as a bar by default. Open up the visualization settings to change which series are lines, bars, or areas, as well as to change per-series settings like colors. Click the down arrow icon on the right of a series to see additional options:
+
+!To use a Combo chart you’ll either need to have two or more metrics selected in the Summarize By section of your question, with one or two grouping columns, like this:
+
+!Or you’ll need a question with a single metric and two grouping columns, like this:
+
+!Read docs for other versions of Metabase.
+ 
+
+Did this article help you?
+ 
+
+Yes
+ No
+ Send
+ Thanks for your feedback!
+
+Want to improve these docs? Propose a change.##### Subscribe to our newsletter
+
+Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 

@@ -1,51 +1,64 @@
 Documentation Source:
-www.metabase.com/learn/administration/serialization.md
+www.metabase.com/docs/v0.49/configuring-metabase/config-file.md
 
 Documentation Title:
-Serialization: preloading dashboards in a new Metabase instance
+Configuration file
 
 Documentation Content:
-["setup-token"]')MB_TOKEN=$(curl -s-XPOST \-H"Content-type: application/json"\http://${METABASE_HOST}:${METABASE_PORT}/api/setup \-d'{
- "token": "'${SETUP_TOKEN}'",
- "user": {
- "email": "'${ADMIN_EMAIL}'",
- "first_name": "Metabase",
- "last_name": "Admin",
- "password": "'${ADMIN_PASSWORD}'"
- },
- "prefs": {
- "allow_tracking": false,
- "site_name": "Metawhat"
- }
-}'| jq -r'.id')echo-e"\n👥 Creating some basic users: "curl -s"http://${METABASE_HOST}:${METABASE_PORT}/api/user"\-H'Content-Type: application/json'\-H"X-Metabase-Session: ${MB_TOKEN}"\-d'{"first_name":"Basic","last_name":"User","email":"basic@somewhere.com","login_attributes":{"region_filter":"WA"},"password":"'${ADMIN_PASSWORD}'"}'curl -s"http://${METABASE_HOST}:${METABASE_PORT}/api/user"\-H'Content-Type: application/json'\-H"X-Metabase-Session: ${MB_TOKEN}"\-d'{"first_name":"Basic 2","last_name":"User","email":"basic2@somewhere.com","login_attributes":{"region_filter":"CA"},"password":"'${ADMIN_PASSWORD}'"}'echo-e"\n👥 Basic users created!"`Save the above code as `create_users.sh`, and make it executable:
+Additionally, you can specify a user account as an admin by using the `is_superuser: true`key.
 
-`chmod+x create_users.sh`Then run:
+In the following example, assuming that the Metabase hasn’t already been set up (which creates the first user) both users `first@example.com`and `admin@example.com`will be admins: `first@example.com`because it’s the first user account on the list, and `admin@example.com`because that user has the `is_superuser`flag set to true.
 
-`MB_HOSTNAME=localhost MB_PORT=5001 ./create_users.sh`With your metabase-source instance up, and your users created, open up `http://localhost:5001`and sign in as the admin user you created. The user ID is `admin@metabase.local`and the password is `Metapass123`.
+`version: 1
+config:
+ users:
+ - first_name: First
+ last_name: Person
+ password: metabot1
+ email: first@example.com
+ - first_name: Normal
+ last_name: Person
+ password: metabot1
+ email: normal@example.com
+ - first_name: Admin
+ last_name: Person
+ password: metabot1
+ is_superuser: true
+ email: admin@example.com`If the Metabase has already been set up, then `first @example.com`will be loaded as a normal user.
 
-You should see a fresh instance of Metabase.
+Databases
+---------
 
-!Once you log in, activate your license key.
+On a new Metabase, the example below sets up an admin user account and one database connection.
 
-Step 3 - Create dashboards and collections in the source Metabase
------------------------------------------------------------------
+`version: 1
+config:
+ users:
+ - first_name: Cam
+ last_name: Era
+ password: 2cans3cans4cans
+ email: cam@example.com
+ databases:
+ - name: test-data (Postgres)
+ engine: postgres
+ details:
+ host: localhost
+ port: 5432
+ user: dbuser
+ password: "{{ env POSTGRES_TEST_DATA_PASSWORD }}"
+ dbname: test-data`To determine which keys you can specify for a database, check out the fields available in Metabase itself for the database that you want to add.
 
-We’ll need some application data to export, so let’s create some dashboards using the Sample Databaseincluded with Metabase.
+Referring to environment variables in the `config.yml`
+------------------------------------------------------
 
+As shown in the Databases example above, environment variables can be specified with `{{ template-tags }}`like `{{ env POSTGRES_TEST_DATA_PASSWORD }}`or `[[options {{template-tags}}]]`.
 
+Metabase doesn’t support recursive expansion, so if one of your environment variables references *another*environment variable, you’re going to have a bad time.
 
-Documentation Source:
-www.metabase.com/docs/v0.49/api/setup.md
+Disable initial database sync
+-----------------------------
 
-Documentation Title:
-Setup
-
-Documentation Content:
-PARAMS:
-
-`token``POST /api/setup/`Special endpoint for creating the first user during setup. This endpoint both creates the user AND logs them in and
- returns a session ID. This endpoint can also be used to add a database, create and invite a second admin, and/or
- set specific settings from the setup flow.
+When loading a data model from a serialized export, you want to disable the scheduler so that the Metabase doesn’t try to sync.
 
 
 
@@ -103,10 +116,10 @@ If you’d like more technical resources to set up your data stack with Metabase
 
 
 Documentation Source:
-www.metabase.com/docs/v0.49/api/setup.md
+www.metabase.com/docs/v0.49/configuring-metabase/setting-up-metabase.md
 
 Documentation Title:
-Setup
+Setting up Metabase
 
 Documentation Content:
 when!Analytics dashboards
@@ -117,16 +130,79 @@ when!Analytics dashboards
  Keep your data secure and private!CSV upload
  Go beyond VLOOKUPDocumentationResources!Learn!Blog!Events!Customers!Discussion!Partners!Community Stories!Startup Guide to Financial Modeling
  New!Community Data Stack Report
- NewPricingLog inv0.49Api
-Setup
-=====
+ NewPricingLog inv0.49Configuring Metabase
+Setting up Metabase
+===================
 
-API endpoints for Setup.
+This guide will help you set up Metabase once you’ve gotten it installed. If you haven’t installed Metabase yet, you can get Metabase here.
 
-`GET /api/setup/admin_checklist`Return various “admin checklist” steps and whether they’ve been completed. You must be a superuser to see this!
+Start Metabase up for the first time and you’ll see this screen:
+!
 
-`GET /api/setup/user_defaults`Returns object containing default user details for initial setup, if configured,
- and if the provided token value matches the token in the configuration value.
+Go ahead and click **Let’s get started**.
+
+Setting up an admin account
+---------------------------
+
+The first thing you’ll need to do is set up an admin account. The account you create when you first install Metabase is an admin account by default — handy! If you’ve installed Metabase on a production server, you should be really careful to remember the password for this account since it will be used to add other users, connect to databases, set up email, and more. You can also create additional admin accounts later.
+
+For now, let’s just create an account for ourselves to explore Metabase. Type in your info, and when you’re ready to continue, click the **Next**button.
+
+!What will you use Metabase for?
+-------------------------------
+
+Let us know your plans with Metabase so that we can best guide you.
+
+!* Self-service analytics for my own company
+* Embedding analytics into my application
+* A bit of both
+* Not sure yet
+
+Don’t worry about picking the wrong option. If you say you’re interested in embedding, Metabase will display a card with a link to the embedding settings when you (the admin) first log in to your instance. Just a little convenience thing, that’s all.
+
+Gathering your database info
+----------------------------
+
+At this point you’ll need to gather some information about the database you want to use with Metabase.
+
+
+
+Documentation Source:
+www.metabase.com/learn/administration/metabase-api.md
+
+Documentation Title:
+Working with the Metabase API
+
+Documentation Content:
+Provision a Metabase instance
+
+In addition to using environment variables, you can use the Metabase API to setup an instance of Metabase. Once you have installed Metabase using your preferred method, and the Metabase server is up and running, you can create the first user (as an Admin) by posting to a special endpoint, /api/setup. This `/api/setup`endpoint:
+
+* Creates the first user as an Admin (superuser).
+* Logs them in.
+* Returns a session ID.
+
+You can then configure settings using the `/api/settings`endpoint, set up email using the `/api/email`endpoint, and use the `/api/setup/admin_checklist`endpoint to verify your setup progress.
+
+!### Add a data source
+
+You can add a new database using the `POST /api/database/`endpoint, and validate that database’s connection details using the `/api/setup/validate`endpoint. Once you’ve connected the database to your Metabase instance, you can rescan the database and update the schema metadata. You can even add our trusty Sample Databaseas a new database to your instance with `POST /api/database/sample_database`.
+
+Here’s an example database creation call for a Redshiftdatabase.
+
+`curl -s-XPOST \-H"Content-type: application/json"\-H'x-api-key: YOUR_API_KEY'\http://localhost:3000/api/database \-d'{
+ "engine": "redshift",
+ "name": "Redshift",
+ "details": {
+ "host": "redshift.aws.com",
+ "port": "5432",
+ "db": "dev",
+ "user": "root",
+ "password": "password"
+ }
+ }'`### Set up users, groups, and permissions
+
+You can use the `/api/user`endpoints to create, update, and disable users, or the `/api/permissions`endpoints to set up groups or add users to them.
 
 
 

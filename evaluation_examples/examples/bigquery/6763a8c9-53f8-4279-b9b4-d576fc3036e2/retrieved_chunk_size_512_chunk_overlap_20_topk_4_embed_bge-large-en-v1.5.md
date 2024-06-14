@@ -161,17 +161,6 @@ Documentation Title:
 Add an empty column  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-credentials with scopesCreate external table with hive partitioningCreate IAM policyCreate materialized viewCreate table with schemaDelete a datasetDelete a dataset and its contentsDelete a label from a datasetDelete a label from a tableDelete a modelDelete a routineDelete a tableDelete materialized viewDeploy and apply a remote function using BigQuery DataFramesDisable query cacheDownload public table data to DataFrameDownload public table data to DataFrame from the sandboxDownload query results to a GeoPandas GeoDataFrameDownload query results to DataFrameDownload table data to DataFrameDry run queryEnable large resultsExport a modelExport a table to a compressed fileExport a table to a CSV fileExport a table to a JSON fileGenerate text with the BigQuery DataFrames APIGet a modelGet a routineGet dataset labelsGet dataset propertiesGet job propertiesGet table labelsGet table propertiesGet view propertiesGrant view accessImport a local fileInsert GeoJSON dataInsert rows with no IDsInsert WKT dataList by labelList datasetsList jobsList modelsList models using streamingList routinesList tablesLoad a CSV fileLoad a CSV file to replace a tableLoad a CSV file with autodetect schemaLoad a DataFrame to BigQuery with pandas-gbqLoad a JSON fileLoad a JSON file to replace a tableLoad a JSON file with autodetect schemaLoad a Parquet fileLoad a Parquet to replace a tableLoad a table in JSON formatLoad an Avro fileLoad an Avro file to replace a tableLoad an ORC fileLoad an ORC file to replace a tableLoad data from DataFrameLoad data into a column-based time partitioning tableMigration Guide: pandas-gbqMigration Guide: pandas-gbqNamed parametersNamed parameters and provided typesNested repeated schemaPositional parametersPositional parameters and provided typesPreview table dataQuery a clustered tableQuery a column-based time-partitioned tableQuery a tableQuery Bigtable using a permanent tableQuery Bigtable using a temporary tableQuery Cloud Storage with a permanent tableQuery Cloud Storage with a temporary tableQuery materialized viewQuery paginationQuery scriptQuery Sheets with a permanent tableQuery Sheets with a temporary tableQuery with the BigQuery APIRelax a columnRelax a column in a load append jobRelax a column in a query append jobRevoke access to a datasetRun a legacy SQL query with pandas-gbqRun a query and get total rowsRun a query with batch priorityRun
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.md
-
-Documentation Title:
-Add an empty column  |  BigQuery  |  Google Cloud
-
-Documentation Content:
 For more information, see the
  BigQuery Node.jsAPI
  reference documentation.
@@ -231,6 +220,17 @@ To authenticate to BigQuery, set up Application Default Credentials.
  
 
 `from google.cloud import bigquery
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-add-empty-column.md
+
+Documentation Title:
+Add an empty column  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+credentials with scopesCreate external table with hive partitioningCreate IAM policyCreate materialized viewCreate table with schemaDelete a datasetDelete a dataset and its contentsDelete a label from a datasetDelete a label from a tableDelete a modelDelete a routineDelete a tableDelete materialized viewDeploy and apply a remote function using BigQuery DataFramesDisable query cacheDownload public table data to DataFrameDownload public table data to DataFrame from the sandboxDownload query results to a GeoPandas GeoDataFrameDownload query results to DataFrameDownload table data to DataFrameDry run queryEnable large resultsExport a modelExport a table to a compressed fileExport a table to a CSV fileExport a table to a JSON fileGenerate text with the BigQuery DataFrames APIGet a modelGet a routineGet dataset labelsGet dataset propertiesGet job propertiesGet table labelsGet table propertiesGet view propertiesGrant view accessImport a local fileInsert GeoJSON dataInsert rows with no IDsInsert WKT dataList by labelList datasetsList jobsList modelsList models using streamingList routinesList tablesLoad a CSV fileLoad a CSV file to replace a tableLoad a CSV file with autodetect schemaLoad a DataFrame to BigQuery with pandas-gbqLoad a JSON fileLoad a JSON file to replace a tableLoad a JSON file with autodetect schemaLoad a Parquet fileLoad a Parquet to replace a tableLoad a table in JSON formatLoad an Avro fileLoad an Avro file to replace a tableLoad an ORC fileLoad an ORC file to replace a tableLoad data from DataFrameLoad data into a column-based time partitioning tableMigration Guide: pandas-gbqMigration Guide: pandas-gbqNamed parametersNamed parameters and provided typesNested repeated schemaPositional parametersPositional parameters and provided typesPreview table dataQuery a clustered tableQuery a column-based time-partitioned tableQuery a tableQuery Bigtable using a permanent tableQuery Bigtable using a temporary tableQuery Cloud Storage with a permanent tableQuery Cloud Storage with a temporary tableQuery materialized viewQuery paginationQuery scriptQuery Sheets with a permanent tableQuery Sheets with a temporary tableQuery with the BigQuery APIRelax a columnRelax a column in a load append jobRelax a column in a query append jobRevoke access to a datasetRun a legacy SQL query with pandas-gbqRun a query and get total rowsRun a query with batch priorityRun
 
 
 

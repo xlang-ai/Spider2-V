@@ -48,6 +48,99 @@ Documentation Title:
 Funnel charts
 
 Documentation Content:
+The table will have two columns:
+-- the Step: number of categories (our step),
+-- and the count of customers (our measure).
+SELECT
+'Ordered from one category'
+AS
+"Step: number of categories"
+,
+Count
+(
+*
+)
+AS
+Customers
+FROM
+cat_one
+UNION
+SELECT
+'Ordered from two categories'
+AS
+"Step: number of categories"
+,
+Count
+(
+*
+)
+AS
+Customers
+FROM
+cat_two
+UNION
+SELECT
+'Ordered from three categories'
+AS
+"Step: number of categories"
+,
+Count
+(
+*
+)
+AS
+Customers
+FROM
+cat_three
+UNION
+SELECT
+'Ordered from four categories'
+AS
+"Step: number of categories"
+,
+Count
+(
+*
+)
+AS
+Customers
+FROM
+cat_four
+ORDER
+BY
+customers
+DESC
+Which should yield:
+| Step: number of categories    | CUSTOMERS |
+|-------------------------------|-----------|
+| Ordered from one category     | 1,746     |
+| Ordered from two categories   | 1,632     |
+| Ordered from three categories | 1,428     |
+| Ordered from four categories  | 1,031     |
+Now all we have to do is click on
+Visualization
+in the bottom left and select
+Funnel
+.
+If you open up the
+Settings
+tab, you can change up the
+Step
+or the
+Measure
+. In the
+Display
+tab, you can change the chart from a funnel to a bar chart (though as mentioned above, you’ll lose both the visual metaphor and the measure’s percentage with respect to the first step).
+
+
+
+Documentation Source:
+www.metabase.com/learn/visualization/funnel.txt
+
+Documentation Title:
+Funnel charts
+
+Documentation Content:
 Guide to line charts
 Master the bar chart visualization
 Visualize your data as a histogram
@@ -76,72 +169,6 @@ Actions
 Build a basic CRUD app with actions
 Analytics with Metabase
 Which data warehouse should you use?
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/questions/sharing/visualizations/funnel.txt
-
-Documentation Title:
-Funnel charts
-
-Documentation Content:
-when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-Documentation
-Resources
-Learn
-Blog
-Events
-Customers
-Discussion
-Partners
-Community Stories
-Startup Guide to Financial Modeling
-New
-Community Data Stack Report
-New
-Pricing
-Log in
-v0.49
-Questions
-Funnel charts
-Funnels
-are commonly used in e-commerce or sales to visualize how many customers are present within each step of a checkout flow or sales cycle. At their most general, funnels show you values broken out by steps, and the percent decrease between each successive step. To create a funnel in Metabase, you’ll need to have a table with at least two columns: one column that contains the metric you’re interested in, and another that contains the funnel’s steps.
-For example, I might have an Opportunities table, and I could create a question that gives me the number of sales leads broken out by a field that contains stages such as
-Prospecting
-,
-Qualification
-,
-Proposal
-,
-Negotiation
-, and
-Closed
-. In this example, the percentages shown along the x-axis tell you what percent of the total starting opportunities are still present at each subsequent step; so 18.89% of our total opportunities have made it all the way to being closed deals. The number below each percent is the actual value of the count at that step — in our example, the actual number of opportunities that are currently at each step. Together, these numbers help you figure out where you’re losing your customers or users.
-Read docs for other
-versions of Metabase
-.
-Did this article help you?
-Yes
-No
-Send
-Thanks for your feedback!
-Want to improve these docs?
-Propose a change.
-Subscribe to our newsletter
-Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 

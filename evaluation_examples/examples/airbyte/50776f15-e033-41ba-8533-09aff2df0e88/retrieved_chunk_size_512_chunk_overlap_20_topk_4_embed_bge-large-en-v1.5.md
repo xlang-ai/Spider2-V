@@ -42,18 +42,64 @@ dbt (data build tool)allows you to transform your data by writing, documenting, 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.md
+airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.md
 
 Documentation Title:
-Faker | Airbyte Documentation
+How to build E-commerce Data Pipeline with Airbyte? | Airbyte
 
 Documentation Content:
-Output schema​
+1. Create a source:
 
-This source will generate an "e-commerce-like" dataset with users, products, and purchases. Here's
-what is produced at a Postgres destination connected to this source:
+* Go to the Sources tab and click on "+ New source".
+* Search for “faker” using the search bar and select "Sample Data (Faker)".
+* Adjust the Count and optional fields as needed for your use case. You can also leave as is.
+* Click on "Set up source".
 
-`CREATETABLE"public"."users"("address"jsonb,"occupation"text,"gender"text,"academic_degree"text,"weight"int8,"created_at"timestamptz,"language"text,"telephone"text,"title"text,"updated_at"timestamptz,"nationality"text,"blood_type"text,"name"text,"id"float8,"age"int8,"email"text,"height"text,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_users_hashid" text);CREATETABLE"public"."users_address"("_airbyte_users_hashid"text,"country_code"text,"province"text,"city"text,"street_number"text,"state"text,"postal_code"text,"street_name"text,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_address_hashid" text);CREATETABLE"public"."products"("id"float8,"make"text,"year"float8,"model"text,"price"float8,"created_at"timestamptz,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_dev_products_hashid" text,);CREATETABLE"public"."purchases"("id"float8,"user_id"float8,"product_id"float8,"purchased_at"timestamptz,"added_to_cart_at"timestamptz,"returned_at"timestamptz,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_dev_purchases_hashid" text,);`### Features​
+!
+
+Look fo Faker source connector
+
+!
+
+Create a Faker source
+
+
+
+Documentation Source:
+airbyte.com/tutorials/postgres-replication.md
+
+Documentation Title:
+Postgres Replication: Data Transfer Efficiency | Airbyte
+
+Documentation Content:
+Step 2: Set up an Airbyte Postgres source and destination
+---------------------------------------------------------
+
+If you didn’t do it before when deploying Airbyte, go to http://localhost:8000to launch the UI.
+
+Then, click on sources and add a new source. As the connector type, select Postgres. If you used our instructions above to create a Postgres database, fill in the following configuration fields.
+
+* **Host**: localhost
+* **Port**: 2000
+* **User**: postgres
+* **Password**: password
+* **DB Name**: postgres
+
+!!We will use the “Standard” replication method to keep things simple for this tutorial. But you can use logical replicationif needed. Follow along with this videoto configure it for Postgres.
+
+We will also use “No Tunnel” as the SSH option. If you want to use SSH, check out our documentation.
+
+Click on "Set up source", and now you’re ready to configure a destination.
+
+Go to destinations and add a new one. Select Postgres as the destination type and fill in with the following details.
+
+* **Host:**localhost
+* **Port:**3000
+* **User:**postgres
+* **Password:**password
+* **DB Name:** postgres
+
+!That’s it. You have configured the source and destination.
 
 
 
@@ -84,29 +130,6 @@ Establish a connector between Faker and BigQuery
 -----------------------------
 
 dbt (data build tool)allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.md
-
-Documentation Title:
-Faker | Airbyte Documentation
-
-Documentation Content:
-| Feature | Supported?(Yes/No) | Notes |
-| --- | --- | --- |
-| Full Refresh Sync | Yes |
-| --- | --- |
-| Incremental Sync | Yes |
-| Namespaces | No |
-
-Of note, if you choose `Incremental Sync`, state will be maintained between syncs, and once you hit
-`count`records, no new records will be added.
-
-You can choose a specific `seed`(integer) as an option for this connector which will guarantee that
-the same fake records are generated each time. Otherwise, random data will be created on each
-subsequent sync.
 
 
 

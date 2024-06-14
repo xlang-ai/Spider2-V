@@ -29,18 +29,6 @@ Documentation Content:
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/reference.html
-
-Documentation Title:
-Dagster Pipes subprocess reference | Dagster Docs
-
-Documentation Content:
-When your asset has data quality checks defined in <code>@asset_check</code>:</p><div><div><button>External code in external_code.py</button><button>Dagster code in dagster_code.py</button></div><div><p>From the external code, you can report to Dagster that an asset check has been performed via <code>PipesContext.report_asset_check</code>. Note that <code>asset_key</code>in this case is required, and must match the asset key defined in <code>@asset_check</code>:</p><code><span>import</span>pandas <span>as</span>pd
-<span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
-
-
-
-Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/modify-external-code.html
 
 Documentation Title:
@@ -48,6 +36,18 @@ Using Dagster Pipes, Part two: Modify external code | Dagster Docs
 
 Documentation Content:
 This will show only the logs marked as <strong>info</strong>level.</li></ol><img/><h2>Step 3: Send structured metadata to Dagster<span>#</span></h2><p>Sometimes, you may want to log information from your external code as structured metadata shown in the Dagster UI. Dagster Pipes context also comes with the ability to log structured metadata back to Dagster.</p><h3>Report asset materialization<span>#</span></h3><p>Similar to <a>reporting materialization metadata within the Dagster process</a>, you can also report asset materialization back to Dagster from the external process.</p><p>In this example, we’re passing a piece of metadata named <code>total_orders</code>to the <code>metadata</code>parameter of the <code>PipesContext.report_asset_materialization</code>. This payload will be sent from the external process back to Dagster:</p><code><span>import</span>pandas <span>as</span>pd
+<span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/guides/dagster-pipes/subprocess/reference.html
+
+Documentation Title:
+Dagster Pipes subprocess reference | Dagster Docs
+
+Documentation Content:
+When your asset has data quality checks defined in <code>@asset_check</code>:</p><div><div><button>External code in external_code.py</button><button>Dagster code in dagster_code.py</button></div><div><p>From the external code, you can report to Dagster that an asset check has been performed via <code>PipesContext.report_asset_check</code>. Note that <code>asset_key</code>in this case is required, and must match the asset key defined in <code>@asset_check</code>:</p><code><span>import</span>pandas <span>as</span>pd
 <span>from</span>dagster_pipes <span>import</span>PipesContext<span>,</span>open_dagster_pipes
 
 

@@ -1,37 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults.html
-
-Documentation Title:
-Method: jobs.getQueryResults  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-view</span><span>SHARED_DATASET_USAGE view</span><span>SCHEMATA_REPLICAS view</span></ul></div><div><span>Jobs</span><ul><span>JOBS view</span><span>JOBS_BY_USER view</span><span>JOBS_BY_FOLDER view</span><span>JOBS_BY_ORGANIZATION view</span></ul></div><div><span>Jobs by timeslice</span><ul><span>JOBS_TIMELINE view</span><span>JOBS_TIMELINE_BY_USER view</span><span>JOBS_TIMELINE_BY_FOLDER view</span><span>JOBS_TIMELINE_BY_ORGANIZATION view</span></ul></div><div><span>Reservations</span><ul><span>ASSIGNMENTS view</span><span>ASSIGNMENT_CHANGES view</span><span>CAPACITY_COMMITMENTS view</span><span>CAPACITY_COMMITMENT_CHANGES view</span><span>RESERVATIONS view</span><span>RESERVATION_CHANGES view</span><span>RESERVATIONS_TIMELINE view</span></ul></div><div><span>Routines</span><ul><span>PARAMETERS view</span><span>ROUTINES view</span><span>ROUTINE_OPTIONS view</span></ul></div><div><span>Search indexes</span><ul><span>SEARCH_INDEXES view</span><span>SEARCH_INDEX_COLUMNS view</span></ul></div><div><span>Sessions</span><ul><span>SESSIONS_BY_PROJECT view</span><span>SESSIONS_BY_USER view</span></ul></div><div><span>Streaming</span><ul><span>STREAMING_TIMELINE view</span><span>STREAMING_TIMELINE_BY_FOLDER view</span><span>STREAMING_TIMELINE_BY_ORGANIZATION view</span></ul></div><div><span>Tables</span><ul><span>COLUMNS view</span><span>COLUMN_FIELD_PATHS view</span><span>CONSTRAINT_COLUMN_USAGE view</span><span>KEY_COLUMN_USAGE view</span><span>PARTITIONS view</span><span>TABLES view</span><span>TABLE_OPTIONS
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults.html
-
-Documentation Title:
-Method: jobs.getQueryResults  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-/span><span>delete</span><span>get</span><span>insert</span><span>list</span><span>patch</span><span>undelete</span><span>update</span></ul></div><div><span>jobs</span><ul><span>Overview</span><span>cancel</span><span>delete</span><span>get</span><span>getQueryResults</span><span>insert</span><span>list</span><span>query</span></ul></div><div><span>models</span><ul><span>Overview</span><span>delete</span><span>get</span><span>list</span><span>patch</span></ul></div><
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults.html
-
-Documentation Title:
-Method: jobs.getQueryResults  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-h</span></ul></div><div><span>projects</span><ul><span>Overview</span><span>getServiceAccount</span><span>list</span></ul></div><div><span>routines</span><ul><span>Overview</span><span>delete</span><span>get</span><span>insert</span><span>list</span><span>update</span></ul></div><div><span>rowAccessPolicies</span><ul><span>Overview</span><span>getIamPolicy</span><span>list</span><span>testIamPermissions</span></ul></div><div><span>tabledata</span><ul><span>Overview</
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/visualize-jupyter.html
 
 Documentation Title:
@@ -50,6 +17,52 @@ an IPYNB file on your computer.</li></ol></section><section><h2>Clean up</h2><p>
 that you created for this tutorial.</p><ol><aside><strong>Caution</strong>: Deleting a project has the following effects:
   <ul><li><strong>Everything in the project is deleted.</strong>If you used an existing project for
       the tasks in this document, when you delete it,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/reference/rest/v2/jobs/getQueryResults.html
+
+Documentation Title:
+Method: jobs.getQueryResults  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+view</span><span>SHARED_DATASET_USAGE view</span><span>SCHEMATA_REPLICAS view</span></ul></div><div><span>Jobs</span><ul><span>JOBS view</span><span>JOBS_BY_USER view</span><span>JOBS_BY_FOLDER view</span><span>JOBS_BY_ORGANIZATION view</span></ul></div><div><span>Jobs by timeslice</span><ul><span>JOBS_TIMELINE view</span><span>JOBS_TIMELINE_BY_USER view</span><span>JOBS_TIMELINE_BY_FOLDER view</span><span>JOBS_TIMELINE_BY_ORGANIZATION view</span></ul></div><div><span>Reservations</span><ul><span>ASSIGNMENTS view</span><span>ASSIGNMENT_CHANGES view</span><span>CAPACITY_COMMITMENTS view</span><span>CAPACITY_COMMITMENT_CHANGES view</span><span>RESERVATIONS view</span><span>RESERVATION_CHANGES view</span><span>RESERVATIONS_TIMELINE view</span></ul></div><div><span>Routines</span><ul><span>PARAMETERS view</span><span>ROUTINES view</span><span>ROUTINE_OPTIONS view</span></ul></div><div><span>Search indexes</span><ul><span>SEARCH_INDEXES view</span><span>SEARCH_INDEX_COLUMNS view</span></ul></div><div><span>Sessions</span><ul><span>SESSIONS_BY_PROJECT view</span><span>SESSIONS_BY_USER view</span></ul></div><div><span>Streaming</span><ul><span>STREAMING_TIMELINE view</span><span>STREAMING_TIMELINE_BY_FOLDER view</span><span>STREAMING_TIMELINE_BY_ORGANIZATION view</span></ul></div><div><span>Tables</span><ul><span>COLUMNS view</span><span>COLUMN_FIELD_PATHS view</span><span>CONSTRAINT_COLUMN_USAGE view</span><span>KEY_COLUMN_USAGE view</span><span>PARTITIONS view</span><span>TABLES view</span><span>TABLE_OPTIONS
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/managing-jobs.html
+
+Documentation Title:
+Managing jobs  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</span></devsite-feature-tooltip><div><h1>Managing jobs</h1><p>After you submit a BigQuery job, you can <a>view job details</a>,
+<a>list jobs</a>, <a>cancel a job</a>, <a>repeat a
+job</a>, or <a>delete job metadata</a>.</p><p>When a job is submitted, it can be in one of the following states:</p><ul><li><code>PENDING</code>: The job is scheduled and waiting to be run.</li><li><code>RUNNING</code>: The job is in progress.</li><li><code>DONE</code>: The job is completed. If the job completes without errors, then BigQuery reports this state as <code>SUCCESS</code>. If the job completes with errors, then BigQuery reports this state as <code>FAILURE</code>.</li></ul><h2>Before you begin</h2><p>Grant Identity and Access Management (IAM) roles that give users the necessary permissions to perform each task in this document. The permissions required to perform a task (if any) are listed in the "Required permissions" section of the task.</p><h2>View job details</h2><p>You can view job details by using the Google Cloud console, the
+bq command-line tool, the API, or the client libraries. The details include data and
+metadata, such as the job type, the job state, and the user who created the job.</p><h3>Required permissions</h3><p>To view job details, you need the <code>bigquery.jobs.get</code>IAM permission.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/viewing-labels.html
+
+Documentation Title:
+Viewing labels  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+For example, the following SQL query returns the
+query text and labels on the jobs submitted by the current user in the
+current project:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, enter the following statement:</p><pre>SELECT
+  query,
+  labels
+FROM
+  INFORMATION_SCHEMA.JOBS_BY_USER;
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p></ol><p>For more information about how to run queries, see <a>Run an interactive query</a>.</p></section><section><h3>bq </h3><p>To see the labels for a query job using the bq command-line tool, enter
+the <code>bq show -j</code>command with the query job's job ID. The <code>--format</code>flag
+can be used to control the output.
 
 
 

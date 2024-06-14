@@ -60,81 +60,74 @@ Getting started with SnowsightManaging and using worksheets in SnowsightQuerying
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.md
+docs.snowflake.com/en/user-guide/ui-worksheet.md
 
 Documentation Title:
-Getting started with worksheets | Snowflake Documentation
+Using Worksheets for Queries / DML / DDL | Snowflake Documentation
 
 Documentation Content:
-DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatusOverview2. Connecting to SnowflakeEcosystem- SnowsightGetting started with SnowsightExploring the navigation menuAbout the Snowsight UpgradeUpgrading to SnowsightSearch Snowflake objects and resourcesGetting started with worksheetsManaging and using worksheetsQuerying data with SQL worksheetsUsing Snowflake Copilot in SQL worksheetsVisualizing worksheet resultsVisualizing data with dashboardsFilter query results in worksheets and dashboardsExplore and manage dataManage your user profileManage notification contactsManage support cases
-Classic ConsoleSnowSQLVisual Studio Code SQL ExtensionClient DownloadClient ConfigurationConnecting to Third-Party SystemsSnowflake Connector for Google Analytics Aggregate DataSnowflake Connector for Google Analytics Raw DataSnowflake Connector for Google Looker StudioSnowflake Connector for ServiceNow®Snowflake Connector for ServiceNow®v2
-Virtual warehousesDatabases, Tables, & ViewsData TypesData LoadingData UnloadingQueriesData Sharing & CollaborationSnowflake AI FeaturesSnowflake CortexAlerts & NotificationsSecurityData GovernancePrivacyOrganizations & AccountsBusiness Continuity & Data RecoveryPerformance OptimizationCost & Billing
-GuidesConnecting to SnowflakeSnowsightGetting started with worksheetsGetting started with worksheets¶
-================================
+You can also perform other tasks on this page, including:
 
-View and create worksheets in Snowsight. You can also import existing SQL worksheets from the Classic Console.
+Resizing the current warehouse to dynamically increase or decrease the compute resources utilized for executing your queries and other DML statements.
 
-SQL worksheets let you write and run SQL statements, explore and filter query results, and visualize the results.
-See Querying data using worksheetsand Visualizing worksheet data.
-You can also write Snowpark Python in worksheets. See Writing Snowpark Code in Python Worksheets.
+Exporting the result for a selected query/statement (if the result is still available). For more information, see Exporting Query Results.
 
-Manage your worksheets by organizing them into folders, share worksheets with colleagues that also use Snowflake, and
-manage the version history for worksheets. For more details, see Managing and using worksheets in Snowsight.
+Saving and Managing Worksheets¶
+-------------------------------
 
-Viewing worksheets in Snowsight¶
---------------------------------
+Snowflake automatically saves worksheets as you type and persists the current state of a worksheet between user sessions. To organize your worksheets, double-click on the worksheet label in the tab
+(e.g. `Worksheet2`) and type a new, more meaningful name for the worksheet (e.g. `SalesAnalysis`).
 
-After signing in to Snowsight, you see the worksheets in your account. If you don’t see any worksheets, you might need to import
-worksheets from the Classic Console. See Import worksheets from the Classic Console.
+To open a closed worksheet, click the down-arrow to the right of the open worksheet tabs, and click Open Worksheet. The Open Worksheetdialog opens.
 
-Using the options, you can view recent worksheets opened by you, worksheets that your colleagues have shared with you,
-worksheets that you created and own, or folders you created or that your colleagues have shared with you.
+!Search for worksheets by label.
 
+Delete selected worksheets.
 
+3. Click on a row to select a single worksheet.
 
-Documentation Source:
-docs.snowflake.com/en/release-notes/2024/ui/2024-02-14.md
+Click the **CMD**(Mac) or **CTRL**(Windows) key once and then click on multiple rows to select multiple worksheets.
+Double-click a label to edit it.
 
-Documentation Title:
-February 15, 2024 — Snowsight Release Notes | Snowflake Documentation
-
-Documentation Content:
-If you have additional questions, please feel free to contact Snowflake Support.
-
-New tutorials for trial accounts¶
----------------------------------
-
-Snowflake has added new Snowsight worksheets that are available when you create a 30-day trial account. These worksheets contain
-sample SQL statements or Python code. You can execute the statements or run the code in these worksheets to learn how to accomplish a
-specific task.
-
-The following new tutorials in the documentation walk you through these worksheets:
-
-Create users and grant roles- Create a user and grant a role to it by using SQL commands.
-
-Load and query sample data using SQL- Load and query data for a fictitious food truck brand named Tasty Bytes in Snowflake using SQL.
-
-Load and query sample data using Snowpark Python- Load and query data for a fictitious food truck brand named Tasty Bytes in Snowflake
-using Snowpark Python.
-
-* Load data from cloud storage into Snowflake using SQL. The tutorial for this worksheet is available in two versions:
+Open selected worksheets.
 
 
-	Load data from cloud storage: Amazon S3Load data from cloud storage: Microsoft AzureThe worksheet itself also covers the steps and commands for Google Cloud Storage (GCS).
-Larger maximum file size —– *General Availability*¶
----------------------------------------------------
+The Open Worksheetdialog supports the following actions:
 
-Snowflake has increased the maximum file size from 50 MB to 250 MB for the following use cases:
 
-Loading data using Snowsight.
 
-Upload files onto a named internal stage.
+|Action
 
-Was this page helpful?
+Steps
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.On this page
 
-New tutorials for trial accountsLarger maximum file size —– General AvailabilityLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+|  |
+|Search for individual worksheets by label.
+
+Enter text in the Searchfield. The list of existing worksheets is filtered automatically.
+
+
+|  |
+|Edit worksheet labels.
+
+Double-click on a worksheet label, and edit the text. Worksheet labels are limited to 255 characters.
+
+
+|Open or delete one or more worksheets.
+
+1. Select a single worksheet by clicking on the table row for the worksheet.
+
+To select multiple worksheets, click the CMD (Mac) or CTRL (Windows) key once and then click on multiple table rows.
+Click on the Openbutton to open the worksheets in separate tabs, orclick on the Deletebutton to delete the worksheets.
+
+
+
+Using the Object Browser¶
+-------------------------
+
+!Preview table data.
+
+Double-click to insert name into SQL editor.
 
 
 
@@ -178,6 +171,39 @@ Visualizing worksheet data.
 
 Query results are cached. For more details, see Stored results for past worksheet versionsand
 Managing worksheet history and versions.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.md
+
+Documentation Title:
+Getting started with worksheets | Snowflake Documentation
+
+Documentation Content:
+DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatusOverview2. Connecting to SnowflakeEcosystem- SnowsightGetting started with SnowsightExploring the navigation menuAbout the Snowsight UpgradeUpgrading to SnowsightSearch Snowflake objects and resourcesGetting started with worksheetsManaging and using worksheetsQuerying data with SQL worksheetsUsing Snowflake Copilot in SQL worksheetsVisualizing worksheet resultsVisualizing data with dashboardsFilter query results in worksheets and dashboardsExplore and manage dataManage your user profileManage notification contactsManage support cases
+Classic ConsoleSnowSQLVisual Studio Code SQL ExtensionClient DownloadClient ConfigurationConnecting to Third-Party SystemsSnowflake Connector for Google Analytics Aggregate DataSnowflake Connector for Google Analytics Raw DataSnowflake Connector for Google Looker StudioSnowflake Connector for ServiceNow®Snowflake Connector for ServiceNow®v2
+Virtual warehousesDatabases, Tables, & ViewsData TypesData LoadingData UnloadingQueriesData Sharing & CollaborationSnowflake AI FeaturesSnowflake CortexAlerts & NotificationsSecurityData GovernancePrivacyOrganizations & AccountsBusiness Continuity & Data RecoveryPerformance OptimizationCost & Billing
+GuidesConnecting to SnowflakeSnowsightGetting started with worksheetsGetting started with worksheets¶
+================================
+
+View and create worksheets in Snowsight. You can also import existing SQL worksheets from the Classic Console.
+
+SQL worksheets let you write and run SQL statements, explore and filter query results, and visualize the results.
+See Querying data using worksheetsand Visualizing worksheet data.
+You can also write Snowpark Python in worksheets. See Writing Snowpark Code in Python Worksheets.
+
+Manage your worksheets by organizing them into folders, share worksheets with colleagues that also use Snowflake, and
+manage the version history for worksheets. For more details, see Managing and using worksheets in Snowsight.
+
+Viewing worksheets in Snowsight¶
+--------------------------------
+
+After signing in to Snowsight, you see the worksheets in your account. If you don’t see any worksheets, you might need to import
+worksheets from the Classic Console. See Import worksheets from the Classic Console.
+
+Using the options, you can view recent worksheets opened by you, worksheets that your colleagues have shared with you,
+worksheets that you created and own, or folders you created or that your colleagues have shared with you.
 
 
 

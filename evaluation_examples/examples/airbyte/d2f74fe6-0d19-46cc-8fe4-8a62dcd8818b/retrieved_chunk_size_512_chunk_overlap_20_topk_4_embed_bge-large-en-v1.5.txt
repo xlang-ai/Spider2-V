@@ -48,180 +48,157 @@ Now that we have set up the destination database, let's head over to the Airbyte
 
 
 Documentation Source:
-airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.txt
+airbyte.com/docs.airbyte.com/deploying-airbyte/local-deployment.txt
 
 Documentation Title:
-Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+Local Deployment | Airbyte Documentation
 
 Documentation Content:
-Creating the Airbyte connection
-Back in the Airbyte web app in your browser, click on the
-new source
-button in the top right corner of the app to go to the page to add a new Airbyte source.
-Enter the name
-github-source
-as the source name and click the drop down and select Github connector as source type. After selecting the GitHub source type, you will be presented with two text boxes.The first is to enter a repository you want. In this box, type in
-airbytehq/airbyte
-, and then, in the second box, you will need to provide a GitHub access token which you can obtain from
-here
-.
-Make sure you grant the token the repo and write:discussion permissions. After you've filled all fields, hit the set up source button.
-If the setup was successful, you will be taken to the destination screen where you will add a new destination.
-Click the
-add destination
-button, and, in the drop down that follows, click
-add new destination
-. Then, you will see a page to add the destination name. Type in the name we gave the Postgres container we created earlier (github-destination), and then choose Postgres as the destination type.
-After, you will be presented with some text boxes to enter the database connection details. Enter the values for the Postgres container we created earlier:
-host - localhost
-post - 3003
-schema - public (leave default)
-database - postgres
-Password - password
-username - postgres
-Then click on the basic normalization toggle button to check it on as we want Airbyte to normalize the data coming in from GitHub. Overall the UI should look like this:
-Then click on the Set up destination button. If your credentials are all good for the database, the postgres destination would have been set, and now you will need to make the connection from the source (GitHub) to the destination (Postgres).
-You should check the boxes that are checked in the screenshot below, and then choose how often Airbyte will attempt to replicate data to be every hour in the Sync frequency drop down. Then, click on the
-Set up connection
-button.
-You will be taken to the source page, click on the source and you will see the status of your sync.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/configure-airbyte-with-python-dagster.txt
-
-Documentation Title:
-Configure Airbyte Connections with Python (Dagster) | Airbyte
-
-Documentation Content:
-Note: I limited it to 10 items for this demo case.
-def get_awesome_repo_list() -> str:
-
-    url = "https://github.com/igorbarinov/awesome-data-engineering"
-    html = requests.get(url)
-    soup = BeautifulSoup(html.text, "html.parser")
-    # parse all links into a list starting with github.com
-    links = [
-        link.get("href")
-        for link in soup.find_all("a")
-        if link.get("href").startswith("https://github.com")
-    ]
-    # remove links that start with url
-    links = [
-        link
-        for link in links
-        if not link.startswith(url) and not link.endswith("github.com")
-    ]
-    # remove last slash if there
-    links = [link[:-1] if link.endswith("/") else link for link in links]
-    # remove repos without organization
-    links = [link for link in links if len(link.split("/")) == 5]
-    # check if links are still existing in parallel to save time
-    existings_links = asyncio.run(check_websites_exists(links))
-    # remove `https://github.com/` from links
-    links = [link.replace("https://github.com/", "") for link in existings_links]
-
-    # due to timeout limits while airbyte is checking each repo, I limited it here to make this demo work for you
-    links = links[0:10]
-
-    # return links as a string with blank space as separator
-    return " ".join(links)
-Define Airbyte Postgres Destination
-And the destination with:
-postgres_destination = PostgresDestination(
-    name="postgres",
-    host="localhost",
-    port=5432,
-    database="postgres",
-    schema="public",
-    username="postgres",
-    password=POSTGRES_PASSWORD,
-    ssl_mode=PostgresDestination.Disable(),
-)
-Define Airbyte Connection
-When we have both source and destination, we can merge them in an Airbyte connection where we specify the tables we sync with stream_config; in our demo case, we only need the table <span class="text-style-code">stargazers</span>. Other configurations can be set, such as
-Airbyte Sync Modes
+If you did not use Brew to install
+abctl
+then download the latest version of
+abctl
+from the
+releases page
+and run the following command:
+info
+Mac users may need to use the finder and Open With > Terminal to run the
+abctl
+command. After the first run
+users should be able to run the command from the terminal. Airbyte suggests mac users to use
+brew
+if it is available.
+./abctl local install
+Your browser should open to the Airbyte Application, if it does not visit
+http://localhost
+You will be asked for a username and password. By default, that's username
+airbyte
+and password
+password
+. You can set these values through command line flags or environment variables. For example, to set the username and password to
+foo
 and
-Normalization
-.
+bar
+respectively, you can run the following command:
+./abctl local install --username foo --password bar
+# Or as Environment Variables
+ABCTL_LOCAL_INSTALL_PASSWORD=foo
+ABCTL_LOCAL_INSTALL_USERNAME=bar
+Start moving some data!
+Troubleshooting
+​
+If you have any questions about the local setup and deployment process, head over to our
+Getting Started FAQ
+on our Airbyte Forum that answers the following questions and more:
+How long does it take to set up Airbyte?
+Where can I see my data once I've run a sync?
+Can I set a start time for my sync?
+If you encounter any issues, check out
+Getting Support
+documentation
+for options how to get in touch with the community or us.
+Edit this page
+Previous
+Deploy Airbyte
+Next
+Docker Compose
+Setup & launch Airbyte
+Troubleshooting
+Was this page helpful?
+Yes
+No
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/github.txt
+airbyte.com/tutorials/how-to-use-airflow-and-airbyte-together.txt
 
 Documentation Title:
-GitHub | Airbyte Documentation
+A step-by-step guide to setting up and configuring Airbyte and Airflow to work together | Airbyte
 
 Documentation Content:
-Prerequisites
-​
-List of GitHub Repositories (and access for them in case they are private)
-For Airbyte Cloud:
-OAuth
-Personal Access Token (see
-Permissions and scopes
-)
-For Airbyte Open Source:
-Personal Access Token (see
-Permissions and scopes
-)
-Setup guide
-​
-Step 1: Set up GitHub
-​
-Create a
-GitHub Account
+Versions
+There may be future modifications to the API and/or Airflow that could render some of the instructions given in this tutorial obsolete. The instructions presented in this tutorial were created in February 2023, and the following tools were used:
+Airbyte OSS 0.40.32
+Docker Desktop v4.10.1
+macOS Monterey Version 12.5.1
+MacBook Pro with the Apple M1 Pro Chip
+Airflow v2.5.1 Git Version: .release:2.5.1+49867b660b6231c1319969217bc61917f7cf9829
+Install Airbyte
+If you already have a local copy of Airbyte running, then you may skip this section. Otherwise, follow the instructions to
+deploy Airbyte
 .
-Airbyte Open Source additional setup steps
-Log into
-GitHub
-and then generate a
-personal access token
-. To load balance your API quota consumption across multiple API tokens, input multiple tokens separated with
-,
-.
-Step 2: Set up the GitHub connector in Airbyte
-​
-For Airbyte Cloud:
-Log into your Airbyte Cloud
-account.
-In the left navigation bar, click
-Sources
-.
-On the source selection page, select
-GitHub
-from the list of Sources.
-Add a name for your GitHub connector.
-To authenticate:
-For Airbyte Cloud:
-Authenticate your GitHub account
-to authorize your GitHub account. Airbyte will authenticate the GitHub account you are already logged in to. Please make sure you are logged into the right account.
-For Airbyte Open Source:
-Authenticate with
-Personal Access Token
-. To generate a personal access token, log into
-GitHub
-and then generate a
-personal access token
-. Enter your GitHub personal access token. To load balance your API quota consumption across multiple API tokens, input multiple tokens separated with
-,
-.
-GitHub Repositories
-- Enter a list of GitHub organizations/repositories, e.g.
-airbytehq/airbyte
-for single repository,
-airbytehq/airbyte airbytehq/another-repo
-for multiple repositories. If you want to specify the organization to receive data from all its repositories, then you should specify it according to the following example:
-airbytehq/*
-.
+[Optional] Modify
+BASIC_AUTH_USERNAME
+and
+BASIC_AUTH_PASSWORD
+in the (hidden)
+.env
+file. For this tutorial I use the following default values:
+BASIC_AUTH_USERNAME=airbyte
+BASIC_AUTH_PASSWORD=password
+Once Airbyte is running, in your browser type in localhost:8000, which should prompt you for a username and password as follows:
+Airbyte OSS login prompt
+Create a connection
+Create a connection that sends data from the
+Sample Data (Faker)
+source to the
+Local JSON
+(file system) output. Click on “Create your first connection” as shown below:
+Create your first connection prompt
+‍
+You should then see an option to set up a source connection. Select the Faker source from the dropdown as shown below.
+Select Sample Data (Faker) as a source
+‍
+After selecting Sample Data as the source, you will see a screen that should look as follows. Click on
+Set up source
+as shown below.
+Configure Sample Data (Faker) as a source
+‍
+You will then wait a few seconds for the Sample Data source to be verified, at which point you will be prompted to configure the destination that will be used for the connection. Select
+Local JSON
+as shown below:
+Select Local JSON as a destination
+‍
+After selecting Local JSON as the output, you will need to specify where the JSON files should be written.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/deploying-airbyte/on-azure-vm-cloud-shell.txt
+
+Documentation Title:
+Deploy Airbyte on Azure (Cloud Shell) | Airbyte Documentation
+
+Documentation Content:
+In your local machine, open a terminal.
+Go to the folder where you stored the SSH key.
+Create a SSH tunnel for
+port 8000
+by typing the following command:
+ssh -N -L 8000:localhost:8000 -i <your SSH key file> <admin username>@<IP address>
+Open a web browser and navigate to
+http://localhost:8000
+. You will see Airbyte’s landing page.
 caution
-Repositories with the wrong name or repositories that do not exist or have the wrong name format will be skipped with
-WARN
-message in the logs.
-Start date (Optional)
-- The date from which you'd like to replicate data for streams. For streams which support this configuration, only data generated on or after the start date will be replicated.
+For security reasons, we strongly recommend not exposing Airbyte on Internet available ports.
+Troubleshooting
+​
+If you encounter any issues, reach out to our community on
+Slack
+.
+Edit this page
+Previous
+On AWS ECS (Coming Soon)
+Next
+Deploy Airbyte on GCP (Compute Engine)
+Set up the environment
+Install and start Airbyte
+Connect to Airbyte
+Troubleshooting
+Was this page helpful?
+Yes
+No
 
 
 

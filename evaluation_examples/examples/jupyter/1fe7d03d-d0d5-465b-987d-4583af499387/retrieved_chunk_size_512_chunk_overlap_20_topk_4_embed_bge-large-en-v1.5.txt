@@ -1,234 +1,209 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus-1.txt
+jupyterlab.readthedocs.io/en/4.1.x/developer/accessibility.txt
 
 Documentation Title:
-NotebookTrustStatus | @jupyterlab
+Accessibility: A JupyterLab Developer’s Guide — JupyterLab 4.1.8 documentation
 
 Documentation Content:
-l
-Model
-SELECTED_
-HIGHLIGHT_
-CLASS
-create
-Cell
-Search
-Provider
-is
-Code
-Cell
-Model
-is
-Markdown
-Cell
-Model
-is
-Raw
-Cell
-Model
-codeeditor
-Code
-Editor
-Model
-IOptions
-Model
-ICoordinate
-IDimension
-IEditor
-IModel
-IOptions
-IPosition
-IRange
-ISelection
-Owner
-IText
-Selection
-IToken
-Edge
-Location
-Factory
-Keydown
-Handler
-Code
-Editor
-Wrapper
-IOptions
-Code
-Viewer
-Widget
-INo
-Model
-Options
-IOptions
-IEditor
-Mime
-Type
-Service
-default
-Mime
-Type
-JSONEditor
-IOptions
-Line
-Col
-Model
-Code
-Edit
+So as with
+the Lumino repo before, you fork the Quansight-Labs/jupyter-a11y-testing repo,
+create a branch called
+test-tab-trap
+, and open a pull request. The important
+thing in this step is that you save your test file with a
+.test.ts
+extension
+next to the other regression test files.
+Now you want to run your test. Specifically, you want to run the test against a
+build of JupyterLab that incorporates your Lumino fix. Here’s how you would do
+that.
+Let’s pretend that your GitHub username is
+a11ydev
+and you’ve forked the
+Lumino and testing repos and created the following branches on those forks, one
+with your bug fix and the other with your test:
+a11ydev/lumino:fix-tab-trap
+a11ydev/jupyter-a11y-testing:test-tab-trap
+On GitHub, go to your fork of the testing repo,
+a11ydev/jupyter-a11y-testing
+.
+Make sure that you are on your
+test-tab-trap
+branch, which contains the
+.test.ts
+file that you added. Then go to Actions and click on the workflow
+titled “Run accessibility tests on JupyterLab.” Click “Run workflow.” This will
+open a form to configure the workflow.
+Here’s how you should fill out the form:
+Use workflow from:
+test-tab-trap
+JupyterLab repo:
+jupyterlab/jupyterlab
+Branch/tag/SHA:
+main
+Test suite: leave blank
+External package repo:
+a11ydev/lumino
+External package ref:
+fix-tab-trap
+Then press the “Run workflow” button. A GitHub action should then build
+JupyterLab from source, linking your Lumino fork and branch, then run the test
+suite, including your test, and then finally show the test results, hopefully
+with your test passing.
+Note that in this example you did not fork the jupyterlab/jupyterlab repo or
+change the branch name to something other than “main” in the workflow config
+form. This is because you did not need to modify the JupyterLab codebase to fix this issue.
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/modules/notebook.NotebookTrustStatus.txt
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus.Model.txt
 
 Documentation Title:
-NotebookTrustStatus | @jupyterlab
+Model | @jupyterlab
 
 Documentation Content:
-IInput
-Prompt
-IMarkdown
-Cell
+Model | @jupyterlab
+GitHub
+Jupyter
+Preparing search index...
+The search index is not available
+@jupyterlab
+@jupyterlab
+notebook
+NotebookTrustStatus
 Model
-IPlaceholder
-Options
-IRaw
-Cell
+Class Model
+A VDomModel for the NotebookTrust status item.
+Hierarchy
+VDomModel
 Model
-SELECTED_
-HIGHLIGHT_
-CLASS
-create
+Defined in packages/notebook/lib/truststatus.d.ts:25
+Index
+Constructors
+constructor
+Properties
+_active
 Cell
-Search
-Provider
+Trusted
+_derive
+Cell
+Trust
+State
+_get
+All
+State
+_notebook
+_on
+Active
+Cell
+Changed
+_on
+Model
+Changed
+_total
+Cells
+_trigger
+Change
+_trusted
+Cells
+state
+Changed
+Accessors
+active
+Cell
+Trusted
 is
-Code
+Disposed
+notebook
+total
+Cells
+trusted
+Cells
+Methods
+dispose
+Constructors
+constructor
+new
+Model
+(
+)
+:
+NotebookTrustStatus
+.
+Model
+Returns
+NotebookTrustStatus
+.
+Model
+Inherited from
+VDomModel
+.
+constructor
+Properties
+Private
+_active
 Cell
-Model
-is
-Markdown
+Trusted
+_active
 Cell
-Model
-is
-Raw
+Trusted
+:
+any
+Defined in packages/notebook/lib/truststatus.d.ts:65
+Private
+_derive
 Cell
-Model
-codeeditor
-Code
-Editor
-Model
-IOptions
-Model
-ICoordinate
-IDimension
-IEditor
-IModel
-IOptions
-IPosition
-IRange
-ISelection
-Owner
-IText
-Selection
-IToken
-Edge
-Location
-Factory
-Keydown
-Handler
-Code
-Editor
-Wrapper
-IOptions
-Code
-Viewer
-Widget
-INo
-Model
-Options
-IOptions
-IEditor
-Mime
-Type
-Service
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/variables/console.IConsoleTracker-1.txt
-
-Documentation Title:
-IConsoleTracker | @jupyterlab
-
-Documentation Content:
-Input
-Prompt
-IMarkdown
+Trust
+State
+_derive
 Cell
-Model
-IPlaceholder
-Options
-IRaw
+Trust
+State
+:
+any
+Given a notebook model, figure out how many of the code cells are trusted.
+Defined in packages/notebook/lib/truststatus.d.ts:54
+Private
+_get
+All
+State
+_get
+All
+State
+:
+any
+Get the current state of the model.
+Defined in packages/notebook/lib/truststatus.d.ts:58
+Private
+_notebook
+_notebook
+:
+any
+Defined in packages/notebook/lib/truststatus.d.ts:66
+Private
+_on
+Active
 Cell
-Model
-SELECTED_
-HIGHLIGHT_
-CLASS
-create
+Changed
+_on
+Active
 Cell
-Search
-Provider
-is
-Code
-Cell
+Changed
+:
+any
+When the active cell changes, update the trust state.
+Defined in packages/notebook/lib/truststatus.d.ts:50
+Private
+_on
 Model
-is
-Markdown
-Cell
+Changed
+_on
 Model
-is
-Raw
-Cell
-Model
-codeeditor
-Code
-Editor
-Model
-IOptions
-Model
-ICoordinate
-IDimension
-IEditor
-IModel
-IOptions
-IPosition
-IRange
-ISelection
-Owner
-IText
-Selection
-IToken
-Edge
-Location
-Factory
-Keydown
-Handler
-Code
-Editor
-Wrapper
-IOptions
-Code
-Viewer
-Widget
-INo
-Model
-Options
-IOptions
-IEditor
-Mime
-Type
-Service
-d
+Changed
+:
+any
+When the notebook model changes, update the trust state.
 
 
 
@@ -307,6 +282,85 @@ Type
 Service
 default
 M
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookTrustStatus-1.txt
+
+Documentation Title:
+NotebookTrustStatus | @jupyterlab
+
+Documentation Content:
+l
+Model
+SELECTED_
+HIGHLIGHT_
+CLASS
+create
+Cell
+Search
+Provider
+is
+Code
+Cell
+Model
+is
+Markdown
+Cell
+Model
+is
+Raw
+Cell
+Model
+codeeditor
+Code
+Editor
+Model
+IOptions
+Model
+ICoordinate
+IDimension
+IEditor
+IModel
+IOptions
+IPosition
+IRange
+ISelection
+Owner
+IText
+Selection
+IToken
+Edge
+Location
+Factory
+Keydown
+Handler
+Code
+Editor
+Wrapper
+IOptions
+Code
+Viewer
+Widget
+INo
+Model
+Options
+IOptions
+IEditor
+Mime
+Type
+Service
+default
+Mime
+Type
+JSONEditor
+IOptions
+Line
+Col
+Model
+Code
+Edit
 
 
 

@@ -57,212 +57,267 @@ Note
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+docs.snowflake.com/en/user-guide/spark-connector-overview.txt
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Overview of the Spark Connector | Snowflake Documentation
 
 Documentation Content:
-oneOf
-,
-allOf
-fields).
-0.4.34
-2022-07-23
-#14388
-Add support for key pair authentication
-0.4.33
-2022-07-15
-#14494
-Make S3 output filename configurable.
-0.4.32
-2022-07-14
-#14618
-Removed additionalProperties: false from JDBC destination connectors
-0.4.31
-2022-07-07
-#13729
-Improve configuration field description
-0.4.30
-2022-06-24
-#14114
-Remove "additionalProperties": false from specs for connectors with staging
-0.4.29
-2022-06-17
-#13753
-Deprecate and remove PART_SIZE_MB fields from connectors based on StreamTransferManager
-0.4.28
-2022-05-18
-#12952
-Apply buffering strategy on GCS staging
-0.4.27
-2022-05-17
-#12820
-Improved 'check' operation performance
-0.4.26
-2022-05-12
-#12805
-Updated to latest base-java to emit AirbyteTraceMessages on error.
+Also, the files created by the connector during external transfer are intended to be temporary, but the connector does not automatically delete the files from the storage location. To delete the
+files, use any of the following methods:
+Delete them manually.
+Set the
+purge
+parameter for the connector. For more information about this parameter, see
+Setting Configuration Options for the Connector
+.
+Set a storage system parameter, such as the Amazon S3 lifecycle policy parameter, to clean up the files after the transfer is done.
+Column Mapping
+¶
+When you copy data from a Spark table to a Snowflake table, if the column names do not match, you can map column names from Spark to Snowflake using the
+columnmapping
+parameter, which is
+documented in
+Setting Configuration Options for the Connector
+.
+Note
+Column mapping is supported only for internal data transfer.
+Query Pushdown
+¶
+For optimal performance, you typically want to avoid reading lots of data or transferring large intermediate results between systems. Ideally, most of the processing should happen close to where
+the data is stored to leverage the capabilities of the participating stores to dynamically eliminate data that is not needed.
+Query pushdown leverages these performance efficiencies by enabling large and complex Spark logical plans (in their entirety or
+in parts) to be processed in Snowflake, thus using Snowflake to do most of the actual work.
+Query pushdown is supported in Version 2.1.0 (and higher) of the Snowflake Connector for Spark.
+Pushdown is not possible in all situations. For example, Spark UDFs cannot be pushed down to Snowflake. See
+Pushdown
+for the list of operations supported for pushdown.
+Note
+If you need pushdown for all operations, consider writing your code to use
+Snowpark API
+instead.
+Snowpark also supports pushdown of Snowflake UDFs.
+Databricks Integration
+¶
+Databricks has integrated the Snowflake Connector for Spark into the Databricks Unified Analytics Platform to provide native connectivity between Spark and Snowflake.
+For more details, including code examples using Scala and Python, see
+Data Sources — Snowflake
+(in the Databricks documentation) or
+Configuring Snowflake for Spark in Databricks
+.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+docs.snowflake.com/en/user-guide/cleanrooms/tutorials/cleanroom-web-app-tutorial.txt
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Tutorial: Get started with the web app of a Snowflake Data Clean Room | Snowflake Documentation
 
 Documentation Content:
-17.1
-3.5.5
-2024-02-08
-#34502
-Reduce COPY frequency
-3.5.4
-2024-01-24
-#34451
-Improve logging for unparseable input
-3.5.3
-2024-01-25
-#34528
-Fix spurious
-check
-failure (
-UnsupportedOperationException: Snowflake does not use the native JDBC DV2 interface
-)
-3.5.2
-2024-01-24
-#34458
-Improve error reporting
-3.5.1
-2024-01-24
-#34501
-Internal code changes for Destinations V2
-3.5.0
-2024-01-24
-#34462
-Upgrade CDK to 0.14.0
-3.4.22
-2024-01-12
-#34227
-Upgrade CDK to 0.12.0; Cleanup unused dependencies
-3.4.21
-2024-01-10
-#34083
-Emit destination stats as part of the state message
-3.4.20
-2024-01-05
-#33948
-Skip retrieving initial table state when setup fails
-3.4.19
-2024-01-04
-#33730
-Internal code structure changes
-3.4.18
-2024-01-02
-#33728
-Add option to only type and dedupe at the end of the sync
-3.4.17
-2023-12-20
-#33704
-Update to java CDK 0.10.0 (no changes)
-3.4.16
-2023-12-18
-#33124
-Make Schema Creation Seperate from Table Creation
-3.4.15
-2023-12-13
-#33232
-Only run typing+deduping for a stream if the stream had any records
-3.4.14
-2023-12-08
-#33263
-Adopt java CDK version 0.7.0
-3.4.13
-2023-12-05
-#32326
-Use jdbc metadata for table existence check
-3.4.
+Open
+Projects
+»
+Worksheets
+.
+Select
++
+»
+SQL Worksheet
+.
+In the new worksheet, paste and run the following statement to list the activation data that was pushed from the consumer’s
+clean room environment.
+SELECT
+*
+FROM
+samooha_by_snowflake_local_db
+.
+public
+.
+provider_activation_summary
+WHERE
+segment
+=
+'Provider Snowflake Account'
+;
+Copy
+Clean up
+¶
+Supported Regions for Feature
+Available in select regions on Amazon Web Services and Microsoft Azure. See
+Available regions
+.
+You can delete the clean room and activation data that you created for this tutorial to clean up your production environment.
+Delete the activation data
+¶
+To delete the activation data from the provider’s Snowflake account:
+Sign in to Snowsight for the provider account. You are signing in to the Snowflake account, not the clean room environment.
+Open
+Projects
+»
+Worksheets
+.
+Select
++
+»
+SQL Worksheet
+.
+In the new worksheet, paste and run the following statement to delete the activation data created for this tutorial:
+DELETE
+FROM
+samooha_by_snowflake_local_db
+.
+public
+.
+provider_activation_summary
+WHERE
+segment
+=
+'Provider Snowflake Account'
+;
+Copy
+Delete the clean room
+¶
+Deleting a clean room in the provider account removes it from both the provider account and the consumer account.
+To delete a clean room:
+Navigate to the
+sign in page
+.
+Enter your email address, and select
+Continue
+.
+Enter your password.
+Select the Snowflake account that you used as the provider account.
+In the left navigation, select
+Clean Rooms
+.
+On the
+Created
+tab, find the
+Tutorial
+tile and select the More icon (
+).
+Select
+Delete
+.
+Select
+Proceed
+.
+Learn more
+¶
+Supported Regions for Feature
+Available in select regions on Amazon Web Services and Microsoft Azure. See
+Available regions
+.
+Congratulations! You have now used the web app to create and share a clean room as a provider. You have also acted as the consumer
+who is using the clean room to analyze data within a privacy-preserving environment.
 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/snowflake.txt
+docs.snowflake.com/en/user-guide/tutorials/data-load-internal-tutorial.txt
 
 Documentation Title:
-Snowflake | Airbyte Documentation
+Tutorial: Bulk loading from a local file system using COPY | Snowflake Documentation
 
 Documentation Content:
-4.51
-2023-03-10
-#23466
-Changed S3 Avro type from Int to Long
-0.4.49
-2023-02-27
-#23360
-Added logging for flushing and writing data to destination storage
-0.4.48
-2023-02-23
-#22877
-Add handler for IP not in whitelist error and more handlers for insufficient permission error
-0.4.47
-2023-01-30
-#21912
-Catch "Create" Table and Stage Known Permissions and rethrow as ConfigExceptions
-0.4.46
-2023-01-26
-#20631
-Added support for destination checkpointing with staging
-0.4.45
-2023-01-25
-#21087
-Catch Known Permissions and rethrow as ConfigExceptions
-0.4.44
-2023-01-20
-#21087
-Wrap Authentication Errors as Config Exceptions
-0.4.43
-2023-01-20
-#21450
-Updated Check methods to handle more possible s3 and gcs stagings issues
-0.4.42
-2023-01-12
-#21342
-Better handling for conflicting destination streams
-0.4.41
-2022-12-16
-#20566
-Improve spec to adhere to standards
-0.4.40
-2022-11-11
-#19302
-Set jdbc application env variable depends on env - airbyte_oss or airbyte_cloud
-0.4.39
-2022-11-09
-#18970
-Updated "check" connection method to handle more errors
-0.4.38
-2022-09-26
-#17115
-Added connection string identifier
-0.4.37
-2022-09-21
-#16839
-Update JDBC driver for Snowflake to 3.13.19
-0.4.36
-2022-09-14
-#15668
-Wrap logs in AirbyteLogMessage
-0.4.35
-2022-09-01
-#16243
-Fix Json to Avro conversion when there is field name clash from combined restrictions (
-anyOf
-,
-oneOf
-,
-allOf
-fields).
+|
+|       "last": "Ramos"                                           |
+|     },                                                          |
+|     "phone": "+1 (962) 436-2519"                                |
+|   }                                                             |
+| }                                                               |
++
+-----------------------------------------------------------------+
+Copy
+Step 6. Remove the successfully copied data files
+¶
+After you verify that you successfully copied data from your stage into the tables,
+you can remove data files from the internal stage using the
+REMOVE
+command to save on
+data storage
+.
+REMOVE
+@
+my_csv_stage
+PATTERN
+=
+'.*.csv.gz'
+;
+Copy
+Snowflake returns the following results:
++
+-------------------------------+---------+
+| name                          | result  |
+|-------------------------------+---------|
+| my_csv_stage/contacts1.csv.gz | removed |
+| my_csv_stage/contacts4.csv.gz | removed |
+| my_csv_stage/contacts2.csv.gz | removed |
+| my_csv_stage/contacts3.csv.gz | removed |
+| my_csv_stage/contacts5.csv.gz | removed |
++
+-------------------------------+---------+
+Copy
+REMOVE
+@
+my_json_stage
+PATTERN
+=
+'.*.json.gz'
+;
+Copy
+Snowflake returns the following results:
++
+--------------------------------+---------+
+| name                           | result  |
+|--------------------------------+---------|
+| my_json_stage/contacts.json.gz | removed |
++
+--------------------------------+---------+
+Copy
+Step 7. Clean up
+¶
+Congratulations, you have successfully completed the tutorial.
+Tutorial clean up (optional)
+¶
+Execute the following
+DROP <object>
+commands to return your system to its state before you began the tutorial:
+DROP
+DATABASE
+IF
+EXISTS
+mydatabase
+;
+DROP
+WAREHOUSE
+IF
+EXISTS
+mywarehouse
+;
+Copy
+Dropping the database automatically removes all child database objects such as tables.
+Other data loading tutorials
+¶
+Snowflake in 20 minutes
+Tutorial: Bulk loading from Amazon S3 using COPY
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
 
 
 

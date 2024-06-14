@@ -56,24 +56,58 @@ on the command line. You can enable it again by running:
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.NotebookPanel-1.md
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.duplicate.md
 
 Documentation Title:
-NotebookPanel | @jupyterlab
+duplicate | @jupyterlab
 
 Documentation Content:
-grenameFileshouldOverwritedocmanager-extensionToolbarItemscreateSaveButtondefaultdownloadPluginopenBrowserTabPluginpathStatusPluginsavingStatusPlugindocregistryContextIOptionsDocumentRegistryIChangedArgsICodeModelIContextIFileTypeIModelIModelFactoryIModelOptionsIOpenOptionsIOptionsIToolbarItemIWidgetExtensionIWidgetFactoryIWidgetFactoryOptionsCodeContextCodeModelFactoryContextModelFactorySaveStateWidgetExtensionWidgetFactorygetDefaultDirectoryFileTypegetDefaultFileTypes
+Parameters
+
+
+	+ ##### notebook: Notebook
+	
+	The target notebook widget.
+	+ ##### `Optional`mode: "replace"| "above"| "below"| "belowSelected"
+	
+	the mode of adding cells:
+	 'below' (default) adds cells below the active cell,
+	 'belowSelected' adds cells below all selected cells,
+	 'above' adds cells above the active cell, and
+	 'replace' removes the currently selected cells and adds cells in their place.
+	
+	NotesThe last pasted cell becomes the active cell.
+	This is a no-op if there is no cell data on the clipboard.
+	This action can be undone.#### Returns void
+* Defined in packages/notebook/lib/actions.d.ts:436
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.Notebook-1.md
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.paste.md
 
 Documentation Title:
-Notebook | @jupyterlab
+paste | @jupyterlab
 
 Documentation Content:
-newValue: "copy"| "cut"| "paste"
+Parameters
+
+
+	+ ##### notebook: Notebook
+	
+	The target notebook widget.
+	+ ##### `Optional`mode: "replace"| "above"| "below"| "belowSelected"
+	
+	the mode of adding cells:
+	 'below' (default) adds cells below the active cell,
+	 'belowSelected' adds cells below all selected cells,
+	 'above' adds cells above the active cell, and
+	 'replace' removes the currently selected cells and adds cells in their place.
+	
+	NotesThe last pasted cell becomes the active cell.
+	This is a no-op if there is no cell data on the clipboard.
+	This action can be undone.#### Returns void
+* Defined in packages/notebook/lib/actions.d.ts:419
 
 
 
@@ -84,7 +118,7 @@ Documentation Title:
 copy | @jupyterlab
 
 Documentation Content:
-kerIOptionsCollapseCommandLinkerCommandToolbarButtonDialogIFrameKernelStatusMainAreaWidgetModalCommandPaletteNotificationManagerReactWidgetRunningSessionsSanitizerSemanticCommandSessionContextSessionContextDialogsSpinnerThemeManagerToolbarToolbarButtonToolbarWidgetRegistryUseSignalVDomModelVDomRendererWidgetTrackerWindowResolverICommandPaletteIKernelStatusModelIPaletteItemISessionContextISessionContextDialogsISplashScreenIThemeManagerIToolbarWidgetRegistryIUseSignalPropsI
+OptionsIEditorMimeTypeServicedefaultMimeTypeJSONEditorIOptionsLineColModelCodeEditorWrapperCodeViewerWidgetJSONEditorLineColIEditorFactoryServiceIEditorMimeTypeServiceIEditorServicesIPositionModelCOMPLETER\_ACTIVE\_CLASSCOMPLETER\_ENABLED\_CLASSIEditorServicesIPositionModelcodemirrorCodeMirrorEditorIOptionsEditorExtensionRegistrycreateConditionalExtensioncreateConfigurableExtensioncreateImmutableExtensiongetDefaultExtensionsEditorLanguageRegistrygetDefaultLanguageslegacyE
 
 
 

@@ -1,33 +1,22 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/documentsearch.SearchDocumentView.html
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.findNextParentHeading.html
 
 Documentation Title:
-SearchDocumentView | @jupyterlab
+findNextParentHeading | @jupyterlab
 
 Documentation Content:
-</p><a>Notes</a><p>If the class name is already added to the node, this is a no-op.</p><p>The class name must not contain whitespace.</p></div></li></div><h4>Returns <span>void</span></h4><aside><p>Inherited from <a>VDomRenderer</a>.<a>addClass</a></p><li>Defined in node_modules/@lumino/widgets/types/widget.d.ts:157</li></aside></li></ul></section><section><span>children</span><ul><li><span>children</span><span>(</span><span>)</span><span>: </span><span>IterableIterator</span><span>&lt;</span><a>Widget</a><span>&gt;</span></li><li><p>Create an iterator over the widget's children.</p><h4>Returns <span>IterableIterator</span><span>&lt;</span><a>Widget</a><span>&gt;</span></h4><p>A new iterator over the children of the widget.</p><a>Notes</a><p>The widget must have a populated layout in order to have children.</p><p>If a layout is not installed, the returned iterator will be empty.</p><aside><p>Inherited from <a>VDomRenderer</a>.<a>children</a></p><li>Defined in node_modules/@lumino/widgets/types/widget.d.ts:130</li></aside></li></ul></section><section><span>clearFlag</span><ul><li><span>clearFlag</span><span>(</span><span>flag</span><span>)</span><span>: </span><span>void</span></li><li><div><p>Clear the given widget flag.</p><a>Notes</a><p>This will not typically be called directly by user code.
+ls><span>CSVToolbar</span><span>IOptions</span></details><details><span>CSVViewer</span><span>IOptions</span></details><details><span>DSVModel</span><span>IOptions</span></details><details><span>IParser</span><ul><span>IOptions</span><span>IResults</span></ul></details><span>CSVDelimiter</span><span>CSVDocumentWidget</span><span>CSVViewer</span><span>CSVViewerFactory</span><span>DSVModel</span><span>GridSearchService</span><span>TSVViewerFactory</span><span>TextRend
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.selectAll.html
+jupyterlab.readthedocs.io/en/4.1.x/api/variables/mainmenu_extension.CommandIDs.lineNumbering.html
 
 Documentation Title:
-selectAll | @jupyterlab
+lineNumbering | @jupyterlab
 
 Documentation Content:
-><span>getHeadings</span><span>isMarkdown</span></ul></details><span>IHTMLHeading</span><span>NUMBERING_CLASS</span><span>addPrefix</span><span>clearNumbering</span><span>filterHeadings</span><span>getHTMLHeadings</span><span>getPrefix</span><span>isHTML</span></ul></details><span>TableOfContentsFactory</span><span>TableOfContentsItem</span><span>TableOfContentsModel</span><span>TableOfContentsPanel</span><span>TableOfContentsRegistry</span><span>TableOfContentsTracker</
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.selectAll.html
-
-Documentation Title:
-selectAll | @jupyterlab
-
-Documentation Content:
-span><span>IConsoleHistory</span><span>IConsoleTracker</span><span>IConsoleTracker</span></ul></details><details><span>coreutils</span><ul><details><span>ActivityMonitor</span><ul><span>IArguments</span><span>IOptions</span></ul></details><details><span>LruCache</span><span>IOptions</span></details><details><span>MarkdownCodeBlocks</span><ul><span>MarkdownCodeBlock</span><span>CODE_BLOCK_MARKER</span><span>findMarkdownCodeBlocks</span><span>isMarkdown</span></ul></detail
+gistry</span><span>SelectionState</span><span>FOUND_CLASSES</span><span>ISearchProviderRegistry</span><span>TextSearchEngine</span></ul></details><details><span>documentsearch-extension</span><span>default</span></details><details><span>extensionmanager</span><ul><details><span>ExtensionsPanel</span><span>IOptions</span></details><details><span>ListModel</span><span>entryHasUpdate</span></details><span>ExtensionsPanel</span><span>ListModel</span><span>IActionOptions</s
 
 
 
@@ -38,7 +27,18 @@ Documentation Title:
 findNextParentHeading | @jupyterlab
 
 Documentation Content:
-ls><span>CSVToolbar</span><span>IOptions</span></details><details><span>CSVViewer</span><span>IOptions</span></details><details><span>DSVModel</span><span>IOptions</span></details><details><span>IParser</span><ul><span>IOptions</span><span>IResults</span></ul></details><span>CSVDelimiter</span><span>CSVDocumentWidget</span><span>CSVViewer</span><span>CSVViewerFactory</span><span>DSVModel</span><span>GridSearchService</span><span>TSVViewerFactory</span><span>TextRend
+<body><div><div><a>GitHub</a><a>Jupyter</a></div><ul><li>Preparing search index.</li><li>The search index is not available</li></ul><a>@jupyterlab</a></div><div><div><div><ul><a>@jupyterlab</a><a>notebook</a><a>NotebookActions</a><a>findNextParentHeading</a></ul><h1>Function findNextParentHeading</h1></div><ul><li><span>findNextParentHeading</span><span>(</span><span>cell</span>, <span>notebook</span><span>)</span><span>: </span><span>number</span></li><li><p>Finds the next heading that isn't a child of the given markdown heading.</p><div><h4>Parameters</h4><ul><li><h5><span>cell</span>: <a>Cell</a><span>&lt;</span><a>ICellModel</a><span>&gt;</span></h5><p>"Child" cell that has become the active cell</p></li><li><h5><span>notebook</span>: <a>Notebook</a></h5><p>The target notebook widget.</p></li></ul></div><h4>Returns <span>number</span></h4><li>Defined in packages/notebook/lib/actions.d.ts:603</li></li></ul></div><div><details><h3>Settings</h3><div><div><h4>Member Visibility</h4><ul><span>Protected</span><span>Private</span><span>Inherited</span><span>External</span></ul></div><h4>Them
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/variables/mainmenu_extension.CommandIDs.lineNumbering.html
+
+Documentation Title:
+lineNumbering | @jupyterlab
+
+Documentation Content:
+essPreviousHistory</span><span>changeCellType</span><span>clearAllOutputs</span><span>clearOutputs</span><span>collapseAllHeadings</span><span>copy</span><span>cut</span><span>deleteCells</span><span>deselectAll</span><span>disableOutputScrolling</span><span>duplicate</span><span>enableOutputScrolling</span><span>expandAllHeadings</span><span>expandParent</span><span>extendSelectionAbove</span><span>extendSelectionBelow</span><span>findNextParentHeading</span><span>foc
 
 
 

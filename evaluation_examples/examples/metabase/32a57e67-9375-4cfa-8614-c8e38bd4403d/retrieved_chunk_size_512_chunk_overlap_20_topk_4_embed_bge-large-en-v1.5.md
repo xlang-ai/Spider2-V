@@ -53,6 +53,21 @@ To view and manage existing API keys:
 
 
 Documentation Source:
+www.metabase.com/docs/v0.49/people-and-groups/api-keys.md
+
+Documentation Title:
+API keys
+
+Documentation Content:
+Click on the **gear**icon in the upper right.
+2. Select **Admin settings**.
+3. Go to the **Settings**tab.
+4. Click on the **Authentication**tab on the left menu.
+5. Scroll to **API Keys**and click **Manage**.
+
+
+
+Documentation Source:
 www.metabase.com/docs/v0.49/api/api-key.md
 
 Documentation Title:
@@ -78,45 +93,6 @@ Step 1: Set up an API key
 
 1. Create an API key.
 2. Assign the key to the Admin group
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/people-and-groups/api-keys.md
-
-Documentation Title:
-API keys
-
-Documentation Content:
-`curl`example
-
-Replace `YOUR_API_KEY`with the API key you generated above.
-
-`curl \-H'x-api-key: YOUR_API_KEY'\-XGET 'http://localhost:3000/api/permissions/group'`### JavaScript example
-
-Assuming you’ve set your key as an environment variable like so:
-
-`export METABASE_API_KEY="YOUR_API_KEY"`Here’s a basic `GET`request using `fetch`to get the list of groups. You can copy the code, save it as file (e.g., as `api-test.js`), and run the code with `node api-test.js`.
-
-`// Assuming you've set the key in process with// `export METABASE_API_KEY="YOUR_KEY_HERE"`constAPI_KEY=process.env.METABASE_API_KEY;constinit={headers:{"Content-Type":"application/json","X-API-KEY":API_KEY,},};consthost="http://127.0.0.1:3000";asyncfunctiongetGroups(){constresponse=awaitfetch(`${host}/api/permissions/group`,init);returnresponse.json();}getGroups().then(groups=>console.log("Groups in your Metabase:",groups));`Further reading
----------------
-
-* Metabase API reference.
-* Working with the Metabase API.
-Read docs for other versions of Metabase.
- 
-
-Did this article help you?
- 
-
-Yes
- No
- Send
- Thanks for your feedback!
-
-Want to improve these docs? Propose a change.##### Subscribe to our newsletter
-
-Stay in touch with updates and news from Metabase. No spam, ever.
 
 
 

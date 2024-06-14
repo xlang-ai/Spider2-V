@@ -71,31 +71,6 @@ area is restored.
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/outputarea.IOutputAreaModel-1.md
-
-Documentation Title:
-IOutputAreaModel | @jupyterlab
-
-Documentation Content:
-dgetMimeContentMimeDocumentMimeDocumentFactoryTextModelFactoryIDocumentWidgetcreateReadonlyLabeldocumentsearchGenericSearchProviderHTMLSearchEngineSearchDocumentModelSearchDocumentViewSearchProviderSearchProviderRegistryIBaseSearchProviderIDisplayStateIFilterIFiltersIHTMLSearchMatchIReplaceOptionsIReplaceOptionsSupportISearchKeyBindingsISearchMatchISearchProviderISearchProviderFactoryISearchProviderRegistrySelectionStateFOUND\_CLASSESISearchProviderRegistryTextSearchE
-
-
-
-Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/classes/notebook.ExecutionIndicator.Model.md
-
-Documentation Title:
-Model | @jupyterlab
-
-Documentation Content:
-Param
-
-The notebook which contains the scheduled code.
-cell
-
-
-
-Documentation Source:
 jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/ui_components.IInputGroupProps.md
 
 Documentation Title:
@@ -103,6 +78,44 @@ IInputGroupProps | @jupyterlab
 
 Documentation Content:
 raria-posinsetaria-pressedaria-readonlyaria-relevantaria-requiredaria-roledescriptionaria-rowcountaria-rowindexaria-rowspanaria-selectedaria-setsizearia-sortaria-valuemaxaria-valueminaria-valuenowaria-valuetextautoCapitalizeautoCompleteautoCorrectautoFocusautoSavecapturecheckedchildrenclassNamecolorcontentEditablecontextMenucrossOrigindangerouslySetInnerHTMLdatatypedefaultCheckeddefaultValuedirdisableddraggableenterKeyHintformformActionformEncTypeformMethodformNoValidatef
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/enums/notebook.RunningStatus.md
+
+Documentation Title:
+RunningStatus | @jupyterlab
+
+Documentation Content:
+Enumeration Members
+
+ErrorIdleRunningScheduledEnumeration Members
+-------------------
+
+ErrorError:-0.5Cell execution is unsuccessful
+
+- Defined in packages/notebook/lib/toc.d.ts:19
+IdleIdle:-1Cell is idle
+
+- Defined in packages/notebook/lib/toc.d.ts:15
+RunningRunning:1Cell is running
+
+- Defined in packages/notebook/lib/toc.d.ts:27
+ScheduledScheduled:0Cell execution is scheduled
+
+- Defined in packages/notebook/lib/toc.d.ts:23
+
+
+
+Documentation Source:
+jupyterlab.readthedocs.io/en/4.1.x/api/interfaces/apputils.Dialog.IBodyWidget.md
+
+Documentation Title:
+IBodyWidget | @jupyterlab
+
+Documentation Content:
+kerIMarkdownViewerTrackermathjax-extensionMathJaxTypesetterdefaultnbformatIAttachmentsIBaseCellIBaseCellJupyterMetadataIBaseCellMetadataIBaseOutputICodeCellICodeCellJupyterMetadataICodeCellMetadataIDisplayDataIDisplayUpdateIErrorIExecuteResultIKernelspecMetadataILanguageInfoMetadataIMarkdownCellIMimeBundleINotebookContentINotebookMetadataIRawCellIRawCellMetadataIStreamIUnrecognizedCellIUnrecognizedOutputCellTypeExecutionCountICellICellMetadataIOutputMultilineStringOutpu
 
 
 

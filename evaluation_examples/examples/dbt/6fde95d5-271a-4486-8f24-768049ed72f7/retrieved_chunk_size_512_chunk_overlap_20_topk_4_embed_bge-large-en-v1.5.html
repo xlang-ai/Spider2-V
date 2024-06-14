@@ -1,38 +1,38 @@
 Documentation Source:
-docs.getdbt.com/guides/databricks121c.html
+docs.getdbt.com/docs/build/sql-models.html
 
 Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+SQL models | dbt Developer Hub
 
 Documentation Content:
-Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+</span><span>number_of_orders</span><span>,</span><span>0</span><span>)</span><span>as</span><span>number_of_orders</span></span><span><span>from</span><span>jaffle_shop</span><span>.</span><span>customers</span></span><span><span>left</span><span>join</span><span>customer_orders </span><span>using</span><span>(</span><span>customer_id</span><span>)</span></span></code></div><p>When you execute <code>dbt run</code>, dbt will build this as a <em>view</em>named <code>customers</code>in your target schema:</p><code><span><span>create</span><span>view</span><span>dbt_alice</span><span>.</span><span>customers </span><span>as</span><span>(</span></span><span><span>with</span><span>customer_orders </span><span>as</span><span>(</span></span><span>select</span><span><span>customer_id</span><span>,</span></span><span><span>min</span><span>(</span><span>order_date</span><span>)</span><span>as</span><span>first_order_date</span><span>,</span></span><span><span>max</span><span>(</span><span>order_date</span><span>)</span><span>as</span><span>most_recent_order_date</span><span>,</span></span><span><span>count</span><span>(</span><span>order_id</span><span>)</span><span>as</span><span>number_of_orders</span></span><span><span>from</span><span>jaffle_shop</span><span>.</span><span>orders</span></span><span><span>group</span><span>by</span><span>1</span></span><span>)</span><span>select</span><span><span>customers</span><span>.</span><span>customer_id</span><span>,
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/databricks8722.html
+docs.getdbt.com/docs/build/sql-models.html
 
 Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+SQL models | dbt Developer Hub
 
 Documentation Content:
-Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/databricks5f72.html
-
-Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
-
-Documentation Content:
-Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+dbt will build this model <span>data warehouse</span>by wrapping it in a <code>create view as</code>or <code>create table as</code>statement.</p><p>For example, consider this <code>customers</code>model:</p><div><span>models/customers.sql</span><code><span><span>with</span><span>customer_orders </span><span>as</span><span>(</span></span><span>select</span><span><span>customer_id</span><span>,</span></span><span><span>min</span><span>(</span><span>order_date</span><span>)</span><span>as</span><span>first_order_date</span><span>,</span></span><span><span>max</span><span>(</span><span>order_date</span><span>)</span><span>as</span><span>most_recent_order_date</span><span>,</span></span><span><span>count</span><span>(</span><span>order_id</span><span>)</span><span>as</span><span>number_of_orders</span></span><span><span>from</span><span>jaffle_shop</span><span>.</span><span>orders</span></span><span><span>group</span><span>by</span><span>1</span></span><span>)</span><span>select</span><span><span>customers</span><span>.</span><span>customer_id</span><span>,</span></span><span><span>customers</span><span>.</span><span>first_name</span><span>,</span></span><span><span>customers</span><span>.</span><span>last_name</span><span>,</span></span><span><span>customer_orders</span><span>.</span><span>first_order_date</span><span>,</span></span><span><span>customer_orders</span><span>.</span><span>most_recent_order_date</span><span>,</span></span><span><span>coalesce</span><span>(</span><span>customer_orders</span><span>.
 
 
 
 Documentation Source:
 docs.getdbt.com/guides/databricks.html
+
+Documentation Title:
+Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+
+Documentation Content:
+Your <code>customers</code>model should now be built as a table!</p><div><div>info</div><p>To do this, dbt had to first run a <code>drop view</code>statement (or API call on BigQuery), then a <code>create table as</code>statement.</p></div></li><li><p>Edit <code>models/customers.sql</code>to override the <code>dbt_project.yml</code>for the <code>customers</code>model only by adding the following snippet to the top, and click <strong>Save</strong>:  </p><div><span>models/customers.sql</span><code><span>{{</span><span><span>config</span><span>(</span></span><span><span>materialized</span><span>=</span><span>'view'</span></span><span>)</span><span>}}</span><span><span>with</span><span>customers </span><span>as</span><span>(</span></span><span>select</span><span><span>id </span><span>as</span><span>customer_id</span></span><span><span>.</span><span>.</span><span>.</span></span><span>)</span></code></div></li><li><p>Enter the <code>dbt run</code>command. Your model, <code>customers</code>, should now build as a view.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/databricks121c.html
 
 Documentation Title:
 Quickstart for dbt Cloud and Databricks | dbt Developer Hub

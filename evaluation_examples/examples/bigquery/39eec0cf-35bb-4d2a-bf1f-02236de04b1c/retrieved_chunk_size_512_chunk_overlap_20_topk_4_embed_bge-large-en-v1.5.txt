@@ -1,201 +1,303 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/logistic-regression-prediction.txt
+cloud.google.com/bigquery/docs/managing-datasets.txt
 
 Documentation Title:
-Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+Manage datasets  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+Go to BigQuery
+In the query editor, enter the following statement:
+DROP SCHEMA IF EXISTS mydataset;
+By default, this only works to delete an empty dataset.
+To delete a dataset and all of its contents, use the
+CASCADE
+keyword:
+DROP SCHEMA IF EXISTS mydataset CASCADE;
 Click
-Delete dataset
-on the right side of the window.
-This action deletes the dataset and the model.
-In the
-Delete dataset
-dialog box, confirm the delete command by typing
-the name of your dataset (
-census
-) and then click
-Delete
+play_circle
+Run
 .
-Delete your project
-To delete the project:
-Caution
-: Deleting a project has the following effects:
-Everything in the project is deleted.
-If you used an existing project for
-      the tasks in this document, when you delete it, you also delete any other work you've
-      done in the project.
-Custom project IDs are lost.
-When you created this project, you might have created a custom project ID that you want to use in
-      the future. To preserve the URLs that use the project ID, such as an
-appspot.com
-URL, delete selected resources inside the project instead of deleting the whole project.
-If you plan to explore multiple architectures, tutorials, or quickstarts, reusing projects
-    can help you avoid exceeding project quota limits.
-In the Google Cloud console, go to the
-Manage resources
-page.
-Go to Manage resources
-In the project list, select the project that you
-    want to delete, and then click
-Delete
+For more information about how to run queries, see
+Run an interactive query
 .
-In the dialog, type the project ID, and then click
-Shut down
-to delete the project.
-What's next
-For an overview of BigQuery ML, see
-Introduction to BigQuery ML
+bq
+Use the
+bq rm
+command
+with the
+--dataset
+or
+-d
+flag, which is optional.
+If your dataset contains tables, you must use the
+-r
+flag to
+remove all tables in the dataset. If you use the
+-r
+flag, then you can omit
+the
+--dataset
+or
+-d
+flag.
+After you run the command, the system asks for confirmation. You can use the
+-f
+flag to skip the confirmation.
+If you are deleting a table in a project other than your default project,
+add the project ID to the dataset name in the following format:
+PROJECT_ID
+:
+DATASET
 .
-For information on creating models, see the
-CREATE MODEL
-syntax page.
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-16 UTC.
+bq rm -r -f -d
+PROJECT_ID
+:
+DATASET
+Replace the following:
+PROJECT_ID
+: your project ID
+DATASET
+: the name of the dataset that you're deleting
+Examples:
+Enter the following command to remove a dataset that's named
+mydataset
+and all
+the tables in it from your default project. The command uses the
+-d
+flag.
+bq rm -r -d mydataset
+When prompted, type
+y
+and press enter.
+Enter the following command to remove
+mydataset
+and all the tables in it
+from
+myotherproject
+. The command does not use the optional
+-d
+flag.
+The
+-f
+flag is used to skip confirmation.
+bq rm -r -f myotherproject:mydataset
+You can use the
+bq ls
+command to confirm that the dataset was deleted.
+API
+Call the
+datasets.delete
+method
+to delete the dataset and set the
+deleteContents
+parameter to
+true
+to
+delete the tables in it.
+C#
+The following code sample deletes an empty dataset.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+cloud.google.com/bigquery/docs/managing-datasets#recreate-dataset.txt
 
 Documentation Title:
-Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+Manage datasets  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-# Call head method to limit to the 10 highest values.
-total_predicted_purchases.sort_values(ascending=False).head(10)
-
-# fullVisitorId
-# 9417857471295131045    4
-# 0376394056092189113    2
-# 0456807427403774085    2
-# 057693500927581077     2
-# 112288330928895942     2
-# 1280993661204347450    2
-# 2105122376016897629    2
-# 2158257269735455737    2
-# 2969418676126258798    2
-# 489038402765684003     2
-# Name: predicted_label, dtype: Int64
-Clean up
-To avoid incurring charges to your Google Cloud account for
-          the resources used on this page, follow these steps.
-You can delete the project you created.
-Or you can keep the project and delete the dataset.
-Delete your dataset
-Deleting your project removes all datasets and all tables in the project. If you
-prefer to reuse the project, you can delete the dataset you created in this
-tutorial:
-If necessary, open the BigQuery page in the
-Google Cloud console.
-Go to the BigQuery page
-In the navigation, select the
-bqml_tutorial
-dataset you created.
+Go to BigQuery
+In the query editor, enter the following statement:
+DROP SCHEMA IF EXISTS mydataset;
+By default, this only works to delete an empty dataset.
+To delete a dataset and all of its contents, use the
+CASCADE
+keyword:
+DROP SCHEMA IF EXISTS mydataset CASCADE;
 Click
-Delete dataset
-on the right side of the window.
-This action deletes the dataset, the table, and all the data.
-In the
-Delete dataset
-dialog box, confirm the delete command by typing
-the name of your dataset (
-bqml_tutorial
-) and then click
-Delete
+play_circle
+Run
 .
-Delete your project
-To delete the project:
-Caution
-: Deleting a project has the following effects:
-Everything in the project is deleted.
-If you used an existing project for
-      the tasks in this document, when you delete it, you also delete any other work you've
-      done in the project.
-Custom project IDs are lost.
-When you created this project, you might have created a custom project ID that you want to use in
-      the future.
+For more information about how to run queries, see
+Run an interactive query
+.
+bq
+Use the
+bq rm
+command
+with the
+--dataset
+or
+-d
+flag, which is optional.
+If your dataset contains tables, you must use the
+-r
+flag to
+remove all tables in the dataset. If you use the
+-r
+flag, then you can omit
+the
+--dataset
+or
+-d
+flag.
+After you run the command, the system asks for confirmation. You can use the
+-f
+flag to skip the confirmation.
+If you are deleting a table in a project other than your default project,
+add the project ID to the dataset name in the following format:
+PROJECT_ID
+:
+DATASET
+.
+bq rm -r -f -d
+PROJECT_ID
+:
+DATASET
+Replace the following:
+PROJECT_ID
+: your project ID
+DATASET
+: the name of the dataset that you're deleting
+Examples:
+Enter the following command to remove a dataset that's named
+mydataset
+and all
+the tables in it from your default project. The command uses the
+-d
+flag.
+bq rm -r -d mydataset
+When prompted, type
+y
+and press enter.
+Enter the following command to remove
+mydataset
+and all the tables in it
+from
+myotherproject
+. The command does not use the optional
+-d
+flag.
+The
+-f
+flag is used to skip confirmation.
+bq rm -r -f myotherproject:mydataset
+You can use the
+bq ls
+command to confirm that the dataset was deleted.
+API
+Call the
+datasets.delete
+method
+to delete the dataset and set the
+deleteContents
+parameter to
+true
+to
+delete the tables in it.
+C#
+The following code sample deletes an empty dataset.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/arima-time-series-forecasting-with-limits-tutorial.txt
+cloud.google.com/bigquery/docs/managing-datasets#copy-datasets.txt
 
 Documentation Title:
-Limit forecasted values for a time series model  |  BigQuery  |  Google Cloud
+Manage datasets  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Delete your dataset
-Deleting your project removes all datasets and all tables in the project. If you
-prefer to reuse the project, you can delete the dataset you created in this
-tutorial:
-If necessary, open the BigQuery page in the
-Google Cloud console.
-Go to the BigQuery page
-In the navigation, click the
-bqml_tutorial
-dataset you created.
+Go to BigQuery
+In the query editor, enter the following statement:
+DROP SCHEMA IF EXISTS mydataset;
+By default, this only works to delete an empty dataset.
+To delete a dataset and all of its contents, use the
+CASCADE
+keyword:
+DROP SCHEMA IF EXISTS mydataset CASCADE;
 Click
-Delete dataset
-on the right side of the window.
-This action deletes the dataset, the table, and all the data.
-In the
-Delete dataset
-dialog, confirm the delete command by typing
-the name of your dataset (
-bqml_tutorial
-) and then click
-Delete
+play_circle
+Run
 .
-Delete your project
-To delete the project:
-Caution
-: Deleting a project has the following effects:
-Everything in the project is deleted.
-If you used an existing project for
-      the tasks in this document, when you delete it, you also delete any other work you've
-      done in the project.
-Custom project IDs are lost.
-When you created this project, you might have created a custom project ID that you want to use in
-      the future. To preserve the URLs that use the project ID, such as an
-appspot.com
-URL, delete selected resources inside the project instead of deleting the whole project.
-If you plan to explore multiple architectures, tutorials, or quickstarts, reusing projects
-    can help you avoid exceeding project quota limits.
-In the Google Cloud console, go to the
-Manage resources
-page.
-Go to Manage resources
-In the project list, select the project that you
-    want to delete, and then click
-Delete
+For more information about how to run queries, see
+Run an interactive query
 .
-In the dialog, type the project ID, and then click
-Shut down
-to delete the project.
-Whatsnext
-Learn how to
-perform multiple time-series forecasting with a single query from NYC Citi Bike trips data
+bq
+Use the
+bq rm
+command
+with the
+--dataset
+or
+-d
+flag, which is optional.
+If your dataset contains tables, you must use the
+-r
+flag to
+remove all tables in the dataset. If you use the
+-r
+flag, then you can omit
+the
+--dataset
+or
+-d
+flag.
+After you run the command, the system asks for confirmation. You can use the
+-f
+flag to skip the confirmation.
+If you are deleting a table in a project other than your default project,
+add the project ID to the dataset name in the following format:
+PROJECT_ID
+:
+DATASET
 .
-Learn how to
-accelerate ARIMA_PLUS to enable forecast 1 million time series within hours
-.
-To learn more about machine learning, see the
-Machine learning crash course
-.
-For an overview of BigQuery ML, see
-Introduction to BigQuery ML
-.
-To learn more about the Google Cloud console, see
-Using the Google Cloud console
-.
+bq rm -r -f -d
+PROJECT_ID
+:
+DATASET
+Replace the following:
+PROJECT_ID
+: your project ID
+DATASET
+: the name of the dataset that you're deleting
+Examples:
+Enter the following command to remove a dataset that's named
+mydataset
+and all
+the tables in it from your default project. The command uses the
+-d
+flag.
+bq rm -r -d mydataset
+When prompted, type
+y
+and press enter.
+Enter the following command to remove
+mydataset
+and all the tables in it
+from
+myotherproject
+. The command does not use the optional
+-d
+flag.
+The
+-f
+flag is used to skip confirmation.
+bq rm -r -f myotherproject:mydataset
+You can use the
+bq ls
+command to confirm that the dataset was deleted.
+API
+Call the
+datasets.delete
+method
+to delete the dataset and set the
+deleteContents
+parameter to
+true
+to
+delete the tables in it.
+C#
+The following code sample deletes an empty dataset.
 
 
 

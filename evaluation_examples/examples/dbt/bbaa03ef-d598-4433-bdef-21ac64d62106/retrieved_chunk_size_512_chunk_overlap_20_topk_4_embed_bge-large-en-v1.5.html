@@ -1,12 +1,33 @@
 Documentation Source:
-docs.getdbt.com/guides/snowflake5f72.html
+docs.getdbt.com/guides/redshift.html
 
 Documentation Title:
-Quickstart for dbt Cloud and Snowflake | dbt Developer Hub
+Quickstart for dbt Cloud and Redshift | dbt Developer Hub
 
 Documentation Content:
-By using <code>source</code>, you can
-test and document your raw data and also understand the lineage of your sources. </p></li></ol></div><div><h2>Add tests to your models<a>​</a></h2><div><p>Adding <a>tests</a>to a project helps validate that your models are working correctly.</p><p>To add tests to your project:</p><ol><p>Create a new YAML file in the <code>models</code>directory, named <code>models/schema.yml</code></p><li><p>Add the following contents to the file:</p><div><span>models/schema.
+</span><span>'shipped'</span><span>,</span><span>'completed'</span><span>,</span><span>'return_pending'</span><span>,</span><span>'returned'</span><span>]</span></span><span><span>-</span><span>name</span><span>:</span><span>customer_id</span></span><span><span>tests</span><span>:</span></span><span><span>-</span><span>not_null</span></span><span><span>-</span><span>relationships</span><span>:</span></span><span><span>to</span><span>:</span><span>ref('stg_customers')</span></span><span><span>field</span><span>:</span><span>customer_id</span></span></code></div></li><p>Run <code>dbt test</code>, and confirm that all your tests passed.</p></ol><p>When you run <code>dbt test</code>, dbt iterates through your YAML files, and constructs a query for each test. Each query will return the number of records that fail the test. If this number is 0, then the test is successful.</p><h4>FAQs<a>​</a></h4><span>What tests are available for me to use in dbt? Can I add my own custom tests?</span><span>Does my test file need to be named `schema.yml`?</span></div><h2>Document your models<a>​</a></h2><div><p>Adding <a>documentation</a>to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.</p><ol><li><p>Update your <code>models/schema.yml</code>file to include some descriptions, such as those below.</p><div><span>models/schema.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/redshift8722.html
+
+Documentation Title:
+Quickstart for dbt Cloud and Redshift | dbt Developer Hub
+
+Documentation Content:
+</span><span>'shipped'</span><span>,</span><span>'completed'</span><span>,</span><span>'return_pending'</span><span>,</span><span>'returned'</span><span>]</span></span><span><span>-</span><span>name</span><span>:</span><span>customer_id</span></span><span><span>tests</span><span>:</span></span><span><span>-</span><span>not_null</span></span><span><span>-</span><span>relationships</span><span>:</span></span><span><span>to</span><span>:</span><span>ref('stg_customers')</span></span><span><span>field</span><span>:</span><span>customer_id</span></span></code></div></li><p>Run <code>dbt test</code>, and confirm that all your tests passed.</p></ol><p>When you run <code>dbt test</code>, dbt iterates through your YAML files, and constructs a query for each test. Each query will return the number of records that fail the test. If this number is 0, then the test is successful.</p><h4>FAQs<a>​</a></h4><span>What tests are available for me to use in dbt? Can I add my own custom tests?</span><span>Does my test file need to be named `schema.yml`?</span></div><h2>Document your models<a>​</a></h2><div><p>Adding <a>documentation</a>to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.</p><ol><li><p>Update your <code>models/schema.yml</code>file to include some descriptions, such as those below.</p><div><span>models/schema.
+
+
+
+Documentation Source:
+docs.getdbt.com/guides/redshift5f72.html
+
+Documentation Title:
+Quickstart for dbt Cloud and Redshift | dbt Developer Hub
+
+Documentation Content:
+</span><span>'shipped'</span><span>,</span><span>'completed'</span><span>,</span><span>'return_pending'</span><span>,</span><span>'returned'</span><span>]</span></span><span><span>-</span><span>name</span><span>:</span><span>customer_id</span></span><span><span>tests</span><span>:</span></span><span><span>-</span><span>not_null</span></span><span><span>-</span><span>relationships</span><span>:</span></span><span><span>to</span><span>:</span><span>ref('stg_customers')</span></span><span><span>field</span><span>:</span><span>customer_id</span></span></code></div></li><p>Run <code>dbt test</code>, and confirm that all your tests passed.</p></ol><p>When you run <code>dbt test</code>, dbt iterates through your YAML files, and constructs a query for each test. Each query will return the number of records that fail the test. If this number is 0, then the test is successful.</p><h4>FAQs<a>​</a></h4><span>What tests are available for me to use in dbt? Can I add my own custom tests?</span><span>Does my test file need to be named `schema.yml`?</span></div><h2>Document your models<a>​</a></h2><div><p>Adding <a>documentation</a>to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.</p><ol><li><p>Update your <code>models/schema.yml</code>file to include some descriptions, such as those below.</p><div><span>models/schema.
 
 
 
@@ -17,30 +38,7 @@ Documentation Title:
 Quickstart for dbt Cloud and Starburst Galaxy | dbt Developer Hub
 
 Documentation Content:
-You do not need to explicitly define these dependencies.</p></li></ol><h4>FAQs<a>​</a></h4><span>As I create more models, how should I keep my project organized? What should I name my models?</span></div><div><h2>Add tests to your models<a>​</a></h2><div><p>Adding <a>tests</a>to a project helps validate that your models are working correctly.</p><p>To add tests to your project:</p><ol><p>Create a new YAML file in the <code>models</code>directory, named <code>models/schema.yml</code></p><li><p>Add the following contents to the file:</p><div><span>models/schema.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/snowflake.html
-
-Documentation Title:
-Quickstart for dbt Cloud and Snowflake | dbt Developer Hub
-
-Documentation Content:
-By using <code>source</code>, you can
-test and document your raw data and also understand the lineage of your sources. </p></li></ol></div><div><h2>Add tests to your models<a>​</a></h2><div><p>Adding <a>tests</a>to a project helps validate that your models are working correctly.</p><p>To add tests to your project:</p><ol><p>Create a new YAML file in the <code>models</code>directory, named <code>models/schema.yml</code></p><li><p>Add the following contents to the file:</p><div><span>models/schema.
-
-
-
-Documentation Source:
-docs.getdbt.com/guides/starburst-galaxy5f72.html
-
-Documentation Title:
-Quickstart for dbt Cloud and Starburst Galaxy | dbt Developer Hub
-
-Documentation Content:
-You do not need to explicitly define these dependencies.</p></li></ol><h4>FAQs<a>​</a></h4><span>As I create more models, how should I keep my project organized? What should I name my models?</span></div><div><h2>Add tests to your models<a>​</a></h2><div><p>Adding <a>tests</a>to a project helps validate that your models are working correctly.</p><p>To add tests to your project:</p><ol><p>Create a new YAML file in the <code>models</code>directory, named <code>models/schema.yml</code></p><li><p>Add the following contents to the file:</p><div><span>models/schema.
+</span><span>'shipped'</span><span>,</span><span>'completed'</span><span>,</span><span>'return_pending'</span><span>,</span><span>'returned'</span><span>]</span></span><span><span>-</span><span>name</span><span>:</span><span>customer_id</span></span><span><span>tests</span><span>:</span></span><span><span>-</span><span>not_null</span></span><span><span>-</span><span>relationships</span><span>:</span></span><span><span>to</span><span>:</span><span>ref('stg_customers')</span></span><span><span>field</span><span>:</span><span>customer_id</span></span></code></div></li><p>Run <code>dbt test</code>, and confirm that all your tests passed.</p></ol><p>When you run <code>dbt test</code>, dbt iterates through your YAML files, and constructs a query for each test. Each query will return the number of records that fail the test. If this number is 0, then the test is successful.</p><h4>FAQs<a>​</a></h4><span>What tests are available for me to use in dbt? Can I add my own custom tests?</span><span>Does my test file need to be named `schema.yml`?</span></div><h2>Document your models<a>​</a></h2><div><p>Adding <a>documentation</a>to your project allows you to describe your models in rich detail, and share that information with your team. Here, we're going to add some basic documentation to our project.</p><ol><li><p>Update your <code>models/schema.yml</code>file to include some descriptions, such as those below.</p><div><span>models/schema.
 
 
 

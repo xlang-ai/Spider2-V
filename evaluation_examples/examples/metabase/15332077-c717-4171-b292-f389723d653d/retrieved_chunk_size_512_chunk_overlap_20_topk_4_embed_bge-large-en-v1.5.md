@@ -90,39 +90,11 @@ Documentation Title:
 Running the Metabase JAR file
 
 Documentation Content:
-Migrating to a production installation
+1. Install Java JRE
 
-If you’ve been running Metabase with the default H2 application database and your team has already created questions, dashboards, collections and so on, you’ll want to migrate that data to a production application database. And the sooner you do, the better. See Migrating from the H2 database.
+You may already have Java installed. To check the version, open a terminal and run:
 
-Troubleshooting
----------------
-
-If you run into any problems during installation, check out our troubleshooting page.
-
-Upgrading Metabase
-------------------
-
-See Upgrading Metabase.
-
-Setting up Metabase
--------------------
-
-Now that you’ve installed Metabase, it’s time to set it up and connect it to your database.
-
-Read docs for other versions of Metabase.
- 
-
-Did this article help you?
- 
-
-Yes
- No
- Send
- Thanks for your feedback!
-
-Want to improve these docs? Propose a change.##### Subscribe to our newsletter
-
-Stay in touch with updates and news from Metabase. No spam, ever.
+`java -version`If Java isn’t installed, you’ll need to install Java before you can run Metabase. We recommend version 11 of JRE from Eclipse Temurinwith HotSpot JVM. You can run Metabase wherever Java 11 runs. The particular processor architecture shouldn’t matter (although we only test Metabase for x86 and ARM).
 
 
 

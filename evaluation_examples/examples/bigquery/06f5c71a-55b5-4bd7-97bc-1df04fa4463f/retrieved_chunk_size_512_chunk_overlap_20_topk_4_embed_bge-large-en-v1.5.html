@@ -1,11 +1,76 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-youtubechannel-transfer.html
+cloud.google.com/bigquery/docs/loading-data-cloud-storage-json.html
 
 Documentation Title:
-Load data from YouTube Channel reports  |  BigQuery  |  Google Cloud
+Loading JSON data from Cloud Storage  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-table properties</span><span>Get view properties</span><span>Grant view access</span><span>Import a local file</span><span>Insert GeoJSON data</span><span>Insert rows with no IDs</span><span>Insert WKT data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized view</span><span>Query
+</li></ol></li><aside><b>Note:</b>It is possible to modify the table's schema when you append or
+      overwrite it. For more information about supported schema changes during a
+      load operation, see <a>Modifying table schemas</a>.
+  </aside><li>In the <b>Destination</b>section, specify the following details:
+<ol><li>For <b>Dataset</b>, select the dataset in which you want to create the
+        table.</li><li>In the <b>Table</b>field, enter the name of the table that you want to create.</li><li>Verify that the <b>Table type</b>field is set to <b>Native table</b>.</li></ol></li><li>In the <b>Schema</b>section, enter the <a>schema</a>definition.
+   To enable the <a>auto detection</a>of a schema,
+  select <b>Auto detect</b>.
+
+
+
+  
+
+  You can enter schema information manually by using one of
+     the following methods:
+<ul><li>Option 1: Click <b>Edit as text</b>and paste the schema in the form of a
+        JSON array. When you use a JSON array, you generate the schema using the
+        same process as <a>creating a JSON schema file</a>.
+        You can view the schema of an existing table in JSON format by entering the following
+      command:
+    <pre><a>bq show</a>--format=prettyjson <var>dataset.table</var></pre></li><li>Option 2: Click <span>add_box</span><b>Add field</b>and enter the table schema. Specify each field's <b>Name</b>,
+        <b>Type</b>,
+        and <b>Mode</b>.</li><aside><b>Note:</b>It is possible to modify the table's schema when you append or
+      overwrite it. For more information about supported schema changes during a
+      load operation, see
+      <a>Modifying table schemas</a>.
+     </aside></ul></li><li>Optional: Specify <b>Partition and cluster settings</b>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv.html
+
+Documentation Title:
+Loading CSV data from Cloud Storage  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+</aside><li>In the <b>Destination</b>section, specify the following details:
+<ol><li>For <b>Dataset</b>, select the dataset in which you want to create the
+        table.</li><li>In the <b>Table</b>field, enter the name of the table that you want to create.</li><li>Verify that the <b>Table type</b>field is set to <b>Native table</b>.</li></ol></li><li>In the <b>Schema</b>section, enter the <a>schema</a>definition.
+   To enable the <a>auto detection</a>of a schema,
+  select <b>Auto detect</b>.
+
+
+
+  
+
+  You can enter schema information manually by using one of
+     the following methods:
+<ul><li>Option 1: Click <b>Edit as text</b>and paste the schema in the form of a
+        JSON array. When you use a JSON array, you generate the schema using the
+        same process as <a>creating a JSON schema file</a>.
+        You can view the schema of an existing table in JSON format by entering the following
+      command:
+    <pre><a>bq show</a>--format=prettyjson <var>dataset.table</var></pre></li><li>Option 2: Click <span>add_box</span><b>Add field</b>and enter the table schema. Specify each field's <b>Name</b>,
+        <b>Type</b>,
+        and <b>Mode</b>.</li><aside><b>Note:</b>It is possible to modify the table's schema when you append or
+      overwrite it. For more information about supported schema changes during a
+      load operation, see
+      <a>Modifying table schemas</a>.
+     </aside></ul></li><li>Optional: Specify <b>Partition and cluster settings</b>. For more information, see
+       <a>Creating partitioned tables</a>and
+    <a>Creating and using clustered tables</a>.
+     You
+    cannot convert a table to a partitioned or clustered table by appending or
+    overwriting it.
 
 
 
@@ -16,44 +81,35 @@ Documentation Title:
 Batch loading data  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-</p><p>To authenticate to BigQuery, set up Application Default Credentials.
-      For more information, see
-      
-        <a>Set up authentication for client libraries</a>.
-      
-    </p>The following code demonstrates how to load a local CSV file to a new
-BigQuery table. To load a local file of another format, set
-the <a>LoadJobConfig.source_format
-property</a>to the appropriate format.</section><code>from google.cloud import bigquery
+Schema
+information is self-described in the source data for other supported
+file types.</p><li><p>You can also enter schema information manually by:</p><ul><li><p>Clicking <strong>Edit as text</strong>and entering the table schema as a JSON
+array:</p><aside><strong>Note:</strong><span>You can view the schema of an existing table in JSON
+format by entering the following command:
+<code>bq show --format=prettyjson <var>dataset.table</var></code>.</span></aside></li><p>Using <strong>Add Field</strong>to manually input the schema.</p></ul></li></ul></li><p>Select applicable items in the <strong>Advanced options</strong>section For information on the available options, see
+<a>CSV options</a>and <a>JSON options</a>.</p><li><p>Optional: In the <strong>Advanced options</strong>choose the write disposition:</p><ul><li><strong>Write if empty</strong>: Write the data only if the table is empty.</li><li><strong>Append to table</strong>: Append the data to the end of the table.
 
-# Construct a BigQuery client object.
-client = bigquery.Client()
 
-# TODO(developer): Set table_id to the ID of the table to create.
-# table_id = "your-project.your_dataset.your_table_name"
 
-job_config = bigquery.LoadJobConfig(
-    source_format=bigquery.SourceFormat.CSV, skip_leading_rows=1, autodetect=True,
-)
+Documentation Source:
+cloud.google.com/bigquery/docs/schemas.html
 
-with open(file_path, "rb") as source_file:
-    job = client.load_table_from_file(source_file, table_id, job_config=job_config)
+Documentation Title:
+Specifying a schema  |  BigQuery  |  Google Cloud
 
-job.result()  # Waits for the job to complete.
-
-table = client.get_table(table_id)  # Make an API request.
-print(
-    "Loaded {} rows and {} columns to {}".format(
-        table.num_rows, len(table.schema), table_id
-    )
-)</code></section><section><h3>Ruby </h3><section><p>Before trying this sample, follow the <span>Ruby</span>setup instructions in the
+Documentation Content:
+destination_table = client.get_table(table_id)  # Make an API request.
+print(f"Loaded {destination_table.num_rows} rows to {table_id}.")</code></section></section></div><h4>Specifying a schema file when you create a table</h4><p>To create an empty table in an existing dataset using a JSON schema file, do the following:</p><div><section><h3>bq</h3><pre>bq mk --table <var>project_id</var>:<var>dataset</var>.<var>table</var><var>path_to_schema_file</var></pre><p>Replace the following:</p><ul><li><var>project_id</var>: your project ID.</li><li><var>dataset</var>: a dataset in your project.</li><li><var>table</var>: the name of the table you're creating.</li><li><var>path_to_schema_file</var>: the path to the schema file on
+your local machine.</li></ul><p>For example, the following command creates a table named <code>mytable</code>in
+<code>mydataset</code>in your default project. The schema is specified in <code>myschema.json</code>in the current directory:</p><pre>bq mk --table mydataset.mytable ./myschema.json
+</pre></section><section><h3>Python</h3><section><p>Before trying this sample, follow the <span>Python</span>setup instructions in the
           <a>BigQuery quickstart using
             client libraries</a>.
         
       
       
   For more information, see the
-  <a>BigQuery <span>Ruby</span>API
+  <a>BigQuery <span>Python</span>API
     reference documentation</a>.
   
     </p><p>To authenticate to BigQuery, set up Application Default Credentials.
@@ -61,30 +117,7 @@ print(
       
         <a>Set up authentication for client libraries</a>.
       
-    </p>The following code demonstrates how to load a local CSV file to a new
-BigQuery table.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-list-datasets.html
-
-Documentation Title:
-List datasets  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized view</span><span>Query pagination</span><span>Query script</span><span>Query Sheets with a permanent table</span><span>Query Sheets with a temporary table</span><span>Query with the BigQuery API</span><span>Relax a column</span><span>Relax a column in a load append
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquerydatatransfer-create-youtubecontentowner-transfer.html
-
-Documentation Title:
-Load data from YouTube Content Owner reports  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-table labels</span><span>Get table properties</span><span>Get view properties</span><span>Grant view access</span><span>Import a local file</span><span>Insert GeoJSON data</span><span>Insert rows with no IDs</span><span>Insert WKT data</span><span>List by label</span><span>List datasets</span><span>List jobs</span><span>List models</span><span>List models using streaming</span><span>List routines</span><span>List tables</span><span>Load a CSV file</span><span>Load a CSV file to replace a table</span><span>Load a CSV file with autodetect schema</span><span>Load a DataFrame to BigQuery with pandas-gbq</span><span>Load a JSON file</span><span>Load a JSON file to replace a table</span><span>Load a JSON file with autodetect schema</span><span>Load a Parquet file</span><span>Load a Parquet to replace a table</span><span>Load a table in JSON format</span><span>Load an Avro file</span><span>Load an Avro file to replace a table</span><span>Load an ORC file</span><span>Load an ORC file to replace a table</span><span>Load data from DataFrame</span><span>Load data into a column-based time partitioning table</span><span>Migration Guide: pandas-gbq</span><span>Migration Guide: pandas-gbq</span><span>Named parameters</span><span>Named parameters and provided types</span><span>Nested repeated schema</span><span>Positional parameters</span><span>Positional parameters and provided types</span><span>Preview table data</span><span>Query a clustered table</span><span>Query a column-based time-partitioned table</span><span>Query a table</span><span>Query Bigtable using a permanent table</span><span>Query Bigtable using a temporary table</span><span>Query Cloud Storage with a permanent table</span><span>Query Cloud Storage with a temporary table</span><span>Query materialized
+    </p>To load a table schema from a JSON file using the Python client library, call the <a>schema_from_json</a>method.
 
 
 

@@ -139,32 +139,50 @@ For example, to insert two additional rows into the table:
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/sample-data-using.md
+docs.snowflake.com/en/user-guide/ui-snowsight-filters.md
 
 Documentation Title:
-Using the Sample Database | Snowflake Documentation
+Filter query results in dashboards and worksheets | Snowflake Documentation
 
 Documentation Content:
+Example: Working with date filters¶
+
+For example, given a table with order data, such as the ORDERS table in the SNOWFLAKE\_SAMPLE\_DATA database and TPCH\_SF1 schema, you
+might want to query the table and group the results by a specific time bucket, such as by day or by week, and specify a specific date range
+for which to retrieve results.
+
+To do so, you can write a query as follows:
+
+
 ```
-show databaseslike'%sample%';+-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+| created_on                    | name                  | is_default | is_current | origin                  | owner        | comment | options | retention_time ||-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------|| 2016-07-14 14:30:21.711 -0700 | SNOWFLAKE_SAMPLE_DATA | N          | N          | SFC_SAMPLES.SAMPLE_DATA | ACCOUNTADMIN |         |         | 1              |+-------------------------------+-----------------------+------------+------------+-------------------------+--------------+---------+---------+----------------+
+SELECTCOUNT(O_ORDERDATE)asorders,:datebucket(O_ORDERDATE)asbucketFROMSNOWFLAKE_SAMPLE_DATA.TPCH_SF1.ORDERSWHEREO_ORDERDATE=:daterangeGROUPBY:datebucket(O_ORDERDATE)ORDERBYbucket;
 ```
-CopyNote that this example illustrates the sample database, SNOWFLAKE\_SAMPLE\_DATA, has been shared with your accountby Snowflake.
+CopyIn this example, you:
 
-The origincolumn in the SHOW DATABASES output (or the Origincolumn in the Databases!page in the interface) displays the fully-qualified name of the shared
-database, SFC\_SAMPLES.SAMPLE\_DATA, indicating it originated from the SFC\_SAMPLES account (used by Snowflake to share the sample data).
+Count the number of orders and retrieve details about the order date from the ORDERS table.
 
-Querying Tables and Views in the Sample Database¶
--------------------------------------------------
+Filter your results by a specific date range by including the :daterangesystem filter in your WHERE clause.
 
-To use a table or view in the sample database, you can either:
+Group your results by a specific period of time by including the :datebucketsystem filter in your GROUP BY clause.
 
-* Reference the fully-qualified name of the table in your query (in the form of `snowflake_sample_data.schema_name.object_name`).
-
-OR
-Specify the sample database (and schema) for your session using the USE DATABASEand/or USE SCHEMAcommands.
+Sort the results from earliest to latest time period by including the ORDER BY clause.
 
 
-The following two examples illustrate using both approaches to query the lineitemtable in the tpch\_sf1schema:
+When you add filters to your query, corresponding filter buttons appear at the top of your worksheet or dashboard:
+
+!To manipulate the results that you see from your query, use the filters to select specific values.
+
+For this example, set the Group byfilter, which corresponds to the date bucket filter, to group by Day. Set the other
+filter, which corresponds to the date range filter, to `Alltime`.
+
+When you select Applyand apply the filter to your results, the results are grouped by day and results like the following output
+appear:
+
+
+```
++--------+------------+| orders |  buckets   |+--------+------------+|    621 | 1992-01-01 ||    612 | 1992-01-02 ||    598 | 1992-01-03 ||    670 | 1992-01-04 |+--------+------------+
+```
+You can select a different date bucket to show a different grouping of data. For example, to view weekly order data, set the Group byfilter to Weekand select Apply. Results like the following output appear:
 
 
 

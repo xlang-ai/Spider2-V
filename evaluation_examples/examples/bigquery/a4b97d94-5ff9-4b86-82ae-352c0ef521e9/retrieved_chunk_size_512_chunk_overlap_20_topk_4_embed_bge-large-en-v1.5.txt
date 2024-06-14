@@ -108,6 +108,91 @@ Documentation Title:
 Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+Go to IAM & Admin
+Click
+person_add
+Grant Access
+.
+In the
+New principals
+field, enter the service account ID that you
+copied earlier.
+In the
+Select a role
+field, choose
+Vertex AI
+, and then
+select
+Vertex AI User role
+.
+Click
+Save
+.
+Create the remote model
+Create a remote model that represents a hosted Vertex AI
+large language model (LLM):
+SQL
+In the Google Cloud console, go to the
+BigQuery
+page.
+Go to BigQuery
+In the query editor, run the following statement:
+CREATE OR REPLACE MODEL `bqml_tutorial.llm_model`
+REMOTE WITH CONNECTION `
+LOCATION
+.
+CONNECTION_ID
+`
+OPTIONS (ENDPOINT = 'text-bison');
+Replace the following:
+LOCATION
+: the connection location
+CONNECTION_ID
+: the ID of your
+BigQuery connection
+When you
+view the connection details
+in the Google Cloud console, this is the value in the last section of
+  the fully qualified connection ID that is shown in
+Connection ID
+, for example
+projects/myproject/locations/connection_location/connections/
+myconnection
+The query takes several seconds to complete, after which the model
+llm_model
+appears in the
+bqml_tutorial
+dataset in the
+Explorer
+pane.
+Because the query uses a
+CREATE MODEL
+statement to create a model, there
+are no query results.
+BigQuery DataFrames
+Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the
+BigQuery quickstart
+    using BigQuery DataFrames
+.
+    For more information, see the
+BigQuery DataFrames reference documentation
+.
+To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see
+Set 
+    up authentication for a local development environment
+.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/generate-text-tutorial.txt
+
+Documentation Title:
+Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
+
+Documentation Content:
 To generate a cost estimate based on your projected usage,
       use the
 pricing calculator
@@ -201,91 +286,18 @@ remote functions and BigLake (Cloud Resource)
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/vector-index-text-search-tutorial.txt
+cloud.google.com/bigquery/docs/generate-multimodal-embeddings.txt
 
 Documentation Title:
-Perform semantic search and retrieval-augmented generation  |  BigQuery  |  Google Cloud
+Generate and search multimodal embeddings  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-REGION
-.
-CONNECTION_ID
-{"serviceAccountId": "connection-1234-9u56h9@gcp-sa-bigquery-condel.iam.gserviceaccount.com"}
-Terraform
-Append the following section into your
-main.tf
-file.
-## This creates a cloud resource connection.
- ## Note: The cloud resource nested object has only one output only field - serviceAccountId.
- resource "google_bigquery_connection" "connection" {
-    connection_id = "
-CONNECTION_ID
-"
-    project = "
-PROJECT_ID
-"
-    location = "
-REGION
-"
-    cloud_resource {}
-}
-Replace the following:
-CONNECTION_ID
-: an ID for your
-connection
-PROJECT_ID
-: your Google Cloud project ID
-REGION
-: your
-connection region
-Grant the service account access
-To grant the connection's service account an appropriate role to access the
-Vertex AI service, follow these steps:
-Go to the
-IAM & Admin
-page.
-Go to IAM & Admin
-Click
-person_add
-Grant Access
-.
 In the
-New principals
-field, enter the service account ID that you
-copied earlier.
-In the
-Select a role
-field, choose
-Vertex AI
-, and then
-select
-Vertex AI User role
+Connection type
+list, select
+Vertex AI remote models,
+remote functions and BigLake (Cloud Resource)
 .
-Click
-Save
-.
-Create the remote model for text embedding generation
-Create a remote model that represents a hosted Vertex AI
-text embedding generation model:
-In the Google Cloud console, go to the
-BigQuery
-page.
-Go to BigQuery
-In the query editor, run the following statement:
-CREATE OR REPLACE MODEL `bqml_tutorial.embedding_model`
-  REMOTE WITH CONNECTION `
-LOCATION
-.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/generate-text-tutorial.txt
-
-Documentation Title:
-Generate text by using a remote model and the ML.GENERATE_TEXT function  |  BigQuery  |  Google Cloud
-
-Documentation Content:
 In the
 Connection ID
 field, enter a name for your
@@ -371,16 +383,11 @@ REGION
 : your
 connection region
 Grant permissions to the connection's service account
-To grant the connection's service account an appropriate role to access the
-Vertex AI service, follow these steps:
+To grant the connection's service account appropriate roles to access
+the Cloud Storage and Vertex AI services, follow these steps:
 Go to the
 IAM & Admin
 page.
-Go to IAM & Admin
-Click
-person_add
-Grant Access
-.
 
 
 

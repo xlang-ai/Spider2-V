@@ -62,6 +62,21 @@ Documentation Title:
 Version control Airbyte configurations with Octavia CLI | Airbyte
 
 Documentation Content:
+In this tutorial, you will learn how to use Octavia CLI to configure Airbyte resources to move data between Postgres and BigQuery. More precisely, you will learn how to:</p><ul><li>Bootstrap an Octavia CLI project</li><li>Import the configuration of an existing instance</li><li>Create a <a>Postgres source</a>configuration in YAML</li><li>Create a <a>BigQuery destination</a>configuration in YAML</li><li>Create a Postgres to BigQuery connection configuration in YAML</li><li>Edit YAML configuration files</li><li>Apply configurations to a different instance</li></ul><h2>Prerequisites</h2><ul><li>Docker and Docker Compose installed.</li><li>An <a>Airbyte open-source</a>instance. This tutorial uses Airbyte v0:40:18 running locally with Docker Compose.</li><li>A Postgres instance or another source you can use instead. Follow this <a>Postgres replication</a>tutorial to create a Postgres database locally with sample data.</li><li>A BigQuery instance or another destination you can use instead. Follow this <a>Postgres to BigQuery</a>tutorial to configure a BigQuery project.</li></ul><h2>Bootstrap an Octavia CLI project</h2><p>You can install Octavia CLI as a command available in your bash profile with Docker or modify your Airbyte docker-compose.yml file to apply the configuration on start. You can explore these three modes in the <a>Octavia CLI documentation</a>. Note that you should install the same Octavia version as the targetted Airbyte instance to avoid <a>API incompatibility issues</a>.</p><p>Here you can install the latest Octavia version as a bash command:</p><code>curl -s -o- https://raw.githubusercontent.com/airbytehq/airbyte/master/octavia-cli/install.sh | bash
+
+octavia alias will be added to /home/ari/.bashrc
+🐙 - 💾 The octavia env file was created at /home/ari/.octavia
+❓ - Allow Airbyte to collect telemetry to improve the CLI?
+
+
+
+Documentation Source:
+airbyte.com/tutorials/version-control-airbyte-configurations.html
+
+Documentation Title:
+Version control Airbyte configurations with Octavia CLI | Airbyte
+
+Documentation Content:
 🎉 - Successfully created postgres on your Airbyte instance!
 💾 - New state for postgres saved at ./sources/postgres/state_36ddb450-66e4-4988-91bf-67279eed5098.yaml
 </code><p>Then you can check that the configuration is also available in the UI.</p><img/><p>After you apply some configuration changes with Octavia, no connection test will be run like when you save connector settings in the UI (see <a>GitHub issue</a>). You can still use the UI to test that the source setting allows Airbyte to connect.</p><p>‍</p><img/><p>After you apply some changes, Octavia creates a <strong>state.yaml</strong>file in the resource directory with the checksum of the latest configuration applied and the generation timestamp. The state files are instance and workspace specific so they are only useful when multiple users or Octavia CLI processes work on the same instance and workspace.
@@ -75,61 +90,36 @@ Documentation Title:
 Version control Airbyte configurations with Octavia CLI | Airbyte
 
 Documentation Content:
-🐙 - Project is not yet initialized.
-🔨 - Initializing the project.
-✅ - Created the following directories: destinations, sources, connections.
-✅ - Created API HTTP headers file in api_http_headers.yaml
-</code><p>This will create folders for the source, destination, and connection resource definitions. It also creates an <strong>api_http_headers.yaml</strong>file.</p><code>tree .
+✅ - Created the source template for postgres in sources/postgres/configuration.yaml.
+</code><p>The CLI creates a <strong>postgres</strong>folder under sources with a <strong>configuration.yaml</strong>file.</p><code>tree .
 .
 ├── api_http_headers.yaml
 ├── connections
 ├── destinations
 └── sources
+    └── postgres
+        └── configuration.yaml
 
-3 directories, 1 file
-</code><p>If you have an existing Airbyte instance that you want to version control, you can get the configurations with the <strong>octavia import all</strong>command after you init an Octavia CLI project.</p><h2>Create a Postgres source with Octavia CLI</h2><p>Next, you will configure a <a>Postgres source</a>. To create a source definition with Octavia CLI you can use the <strong>octavia generate source </strong>command. You will need to pass a DEFINITION_ID and RESOURCE_NAME. Due to a <a>current limitation</a>, to create a source, you first need to get the definition id for the source. You can run the command <strong>octavia list connectors sources </strong>to get the connector id:</p><code>octavia list connectors sources | grep postgres
+4 directories, 2 files
+</code><p>The YAML file contains all the fields with the default values you see on the UI, and the description for each field as a comment. Below you can see the beginning of the file.</p><code>more sources/postgres/configuration.yaml 
 
-Postgres                                airbyte/source-postgres                        1.0.22            decd338e-5647-4c0b-adf4-da0e75f5a750
-</code><p>Then you can bootstrap a Postgres source with the <strong>octavia generate source</strong>command:</p><code>octavia generate source decd338e-5647-4c0b-adf4-da0e75f5a750 postgres
-
-🐙 - Octavia is targetting your Airbyte instance running at http://localhost:8000 on workspace 36ddb450-66e4-4988-91bf-67279eed5098.
-✅ - Created the source template for postgres in sources/postgres/configuration.yaml.
-
-
-
-Documentation Source:
-airbyte.com/tutorials/version-control-airbyte-configurations.html
-
-Documentation Title:
-Version control Airbyte configurations with Octavia CLI | Airbyte
-
-Documentation Content:
-Otherwise, you can generate a new source configuration to see all available options.</p><p>Source and destination configurations have credential fields you want to store as something other than plain text. Octavia offers secret management through environment variables expansion on configuration files. You can set environment variables in your <strong>~/.octavia</strong>file. Then you can reference these variables on your configuration files with ${POSTGRES_PASSWORD}. After editing the configuration, it should look like this:</p><code>cat sources/postgres/configuration.yaml
-
+# Configuration for airbyte/source-postgres
+# Documentation about this connector can be found at https://docs.airbyte.com/integrations/sources/postgres
 resource_name: "postgres"
 definition_type: source
 definition_id: decd338e-5647-4c0b-adf4-da0e75f5a750
 definition_image: airbyte/source-postgres
-definition_version: 1.0.14
+definition_version: 1.0.22
 
+# EDIT THE CONFIGURATION BELOW!
 configuration:
-  host: ${POSTGRES_HOST}
-  port: 2000
-  schemas: ["public"]
-  database: ${POSTGRES_DATABASE}
-  password: ${POSTGRES_PASSWORD}
-  ssl_mode:
-    mode: "disable"
-  username: ${POSTGRES_USERNAME}
-  tunnel_method:
-    tunnel_method: "NO_TUNNEL"
-  replication_method:
-    method: "Standard"
-</code><p>To apply the changes to your local Airbyte instance, you can run <strong>octavia apply</strong>. Octavia will validate the configuration against a JSON schema and will fail to apply the changes if finding any configuration error. If an error occurs, you will get a stack trace from the API response.</p><code>octavia apply
-
-🐙 - Octavia is targetting your Airbyte instance running at http://localhost:8000 on workspace 36ddb450-66e4-4988-91bf-67279eed5098.
-🐙 - postgres does not exists on your Airbyte instance, let's create it!
-🎉 - Successfully created postgres on your Airbyte instance!
+  ssl: # OPTIONAL | boolean | Encrypt data using SSL. When activating SSL, please select one of the connection modes.
+  host: # REQUIRED | string | Hostname of the database.
+  port: 5432 # REQUIRED | integer | Port of the database. | Example: 5432
+  schemas: ["public"] # OPTIONAL | array | The list of schemas (case sensitive) to sync from. Defaults to public.
+  database: # REQUIRED | string | Name of the database.
+  password: ${PASSWORD} # SECRET (please store in environment variables) | OPTIONAL | string | Password associated with the username.
+</code><p>You must edit the configuration above before applying the changes to your Airbyte instance. You must fill in the values for the REQUIRED fields and edit, comment, or delete the lines for the OPTIONAL fields. Commenting on the OPTIONAL fields may be useful when you want to edit the configuration in the future as you keep all options like in the UI.
 
 
 

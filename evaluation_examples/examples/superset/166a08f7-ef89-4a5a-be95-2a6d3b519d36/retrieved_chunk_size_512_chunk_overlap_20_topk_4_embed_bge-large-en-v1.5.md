@@ -67,50 +67,70 @@ To allow scheduled queries, add the following to `SCHEDULED_QUERIES`in your conf
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/indexf8a0.md
+superset.apache.org/docs/configuration/alerts-reports/index.md
 
 Documentation Title:
-Index of /docs/configuration
+Alerts and Reports | Superset
 
 Documentation Content:
-html/ 2024-04-24 21:23 | - |
-|!timezones.htm/ 2024-04-24 21:23 | - |
-|!timezones.html/ 2024-04-24 21:23 | - |
-|!databases.htm/ 2024-05-01 01:36 | - |
-|!databases.html/ 2024-05-01 01:36 | - |
-|!alerts-reports/ 2024-05-06 16:58 | - |
-|!async-queries-celery/ 2024-05-06 16:58 | - |
-|!cache/ 2024-05-06 16:58 | - |
-|!configuring-superset/ 2024-05-06 16:58 | - |
-|!country-map-tools/ 2024-05-06 16:58 | - |
-|!databases/ 2024-05-06 16:58 | - |
-|!event-logging/ 2024-05-06 16:58 | - |
-|!importing-exporting-datasources/ 2024-05-06 16:58 | - |
-|!networking-settings/ 2024-05-06 16:58 | - |
-|!setup-ssh-tunneling/ 2024-05-06 16:58 | - |
-|!sql-templating/ 2024-05-06 16:58 | - |
-|!timezones/ 2024-05-06 16:58 | - |
+Confirm feature flag is enabled and you have sufficient permissions​
+
+If you don't see "Alerts & Reports" under the *Manage*section of the Settings dropdown in the Superset UI, you need to enable the `ALERT_REPORTS`feature flag (see above). Enable another feature flag and check to see that it took effect, to verify that your config file is getting loaded.
+
+Log in as an admin user to ensure you have adequate permissions.
 
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/event-logging/index.md
+superset.apache.org/docs/using-superset/exploring-data/index.md
 
 Documentation Title:
-Event Logging | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-Edit this pagePreviousSetup SSH TunnelingNextCountry Map ToolsEvent LoggingStatsD LoggingWe use  !Copyright © 2024,
- The Apache Software Foundation,
- Licensed under the Apache License.
+Table Visualization​
 
-Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
- Apache Software Foundationresources!Security| 
- Donate| 
- Thanks| 
- Events| 
- License| 
- Privacy!
+You should now see *tutorial\_flights*as a dataset in the **Datasets**tab. Click on the entry to
+launch an Explore workflow using this dataset.
+
+In this section, we'll create a table visualization
+to show the number of flights and cost per travel class.
+
+By default, Apache Superset only shows the last week of data. In our example, we want to visualize all
+of the data in the dataset. Click the **Time ‣ Time Range**section and change
+the **Range Type**to **No Filter**.
+
+!Click **Apply**to save.
+
+Now, we want to specify the rows in our table by using the **Group by**option. Since in this
+example, we want to understand different Travel Classes, we select **Travel Class**in this menu.
+
+Next, we can specify the metrics we would like to see in our table with the **Metrics**option.
+
+* `COUNT(*)`, which represents the number of rows in the table
+(in this case, quantity of flights in each Travel Class)
+* `SUM(Cost)`, which represents the total cost spent by each Travel Class
+
+!Finally, select **Run Query**to see the results of the table.
+
+!To save the visualization, click on **Save**in the top left of the screen. In the following modal,
+
+* Select the **Save as**option and enter the chart name as Tutorial Table (you will be able to find it again through the
+**Charts**screen, accessible in the top menu).
+* Select **Add To Dashboard**and enter
+Tutorial Dashboard. Finally, select **Save & Go To Dashboard**.
+
+!### Dashboard Basics​
+
+Next, we are going to explore the dashboard interface. If you’ve followed the previous section, you
+should already have the dashboard open. Otherwise, you can navigate to the dashboard by selecting
+Dashboards on the top menu, then Tutorial dashboard from the list of dashboards.
+
+On this dashboard you should see the table you created in the previous section. Select **Edit
+dashboard**and then hover over the table. By selecting the bottom right hand corner of the table
+(the cursor will change too), you can resize it by dragging and dropping.
+
+!Finally, save your changes by selecting Save changes in the top right.
 
 
 

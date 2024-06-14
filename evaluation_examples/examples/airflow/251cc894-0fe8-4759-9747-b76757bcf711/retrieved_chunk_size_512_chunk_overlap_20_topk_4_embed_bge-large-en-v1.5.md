@@ -1,74 +1,4 @@
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.md
-
-Documentation Title:
-Debug DAGs | Astronomer Documentation
-
-Documentation Content:
-This is especially relevant when running Airflow in Docker or when using the Astro CLI.
-* Are your Airflow connectionsset up correctly with correct credentials? See Troubleshooting connections.
-* Is the issue with all DAGs, or is it isolated to one DAG?
-* Can you collect the relevant logs? For more information on log location and configuration, see the Airflow loggingguide.
-* Which versions of Airflow and Airflow providers are you using? Make sure that you're using the correct version of the Airflow documentation.
-* Can you reproduce the problem in a new local Airflow instance using the Astro CLI?
-
-Answering these questions will help you narrow down what kind of issue you're dealing with and inform your next steps.
-
-infoYou can debug your DAG code with IDE debugging tools using the `dag.test()`method. See Debug interactively with dag.test().
-
-Airflow is not starting on the Astro CLI​
------------------------------------------
-
-The 3 most common ways to run Airflow locally are using the Astro CLI, running a standalone instance, or running Airflow in Docker. This guide focuses on troubleshooting the Astro CLI, which is an open source tool for quickly running Airflow on a local machine.
-
-The most common issues related to the Astro CLI are:
-
-* The Astro CLI was not correctly installed. Run `astro version`to confirm that you can successfully run Astro CLI commands. If a newer version is available, consider upgrading.
-* The Docker Daemon is not running. Make sure to start Docker Desktop before starting the Astro CLI.
-* There are errors caused by custom commands in the Dockerfile, or dependency conflicts with the packages in `packages.txt`and `requirements.txt`.
-* Airflow components are in a crash-loop because of errors in custom plugins or XCom backends. View scheduler logs using `astro dev logs -s`to troubleshoot.
-
-To troubleshoot infrastructure issues when running Airflow on other platforms, for example in Docker, on Kubernetes using the Helm Chartor on managed services, please refer to the relevant documentation and customer support.
-
-You can learn more about testing and troubleshooting locallywith the Astro CLI in the Astro documentation.
-
-Common DAG issues​
-------------------
-
-This section covers common issues related to DAG code that you might encounter when developing.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/testing-airflow.md
-
-Documentation Title:
-Test Airflow DAGs | Astronomer Documentation
-
-Documentation Content:
-Test DAGs in a CI/CD pipeline​
-
-You can use CI/CD tools to test and deploy your Airflow code. By installing the Astro CLI into your CI/CD process, you can test your DAGs before deploying them to a production environment. See set up CI/CDfor example implementations.
-
-infoAstronomer customers can use the Astro GitHub integration, which allows you to automatically deploy code from a GitHUb repository to an Astro deployment, viewing Git metadata in the Astro UI. See Deploy code with the Astro GitHub integration.
-
-Add test data or files for local testing​
------------------------------------------
-
-Use the `include`folder of your Astro project to store files for testing locally, such as test data or a dbt project file. The files in your `include`folder are included in your deploys to Astro, but they are not parsed by Airflow. Therefore, you don't need to specify them in `.airflowignore`to prevent parsing.
-
-If you're running Airflow locally, apply your changes by refreshing the Airflow UI.
-
-Debug interactively with dag.test()​
-------------------------------------
-
-The `dag.test()`method allows you to run all tasks in a DAG within a single serialized Python process, without running the Airflow scheduler. The `dag.test()`method lets you iterate faster and use IDE debugging tools when developing DAGs.
-
-This functionality replaces the deprecated DebugExecutor. Learn more in the Airflow documentation.
-
-
-
-Documentation Source:
 docs.astronomer.io/astro/manage-dags.md
 
 Documentation Title:
@@ -99,15 +29,81 @@ These actions are available on the **DAGs**page, where you can see detailed info
 
 
 Documentation Source:
-docs.astronomer.io/learn/testing-airflow.md
+docs.astronomer.io/learn/get-started-with-airflow.md
 
 Documentation Title:
-Test Airflow DAGs | Astronomer Documentation
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
 
 Documentation Content:
-Use `dag.test()`with the Astro CLI​
+To run Airflow on alternative ports, run:
 
-If you use the Astro CLI exclusively and do not have the `airflow`package installed locally, you can still debug using `dag.test()`by running `astro dev start`, entering the scheduler container with `astro dev bash -s`, and executing `python `from within the Docker container. Unlike using the base `airflow`package, this testing method requires starting up a complete Airflow environment.
+`astro config setwebserver.port astro config setpostgres.port `Step 3: Log in to the Airflow UI​
+---------------------------------
+
+The Airflow UIis essential for managing Airflow. It contains information about your DAGs and is the best place to create and update Airflow connections to third-party data services.
+
+To access the Airflow UI, open `http://localhost:8080/`in a browser and log in with `admin`for both your username and password.
+
+The default page in the Airflow UI is the **DAGs**page, which shows an overview of all DAGs in your Airflow environment:
+
+!Each DAG is listed with a few of its properties, including tags, owner, previous runs, schedule, timestamp of the last and next run, and the states of recent tasks. Because you haven't run any DAGs yet, the **Runs**and **Recent Tasks**sections are empty. Let's fix that!
+
+Step 4: Trigger a DAG run​
+--------------------------
+
+The `example_astronauts`DAG in your Astro project is a simple ETL pipeline with two tasks:
+
+* `get_astronauts`queries the Open Notify APIfor information about astronauts currently in space. The task returns the list of dictionaries containing the name and the spacecraft of all astronauts currently in space, which is passed to the second task in the DAG. This tutorial does not explain how to pass data between tasks, but you can learn more about it in the Pass data between tasksguide.
+* `print_astronaut_craft`is a task that uses dynamic mapping to create and run a task instance for each Astronaut in space. Each of these tasks prints a statement about its mapped astronaut. Dynamic task mapping is a versatile feature of Airflow that allows you to create a variable number of tasks at runtime. This feature is covered in more depth in the Create dynamic Airflow tasksguide.
+
+A **DAG run**is an instance of a DAG running on a specific date. Let's trigger a run of the `example_astronauts`DAG!
+
+1.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/manage-dags.md
+
+Documentation Title:
+Manage DAG runs from the Astro UI | Astronomer Documentation
+
+Documentation Content:
+Available actions​
+
+The actions and views on this page are functionally identical to certain actions in the Airflow UI. Use the following table to understand each available Astro UI action and its equivalent action in the Airflow UI.
+
+
+
+| User action | **DAGs**page workflow | Equivalent Airflow UI workflow |
+| --- | --- | --- |
+| Trigger a DAG run. | Click **Run**. | Click the **Play**icon on the **DAGs**page. |
+| --- | --- | --- |
+| View the DAG run grid. | None. DAG code appears by default. | Click the DAG name on the **DAGs**page. |
+| View the graphfor a DAG run. | None. DAG code appears by default. | Click the DAG name on the **DAGs**page, then click **Graph**. |
+| View task run logs. | Click the task run in the DAG run grid, then click **Logs**. | Click the DAG name on the **DAGs**page, click the task run in the **Grid**view, then click **Logs**. |
+| View DAG code. | None. DAG code appears by default. | Click the DAG name on the **DAGs**page, then click **Code**. |
+| Retry a DAG run. | Click the DAG run in the DAG run grid, then click **Retry**. | Click the DAG name on the **DAGs**page, click the DAG run in the **Grid**view, then click **Clear existing tasks**. |
+| Retry a task run. | Click the task run in the DAG run grid, click **Retry**, then select additional options for retrying your task(s). | Click the DAG name on the **DAGs**page, click the task run in the **Grid**view, then click **Clear**. |
+| Mark a DAG/ task runas success/ failed. | Click the DAG/task run in the DAG run grid, then click **Mark as...**.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/migrate-gcc.md
+
+Documentation Title:
+Migrate to Astro from Google Cloud Composer | Astronomer Documentation
+
+Documentation Content:
+Step 10: Cut over from your source Airflow environment to Astro​
+----------------------------------------------------------------
+
+After you successfully deploy your code to Astro, you need to migrate your workloads from your source Airflow environment to Astro on a DAG-by-DAG basis. Depending on how your workloads are set up, Astronomer recommends letting DAG owners determine the order to migrate and test DAGs.
+
+You can complete the following steps in the few days or weeks following your migration set up. Provide updates to your Astronomer Data Engineer as they continue to assist you through the process and any solve any difficulties that arise.
+
+Continue to validate and move your DAGs until you have fully cut over your source Airflow instance. After you finish migrating from your source Airflow environment, repeat the complete migration process for any other Airflow instances in your source Airflow environment.
 
 
 

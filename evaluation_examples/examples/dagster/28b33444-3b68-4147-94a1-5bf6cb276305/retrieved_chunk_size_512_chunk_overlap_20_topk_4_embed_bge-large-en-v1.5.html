@@ -33,17 +33,13 @@ The sensor evaluation function can yield a <code>SkipReason</code>with a string 
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/partitioning-assets.html
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.html
 
 Documentation Title:
-Partitioning assets | Dagster
+Sensors | Dagster Docs
 
 Documentation Content:
-For example, the following code snippet demonstrates the usage of a <a>sensor</a>to detect the presence of a new partition and then trigger a run for that partition:</p><code>images_job <span>=</span>define_asset_job<span>(</span><span>"images_job"</span><span>,</span>AssetSelection<span>.</span>assets<span>(</span><span>"images"</span><span>)</span><span>,</span>partitions_def<span>=</span>images_partitions_def
-<span>)</span><span>@sensor</span><span>(</span>job<span>=</span>images_job<span>)</span><span>def</span><span>image_sensor</span><span>(</span>context<span>:</span>SensorEvaluationContext<span>)</span><span>:</span>new_images <span>=</span><span>[</span>img_filename
-        <span>for</span>img_filename <span>in</span>os<span>.</span>listdir<span>(</span>os<span>.</span>getenv<span>(</span><span>"MY_DIRECTORY"</span><span>)</span><span>)</span><span>if</span><span>not</span>images_partitions_def<span>.</span>has_partition_key<span>(</span>img_filename<span>,</span>dynamic_partitions_store<span>=</span>context<span>.</span>instance
-        <span>)</span><span>]</span><span>return</span>SensorResult<span>(</span>run_requests<span>=</span><span>[</span>RunRequest<span>(</span>partition_key<span>=</span>img_filename<span>)</span><span>for</span>img_filename <span>in</span>new_images
-        <span>]</span><span>,</span>dynamic_partitions_requests<span>=</span><span>[</span>images_partitions_def<span>.</span>build_add_request<span>(</span>new_images<span>)</span><span>]</span><span>,</span><span>)</span></code><h3>Recommended partition limits<span>#</span></h3><p>We recommend limiting the number of partitions for each asset to 25,000 or fewer.
+For example, you can:</p><ul><li>Launch a run whenever a file appears in an s3 bucket</li><li>Launch a run whenever another job materializes a specific asset</li><li>Launch a run whenever an external system is down</li></ul><p>A sensor defines an evaluation function that returns either:</p><ul><li>One or more <code>RunRequest</code>objects. Each run request launches a run.</li><li>An optional <code>SkipReason</code>, which specifies a message which describes why no runs were requested.</li></ul><p>The <a>Dagster daemon</a>runs each sensor evaluation function on a tight loop. If using sensors, follow the instructions in the <a>Dagster daemon documentation</a>to run your sensors.</p><h2>Relevant APIs<span>#</span></h2><table><tr><th>Name</th><th>Description</th></tr><tbody><tr><code>@sensor</code><td>The decorator used to define a sensor. The decorated function is called the sensor's evaluation function. The decorator returns a <code>SensorDefinition</code>.</td></tr><tr><code>SensorDefinition</code><td>Class for sensors. You almost never want to use initialize this class directly. Instead, you should use the <code>@sensor</code>decorator, which returns a <code>SensorDefinition</code></td></tr><tr><code>SensorEvaluationContext</code><td>The context object passed to a sensor evaluation function.</td></tr><tr><code>build_sensor_context</code><td>A function that constructs an instance of <code>SensorEvaluationContext</code>, This is intended to be used to test a sensor.</td></tr><tr><code>@run_status_sensor</code><td>The decorator used to define a run status sensor. The decorator returns a <code>RunStatusSensorDefinition</code></td></tr><tr><code>@run_failure_sensor</code><td>The decorator used to define a run failure sensor.
 
 
 

@@ -1,230 +1,440 @@
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.txt
+docs.astronomer.io/astro/cloud-ide/quickstart.txt
 
 Documentation Title:
-Debug DAGs | Astronomer Documentation
+Astro Cloud IDE quickstart | Astronomer Documentation
 
 Documentation Content:
-If you do, the environment variable takes precedence.
-Test if your credentials work when used in a direct API call to the external tool.
-Test your connections using the Airflow UI or the Airflow CLI. See
-Testing connections
-.
-note
-Testing connections is disabled by default in Airflow 2.7+. You can enable connection testing by defining the environment variable
-AIRFLOW__CORE__TEST_CONNECTION=Enabled
-in your Airflow environment. Astronomer recommends not enabling this feature until you are sure that only highly trusted UI/API users have "edit connection" permissions.
-To find information about what parameters are required for a specific connection:
-Read provider documentation in the
-Astronomer Registry
-to access the Apache Airflow documentation for the provider. Most commonly used providers will have documentation on each of their associated connection types. For example, you can find information on how to set up different connections to Azure in the Azure provider docs.
-Check the documentation of the external tool you are connecting to and see if it offers guidance on how to authenticate.
-View the source code of the hook that is being used by your operator.
-You can also test connections from within your IDE by using the
-dag.test()
-method. See
-Debug interactively with dag.test()
-and
-How to test and debug your Airflow connections
-.
-I need more help
+Click
+Results
+to view the result of your successful cell run.
+info
+If the error message
+Could not connect to cell execution environment
+appears after running a cell, check the
+Astro status page
+to determine the operational status of the Astro control plane. If the control plane is operational, contact
+Astronomer support
+and share the error. To enable cell runs, Astronomer support might need to set up additional cloud infrastructure for the IDE.
+Step 5: Create a database connection
 ​
-The information provided here should help you resolve the most common issues. If your issue was not covered in this guide, try the following resources:
-If you are an Astronomer customer contact our
-customer support
-.
-Post your question to
-Stack Overflow
-, tagged with
-airflow
-and other relevant tools you are using. Using Stack Overflow is ideal when you are unsure which tool is causing the error, since experts for different tools will be able to see your question.
-Join the
-Apache Airflow Slack
-and open a thread in
-#newbie-questions
-or
-#troubleshooting
-. The Airflow slack is the best place to get answers to more complex Airflow specific questions.
-If you found a bug in Airflow or one of its core providers, please open an issue in the
-Airflow GitHub repository
-. For bugs in Astronomer open source tools please open an issue in the relevant
-Astronomer repository
-.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/debugging-dags.txt
-
-Documentation Title:
-Debug DAGs | Astronomer Documentation
-
-Documentation Content:
-To get more specific answers to your question, include the following information in your question or issue:
-Your method for running Airflow (Astro CLI, standalone, Docker, managed services).
-Your Airflow version and the version of relevant providers.
-The full error with the error trace if applicable.
-The full code of the DAG causing the error if applicable.
-What you are trying to accomplish in as much detail as possible.
-What you changed in your environment when the problem started.
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-DAG writing best practices
-Next
-Dynamic tasks
-Assumed knowledge
-General Airflow debugging approach
-Airflow is not starting on the Astro CLI
-Common DAG issues
-DAGs don't appear in the Airflow UI
-Import errors due to dependency conflicts
-DAGs are not running correctly
-Common task issues
-Tasks are not running correctly
-Tasks are failing
-Issues with dynamically mapped tasks
-Missing Logs
-Troubleshooting connections
-I need more help
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/astro/astro-support.txt
-
-Documentation Title:
-Submit a support request | Astronomer Documentation
-
-Documentation Content:
-Additionally, if the immediate problem is solved but there are follow up investigations ongoing, those follow ups will be conducted in a separate ticket at a lower priority.
-P2:
-High impact. Ability to use Astro is severely impaired but does not affect critical, previously working pipelines in production.
-Examples:
-A newly deployed production DAG is not working, even though it ran successfully in a development or test environment.
-The Airflow UI is unavailable.
-You are unable to deploy code to your Deployment, but existing DAGs and tasks are running as expected.
-You need to
-modify a Hybrid cluster setting
-that is required for running tasks, such as adding a new worker instance type.
-Task logs are missing in the Airflow UI.
-P3:
-Medium impact. Service is partially impaired.
-Examples:
-A newly deployed DAG is not working in a development Deployment, even though it ran successfully in a local environment using the Astro CLI.
-You need to
-modify a Hybrid cluster setting
-that affects your cluster's performance but isn't required to run tasks, such as changing the size of your cluster's database or adding a new VPC peering connection.
-Astro CLI usage is impaired (for example, there are incompatibility errors between installed packages).
-There is an Airflow issue that has a code-based solution.
-You received a log alert on Astronomer.
-You have lost the ability to use a
-Public Preview
-feature that does not affect general services.
-P4:
-Low impact. Astro is fully usable but you have a question for our team.
-Examples:
-There are package incompatibilities caused by a specific, complex use case.
-You have an inquiry or a small bug report for a Public Preview feature.
-Be as descriptive as possible
-​
-The more information you can provide about the issue you're experiencing, the quicker Astronomer support can start the troubleshooting and resolution process. When submitting a support request, include the following information:
-Have you made any recent changes to your Deployment or running DAGs?
-What solutions have you already tried?
-Is this a problem in more than one Deployment?
-Include logs or code snippets
-​
-If you've already copied task logs or Airflow component logs, send them as a part of your request. The more context you can provide, the better.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-databricks.txt
-
-Documentation Title:
-Orchestrate Databricks jobs with Airflow | Astronomer Documentation
-
-Documentation Content:
-If you would be using Airflow's built in
-retry functionality
-a separete cluster would be created for each failed task.
-If you only want to rerun specific tasks within your Workflow, you can use the
-Repair a single failed task
-operator extra link on an individual task in the Databricks Workflow.
-Alternative ways to run Databricks with Airflow
-​
-The Astro Databricks provider is under active development, and support for more Databricks task types is still being added. If you want to orchestrate an action in your Databricks environment that is not yet supported by the Astro Databricks provider such as
-updating a Databricks repository
-, check the
-community-managed Databricks provider
-for relevant operators.
-Additionally, the community-managed Databricks provider contains hooks (for example the
-DatabricksHook
-) that simplify interaction with Databricks, including writing your own
-custom Databricks operators
-.
-You can find several example DAGs that use the community-managed Databricks provider on the
-Astronomer Registry
-.
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Tags:
-Integrations
-DAGs
-Edit this page
-Previous
+To create a SQL cell and execute SQL, first create a database to run your SQL queries against.
+Click the
+Connections
+tab and then click
 Connection
-Next
-dbt Cloud
-Why use Airflow with Databricks
-Time to complete
-Assumed knowledge
+.
+Click
+NEW CONNECTION
+.
+Choose one of the available connection types and configure all required values for the connection. Click
+More options
+to configure optional values for the connection.
+info
+SQL cell query results are stored in XComs and are not accessible outside of your data pipeline. To save the results of a SQL query, run it in a SQL warehouse cell. See
+Run SQL
+.
+Optional. Click
+Test Connection
+. The Astro Cloud IDE runs a quick connection test and returns a status message. You can still create the connection if the test is unsuccessful.
+Click
+Create Connection
+. You new connection appears in the
+Connections
+tab both in the pipeline editor and on your project homepage. You can use this connection with any future pipelines you create in this project.
+Step 6: Create a SQL cell
+​
+You can now write and run SQL cells with your database connection.
+In the
+Pipeline
+list, click the name of the pipeline you created in step 2.
+Click
+Add Cell
+and select
+SQL
+. A new cell named
+sql_1
+appears.
+Click the cell name and rename it
+hello_sql
+.
+In the
+Select Connection
+list, select the connection you created in step 5.
+Add the following code to the cell:
+SELECT
+1
+AS
+hello_world
+;
+tip
+You can also add a SQL cell with a specific connection by clicking the
++
+button from the
+Connections
+tab in the
+Environment
+menu.
+Optional. Click
+Run
+to test the SQL query.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+See
+Data quality and Airflow
+.
+Running SQL from Airflow. See
+Using Airflow to execute SQL
+.
 Prerequisites
+​
+The
+Astro CLI
+.
+Access to a relational database. You can use an in-memory SQLite database for which you'll need to install the
+SQLite provider
+. Note that currently the operators cannot support BigQuery
+job_id
+s.
+A love for birds.
 Step 1: Configure your Astro project
-Step 2: Create Databricks Notebooks
-Step 3: Configure the Databricks connection
-Step 4: Create your DAG
-How it works
-Parameters
-Repairing a Databricks Workflow
-Alternative ways to run Databricks with Airflow
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
+​
+To use SQL check operators, install the
+Common SQL provider
+in your Astro project.
+Run the following commands to create a new Astro project:
+$
+mkdir
+astro-sql-check-tutorial
+&&
+cd
+astro-sql-check-tutorial
+$ astro dev init
+Add the Common SQL provider and the SQLite provider to your Astro project
+requirements.txt
+file.
+apache-airflow-providers-common-sql==1.5.2
+apache-airflow-providers-sqlite==3.4.2
+Step 2: Create a connection to SQLite
+​
+In the Airflow UI, go to
+Admin
+>
+Connections
+and click
++
+.
+Create a new connection named
+sqlite_conn
+and choose the
+SQLite
+connection type. Enter the following information:
+Connection Id
+:
+sqlite_conn
+.
+Connection Type
+:
+SQLite
+.
+Host
+:
+/tmp/sqlite.db
+.
+Step 3: Add a SQL file with a custom check
+​
+In your
+include
+folder, create a file called
+custom_check.sql
+.
+Copy and paste the following SQL statement into the file:
+WITH
+all_combinations_unique
+AS
+(
+SELECT
+DISTINCT
+bird_name
+,
+observation_year
+AS
+combos_unique
+FROM
+'{{ params.table_name }}'
+)
+SELECT
+CASE
+WHEN
+COUNT
+(
+*
+)
+=
+COUNT
+(
+combos_unique
+)
+THEN
+1
+ELSE
+0
+END
+AS
+is_unique
+FROM
+'{{ params.table_name }}'
+JOIN
+all_combinations_unique
+;
+This SQL statement returns 1 if all combinations of
+bird_name
+and
+observation_year
+in a templated table are unique, and 0 if not.
+Step 4: Create a DAG using SQL check operators
+​
+Start Airflow by running
+astro dev start
+.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+Create a new file in your
+dags
+folder called
+sql_data_quality.py
+.
+Copy and paste the following DAG code into the file:
+"""
+## Check data quality using SQL check operators
+This DAG creates a toy table about birds in SQLite to run data quality checks on using the
+SQLColumnCheckOperator, SQLTableCheckOperator, and SQLCheckOperator.
+"""
+from
+airflow
+.
+decorators
+import
+dag
+from
+airflow
+.
+providers
+.
+common
+.
+sql
+.
+operators
+.
+sql
+import
+(
+SQLColumnCheckOperator
+,
+SQLTableCheckOperator
+,
+SQLCheckOperator
+,
+)
+from
+airflow
+.
+providers
+.
+sqlite
+.
+operators
+.
+sqlite
+import
+SqliteOperator
+from
+pendulum
+import
+datetime
+_CONN_ID
+=
+"sqlite_conn"
+_TABLE_NAME
+=
+"birds"
+@dag
+(
+start_date
+=
+datetime
+(
+2023
+,
+7
+,
+1
+)
+,
+schedule
+=
+None
+,
+catchup
+=
+False
+,
+template_searchpath
+=
+[
+"/usr/local/airflow/include/"
+]
+,
+)
+def
+sql_data_quality
+(
+)
+:
+create_table
+=
+SqliteOperator
+(
+task_id
+=
+"create_table"
+,
+sqlite_conn_id
+=
+_CONN_ID
+,
+sql
+=
+f"""
+CREATE TABLE IF NOT EXISTS
+{
+_TABLE_NAME
+}
+(
+bird_name VARCHAR,
+observation_year INT,
+bird_happiness INT
+);
+"""
+,
+)
+populate_data
+=
+SqliteOperator
+(
+task_id
+=
+"populate_data"
+,
+sqlite_conn_id
+=
+_CONN_ID
+,
+sql
+=
+f"""
+INSERT INTO
+{
+_TABLE_NAME
+}
+(bird_name, observation_year, bird_happiness) VALUES
+('King vulture (Sarcoramphus papa)', 2022, 9),
+('Victoria Crowned Pigeon (Goura victoria)', 2021, 10),
+('Orange-bellied parrot (Neophema chrysogaster)', 2021, 9),
+('Orange-bellied parrot (Neophema chrysogaster)', 2020, 8),
+(NULL, 2019, 8),
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/cloud-ide/configure-project-environment.txt
+
+Documentation Title:
+Configure your Astro Cloud IDE project environment | Astronomer Documentation
+
+Documentation Content:
+You can then reference the connection in your Python cells as code or in SQL cells as a configuration.
+In the Astro UI, select a Workspace and then select
+Cloud IDE
+.
+Select a project.
+Click the
+Connections
+tab, and then click
+Connection
+.
+Select a connection type.
+Configure the connection.
+Optional. Click
+Test connection
+to check that you configured the connection correctly. Note that you cannot test generic connections.
+Click
+Create Connection
+.
+The connection appears in the
+Connections
+list. To edit the connection, click
+Edit
+in the
+Connections
+list.
+Use connections in cells
+​
+To use a connection in a Python cell, pass the connection ID to any function that accepts an Airflow connection as an argument, such as a
+hook
+.
+To use a connection in a SQL or Warehouse SQL cell:
+In the Astro UI, select a Workspace and then select
+Cloud IDE
+.
+Select a project.
+Click the
+Pipelines
+tab, and then click a pipeline name to open the pipeline editor.
+In a SQL or Warehouse SQL cell, click
+Select connection
+and select the connection you want to use to store the results of the cell. If you are configuring a Warehouse SQL cell, additionally configure the
+Output Table
+where you want to permanently store the results of the cell query.
+Optional. Call a table from your database in your SQL query. For example:
+SELECT
+*
+FROM
+table_name
+;
+View environment configurations from the pipeline editor
+​
+Environment configurations apply to all pipelines in a project. To view your configurations in the pipeline editor, click
+Environment
+. The
+Use in your pipeline
+pane shows all configurations that apply to your current pipeline. You can add, delete, or modify environment configurations in the pane.
+info
+Environment configurations exist at the project level. Modifying them in your pipeline editor updates the configurations for all pipelines in your project. To run a data pipeline with different environment configurations from its existing IDE project, you must recreate it in a new IDE project.
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
 
 
 

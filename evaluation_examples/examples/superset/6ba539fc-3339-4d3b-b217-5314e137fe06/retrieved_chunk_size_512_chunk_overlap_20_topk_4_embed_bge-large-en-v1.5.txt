@@ -1,75 +1,4 @@
 Documentation Source:
-superset.apache.org/docs/faq/index.txt
-
-Documentation Title:
-FAQ | Superset
-
-Documentation Content:
-To get Superset to discover your new columns,
-all you have to do is to go to
-Data -> Datasets
-, click the edit icon next to the dataset
-whose schema has changed, and hit
-Sync columns from source
-from the
-Columns
-tab.
-Behind the scene, the new columns will get merged. Following this, you may want to re-edit the
-table afterwards to configure the Columns tab, check the appropriate boxes and save again.
-What database engine can I use as a backend for Superset?
-​
-To clarify, the database backend is an OLTP database used by Superset to store its internal
-information like your list of users and dashboard definitions. While Superset supports a
-variety of databases as data
-sources
-,
-only a few database engines are supported for use as the OLTP backend / metadata store.
-Superset is tested using MySQL, PostgreSQL, and SQLite backends. It’s recommended you install
-Superset on one of these database servers for production.  Installation on other OLTP databases
-may work but isn’t tested.  It has been reported that
-Microsoft SQL Server does
-not
-work as a Superset backend
-. Column-store,
-non-OLTP databases are not designed for this type of workload.
-How can I configure OAuth authentication and authorization?
-​
-You can take a look at this Flask-AppBuilder
-configuration example
-.
-Is there a way to force the dashboard to use specific colors?
-​
-It is possible on a per-dashboard basis by providing a mapping of labels to colors in the JSON
-Metadata attribute using the
-label_colors
-key.
-{
-"label_colors": {
-"Girls": "#FF69B4",
-"Boys": "#ADD8E6"
-}
-}
-Does Superset work with
-[insert database engine here]
-?
-​
-The
-Connecting to Databases section
-provides the best
-overview for supported databases. Database engines not listed on that page may work too. We rely on
-the community to contribute to this knowledge base.
-For a database engine to be supported in Superset through the SQLAlchemy connector, it requires
-having a Python compliant
-SQLAlchemy dialect
-as well
-as a
-DBAPI driver
-defined. Database that have limited
-SQL support may work as well.
-
-
-
-Documentation Source:
 superset.apache.org/docs/configuration/databases/index.txt
 
 Documentation Title:
@@ -223,6 +152,77 @@ Apache Hive
 The
 pyhive
 library is the recommended way to connect to Hive through SQLAlchemy.
+
+
+
+Documentation Source:
+superset.apache.org/docs/faq/index.txt
+
+Documentation Title:
+FAQ | Superset
+
+Documentation Content:
+To get Superset to discover your new columns,
+all you have to do is to go to
+Data -> Datasets
+, click the edit icon next to the dataset
+whose schema has changed, and hit
+Sync columns from source
+from the
+Columns
+tab.
+Behind the scene, the new columns will get merged. Following this, you may want to re-edit the
+table afterwards to configure the Columns tab, check the appropriate boxes and save again.
+What database engine can I use as a backend for Superset?
+​
+To clarify, the database backend is an OLTP database used by Superset to store its internal
+information like your list of users and dashboard definitions. While Superset supports a
+variety of databases as data
+sources
+,
+only a few database engines are supported for use as the OLTP backend / metadata store.
+Superset is tested using MySQL, PostgreSQL, and SQLite backends. It’s recommended you install
+Superset on one of these database servers for production.  Installation on other OLTP databases
+may work but isn’t tested.  It has been reported that
+Microsoft SQL Server does
+not
+work as a Superset backend
+. Column-store,
+non-OLTP databases are not designed for this type of workload.
+How can I configure OAuth authentication and authorization?
+​
+You can take a look at this Flask-AppBuilder
+configuration example
+.
+Is there a way to force the dashboard to use specific colors?
+​
+It is possible on a per-dashboard basis by providing a mapping of labels to colors in the JSON
+Metadata attribute using the
+label_colors
+key.
+{
+"label_colors": {
+"Girls": "#FF69B4",
+"Boys": "#ADD8E6"
+}
+}
+Does Superset work with
+[insert database engine here]
+?
+​
+The
+Connecting to Databases section
+provides the best
+overview for supported databases. Database engines not listed on that page may work too. We rely on
+the community to contribute to this knowledge base.
+For a database engine to be supported in Superset through the SQLAlchemy connector, it requires
+having a Python compliant
+SQLAlchemy dialect
+as well
+as a
+DBAPI driver
+defined. Database that have limited
+SQL support may work as well.
 
 
 

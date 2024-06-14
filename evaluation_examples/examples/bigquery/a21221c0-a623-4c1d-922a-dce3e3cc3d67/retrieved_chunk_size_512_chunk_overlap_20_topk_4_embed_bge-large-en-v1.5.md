@@ -1,4 +1,71 @@
 Documentation Source:
+cloud.google.com/bigquery/docs/writing-results.md
+
+Documentation Title:
+Writing query results  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Start the query, passing in the extra configuration.
+query_job = client.query(sql, job_config=job_config) # Make an API request.
+query_job.result() # Wait for the job to complete.
+
+print("Query results loaded to the table {}".format(table_id))`Downloading and saving query results from the Google Cloud console
+------------------------------------------------------------------
+
+After you run a SQL query by using the Google Cloud console, you can save the
+results to another location. You can use the Google Cloud console to download
+query results to a local file, Google Sheets, or Google Drive. If you first
+sort the query results by column, then the order is preserved in the downloaded
+data. Saving results to a local file, Google Sheets, or Google Drive is not
+supported by the bq command-line tool or the API.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/managing-jobs.md
+
+Documentation Title:
+Managing jobs  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Console
+
+To repeat a query job, do the following:
+
+1. Go to the **BigQuery**page.
+
+Go to BigQuery
+To list all your jobs, click **Personal history**. To list all
+ jobs in a project, click **Project history**.
+
+Click a query job to open the job details.
+
+To repeat a query, click **Open as new query**.
+
+Click **Run**.
+
+
+To repeat a load job, do the following:
+
+1. Go to the **BigQuery**page.
+
+Go to BigQuery
+To list all your jobs, click **Personal history**. To list all
+ jobs in a project, click **Project history**.
+
+Click a load job to open the job details.
+
+To repeat a job, click **Repeat load job**.
+
+
+**Note:**You cannot repeat an export job or a copy job using the Google Cloud console.### bq
+
+Issue your command again and BigQuery automatically
+generates a job with a new job ID.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/bigquery-web-ui.md
 
 Documentation Title:
@@ -54,50 +121,6 @@ Documentation Title:
 Managing jobs  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Console
-
-To repeat a query job, do the following:
-
-1. Go to the **BigQuery**page.
-
-Go to BigQuery
-To list all your jobs, click **Personal history**. To list all
- jobs in a project, click **Project history**.
-
-Click a query job to open the job details.
-
-To repeat a query, click **Open as new query**.
-
-Click **Run**.
-
-
-To repeat a load job, do the following:
-
-1. Go to the **BigQuery**page.
-
-Go to BigQuery
-To list all your jobs, click **Personal history**. To list all
- jobs in a project, click **Project history**.
-
-Click a load job to open the job details.
-
-To repeat a job, click **Repeat load job**.
-
-
-**Note:**You cannot repeat an export job or a copy job using the Google Cloud console.### bq
-
-Issue your command again and BigQuery automatically
-generates a job with a new job ID.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/managing-jobs.md
-
-Documentation Title:
-Managing jobs  |  BigQuery  |  Google Cloud
-
-Documentation Content:
 `from google.cloud import bigquery
 
 
@@ -130,32 +153,6 @@ You can view the job history in the following ways:
 
 The job history includes jobs that are in the `RUNNING`state and jobs that are
 `DONE`(indicated by reporting the state as `SUCCESS`or `FAILURE`).
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/managing-jobs.md
-
-Documentation Title:
-Managing jobs  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Console
-
-1. Go to the **BigQuery**page.
-
-Go to BigQuery
-2. Select the type of job history you want to view:
-
-
-	* To display information of your recent jobs, click **Personal
-	history**.
-	* To display information of recent jobs in your project, click
-	**Project history**.
-3. To view job details, click a job.
-
-**Note:**The duration of a job is calculated by subtracting start
-time (instead of creation time) from end time.
 
 
 

@@ -1,26 +1,13 @@
 Documentation Source:
-superset.apache.org/docs/configuration/event-logging/index.html
-
-Documentation Title:
-Event Logging | Superset
-
-Documentation Content:
-<div><a>Skip to main content</a><div><div><div><img/><img/></div><div><a>Documentation</a><ul><a>Getting Started</a><a>FAQ</a></ul></div><div><a>Community</a><ul><a>Resources</a><a>GitHub</a><a>Slack</a><a>Mailing List</a><a>Stack Overflow</a></ul></div></div><div><a>Get Started</a><span>Search</span></div></div><div><ul><a>Introduction</a><a>Quickstart</a><a>Installation</a><li><a>Configuration</a><ul><a>Configuring Superset</a><a>Connecting to Databases</a><a>Alerts and Reports</a><a>Caching</a><a>Async Queries via Celery</a><a>SQL Templating</a><a>Timezones</a><a>Network and Security Settings</a><a>Setup SSH Tunneling</a><a>Event Logging</a><a>Country Map Tools</a><a>Importing and Exporting Datasources</a></ul></li><a>Using Superset</a><a>Contributing</a><a>Security</a><a>FAQ</a><a>API</a></ul><div><a>Edit this page on GitHub</a><div><div><article><ul><span>Configuration</span><span>Event Logging</span></ul><button>On this page</button><div><h1>Logging</h1><h2>Event Logging<a>​</a></h2><p>Superset by default logs special action events in its internal database (DBEventLogger). These logs can be accessed
-on the UI by navigating to <strong>Security &gt; Action Log</strong>. You can freely customize these logs by
-implementing your own event log class.
-<strong>When custom log class is enabled DBEventLogger is disabled and logs
-stop being populated in UI logs view.</strong>To achieve both, custom log class should extend built-in DBEventLogger log class.
-
-
-
-Documentation Source:
 superset.apache.org/docs/configuration/alerts-reports/index.html
 
 Documentation Title:
 Alerts and Reports | Superset
 
 Documentation Content:
-prune_log"</span><span>,</span></span><span><span>"schedule"</span><span>:</span><span>crontab</span><span>(</span><span>minute</span><span>=</span><span>0</span><span>,</span><span>hour</span><span>=</span><span>0</span><span>)</span><span>,</span></span><span><span>}</span><span>,</span></span><span>}</span><span><span>CELERY_CONFIG </span><span>=</span><span>CeleryConfig</span></span><span><span>SCREENSHOT_LOCATE_WAIT </span><span>=</span><span>100</span></span><span><span>SCREENSHOT_LOAD_WAIT </span><span>=</span><span>600</span></span><span># Slack configuration</span><span><span>SLACK_API_TOKEN </span><span>=</span><span>"xoxb-"</span></span><span># Email configuration</span><span><span>SMTP_HOST </span><span>=</span><span>"smtp.sendgrid.net"</span><span># change to your host</span></span><span><span>SMTP_PORT </span><span>=</span><span>2525</span><span># your port, e.g. 587</span></span><span><span>SMTP_STARTTLS </span><span>=</span><span>True</span></span><span><span>SMTP_SSL_SERVER_AUTH </span><span>=</span><span>True</span><span># If your using an SMTP server with a valid certificate</span></span><span><span>SMTP_SSL </span><span>=</span><span>False</span></span><span><span>SMTP_USER </span><span>=</span><span>"your_user"</span><span># use the empty string "" if using an unauthenticated SMTP server</span></span><span><span>SMTP_PASSWORD </span><span>=</span><span>"your_password"</span><span># use the empty string "" if using an unauthenticated SMTP server</span></span><span><span>SMTP_MAIL_FROM </span><span>=</span><span>"noreply@youremail.
+You may get different responses depending on whether the dashboard exists - for example, you may need to change the <code>1</code>in that URL. If there's a URL in your logs from a failed report screenshot, that's a good place to start. The goal is to determine a valid value for <code>WEBDRIVER_BASEURL</code>and determine if an issue like HTTPS or authentication is redirecting your worker.</p><p>In a deployment with authentication measures enabled like HTTPS and Single Sign-On, it may make sense to have the worker navigate directly to the Superset application running in the same location, avoiding the need to sign in.  For instance, you could use <code>WEBDRIVER_BASEURL="http://superset_app:8088"</code>for a docker compose deployment, and set <code>"force_https": False,</code>in your <code>TALISMAN_CONFIG</code>.</p><h2>Scheduling Queries as Reports<a>​</a></h2><p>You can optionally allow your users to schedule queries directly in SQL Lab. This is done by adding
+extra metadata to saved queries, which are then picked up by an external scheduled (like
+<a>Apache Airflow</a>).</p><p>To allow scheduled queries, add the following to <code>SCHEDULED_QUERIES</code>in your configuration file:</p><code><span><span>SCHEDULED_QUERIES </span><span>=</span><span>{</span></span><span># This information is collected when the user clicks "Schedule query",</span><span># and saved into the `extra` field of saved queries.</span><span># See: https://github.com/mozilla-services/react-jsonschema-form</span><span><span>'JSONSCHEMA'</span><span>:</span><span>{</span></span><span><span>'title'</span><span>:</span><span>'Schedule'</span><span>,</span></span><span><span>'description'</span><span>:</span><span>(</span></span><span>'In order to schedule a query, you need to specify when it '</span><span>'should start running, when it should stop running, and how '</span><span>'often it should run.
 
 
 
@@ -36,13 +23,31 @@ Documentation Content:
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/index72c9.html
+superset.apache.org/docs/contributing/development/index.html
 
 Documentation Title:
-Index of /docs/configuration
+Setting up a Development Environment | Superset
 
 Documentation Content:
-htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>event-logging.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>event-logging.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>country-map-tools.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>country-map-tools.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>configuring-superset.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>configuring-superset.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>cache.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>cache.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>async-queries-celery.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>async-queries-celery.htm/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>alerts-reports.html/</a><td>2024-04-24 21:23  </td><td>- </td></tr><tr><img/><a>alerts-reports.
+The value needs to be decided based on the system memory <a>(see this StackOverflow answer for more context)</a>.</p><p>Open the file in editor and add a line at the bottom specifying the max watches values.</p><span><span>fs.inotify.max_user_watches</span><span>=</span><span>524288</span></span><p>Save the file and exit editor.
+To confirm that the change succeeded, run the following command to load the updated value of max_user_watches from sysctl.conf:</p><span><span>sudo</span><span>sysctl -p</span></span><h4>Webpack dev server<a>​</a></h4><p>The dev server by default starts at <code>http://localhost:9000</code>and proxies the backend requests to <code>http://localhost:8088</code>.</p><p>So a typical development workflow is the following:</p><ol><li><a>run Superset locally</a>using Flask, on port <code>8088</code>— but don't access it directly,<code><span># Install Superset and dependencies, plus load your virtual environment first, as detailed above.</span><span><span>superset run -p </span><span>8088</span><span>--with-threads --reload --debugger --debug</span></span></code></li><li>in parallel, run the Webpack dev server locally on port <code>9000</code>,<span><span>npm</span><span>run dev-server</span></span></li><li>access <code>http://localhost:9000</code>(the Webpack server, <em>not</em>Flask) in your web browser.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.html
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+To start the Explore workflow from the <strong>Datasets</strong>tab, start by clicking the name
+of the dataset that will be powering your chart.</p><img/><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.</li><li>The <strong>Data</strong>preview below the chart area also gives you helpful data context.</li><li>Using the <strong>Data</strong>tab and <strong>Customize</strong>tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.</li></ul><p>As you customize your chart using drop-down menus, make sure to click the <strong>Run</strong>button
+to get visual feedback.</p><img/><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.</p><img/><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button.
 
 
 

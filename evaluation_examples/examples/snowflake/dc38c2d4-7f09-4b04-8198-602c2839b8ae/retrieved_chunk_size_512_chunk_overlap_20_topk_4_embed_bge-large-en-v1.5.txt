@@ -48,6 +48,89 @@ instead of just the first 10,000 rows returned, and you incur compute cost.
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.txt
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+The fully qualified object name appears after your cursor location in the worksheet.
+For database tables and views, you can also add the column names to the worksheet that you’re editing:
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open a worksheet.
+Locate the database object in the
+Databases
+explorer.
+Hover over the object name and select
+…
+more menu »
+Add Columns in Editor
+.
+The comma-separated column names appear after your cursor location in the worksheet.
+Format your queries
+¶
+When a worksheet is open, you can select the name of the worksheet to format the queries in your worksheet, and view the keyboard shortcuts.
+Sign in to Snowsight.
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open a worksheet.
+Hover over the tab for the worksheet and select
+.
+In the drop-down list, select
+Format query
+to format the query text for readability.
+Load data to a table
+¶
+If you’re using a worksheet and want to add some data to work with, you can load data into a table without leaving your worksheet:
+Sign in to Snowsight.
+In the navigation menu, select
+Projects
+»
+Worksheets
+Open a worksheet.
+Select
+Objects
+to view the object explorer.
+Locate a specific table using search or browsing.
+Hover over a specific table name and select
+»
+Load Data
+.
+Follow the prompts to upload one or more structured or unstructured files of 50MB or less.
+Refer to
+Loading data using the web interface
+for more details.
+Executing and running queries
+¶
+You can run a single query or multiple queries sequentially in the same worksheet.
+To run a single query, in the query editor link, place your cursor in the query, and then select the
+Run
+button.
+To run the entire worksheet, from the
+More options
+dropdown menu next to the
+Run
+button, select
+Run All
+.
+Running worksheets in folders
+¶
+Folders no longer have a role assigned to them. An owner or editor of a worksheet in a folder can change the worksheet to run as any role.
+You can also add
+USE ROLE
+to a worksheet in a folder to run different statements in the worksheet as different roles.
+
+
+
+Documentation Source:
 docs.snowflake.com/en/sql-reference/constructs/where.txt
 
 Documentation Title:
@@ -272,262 +355,77 @@ p
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/queries-hierarchical.txt
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.txt
 
 Documentation Title:
-Querying Hierarchical Data | Snowflake Documentation
+Load and query sample data using SQL | Snowflake Documentation
 
 Documentation Content:
-For example:
-CREATE
-OR
-REPLACE
-TABLE
-employees
-(
-title
-VARCHAR
-,
-employee_ID
-INTEGER
-,
-manager_ID
-INTEGER
-);
-Copy
-INSERT
-INTO
-employees
-(
-title
-,
-employee_ID
-,
-manager_ID
-)
-VALUES
-(
-'President'
-,
-1
-,
-NULL
-),
--- The President has no manager.
-(
-'Vice President Engineering'
-,
-10
-,
-1
-),
-(
-'Programmer'
-,
-100
-,
-10
-),
-(
-'QA Engineer'
-,
-101
-,
-10
-),
-(
-'Vice President HR'
-,
-20
-,
-1
-),
-(
-'Health Insurance Analyst'
-,
-200
-,
-20
-);
-Copy
-Storing an entire hierarchy of data in one table works best if all levels
-of the hierarchy store the same data – in our example, employee ID, title, etc.
-If the data at different levels doesn’t fit the same record structure, then
-storing all the data in one table might not be practical.
-Using Joins to Query Hierarchical Data
+Provide your
+account identifier
+or account URL.
+If you’ve previously signed in to Snowsight, you might see an account name that you can select.
+Sign in using your Snowflake account credentials.
+Step 2. Open the SQL worksheet for loading and querying data
 ¶
-In a two-level hierarchy (for example, managers and employees), the data can be queried with a two-way join:
-SELECT
-employees
+You can use worksheets to write and run SQL commands on your Snowflake database. Your trial account has access
+to a pre-loaded worksheet for this tutorial. The worksheet has the SQL commands that
+you will run to create a database, load data into it, and query the data. For more information
+about worksheets, see
+Getting started with worksheets
 .
-title
-,
-employees
+To open the pre-loaded tutorial worksheet:
+Select
+Projects
+»
+Worksheets
+to open the list of worksheets.
+Open
+[Tutorial] Using SQL to load and query sample data
 .
-employee_ID
-,
-managers
+Your worksheet looks similar to the following image.
+Step 3. Set the role and warehouse to use
+¶
+The role you use determines the privileges you have. In this tutorial, use the
+ACCOUNTADMIN system role so that you can view and manage objects in your account.
+For more information, see
+Using the ACCOUNTADMIN Role
 .
-employee_ID
-AS
-MANAGER_ID
-,
-managers
+A warehouse provides the required resources to create and manage objects and run
+SQL commands. These resources include CPU, memory, and temporary storage. Your
+trial account has a virtual warehouse (
+compute_wh
+) that you can use for this
+tutorial. For more information, see
+Virtual warehouses
 .
-title
-AS
-"MANAGER TITLE"
-FROM
-employees
-,
-managers
-WHERE
-employees
-.
-manager_ID
-=
-managers
-.
-employee_ID
-ORDER
-BY
-employees
-.
-title
+To set the role and warehouse to use, do the following:
+In the open worksheet, place your cursor in the USE ROLE line.
+USE
+ROLE
+accountadmin
 ;
-+
-----------------------------+-------------+------------+---------------+
-| TITLE                      | EMPLOYEE_ID | MANAGER_ID | MANAGER TITLE |
-|----------------------------+-------------+------------+---------------|
-| Vice President Engineering |          10 |          1 | President     |
-| Vice President HR          |          20 |          1 | President     |
-+
-----------------------------+-------------+------------+---------------+
 Copy
-In a three-level hierarchy, you can use a 3-way join:
-SELECT
-emps
+In the upper-right corner of the worksheet, select
+Run
 .
-title
-,
-emps
+Note
+In this tutorial, run SQL statements one at a time. Do not select
+Run All
 .
-employee_ID
-,
-mgrs
+Place your cursor in the USE WAREHOUSE line, then select
+Run
 .
-employee_ID
-AS
-MANAGER_ID
-,
-mgrs
-.
-title
-AS
-"MANAGER TITLE"
-FROM
-employees
-AS
-emps
-LEFT
-OUTER
-JOIN
-employees
-AS
-mgrs
-ON
-emps
-.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/constructs/where.txt
-
-Documentation Title:
-WHERE | Snowflake Documentation
-
-Documentation Content:
-department_id
-(+)
-=
-d
-.
-department_id
-AND
-e
-.
-project_id
-(+)
-=
-p
-.
-project_id
-ORDER
-BY
-d
-.
-department_id
-,
-p
-.
-project_id
-,
-e
-.
-employee_id
+USE
+WAREHOUSE
+compute_wh
 ;
-+
-----------------------------------------------+-------------------------------+------------------+
-| DEPARTMENT_NAME                              | PROJECT_NAME                  | EMPLOYEE_NAME    |
-|----------------------------------------------+-------------------------------+------------------|
-| CUSTOMER SUPPORT                             | Detect false insurance claims | Alfred Mendeleev |
-| RESEARCH                                     | Detect fake product reviews   | Devi Nobel       |
-| Department with no employees yet             | Project with no employees yet | NULL             |
-| Department with no projects or employees yet | NULL                          | NULL             |
-+
-----------------------------------------------+-------------------------------+------------------+
 Copy
-(Remember, however, that Snowflake recommends using the
-OUTER
-keyword in the
-FROM
-clause rather than using
-the
-(+)
-operator in the
-WHERE
-clause.)
-Was this page helpful?
-Yes
-No
-Visit Snowflake
-Join the conversation
-Develop with Snowflake
-Share your feedback
-Read the latest on our blog
-Get your own certification
-Privacy Notice
-Site Terms
-©
-2024
-Snowflake, Inc.
-All Rights Reserved
-.
-On this page
-Syntax
-Usage notes
-Joins in the WHERE clause
-Examples
-Language
-:
-English
-English
-Français
-Deutsch
-日本語
-한국어
-Português
+Step 4. Create a database, schema, and table
+¶
+A database stores data in tables that you can manage and query. A schema is a logical
+grouping of database objects, such as tables and views. For example, a schema might
+contain the database objects required for a specific application.
 
 
 

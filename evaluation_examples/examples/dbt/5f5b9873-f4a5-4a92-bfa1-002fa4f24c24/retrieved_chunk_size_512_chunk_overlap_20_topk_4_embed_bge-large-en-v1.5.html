@@ -5,6 +5,58 @@ Documentation Title:
 Connect to Cloud SQL  |  BigQuery  |  Google Cloud
 
 Documentation Content:
+String projectId = "MY_PROJECT_ID";
+    String location = "MY_LOCATION";
+    String connectionId = "MY_CONNECTION_ID";
+    String database = "MY_DATABASE";
+    String instance = "MY_INSTANCE";
+    String instanceLocation = "MY_INSTANCE_LOCATION";
+    String username = "MY_USERNAME";
+    String password = "MY_PASSWORD";
+    String instanceId = String.format("%s:%s:%s", projectId, instanceLocation, instance);
+    CloudSqlCredential cloudSqlCredential =
+        CloudSqlCredential.newBuilder().setUsername(username).setPassword(password).build();
+    CloudSqlProperties cloudSqlProperties =
+        CloudSqlProperties.newBuilder()
+            .setType(CloudSqlProperties.DatabaseType.MYSQL)
+            .setDatabase(database)
+            .setInstanceId(instanceId)
+            .setCredential(cloudSqlCredential)
+            .build();
+    Connection connection = Connection.newBuilder().setCloudSql(cloudSqlProperties).build();
+    createConnection(projectId, location, connectionId, connection);
+  }
+
+  static void createConnection(
+      String projectId, String location, String connectionId, Connection connection)
+      throws IOException {
+    try (ConnectionServiceClient client = ConnectionServiceClient.create()) {
+      LocationName parent = LocationName.of(projectId, location);
+      CreateConnectionRequest request =
+          CreateConnectionRequest.newBuilder()
+              .setParent(parent.toString())
+              .setConnection(connection)
+              .setConnectionId(connectionId)
+              .build();
+      Connection response = client.createConnection(request);
+      System.out.println("Connection created successfully :" + response.getName());
+    }
+  }
+}</code></section></section></div><h2>Grant access to the service account</h2><p>A <a>service account</a>is automatically created when you
+create the first connection to Cloud SQL within the project.
+The service account's name is <strong>BigQuery Connection Service
+Agent</strong>. To get the service account ID, <a>view your connection details</a>. The service account ID is of the
+following format:</p><p><code>service-<var>PROJECT_NUMBER</var>@gcp-sa-bigqueryconnection.iam.gserviceaccount.com</code>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/connect-to-sql.html
+
+Documentation Title:
+Connect to Cloud SQL  |  BigQuery  |  Google Cloud
+
+Documentation Content:
 For example:
 <code>--properties='{"param":"param_value"}'</code>. For
 creating a connection resource, you must supply the <code>instanceID</code>,
@@ -74,24 +126,67 @@ public class CreateConnection {
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/reference/bigqueryconnection/rpc/google.cloud.bigquery.connection-2.html
+cloud.google.com/bigquery/docs/samples/bigqueryconnection-create-connection.html
 
 Documentation Title:
-Package google.cloud.bigquery.connection.v1beta1  |  BigQuery  |  Google Cloud
+Create a Cloud SQL connection  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-True, if credential is configured for this connection.</p></td></tr><td>Union field <code>properties</code>. Properties specific to the underlying data source. <code>properties</code>can be only one of the following:</td><tr><code>cloud_sql</code><td><a>CloudSqlProperties</a><p>Cloud SQL properties.</p></td></tr></tbody></table></section><section><h2>ConnectionCredential</h2><p>Credential to use with a connection.</p><table><th>Fields</th><tbody><td>Union field <code>credential</code>. Credential specific to the underlying data source. <code>credential</code>can be only one of the following:</td><tr><code>cloud_sql</code><td><a>CloudSqlCredential</a><p>Credential for Cloud SQL database.</p></td></tr></tbody></table></section><section><h2>CreateConnectionRequest</h2><p>The request for <a>ConnectionService.CreateConnection</a>.</p><table><th>Fields</th><tbody><tr><code>parent</code><td><code>string</code><p>Required. Parent resource name. Must be in the format <code>projects/{project_id}/locations/{location_id}</code></p><p>Authorization requires the following <a>IAM</a>permission on the specified resource <code>parent</code>:</p><code>bigquery.connections.create</code></td></tr><tr><code>connection_id</code><td><code>string</code><p>Optional. Connection id that should be assigned to the created connection.</p></td></tr><tr><code>connection</code><td><a>Connection</a><p>Required. Connection to create.</p></td></tr></tbody></table></section><section><h2>DeleteConnectionRequest</h2><p>The request for [ConnectionService.DeleteConnectionRequest][].</p><table><th>Fields</th><tr><code>name</code><td><code>string</code><p>Required.
+String projectId = "MY_PROJECT_ID";
+    String location = "MY_LOCATION";
+    String connectionId = "MY_CONNECTION_ID";
+    String database = "MY_DATABASE";
+    String instance = "MY_INSTANCE";
+    String instanceLocation = "MY_INSTANCE_LOCATION";
+    String username = "MY_USERNAME";
+    String password = "MY_PASSWORD";
+    String instanceId = String.format("%s:%s:%s", projectId, instanceLocation, instance);
+    CloudSqlCredential cloudSqlCredential =
+        CloudSqlCredential.newBuilder().setUsername(username).setPassword(password).build();
+    CloudSqlProperties cloudSqlProperties =
+        CloudSqlProperties.newBuilder()
+            .setType(CloudSqlProperties.DatabaseType.MYSQL)
+            .setDatabase(database)
+            .setInstanceId(instanceId)
+            .setCredential(cloudSqlCredential)
+            .build();
+    Connection connection = Connection.newBuilder().setCloudSql(cloudSqlProperties).build();
+    createConnection(projectId, location, connectionId, connection);
+  }
 
+  static void createConnection(
+      String projectId, String location, String connectionId, Connection connection)
+      throws IOException {
+    try (ConnectionServiceClient client = ConnectionServiceClient.create()) {
+      LocationName parent = LocationName.of(projectId, location);
+      CreateConnectionRequest request =
+          CreateConnectionRequest.newBuilder()
+              .setParent(parent.toString())
+              .setConnection(connection)
+              .setConnectionId(connectionId)
+              .build();
+      Connection response = client.createConnection(request);
+      System.out.println("Connection created successfully :" + response.getName());
+    }
+  }
+}</code></section><section><span>Python</span><p>Before trying this sample, follow the <span>Python</span>setup instructions in the
+          <a>BigQuery quickstart using
+            client libraries</a>.
+        
+      
+      
+  For more information, see the
+  <a>BigQuery <span>Python</span>API
+    reference documentation</a>.
+  
+    </p><p>To authenticate to BigQuery, set up Application Default Credentials.
+      For more information, see
+      
+        <a>Set up authentication for client libraries</a>.
+      
+    </p><code>from google.cloud import bigquery_connection_v1 as bq_connection
 
-
-Documentation Source:
-cloud.google.com/bigquery/docs/reference/bigqueryconnection/rest/v1beta1/projects.locations.connections/create.html
-
-Documentation Title:
-Method: projects.locations.connections.create  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-cessEntry</span><span>DmlStats</span><span>EncryptionConfiguration</span><span>GetPolicyOptions</span><span>Job</span><span>JobReference</span><span>Policy</span><span>ProjectReference</span><span>QueryParameter</span><span>RoundingMode</span><span>RowAccessPolicyReference</span><span>SessionInfo</span><span>StandardSqlDataType</span><span>StandardSqlField</span><span>TableReference</span><span>TargetType</span><span>TestIamPermissionsResponse</span></ul></div><s
+"""This sample shows how to create a BigQuery connection with a Cloud SQL for MySQL database"""
 
 
 

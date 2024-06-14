@@ -61,82 +61,6 @@ Copy
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/admin-user-management.md
-
-Documentation Title:
-User management | Snowflake Documentation
-
-Documentation Content:
-Using Snowsight¶
-
-Sign in to Snowsight.
-
-Select Admin» Users & Roles.
-
-Select + User.
-
-In the User Namefield, enter a unique identifier for the user. The user uses this identifier to sign in to Snowflake unless you
-specify a login name.
-
-Optionally specify an email address for the user in the Emailfield.
-
-In the Passwordand Confirm Passwordfields, enter the password for the user.
-
-Optionally add a comment explaining why you created the user.
-
-Leave the Force user to change password on first time logincheckbox selected to force the user to change their password when they
-sign in.
-
-9. Optionally select Advanced User Optionsto specify additional details about the user:
-
-
-	Login Nameto use instead of the User Namewhen signing in to Snowflake.
-	
-	Display Namethat appears after signing in.
-	
-	First Nameand Last Nameto complete the user profile.
-	
-	Default Role, Default Warehouse, and Default Namespace.
-Select Create User.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/create-user.md
-
-Documentation Title:
-CREATE USER | Snowflake Documentation
-
-Documentation Content:
-```
-objectProperties::=PASSWORD=''LOGIN_NAME=DISPLAY_NAME=FIRST_NAME=MIDDLE_NAME=LAST_NAME=EMAIL=MUST_CHANGE_PASSWORD=TRUE|FALSEDISABLED=TRUE|FALSEDAYS_TO_EXPIRY=MINS_TO_UNLOCK=DEFAULT_WAREHOUSE=DEFAULT_NAMESPACE=DEFAULT_ROLE=DEFAULT_SECONDARY_ROLES=('ALL')MINS_TO_BYPASS_MFA=RSA_PUBLIC_KEY=RSA_PUBLIC_KEY_FP=RSA_PUBLIC_KEY_2=RSA_PUBLIC_KEY_2_FP=COMMENT=''
-```
-Copy
-```
-objectParams::=ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR=TRUE|FALSENETWORK_POLICY=
-```
-Copy
-```
-sessionParams::=ABORT_DETACHED_QUERY=TRUE|FALSEAUTOCOMMIT=TRUE|FALSEBINARY_INPUT_FORMAT=BINARY_OUTPUT_FORMAT=DATE_INPUT_FORMAT=DATE_OUTPUT_FORMAT=ERROR_ON_NONDETERMINISTIC_MERGE=TRUE|FALSEERROR_ON_NONDETERMINISTIC_UPDATE=TRUE|FALSEJSON_INDENT=LOCK_TIMEOUT=QUERY_TAG=ROWS_PER_RESULTSET=SIMULATED_DATA_SHARING_CONSUMER=STATEMENT_TIMEOUT_IN_SECONDS=STRICT_JSON_OUTPUT=TRUE|FALSETIMESTAMP_DAY_IS_ALWAYS_24H=TRUE|FALSETIMESTAMP_INPUT_FORMAT=TIMESTAMP_LTZ_OUTPUT_FORMAT=TIMESTAMP_NTZ_OUTPUT_FORMAT=TIMESTAMP_OUTPUT_FORMAT=TIMESTAMP_TYPE_MAPPING=TIMESTAMP_TZ_OUTPUT_FORMAT=TIMEZONE=TIME_INPUT_FORMAT=TIME_OUTPUT_FORMAT=TRANSACTION_DEFAULT_ISOLATION_LEVEL=TWO_DIGIT_CENTURY_START=UNSUPPORTED_DDL_ACTION=USE_CACHED_RESULT=TRUE|FALSEWEEK_OF_YEAR_POLICY=WEEK_START=
-```
-CopyNote
-
-For readability, the complete list of session parameters that can be set for a user is not included here. For a complete list of all
-session parameters, with their descriptions, as well as account and object parameters, see Parameters.
-
-Required parameters¶
---------------------
-
-nameIdentifier for the user; must be unique for your account.
-
-The identifier must start with an alphabetic character and cannot contain spaces or special characters unless the entire identifier
-string is enclosed in double quotes (e.g. `"Myobject"`). Identifiers enclosed in double quotes are also case-sensitive.
-
-For more details, see Identifier requirements.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.md
 
 Documentation Title:
@@ -189,6 +113,82 @@ account. For more information, see Overview of Access Control.
 To set the role to use, do the following:
 
 1. In the open worksheet, place your cursor in the USE ROLEline.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.md
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+```
+USEROLEUSERADMIN;
+```
+Copy
+2. In the upper-right corner of the worksheet, select Run.
+
+Note
+
+In this tutorial, run SQL statements one at a time. Do not select Run All.
+Step 4. Create a user¶
+----------------------
+
+A Snowflake user has login credentials. When a user is granted a role, the user can
+perform all the operations that the role allows, via the privileges that were
+granted to the role. For more information, see User management.
+
+In this step of the tutorial, you create a user with a name, a password, and some
+other properties.
+
+In the open worksheet, place your cursor in the CREATE USERline,
+insert a username and other parameter values of your choice (an example is shown below), and
+select Run.
+
+For MUST\_CHANGE\_PASSWORD, set the value to true, which ensures that a password
+reset is requested on first login. For DEFAULT\_WAREHOUSE, use COMPUTE\_WH.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/admin-user-management.md
+
+Documentation Title:
+User management | Snowflake Documentation
+
+Documentation Content:
+Using Snowsight¶
+
+Sign in to Snowsight.
+
+Select Admin» Users & Roles.
+
+Select + User.
+
+In the User Namefield, enter a unique identifier for the user. The user uses this identifier to sign in to Snowflake unless you
+specify a login name.
+
+Optionally specify an email address for the user in the Emailfield.
+
+In the Passwordand Confirm Passwordfields, enter the password for the user.
+
+Optionally add a comment explaining why you created the user.
+
+Leave the Force user to change password on first time logincheckbox selected to force the user to change their password when they
+sign in.
+
+9. Optionally select Advanced User Optionsto specify additional details about the user:
+
+
+	Login Nameto use instead of the User Namewhen signing in to Snowflake.
+	
+	Display Namethat appears after signing in.
+	
+	First Nameand Last Nameto complete the user profile.
+	
+	Default Role, Default Warehouse, and Default Namespace.
+Select Create User.
 
 
 

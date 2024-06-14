@@ -261,6 +261,189 @@ Documentation Title:
 Sensors | Dagster Docs
 
 Documentation Content:
+json
+(
+)
+@job
+def
+process_user
+(
+)
+:
+.
+.
+.
+@sensor
+(
+job
+=
+process_user
+)
+def
+process_new_users_sensor
+(
+context
+:
+SensorEvaluationContext
+,
+users_api
+:
+UsersAPI
+,
+)
+:
+last_user
+=
+int
+(
+context
+.
+cursor
+)
+if
+context
+.
+cursor
+else
+0
+users
+=
+users_api
+.
+fetch_users
+(
+)
+num_users
+=
+len
+(
+users
+)
+for
+user_id
+in
+users
+[
+last_user
+:
+]
+:
+yield
+RunRequest
+(
+run_key
+=
+user_id
+,
+tags
+=
+{
+"user_id"
+:
+user_id
+}
+,
+)
+context
+.
+update_cursor
+(
+str
+(
+num_users
+)
+)
+defs
+=
+Definitions
+(
+jobs
+=
+[
+process_user
+]
+,
+sensors
+=
+[
+process_new_users_sensor
+]
+,
+resources
+=
+{
+"users_api"
+:
+UsersAPI
+(
+url
+=
+"https://my-api.com/users"
+)
+}
+,
+)
+For more information on resources, refer to the
+Resources documentation
+. To see how to test schedules with resources, refer to the section on
+Testing sensors with resources
+.
+Logging in sensors
+#
+Sensor logs are stored in your
+Dagster instance's compute log storage
+. You should ensure that your compute log storage is configured to view your sensor logs.
+Any sensor can emit log messages during its evaluation function:
+@sensor
+(
+job
+=
+the_job
+)
+def
+logs_then_skips
+(
+context
+)
+:
+context
+.
+log
+.
+info
+(
+"Logging from a sensor!"
+)
+return
+SkipReason
+(
+"Nothing to do"
+)
+These logs can be viewed when inspecting a tick in the tick history view on the corresponding sensor page.
+Testing sensors
+#
+Via the Dagster UI
+Via the CLI
+Via Python
+Via the Dagster UI
+#
+Before you test
+: Test evaluations of sensors run the sensor's underlying Python function, meaning that any side effects contained within that sensor's function may be executed.
+In the UI, you can manually trigger a test evaluation of a sensor and view the results.
+Click
+Overview > Sensors
+.
+Click the sensor you want to test.
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.txt
+
+Documentation Title:
+Sensors | Dagster Docs
+
+Documentation Content:
 join
 (
 MY_DIRECTORY
@@ -373,186 +556,6 @@ as part of your deployment, the sensor will begin executing immediately without 
 Idempotence and cursors
 #
 When instigating runs based on external events, you usually want to run exactly one job run for each event.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/concepts/partitions-schedules-sensors/sensors.txt
-
-Documentation Title:
-Sensors | Dagster Docs
-
-Documentation Content:
-cursor
-)
-if
-context
-.
-cursor
-else
-0
-max_mtime
-=
-last_mtime
-for
-filename
-in
-os
-.
-listdir
-(
-MY_DIRECTORY
-)
-:
-filepath
-=
-os
-.
-path
-.
-join
-(
-MY_DIRECTORY
-,
-filename
-)
-if
-os
-.
-path
-.
-isfile
-(
-filepath
-)
-:
-fstats
-=
-os
-.
-stat
-(
-filepath
-)
-file_mtime
-=
-fstats
-.
-st_mtime
-if
-file_mtime
-<=
-last_mtime
-:
-continue
-# the run key should include mtime if we want to kick off new runs based on file modifications
-run_key
-=
-f"
-{
-filename
-}
-:
-{
-file_mtime
-}
-"
-run_config
-=
-{
-"ops"
-:
-{
-"process_file"
-:
-{
-"config"
-:
-{
-"filename"
-:
-filename
-}
-}
-}
-}
-yield
-RunRequest
-(
-run_key
-=
-run_key
-,
-run_config
-=
-run_config
-)
-max_mtime
-=
-max
-(
-max_mtime
-,
-file_mtime
-)
-context
-.
-update_cursor
-(
-str
-(
-max_mtime
-)
-)
-This sensor uses the
-context
-argument. To invoke it, we need to provide one:
-from
-dagster
-import
-build_sensor_context
-def
-test_my_directory_sensor_cursor
-(
-)
-:
-context
-=
-build_sensor_context
-(
-cursor
-=
-"0"
-)
-for
-run_request
-in
-my_directory_sensor_cursor
-(
-context
-)
-:
-assert
-validate_run_config
-(
-log_file_job
-,
-run_request
-.
-run_config
-)
-Testing sensors with resources
-#
-For sensors which utilize
-resources
-, you can provide the necessary resources when invoking the sensor function.
-Below is a test for the
-process_new_users_sensor
-that we defined in the
-Using resources in sensors
-section, which uses the
-users_api
-resource.
 
 
 

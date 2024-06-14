@@ -224,77 +224,6 @@ Dashboards for Engineering Teams
 
 
 Documentation Source:
-www.metabase.com/learn/administration/serialization.txt
-
-Documentation Title:
-Serialization: preloading dashboards in a new Metabase instance
-
-Documentation Content:
-The user ID is
-admin@metabase.local
-and the password is
-Metapass123
-.
-You should see a fresh instance of Metabase.
-Once you log in,
-activate your license key
-.
-Step 3 - Create dashboards and collections in the source Metabase
-We’ll need some application data to export, so let’s create some dashboards using the
-Sample Database
-included with Metabase. Or rather, let’s let Metabase create some dashboards for us!
-In the
-Try These X-Rays Based On Your Data
-section, click on the card with a
-yellow lightning bolt
-that says something like
-A look at Products
-. Metabase will generate a set of questions for you that you can save as a dashboard.
-Click on the
-Save this
-button, and Metabase will save the dashboard and its questions in a
-collection
-titled something like
-A look at Products
-.
-This collection will be saved to a parent collection titled
-Automatically Generated Dashboards
-. You can find this collection by clicking on the Metabase logo in the upper left of the navigation bar to return to the home screen. From the home page, in the
-Our Analytics
-section, click on the
-Automatically Generated Dashboards
-section. From there you should see the collection
-A look at your Products table
-.
-Next, create a new collection. You can call it whatever you like; we’ll use the exciting name
-Default collection
-, and save it to the
-Our Analytics
-collection.
-Then we’ll move the
-A look at Products
-collection to our newly created
-Default collection
-. On the
-A look at Products
-collection page, click on the ellipses
-…
-and select
-Move
-.
-Step 4 - Export from source Metabase
-Here’s where we actually start using Metabase’s
-serialization
-feature.
-With our
-metabase-source
-instance set up with some questions, now it’s time to export this data and import it into our
-metabase-target
-. That way we don’t have to manually recreate our Default Collection in the target Metabase.
-
-
-
-Documentation Source:
 www.metabase.com/learn/getting-started/data-browser.txt
 
 Documentation Title:
@@ -360,6 +289,106 @@ Send
 Thanks for your feedback!
 Subscribe to our newsletter
 Stay in touch with updates and news from Metabase. No spam, ever.
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/databases/uploads.txt
+
+Documentation Title:
+Uploading data
+
+Documentation Content:
+The “T” separator could also be a space (“ “).
+Offsets:
+Z
+(for UTC)
++HH
+or
+-HH
++HH:mm
+or
+-HH:mm
++HH:mm:ss
+or
+-HH:mm:ss
+Examples
+:
+2023-01-01 00:00:00+00:00:00
+2023-01-01T00:00:00+00:00:00
+Deleting models and tables created by uploads
+Models
+You can archive a model by clicking on the three dots in the upper right and selecting
+Archive
+.
+For deleting models completely, see
+Deleting items permanently
+.
+Tables
+You’ll need to drop that table in the database itself (not in Metabase). For how to delete tables, see your database’s documentation.
+Note on uploading data to a MySQL database
+For speeding up uploads to a MySQL database, we recommend that you set a
+local_infile
+to
+ON
+. You’ll need to set this
+local_infile
+in MySQL, not Metabase. The command-line format is
+--local-infile=ON
+.
+If
+local_infile
+is disabled (set to
+OFF
+), Metabase will automatically fall back to uploading CSVs in a much slower way.
+For more context, check out:
+Non-LOCAL Versus LOCAL Operation
+Reference docs for the local_infile variable
+Security Considerations for LOAD LOCAL DATA
+Read docs for other
+versions of Metabase
+.
+Did this article help you?
+Yes
+No
+Send
+Thanks for your feedback!
+Want to improve these docs?
+Propose a change.
+Subscribe to our newsletter
+Stay in touch with updates and news from Metabase. No spam, ever.
+Product
+Watch Demo
+Data Sources
+Security
+Cloud
+Roadmap
+What's New
+Pricing
+Plans
+Open Source
+Use Cases
+Self-Service Business Analytics
+Embedded Analytics
+Metabase Plans
+Starter and Open Source
+Pro
+Enterprise
+Features
+Query Builder
+Drill Through
+Collections
+Usage analytics
+New
+Analytics dashboards
+SQL editor
+Sandboxing
+Models
+Permissions
+CSV upload
+Company
+Jobs
+We're hiring!
 
 
 

@@ -48,6 +48,19 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
+Otherwise, select **OK**and finally **Save**to save your chart. If you keep
+the default selection to overwrite the chart, your annotation will be saved to the chart and also
+appear automatically in the Tutorial Dashboard.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.md
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
 Line Chart​
 
 In this section, we are going to create a line chart to understand the average price of a ticket by
@@ -84,61 +97,44 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
-Time Comparison​
+Publishing Your Dashboard​
 
-In this section, we will compare values in our time series to the value a week before. Start off by
-opening the Tutorial Advanced Analytics Base chart, by going to **Charts**in the top menu and then
-selecting the visualization name in the list (alternatively, find the chart in the Tutorial
-Dashboard and select Explore chart from the menu for that visualization).
+If you have followed all of the steps outlined in the previous section, you should have a dashboard
+that looks like the below. If you would like, you can rearrange the elements of the dashboard by
+selecting **Edit dashboard**and dragging and dropping.
 
-Next, in the Time Comparison subsection of **Advanced Analytics**, enter the Time Shift by typing in
-“minus 1 week” (note this box accepts input in natural language). Run Query to see the new chart,
-which has an additional series with the same values, shifted a week back in time.
+If you would like to make your dashboard available to other users, simply select Draft next to the
+title of your dashboard on the top left to change your dashboard to be in Published state. You can
+also favorite this dashboard by selecting the star.
 
-!Then, change the **Calculation type**to Absolute difference and select **Run Query**. We can now
-see only one series again, this time showing the difference between the two series we saw
-previously.
+!### Annotations​
 
-!Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.
+Annotations allow you to add additional context to your chart. In this section, we will add an
+annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
+dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
+eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).
 
+First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
+save. We can use this layer to refer to a number of different annotations.
 
+Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
+selecting the green plus sign. Then, select the Volcanic Eruptions layer, add a short description
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.
 
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.md
+!Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
+dialogue:
 
-Documentation Title:
-Exploring Data in Superset | Superset
+* Name the layer as Volcanic Eruptions
+* Change the Annotation Layer Type to Event
+* Set the Annotation Source as Superset annotation
+* Specify the Annotation Layer as Volcanic Eruptions
 
-Documentation Content:
-Resampling the data​
+!Select **Apply**to see your annotation shown on the chart.
 
-In this section, we’ll resample the data so that rather than having daily data we have weekly data.
-As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
-
-Next, in the Python Functions subsection of **Advanced Analytics**, enter 7D, corresponding to seven
-days, in the Rule and median as the Method and show the chart by selecting **Run Query**.
-
-!Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
-the median value within the seven daily data points. For more information on the meaning of the
-various options in this section, refer to the
-Pandas documentation.
-
-Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
-tutorial dashboard to see the four charts side by side and compare the different outputs.
-
-Edit this pagePreviousCreating Your First DashboardNextIssue Codes- Exploring Data in Superset
-	Enabling Data Upload FunctionalityLoading CSV DataTable VisualizationDashboard BasicsPivot TableLine ChartMarkupPublishing Your DashboardAnnotationsAdvanced AnalyticsRolling MeanTime ComparisonResampling the data
-We use  !Copyright © 2024,
- The Apache Software Foundation,
- Licensed under the Apache License.
-
-Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
- Apache Software Foundationresources!Security| 
- Donate| 
- Thanks| 
- Events| 
- License| 
- Privacy!
+!If you wish, you can change how your annotation looks by changing the settings in the Display
+configuration section. Otherwise, select **OK**and finally **Save**to save your chart.
 
 
 

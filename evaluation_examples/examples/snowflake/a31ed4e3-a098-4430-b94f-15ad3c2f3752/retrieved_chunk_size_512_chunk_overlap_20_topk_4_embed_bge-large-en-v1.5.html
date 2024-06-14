@@ -15,13 +15,35 @@ definition, add an optional comment, and select <span>Run</span>.
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.html
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load.html
 
 Documentation Title:
-Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
+Load and query sample data using Snowpark Python | Snowflake Documentation
 
 Documentation Content:
-For this tutorial, you are using Snowflake provided sample data, which you do not correct.</p></section><section><h3>Verify the loaded data<a>¶</a></h3><p>Execute a <span>SELECT</span>statement to verify that the data was loaded successfully.</p><section><h4>CSV<a>¶</a></h4><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>mycsvtable</span><span>;</span></pre><span>Copy</span></div><p>The query returns the following results:</p><div><pre><span>+</span><span>----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+--------------------------------+------------------+------------+</span><span>| ID | LAST_NAME | FIRST_NAME | COMPANY                          | EMAIL                                  | WORKPHONE      | CELLPHONE      | STREETADDRESS                  | CITY             | POSTALCODE |</span><span>|----+-----------+------------+----------------------------------+----------------------------------------+----------------+----------------+--------------------------------+------------------+------------|</span><span>|  6 | Reed      | Moses      | Neque Corporation                | eget.lacus@facilisis.com               | 1-449-871-0780 | 1-454-964-5318 | Ap #225-4351 Dolor Ave         | Titagarh         |      62631 |</span><span>|  7 | Audrey    | Franks     | Arcu Eu Limited                  | eu.dui@aceleifendvitae.org             | 1-527-945-8935 | 1-263-127-1173 | Ap #786-9241 Mauris Road       | Bergen           |      81958 |</span><span>|  8 | Jakeem    | Erickson   | A Ltd                            | Pellentesque.habitant@liberoProinmi.ca | 1-381-591-9386 | 1-379-391-9490 | 319-1703 Dis Rd.
+The
+tutorial uses an existing bucket with a CSV file that contains the data. It loads the data from this CSV
+file into the table that is created later in this tutorial. For more information, see <span>Bulk loading from Amazon S3</span>.</p></li><li><p>This step in the worksheet includes the following code:</p><div><pre><span># Define our Menu Schema</span><span>menu_schema</span><span>=</span><span>StructType</span><span>([</span><span>StructField</span><span>(</span><span>"menu_id"</span><span>,</span><span>IntegerType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"menu_type_id"</span><span>,</span><span>IntegerType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"menu_type"</span><span>,</span><span>StringType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"truck_brand_name"</span><span>,</span><span>StringType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"menu_item_id"</span><span>,</span><span>IntegerType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"menu_item_name"</span><span>,</span><span>StringType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"item_category"</span><span>,</span><span>StringType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"item_subcategory"</span><span>,</span><span>StringType</span><span>()),</span>\
+                     <span>StructField</span><span>(</span><span>"cost_of_goods_usd"</span><span>,</span><span>IntegerType</span><span>()),
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-python-load.html
+
+Documentation Title:
+Load and query sample data using Snowpark Python | Snowflake Documentation
+
+Documentation Content:
+</span></pre><span>Copy</span></div></section><section><h3>Summary and key points<a>¶</a></h3><p>In summary, you used a pre-loaded Python worksheet in Snowsight to complete the following
+steps in Python code:</p><ol><p>Import Snowpark modules for a Python application.</p><p>Create a Python function.</p><p>Create a database and schema.</p><p>Create a stage that holds data in an Amazon S3 bucket.</p><p>Create a DataFrame to specify the source of the data in a stage.</p><p>Create a table that contains data from files on the stage,</p><p>Set up a DataFrame to query the new table and filter the data.</p></ol><p>Here are some key points to remember about loading and querying data:</p><ul><p>You used Snowpark to execute SQL statements in Python code.</p><p>You created a stage to load data from a CSV file.</p><p>You created a database to store the data and a schema to group the database objects logically.</p><p>You used a DataFrame to specify the data source and filter data for a query.</p></ul></section><section><h3>What’s next?<a>¶</a></h3><p>Continue learning about Snowflake using the following resources:</p><ul><li><p>Complete the other tutorials provided by Snowflake:</p><span>Snowflake Tutorials</span></li><li><p>Familiarize yourself with key Snowflake concepts and features,
 
 
 
@@ -36,20 +58,6 @@ For example, the following
 table contains six columns:</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>TABLE</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>calendar</span><span>(</span><span>full_date</span><span>DATE</span><span>,</span><span>day_name</span><span>VARCHAR</span><span>(</span><span>10</span><span>)</span><span>,</span><span>month_name</span><span>VARCHAR</span><span>(</span><span>10</span><span>)</span><span>,</span><span>day_number</span><span>VARCHAR</span><span>(</span><span>2</span><span>)</span><span>,</span><span>full_year</span><span>VARCHAR</span><span>(</span><span>4</span><span>)</span><span>,</span><span>holiday</span><span>BOOLEAN</span><span>)</span><span>COMMENT</span><span>=</span><span>'Table to be loaded from S3 calendar data file'</span><span>;</span></pre><span>Copy</span></div></li><li><p>To confirm that the table was created successfully, place your cursor in the SELECT line,
 then select <span>Run</span>.</p><div><pre><span>SELECT</span><span>*</span><span>FROM</span><span>cloud_data_db</span><span>.</span><span>s3_data</span><span>.</span><span>calendar</span><span>;</span></pre><span>Copy</span></div><p>The output shows the columns of the table you created. Currently, the table does not have any rows.</p></li></ol></section><section><h2>Step 5. Create a storage integration<a>¶</a></h2><p>Before you can load data from cloud storage, you must configure a storage integration that is
 specific to your cloud provider.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/data-load-external-tutorial.html
-
-Documentation Title:
-Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
-
-Documentation Content:
-<div><div><nav><div><span>DOCUMENTATION</span><span>/</span></div><div><a>Getting Started</a><a>Guides</a><a>Developer</a><a>Reference</a><a>Releases</a><a>Tutorials</a><a>Status</a></div></nav><main><h3>Tutorial: Bulk loading from Amazon S3 using COPY </h3><div><nav><a>Getting Started</a><a>Tutorials</a><span>Bulk Loading</span><span>Bulk Loading from Amazon S3 Using COPY</span></nav><section><h1>Tutorial: Bulk loading from Amazon S3 using COPY<a>¶</a></h1><section><h2>Introduction<a>¶</a></h2><p>This tutorial describes how to load data from files in an existing Amazon Simple Storage Service (Amazon S3) bucket into a table. In this tutorial, you will learn how to:</p><ul><p>Create named file formats that describe your data files.</p><p>Create named stage objects.</p><p>Load data located in your S3 bucket into Snowflake tables.</p><p>Resolve errors in your data files.</p></ul><p>The tutorial covers loading of both CSV and JSON data.</p></section><section><h2>Prerequisites<a>¶</a></h2><p>The tutorial assumes the following:</p><ul><p>You have a Snowflake account that is configured to use Amazon Web Services (AWS) and a user with a role that grants the necessary
-privileges to create a database, tables, and virtual warehouse objects.</p><p>You have SnowSQL installed.</p></ul><p>Refer to the <span>Snowflake in 20 minutes</span>for instructions to meet these requirements.</p><p>Snowflake provides sample data files in a public Amazon S3 bucket for use in this tutorial.
-But before you start, you need to create a database, tables, and a virtual warehouse for
-this tutorial.
 
 
 

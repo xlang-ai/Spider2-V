@@ -24,18 +24,14 @@ is non-deterministic.</p></section></section></article><footer><div><p>Was this 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/queries-hierarchical.html
+docs.snowflake.com/en/sql-reference/functions/max_by.html
 
 Documentation Title:
-Querying Hierarchical Data | Snowflake Documentation
+MAX_BY | Snowflake Documentation
 
 Documentation Content:
-</span><span>1</span><span>);</span><span>INSERT</span><span>INTO</span><span>employees</span><span>(</span><span>title</span><span>,</span><span>employee_ID</span><span>,</span><span>manager_ID</span><span>)</span><span>VALUES</span><span>(</span><span>'Vice President Engineering'</span><span>,</span><span>10</span><span>,</span><span>1</span><span>),</span><span>(</span><span>'Vice President HR'</span><span>,</span><span>20</span><span>,</span><span>1</span><span>);</span></pre><span>Copy</span></div></div></section><section><h3>Hierarchical Data in a Single Table<a>¶</a></h3><p>In some situations, the number of levels in the hierarchy might change.</p><p>For example, a company that started with a two-level hierarchy (President and other employees) might increase the
-number of levels as the company grows. The company might expand to include a President, Vice Presidents, and regular
-employees.</p><p>If the number of levels is unknown, so that it is not possible to create a hierarchy with a known number of tables,
-then in some cases the hierarchical data can be stored in one table. For example, a single table can contain all
-employees, and can include a column that stores each employee’s manager_ID, which points to another employee in that
-same table.
+Generation</span><span>Data Metric</span><span>Date &amp; Time</span><span>Encryption</span><span>File</span><span>Geospatial</span><span>Hash</span><span>Metadata</span><span>Notification</span><span>Numeric</span><span>Regular Expressions</span><span>Semi-Structured and Structured Data</span><span>String &amp; Binary</span><span>System</span><span>Table</span><span>Vector</span><span>Window</span><span>Stored Procedures</span></div></li><span>Class Reference</span><span>Scripting Reference</span><span>General Reference</span><span>API Reference</span></ol><div><div><nav><a>Reference</a><a>Function and Stored Procedure Reference</a><a>Aggregate</a><span>MAX_BY</span></nav><article><dl><dt>Categories:</dt><p><span>Aggregate Functions</span>(General)</p></dl><section><h1>MAX_BY<a>¶</a></h1><p>Finds the row(s) containing the maximum value for a column and returns the value of another column in that row.</p><p>For example, if a table contains the columns <span>employee_id</span>and <span>salary</span>, <code><span>MAX_BY(employee_id,</span><span>salary)</span></code>returns the value
+of the <span>employee_id</span>column for the row that has the highest value in the <span>salary</span>column.</p><p>If multiple rows contain the specified maximum value, the function is non-deterministic.</p><p>To return values for multiple rows, specify the optional <span>maximum_number_of_values_to_return</span>argument.
 
 
 

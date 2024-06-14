@@ -1,22 +1,11 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
 
 Documentation Title:
-Local JSON | Airbyte Documentation
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-It will not work otherwise). You allow it with "File sharing" in <code>Settings -&gt; Resources -&gt; File sharing -&gt; add the one or two above folder</code>and hit the "Apply &amp; restart" button.</p></div><h3>Example:<a>​</a></h3><ul><li>If <code>destination_path</code>is set to <code>/local/cars/models</code></li><li>the local mount is using the <code>/tmp/airbyte_local</code>default</li><li>then all data will be written to <code>/tmp/airbyte_local/cars/models</code>directory.</li></ul><h2>Access Replicated Data Files<a>​</a></h2><p>If your Airbyte instance is running on the same computer that you are navigating with, you can open your browser and enter <a>file:///tmp/airbyte_local</a>to look at the replicated data locally. If the first approach fails or if your Airbyte instance is running on a remote server, follow the following steps to access the replicated files:</p><ol><li>Access the scheduler container using <code>docker exec -it airbyte-server bash</code></li><li>Navigate to the default local mount using <code>cd /tmp/airbyte_local</code></li><li>Navigate to the replicated file directory you specified when you created the destination, using <code>cd /{destination_path}</code></li><li>List files containing the replicated data using <code>ls</code></li><li>Execute <code>cat {filename}</code>to display the data in a particular file</li></ol><p>You can also copy the output file to your host machine, the following command will copy the file to the current working directory you are using:</p><span>docker cp airbyte-server:/tmp/airbyte_local/{destination_path}/{filename}.jsonl .</span><p>Note: If you are running Airbyte on Windows with Docker backed by WSL2, you have to use similar step as above or refer to this <a>link</a>for an alternative approach.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
-
-Documentation Title:
-Local JSON | Airbyte Documentation
-
-Documentation Content:
-Each file will a collections of <code>json</code>objects containing 3 fields:</p><ul><li><code>_airbyte_ab_id</code>: a uuid assigned by Airbyte to each event that is processed.</li><li><code>_airbyte_emitted_at</code>: a timestamp representing when the event was pulled from the data source.</li><li><code>_airbyte_data</code>: a json blob representing with the extracted data.</li></ul><h4>Features<a>​</a></h4><table><tr><th>Feature</th><th>Supported</th></tr><tbody><tr><td>Full Refresh Sync</td><td>Yes</td></tr><tr><td>Incremental - Append Sync</td><td>Yes</td></tr><tr><td>Incremental - Append + Deduped</td><td>No</td></tr><tr><td>Namespaces</td><td>No</td></tr></tbody></table><h4>Performance considerations<a>​</a></h4><p>This integration will be constrained by the speed at which your filesystem accepts writes.</p><h2>Getting Started<a>​</a></h2><p>The <code>destination_path</code>will always start with <code>/local</code>whether it is specified by the user or not. Any directory nesting within local will be mapped onto the local mount.</p><p>By default, the <code>LOCAL_ROOT</code>env variable in the <code>.env</code>file is set <code>/tmp/airbyte_local</code>.</p><p>The local mount is mounted by Docker onto <code>LOCAL_ROOT</code>. This means the <code>/local</code>is substituted by <code>/tmp/airbyte_local</code>by default.</p><div><div>caution</div><p>Please make sure that Docker Desktop has access to <code>/tmp</code>(and <code>/private</code>on a MacOS, as /tmp has a symlink that points to /private. It will not work otherwise).
+Our community's participation is invaluable in helping us grow and improve every day, and we always welcome your feedback.</p><p>Thank you, and we hope you enjoy using Airbyte!</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Add a Destination</div></a><a><div>Next</div><div>Configuring Connections</div></a></nav></div><div><ul><a>Configure the connection</a><li><a>Connection Overview</a><a>Check the data from your first sync</a></li><a>What's next?</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
 
 
 
@@ -32,13 +21,24 @@ you can verify the sync has completed by checking the data in your destination.<
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.html
+airbyte.com/blog/manage-and-orchestrate-airbyte-connections-using-python.html
 
 Documentation Title:
-Local JSON | Airbyte Documentation
+You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
 
 Documentation Content:
-DB</a><a>Pinecone</a><a>Postgres</a><a>PubSub</a><a>Pulsar</a><a>Qdrant</a><a>R2</a><a>RabbitMQ</a><a>Redis</a><a>Redpanda</a><a>Redshift</a><a>Rockset</a><a>S3-Glue</a><a>S3</a><a>Scylla</a><a>SelectDB</a><a>SFTP JSON</a><a>Snowflake Cortex Destination</a><a>Snowflake</a><a>Sqlite</a><a>Starburst Galaxy destination user guide</a><a>Streamr</a><a>Teradata</a><a>TiDB</a><a>Timeplus</a><a>Typesense</a><a>Vectara</a><a>vertica</a><a>Weaviate</a><a>Xata</a><a>Yellowbrick</a><a>Yugabytedb</a></ul></li><a>Custom or New Connector</a></ul></li><a>Build a Connector</a><a>Connector Support Levels</a><li>Using Airbyte</li><a>Getting Started</a><a>Configuring Connections</a><a>Managing Syncs</a><li>Managing Airbyte</li><a>Deploy Airbyte</a><a>Self-Managed Enterprise</a><a>Upgrading Airbyte</a><a>Configuring Airbyte</a><a>Access Management</a><a>Airbyte at Scale</a><a>Security</a><a>Integrating with Airbyte</a><a>Account Management</a><li>Developer Guides</li><a>API documentation</a><a>Terraform Documentation</a><a>Using PyAirbyte</a><a>Understand Airbyte</a><a>Contribute to Airbyte</a><a>Licenses</a><li>Community</li><a>Getting Support</a><a>Code of Conduct</a><li>Product Updates</li><a>Roadmap</a><a>Release
+Here’s how:</p><ul><li><strong>Workspace ID:</strong>Look at the URL in your workspace and you’ll find the Workspace ID right after <em>workspace/</em>.</li><li><strong>Connection ID:</strong>Go to the “Connections” tab in your workspace and click on any connection. Check the URL again; you'll find the Connection ID right after <em>connection/</em>'.</li></ul><h3>Getting your Airbyte API Key</h3><p>To interact with Airbyte programmatically, you’ll need an API key for authentication. Here's how to get it:</p><ul><li>Navigate to the <a>Airbyte Developer Portal</a>and enter your credentials to login.</li><li>Once logged in, look for the option to create a new API key. The portal will guide you through the steps to generate this key.</li><li>After obtaining your API key, make sure to store it safely. We recommend using your favorite secrets manager for this purpose. You'll need this key later.</li></ul><h3>Installing PyAirbyte</h3><p>If you haven’t done so, here's how you can <a>install PyAirbyte</a>:</p><ul><li><strong>Virtual environment (recommended):</strong>It’s a good practice to use a virtual environment.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections.html
+
+Documentation Title:
+Configuring Connections | Airbyte Documentation
+
+Documentation Content:
+This gives you the option to reset streams when you save the changes.</p></ol><div><div>tip</div><p>When editing the stream configuration, Airbyte recommends that you reset streams. A reset will delete data in the destination of the affected streams and then re-sync that data. Skipping a reset is discouraged and might lead to unexpected behavior.</p></div><li>Click <strong>Save connection</strong>.</li></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Set up a Connection</div></a><a><div>Next</div><div>Sync Schedules</div></a></nav></div><div><ul><a>Configure Connection Settings</a><a>Modify Streams</a></ul><div><div>Was this page helpful?</div><div><button>Yes</button><button>No</button></div></div></div></div></div></div>
 
 
 

@@ -1,22 +1,11 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.html
+airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections.html
 
 Documentation Title:
-Faker | Airbyte Documentation
+Configuring Connections | Airbyte Documentation
 
 Documentation Content:
-0.0</td><td>2023-06-23</td><a>27684</a><td>Stream cursor is now <code>updated_at</code>&amp; remove <code>records_per_sync</code>option</td></tr><tr><td>2.1.0</td><td>2023-05-08</td><a>25903</a><td>Add user.address (object)</td></tr><tr><td>2.0.3</td><td>2023-02-20</td><a>23259</a><td>bump to test publication</td></tr><tr><td>2.0.2</td><td>2023-02-20</td><a>23259</a><td>bump to test publication</td></tr><tr><td>2.0.1</td><td>2023-01-30</td><a>22117</a><td><code>source-faker</code>goes beta</td></tr><tr><td>2.0.0</td><td>2022-12-14</td><td><a>20492</a>and <a>20741</a></td><td>Decouple stream states for better parallelism</td></tr><tr><td>1.0.0</td><td>2022-11-28</td><a>19490</a><td>Faker uses the CDK; rename streams to be lower-case (breaking), add determinism to random purchases, and rename</td></tr><tr><td>0.2.1</td><td>2022-10-14</td><a>19197</a><td>Emit <code>AirbyteEstimateTraceMessage</code></td></tr><tr><td>0.2.0</td><td>2022-10-14</td><a>18021</a><td>Move to mimesis for speed!</td></tr><tr><td>0.1.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/using-airbyte/getting-started/add-a-source.html
-
-Documentation Title:
-Add a Source | Airbyte Documentation
-
-Documentation Content:
-When viewing the Airbyte UI, you'll see the main navigation bar on the left side of your screen. Click the <strong>Sources</strong>tab to bring up a list of all available sources.</p><p>You can use the provided search bar, or simply scroll down the list to find the source you want to replicate data from. Let's use a demo source, Faker, as an example. Clicking on the <strong>Sample Data (Faker)</strong>card will bring us to its setup page.</p><img/><p>The left half of the page contains a set of fields that you will have to fill out. In the <strong>Source name</strong>field, you can enter a name of your choosing to help you identify this instance of the connector. By default, this will be set to the name of the source (ie, <code>Sample Data (Faker)</code>).</p><p>Each connector in Airbyte will have its own set of authentication methods and configurable parameters. In the case of Sample Data (Faker), you can adjust the number of records you want returned in your <code>Users</code>data, and optionally adjust additional configuration settings. You can always refer to your source's provided setup guide for specific instructions on filling out each field.</p><div><div>info</div><p>Some sources will have an <strong>Optional Fields</strong>tab. You can open this tab to view and configure any additional optional parameters that exist for the souce, but you do not have to do so to successfully set up the connector.</p></div><p>Once you've filled out all the required fields, click on the <strong>Set up source</strong>button and Airbyte will run a check to verify the connection. Happy replicating!</p><p>Can't find the connectors that you want? Try your hand at easily building one yourself using our <a>Connector Builder</a>!</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>Core Concepts</div></a><a><div>Next</div><div>Add a Destination</div></a></nav></div></div></div>
+Each stream is most commonly associated with a database table or an API endpoint. Within a stream, there can be one or many fields or columns.</p></div><p>To modify streams, click <strong>Connections</strong>and then click the connection you want to change. Click the <strong>Schema</strong>tab to see all the streams Airbyte can sync. To modify an individual stream:</p><ol><p>Toggle <strong>Sync</strong>on or off for your selected stream. To select or deselect all streams at once, use "Hide disabled streams" in the table header. To deselect an individual stream, use the toggle in its row.</p><p>Click the <strong>Sync mode</strong>dropdown and select the sync mode you want to apply. Depending on the sync mode you select, you may need to choose a cursor or primary key.</p></ol><div><div>info</div><p>Source-defined cursors and primary keys are selected automatically and cannot be changed in the table.</p></div><ol><p>Click on a stream to display the stream details panel. You'll see each column we detect from the source.</p><p>Column selection is available to protect PII or sensitive data from being synced to the destination. Toggle individual fields to include or exclude them in the sync, or use the toggle in the table header to select all fields at once.</p></ol><div><div>info</div><ul><li>You can only deselect top-level fields. You cannot deselect nested fields.</li><li>The Airbyte platform may read all data from the source (depending on the source), but it will only write data to the destination from fields you selected. Deselecting fields will not prevent the Airbyte platform from reading them.</li><li>When you refresh the schema, newly added fields will be selected by default, even if you have previously deselected fields in that stream.</li></ul></div><ol><p>Click the <strong>X</strong>to close the stream details panel.</p><p>Click <strong>Save changes</strong>, or click <strong>Cancel</strong>to discard the changes.</p><p>The <strong>Stream configuration changed</strong>dialog displays.
 
 
 
@@ -32,13 +21,28 @@ This gives you the option to reset streams when you save the changes.</p></ol><d
 
 
 Documentation Source:
-airbyte.com/quickstart/airbyte-dbt-snowflake-and-looker-adsl-stack.html
+airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections.html
 
 Documentation Title:
-Airbyte, dbt, Snowflake and Looker (ADSL) Stack | Airbyte
+Configuring Connections | Airbyte Documentation
 
 Documentation Content:
-For troubleshooting, see <a>here</a>.</p><p>Click <strong>Connect</strong>to save these settings.</p><p>Now that the connection to Snowflake has been created, you are good to go to explore your Snowflake data in Looker.</p><h2>Next Steps</h2><p>Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:</p><h3><strong>Create dbt Sources for Airbyte Data</strong>:</h3><p>Your raw data extracted via Airbyte can be represented as sources in dbt. Start by <a>creating new dbt sources</a>to represent this data, allowing for structured transformations down the line.</p><h3><strong>Add Your dbt Transformations</strong>:</h3><p>With your dbt sources in place, you can now build upon them. Add your custom SQL transformations in dbt, ensuring that you treat the sources as an upstream dependency. This ensures that your transformations work on the most up-to-date raw data.</p><h3><strong>Execute the Pipeline in Dagster</strong>:</h3><p>Navigate to the Dagster UI and click on "Materialize all". This triggers the entire pipeline, encompassing the extraction via Airbyte, transformations via dbt, and any other subsequent steps.</p><h3><strong>Explore in Looker</strong>:</h3><p>You can use the SQL Runner to create queries and Explores, create and share Looks (reports and dashboards), or use LookML to create a data model that Looker will use to query your data. However way you wish to go with your Snowflake data, the choice is yours.</p><h3><strong>Extend the Project</strong>:</h3><p>The real beauty of this integration is its extensibility. Whether you want to add more data sources, integrate additional tools, or enhance your transformation logic – the floor is yours. With the foundation set,
+Enterprise</span></span></div><p>A connection links a source to a destination and defines how your data will sync. After you have created a connection, you can modify any of the configuration settings or stream settings.</p><h2>Configure Connection Settings<a>​</a></h2><p>Configuring the connection settings allows you to manage various aspects of the sync, such as how often data syncs and where data is written.</p><p>To configure these settings:</p><ol><p>In the Airbyte UI, click <strong>Connections</strong>and then click the connection you want to change.</p><p>Click the <strong>Settings</strong>tab.</p><p>Click the <strong>Configuration</strong>dropdown to expand the options.</p></ol><div><div>note</div><p>These settings apply to all streams in the connection.</p></div><p>You can configure the following settings:</p><table><tr><th>Setting</th><th>Description</th></tr><tbody><tr><td>Connection Name</td><td>A custom name for your connection</td></tr><tr><a>Schedule Type</a><td>How often data syncs (can be scheduled, cron, API-triggered or manual)</td></tr><tr><a>Destination Namespace</a><td>Where the replicated data is written to in the destination</td></tr><tr><td>Destination Stream Prefix</td><td>A prefix added to each table name in the destination</td></tr><tr><a>Detect and propagate schema changes</a><td>How Airbyte handles schema changes in the source</td></tr><tr><a>Connection Data Residency</a><td>Where data will be processed (Cloud only)</td></tr></tbody></table><h2>Modify Streams<a>​</a></h2><p>On the "Schema" tab, you choose which streams to sync and how they are loaded to the destination.</p><div><div>info</div><p>A connection's schema consists of one or many streams. Each stream is most commonly associated with a database table or an API endpoint.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/integrations/sources/jira-migrations.html
+
+Documentation Title:
+Jira Migration Guide | Airbyte Documentation
+
+Documentation Content:
+However, due to differences between the Python and low-code CDKs, this migration constitutes a breaking change.</p><p>To gracefully handle these changes for your existing connections, we highly recommend resetting your data before resuming your data syncs with the new version. The <strong>Issues</strong>, <strong>Board Issues</strong>and <strong>Sprint Issues</strong>streams can be manually reset in the following way:</p><ol><li>Select <strong>Connections</strong>in the main navbar.
+1.1 Select the connection(s) affected by the update.</li><li>Select the <strong>Schema</strong>tab.</li><li>Uncheck all streams except the affected ones.</li><li>Select <strong>Save changes</strong>at the bottom of the page.</li><li>Select the <strong>Settings</strong>tab.</li><li>Press the <strong>Clear your data</strong>button.</li><li>Return to the <strong>Schema</strong>tab.</li><li>Check all your streams.</li><li>Select <strong>Sync now</strong>to sync your data</li></ol><p>For more information on resetting your data in Airbyte, see <a>this page</a>.</p><h2>Upgrading to 1.0.0<a>​</a></h2><p>Note: this change is only breaking if you are using the <code>Boards Issues</code>stream in Incremental Sync mode.</p><p>This is a breaking change because Stream State for <code>Boards Issues</code>will be changed, so please follow the instructions below to migrate to version 1.0.0:</p><ol><li>Select <strong>Connections</strong>in the main navbar.
+1.1 Select the connection(s) affected by the update.</li><li>Select the <strong>Replication</strong>tab.
+2.1 Select <strong>Refresh source schema</strong>.
+<code>note Any detected schema changes will be listed for your review. </code>2.2 Select <strong>OK</strong>.</li><li>Select <strong>Save changes</strong>at the bottom of the page.
 
 
 

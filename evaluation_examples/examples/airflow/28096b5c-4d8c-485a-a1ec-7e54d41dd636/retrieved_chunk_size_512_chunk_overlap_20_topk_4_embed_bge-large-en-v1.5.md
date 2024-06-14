@@ -30,11 +30,34 @@ Documentation Title:
 Run your Astro project in a local Airflow environment with the CLI | Astronomer Documentation
 
 Documentation Content:
-This can be useful for testing and troubleshooting API calls before executing them in a Deployment on Astro.
+cURL​
 
-To make local requests with cURL or Python, you only need the username and password for your local user. Both of these values are `admin`by default. They are the same credentials for logging into the Airflow UI, and they're listed when you run `astro dev start`.
+curl-XGET localhost:8080/api/v1/--user"admin:admin"### Python​
 
-To make requests to the Airflow REST API in a Deployment on Astro, see Airflow API.
+`importrequestsresponse =requests.get(url="http://localhost:8080/api/v1/",auth=("admin","admin"))`Hard reset your local environment​
+----------------------------------
+
+In most cases, restarting your local projectis sufficient for testing and making changes to your project. However, it is sometimes necessary to kill your Docker containers and metadata database for testing purposes. To do so, run the following command:
+
+astro dev killThis command forces your running containers to stop and deletes all data associated with your local Postgres metadata database, including Airflow connections, logs, and task history.
+
+Override the Astro CLI Docker Compose file​
+-------------------------------------------
+
+The Astro CLI uses a default set of Docker Composeconfigurations to define and run local Airflow components. For advanced testing cases, you might need to override these default configurations. For example, you might need to:
+
+* Add extra containers to mimic services that your Airflow environment needs to interact with locally, such as an SFTP server.
+* Change the volumes mounted to any of your local containers.
+
+infoThe Astro CLI does not support overrides to environment variables that are required globally. For the list of environment variables that Astro enforces, see Global environment variables. To learn more about environment variables, read Environment variables.
+
+1. Reference the Astro CLI's default Docker Compose file(`composeyml.yml`) and determine one or more configurations to override.
+2. Add a `docker-compose.override.yml`file at the top level of your Astro project.
+3. Specify your new configuration values in `docker-compose.override.yml`file using the same format as in `composeyml.yml`.
+
+For example, to add another volume mount for a directory named `custom_dependencies`, add the following to your `docker-compose.override.yml`file:
+
+`version:"3.1"services:scheduler:volumes:-/home/astronomer_project/custom_dependencies:/usr/local/airflow/custom_dependencies:ro`Make sure to specify `version: "3.1"`and follow the format of the source code file linked above.
 
 
 
@@ -64,40 +87,27 @@ Documentation Content:
 
 
 Documentation Source:
-docs.astronomer.io/astro/cli/run-airflow-locally.md
+docs.astronomer.io/astro/cli/authenticate-to-clouds.md
 
 Documentation Title:
-Run your Astro project in a local Airflow environment with the CLI | Astronomer Documentation
+Authenticate to cloud services with user credentials | Astronomer Documentation
 
 Documentation Content:
-cURL​
+Configure your Astro project​
 
-curl-XGET localhost:8080/api/v1/--user"admin:admin"### Python​
+The Astro CLI runs Airflow in a Docker-based environment. To give Airflow access to your credential file, mount it as a Docker volume.
 
-`importrequestsresponse =requests.get(url="http://localhost:8080/api/v1/",auth=("admin","admin"))`Hard reset your local environment​
-----------------------------------
+1. In your Astro project, create a file named `docker-compose.override.yml`to your project with the following configuration:
 
-In most cases, restarting your local projectis sufficient for testing and making changes to your project. However, it is sometimes necessary to kill your Docker containers and metadata database for testing purposes. To do so, run the following command:
 
-astro dev killThis command forces your running containers to stop and deletes all data associated with your local Postgres metadata database, including Airflow connections, logs, and task history.
+	* Mac
+	* Linux
+	* Windows`version:"3.1"services:scheduler:volumes:-/Users//.config/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rwwebserver:volumes:-/Users//.config/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rwtriggerer:volumes:-/Users//.config/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rw``version:"3.1"services:scheduler:volumes:-/home//.config/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rwwebserver:volumes:-/home//.config/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rwtriggerer:volumes:-/home//.config/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rw``version:"3.1"services:scheduler:volumes:-/c/Users//AppData/Roaming/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rwwebserver:volumes:-/c/Users//AppData/Roaming/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rwtriggerer:volumes:-/c/Users//AppData/Roaming/gcloud/application_default_credentials.json:/usr/local/airflow/gcloud/application_default_credentials.json:rw`
+2. In your Astro project's `.env`file, add the following environment variable. Ensure that this volume path is the same as the one you configured in `docker-compose.override.yml`.
 
-Override the Astro CLI Docker Compose file​
--------------------------------------------
+GOOGLE\_APPLICATION\_CREDENTIALS=/usr/local/airflow/gcloud/application\_default\_credentials.json
 
-The Astro CLI uses a default set of Docker Composeconfigurations to define and run local Airflow components. For advanced testing cases, you might need to override these default configurations. For example, you might need to:
-
-* Add extra containers to mimic services that your Airflow environment needs to interact with locally, such as an SFTP server.
-* Change the volumes mounted to any of your local containers.
-
-infoThe Astro CLI does not support overrides to environment variables that are required globally. For the list of environment variables that Astro enforces, see Global environment variables. To learn more about environment variables, read Environment variables.
-
-1. Reference the Astro CLI's default Docker Compose file(`composeyml.yml`) and determine one or more configurations to override.
-2. Add a `docker-compose.override.yml`file at the top level of your Astro project.
-3. Specify your new configuration values in `docker-compose.override.yml`file using the same format as in `composeyml.yml`.
-
-For example, to add another volume mount for a directory named `custom_dependencies`, add the following to your `docker-compose.override.yml`file:
-
-`version:"3.1"services:scheduler:volumes:-/home/astronomer_project/custom_dependencies:/usr/local/airflow/custom_dependencies:ro`Make sure to specify `version: "3.1"`and follow the format of the source code file linked above.
+When you run Airflow locally, all GCP connections without defined credentials automatically fall back to your user credentials when connecting to GCP.
 
 
 

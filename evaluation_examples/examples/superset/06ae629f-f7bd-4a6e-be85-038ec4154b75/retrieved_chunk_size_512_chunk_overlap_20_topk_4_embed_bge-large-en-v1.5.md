@@ -46,63 +46,6 @@ instance, but many people like to run that tooling from their host.
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/index.md
-
-Documentation Title:
-Contributing to Superset | Superset
-
-Documentation Content:
-Report Bug​
-
-The best way to report a bug is to file an issue on GitHub. Please include:
-
-* Your operating system name and version.
-* Superset version.
-* Detailed steps to reproduce the bug.
-* Any details about your local setup that might be helpful in troubleshooting.
-
-When posting Python stack traces, please quote them using
-Markdown blocks.
-
-*Please note that feature requests opened as GitHub Issues will be moved to Discussions.*### Submit Ideas or Feature Requests​
-
-The best way is to start an "Ideas" Discussion threadon GitHub:
-
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that your contributions are as welcome as anyone's :)
-
-To propose large features or major changes to codebase, and help usher in those changes, please create a **Superset Improvement Proposal (SIP)**. See template from SIP-0
-
-
-
-Documentation Source:
-superset.apache.org/docs/contributing/development/index.md
-
-Documentation Title:
-Setting up a Development Environment | Superset
-
-Documentation Content:
-fs.inotify.max\_user\_watches=524288Save the file and exit editor.
-To confirm that the change succeeded, run the following command to load the updated value of max\_user\_watches from sysctl.conf:
-
-sudosysctl -p#### Webpack dev server​
-
-The dev server by default starts at `http://localhost:9000`and proxies the backend requests to `http://localhost:8088`.
-
-So a typical development workflow is the following:
-
-1. run Superset locallyusing Flask, on port `8088`— but don't access it directly,`# Install Superset and dependencies, plus load your virtual environment first, as detailed above.superset run -p 8088--with-threads --reload --debugger --debug`
-2. in parallel, run the Webpack dev server locally on port `9000`,npmrun dev-server
-3. access `http://localhost:9000`(the Webpack server, *not*Flask) in your web browser. This will use the hot-reloading front-end assets from the Webpack development server while redirecting back-end queries to Flask/Superset: your changes on Superset codebase — either front or back-end — will then be reflected live in the browser.
-
-It's possible to change the Webpack server settings:
-
-`# Start the dev server at http://localhost:9000npmrun dev-server# Run the dev server on a non-default portnpmrun dev-server -- --port=9001# Proxy backend requests to a Flask server running on a non-default portnpmrun dev-server -- --env=--supersetPort=8081# Proxy to a remote backend but serve local assetsnpmrun dev-server -- --env=--superset=https://superset-dev.example.com`The `--superset=`option is useful in case you want to debug a production issue or have to setup Superset behind a firewall. It allows you to run Flask server in another environment while keep assets building locally for the best developer experience.
-
-
-
-Documentation Source:
 superset.apache.org/docs/installation/docker-compose/index.md
 
 Documentation Title:
@@ -150,6 +93,45 @@ docker-compose, and
 gitinstalled.
 
 1.
+
+
+
+Documentation Source:
+superset.apache.org/docs/quickstart/index.md
+
+Documentation Title:
+Quickstart | Superset
+
+Documentation Content:
+1. Get Superset​
+
+$ gitclone https://github.com/apache/superset### 2. Start the latest official release of Superset​
+
+`# Enter the repository you just cloned$ cdsuperset# Fire up Superset using Docker Compose$ dockercompose -f docker-compose-image-tag.yml up`This may take a moment as Docker Compose will fetch the underlying
+container images and will load up some examples. Once all containers
+are downloaded and the output settles, you're ready to log in.
+
+
+
+Documentation Source:
+superset.apache.org/docs/installation/docker-compose/index.md
+
+Documentation Title:
+Docker Compose | Superset
+
+Documentation Content:
+Option 1 - for an interactive development environment​
+
+dockercompose uptipWhen running in development mode the `superset-node`container needs to finish building assets in order for the UI to render properly. If you would just
+like to try out Superset without making any code changes follow the steps documented for
+`production`or a specific version below.
+
+tipBy default, we mount the local superset-frontend folder here and run `npm install`as well
+as `npm run dev`which triggers webpack to compile/bundle the frontend code. Depending
+on your local setup, especially if you have less than 16GB of memory, it may be very slow to
+perform those operations. In this case, we recommend you set the env var
+`BUILD_SUPERSET_FRONTEND_IN_DOCKER`to `false`, and to run this locally instead in a terminal.
+Simply trigger `npm i && npm run dev`, this should be MUCH faster.
 
 
 

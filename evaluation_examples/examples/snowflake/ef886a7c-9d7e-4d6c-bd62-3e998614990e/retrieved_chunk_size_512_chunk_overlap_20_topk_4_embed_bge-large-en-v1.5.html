@@ -38,14 +38,16 @@ query results. Each query supports one type of chart at a time.</p><p>Hover over
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.html
+docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.html
 
 Documentation Title:
-Visualizing worksheet data | Snowflake Documentation
+Getting started with worksheets | Snowflake Documentation
 
 Documentation Content:
-For example, you can view your results as a line chart:</p><img/><p>You can modify the type of chart used to display your query results.</p><li><p>Select the chart type to choose a different type, for example, <span>Bar</span>.</p><img/></li><p>You can manage the columns in your chart with the <span>Data</span>section:</p><img/><p>Select a column to modify the column attributes:</p><ul><p>Add or remove columns.</p><p>Choose a different column in the query results to use in the chart.</p><li><p>Modify how column data is represented in the chart. For example, change the bucketing for a time column from day to minutes.</p><img/><p>You can modify the column attributes to configure how data in that column is rendered in the chart. See <span>Aggregate and bucket data</span>for more details about managing aggregate data.</p></li></ul><p>Style your chart in the <span>Appearance</span>section. The available settings depend on the type of chart. For example, for a heatgrid
-chart:</p><img/><p>The exact content of your charts depends on your query results.
+If you make updates to a SQL worksheet in Snowsight, the changes are not reflected in the Classic Console, and vice versa.</p></section></section><section><h2>Create worksheets in Snowsight<a>¶</a></h2><p>To create a worksheet in Snowsight, do the following:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Select <span>+</span>and select <span>SQL Worksheet</span>or <span>Python Worksheet</span>to create a worksheet.</p></ol><p>The worksheet opens in the same window with the date and time of creation as the default title.</p><p>You can then start writing in your worksheet. For a SQL worksheet, <span>start writing queries</span>.
+For a Python worksheet, <span>start writing code</span>.</p><section><h3>Create worksheets from a SQL file<a>¶</a></h3><p>To create a SQL worksheet from an existing SQL file, do the following:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Projects</span>» <span>Worksheets</span>to open the list of worksheets.</p><p>Select the <span>…</span>more menu » <span>Create Worksheet from SQL File</span>.</p><p>Browse to the SQL file to upload.</p><p>A new worksheet opens with a title that matches the file name.</p></ol><p>You can also add a SQL file to an existing SQL worksheet. Refer to <span>Append a SQL script to an existing worksheet</span>.</p></section></section><section><h2>Opening worksheets in tabs<a>¶</a></h2><p>You can use tabs to refer to multiple active worksheets and explore the databases and schemas in Snowflake while writing SQL
+statements or Python code in Snowsight. Your scroll position is preserved in each tab, making comparisons across worksheets easier
+to perform.
 
 
 

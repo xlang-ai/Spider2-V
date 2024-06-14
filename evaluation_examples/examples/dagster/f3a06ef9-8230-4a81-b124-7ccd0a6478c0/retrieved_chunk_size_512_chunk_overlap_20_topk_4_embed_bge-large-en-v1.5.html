@@ -32,17 +32,6 @@ Documentation Content:
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
-
-Documentation Title:
-Building machine learning pipelines with Dagster | Dagster Docs
-
-Documentation Content:
-<span>@asset</span><span>def</span><span>hackernews_stories</span><span>(</span><span>)</span><span>:</span><span># Get the max ID number from hacker news</span>latest_item <span>=</span>requests<span>.</span>get<span>(</span><span>"https://hacker-news.firebaseio.com/v0/maxitem.json"</span><span>)</span><span>.</span>json<span>(</span><span>)</span><span># Get items based on story ids from the HackerNews items endpoint</span>results <span>=</span><span>[</span><span>]</span>scope <span>=</span><span>range</span><span>(</span>latest_item <span>-</span><span>1000</span><span>,</span>latest_item<span>)</span><span>for</span>item_id <span>in</span>scope<span>:</span>item <span>=</span>requests<span>.</span>get<span>(</span><span><span>f"https://hacker-news.firebaseio.com/v0/item/</span><span><span>{</span>item_id<span>}</span></span><span>.json"</span></span><span>)</span><span>.</span>json<span>(</span><span>)</span>results<span>.</span>append<span>(</span>item<span>)</span><span># Store the results in a dataframe and filter on stories with valid titles</span>df <span>=</span>pd<span>.</span>DataFrame<span>(</span>results<span>)</span><span>if</span><span>len</span><span>(</span>df<span>)</span><span>&gt;</span><span>0</span><span>:</span>df <span>=</span>df<span>[</span>df<span>.</span><span>type</span><span>==</span><span>"story"</span><span>]</span>df <span>=</span>df<span>[</span><span>~</span>df<span>.</span>title<span>.
-
-
-
-Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.html
 
 Documentation Title:
@@ -55,6 +44,17 @@ From here, we can run our data pipeline.</p><p>To run the pipeline, click the <s
 <span>import</span>requests
 
 <span>from</span>dagster <span>import</span><span>(</span>MaterializeResult<span>,</span>MetadataValue<span>,</span>asset<span>,</span><span>)</span><span>from</span><span>.</span>configurations <span>import</span>HNStoriesConfig
+
+
+
+Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.html
+
+Documentation Title:
+Tutorial, part four: Building an asset graph | Dagster Docs
+
+Documentation Content:
+In this case, <code>topstory_ids</code>(the list of IDs) is a dependency of <code>topstories</code>(the CSV file).</p><p>In your browser, navigate back to Dagster's Global Asset Lineage (<code>localhost:3000/asset-groups</code>), and click on the <strong>Reload Definitions</strong>button on the top-right region of the page. This will tell Dagster to re-scan your code for new assets and other definitions without stopping Dagster. You can also use the Command + Option + R (Mac) or Control + Alt (Windows) + R keyboard shortcut to perform the same action.</p><p>After reloading your definitions, look at the asset graph to see the relationship between your assets.</p><h3>Logging during asset materialization<span>#</span></h3><p>In the code above, a <code>print</code>statement is used to show progress while fetching stories from the Hacker News API. Dagster has a built-in logger that extends past <code>print</code>and other Python logging methods. This logger shows exactly where logging happens in your Dagster project, such as which asset and step during a run the log came from.</p><p>Dagster's logger can be accessed through the <code>context</code>argument, which is available through any asset-decorated function if the first keyword argument in it is named <code>context</code>. The <code>context</code>argument contains the logger, information about the current run, and other Dagster-specific utilities.</p><p>The Dagster framework uses Python type hints, such as how the <code>context</code>argument is of type <code>AssetExecutionContext</code>. By annotating the <code>context</code>argument, most code editors will enable autocomplete for the methods available on the <code>context</code>object, such as <code>context.log.info</code>.</p><p>The code below replaces the <code>print</code>statement with the Dagster logger:</p><code><span>from</span>dagster <span>import</span>asset<span>,</span>AssetExecutionContext
 
 
 

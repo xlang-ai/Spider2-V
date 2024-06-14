@@ -1,4 +1,47 @@
 Documentation Source:
+airbyte.com/tutorials/incremental-data-synchronization.txt
+
+Documentation Title:
+Incremental data synchronization between Postgres databases | Airbyte
+
+Documentation Content:
+Execute the following command to open a shell to the destination Postgres database:
+docker exec -it airbyte-destination psql --username=postgres
+‍
+You can then view the names of the tables in the destination with the following command:
+\dt;
+‍
+Which should respond with the following.
+List of relations
+ Schema |          Name          | Type  |  Owner   
+--------+------------------------+-------+----------
+ public | _airbyte_raw_table_one | table | postgres
+ public | table_one              | table | postgres
+(2 rows)
+Initial creation: View the raw table in the destination
+As a first step in each sync operation, Airbyte copies the records from
+table_one
+in the source database into a raw table in  the destination database called
+_airbyte_raw_table_one
+. Look at its contents by executing the following:
+SELECT * FROM _airbyte_raw_table_one;
+‍
+Which should respond with a table that looks as follows:
+_airbyte_ab_id            |                                _airbyte_data                                |    _airbyte_emitted_at     
+--------------------------------------+-----------------------------------------------------------------------------+----------------------------
+ 2abc7493-bfc8-4493-ab62-de6ffe094a2d | {"id": 1, "name": "Eg1 IncApp", "updated_at": "2022-09-01T11:01:41.666004"} | 2022-09-01 11:12:03.301+00
+ 06e67da7-9c6a-46b6-a2e5-e1d102e16c7e | {"id": 2, "name": "Eg2a IncAp", "updated_at": "2022-09-01T11:02:05.017416"} | 2022-09-01 11:12:03.301+00
+(2 rows)
+‍
+In addition to the field containing the source data there are two additional fields in the raw table:
+_airbyte_emitted_at
+which tells you what time airbyte sent the record to the destination.
+_airbyte_ab_id
+is a UUID value added by the destination connector to each record before it is sent to the destination.
+
+
+
+Documentation Source:
 airbyte.com/tutorials/postgres-replication.txt
 
 Documentation Title:
@@ -46,79 +89,90 @@ on our community Slack Channel to share your ideas with thousands of data engine
 
 
 Documentation Source:
-airbyte.com/tutorials/postgres-to-bigquery.txt
-
-Documentation Title:
-How to Connect & Load Data from Postgres to BigQuery?
-
-Documentation Content:
-Choose your source:
-Select Postgres from the dropdown list of your configured sources.
-Select your destination:
-Choose BigQuery from the dropdown list of your configured destinations.
-Configure your sync:
-Define the frequency of your data syncs based on your business needs. Airbyte allows both manual and automatic scheduling for your data refreshes.
-Select the data to sync:
-Choose the specific Postgres objects you want to import data from towards BigQuery. You can sync all data or select specific tables and fields.
-Select the sync mode for your streams:
-Choose between full refreshes or incremental syncs (with deduplication if you want), and this for all streams or at the stream level. Incremental is only available for streams that have a primary cursor.
-Test your connection:
-Click the 'Test Connection' button to make sure that your setup works. If the connection test is successful, save your configuration.
-Start the sync:
-If the test passes, click 'Set Up Connection'. Airbyte will start moving data from Postgres to BigQuery according to your settings.
-Remember, Airbyte keeps your data in sync at the frequency you determine, ensuring your BigQuery data warehouse is always up-to-date with your Postgres data.
-Use Cases to transfer your Postgres data to BigQuery
-Integrating data from Postgres to BigQuery provides several benefits. Here are a few use cases:
-Advanced Analytics:
-BigQuery’s powerful data processing capabilities enable you to perform complex queries and data analysis on your Postgres data, extracting insights that wouldn't be possible within Postgres alone.
-Data Consolidation:
-If you're using multiple other sources along with Postgres, syncing to BigQuery allows you to centralize your data for a holistic view of your operations, and to set up a change data capture process so you never have any discrepancies in your data again.
-Historical Data Analysis:
-Postgres has limits on historical data. Syncing data to BigQuery allows for long-term data retention and analysis of historical trends over time.
-Data Security and Compliance:
-BigQuery provides robust data security features. Syncing Postgres data to BigQuery ensures your data is secured and allows for advanced data governance and compliance management.
-Scalability:
-BigQuery can handle large volumes of data without affecting performance, providing an ideal solution for growing businesses with expanding Postgres data.
-
-
-
-Documentation Source:
 airbyte.com/tutorials/incremental-data-synchronization.txt
 
 Documentation Title:
 Incremental data synchronization between Postgres databases | Airbyte
 
 Documentation Content:
-SELECT * FROM _airbyte_raw_table_two;
-‍
-Which should respond with a table that looks as follows:
-_airbyte_ab_id            |                                _airbyte_data                                |    _airbyte_emitted_at     
---------------------------------------+-----------------------------------------------------------------------------+----------------------------
- 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | {"id": 1, "name": "Eg1 DD+Hst", "updated_at": "2022-09-01T16:18:07.569818"} | 2022-09-01 16:52:44.103+00
- 4282344a-62c3-4634-a91a-e6dafb9b253a | {"id": 2, "name": "Eg2a DD+Hs", "updated_at": "2022-09-01T16:30:13.939030"} | 2022-09-01 16:52:44.103+00
- 89377204-7801-49c8-a779-91da45a86cc3 | {"id": 2, "name": "Eg2b DD+Hs", "updated_at": "2022-09-01T17:02:14.841419"} | 2022-09-01 17:02:39.894+00
-(3 rows)
-Update: View the normalized tables in the destination
-View the history table called
-table_two_scd
-by executing the following:
-SELECT * FROM  table_two_scd;
-‍
-Which looks as follows.
+If you wish to view this database for yourself, you can login to it as follows:
+docker exec -ti airbyte-db psql -U docker -d airbyte
+The contents of the state database can be viewed with the following command:
+SELECT * FROM state;
+Which should respond with a table similar to the one given below (note that the response is abbreviated in this article for conciseness):
+id                  |            connection_id             |                                                                                                  state                                                                   |          created_at           |          updated_at           | stream_name | namespace |  type  
+--------------------------------------+--------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+-------------------------------+-------------+-----------+--------
+ 884a10a7-1c58-4456-af44-c617eec0c1fb | 78cb42b9-e857-4f93-b159-e590ec31d287 | {"state": {"cdc": false, "streams": [{"cursor": "2022-09-02T07:55:58.324989", "stream_name": "table_one", "cursor_field": ["updated_at"], "stream_namespace": "public"}]}} | 2022-09-01 16:52:44.619871+00 | 2022-09-02 07:59:27.304753+00 |             |           | LEGACY
+Why and when is a primary key required
+Records that are inserted
+or updated
+on a source system are replicated by Airbyte to the destination during a sync operation, and initially stored in a raw data table. If a given document is updated and synchronized multiple times, the raw data table will have multiple entries for that record (as will be seen in the hands-on deep-dive later in this article).
+If an Airbyte user has selected the Incremental Sync - Deduped History sync mode, then the data must be deduplicated so that a single entry in the source table only results in a single corresponding entry in the final normalized deduplicated destination table, even though multiple versions corresponding to that record may appear in the raw and historic data tables. A primary key field is used by Airbyte to select only the most recent version of a given record from the history table for inclusion in the final deduplicated table, and all other historical versions of that record are not included.
 
 
 
 Documentation Source:
-airbyte.com/tutorials/incremental-data-synchronization.txt
+airbyte.com/tutorials/full-data-synchronization.txt
 
 Documentation Title:
-Incremental data synchronization between Postgres databases | Airbyte
+Explore Airbyte's full refresh data synchronization | Airbyte
 
 Documentation Content:
-_airbyte_unique_key        |     _airbyte_unique_key_scd      | id |    name    |         updated_at         |     _airbyte_start_at      |      _airbyte_end_at       | _airbyte_active_row |            _airbyte_ab_id            |    _airbyte_emitted_at     |    _airbyte_normalized_at     |    _airbyte_table_two_hashid     
-----------------------------------+----------------------------------+----+------------+----------------------------+----------------------------+----------------------------+---------------------+--------------------------------------+----------------------------+-------------------------------+----------------------------------
- c4ca4238a0b923820dcc509a6f75849b | 96a17eccedd409b3b3de3b411d431ab8 |  1 | Eg1 DD+Hst | 2022-09-01 16:18:07.569818 | 2022-09-01 16:18:07.569818 |                            |                   1 | 3bd474b8-0329-4bce-bde7-aee7c5d30cc8 | 2022-09-01 16:52:44.103+00 | 2022-09-01 17:03:37.521659+00 | 78812b56ae516cb4bb4278c595c3b20e
- c81e728d9d4c2f636f067f89cc14862c | 064c6bc6ac9c9956a7188495284d8c07 |  2 | Eg2a DD+Hs | 2022-09-01 16:30:13.93903  | 2022-09-01 16:30:13.93903  | 2022-09-01 17:02:14.841419 |                   0 | 4282344a-62c3-4634-a91a-e6dafb9b253a | 2022-09-01 16:52:44.103+00 | 2022-09-01 17:03:37.
+This is easiest to see for yourself via a hands-on example, as presented below.
+Create a full refresh append connection
+Set up a new connection that will demonstrate
+full refresh | append
+functionality, using the connectors that you created earlier in this tutorial.
+First, select
+Postgres-source
+as the source for this connection.
+‍
+Then select
+Postgres-destination
+as the destination for this connection.
+‍
+Then create a new connection and name it
+full-refresh-append
+, set the prefix to
+append
+_ ,
+and select
+full refresh | append
+as the sync mode, as shown below.
+A sync should automatically start after you create the connection. Wait for the sync to complete, and you should see a message like the following:
+‍
+Open a Postgres terminal on the destination
+If you don’t already have a shell open to your Postgres destination, execute the following commands:
+docker exec -it airbyte-destination /bin/bash
+psql --username=postgres
+‍
+You can view the tables in the destination Postgres database by executing the following command from the Postgres shell that you have just opened .
+\dt;
+‍
+Which should respond with the following:
+List of relations
+ Schema |                   Name                   | Type  |  Owner   
+--------+------------------------------------------+-------+----------
+ public | _airbyte_raw_append_full_refresh_demo    | table | postgres
+ public | _airbyte_raw_overwrite_full_refresh_demo | table | postgres
+ public | append_full_refresh_demo                 | table | postgres
+ public | overwrite_full_refresh_demo              | table | postgres
+(4 rows)
+‍
+Two new tables have been created,
+_airbyte_raw_append_full_refresh_demo
+and
+append_full_refresh_demo
+.
+You can look at the raw data as follows:
+SELECT * FROM  _airbyte_raw_append_full_refresh_demo;
+‍
+Which should respond with a table that looks very similar to the raw table that you saw created with
+full refresh | overwrite
+replication, as follows:
+_airbyte_ab_id            |        _airbyte_data        |    _airbyte_emitted_at     
+--------------------------------------+-----------------------------+----------------------------
+ 972a8d74-d840-4c43-826e-b0a1042c1681 | {"id": 1,
 
 
 

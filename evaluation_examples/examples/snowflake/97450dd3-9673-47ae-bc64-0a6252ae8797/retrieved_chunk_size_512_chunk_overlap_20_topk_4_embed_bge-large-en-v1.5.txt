@@ -218,6 +218,66 @@ sfOptions
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/spark-connector-qubole.txt
+
+Documentation Title:
+Configuring Snowflake for Spark in Qubole | Snowflake Documentation
+
+Documentation Content:
+Database Type
+: Select ‘Snowflake’.
+Catalog Name
+: Enter the name of the Snowflake catalog.
+Database Name
+: Enter the name of the database in Snowflake where the data is stored.
+Warehouse Name
+: Enter the name of the Snowflake virtual warehouse to use for queries.
+Host Address
+: Enter the base URL of your Snowflake account (e.g.
+myorganization-myaccount.snowflakecomputing.com
+). See
+Account identifiers
+for details on
+specifying your account identifier in this URL.
+Username
+: Enter the login name for your Snowflake user (used to connect to the host).
+Password
+: Enter the password for your Snowflake user (used to connect to the host).
+Note that all the values are
+case-sensitive
+, except for
+Host Address
+.
+Click
+Save
+to create the data store.
+Repeat these steps for each Snowflake database that you want to add as a data store. Or you can edit the data store to change the Snowflake database or any other properties for the data store (e.g.
+change the virtual warehouse used for queries).
+Note
+After adding a Snowflake data store, restart the Spark cluster (if you are using an already-running Spark cluster). Restarting the Spark cluster installs the
+.jar
+files for the Snowflake
+Connector for Spark and the Snowflake JDBC Driver.
+Verifying the Snowflake Data Store in Qubole
+¶
+To verify that the Snowflake data store was created and has been activated, click on the dropdown list in the upper-left of the
+Explore
+page. A green dot indicates that the data store has
+been activated.
+You should also verify that the table explorer widget in the left pane of the
+Explore
+page displays all of the tables in the Snowflake database specified in the data store.
+Query Pushdown in Qubole
+¶
+Spark queries benefit from Snowflake’s automatic query pushdown optimization, which improves performance. By default, Snowflake query pushdown is enabled in Qubole.
+For more details about query pushdown, see
+Pushing Spark Query Processing to Snowflake
+(Snowflake Blog).
+Was this page helpful?
+
+
+
+Documentation Source:
 docs.snowflake.com/en/developer-guide/jdbc/jdbc-using.txt
 
 Documentation Title:
@@ -409,300 +469,94 @@ class:
 
 
 Documentation Source:
-docs.snowflake.com/en/developer-guide/jdbc/jdbc-using.txt
-
-Documentation Title:
-Using the JDBC Driver | Snowflake Documentation
-
-Documentation Content:
-RESUMING_WAREHOUSE
-)
-{
-Thread
-.
-sleep
-(
-2000
-);
-// 2000 milliseconds.
-queryStatus
-=
-resultSet
-.
-unwrap
-(
-SnowflakeResultSet
-.
-class
-).
-getStatus
-();
-}
-if
-(
-queryStatus
-==
-QueryStatus
-.
-FAILED_WITH_ERROR
-)
-{
-// Print the error code to stdout
-System
-.
-out
-.
-format
-(
-"Error code: %d%n"
-,
-queryStatus
-.
-getErrorCode
-());
-System
-.
-out
-.
-format
-(
-"Error message: %s%n"
-,
-queryStatus
-.
-getErrorMessage
-());
-}
-else
-if
-(
-queryStatus
-!=
-QueryStatus
-.
-SUCCESS
-)
-{
-System
-.
-out
-.
-println
-(
-"ERROR: unexpected QueryStatus: "
-+
-queryStatus
-);
-}
-else
-{
-boolean
-result_exists
-=
-resultSet
-.
-next
-();
-if
-(
-!
-result_exists
-)
-{
-System
-.
-out
-.
-println
-(
-"ERROR: No rows returned."
-);
-}
-else
-{
-float
-pi_result
-=
-resultSet
-.
-getFloat
-(
-1
-);
-System
-.
-out
-.
-println
-(
-"pi = "
-+
-pi_result
-);
-}
-}
-Copy
-This example stores the query ID, closes the connection, re-opens the connection, and uses the query ID to
-retrieve the data:
-String
-sql_command
-=
-""
-;
-ResultSet
-resultSet
-;
-String
-queryID
-=
-""
-;
-System
-.
-out
-.
-println
-(
-"Create JDBC statement."
-);
-Statement
-statement
-=
-connection
-.
-createStatement
-();
-sql_command
-=
-"SELECT PI() * 2"
-;
-System
-.
-out
-.
-println
-(
-"Simple SELECT query: "
-+
-sql_command
-);
-resultSet
-=
-statement
-.
-unwrap
-(
-SnowflakeStatement
-.
-class
-).
-executeAsyncQuery
-(
-sql_command
-);
-queryID
-=
-resultSet
-.
-unwrap
-(
-SnowflakeResultSet
-.
-class
-).
-getQueryID
-();
-System
-.
-out
-.
-println
-(
-"INFO: Closing statement."
-);
-statement
-.
-close
-();
-System
-.
-out
-.
-println
-(
-"INFO: Closing connection."
-);
-connection
-.
-close
-();
-System
-.
-out
-.
-println
-(
-"INFO: Re-opening connection."
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/spark-connector-qubole.txt
 
 Documentation Title:
 Configuring Snowflake for Spark in Qubole | Snowflake Documentation
 
 Documentation Content:
-Database Type
-: Select ‘Snowflake’.
-Catalog Name
-: Enter the name of the Snowflake catalog.
-Database Name
-: Enter the name of the database in Snowflake where the data is stored.
-Warehouse Name
-: Enter the name of the Snowflake virtual warehouse to use for queries.
-Host Address
-: Enter the base URL of your Snowflake account (e.g.
-myorganization-myaccount.snowflakecomputing.com
-). See
-Account identifiers
-for details on
-specifying your account identifier in this URL.
-Username
-: Enter the login name for your Snowflake user (used to connect to the host).
-Password
-: Enter the password for your Snowflake user (used to connect to the host).
-Note that all the values are
-case-sensitive
-, except for
-Host Address
-.
-Click
-Save
-to create the data store.
-Repeat these steps for each Snowflake database that you want to add as a data store. Or you can edit the data store to change the Snowflake database or any other properties for the data store (e.g.
-change the virtual warehouse used for queries).
+Configuring Snowflake for Spark in Qubole | Snowflake Documentation
+DOCUMENTATION
+/
+Getting Started
+Guides
+Developer
+Reference
+Releases
+Tutorials
+Status
+Overview
+Snowpark Library
+Snowpark API
+Snowpark ML
+Snowpark Code Execution Environments
+Snowpark Container Services
+Functions and Procedures
+Snowflake APIs
+Snowflake Python API
+SQL REST API
+Apps
+Streamlit in Snowflake
+Snowflake Native App Framework
+External System Integration
+External Functions
+Kafka and Spark Connectors
+Kafka Connector
+Spark Connector
+Overview
+Install
+Configure
+Qubole
+Usage
+Snowflake Scripting
+Snowflake Scripting Developer Guide
+Tools
+Snowflake CLI
+Git
+Drivers
+Overview
+Reference
+API Reference
+Developer
+Kafka and Spark Connectors
+Spark Connector
+Qubole
+Configuring Snowflake for Spark in Qubole
+¶
+To configure Snowflake for Spark in Qubole, you simply add Snowflake as a Qubole data store. This topic provides step-by-step instructions for performing this task using the Qubole Data Service (QDS) UI.
 Note
-After adding a Snowflake data store, restart the Spark cluster (if you are using an already-running Spark cluster). Restarting the Spark cluster installs the
-.jar
-files for the Snowflake
-Connector for Spark and the Snowflake JDBC Driver.
-Verifying the Snowflake Data Store in Qubole
+You can also use the QDS REST API to add Snowflake as a data store. For step-by-step instructions, see
+Adding a Snowflake Data Warehouse as a Data Store
+(in the Qubole Documentation).
+Prerequisites
 ¶
-To verify that the Snowflake data store was created and has been activated, click on the dropdown list in the upper-left of the
-Explore
-page. A green dot indicates that the data store has
-been activated.
-You should also verify that the table explorer widget in the left pane of the
-Explore
-page displays all of the tables in the Snowflake database specified in the data store.
-Query Pushdown in Qubole
+You must be a QDS system administrator to add a data store.
+You must have a Qubole Enterprise edition account.
+The role used in the connection needs USAGE and CREATE STAGE privileges
+on the schema that contains the table that you will read from or write to
+via Qubole.
+Preparing an External Location for Long-running Queries
 ¶
-Spark queries benefit from Snowflake’s automatic query pushdown optimization, which improves performance. By default, Snowflake query pushdown is enabled in Qubole.
-For more details about query pushdown, see
-Pushing Spark Query Processing to Snowflake
-(Snowflake Blog).
-Was this page helpful?
+If some of your jobs exceed 36 hours in length, consider preparing an
+external location to use to exchange data between Snowflake and Spark.
+For more information, see
+Preparing an External Location For Files
+.
+Adding Snowflake as a Data Store in the QDS UI
+¶
+From the
+Home
+menu, click
+Explore
+.
+In the dropdown list on the
+Explore
+page, select
++ Add Data Store
+.
+Enter the required information in the following fields:
+Data Store Name
+: Enter the name of the data store to be created.
 
 
 

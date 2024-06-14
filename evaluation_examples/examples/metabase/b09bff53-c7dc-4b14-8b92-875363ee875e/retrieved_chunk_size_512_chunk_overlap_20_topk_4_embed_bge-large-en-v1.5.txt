@@ -1,4 +1,101 @@
 Documentation Source:
+www.metabase.com/docs/v0.49/databases/connections/postgresql.txt
+
+Documentation Title:
+PostgreSQL
+
+Documentation Content:
+when
+Analytics dashboards
+Share insights with anyone, anywhere
+SQL editor
+For advanced data users
+Sandboxing
+Set boundaries around your data
+Models
+A starting point for questions
+Permissions
+Keep your data secure and private
+CSV upload
+Go beyond VLOOKUP
+Documentation
+Resources
+Learn
+Blog
+Events
+Customers
+Discussion
+Partners
+Community Stories
+Startup Guide to Financial Modeling
+New
+Community Data Stack Report
+New
+Pricing
+Log in
+v0.49
+Databases
+PostgreSQL
+To add a database connection, click on the
+gear
+icon in the top right, and navigate to
+Admin settings
+>
+Databases
+>
+Add a database
+.
+Fill out the fields for that database, and click
+Save changes
+at the bottom.
+Settings
+You can edit these settings at any time. Just remember to save your changes.
+Display name
+The display name for the database in the Metabase interface.
+Host
+Your database’s IP address, or its domain name (e.g., esc.mydatabase.com).
+Port
+The database port. E.g., 5432.
+Database name
+The name of the database you’re connecting to.
+Username
+The database username for the account that you want to use to connect to your database. You can set up multiple connections to the same database using different user accounts to connect to the same database, each with different sets of
+privileges
+.
+Password
+The password for the username that you use to connect to the database.
+Schemas
+You can specify which schemas you want to sync and scan. Options are:
+All
+Only these…
+All except…
+For the
+Only these
+and
+All except
+options, you can input a comma-separated list of values to tell Metabase which schemas you want to include (or exclude). For example:
+foo,bar,baz
+You can use the
+*
+wildcard to match multiple schemas.
+Let’s say you have three schemas: foo, bar, and baz.
+If you have
+Only these…
+set, and enter the string
+b*
+, you’ll sync with bar and baz.
+If you have
+All except…
+set, and enter the string
+b*
+, you’ll just sync foo.
+Note that only the
+*
+wildcard is supported; you can’t use other special characters or regexes.
+
+
+
+Documentation Source:
 www.metabase.com/learn/administration/metabase-api.txt
 
 Documentation Title:
@@ -156,231 +253,93 @@ Documentation Title:
 Serialization: preloading dashboards in a new Metabase instance
 
 Documentation Content:
-#!/bin/sh
-ADMIN_EMAIL
-=
-${
-MB_ADMIN_EMAIL
-:-
-admin
-@metabase.local
-}
-ADMIN_PASSWORD
-=
-${
-MB_ADMIN_PASSWORD
-:-
-Metapass123
-}
-METABASE_HOST
-=
-${
-MB_HOSTNAME
-}
-METABASE_PORT
-=
-${
-MB_PORT
-:-
-3000
-}
-echo
-"⌚︎ Waiting for Metabase to start"
-while
-(!
-curl
--s
--m
-5 http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/session/properties
--o
-/dev/null
-)
-;
-do
-sleep
-5
-;
-done
-echo
-"😎 Creating admin user"
-SETUP_TOKEN
-=
-$(
-curl
--s
--m
-5
--X
-GET
-\
--H
-"Content-Type: application/json"
-\
-http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/session/properties
-\
-| jq
--r
-'.
-
-
-
-Documentation Source:
-www.metabase.com/learn/administration/serialization.txt
-
-Documentation Title:
-Serialization: preloading dashboards in a new Metabase instance
-
-Documentation Content:
-["setup-token"]'
-)
-MB_TOKEN
-=
-$(
-curl
--s
--X
-POST
-\
--H
-"Content-type: application/json"
-\
-http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/setup
-\
+Target Metabase
+Setting up a target Metabase is similar. On our metanet network, we’ll set up a Postgres database to serve as our application database, then spin up another Metabase in another Docker container.
+Note the changes to:
+ports for both Postgres (5434) and the Metabase server (5002)
+Instance names:
+postgres-target
+and
+metabase-target
+Application database:
+docker run
+--rm
 -d
-'{
-    "token": "'
-${
-SETUP_TOKEN
-}
-'",
-    "user": {
-        "email": "'
-${
-ADMIN_EMAIL
-}
-'",
-        "first_name": "Metabase",
-        "last_name": "Admin",
-        "password": "'
-${
-ADMIN_PASSWORD
-}
-'"
-    },
-    "prefs": {
-        "allow_tracking": false,
-        "site_name": "Metawhat"
-    }
-}'
-| jq
--r
-'.id'
-)
-echo
+--name
+postgres-target
+\
+-p
+5434:5432
+\
 -e
-"
-\n
-👥 Creating some basic users: "
-curl
--s
-"http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/user"
+POSTGRES_USER
+=
+metabase
 \
--H
-'Content-Type: application/json'
-\
--H
-"X-Metabase-Session:
-${
-MB_TOKEN
-}
-"
-\
--d
-'{"first_name":"Basic","last_name":"User","email":"basic@somewhere.com","login_attributes":{"region_filter":"WA"},"password":"'
-${
-ADMIN_PASSWORD
-}
-'"}'
-curl
--s
-"http://
-${
-METABASE_HOST
-}
-:
-${
-METABASE_PORT
-}
-/api/user"
-\
--H
-'Content-Type: application/json'
-\
--H
-"X-Metabase-Session:
-${
-MB_TOKEN
-}
-"
-\
--d
-'{"first_name":"Basic 2","last_name":"User","email":"basic2@somewhere.com","login_attributes":{"region_filter":"CA"},"password":"'
-${
-ADMIN_PASSWORD
-}
-'"}'
-echo
 -e
-"
-\n
-👥 Basic users created!"
-Save the above code as
-create_users.sh
-, and make it executable:
-chmod
-+x create_users.sh
-Then run:
-MB_HOSTNAME
+POSTGRES_PASSWORD
 =
-localhost
-MB_PORT
+knockknock
+\
+--network
+metanet postgres:12
+Metabase instance:
+docker run
+--rm
+-d
+--name
+metabase-target
+\
+-p
+5002:3000
+\
+-e
+MB_DB_TYPE
 =
-5001 ./create_users.sh
-With your metabase-source instance up, and your users created, open up
+postgres
+\
+-e
+MB_DB_DBNAME
+=
+metabase
+\
+-e
+MB_DB_PORT
+=
+5432
+\
+-e
+MB_DB_USER
+=
+metabase
+\
+-e
+MB_DB_PASS
+=
+knockknock
+\
+-e
+MB_DB_HOST
+=
+postgres-target
+\
+--network
+metanet
+\
+metabase/metabase-enterprise:v1.49.11
+After our Metabase instances complete their initialization (patience, this could take a minute or two), we should now have two Metabases up and running:
+metabase-source at
 http://localhost:5001
-and sign in as the admin user you created.
+metabase-target at
+http://localhost:5002
+Add users to our source Metabase
+Let’s add one Admin account, and two basic users to our metabase-source instance.
+You can
+add users to your Metabase manually
+(i.e., in the Metabase application), but here’s a quick bash script that creates an Admin user (the initial user) and two basic users:
+You’ll need to have
+jq
+installed to handle the JSON in this script.
 
 
 

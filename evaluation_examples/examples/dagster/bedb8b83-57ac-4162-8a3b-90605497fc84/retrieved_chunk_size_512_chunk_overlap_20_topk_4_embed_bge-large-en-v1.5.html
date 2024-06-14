@@ -11,25 +11,39 @@ export AIRBYTE_PASSWORD=password</code><p>Note: The AIRBYTE_PASSWORD is set to p
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/integrations/airbyte.html
+airbyte.com/tutorials/configure-airbyte-with-python-dagster.html
 
 Documentation Title:
-Airbyte & Dagster | Dagster Docs
+Configure Airbyte Connections with Python (Dagster) | Airbyte
 
 Documentation Content:
-Check out the<a>Airbyte Cloud with Dagster guide</a>!</span><p>Dagster can orchestrate your Airbyte connections, making it easy to chain an Airbyte sync with upstream or downstream steps in your workflow.</p><p>This guide focuses on how to work with Airbyte connections using Dagster's <a>software-defined asset (SDA)</a>framework.</p><img/><h2>Airbyte connections and Dagster software-defined assets<span>#</span></h2><p>An <a>Airbyte connection</a>defines a series of data streams which are synced between a source and a destination. During a sync, a replica of the data from each data stream is written to the destination, typically as one or more tables. Dagster represents each of the replicas generated in the destination as a software-defined asset. This enables you to easily:</p><ul><li>Visualize the streams involved in an Airbyte connection and execute a sync from Dagster</li><li>Define downstream computations which depend on replicas produced by Airbyte</li><li>Track historical metadata and logs for each data stream</li><li>Track data lineage through Airbyte and other tools</li></ul><h2>Prerequisites<span>#</span></h2><p>To get started, you will need to install the <code>dagster</code>and <code>dagster-airbyte</code>Python packages:</p><code>pip <span>install</span>dagster dagster-airbyte
-</code><p>You'll also want to have an Airbyte instance running. If you don't have one already, you can <a>run Airbyte locally using <code>docker-compose</code></a>.</p><h2>Step 1: Connecting to Airbyte<span>#</span></h2><p>The first step in using Airbyte with Dagster is to tell Dagster how to connect to your Airbyte instance using an Airbyte <a>resource</a>.
+checking.
 
-
-
-Documentation Source:
-airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.html
-
-Documentation Title:
-How to build E-commerce Data Pipeline with Airbyte? | Airbyte
-
-Documentation Content:
-Launch the Dagster UI:</h3><p>With the environment variables in place, kick-start the Dagster UI:</p><code>dagster dev</code><h3>4. Access Dagster in Your Browser:</h3><p>Navigate to <a>http://127.0.0.1:3000</a>in your browser. Here, you'll see assets for both Airbyte and dbt. To understand how these assets are connected and how data flows between them, click on “View global asset lineage” in the Dagster UI. This visual representation of data lineage is invaluable for understanding and debugging the data pipeline.</p><figure><img/><figcaption>Dagster DAG, which hasn't been materialized</figcaption></figure><h3>5. Materialize Dagster Assets:</h3><p>In the Dagster UI, click on "Materialize all". This action triggers the entire data pipeline:</p><ul><li>First, the Airbyte sync will extract data from the Faker source and load it into BigQuery.</li><li>Following that, dbt will transform the raw data, materializing the &lt;span class="text-style-code"&gt;staging&lt;/span&gt; and &lt;span class="text-style-code"&gt;marts&lt;/span&gt; models in BigQuery.</li></ul><figure><img/><figcaption>Dagster DAG, materialization in progress</figcaption></figure><h3>6. Verify the Workflow:</h3><ul><li>Visit the Airbyte UI to confirm that a sync is running.</li><li>After the dbt jobs have completed, check your BigQuery console to ensure the views have been created in the &lt;span class="text-style-code"&gt;transformed_data&lt;/span&gt; dataset.</li></ul><p>‍</p><figure><img/><figcaption>Tables and views created in BigQuery</figcaption></figure><p>By following these steps, you'll have a fully functional data pipeline orchestrated by Dagster, efficiently managing data extraction, loading, and transformation processes. 🎉</p><h2>7.
+Changes found:
++ gh_awesome_de_list:
+  + page_size_for_large_streams: 100
+  + repository: sindresorhus/awesome rqlite/rqlite pingcap/tidb pinterest/mysql_utils rescrv/HyperDex alticelabs/kyoto iondbproject/iondb pcmanus/ccm scylladb/scylla filodb/FiloDB
+  + start_date: 2020-01-01T00:00:00Z
+  + credentials:
+    + personal_access_token: **********
++ postgres:
+  + schema: public
+  + password: **********
+  + database: postgres
+  + host: localhost
+  + port: 5432
+  + username: postgres
+  + ssl_mode:
+    + mode: disable
++ fetch_stargazer:
+  + destination: postgres
+  + normalize data: True
+  + destination namespace: SAME_AS_SOURCE
+  + source: gh_awesome_de_list
+  + streams:
+    + stargazers:
+      + syncMode: incremental
+      + destinationSyncMode: append_dedup</code><p>After the &lt;span class="text-style-code"&gt;check&lt;/span&gt; identified the changes between our configurations in Python with the Airbyte instance, we can &lt;span class="text-style-code"&gt;apply&lt;/span&gt; these changes with the following:</p><code>dagster-airbyte apply --module assets_modern_data_stack.assets.stargazer:airbyte_reconciler</code><p>The output might look something like this:</p><code>Found 1 reconcilers, applying.
 
 
 
@@ -67,6 +81,27 @@ Changes applied:
     + stargazers:
       + destinationSyncMode: append_dedup
       + syncMode: incremental</code><strong>Verify generated components in Airbyte UI</strong><p>Let's look at the Airbyte UI before we apply anything.</p><figure><img/><figcaption>Before I applied the changes, only my manual added connections.</figcaption></figure><p>After applying the changes, &lt;span class="text-style-code"&gt;fetch_stargazer&lt;/span&gt; popped up with its corresponding GitHub source and Postgres destination.</p><figure><img/><figcaption>After we applied the Dagster Python configurations</figcaption></figure><p>📝 This is equivalent to going into the Airbyte UI and setting up the source and destination with clicks.</p><h2>Set up Dagster Software Defined Assets</h2><p><a>Software-Defined Asset</a>in Dagster treats each of our destination tables from Airbyte as a <a>Data Product</a>—enabling the control plane to see the latest status of each <a>Data Asset</a>and its valuable metadata.</p><p>We can set them up with a little bit of code in Dagster.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/orchestrate-data-ingestion-and-transformation-pipelines.html
+
+Documentation Title:
+Orchestrate data ingestion and transformation pipelines with Dagster | Airbyte
+
+Documentation Content:
+Once this source is created, we can hook it up to our LocalPostgres destination:</p><img/></div><h2>Orchestrate Airbyte data ingestion pipelines with Dagster</h2><div><p>Now that we have some Airbyte connections to work with, we can get back to Dagster.</p><p>In the first few lines of <a>slack_github_analytics.py</a>, you’ll see the following code:</p><code>from dagster_airbyte import airbyte_resource, airbyte_sync_op
+
+# …
+
+sync_github = airbyte_sync_op.configured(
+    {"connection_id": "&lt;YOUR AIRBYTE CONNECTION ID&gt;"}, name="sync_github"
+)
+sync_slack = airbyte_sync_op.configured(
+    {"connection_id": "&lt;YOUR AIRBYTE CONNECTION ID&gt;"}, name="sync_slack"
+)
+</code><p>Here, we define the first two operations (or “ops”, in Dagster) of our job. <a>Dagster’s Airbyte integration</a>offers a pre-built op that will, when configured with a particular connection id, kick off a sync of that connection and wait until it completes. We also give these ops names (“sync_github” and “sync_slack”) to help people looking at this job understand what they’re doing.</p><p>This is where you can substitute in the relevant connection ids for the connections you set up in the previous steps. A quick way to find the id for a given connection is to click on it in the Airbyte UI, and grab the last section of the URL, i.e.:</p><img/><p>Once you’ve entered the correct values in for the `connection_id` fields, the code is ready to be executed!
 
 
 

@@ -1,185 +1,4 @@
 Documentation Source:
-docs.astronomer.io/learn/testing-airflow.txt
-
-Documentation Title:
-Test Airflow DAGs | Astronomer Documentation
-
-Documentation Content:
-For example, to run
-airflow dags test
-on the DAG
-my_dag
-for the execution date of
-2023-01-29
-run:
-astro dev run dags
-test
-my_dag
-'2023-01-29'
-The Astro CLI
-​
-The Astro CLI includes a suite of commands to help simplify common testing workflows. See
-Test your Astro project locally
-.
-Test DAGs in a CI/CD pipeline
-​
-You can use CI/CD tools to test and deploy your Airflow code. By installing the Astro CLI into your CI/CD process, you can test your DAGs before deploying them to a production environment. See
-set up CI/CD
-for example implementations.
-info
-Astronomer customers can use the Astro GitHub integration, which allows you to automatically deploy code from a GitHUb repository to an Astro deployment, viewing Git metadata in the Astro UI. See
-Deploy code with the Astro GitHub integration
-.
-Add test data or files for local testing
-​
-Use the
-include
-folder of your Astro project to store files for testing locally, such as test data or a dbt project file. The files in your
-include
-folder are included in your deploys to Astro, but they are not parsed by Airflow. Therefore, you don't need to specify them in
-.airflowignore
-to prevent parsing.
-If you're running Airflow locally, apply your changes by refreshing the Airflow UI.
-Debug interactively with dag.test()
-​
-The
-dag.test()
-method allows you to run all tasks in a DAG within a single serialized Python process, without running the Airflow scheduler. The
-dag.test()
-method lets you iterate faster and use IDE debugging tools when developing DAGs.
-This functionality replaces the deprecated DebugExecutor. Learn more in the
-Airflow documentation
-.
-Prerequisites
-​
-Ensure that your testing environment has:
-Airflow 2.5.0
-or later. You can check your version by running
-airflow version
-.
-All provider packages that your DAG uses.
-An initialized
-Airflow metadata database
-, if your DAG uses elements of the metadata database like XCom. The Airflow metadata database is created when Airflow is first run in an environment.
-
-
-
-Documentation Source:
-docs.astronomer.io/astro/migrate-gcc.txt
-
-Documentation Title:
-Migrate to Astro from Google Cloud Composer | Astronomer Documentation
-
-Documentation Content:
-In your Astro project directory, run
-astro dev parse
-to check for any parsing errors in your DAGs.
-Run
-astro run <dag-id>
-to test a specific DAG. This command compiles your DAG and runs it in a single Airflow worker container based on your Astro project configurations.
-Run
-astro dev start
-to start a complete Airflow environment on your local machine. After your project starts up, you can access the Airflow UI at
-localhost:8080
-. See
-Troubleshoot your local Airflow environment
-.
-Note that your migrated Airflow variables and connections are not available locally. You must deploy your project to Astro to test these resources.
-Step 9: Deploy to Astro
-​
-Run the following command to authenticate to Astro:
-astro login
-Run the following command to deploy your project
-astro deploy
-This command returns a list of Deployments available in your Workspace and prompts you to pick one.
-In the Astro UI, open your Deployment and click
-Open Airflow
-. Confirm that you can see your deployed DAGs in the Airflow UI.
-Step 10: Cut over from your source Airflow environment to Astro
-​
-After you successfully deploy your code to Astro, you need to migrate your workloads from your source Airflow environment to Astro on a DAG-by-DAG basis. Depending on how your workloads are set up, Astronomer recommends letting DAG owners determine the order to migrate and test DAGs.
-You can complete the following steps in the few days or weeks following your migration set up. Provide updates to your Astronomer Data Engineer as they continue to assist you through the process and any solve any difficulties that arise.
-Continue to validate and move your DAGs until you have fully cut over your source Airflow instance. After you finish migrating from your source Airflow environment, repeat the complete migration process for any other Airflow instances in your source Airflow environment.
-Confirm connections and variables
-​
-In the Airflow UI for your Deployment,
-test all connections
-that you migrated from your source Airflow environment.
-Additionally, check Airflow variable values in
-Admin
->
-Variables
-.
-Test and validate DAGs in Astro
-​
-To create a strategy for testing DAGs, determine which DAGs need the most care when running and testing them.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/debugging-dags.txt
-
-Documentation Title:
-Debug DAGs | Astronomer Documentation
-
-Documentation Content:
-What is the state of your
-Airflow components
-? Inspect the logs of each component and restart your Airflow environment if necessary.
-Does Airflow have access to all relevant files? This is especially relevant when running Airflow in Docker or when using the
-Astro CLI
-.
-Are your
-Airflow connections
-set up correctly with correct credentials? See
-Troubleshooting connections
-.
-Is the issue with all DAGs, or is it isolated to one DAG?
-Can you collect the relevant logs? For more information on log location and configuration, see the
-Airflow logging
-guide.
-Which versions of Airflow and Airflow providers are you using? Make sure that you're using the correct version of the
-Airflow documentation
-.
-Can you reproduce the problem in a new local Airflow instance using the
-Astro CLI
-?
-Answering these questions will help you narrow down what kind of issue you're dealing with and inform your next steps.
-info
-You can debug your DAG code with IDE debugging tools using the
-dag.test()
-method. See
-Debug interactively with dag.test()
-.
-Airflow is not starting on the Astro CLI
-​
-The 3 most common ways to run Airflow locally are using the
-Astro CLI
-, running a
-standalone instance
-, or running
-Airflow in Docker
-. This guide focuses on troubleshooting the Astro CLI, which is an open source tool for quickly running Airflow on a local machine.
-The most common issues related to the Astro CLI are:
-The Astro CLI was not correctly installed. Run
-astro version
-to confirm that you can successfully run Astro CLI commands. If a newer version is available, consider upgrading.
-The Docker Daemon is not running. Make sure to start Docker Desktop before starting the Astro CLI.
-There are errors caused by custom commands in the Dockerfile, or dependency conflicts with the packages in
-packages.txt
-and
-requirements.txt
-.
-Airflow components are in a crash-loop because of errors in custom plugins or XCom backends. View scheduler logs using
-astro dev logs -s
-to troubleshoot.
-To troubleshoot infrastructure issues when running Airflow on other platforms, for example in Docker, on Kubernetes using the
-Helm Chart
-or on managed services, please refer to the relevant documentation and customer support.
-
-
-
-Documentation Source:
 docs.astronomer.io/astro/manage-dags.txt
 
 Documentation Title:
@@ -278,6 +97,161 @@ task run logs
 Click the task run in the DAG run grid, then click
 Logs
 .
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/migrate-gcc.txt
+
+Documentation Title:
+Migrate to Astro from Google Cloud Composer | Astronomer Documentation
+
+Documentation Content:
+In your Astro project directory, run
+astro dev parse
+to check for any parsing errors in your DAGs.
+Run
+astro run <dag-id>
+to test a specific DAG. This command compiles your DAG and runs it in a single Airflow worker container based on your Astro project configurations.
+Run
+astro dev start
+to start a complete Airflow environment on your local machine. After your project starts up, you can access the Airflow UI at
+localhost:8080
+. See
+Troubleshoot your local Airflow environment
+.
+Note that your migrated Airflow variables and connections are not available locally. You must deploy your project to Astro to test these resources.
+Step 9: Deploy to Astro
+​
+Run the following command to authenticate to Astro:
+astro login
+Run the following command to deploy your project
+astro deploy
+This command returns a list of Deployments available in your Workspace and prompts you to pick one.
+In the Astro UI, open your Deployment and click
+Open Airflow
+. Confirm that you can see your deployed DAGs in the Airflow UI.
+Step 10: Cut over from your source Airflow environment to Astro
+​
+After you successfully deploy your code to Astro, you need to migrate your workloads from your source Airflow environment to Astro on a DAG-by-DAG basis. Depending on how your workloads are set up, Astronomer recommends letting DAG owners determine the order to migrate and test DAGs.
+You can complete the following steps in the few days or weeks following your migration set up. Provide updates to your Astronomer Data Engineer as they continue to assist you through the process and any solve any difficulties that arise.
+Continue to validate and move your DAGs until you have fully cut over your source Airflow instance. After you finish migrating from your source Airflow environment, repeat the complete migration process for any other Airflow instances in your source Airflow environment.
+Confirm connections and variables
+​
+In the Airflow UI for your Deployment,
+test all connections
+that you migrated from your source Airflow environment.
+Additionally, check Airflow variable values in
+Admin
+>
+Variables
+.
+Test and validate DAGs in Astro
+​
+To create a strategy for testing DAGs, determine which DAGs need the most care when running and testing them.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/migrate-mwaa.txt
+
+Documentation Title:
+Migrate to Astro from Amazon MWAA | Astronomer Documentation
+
+Documentation Content:
+You must deploy your project to Astro to test these Airflow objects.
+Step 9: Deploy to Astro
+​
+Run the following command to authenticate to Astro:
+astro login
+Run the following command to deploy your project
+astro deploy
+This command returns a list of Deployments available in your Workspace and prompts you to pick one.
+In the Astro UI, open your Deployment and click
+Open Airflow
+. Confirm that you can see your deployed DAGs in the Airflow UI.
+Step 10: Cut over from your source Airflow environment to Astro
+​
+After you successfully deploy your code to Astro, you need to migrate your workloads from your source Airflow environment to Astro on a DAG-by-DAG basis. Depending on how your workloads are set up, Astronomer recommends letting DAG owners determine the order to migrate and test DAGs.
+You can complete the following steps in the few days or weeks following your migration set up. Provide updates to your Astronomer Data Engineer as they continue to assist you through the process and any solve any difficulties that arise.
+Continue to validate and move your DAGs until you have fully cut over your source Airflow instance. After you finish migrating from your source Airflow environment, repeat the complete migration process for any other Airflow instances in your source Airflow environment.
+Confirm connections and variables
+​
+In the Airflow UI for your Deployment,
+test all connections
+that you migrated from your source Airflow environment.
+Additionally, check Airflow variable values in
+Admin
+>
+Variables
+.
+Test and validate DAGs in Astro
+​
+To create a strategy for testing DAGs, determine which DAGs need the most care when running and testing them.
+If your DAG workflow is idempotent and can run twice or more without negative effects, you can run and test these DAGs with minimal risk. If your DAG workflow is non-idempotent and can become invalid when you rerun it, you should test the DAG with more caution and downtime.
+Cut over DAGs to Astro using Starship
+​
+Starship includes features for simultaneously pausing DAGs in your source Airflow environment and starting them on Astro. This allows you to cut over your production workflows without downtime.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.txt
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+In your terminal, open your Astro project directory and run the following command:
+astro dev start
+Starting Airflow for the first time can take 1 to 3 minutes. Once your local environment is ready, the CLI automatically opens a new tab or window in your default web browser to the Airflow UI at
+https://localhost:8080
+.
+info
+If port 8080 or 5432 are in use on your machine, Airflow won't be able to start. To run Airflow on alternative ports, run:
+astro config
+set
+webserver.port
+<
+available-port
+>
+astro config
+set
+postgres.port
+<
+available-port
+>
+Step 3: Log in to the Airflow UI
+​
+The
+Airflow UI
+is essential for managing Airflow. It contains information about your DAGs and is the best place to create and update Airflow connections to third-party data services.
+To access the Airflow UI, open
+http://localhost:8080/
+in a browser and log in with
+admin
+for both your username and password.
+The default page in the Airflow UI is the
+DAGs
+page, which shows an overview of all DAGs in your Airflow environment:
+Each DAG is listed with a few of its properties, including tags, owner, previous runs, schedule, timestamp of the last and next run, and the states of recent tasks. Because you haven't run any DAGs yet, the
+Runs
+and
+Recent Tasks
+sections are empty. Let's fix that!
+Step 4: Trigger a DAG run
+​
+The
+example_astronauts
+DAG in your Astro project is a simple ETL pipeline with two tasks:
+get_astronauts
+queries the
+Open Notify API
+for information about astronauts currently in space. The task returns the list of dictionaries containing the name and the spacecraft of all astronauts currently in space, which is passed to the second task in the DAG. This tutorial does not explain how to pass data between tasks, but you can learn more about it in the
+Pass data between tasks
+guide.
+print_astronaut_craft
+is a task that uses dynamic mapping to create and run a task instance for each Astronaut in space.
 
 
 

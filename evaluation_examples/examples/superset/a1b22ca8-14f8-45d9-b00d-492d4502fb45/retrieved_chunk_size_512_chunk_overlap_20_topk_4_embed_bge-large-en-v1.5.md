@@ -47,6 +47,34 @@ configuration section. Otherwise, select **OK**and finally **Save**to save your 
 
 
 Documentation Source:
+superset.apache.org/docs/contributing/guidelines/index.md
+
+Documentation Title:
+Guidelines | Superset
+
+Documentation Content:
+How to refer to UI elements​
+
+When writing about a UI element, use the same capitalization as used in the UI.
+
+For example, if an input field is labeled “Name” then you refer to this as the “Name input field”. Similarly, if a button has the label “Save” in it, then it is correct to refer to the “Save button”.
+
+Where a product page is titled “Settings”, you refer to this in writing as follows:
+“Edit your personal information on the Settings page”.
+
+Often a product page will have the same title as the objects it contains. In this case, refer to the page as it appears in the UI, and the objects as common nouns:
+
+* Upload a dashboard on the Dashboards page
+* Go to Dashboards
+* View dashboard
+* View all dashboards
+* Upload CSS templates on the CSS templates page
+* Queries that you save will appear on the Saved queries page
+* Create custom queries in SQL Lab then create dashboards
+
+
+
+Documentation Source:
 superset.apache.org/docs/contributing/development/index.md
 
 Documentation Title:
@@ -91,27 +119,6 @@ Documentation Content:
 Otherwise, select **OK**and finally **Save**to save your chart. If you keep
 the default selection to overwrite the chart, your annotation will be saved to the chart and also
 appear automatically in the Tutorial Dashboard.
-
-
-
-Documentation Source:
-superset.apache.org/docs/creating-charts-dashboards/indexf8a0.md
-
-Documentation Title:
-Index of /docs/creating-charts-dashboards
-
-Documentation Content:
-Index of /docs/creating-charts-dashboards
-=========================================
-
-
-
-|!NameLast modifiedSizeDescription
-|  |
-|!Parent Directory - |
-|!first-dashboard/ 2024-04-24 21:23 | - |
-|!creating-your-first-dashboard/ 2024-04-28 01:04 | - |
-|!exploring-data/ 2024-04-28 01:04 | - |
 
 
 

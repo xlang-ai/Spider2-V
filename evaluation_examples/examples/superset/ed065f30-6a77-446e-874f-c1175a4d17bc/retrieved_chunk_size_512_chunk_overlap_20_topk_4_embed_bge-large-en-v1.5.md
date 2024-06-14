@@ -5,45 +5,6 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
-Resampling the data​
-
-In this section, we’ll resample the data so that rather than having daily data we have weekly data.
-As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
-
-Next, in the Python Functions subsection of **Advanced Analytics**, enter 7D, corresponding to seven
-days, in the Rule and median as the Method and show the chart by selecting **Run Query**.
-
-!Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
-the median value within the seven daily data points. For more information on the meaning of the
-various options in this section, refer to the
-Pandas documentation.
-
-Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
-tutorial dashboard to see the four charts side by side and compare the different outputs.
-
-Edit this pagePreviousCreating Your First DashboardNextIssue Codes- Exploring Data in Superset
-	Enabling Data Upload FunctionalityLoading CSV DataTable VisualizationDashboard BasicsPivot TableLine ChartMarkupPublishing Your DashboardAnnotationsAdvanced AnalyticsRolling MeanTime ComparisonResampling the data
-We use  !Copyright © 2024,
- The Apache Software Foundation,
- Licensed under the Apache License.
-
-Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
- Apache Software Foundationresources!Security| 
- Donate| 
- Thanks| 
- Events| 
- License| 
- Privacy!
-
-
-
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.md
-
-Documentation Title:
-Exploring Data in Superset | Superset
-
-Documentation Content:
 Pivot Table​
 
 In this section, we will extend our analysis using a more complex visualization, Pivot Table. By the
@@ -128,6 +89,45 @@ dashboard**and then hover over the table. By selecting the bottom right hand cor
 (the cursor will change too), you can resize it by dragging and dropping.
 
 !Finally, save your changes by selecting Save changes in the top right.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.md
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
+Resampling the data​
+
+In this section, we’ll resample the data so that rather than having daily data we have weekly data.
+As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
+
+Next, in the Python Functions subsection of **Advanced Analytics**, enter 7D, corresponding to seven
+days, in the Rule and median as the Method and show the chart by selecting **Run Query**.
+
+!Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
+the median value within the seven daily data points. For more information on the meaning of the
+various options in this section, refer to the
+Pandas documentation.
+
+Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
+tutorial dashboard to see the four charts side by side and compare the different outputs.
+
+Edit this pagePreviousCreating Your First DashboardNextIssue Codes- Exploring Data in Superset
+	Enabling Data Upload FunctionalityLoading CSV DataTable VisualizationDashboard BasicsPivot TableLine ChartMarkupPublishing Your DashboardAnnotationsAdvanced AnalyticsRolling MeanTime ComparisonResampling the data
+We use  !Copyright © 2024,
+ The Apache Software Foundation,
+ Licensed under the Apache License.
+
+Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+ Apache Software Foundationresources!Security| 
+ Donate| 
+ Thanks| 
+ Events| 
+ License| 
+ Privacy!
 
 
 

@@ -1,10 +1,39 @@
 Documentation Source:
-docs.getdbt.com/guides/bigquery.txt
+docs.getdbt.com/guides/bigquery367a.txt
 
 Documentation Title:
 Quickstart for dbt Cloud and BigQuery | dbt Developer Hub
 
 Documentation Content:
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
 FAQs
 ​
 Build models on top of other models
@@ -136,57 +165,45 @@ customer_id
 ,
 customers
 .
-first_name
-,
-customers
-.
-last_name
-,
-customer_orders
-.
-first_order_date
-,
-customer_orders
-.
-most_recent_order_date
-,
-coalesce
-(
-customer_orders
-.
-number_of_orders
-,
-0
-)
-as
-number_of_orders
-from
-customers
-left
-join
-customer_orders
-using
-(
-customer_id
-)
-)
-select
-*
-from
-final
-Execute
-dbt run
-.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/databricks8722.txt
+docs.getdbt.com/guides/bigquery121c.txt
 
 Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+Quickstart for dbt Cloud and BigQuery | dbt Developer Hub
 
 Documentation Content:
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
 FAQs
 ​
 Build models on top of other models
@@ -216,7 +233,13 @@ first_name
 ,
 last_name
 from
-jaffle_shop_customers
+`
+dbt-tutorial
+`
+.
+jaffle_shop
+.
+customers
 models/stg_orders.sql
 select
 id
@@ -231,7 +254,13 @@ order_date
 ,
 status
 from
-jaffle_shop_orders
+`
+dbt-tutorial
+`
+.
+jaffle_shop
+.
+orders
 Edit the SQL in your
 models/customers.sql
 file as follows:
@@ -306,57 +335,45 @@ customer_id
 ,
 customers
 .
-first_name
-,
-customers
-.
-last_name
-,
-customer_orders
-.
-first_order_date
-,
-customer_orders
-.
-most_recent_order_date
-,
-coalesce
-(
-customer_orders
-.
-number_of_orders
-,
-0
-)
-as
-number_of_orders
-from
-customers
-left
-join
-customer_orders
-using
-(
-customer_id
-)
-)
-select
-*
-from
-final
-Execute
-dbt run
-.
 
 
 
 Documentation Source:
-docs.getdbt.com/guides/databricks121c.txt
+docs.getdbt.com/guides/bigquery8722.txt
 
 Documentation Title:
-Quickstart for dbt Cloud and Databricks | dbt Developer Hub
+Quickstart for dbt Cloud and BigQuery | dbt Developer Hub
 
 Documentation Content:
+Delete the
+example:
+key from your
+dbt_project.yml
+file, and any configurations that are listed under it.
+dbt_project.yml
+# before
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+example
+:
++materialized
+:
+view
+dbt_project.yml
+# after
+models
+:
+jaffle_shop
+:
++materialized
+:
+table
+Save your changes.
 FAQs
 ​
 Build models on top of other models
@@ -386,7 +403,13 @@ first_name
 ,
 last_name
 from
-jaffle_shop_customers
+`
+dbt-tutorial
+`
+.
+jaffle_shop
+.
+customers
 models/stg_orders.sql
 select
 id
@@ -401,7 +424,13 @@ order_date
 ,
 status
 from
-jaffle_shop_orders
+`
+dbt-tutorial
+`
+.
+jaffle_shop
+.
+orders
 Edit the SQL in your
 models/customers.sql
 file as follows:
@@ -475,47 +504,6 @@ customers
 customer_id
 ,
 customers
-.
-first_name
-,
-customers
-.
-last_name
-,
-customer_orders
-.
-first_order_date
-,
-customer_orders
-.
-most_recent_order_date
-,
-coalesce
-(
-customer_orders
-.
-number_of_orders
-,
-0
-)
-as
-number_of_orders
-from
-customers
-left
-join
-customer_orders
-using
-(
-customer_id
-)
-)
-select
-*
-from
-final
-Execute
-dbt run
 .
 
 

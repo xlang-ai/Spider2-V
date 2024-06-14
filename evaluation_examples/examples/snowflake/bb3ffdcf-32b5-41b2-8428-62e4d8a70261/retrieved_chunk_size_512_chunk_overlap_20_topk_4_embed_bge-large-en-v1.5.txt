@@ -63,6 +63,127 @@ Português
 
 
 Documentation Source:
+docs.snowflake.com/en/user-guide/data-load-dirtables-pipeline.txt
+
+Documentation Title:
+Building a data processing pipeline using a directory table | Snowflake Documentation
+
+Documentation Content:
+select
+*
+from
+prod_reviews
+;
++
+------------------+----------------------------------+
+| FILE_NAME        | FILE_DATA                        |
+|------------------+----------------------------------|
+| prod_review1.pdf | {                                |
+|                  |   "FirstName": "John",           |
+|                  |   "LastName": "Johnson",         |
+|                  |   "Middle Name": "Michael",      |
+|                  |   "Product": "Tennis Shoes",     |
+|                  |   "Purchase Date": "03/15/2022", |
+|                  |   "Recommend": "Yes"             |
+|                  | }                                |
+| prod_review2.pdf | {                                |
+|                  |   "FirstName": "Emily",          |
+|                  |   "LastName": "Smith",           |
+|                  |   "Middle Name": "Ann",          |
+|                  |   "Product": "Red Skateboard",   |
+|                  |   "Purchase Date": "01/10/2023", |
+|                  |   "Recommend": "MayBe"           |
+|                  | }                                |
++
+------------------+----------------------------------+
+Copy
+Finally, you can create a view that parses the objects in the
+FILE_DATA
+column into separate columns.
+You can then query the view to analyze and work with the file contents.
+CREATE
+OR
+REPLACE
+VIEW
+prod_review_info_v
+AS
+WITH
+file_data
+AS
+(
+SELECT
+file_name
+,
+parse_json
+(
+file_data
+)
+AS
+file_data
+FROM
+prod_reviews
+)
+SELECT
+file_name
+,
+file_data
+:FirstName
+::varchar
+AS
+first_name
+,
+file_data
+:LastName
+::varchar
+AS
+last_name
+,
+file_data
+:
+"Middle Name"
+::varchar
+AS
+middle_name
+,
+file_data
+:Product
+::varchar
+AS
+product
+,
+file_data
+:
+"Purchase Date"
+::date
+AS
+purchase_date
+,
+file_data
+:Recommend
+::varchar
+AS
+recommended
+,
+build_scoped_file_url
+(@
+my_pdf_stage
+,
+file_name
+)
+AS
+scoped_review_url
+FROM
+file_data
+;
+SELECT
+*
+FROM
+prod_review_info_v
+;
+
+
+
+Documentation Source:
 docs.snowflake.com/en/user-guide/querying-metadata.txt
 
 Documentation Title:
@@ -172,50 +293,6 @@ t
 Copy
 Note
 The file format is required in this example to correctly parse the fields in the staged files.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/streams-examples.txt
-
-Documentation Title:
-Stream Examples | Snowflake Documentation
-
-Documentation Content:
-SELECT
-*
-FROM
-ndf_s
-;
-+
--------+-------------------------------+-----+-----------------+------------------------------------------+
-| U     | TS                            | NUM | METADATA$ACTION | METADATA$ROW_ID                          |
-|-------+-------------------------------+-----+-----------------+------------------------------------------|
-| MARIE | 2021-08-16 12:04:21.768 -0700 |   1 | INSERT          | d200504bf3049a7d515214408d9a804fd03b46cd |
-| MARIE | 2021-08-16 12:04:21.768 -0700 |   2 | INSERT          | d0a551cecbee0f9ad2b8a9e81bcc33b15a525a1e |
-| MARIE | 2021-08-16 12:04:21.768 -0700 |   3 | INSERT          | b98ad609fffdd6f00369485a896c52ca93b92b1f |
-| MARIE | 2021-08-16 12:04:21.768 -0700 |   4 | INSERT          | 62d34abc3fac85c037fb9f47f7758f08d025d9ed |
-| MARIE | 2021-08-16 12:04:21.768 -0700 |   5 | INSERT          | e554e6e68293a51d8e69d68e9b6be991453cc901 |
-| MARIE | 2021-08-16 12:04:21.768 -0700 |   6 | INSERT          | f6fa32c498a28b2349d2c6f6be55c30eb1d5310f |
-+
--------+-------------------------------+-----+-----------------+------------------------------------------+
-Copy
-Was this page helpful?
-Yes
-No
-Visit Snowflake
-Join the conversation
-Develop with Snowflake
-Share your feedback
-Read the latest on our blog
-Get your own certification
-Privacy Notice
-Site Terms
-©
-2024
-Snowflake, Inc.
-All Rights Reserved
-.
 
 
 

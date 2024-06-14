@@ -32,68 +32,39 @@ We hope this feature will help eliminate a huge bottleneck for users to get into
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/databases/index.md
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.md
 
 Documentation Title:
-Connecting to Databases | Superset
+Creating Your First Dashboard | Superset
 
 Documentation Content:
-{region}/{database}?role={role}&warehouse={warehouse}`
-| SQLite | No additional library needed |`sqlite://path/to/file.db?check_same_thread=false`
-|SQL Server`pip install pymssql``mssql+pymssql://`
-|Teradata`pip install teradatasqlalchemy``teradatasql://{user}:{password}@{host}`
-|TimescaleDB`pip install psycopg2``postgresql://:@:/`
-|Trino`pip install trino``trino://{username}:{password}@{hostname}:{port}/{catalog}`
-|Vertica`pip install sqlalchemy-vertica-python``vertica+vertica_python://:@/`
-|YugabyteDB`pip install psycopg2``postgresql://:@/`
+Connecting to a new database​
 
-Note that many other databases are supported, the main criteria being the existence of a functional
-SQLAlchemy dialect and Python driver. Searching for the keyword "sqlalchemy + (database name)"
-should help get you to the right place.
+Superset itself doesn't have a storage layer to store your data but instead pairs with
+your existing SQL-speaking database or data store.
 
-If your database or data engine isn't on the list but a SQL interface
-exists, please file an issue on the
-Superset GitHub repo, so we can work on documenting and
-supporting it.
+First things first, we need to add the connection credentials to your database to be able
+to query and visualize data from it. If you're using Superset locally via
+Docker compose, you can
+skip this step because a Postgres database, named **examples**, is included and
+pre-configured in Superset for you.
 
-If you'd like to build a database connector for Superset integration,
-read the following tutorial.
+Under the **+**menu in the top right, select Data, and then the *Connect Database*option:
 
+!Then select your database type in the resulting modal:
 
+!Once you've selected a database, you can configure a number of advanced options in this window,
+or for the purposes of this walkthrough, you can click the link below all these fields:
 
-Documentation Source:
-superset.apache.org/docs/configuration/databases/index.md
+!Once you've clicked that link you only need to specify two things (the database name and SQLAlchemy URI):
 
-Documentation Title:
-Connecting to Databases | Superset
+!As noted in the text below the form, you should refer to the SQLAlchemy documentation on
+creating new connection URIsfor your target database.
 
-Documentation Content:
-TimescaleDB​
+Click the **Test Connection**button to confirm things work end to end. If the connection looks good, save the configuration
+by clicking the **Connect**button in the bottom right corner of the modal window:
 
-TimescaleDBis the open-source relational database for time-series and analytics to build powerful data-intensive applications.
-TimescaleDB is a PostgreSQL extension, and you can use the standard PostgreSQL connector library, psycopg2, to connect to the database.
-
-If you're using docker compose, psycopg2 comes out of the box with Superset.
-
-TimescaleDB sample connection parameters:
-
-* **User Name**: User
-* **Password**: Password
-* **Database Host**:
-	+ For Localhost: localhost or 127.0.0.1
-	+ For On Prem: IP address or Host name
-	+ For Timescale Cloudservice: Host name
-	+ For Managed Service for TimescaleDBservice: Host name
-* **Database Name**: Database Name
-* **Port**: default 5432 or Port number of the service
-
-The connection string looks like:
-
-postgresql://{username}:{password}@{host}:{port}/{database name}You can require SSL by adding `?sslmode=require`at the end (e.g. in case you use Timescale Cloud):
-
-postgresql://{username}:{password}@{host}:{port}/{database name}?sslmode=requireLearn more about TimescaleDB!#### Trino​
-
-Supported trino version 352 and higher
+Congratulations, you've just added a new data source in Superset!
 
 
 
@@ -124,6 +95,36 @@ Edit this pagePreviousPyPINextUpgrading SupersetRequirements1. Clone Superset's 
 	Option #1 - for an interactive development environmentOption #2 - build a set of immutable images from the local branchOption #3 - boot up an official release
 * docker-compose tips & configurationConfiguring Further
 3. Log in to Superset4.
+
+
+
+Documentation Source:
+superset.apache.org/docs/configuration/databases/index.md
+
+Documentation Title:
+Connecting to Databases | Superset
+
+Documentation Content:
+{region}/{database}?role={role}&warehouse={warehouse}`
+| SQLite | No additional library needed |`sqlite://path/to/file.db?check_same_thread=false`
+|SQL Server`pip install pymssql``mssql+pymssql://`
+|Teradata`pip install teradatasqlalchemy``teradatasql://{user}:{password}@{host}`
+|TimescaleDB`pip install psycopg2``postgresql://:@:/`
+|Trino`pip install trino``trino://{username}:{password}@{hostname}:{port}/{catalog}`
+|Vertica`pip install sqlalchemy-vertica-python``vertica+vertica_python://:@/`
+|YugabyteDB`pip install psycopg2``postgresql://:@/`
+
+Note that many other databases are supported, the main criteria being the existence of a functional
+SQLAlchemy dialect and Python driver. Searching for the keyword "sqlalchemy + (database name)"
+should help get you to the right place.
+
+If your database or data engine isn't on the list but a SQL interface
+exists, please file an issue on the
+Superset GitHub repo, so we can work on documenting and
+supporting it.
+
+If you'd like to build a database connector for Superset integration,
+read the following tutorial.
 
 
 

@@ -30,29 +30,18 @@ Documentation Content:
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/libraries/dagster-airbyte.html
+release-1-7-2.dagster.dagster-docs.io/_apidocs/execution.html
 
 Documentation Title:
 Dagster Docs
 
 Documentation Content:
-</p><p><strong>api_key</strong>(<em>str</em>) – Chartmogul API key</p><p><strong>start_date</strong>(<em>str</em>) – UTC date and time in the format 2017-01-25T00:00:00Z. When feasible, any data before this date will not be replicated.</p><p><strong>interval</strong>(<em>str</em>) – Some APIs such as Metrics require intervals to cluster data.</p></ul></dl></dd></dl></dl><dl><dt><span>class</span><span>dagster_airbyte.managed.generated.sources.</span><span>OrbSource</span><span>(</span><span>name</span>, <span>api_key</span>, <em><span>start_date</span><span>=</span><span>None</span></em>, <em><span>lookback_window_days</span><span>=</span><span>None</span></em>, <em><span>string_event_properties_keys</span><span>=</span><span>None</span></em>, <em><span>numeric_event_properties_keys</span><span>=</span><span>None</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dl><dt><span>__init__</span><span>(</span><span>name</span>, <span>api_key</span>, <em><span>start_date</span><span>=</span><span>None</span></em>, <em><span>lookback_window_days</span><span>=</span><span>None</span></em>, <em><span>string_event_properties_keys</span><span>=</span><span>None</span></em>, <em><span>numeric_event_properties_keys</span><span>=</span><span>None</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dd><p>Airbyte Source for Orb.</p><p>Documentation can be found at <a>https://docs.withorb.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/partitions.html
-
-Documentation Title:
-Dagster Docs
-
-Documentation Content:
-2022-03-19-03:15), (2022-03-19-03:15, 2022-03-26-03:15), .</span></pre></dd></dl><dl><dt><span>class</span><span>dagster.</span><span>MonthlyPartitionsDefinition</span><span>(</span><span>start_date</span>, <em><span>end_date</span><span>=</span><span>None</span></em>, <em><span>minute_offset</span><span>=</span><span>0</span></em>, <em><span>hour_offset</span><span>=</span><span>0</span></em>, <em><span>day_offset</span><span>=</span><span>1</span></em>, <em><span>timezone</span><span>=</span><span>None</span></em>, <em><span>fmt</span><span>=</span><span>None</span></em>, <em><span>end_offset</span><span>=</span><span>0</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dd><p>A set of monthly partitions.</p><p>The first partition in the set will start at the soonest first of the month after start_date
-at midnight. The last partition in the set will end before the current time, unless the
-end_offset argument is set to a positive number. If day_offset is provided, the start and
-end date of each partition will be day_offset. If minute_offset and/or hour_offset are used,
-the start and end times of each partition will be hour_offset:minute_offset of each day.</p><dl><dt>Parameters<span>:</span></dt><ul><p><strong>start_date</strong>(<em>Union</em><em>[</em><em>datetime.datetime</em><em>, </em><em>str</em><em>]</em>) – The first date in the set of partitions will be
-midnight the sonnest first of the month following start_date.
+</span><span>asset_partitions_def_for_output</span><span>(</span><span>"second_asset"</span><span>))</span><span># materializing the 2023-08-21 partition of this asset will log:</span><span>#   DailyPartitionsDefinition("2023-08-20")</span><span>#   DailyPartitionsDefinition("2023-08-20")</span></pre></dd></dl><dl><dt><span>asset_partitions_time_window_for_input</span><span>(</span><em><span>input_name</span><span>=</span><span>'result'</span></em><span>)</span><span>[source]</span><a>¶</a></dt><dd><p>The time window for the partitions of the input asset.</p><p>If you want to write your asset to support running a backfill of several partitions in a single run,
+you can use <span>asset_partitions_time_window_for_input</span>to get the time window of the input that
+are relevant to that backfill.</p><p>Raises an error if either of the following are true:
+- The input asset has no partitioning.
+- The input asset is not partitioned with a TimeWindowPartitionsDefinition or a
+MultiPartitionsDefinition with one time-partitioned dimension.</p><dl><dt>Parameters<span>:</span></dt><p><strong>input_name</strong>(<em>str</em>) – The name of the input to get the partition key for.</p></dl><p>Examples</p><pre><span>partitions_def</span><span>=</span><span>DailyPartitionsDefinition</span><span>(</span><span>"2023-08-20"</span><span>)</span><span>@asset</span><span>(</span><span>partitions_def</span><span>=</span><span>partitions_def</span><span>)</span><span>def</span><span>upstream_asset</span><span>():</span><span>.
 
 
 

@@ -18,13 +18,40 @@ from multiple column (e.g.
 
 
 Documentation Source:
-superset.apache.org/docs/contributing/resources/index.html
+superset.apache.org/docs/using-superset/exploring-data/index.html
 
 Documentation Title:
-Resources | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-(tables)</text><text>created_on: DATETIME</text><text>changed_on: DATETIME</text><text>id: INTEGER</text><text>description: TEXT</text><text>default_endpoint: TEXT</text><text>is_featured: BOOLEAN</text><text>filter_select_enabled: BOOLEAN</text><text>offset: INTEGER</text><text>cache_timeout: INTEGER</text><text>is_managed_externally: BOOLEAN</text><text>external_url: TEXT</text><text>database_id: INTEGER</text><text>fetch_values_predicate: TEXT</text><text>sql: TEXT</text><text>is_sqllab_view: BOOLEAN</text><text>template_params: TEXT</text><text>extra: TEXT</text><text>normalize_columns: BOOLEAN</text><text>always_filter_main_dttm: BOOLEAN</text><text>created_by_fk: INTEGER</text><text>changed_by_fk: INTEGER</text><text>uuid: BINARY(16)</text><text>params: VARCHAR(1000)</text><text>perm: VARCHAR(1000)</text><text>schema_perm: VARCHAR(1000)</text><text>catalog_perm: VARCHAR(1000)</text><text>table_name: VARCHAR(250)</text><text>main_dttm_col: VARCHAR(250)</text><text>schema: VARCHAR(255)</text><text>catalog: VARCHAR(256)</text><text>Column (sl_columns)</text><text>created_on: DATETIME</text><text>changed_on: DATETIME</text><text>extra_json: TEXT</text><text>id: INTEGER</text><text>is_additive: BOOLEAN</text><text>is_aggregation: BOOLEAN</text><text>is_filterable: BOOLEAN</text><text>is_dimensional: BOOLEAN</text><text>is_increase_desired: BOOLEAN</text><text>is_managed_externally: BOOLEAN</text><text>is_partition: BOOLEAN</text><text>is_physical: BOOLEAN</text><text>is_spatial: BOOLEAN</text><text>is_temporal: BOOLEAN</text><text>name: TEXT</text><text>type: TEXT</text><text>advanced_data_type: TEXT</text><text>expression:
+Then, select the Volcanic Eruptions layer, add a short description
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p><img/><p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
+dialogue:</p><ul><li>Name the layer as Volcanic Eruptions</li><li>Change the Annotation Layer Type to Event</li><li>Set the Annotation Source as Superset annotation</li><li>Specify the Annotation Layer as Volcanic Eruptions</li></ul><img/><p>Select <strong>Apply</strong>to see your annotation shown on the chart.</p><img/><p>If you wish, you can change how your annotation looks by changing the settings in the Display
+configuration section. Otherwise, select <strong>OK</strong>and finally <strong>Save</strong>to save your chart. If you keep
+the default selection to overwrite the chart, your annotation will be saved to the chart and also
+appear automatically in the Tutorial Dashboard.</p><h3>Advanced Analytics<a>​</a></h3><p>In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
+allows you to apply additional transformations to your data. The three types of transformation are:</p><strong>Setting up the base chart</strong><p>In this section, we’re going to set up a base chart which we can then apply the different <strong>Advanced
+Analytics</strong>features to. Start off by creating a new chart using the same <em>tutorial_flights</em>datasource and the <strong>Line Chart</strong>visualization type. Within the Time section, set the Time Range as
+1st October 2011 and 31st October 2011.</p><p>Next, in the query section, change the Metrics to the sum of Cost. Select <strong>Run Query</strong>to show the
+chart.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.html
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+To start the Explore workflow from the <strong>Datasets</strong>tab, start by clicking the name
+of the dataset that will be powering your chart.</p><img/><p>You're now presented with a powerful workflow for exploring data and iterating on charts.</p><ul><li>The <strong>Dataset</strong>view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.</li><li>The <strong>Data</strong>preview below the chart area also gives you helpful data context.</li><li>Using the <strong>Data</strong>tab and <strong>Customize</strong>tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.</li></ul><p>As you customize your chart using drop-down menus, make sure to click the <strong>Run</strong>button
+to get visual feedback.</p><img/><p>In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.</p><img/><h3>Creating a slice and dashboard<a>​</a></h3><p>To save your chart, first click the <strong>Save</strong>button.
 
 
 

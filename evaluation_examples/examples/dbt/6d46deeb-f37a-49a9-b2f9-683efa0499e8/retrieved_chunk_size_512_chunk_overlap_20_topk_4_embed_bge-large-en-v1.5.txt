@@ -173,95 +173,6 @@ configuration file
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.txt
-
-Documentation Title:
-Create users and grant roles | Snowflake Documentation
-
-Documentation Content:
-For DEFAULT_WAREHOUSE, use
-COMPUTE_WH
-.
-CREATE
-OR
-REPLACE
-USER
-snowman
-PASSWORD
-=
-'sn0wf@ll'
-LOGIN_NAME
-=
-'snowstorm'
-FIRST_NAME
-=
-'Snow'
-LAST_NAME
-=
-'Storm'
-EMAIL
-=
-'snow.storm@snowflake.com'
-MUST_CHANGE_PASSWORD
-=
-true
-DEFAULT_WAREHOUSE
-=
-COMPUTE_WH
-;
-Copy
-This command returns the following output:
-User SNOWMAN successfully created.
-If you were creating a real user in a real Snowflake account, you would now send the
-following information in a secure manner to the person who would need to access
-this new account:
-Snowflake Account URL: the Snowflake account link where the user will log in.
-You can find this link at the top of your browser
-(for example:
-https://app.snowflake.com/myorg/myaccount/
-,
-where
-myorg
-is the Snowflake organization ID, and
-myaccount
-is the account ID).
-LOGIN_NAME, as specified in the CREATE USER command.
-PASSWORD, as specified in the CREATE USER command.
-Step 5. Grant a system role and warehouse access to the user
-¶
-Now that you have created a user, you can use the SECURITYADMIN role to grant the
-SYSADMIN role to the user, as well as grant USAGE on the COMPUTE_WH warehouse.
-Granting a role to another role creates a parent-child relationship between the roles
-(also referred to as a role hierarchy). Granting a role to a user enables the user to perform
-all operations allowed by the role (through the access privileges granted to the role).
-The SYSADMIN role has privileges to create warehouses, databases, and database objects
-in an account and grant those privileges to other roles. Only grant this role to users who should
-have these privileges. For information about other system-defined roles, see
-see
-Overview of Access Control
-.
-To grant the user access to a role and a warehouse, do the following:
-In the open worksheet, place your cursor in the
-USE ROLE
-line,
-then select
-Run
-.
-USE
-ROLE
-SECURITYADMIN
-;
-Copy
-Place your cursor in the
-GRANT ROLE
-line, enter the name of the user you created,
-then select
-Run
-.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/tutorials/snowflake-in-20minutes.txt
 
 Documentation Title:
@@ -323,6 +234,79 @@ organization_name
 -
 account_name
 Names of your Snowflake organization and account.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/connecting.txt
+
+Documentation Title:
+Logging in to Snowflake | Snowflake Documentation
+
+Documentation Content:
+Step 2: Connect to Snowflake and Initiate a Session
+¶
+From a terminal window, start SnowSQL from the command prompt using the following command:
+$
+snowsql
+-a
+<account_identifier>
+Copy
+Where
+<account_identifier>
+is your
+account identifier
+. Note that when you
+specify your account identifier,
+do not
+include the
+snowflakecomputing.com
+domain name.
+You can further streamline login by specifying the
+-u
+option followed by your user login name:
+$
+snowsql
+-a
+<account_identifier>
+-u
+<user_login_name>
+Copy
+When prompted, enter your login name (if you didn’t provide it when executing SnowSQL) and your password.
+If you specified a valid account identifier, user login name, and password, the SnowSQL prompt appears.
+Tip
+For security reasons, you cannot specify your password as an option on the command line; you must wait for SnowSQL to prompt you for your password.
+However, if you would like to skip entering information on the command line or you need to automate login, you can provide all the required account and user credential information, as well as additional
+Snowflake default usage information, as options in the SnowSQL
+config
+file.
+For more detailed installation, configuration, login, and usage information, see
+SnowSQL (CLI client)
+.
+Connecting Using Other Methods
+¶
+In addition to the Snowflake web interface and SnowSQL, Snowflake supports numerous other methods for connecting, including:
+Using 3rd-party client services and applications that support JDBC or ODBC.
+Developing applications that connect through the Snowflake connectors/drivers for Python, Node.js, Spark, etc.
+However, connecting to Snowflake using these other methods requires additional installation, configuration, and development tasks. For more information, see
+Connect to Snowflake
+.
+Was this page helpful?
+Yes
+No
+Visit Snowflake
+Join the conversation
+Develop with Snowflake
+Share your feedback
+Read the latest on our blog
+Get your own certification
+Privacy Notice
+Site Terms
+©
+2024
+Snowflake, Inc.
+All Rights Reserved
+.
 
 
 

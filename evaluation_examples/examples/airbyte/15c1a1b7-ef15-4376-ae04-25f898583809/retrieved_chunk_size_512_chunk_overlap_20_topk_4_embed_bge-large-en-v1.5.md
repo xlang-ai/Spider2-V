@@ -1,50 +1,55 @@
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.md
+airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset.md
 
 Documentation Title:
-Faker | Airbyte Documentation
+How to Build a Slack Activity Dashboard with Apache Superset | Airbyte | Airbyte
 
 Documentation Content:
-Output schema​
+Setting Up a Postgres Database in Superset
 
-This source will generate an "e-commerce-like" dataset with users, products, and purchases. Here's
-what is produced at a Postgres destination connected to this source:
+To do this, on the top menu in your Superset dashboard, hover on the Data dropdown and click on **Databases.**
 
-`CREATETABLE"public"."users"("address"jsonb,"occupation"text,"gender"text,"academic_degree"text,"weight"int8,"created_at"timestamptz,"language"text,"telephone"text,"title"text,"updated_at"timestamptz,"nationality"text,"blood_type"text,"name"text,"id"float8,"age"int8,"email"text,"height"text,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_users_hashid" text);CREATETABLE"public"."users_address"("_airbyte_users_hashid"text,"country_code"text,"province"text,"city"text,"street_number"text,"state"text,"postal_code"text,"street_name"text,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_address_hashid" text);CREATETABLE"public"."products"("id"float8,"make"text,"year"float8,"model"text,"price"float8,"created_at"timestamptz,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_dev_products_hashid" text,);CREATETABLE"public"."purchases"("id"float8,"user_id"float8,"product_id"float8,"purchased_at"timestamptz,"added_to_cart_at"timestamptz,"returned_at"timestamptz,-- "_airbyte_ab_id" varchar,-- "_airbyte_emitted_at" timestamptz,-- "_airbyte_normalized_at" timestamptz,-- "_airbyte_dev_purchases_hashid" text,);`### Features​
+‍
 
+!‍
 
+In the page that opens up, click on the **+ Database** button in the top right corner.
 
-Documentation Source:
-airbyte.com/tutorials/configure-airbyte-with-python-dagster.md
+‍
 
-Documentation Title:
-Configure Airbyte Connections with Python (Dagster) | Airbyte
+!‍
 
-Documentation Content:
-The AirbyteConnectionsets configure both together as a connection in Airbyte.
+Then, you will be presented with a modal to add your Database Name and the connection URI.
 
-These features open instrumental use cases for **data integration as code**. Imagine you need to provision Airbyte, have multi-tenancy requirements for teams or customers, or read from a dynamic API (imagine the Notion API where the content is nested into the databases and constantly evolves). Based on these configs, you can automatically apply new sync based on the latest status. Everything is versioned, which leads to changes with confidence.
+‍
 
-*How does it work*So much for when to use it. Let's explore now how it all works.
+!‍
 
-Dagster offers the interfaces that we can define our Airbyte connections with Python and a command line tool called dagster-airbytethat allows two functions to check or apply the defined connections to the Airbyte instance.
+Let’s call our Database **slack\_db,**and then add the following URI as the connection URI:
 
-As the name suggests, checking is verifying against the current live Airbyte instance vs. your pythonic configurations. Apply will delete an existing source, destination, and connection and re-apply based on your updated configs.
+`postgresql://postgres:password@docker.for.mac.localhost:2000/postgres`‍
 
-📝 Below, I will skip the step on setting up Airbyte and Postgres database; You can find that in the ReadMeor Postgres Replication Tutorial.
+**If you are on a Windows Machine, yours will be:**`postgresql://postgres:password@docker.for.win.localhost:2000/postgres`‍
 
-*Configure Airbyte Connections in Python*For my demo, I am scraping a GitHub repo that is evolving.
+Note: We are using **docker.for.[mac|win].localhost**in order to access the localhost of your machine, because using just *localhost*will point to the Docker container network and not your machine’s network.
 
-**Define Airbyte Instance**First, I define the airbyte instance in my dagster python code:
+Your Superset UI should look like this:
 
-`airbyte_instance = airbyte_resource.configured(
- {
- "host": "localhost",
- "port": "8000",
- "username": "airbyte",
- "password": {"env": "AIRBYTE_PASSWORD"},
- }
-)`➡️ Make sure you set the environment variable AIRBYTE\_PASSWORD on your laptop. The default password is password. As well as createa token AIRBYTE\_PERSONAL\_GITHUB\_TOKEN for fetching the stargazers from the public repositories in the below code.
+‍
+
+!‍
+
+We will need to enable some settings on this connection. Click on the **SQL LAB SETTINGS**and check the following boxes:
+
+‍
+
+!‍
+
+Afterwards, click on the **ADD** button,and you will see your database on the data page of Superset.
+
+‍
+
+!‍
 
 
 
@@ -79,27 +84,84 @@ From your Airbyte Cloudor Airbyte Open Source account, select `Sources`from the 
 
 
 Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/sources/faker.md
+airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.md
 
 Documentation Title:
-Faker | Airbyte Documentation
+Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
 
 Documentation Content:
-Config fields reference
+Creating the Airbyte connection
 
-FieldTypeProperty name›Countintegercount›Seedintegerseed›Records Per Stream Sliceintegerrecords\_per\_slice›Always Updatedbooleanalways\_updated›ParallelismintegerparallelismChangelog​
-----------
+Back in the Airbyte web app in your browser, click on the *new source*button in the top right corner of the app to go to the page to add a new Airbyte source.
+
+Enter the name **github-source**as the source name and click the drop down and select Github connector as source type. After selecting the GitHub source type, you will be presented with two text boxes.The first is to enter a repository you want. In this box, type in **airbytehq/airbyte**, and then, in the second box, you will need to provide a GitHub access token which you can obtain fromhere.
+
+Make sure you grant the token the repo and write:discussion permissions. After you've filled all fields, hit the set up source button.
+
+!If the setup was successful, you will be taken to the destination screen where you will add a new destination.
+
+Click the *add destination*button, and, in the drop down that follows, click *add new destination*. Then, you will see a page to add the destination name. Type in the name we gave the Postgres container we created earlier (github-destination), and then choose Postgres as the destination type.
+
+After, you will be presented with some text boxes to enter the database connection details. Enter the values for the Postgres container we created earlier:
+
+* host - localhost
+* post - 3003
+* schema - public (leave default)
+* database - postgres
+* Password - password
+* username - postgres
+
+Then click on the basic normalization toggle button to check it on as we want Airbyte to normalize the data coming in from GitHub. Overall the UI should look like this:
+
+!Then click on the Set up destination button. If your credentials are all good for the database, the postgres destination would have been set, and now you will need to make the connection from the source (GitHub) to the destination (Postgres).
+
+You should check the boxes that are checked in the screenshot below, and then choose how often Airbyte will attempt to replicate data to be every hour in the Sync frequency drop down. Then, click on the *Set up connection*button.
 
 
 
-| Version | Date | Pull Request | Subject |
-| --- | --- | --- | --- |
-| 6.1.0 | 2024-04-08 |36898 Update car prices and years |
-| --- | --- | --- |
-| 6.0.3 | 2024-03-15 |36167 Make 'count' an optional config parameter. |
-| 6.0.2 | 2024-02-12 |35174 Manage dependencies with Poetry. |
-| 6.0.1 | 2024-02-12 |35172 Base image migration: remove Dockerfile and use the python-connector-base image |
-| 6.0.0 | 2024-01-30 |34644 Declare 'id' columns as primary keys.
+Documentation Source:
+airbyte.com/tutorials/postgres-to-bigquery.md
+
+Documentation Title:
+How to Connect & Load Data from Postgres to BigQuery?
+
+Documentation Content:
+Step 2: Set up BigQuery as a destination connector
+--------------------------------------------------
+
+!1. First, navigate to the Airbyte dashboard and select the "Destinations" tab on the left-hand side of the screen. 
+
+2. Scroll down until you find the "BigQuery" destination connector and click on it. 
+
+3. Click the "Create Destination" button to begin setting up your BigQuery destination. 
+
+4. Enter your Google Cloud Platform project ID and service account credentials in the appropriate fields. 
+
+5. Next, select the dataset you want to use for your destination and enter the table prefix you want to use. 
+
+6. Choose the schema mapping for your data, which will determine how your data is organized in BigQuery. 
+
+7. Finally, review your settings and click the "Create Destination" button to complete the setup process. 
+
+8. Once your destination is created, you can begin configuring your source connectors to start syncing data to BigQuery. 
+
+9. To do this, navigate to the "Sources" tab on the left-hand side of the screen and select the source connector you want to use. 
+
+10. Follow the prompts to enter your source credentials and configure your sync settings. 
+
+11. When you reach the "Destination" step, select your BigQuery destination from the dropdown menu and choose the dataset and table prefix you want to use. 
+
+12. Review your settings and click the "Create Connection" button to start syncing data from your source to your BigQuery destination.
+
+Step 3: Set up a connection to sync your Postgres data to BigQuery
+------------------------------------------------------------------
+
+!Once you've successfully connected Postgres as a data source and BigQuery as a destination in Airbyte, you can set up a data pipeline between them with the following steps:
+
+1. **Create a new connection:**On the Airbyte dashboard, navigate to the 'Connections' tab and click the '+ New Connection' button.
+2. **Choose your source:**Select Postgres from the dropdown list of your configured sources.
+3. **Select your destination:**Choose BigQuery from the dropdown list of your configured destinations.
+4. **Configure your sync:**Define the frequency of your data syncs based on your business needs. Airbyte allows both manual and automatic scheduling for your data refreshes.
 
 
 

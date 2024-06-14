@@ -229,57 +229,70 @@ tab.
 
 
 Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.txt
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.txt
 
 Documentation Title:
-Exploring Data in Superset | Superset
+Creating Your First Dashboard | Superset
 
 Documentation Content:
-The three types of transformation are:
-Setting up the base chart
-In this section, we’re going to set up a base chart which we can then apply the different
-Advanced
-Analytics
-features to. Start off by creating a new chart using the same
-tutorial_flights
-datasource and the
-Line Chart
-visualization type. Within the Time section, set the Time Range as
-1st October 2011 and 31st October 2011.
-Next, in the query section, change the Metrics to the sum of Cost. Select
-Run Query
-to show the
-chart. You should see the total cost per day for each month in October 2011.
-Finally, save the visualization as Tutorial Advanced Analytics Base, adding it to the Tutorial
-Dashboard.
-Rolling Mean
+CAST(recovery_rate) as float
+).
+Aggregate functions aren't allowed in calculated columns.
+Creating charts in Explore view
 ​
-There is quite a lot of variation in the data, which makes it difficult to identify any trend. One
-approach we can take is to show instead a rolling average of the time series. To do this, in the
-Moving Average
-subsection of
-Advanced Analytics
-, select mean in the
-Rolling
-box and
-enter 7 into both Periods and Min Periods. The period is the length of the rolling period expressed
-as a multiple of the Time Grain. In our example, the Time Grain is day, so the rolling period is 7
-days, such that on the 7th October 2011 the value shown would correspond to the first seven days of
-October 2011. Lastly, by specifying Min Periods as 7, we ensure that our mean is always calculated
-on 7 days and we avoid any ramp up period.
-After displaying the chart by selecting
-Run Query
-you will see that the data is less variable
-and that the series starts later as the ramp up period is excluded.
-Save the chart as Tutorial Rolling Mean and add it to the Tutorial Dashboard.
-Time Comparison
+Superset has 2 main interfaces for exploring data:
+Explore
+: no-code viz builder. Select your dataset, select the chart,
+customize the appearance, and publish.
+SQL Lab
+: SQL IDE for cleaning, joining, and preparing data for Explore workflow
+We'll focus on the Explore view for creating charts right now.
+To start the Explore workflow from the
+Datasets
+tab, start by clicking the name
+of the dataset that will be powering your chart.
+You're now presented with a powerful workflow for exploring data and iterating on charts.
+The
+Dataset
+view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.
+The
+Data
+preview below the chart area also gives you helpful data context.
+Using the
+Data
+tab and
+Customize
+tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.
+As you customize your chart using drop-down menus, make sure to click the
+Run
+button
+to get visual feedback.
+In the following screenshot, we craft a grouped Time-series Bar Chart to visualize
+our quarterly sales data by product line just by clicking options in drop-down menus.
+Creating a slice and dashboard
 ​
-In this section, we will compare values in our time series to the value a week before. Start off by
-opening the Tutorial Advanced Analytics Base chart, by going to
-Charts
-in the top menu and then
-selecting the visualization name in the list (alternatively, find the chart in the Tutorial
-Dashboard and select Explore chart from the menu for that visualization).
+To save your chart, first click the
+Save
+button. You can either:
+Save your chart and add it to an existing dashboard
+Save your chart and add it to a new dashboard
+In the following screenshot, we save the chart to a new "Superset Duper Sales Dashboard":
+To publish, click
+Save and goto Dashboard
+.
+Behind the scenes, Superset will create a slice and store all the information needed
+to create your chart in its thin data layer
+(the query, chart type, options selected, name, etc).
+To resize the chart, start by clicking the Edit Dashboard button in the top right corner.
+Then, click and drag the bottom right corner of the chart until the chart layout snaps
+into a position you like onto the underlying grid.
+Click
+Save
+to persist the changes.
+Congrats! You’ve successfully linked, analyzed, and visualized data in Superset.
 
 
 

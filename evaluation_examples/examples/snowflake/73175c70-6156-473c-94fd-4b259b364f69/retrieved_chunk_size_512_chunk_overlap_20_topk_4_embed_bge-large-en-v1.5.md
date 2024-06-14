@@ -60,60 +60,6 @@ Getting started with SnowsightManaging and using worksheets in SnowsightQuerying
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-worksheet.md
-
-Documentation Title:
-Using Worksheets for Queries / DML / DDL | Snowflake Documentation
-
-Documentation Content:
-Searching for Database Objects¶
-
-Search for databases, schemas, tables, and views using the Find database objectsfield. Note that searches are “starts with” searches, and are also case-insensitive unless the search string is
-enclosed in double quotes.
-
-You can also search within a database or schema using the search icon that appears for the item when you hover over it in the object browser.
-
-Managing Warehouses¶
---------------------
-
-Click the context menu to select a different active warehouse for the worksheet. You can resume or suspend the selected warehouse, or resize the warehouse.
-
-!Managing Queries¶
------------------
-
-Important
-
-The query details and results displayed in the worksheet are only maintained for your current user session. If you log out of the web interface and log back in, the results from your previous
-session are no longer displayed in the worksheet; however, you can use the History!page to see queries you executed in previous sessions.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-query.md
-
-Documentation Title:
-Querying data using worksheets | Snowflake Documentation
-
-Documentation Content:
-Append a SQL script to an existing worksheet¶
-
-If you have a SQL script in a file, you can append it to an existing worksheet by doing the following:
-
-Sign in to Snowsight.
-
-Select Projects» Worksheetsto open the list of worksheets.
-
-Open a worksheet.
-
-Hover over the tab for the worksheet and select !, then choose Import SQL from File.
-
-5. Browse to the SQL file on your computer.
-
-The file contents are appended to your worksheet.
-
-
-
-Documentation Source:
 docs.snowflake.com/en/user-guide/ui-snowsight-worksheets-gs.md
 
 Documentation Title:
@@ -143,6 +89,72 @@ worksheets from the Classic Console. See Import worksheets from the Classic Cons
 
 Using the options, you can view recent worksheets opened by you, worksheets that your colleagues have shared with you,
 worksheets that you created and own, or folders you created or that your colleagues have shared with you.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-query.md
+
+Documentation Title:
+Querying data using worksheets | Snowflake Documentation
+
+Documentation Content:
+Append a SQL script to an existing worksheet¶
+
+If you have a SQL script in a file, you can append it to an existing worksheet by doing the following:
+
+Sign in to Snowsight.
+
+Select Projects» Worksheetsto open the list of worksheets.
+
+Open a worksheet.
+
+Hover over the tab for the worksheet and select !, then choose Import SQL from File.
+
+5. Browse to the SQL file on your computer.
+
+The file contents are appended to your worksheet.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/ui-snowsight-universal-search.md
+
+Documentation Title:
+Search Snowflake objects and resources with Universal Search | Snowflake Documentation
+
+Documentation Content:
+DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatusOverview2. Connecting to SnowflakeEcosystem- SnowsightGetting started with SnowsightExploring the navigation menuAbout the Snowsight UpgradeUpgrading to SnowsightSearch Snowflake objects and resourcesGetting started with worksheetsManaging and using worksheetsQuerying data with SQL worksheetsUsing Snowflake Copilot in SQL worksheetsVisualizing worksheet resultsVisualizing data with dashboardsFilter query results in worksheets and dashboardsExplore and manage dataManage your user profileManage notification contactsManage support cases
+Classic ConsoleSnowSQLVisual Studio Code SQL ExtensionClient DownloadClient ConfigurationConnecting to Third-Party SystemsSnowflake Connector for Google Analytics Aggregate DataSnowflake Connector for Google Analytics Raw DataSnowflake Connector for Google Looker StudioSnowflake Connector for ServiceNow®Snowflake Connector for ServiceNow®v2
+Virtual warehousesDatabases, Tables, & ViewsData TypesData LoadingData UnloadingQueriesData Sharing & CollaborationSnowflake AI FeaturesSnowflake CortexAlerts & NotificationsSecurityData GovernancePrivacyOrganizations & AccountsBusiness Continuity & Data RecoveryPerformance OptimizationCost & Billing
+GuidesConnecting to SnowflakeSnowsightSearch Snowflake objects and resourcesSearch Snowflake objects and resources with Universal Search¶
+=============================================================
+
+!Preview Feature— Open
+
+Available to accounts in specific regions:
+
+AWS US West (Oregon)
+
+AWS US East (N. Virginia)
+
+Azure East US 2 (Virginia)
+
+Azure West Europe (Netherlands)
+
+AWS EU (Frankfurt)
+
+AWS Asia Pacific (Sydney)
+
+With Universal Search, you can quickly and easily find database objects in your account, data products available to you in the Snowflake Marketplace,
+relevant Snowflake Documentation topics, and relevant Snowflake Community Knowledge Base articles.
+
+Universal Search understands your query and information about your database objects and can find objects with names that differ from
+your search terms. Even if you misspell or type only part of your search term, you can still see useful results.
+
+When you use Universal Search, you can use natural language to describe what you’re looking for. For example, you can use keyword search
+terms, like “opportunities” or “sales opportunities”, or use more conversational natural language search terms, like
+“sales opportunities that are likely to close” or “which opportunities came from partner referrals”.
 
 
 

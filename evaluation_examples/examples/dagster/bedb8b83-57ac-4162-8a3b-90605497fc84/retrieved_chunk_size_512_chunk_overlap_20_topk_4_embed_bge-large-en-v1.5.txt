@@ -1,51 +1,4 @@
 Documentation Source:
-airbyte.com/quickstart/aggregating-data-from-mysql-and-postgres-into-bigquery-with-airbyte.txt
-
-Documentation Title:
-Aggregating Data from MySQL and Postgres into BigQuery with Airbyte | Airbyte
-
-Documentation Content:
-4. Orchestrating with Dagster
-Dagster
-is a modern data orchestrator designed to help you build, test, and monitor your data workflows. In this section, we'll walk you through setting up Dagster to oversee both the Airbyte and dbt workflows:
-Navigate to the Orchestration Directory
-:
-Switch to the directory containing the Dagster orchestration configurations:
-cd ../orchestration
-Set Environment Variables
-:
-Dagster requires certain environment variables to be set to interact with other tools like dbt and Airbyte. Set the following variables:
-export DAGSTER_DBT_PARSE_PROJECT_ON_LOAD=1
-export AIRBYTE_PASSWORD=password
-Note: The AIRBYTE_PASSWORD is set to password as a default for local Airbyte instances. If you've changed this during your Airbyte setup, ensure you use the appropriate password here.
-Launch the Dagster UI
-:
-With the environment variables in place, kick-start the Dagster UI:
-dagster dev
-Access Dagster in Your Browser
-:
-Open your browser and navigate to
-http://127.0.0.1:3000
-. There, you should see assets for both Airbyte and dbt. To get an overview of how these assets interrelate, click on "view global asset lineage". This will give you a clear picture of the data lineage, visualizing how data flows between the tools.
-Next Steps
-Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:
-Add more Data(base) sources
-:
-You can add more databases or data sources from Airbyte's
-source catalogue
-. To do this, edit the Terraform source_databases module and create a new connection in the connections module for each source added.
-Create dbt Sources for Airbyte Data
-:
-Your raw data extracted via Airbyte can be represented as sources in dbt. Start by
-creating new dbt sources
-to represent this data, allowing for structured transformations down the line.
-Add Your dbt Transformations
-:
-With your dbt sources in place, you can now build upon them.
-
-
-
-Documentation Source:
 airbyte.com/tutorials/configure-airbyte-with-python-dagster.txt
 
 Documentation Title:
@@ -105,120 +58,179 @@ dbt_transformation
 
 
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/integrations/airflow/migrating-to-dagster.txt
+
+Documentation Title:
+Migrating Airflow to Dagster | Dagster Docs
+
+Documentation Content:
+You can configure your persistent Airflow database by providing an
+airflow_db
+to the
+resource_defs
+parameter of the
+dagster-airflow
+APIs:
+from
+dagster_airflow
+import
+(
+make_dagster_definitions_from_airflow_dags_path
+,
+make_persistent_airflow_db_resource
+,
+)
+postgres_airflow_db
+=
+"postgresql+psycopg2://airflow:airflow@localhost:5432/airflow"
+airflow_db
+=
+make_persistent_airflow_db_resource
+(
+uri
+=
+postgres_airflow_db
+)
+definitions
+=
+make_dagster_definitions_from_airflow_example_dags
+(
+'/path/to/dags/'
+,
+resource_defs
+=
+{
+"airflow_db"
+:
+airflow_db
+}
+)
+Step 7: Move to production
+#
+This step is applicable to Dagster+. If deploying to your infrastructure, refer to the
+Deployment guides
+for more info.
+Additionally, until your Airflow DAGs execute successfully in your local environment, we recommend waiting to move to production.
+In this step, you'll set up your project for use with Dagster+.
+Complete the steps in the
+Dagster+ Getting Started guide
+, if you haven't already. Proceed to the next step when your account is set up and you have the
+dagster-cloud
+CLI installed.
+In the root of your project, create or modify the
+dagster_cloud.yaml
+file
+with the following code:
+locations
+:
+-
+location_name
+:
+dagster_migration
+code_source
+:
+python_file
+:
+dagster_migration.py
+Push your code and let the CI/CD for Dagster+ run out a deployment of your migrated DAGs to cloud.
+Step 8: Migrate permissions to Dagster
+#
+Your Airflow instance likely had specific IAM or Kubernetes permissions that allowed it to successfully run your Airflow DAGs. To run the migrated Dagster jobs, you'll need to duplicate these permissions for Dagster.
+We recommend using
+Airflow connections
+or
+environment variables
+to define permissions whenever possible.
+If you're unable to use Airflow connections or environment variables,
+you can attach permissions directly to the infrastructure where you're deploying Dagster.
+
+
+
+Documentation Source:
+airbyte.com/tutorials/configure-airbyte-with-python-dagster.txt
+
+Documentation Title:
+Configure Airbyte Connections with Python (Dagster) | Airbyte
+
+Documentation Content:
+checking.
+
+Changes found:
++ gh_awesome_de_list:
+  + page_size_for_large_streams: 100
+  + repository: sindresorhus/awesome rqlite/rqlite pingcap/tidb pinterest/mysql_utils rescrv/HyperDex alticelabs/kyoto iondbproject/iondb pcmanus/ccm scylladb/scylla filodb/FiloDB
+  + start_date: 2020-01-01T00:00:00Z
+  + credentials:
+    + personal_access_token: **********
++ postgres:
+  + schema: public
+  + password: **********
+  + database: postgres
+  + host: localhost
+  + port: 5432
+  + username: postgres
+  + ssl_mode:
+    + mode: disable
++ fetch_stargazer:
+  + destination: postgres
+  + normalize data: True
+  + destination namespace: SAME_AS_SOURCE
+  + source: gh_awesome_de_list
+  + streams:
+    + stargazers:
+      + syncMode: incremental
+      + destinationSyncMode: append_dedup
+After the <span class="text-style-code">check</span> identified the changes between our configurations in Python with the Airbyte instance, we can <span class="text-style-code">apply</span> these changes with the following:
+dagster-airbyte apply --module assets_modern_data_stack.assets.stargazer:airbyte_reconciler
+The output might look something like this:
+Found 1 reconcilers, applying.
+
+
+
+Documentation Source:
 airbyte.com/quickstart/aggregating-data-from-mysql-and-postgres-into-bigquery-with-airbyte.txt
 
 Documentation Title:
 Aggregating Data from MySQL and Postgres into BigQuery with Airbyte | Airbyte
 
 Documentation Content:
-Add your custom SQL transformations in dbt, ensuring that you treat the sources as an upstream dependency. This ensures that your transformations work on the most up-to-date raw data.
-Execute the Pipeline in Dagster
+4. Orchestrating with Dagster
+Dagster
+is a modern data orchestrator designed to help you build, test, and monitor your data workflows. In this section, we'll walk you through setting up Dagster to oversee both the Airbyte and dbt workflows:
+Navigate to the Orchestration Directory
 :
-Navigate to the Dagster UI and click on "Materialize all". This triggers the entire pipeline, encompassing the extraction via Airbyte, transformations via dbt, and any other subsequent steps.
-Extend the Project
+Switch to the directory containing the Dagster orchestration configurations:
+cd ../orchestration
+Set Environment Variables
 :
-The real beauty of this integration is its extensibility. Whether you want to add more data sources, integrate additional tools, or enhance your transformation logic – the floor is yours. With the foundation set, sky's the limit for how you want to extend and refine your data processes.
-Getting started is easy
-Start breaking your data siloes with Airbyte
-Get Started on Airbyte Cloud
-View repo
-Similar quickstarts
-20 minutes
-Shopping Cart Analytics Stack With Shopify, Airbyte, dbt, Dagster and BigQuery
-15 minutes
-MongoDB to MySQL Data Stack
-15 minutes
-MySQL to PostgreSQL Incremental Data Stack
-Airbyte is an open-source data integration engine that helps you consolidate your data in your data warehouses, lakes and databases.
-© 2024
-Airbyte, Inc.
-Product
-Features
-Demo App
-Connectors
-Connector Builder and CDK
-PyAirbyte
-Airbyte Open Source
-Airbyte Cloud
-Airbyte Self-Managed
-Compare Airbyte offers
-Pricing
-Changelog
-Roadmap
-Compare top ELT solutions
-RESOURCES
-Documentation
-Blog
-Airbyte API Docs
-Terraform Provider Docs
-Community
-Data Engineering Resources
-Tutorials
-Quickstarts
-PyAirbyte Tutorials
-Resource center
-Community Call
-Top ETL Tools
-"How to Sync" Tutorials
-Connectors Directory
-COMPANY
-Newsletter
-Company Handbook
-About Us
-Careers
-Open employee referral program
-Airbyte YC Startup Program
-Partners
-Press
-Data protection - Trust report
-Terms of Service
-Privacy Policy
-Cookie Preferences
-Do Not Sell/Share My Personal Information
-Contact Sales
-Get answers quick on
-Airbyte Slack
-Hi there! Did you know our Slack is the most active Slack community on data integration?
-
-
-
-Documentation Source:
-airbyte.com/quickstart/airbyte-dbt-and-dagster-stack-with-snowflake.txt
-
-Documentation Title:
-Airbyte, dbt and Dagster (DAD) Stack with Snowflake | Airbyte
-
-Documentation Content:
-Set the following variables:
+Dagster requires certain environment variables to be set to interact with other tools like dbt and Airbyte. Set the following variables:
 export DAGSTER_DBT_PARSE_PROJECT_ON_LOAD=1
 export AIRBYTE_PASSWORD=password
-Note:
-The AIRBYTE_PASSWORD is set to password as a default for local Airbyte instances. If you've changed this during your Airbyte setup, ensure you use the appropriate password here.
-3. Launch the Dagster UI
+Note: The AIRBYTE_PASSWORD is set to password as a default for local Airbyte instances. If you've changed this during your Airbyte setup, ensure you use the appropriate password here.
+Launch the Dagster UI
 :
 With the environment variables in place, kick-start the Dagster UI:
 dagster dev
-4. Access Dagster in Your Browser
+Access Dagster in Your Browser
 :
-Open your browser and navigate to:
+Open your browser and navigate to
 http://127.0.0.1:3000
-. Here, you should see assets for both Airbyte and dbt. To get an overview of how these assets interrelate, click on "view global asset lineage". This will give you a clear picture of the data lineage, visualizing how data flows between the tools.
+. There, you should see assets for both Airbyte and dbt. To get an overview of how these assets interrelate, click on "view global asset lineage". This will give you a clear picture of the data lineage, visualizing how data flows between the tools.
 Next Steps
 Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:
-1. Create dbt Sources for Airbyte Data
+Add more Data(base) sources
+:
+You can add more databases or data sources from Airbyte's
+source catalogue
+. To do this, edit the Terraform source_databases module and create a new connection in the connections module for each source added.
+Create dbt Sources for Airbyte Data
 :
 Your raw data extracted via Airbyte can be represented as sources in dbt. Start by
 creating new dbt sources
 to represent this data, allowing for structured transformations down the line.
-2. Add Your dbt Transformations
+Add Your dbt Transformations
 :
-With your dbt sources in place, you can now build upon them. Add your custom SQL transformations in dbt, ensuring that you treat the sources as an upstream dependency. This ensures that your transformations work on the most up-to-date raw data.
-3. Execute the Pipeline in Dagster
-:
-Navigate to the Dagster UI and click on "Materialize all". This triggers the entire pipeline, encompassing the extraction via Airbyte, transformations via dbt, and any other subsequent steps.
-4. Extend the Project
-:
-The real beauty of this integration is its extensibility. Whether you want to add more data sources, integrate additional tools, or enhance your transformation logic – the floor is yours. With the foundation set, sky's the limit for how you want to extend and refine your data processes.
+With your dbt sources in place, you can now build upon them.
 
 
 

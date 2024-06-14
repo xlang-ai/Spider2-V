@@ -1,64 +1,93 @@
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.showCode.md
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/services.TerminalAPI.startNew.md
 
 Documentation Title:
-showCode | @jupyterlab
+startNew | @jupyterlab
 
 Documentation Content:
-eMenuIHelpMenuIKernelMenuIMainMenuIRunMenuISettingsMenuITabsMenuIViewMenuIMainMenumainmenu-extensionCommandIDsactivateByIdactivatePreviouslyUsedTabchangeKernelclearAllclearCurrentcloseAndCleanupcreateConsolefindgetKernelgoToLineinterruptKernellineNumberinglogoutmatchBracketsopenEditopenFileopenFirstopenHelpopenKernelopenRunopenSettingsopenTabsopenViewreconnectToKernelredorestartAndRunAllrestartKernelrestartKernelAndClearrunrunAboverunAllrunBelowshutdownshutdownAllKernel
+MLSearchEngineSearchDocumentModelSearchDocumentViewSearchProviderSearchProviderRegistryIBaseSearchProviderIDisplayStateIFilterIFiltersIHTMLSearchMatchIReplaceOptionsIReplaceOptionsSupportISearchKeyBindingsISearchMatchISearchProviderISearchProviderFactoryISearchProviderRegistrySelectionStateFOUND\_CLASSESISearchProviderRegistryTextSearchEnginedocumentsearch-extensiondefaultextensionmanagerExtensionsPanelIOptionsListModelentryHasUpdateExtensionsPanelListModelIActionOptionsI
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.run.md
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/services.TerminalAPI.startNew.md
 
 Documentation Title:
-run | @jupyterlab
+startNew | @jupyterlab
 
 Documentation Content:
-Parameters
+GitHubJupyter* Preparing search index...
+* The search index is not available
 
+@jupyterlab@jupyterlabservicesTerminalAPIstartNew
+Function startNew
+=================
 
-	+ ##### notebook: Notebook
-	
-	The target notebook widget.
-	+ ##### `Optional`sessionContext: ISessionContext
-	
-	The client session object.
-	+ ##### `Optional`sessionDialogs: ISessionContextDialogs
-	
-	The session dialogs.
-	+ ##### `Optional`translator: ITranslator
-	
-	The application translator.
-	
-	NotesThe last selected cell will be activated, but not scrolled into view.
-	The existing selection will be cleared.
-	An execution error will prevent the remaining code cells from executing.
-	All markdown cells will be rendered.#### Returns Promise
-* Defined in packages/notebook/lib/actions.d.ts:193
+* startNew(settings?, name?, cwd?): Promise
+* Start a new terminal session.
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.showCode.md
+jupyterlab.readthedocs.io/en/4.1.x/api/functions/services.KernelAPI.startNew.md
 
 Documentation Title:
-showCode | @jupyterlab
+startNew | @jupyterlab
 
 Documentation Content:
-tchOptionsIManagerIModelISharedFactoryISharedFactoryOptionsContentTypeFileFormatvalidateCheckpointModelvalidateContentsModelContentsManagerIOptionsDriveIOptionsEventIManagerEmissionRequestStreamEventManagerIOptionsKernelIKernelConnectionIOptionsIAnyMessageArgsICommIControlFutureIFutureIKernelConnectionIManagerIModelIShellFutureConnectionStatusIKernelOptionsStatusKernelAPIIKernelOptionsIModelKERNEL\_SERVICE\_URLgetKernelModelinterruptKernellistRunningrestartKernelshutdow
+earchEngineSearchDocumentModelSearchDocumentViewSearchProviderSearchProviderRegistryIBaseSearchProviderIDisplayStateIFilterIFiltersIHTMLSearchMatchIReplaceOptionsIReplaceOptionsSupportISearchKeyBindingsISearchMatchISearchProviderISearchProviderFactoryISearchProviderRegistrySelectionStateFOUND\_CLASSESISearchProviderRegistryTextSearchEnginedocumentsearch-extensiondefaultextensionmanagerExtensionsPanelIOptionsListModelentryHasUpdateExtensionsPanelListModelIActionOptionsIAct
 
 
 
 Documentation Source:
-jupyterlab.readthedocs.io/en/4.1.x/api/functions/notebook.NotebookActions.showCode.md
+jupyterlab.readthedocs.io/en/4.1.x/getting_started/issue.md
 
 Documentation Title:
-showCode | @jupyterlab
+Reporting an issue — JupyterLab 4.1.8 documentation
 
 Documentation Content:
-Settings
+Skip to main contentBack to top
+ `Ctrl`+`K`!Get StartedUser GuideDevelop ExtensionsContributePrivacy policies!GitHubDiscourseGitterGet StartedUser GuideDevelop ExtensionsContributePrivacy policies!GitHubDiscourseGitterSection Navigation
+
+InstallationStarting JupyterLabReporting an issueFrequently Asked Questions (FAQ)JupyterLab ChangelogJupyterLab Accessibility StatementVersion lifecycleGet Started* Reporting an issue
+
+Reporting an issue#
+===================
+
+Thank you for providing feedback about JupyterLab.
+
+Diagnosing an Issue#
+--------------------
+
+If you find a problem in JupyterLab, please follow the steps below to diagnose and report the issue. Following these steps helps you diagnose if the problem is likely from JupyterLab or from a different project.
+
+1. Try to reproduce the issue in a new environment with the latest official JupyterLab installed and no extra packages.
+
+If you are using conda:
+
+
+	1. create a new environment:
+	
+	
+	```
+	condacreate-njlab-test--override-channels--strict-channel-priority-cconda-forge-cnodefaultsjupyterlab
+	```
+	2. Activate the environment:
+	
+	
+	```
+	condaactivatejlab-test
+	```
+	3. Start JupyterLab:
+	
+	
+	```
+	jupyterlab
+	```
+	I cannot reproduce this issue in a clean environment: The problem is probably not in JupyterLab itself. Go to step 2.
+	
+	I can reproduce this issue in a clean environment: Go to step 3.
+2. Perhaps the issue is in one of the JupyterLab extensions you had installed. Install any JupyterLab extensions you had one at a time, checking for the issue after each one.
 
 
 

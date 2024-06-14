@@ -1,4 +1,35 @@
 Documentation Source:
+cloud.google.com/bigquery/docs/writing-results.html
+
+Documentation Title:
+Writing query results  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+This creates a query job that writes the
+query results to the table you specified.</p></ol><p>Alternatively, if you forget to specify a destination table before running
+your query, you can copy the cached results table to a permanent table by
+clicking the <strong>Save Results</strong>button above the editor.</p></section></section><section><h3>SQL </h3><p>The following example uses the
+<a><code>CREATE TABLE</code>statement</a>to create the <code>trips</code>table from data in the public
+<code>bikeshare_trips</code>table:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, enter the following statement:</p><pre>CREATE TABLE <var>mydataset</var>.trips AS (
+  SELECT
+    bike_id,
+    start_time,
+    duration_minutes
+  FROM
+    bigquery-public-data.austin_bikeshare.bikeshare_trips
+);
+</pre></li><p>Click <span>play_circle</span><strong>Run</strong>.</p></ol><p>For more information about how to run queries, see <a>Run an interactive query</a>.</p><p>For more information, see
+<a>Creating a new table from an existing table</a>.</p></section><section><h3>bq </h3><ol><li><p>In the Google Cloud console, activate Cloud Shell.</p><a>Activate Cloud Shell</a><p>At the bottom of the Google Cloud console, a
+      <a>Cloud Shell</a>session starts and displays a command-line prompt. Cloud Shell is a shell environment
+      with the Google Cloud CLI
+      already installed and with values already set for
+      your current project. It can take a few seconds for the session to initialize.
+    </p></li><li><p>Enter the <code>bq query</code>command and specify the <code>--destination_table</code>flag to
+create a permanent table based on the query results.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/geospatial-get-started.html
 
 Documentation Title:
@@ -18,86 +49,31 @@ WHERE num_bikes_available &gt; 30
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/kmeans-tutorial.html
+cloud.google.com/bigquery/docs/export-file.html
 
 Documentation Title:
-Create a k-means model to cluster London bicycle hires dataset  |  BigQuery  |  Google Cloud
+Export query results to a file  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-In this tutorial,
-you cluster bike stations based on the following attributes:</p><ul><li>Duration of rentals</li><li>Number of trips per day</li><li>Distance from city center</li></ul><div><section><h3>SQL </h3><p>The following GoogleSQL query is used to
-examine the data used to train your k-means model.</p><pre>#standardSQL
-WITH
-hs AS (
-SELECT
-  h.start_station_name AS station_name,
-  IF
-  (EXTRACT(DAYOFWEEK
-    FROM
-      h.start_date) = 1
-    OR EXTRACT(DAYOFWEEK
-    FROM
-      h.start_date) = 7,
-    "weekend",
-    "weekday") AS isweekday,
-  h.duration,
-  ST_DISTANCE(ST_GEOGPOINT(s.longitude,
-      s.latitude),
-    ST_GEOGPOINT(-0.1,
-      51.5))/1000 AS distance_from_city_center
-FROM
-  `bigquery-public-data.london_bicycles.cycle_hire` AS h
-JOIN
-  `bigquery-public-data.london_bicycles.cycle_stations` AS s
-ON
-  h.start_station_id = s.id
-WHERE
-  h.start_date BETWEEN CAST('2015-01-01 00:00:00' AS TIMESTAMP)
-  AND CAST('2016-01-01 00:00:00' AS TIMESTAMP) ),
-stationstats AS (
-SELECT
-  station_name,
-  isweekday,
-  AVG(duration) AS duration,
-  COUNT(duration) AS num_trips,
-  MAX(distance_from_city_center) AS distance_from_city_center
-FROM
-  hs
-GROUP BY
-  station_name, isweekday )
-SELECT
-*
-FROM
-stationstats
-ORDER BY
-distance_from_city_center ASC
-</pre><strong>Query details</strong><p>This query extracts data on cycle hires, including <code>start_station_name</code>, and
-<code>duration</code>and joins it against station information, including <code>distance-from-city-center</code>.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/geospatial-get-started.html
-
-Documentation Title:
-Get started with geospatial analytics  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-The data is processed by Citi Bike to remove trips that are
-taken by staff to service and inspect the system and any trips below 60
-seconds in length, which are considered false starts.</p><p>You can start exploring this data in the BigQuery console by
-viewing the details of the <code>citibike_stations</code>table:</p><a>Go to citibike_stations schema</a><p>Three columns in this table are relevant to this tutorial:</p><ul><li><code>bike_stations.longitude</code>: the longitude of a station. The values are
-valid WGS 84 longitudes in decimal degrees format.</li><li><code>bike_stations.latitude</code>: the latitude of a station. The values are
-valid WGS 84 latitudes in decimal degrees format.</li><li><code>num_bikes_available</code>: the number of bikes available for rental.</li></ul><h2>Query the bike stations with more than 30 bikes available</h2><p>In this section of the tutorial, you run a GoogleSQL query that finds all the
-Citi Bike stations in New York City with more than 30 bikes available to rent.</p><h3>Query details</h3><p>The following GoogleSQL query is used to find the Citi Bike stations with
-more than 30 bikes.</p><pre>SELECT
-  ST_GeogPoint(longitude, latitude)  AS WKT,
-  num_bikes_available
-FROM
-  `bigquery-public-data.new_york.citibike_stations`
-WHERE num_bikes_available &gt; 30
-</pre><p>The query clauses do the following:</p><ul><dl><code>SELECT ST_GeogPoint(longitude, latitude)  AS WKT, num_bikes_available</code><dd>The <code>SELECT</code>clause selects the <code>num_bikes_available</code>column and uses the
-<code>ST_GeogPoint</code>function to convert the values in the <code>latitude</code>and <code>longitude</code>columns to <code>GEOGRAPHY</code>types (points).
+</span></devsite-feature-tooltip><div><h1>Export query results to a file</h1><p>This document describes how to save query results as a file, such as CSV or JSON.</p><h2>Download query results to a local file</h2><p>Downloading query results to a local file is not supported by the bq command-line tool
+or the API.</p><p>To download query results as a CSV or newline-delimited JSON file, use the
+Google Cloud console:</p><section><h3>Console </h3><ol><li><p>In the Google Cloud console, open the BigQuery page.</p><a>Go to BigQuery</a></li><p>Click <strong>Compose new query</strong>.</p><p>Enter a valid SQL query in the <strong>Query editor</strong>text area.</p><p>Optional: To change the processing location, click <strong>More</strong>and select
+<strong>Query settings</strong>. For <strong>Data location</strong>,
+choose the <a>location</a>of your data.</p><p>Click <strong>Run</strong>.</p><li><p>When the results are returned, click <strong>Save results</strong>and select the
+format or location where you want to save the results.</p><p>The file is downloaded to your browser's default download location.</p></li></ol></section><h2>Save query results to Google Drive</h2><aside><strong>Beta
+      
+        
+    </strong><p>This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section
+        of the <a>Service Specific Terms</a>.
+        
+        Pre-GA features are available "as is" and might have limited support.
+      
+      For more information, see the
+      <a>launch stage descriptions</a>.
+  </p></aside><p>Saving query results to Google Drive is not supported by the bq command-line tool or
+the API.</p><p>You might get an error when you try to save the BigQuery results
+to Google Drive. This error is due to the Drive SDK API
+being unable to access Google Workspace.
 
 
 

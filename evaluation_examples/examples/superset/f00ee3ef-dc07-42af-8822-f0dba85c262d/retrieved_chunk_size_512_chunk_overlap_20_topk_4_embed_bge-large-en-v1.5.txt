@@ -208,51 +208,51 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
-Within Metrics, remove the default
-COUNT(*)
-metric and instead add
-AVG(Cost)
-, to show the mean value.
-Next, select
+The three types of transformation are:
+Setting up the base chart
+In this section, we’re going to set up a base chart which we can then apply the different
+Advanced
+Analytics
+features to. Start off by creating a new chart using the same
+tutorial_flights
+datasource and the
+Line Chart
+visualization type. Within the Time section, set the Time Range as
+1st October 2011 and 31st October 2011.
+Next, in the query section, change the Metrics to the sum of Cost. Select
 Run Query
-to show the data on the chart.
-How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
-doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
-each ticket type.
-Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting
-Run
-Query
-again. Nice! We can see that on average single tickets are cheaper than returns and that the
-big spike in December is caused by return tickets.
-Our chart is looking pretty good already, but let’s customize some more by going to the Customize
-tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
-filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
-and Y Axis Label.
-Once you’re done, publish the chart in your Tutorial Dashboard.
-Markup
+to show the
+chart. You should see the total cost per day for each month in October 2011.
+Finally, save the visualization as Tutorial Advanced Analytics Base, adding it to the Tutorial
+Dashboard.
+Rolling Mean
 ​
-In this section, we will add some text to our dashboard. If you’re there already, you can navigate
-to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
-dashboards. Got into edit mode by selecting
-Edit dashboard
-.
-Within the Insert components pane, drag and drop a Markdown box on the dashboard. Look for the blue
-lines which indicate the anchor where the box will go.
-Now, to edit the text, select the box. You can enter text, in markdown format (see
-this Markdown Cheatsheet
-for
-more information about this format). You can toggle between Edit and Preview using the menu on the
-top of the box.
-To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
-Save changes
-.
-Publishing Your Dashboard
+There is quite a lot of variation in the data, which makes it difficult to identify any trend. One
+approach we can take is to show instead a rolling average of the time series. To do this, in the
+Moving Average
+subsection of
+Advanced Analytics
+, select mean in the
+Rolling
+box and
+enter 7 into both Periods and Min Periods. The period is the length of the rolling period expressed
+as a multiple of the Time Grain. In our example, the Time Grain is day, so the rolling period is 7
+days, such that on the 7th October 2011 the value shown would correspond to the first seven days of
+October 2011. Lastly, by specifying Min Periods as 7, we ensure that our mean is always calculated
+on 7 days and we avoid any ramp up period.
+After displaying the chart by selecting
+Run Query
+you will see that the data is less variable
+and that the series starts later as the ramp up period is excluded.
+Save the chart as Tutorial Rolling Mean and add it to the Tutorial Dashboard.
+Time Comparison
 ​
-If you have followed all of the steps outlined in the previous section, you should have a dashboard
-that looks like the below. If you would like, you can rearrange the elements of the dashboard by
-selecting
-Edit dashboard
-and dragging and dropping.
+In this section, we will compare values in our time series to the value a week before. Start off by
+opening the Tutorial Advanced Analytics Base chart, by going to
+Charts
+in the top menu and then
+selecting the visualization name in the list (alternatively, find the chart in the Tutorial
+Dashboard and select Explore chart from the menu for that visualization).
 
 
 

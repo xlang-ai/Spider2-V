@@ -1,44 +1,11 @@
 Documentation Source:
-www.metabase.com/docs/v0.49/api/user.txt
+www.metabase.com/docs/v0.49/people-and-groups/managing.txt
 
 Documentation Title:
-User
+Managing people and groups
 
 Documentation Content:
-User
-Upcoming
-Metabase for advanced users
-Register Now
-×
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Self-service BI in 5 minutes
-Pro
-Advanced tools and controls
-Enterprise
-White-glove treatment
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Watch a 5-minute demo
-to see how to set up and publish a dashboard
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Usage analytics
-New
-See who did what, when
+when
 Analytics dashboards
 Share insights with anyone, anywhere
 SQL editor
@@ -51,316 +18,176 @@ Permissions
 Keep your data secure and private
 CSV upload
 Go beyond VLOOKUP
-New
-Metabase 49:
-New tools for dashboard creators, data sharers, and more
 Documentation
 Resources
 Learn
-Guides on working with data
 Blog
-News, updates, and ideas
 Events
-Join a live event or watch on demand
 Customers
-Real companies, real data, real stories
 Discussion
-Share and connect with other users
-Metabase Experts
-Find an expert partner
+Partners
 Community Stories
-Practical advice from our community
 Startup Guide to Financial Modeling
 New
-Modeling financial data with Metabase
 Community Data Stack Report
 New
-See how others work with data
-Recent Blog Posts
-Set up a basic pipeline for log analysis
-Embed a Metabase dashboard in Zendesk
-Keeping tabs on embedded analytics
 Pricing
 Log in
-Get started
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
+v0.49
+People and Groups
+Managing people and groups
+To start managing people, click on the
+gear
+icon >
+Admin settings
+>
+People
+. You’ll see a list of all the people in your organization.
+Creating an account
+To add a new person, click
+Invite someone
+in the upper right corner. You’ll be prompted to enter their email, and optionally their first and last names–only the email is required.
+Click
+Create
+to activate an account. An account becomes active once you click
+Create
+, even if the person never signs into the account. The account remains active until you
+deactivate the account
+. If you’re on a paid Metabase plan, all active accounts will count toward your user account total. If one person has more than one account, each account will count toward the total (see
+how billing works
+).
+If you’ve already
+configured Metabase to use email
+, Metabase will send the person an email inviting them to log into Metabase. If you haven’t yet setup email for your Metabase, Metabase will give you a temporary password that you’ll have to manually send to the person.
+Editing an account
+You can edit someone’s name and email address by clicking the three dots icon and choosing
+Edit user
+.
+Be careful: changing an account’s email address
+will change the address the person will use to log in to Metabase
+.
+Adding a user attribute
+User attributes is only available on
 Pro
+and
 Enterprise
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Collections and verified items
-Keep things organized
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone,
+plans (both self-hosted and on Metabase Cloud).
+To add a user attribute manually:
+Go to
+Admin settings
+>
+People
+.
+Find the person’s account and click the
+three dot
+(…) menu.
+Click
+Edit user
+.
+Click
++ Add an attribute
+.
 
 
 
 Documentation Source:
-www.metabase.com/learn/getting-started/sharing-work.txt
+www.metabase.com/docs/v0.49/people-and-groups/managing.txt
 
 Documentation Title:
-Sharing your work with others
+Managing people and groups
 
 Documentation Content:
-Sharing your work with others
-Upcoming
-Metabase for advanced users
-Register Now
-×
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Self-service BI in 5 minutes
+These are special groups that can’t be removed.
+Administrators
+To make someone an admin of Metabase, you just need to add them to the Administrators group. Metabase admins can log into the Admin Panel and make changes there, and they always have unrestricted access to all data that you have in your Metabase instance. So be careful who you add to the Administrator group!
+All users
+The
+All Users
+group is another special one. Every Metabase user is always a member of this group, though they can also be a member of as many other groups as you want. We recommend using the All Users group as a way to set default access levels for new Metabase users. If you have
+Google single sign-on
+enabled, new users who join that way will be automatically added to the All Users group.
+It’s important that your All Users group should never have
+greater
+access for an item than a group for which you’re trying to restrict access — otherwise the more permissive setting will win out. See
+Setting permissions
+.
+Creating a group
+Go to
+Admin settings
+>
+People
+>
+Groups
+, and click the
+Add a group
+button.
+We recommend creating groups that correspond to the teams your company or organization has, such as Human Resources, Engineering, Finance, and so on. By default, newly created groups don’t have access to anything.
+To remove a group, click the X icon to the right of a group in the list to remove it (remember, you can’t remove the special default groups).
+Adding people to groups
+To add people to that group, click into a group and then click
+Add members
+.
+To remove someone from that group, click on the
+X
+to the right of the group member.
+You can also add or remove people from groups from the
+People
+list using the dropdown in the
+Groups
+column.
+Group managers
+Group managers is only available on
 Pro
-Advanced tools and controls
+and
 Enterprise
-White-glove treatment
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Watch a 5-minute demo
-to see how to set up and publish a dashboard
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-New
-Metabase 49:
-New tools for dashboard creators, data sharers, and more
-Documentation
-Resources
-Learn
-Guides on working with data
-Blog
-News, updates, and ideas
-Events
-Join a live event or watch on demand
-Customers
-Real companies, real data, real stories
-Discussion
-Share and connect with other users
-Metabase Experts
-Find an expert partner
-Community Stories
-Practical advice from our community
-Startup Guide to Financial Modeling
-New
-Modeling financial data with Metabase
-Community Data Stack Report
-New
-See how others work with data
-Recent Blog Posts
-Set up a basic pipeline for log analysis
-Embed a Metabase dashboard in Zendesk
-Keeping tabs on embedded analytics
-Pricing
-Log in
-Get started
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Pro
-Enterprise
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Collections and verified items
-Keep things organized
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone,
+plans (both self-hosted and on Metabase Cloud).
+Group managers
+can manage other people within their group.
+Group managers can:
+Add or remove people from their group (that is, people who already have accounts in your Metabase).
+View all people in the
+Admin settings
+>
+People
+tab.
 
 
 
 Documentation Source:
-www.metabase.com/learn/administration/managing-people.txt
+www.metabase.com/docs/v0.49/people-and-groups/managing.txt
 
 Documentation Title:
-Managing people in Metabase
+Managing people and groups
 
 Documentation Content:
-Managing people in Metabase
-Upcoming
-Metabase for advanced users
-Register Now
-×
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Self-service BI in 5 minutes
-Pro
-Advanced tools and controls
-Enterprise
-White-glove treatment
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Watch a 5-minute demo
-to see how to set up and publish a dashboard
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone, anywhere
-SQL editor
-For advanced data users
-Sandboxing
-Set boundaries around your data
-Models
-A starting point for questions
-Permissions
-Keep your data secure and private
-CSV upload
-Go beyond VLOOKUP
-New
-Metabase 49:
-New tools for dashboard creators, data sharers, and more
-Documentation
-Resources
-Learn
-Guides on working with data
-Blog
-News, updates, and ideas
-Events
-Join a live event or watch on demand
-Customers
-Real companies, real data, real stories
-Discussion
-Share and connect with other users
-Metabase Experts
-Find an expert partner
-Community Stories
-Practical advice from our community
-Startup Guide to Financial Modeling
-New
-Modeling financial data with Metabase
-Community Data Stack Report
-New
-See how others work with data
-Recent Blog Posts
-Set up a basic pipeline for log analysis
-Embed a Metabase dashboard in Zendesk
-Keeping tabs on embedded analytics
-Pricing
-Log in
-Get started
-Product
-Use Cases
-Self-service Analytics
-Business intelligence for everyone
-Embedded Analytics
-Create seamless in-product analytics
-Metabase Plans
-Starter and Open Source
-Pro
-Enterprise
-Platform
-Data Sources
-Security
-Cloud
-Professional Services
-New
-Features
-Query builder
-Get answers in a few clicks
-Drill-through
-Pull threads in your data
-Collections and verified items
-Keep things organized
-Usage analytics
-New
-See who did what, when
-Analytics dashboards
-Share insights with anyone,
-
-
-
-Documentation Source:
-www.metabase.com/docs/v0.49/developers-guide/contributing.txt
-
-Documentation Title:
-Contributing to Metabase
-
-Documentation Content:
-Working on features
-Some features, eg Database drivers, don’t have any user facing pixels. These are a great place to start off contributing as they don’t require as much communication, discussions about tradeoffs and process in general.
-In situations where a design has already been done, we can always use some help. Chime in on a pull request or an issue and offer to help.
-Generally speaking, any issue in
-Help Wanted
-is fair game.
-#YOLO JUST SUBMIT A PR
-If you come up with something really cool, and want to share it with us, just submit a PR. If it hasn’t gone through the above process, we probably won’t merge it as is, but if it’s compelling, we’re more than willing to help you via code review, design review and generally OCD nitpicking so that it fits into the rest of our codebase.
+View all people in the
+Admin settings
+>
+People
+tab.
+Promote other people to group manager, or demote them from group manager to member.
+Rename their group.
+Group managers are not admins, so their powers are limited. They cannot create new groups or invite new people to your Metabase.
+Promoting/demoting group managers
+To promote someone to become a group manager:
+At the top right of the screen, click the
+gear
+icon >
+Admin settings
+>
+People
+>
+Groups
+.
+Select the group you want the person to manage. If the person isn’t already in the group, you’ll need to add that person to the group.
+Find the person you want to promote, hover over their member type, and click the up arrow to promote them to group manager. If you want to demote them, click on the down arrow.
+Further reading
+Configure Single Sign-On (SSO)
+.
+Permissions strategies
+.
+Multi-tenant permissions
+.
 Read docs for other
 versions of Metabase
 .
@@ -405,40 +232,84 @@ CSV upload
 Company
 Jobs
 We're hiring!
-Privacy Policy
-Terms of Service
-License
-Brand Guidelines
-Support
-Documentation
-Help
-Professional Services
-Onboarding
-New
-Status
-Github
-Resources
-Case Studies
-Blog
-Learn
-Community Stories
-Data and Business Intelligence Glossary
-Partners
-The Startup's Guide to Financial Modeling
-The 2023 Metabase Community Data Stack Report
-More Resources
-Example Dashboards
-SQL Best Practices
-Choosing a Data Warehouse
-How to Create Pivot Tables
-Types of SQL Joins
-SQL Cheat Sheet
-Data Bias Examples
-Modern Data Stack
-Dashboard for Marketing Teams
-Dashboards for Sales Teams
-Dashboards for Engineering Teams
-© Metabase 2024
+
+
+
+Documentation Source:
+www.metabase.com/docs/v0.49/embedding/interactive-embedding-quick-start-guide.txt
+
+Documentation Title:
+Interactive embedding quick start
+
+Documentation Content:
+Then sign out and sign in to your Metabase as an admin and go to
+Admin settings
+>
+People
+section and verify that Metabase added the person to the appropriate group.
+Note: only Metabase admins and group managers are aware of groups. Basic users have no concept of groups, and no way of knowing which groups they’re a part of.
+Set permissions
+Now to apply permissions to that group so that people only see data specific to their accounts.
+Reset permissions for the All Users group
+Metabase ships with two initial groups: “Admins” and “All Users”. By default, Metabase gives the “All Users” group access to connected data sources. And since Metabase grants people the privileges of their most permissive group, you’ll want to restrict what the “All Users” groups can see before you add them to groups with limited or no access to data sources and collections.
+To reset permissions for the All users group, click on the
+gear
+icon and go to
+Admin settings
+>
+Permissions
+. Under the
+Data
+tab, go to
+Groups
+and select
+All Users
+. For the
+Sample Database
+in the
+Data access
+column, select
+No self-service
+. Click
+Save changes
+and a modal will pop up summarizing what you’re changing. Click
+Yes
+.
+Allow view access to the automatically generated dashboards collection
+Still in the
+Permissions
+tab, click on the
+Collections
+sub-tab, then on the
+Automatically generated dashboards
+collection, and set the
+Collection access
+permissions for the
+All Users
+group to
+View
+.
+Click
+Save changes
+, then
+Yes
+.
+Add a user attribute to the token
+You can include user attributes in the JSON web token. Metabase will pick up any keys from the JWT payload and store them as user attributes. Among other use cases, you can use these user attributes to set row-level permissions on tables, so people can only see results tied to their accounts.
+If you’re using our sample app, edit the
+signUserToken
+function used to create the JWT by adding a key
+account_id
+with value
+28
+.
+const
+signUserToken
+=
+user
+=>
+jwt
+.
 
 
 

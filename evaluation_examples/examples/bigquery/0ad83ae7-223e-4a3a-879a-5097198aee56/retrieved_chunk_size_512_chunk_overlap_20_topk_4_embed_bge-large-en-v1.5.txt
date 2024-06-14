@@ -164,35 +164,94 @@ and more.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/working-with-time-series.txt
+cloud.google.com/bigquery/docs/running-queries.txt
 
 Documentation Title:
-Work with time series data  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-21:00:00 |    94105 | 143 |          74 |
- +---------------------+----------+-----+-------------*/
-Get a 3-hour minimum and maximum value
-In the following query, you compute 3-hour minimum and maximum temperatures for
-each zip code:
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
 SELECT
-  TIMESTAMP_BUCKET(time, INTERVAL 3 HOUR) AS time,
-  zip_code,
-  MIN(temperature) AS temperature_min,
-  MAX(temperature) AS temperature_max,
-FROM mydataset.environmental_data_hourly
-GROUP BY zip_code, time
-ORDER BY zip_code, time;
-
-/*---------------------+----------+-----------------+-----------------+
- |        time         | zip_code | temperature_min | temperature_max |
- +---------------------+----------+-----------------+-----------------+
- | 2020-09-08 00:00:00 |    60606 |              60 |              66 |
- | 2020-09-08 03:00:00 |    60606 |              57 |              59 |
- | 2020-09-08 06:00:00 |    60606 |              55 |              56 |
- | 2020-09-08 09:00:00 |    60606 |              55 |              56 |
- | 2020-09-08 12:00:00 |    60606 |              56 |              59 |
- | 2020-09-08 15:00:00 |
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Optional: Specify the destination table and
+location
+for the query results:
+In the query editor, click
+settings
+More
+, and then
+click
+Query settings
+.
+In the
+Destination
+section, select
+Set a destination table for query results
+.
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+You can now explore the query results in the
+Results
+tab of the
+Query results
+pane.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
 
 
 

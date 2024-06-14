@@ -1,11 +1,33 @@
 Documentation Source:
-docs.astronomer.io/astro/astro-architecture.html
+docs.astronomer.io/astro/first-dag-cli.html
 
 Documentation Title:
-About Astro | Astronomer Documentation
+Run your first DAG with the Astro CLI | Astronomer Documentation
 
 Documentation Content:
-Astronomer recommends that you create a dedicated Git repository for each Astro project. To run a DAG, you add the DAG to your Astro project and deploy your Astro project to Astro.</p><p>See <a>Run your first DAG with the Astro CLI</a>to create your first Astro project.</p><h3>Astro UI<a>​</a></h3><p>The Astro UI, hosted at <code>https://cloud.astronomer.io</code>, is the primary interface for accessing and managing Astro from your web browser. You can use the Astro UI to:</p><ul><li>Manage users, teams, and permissions.</li><li>Create and configure Deployments, including infrastructure resources and compute.</li><li>View all of your organization's Deployments, DAGs, and tasks in a single place.</li><li>Monitor the health of your Airflow environments with a variety of alerts, logs, and analytics interfaces.</li><li>Stay up to date with the latest Astro features.</li><li>Create and edit DAGs in the Astro Cloud IDE.</li></ul><h3>Deployment<a>​</a></h3><p>An Astro <em>Deployment</em>is an Airflow environment hosted on Astro. It encompasses all core Airflow components, including the Airflow webserver, scheduler, and workers, along with additional tools for reliability and observability. It runs in an isolated Kubernetes namespace in an <a>Astro cluster</a>and has a set of attached resources to run your Airflow tasks.</p><p>Compared to an open source Airflow environment, an Astro Deployment is easy to create, delete, and modify through either the Astro UI or with the Astro CLI. You can <a>fine-tune resources and settings</a>directly from the Astro UI, see metrics and analytics for your DAGs, review your deploy history, and more. The infrastructure required to run a Deployment is managed by Astronomer.</p><p>To run DAGs in a Deployment, you must either deploy an Astro project manually from your local machine or configure an automated deploy process using a third-party CI/CD tool with the Astro CLI. Then, you can open the Airflow UI from the Astro UI and view your DAGs.
+See:</p><ul><li><a>Develop a project</a>.</li><li><a>Install Docker</a>to use the full capabilities of the Astro CLI, such as the ability to run Airflow locally and deploy the rest of your Astro project to Astro, including Python packages.</li><li><a>Write your First DAG</a>.</li><li><a>Deploy code to Astro</a>.</li></ul></div><div><h2>Was this page helpful?</h2><div><button>Yes</button><button>No</button></div></div><form><h2>Sign up for Developer Updates</h2><p>Get a summary of new Astro features once a month.</p><button>Submit</button><p>You can unsubscribe at any time. By proceeding you agree to our <a>Privacy Policy</a>, our <a>Website Terms</a>and to receive emails from Astronomer.</p></form><a>Edit this page</a></article><nav><a><div>Previous</div><div>With GitHub Actions</div></a><a><div>Next</div><div>Log in to Astro</div></a></nav></div><ul><a>Prerequisites</a><a>Step 1: Install the Astro CLI</a><a>Step 2: Create a Deployment</a><a>Step 3: Create an Astro project</a><a>Step 4: Deploy example DAGs to your Astro Deployment</a><a>Step 5: Trigger your DAG on Astro</a><a>Step 6: View your DAG status in the Astro UI</a><a>Next Steps</a></ul></div></div><div><div><a>Legal</a><span>·</span><a>Privacy</a><span>·</span><a>Security</a><span>·</span><a>Cookie Preferences</a></div><div><a><img/><img/></a><div>© Astronomer 2023. Various trademarks held by their respective owners.</div></div></div></div>
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/get-started-with-airflow.html
+
+Documentation Title:
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
+
+Documentation Content:
+It contains information about your DAGs and is the best place to create and update Airflow connections to third-party data services.</p><p>To access the Airflow UI, open <code>http://localhost:8080/</code>in a browser and log in with <code>admin</code>for both your username and password.</p><p>The default page in the Airflow UI is the <strong>DAGs</strong>page, which shows an overview of all DAGs in your Airflow environment:</p><img/><p>Each DAG is listed with a few of its properties, including tags, owner, previous runs, schedule, timestamp of the last and next run, and the states of recent tasks. Because you haven't run any DAGs yet, the <strong>Runs</strong>and <strong>Recent Tasks</strong>sections are empty. Let's fix that!</p><h2>Step 4: Trigger a DAG run<a>​</a></h2><p>The <code>example_astronauts</code>DAG in your Astro project is a simple ETL pipeline with two tasks:</p><ul><li><code>get_astronauts</code>queries the <a>Open Notify API</a>for information about astronauts currently in space. The task returns the list of dictionaries containing the name and the spacecraft of all astronauts currently in space, which is passed to the second task in the DAG. This tutorial does not explain how to pass data between tasks, but you can learn more about it in the <a>Pass data between tasks</a>guide.</li><li><code>print_astronaut_craft</code>is a task that uses dynamic mapping to create and run a task instance for each Astronaut in space. Each of these tasks prints a statement about its mapped astronaut. Dynamic task mapping is a versatile feature of Airflow that allows you to create a variable number of tasks at runtime. This feature is covered in more depth in the <a>Create dynamic Airflow tasks</a>guide.</li></ul><p>A <strong>DAG run</strong>is an instance of a DAG running on a specific date.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/first-dag-github-actions.html
+
+Documentation Title:
+Run your first DAG with GitHub Actions | Astronomer Documentation
+
+Documentation Content:
+When the Deployment is ready, the status changes to <strong>Healthy</strong>.</p><p>For more information about possible Deployment health statuses, see <a>Deployment health</a>. Or, to learn more about how to customize your Deployment settings, see <a>Deployment settings</a>.</p></li></ol><div><div>tip</div><div><p>Astro contains an in-product tutorial that guides you through Steps 2-4 of this document and includes shortcut buttons for some key Astro actions. If you prefer to finish the quickstart this way, open your <strong>Deployments</strong>page in the Astro UI and choose your Deployment. In the <strong>Deploy your first DAG</strong>section, click <strong>With GitHub Actions</strong>and follow the steps in the window that appears.</p><p>If you don't see the <strong>Deploy your first DAG</strong>option your Deployment page, click <strong>Deploy DAGs ?</strong>to open it.</p></div></div><h2>Step 2: Fork the example project repository<a>​</a></h2><p>This repository contains an <em>Astro project</em>, which is a collection of files required for running Airflow on Astro. An Astro project includes folders for DAG files, plugins, dependencies, and more. Specifically, this Astro project includes an example DAG which, when you run it, retrieves a list of countries from an Astro S3 data store and filters the list through a data transform.</p><ol><p>Open <a>the example project repository</a>in a new tab or browser window.</p><p><strong>Choose an owner</strong>from your available options.</p><p>Keep the selection to <strong>Copy the <code>main</code>branch only</strong>.</p><p>Click <strong>Create fork</strong>.</p></ol><h2>Step 3: Set up the GitHub Actions Workflow<a>​</a></h2><p>This example repository also includes a pre-configured <a>Astronomer deploy action</a>, which you can use to set up a CI/CD deployment pipeline.
 
 
 
@@ -17,28 +39,6 @@ Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronom
 
 Documentation Content:
 This view is useful for seeing DAG runs over time and troubleshooting previously failed task instances.</p><img/><p>Click on a green square to display additional information about the related task instance on the right side of the Airflow UI. The task instance view includes tabs with additional information for the task instance, such as its logs and historic runs. This is one of many available views that show details about your DAG.</p><img/><p>To access information about mapped task instances of a dynamically mapped task, click the green square of the mapping task instance and then click on <strong>[] Mapped task</strong>to view a list of all dynamically mapped task instances. Click on any entry in the list to access information about the dynamically mapped task instance.</p><img/></li><li><p>In the <strong>Grid</strong>view, click the <strong>Graph</strong>tab. This view shows task dependencies and relationships and can help you troubleshoot dependency issues. When you select a DAG run in the Grid view, the Graph tab shows the last state of each task instance in this DAG run.</p><img/></li><li><p>In the <strong>Grid</strong>view, click the <strong>Code</strong>tab to display your DAG source code. Viewing code in the Airflow UI helps you confirm which version of your code is currently running on Airflow.</p><img/></li></ol><div><div>info</div><p>While you can view DAG code within the Airflow UI, code edits must be completed in the Python file within the <code>/dags</code>folder. The displayed code updates every 30 seconds.</p></div><h2>Step 6: Write a new DAG<a>​</a></h2><p>Now that we can run DAGs and navigate the UI, let's write our own DAG and run it.</p><p>In this step, you'll write a DAG that:</p><ul><li>Retrieves the number of people currently in space from the Airflow XCom table. This table is part of the Airflow metadata database and is used to pass data between tasks and DAGs.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/managing-airflow-code.html
-
-Documentation Title:
-Manage Airflow code | Astronomer Documentation
-
-Documentation Content:
-This means that you can use a version control tool such as Github or Bitbucket to package everything together.</p><p>Astronomer uses the following project structure:</p><code><span>.</span><span><span>├── dags                        </span><span># Folder where all your DAGs go</span></span><span>│   ├── example-dag.py</span><span>│   └── redshift_transforms.py</span><span><span>├── Dockerfile                  </span><span># For Astronomer's Docker image and runtime overrides</span></span><span><span>├── include                     </span><span># For any scripts that your DAGs might need to access</span></span><span>│   └── sql</span><span>│       └── transforms.sql</span><span><span>├── packages.txt                </span><span># For OS-level packages</span></span><span><span>├── plugins                     </span><span># For any custom or community Airflow plugins</span></span><span>│   └── example-plugin.py</span><span><span>└── requirements.txt            </span><span># For any Python packages</span></span></code><p>To create a project with this structure automatically, install the <a>Astro CLI</a>and initialize a project with <code>astro dev init</code>.</p><p>If you are not running Airflow with Docker or have different requirements for your organization, your project structure might look different. Choose a structure that works for your organization and keep it consistent so that anyone working with Airflow can easily transition between projects without having to re-learn a new structure.</p><h2>When to separate projects<a>​</a></h2><p>The most common setup for Airflow projects is to keep all code for a given deployment in the same repository. However, there are some circumstances where it makes sense to separate DAGs into multiple projects. In these scenarios, it's best practice to have a separate Airflow deployment for each project.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/category/dags.html
-
-Documentation Title:
-DAGs | Astronomer Documentation
-
-Documentation Content:
-</p></header><section><a><h2><img/>Astro Python SDK for ETL</h2><p>Use the Astro Python SDK to implement ELT use cases in Airflow.</p></a><a><h2><img/>Branches</h2><p>Learn about Airflow’s multiple options for building conditional logic and branching within DAGs, including the BranchPythonOperator and ShortCircuitOperator.</p></a><a><h2><img/>Context</h2><p>Access the Airflow context in your tasks.</p></a><a><h2><img/>Cross-DAG dependencies</h2><p>How to implement dependencies between your Airflow DAGs.</p></a><a><h2><img/>Custom hooks and operators</h2><p>How to correctly import custom hooks and operators.</p></a><a><h2><img/>DAG notifications</h2><p>Master the basics of Apache Airflow notifications. Learn how to set up automatic email and Slack notifications to be alerted of events in your DAGs.</p></a><a><h2><img/>DAG parameters</h2><p>Learn about all important DAG-level parameters in Airflow.</p></a><a><h2><img/>DAG writing best practices</h2><p>Keep up to date with the best practices for developing efficient, secure, and scalable DAGs using Airflow.
 
 
 

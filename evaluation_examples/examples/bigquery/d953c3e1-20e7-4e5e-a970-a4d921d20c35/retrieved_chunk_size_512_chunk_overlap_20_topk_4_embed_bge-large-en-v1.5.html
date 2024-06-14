@@ -1,49 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/materialized-views-create.html
-
-Documentation Title:
-Create materialized views  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Add a date range filter in
-the materialized view that covers expected date ranges in the query:</p><pre>CREATE MATERIALIZED VIEW ...
-  ...
-  WHERE date &gt; '2019-01-01'
-  GROUP BY date
-</pre><h3>Joins</h3><p>The following recommendations apply to materialized views with JOINs.</p><h4>Put the most frequently changing table first</h4><p>Ensure that the largest or most frequently changing table is the first/leftmost
-table referenced in the view query. Materialized views with joins support
-incremental queries and refresh when the first or left-most table in the query
-is appended, but changes to other tables fully invalidate the view cache. In
-star or snowflake schemas the first or leftmost table should generally be the
-fact table.</p><h4>Avoid joining on clustering keys</h4><p>Materialized views with joins work best in cases where the data is heavily
-aggregated or the original join query is expensive. For selective queries,
-BigQuery is often already able to perform the join efficiently
-and no materialized view is needed. For example consider the following
-materialized view definitions.</p><pre>CREATE MATERIALIZED VIEW dataset.mv
-  CLUSTER BY s_market_id
-AS (
-  SELECT
-    s_market_id,
-    s_country,
-    SUM(ss_net_paid) AS sum_sales,
-    COUNT(*) AS cnt_sales
-  FROM dataset.store_sales
-  INNER JOIN dataset.store
-    ON ss_store_sk = s_store_sk
-  GROUP BY s_market_id, s_country
-);
-</pre><p>Suppose <code>store_sales</code>is clustered on <code>ss_store_sk</code>and you often run queries
-like the following:</p><pre>SELECT
-  SUM(ss_net_paid)
-FROM dataset.store_sales
-INNER JOIN dataset.store
-ON ss_store_sk = s_store_sk
-WHERE s_country = 'Germany';
-</pre><p>The materialized view might not be as efficient as the original query.
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/data-canvas.html
 
 Documentation Title:
@@ -82,68 +37,105 @@ of the data backing the visualization.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/reference/standard-sql/window-function-calls.html
+cloud.google.com/bigquery/docs/logistic-regression-prediction.html
 
 Documentation Title:
-Window function calls  |  BigQuery  |  Google Cloud
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-The window frame analyzes up to three
-rows at a time. Take a close look at the <code>most_popular</code>column for vegetables.
-Instead of getting the most popular item in a specific category, it gets the
-most popular item in a specific range in that category.</p><ul><li>fruit
-<ul><li>(<mark>banana</mark>, <strong>apple</strong>) = apple is most popular</li><li>(<strong>banana</strong>, <mark>apple</mark>) = apple is most popular</li></ul></li><li>vegetable
-<ul><li>(<mark>leek</mark>, <strong>cabbage</strong>, lettuce, kale) = cabbage is most popular</li><li>(<strong>leek</strong>, <mark>cabbage</mark>, <strong>lettuce</strong>, kale) = lettuce is most popular</li><li>(leek, <strong>cabbage</strong>, <mark>lettuce</mark>, <strong>kale</strong>) = kale is most popular</li><li>(leek, cabbage, <strong>lettuce</strong>, <mark>kale</mark>) = kale is most popular</li></ul></li></ul><code>SELECT item, purchases, category, LAST_VALUE(item)
-  OVER (
-    PARTITION BY category
-    ORDER BY purchases
-    ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
-  ) AS most_popular
-FROM Produce
-
-/*----------------------------------------------------*
- | item      | purchases  | category   | most_popular |
- +----------------------------------------------------+
- | banana    | 2          | fruit      | apple        |
- | apple     | 8          | fruit      | apple        |
- | leek      | 2          | vegetable  | cabbage      |
- | cabbage   | 9          | vegetable  | lettuce      |
- | lettuce   | 10         | vegetable  | kale         |
- | kale      | 23         | vegetable  | kale         |
- *----------------------------------------------------*/
-</code><p>This example returns the same results as the preceding example, but it includes
-a named window called <code>item_window</code>.
+Select 100 rows from the
+<code>census_adult_income</code>table:</p><div><section><h3>SQL </h3><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, run the following GoogleSQL query:</p><pre>SELECT
+age,
+workclass,
+marital_status,
+education_num,
+occupation,
+hours_per_week,
+income_bracket,
+functional_weight
+FROM
+`bigquery-public-data.ml_datasets.census_adult_income`
+LIMIT
+100;
+</pre></li><li><p>The results look similar to the following:</p><img/></li></ol></section><section><h3>BigQuery DataFrames </h3><p>Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the <a>BigQuery quickstart
+    using BigQuery DataFrames</a>.
+    For more information, see the
+    <a>BigQuery DataFrames reference documentation</a>.</p><p>To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see <a>Set 
+    up authentication for a local development environment</a>.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/legacy-nested-repeated.html
+cloud.google.com/bigquery/docs/running-queries.html
 
 Documentation Title:
-Querying nested and repeated fields in legacy SQL  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-place) WITHIN RECORD AS numberOfPlacesLived,
-  citiesLived.place,
-  COUNT(citiesLived.yearsLived) WITHIN citiesLived AS numberOfTimesInEachCity,
-FROM [dataset.tableId];</pre><pre>+---------------+---------------------+-------------------+-------------------------+
-|   fullName    | numberOfPlacesLived | citiesLived_place | numberOfTimesInEachCity |
-+---------------+---------------------+-------------------+-------------------------+
-| John Doe      |                   2 | Seattle           |                       1 |
-| John Doe      |                   2 | Stockholm         |                       1 |
-| Mike Jones    |                   4 | Los Angeles       |                       4 |
-| Mike Jones    |                   4 | Washington DC     |                       4 |
-| Mike Jones    |                   4 | Portland          |                       4 |
-| Mike Jones    |                   4 | Austin            |                       4 |
-| Anna Karenina |                   3 | Stockholm         |                       4 |
-| Anna Karenina |                   3 | Moscow            |                       3 |
-| Anna Karenina |                   3 | Austin            |                       2 |
-+---------------+---------------------+-------------------+-------------------------+</pre><p>This query does the following:</p><ul><li>Performs a <code>WITHIN RECORD</code>on <code>citiesLived.place</code>and counts the number of
-  places each person has lived in</li><li>Performs a <code>WITHIN</code>on <code>citiesLived.yearsLived</code>and counts the number of
-  times each person has lived in each city (counting just across <code>citiesLived</code>).</li></ul><p>Using scoped aggregation over nested and repeated fields is one of BigQuery's most
-  powerful features, which can often eliminate expensive joins in queries.</p></div><button>Send feedback
-  
-  </button></article><devsite-content-footer><p>Except as otherwise noted, the content of this page is licensed under the <a>Creative Commons Attribution 4.0 License</a>, and code samples are licensed under the <a>Apache 2.
+select one of the following options:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add_box</span><strong>Compose a new query</strong>.</p><li><p>In the query editor, enter a valid GoogleSQL query.</p><p>For example, query the
+<a>BigQuery public dataset <code>usa_names</code></a>to determine the most common names in the United States between the
+years 1910 and 2013:</p><code>SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+</code></li><li><p>Optional: Specify the destination table and
+<a>location</a>for the query results:</p><ol><li>In the query editor, click
+<span>settings</span><strong>More</strong>, and then
+click <strong>Query settings</strong>.</li><li>In the <strong>Destination</strong>section, select
+<strong>Set a destination table for query results</strong>.</li><li>For <strong>Dataset</strong>, enter the name of an existing dataset for the
+destination table—for example, <code>myProject.myDataset</code>.</li><li>For <strong>Table Id</strong>, enter a name for the destination table—for
+example, <code>myTable</code>.</li><li><p>If the destination table is an existing table, then for
+<strong>Destination table write preference</strong>, select whether to append or
+overwrite the table with the query results.</p><p>If the destination table is a new table, then
+BigQuery creates the table when you run your query.</p></li><li><p>In the <strong>Additional settings</strong>section, click the
+<strong>Data location</strong>menu, and then select an option.</p><p>In this example,
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/logistic-regression-prediction.html
+
+Documentation Title:
+Build and use a classification model on census data  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+This view is used by the <code>CREATE MODEL</code>statement
+later in this tutorial.</p><p>Run the query that prepares the sample data:</p><ol><li><p>In the Google Cloud console, go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><li><p>In the query editor, run the following query:</p><pre>CREATE OR REPLACE VIEW
+`census.input_data` AS
+SELECT
+age,
+workclass,
+marital_status,
+education_num,
+occupation,
+hours_per_week,
+income_bracket,
+CASE
+  WHEN MOD(functional_weight, 10) &lt; 8 THEN 'training'
+  WHEN MOD(functional_weight, 10) = 8 THEN 'evaluation'
+  WHEN MOD(functional_weight, 10) = 9 THEN 'prediction'
+END AS dataframe
+FROM
+`bigquery-public-data.ml_datasets.census_adult_income`
+</pre></li><p>In the <strong>Explorer</strong>pane, expand the <code>census</code>dataset and locate the
+<code>input_data</code>view.</p><p>Click the view name to open the information pane. The view schema appears in
+the <strong>Schema</strong>tab.</p></ol><img/></section><section><h3>BigQuery DataFrames </h3><p>Create a <code>DataFrame</code>called <code>input_data</code>. You use <code>input_data</code>later in
+this tutorial to use to train the model, evaluate it, and make predictions.</p><p>Before trying this sample, follow the BigQuery DataFrames
+    setup instructions in the <a>BigQuery quickstart
+    using BigQuery DataFrames</a>.
+    For more information, see the
+    <a>BigQuery DataFrames reference documentation</a>.</p><p>To authenticate to BigQuery, set up Application Default Credentials.
+    For more information, see <a>Set 
+    up authentication for a local development environment</a>.
 
 
 

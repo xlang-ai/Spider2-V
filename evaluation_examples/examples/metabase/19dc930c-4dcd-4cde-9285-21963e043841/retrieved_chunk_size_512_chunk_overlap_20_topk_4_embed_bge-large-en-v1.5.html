@@ -10,6 +10,17 @@ Let’s say we want to know:</p><em>How many orders have been placed with a subt
 
 
 Documentation Source:
+www.metabase.com/learn/getting-started/introduction.html
+
+Documentation Title:
+Getting started with Metabase
+
+Documentation Content:
+Said another way, there were 16,309 records in the <code>Orders</code>table that made it through our filter.</p><h2>Grouping our results</h2><p>That count is useful, but it would be even more useful if we knew <em>when</em>our customers placed these big orders—more specifically, if we knew how many greater-than-40 orders people placed each month.</p><p>We can return to the editor by hitting the back button, or by clicking on the <strong>Editor</strong>button in the upper right (the icon looks like a bulleted list). Alternatively, we can also click on the <strong>Filter</strong>and <strong>Summarize</strong>buttons to revise our question while staying on this page.</p><p>Since we want to group our results by month, we’ll click <strong>Summarize</strong>. If we open the <strong>Summarize sidebar</strong>, below where we picked our metric, there’s a list of all the columns that we can use to group our data together. The column we want to group by is <code>Created At</code>, because grouping by the orders’ creation date will give us separate counts of orders over $40 for each month, based on when each order was placed (or <code>Created_at</code>). We’ll select <code>Created At</code>, and Metabase immediately shows us a line chart of the orders over time. The default grouping for <code>Created_At</code>is by month, but if we wanted to group by date, week, year, or something else, we could do that by clicking <strong>by month</strong>next to <code>Created At</code>and selecting a different option from the dropdown.</p><img/><p>We can keep tweaking our question using the sidebar, or return to our notebook by clicking on the <strong>Editor</strong>button. Here’s our updated question with the new summarize step:</p><img/><h2>Changing the visualization</h2><p>Metabase can present the answers to questions in a variety of ways.
+
+
+
+Documentation Source:
 www.metabase.com/learn/questions/custom-expressions.html
 
 Documentation Title:
@@ -28,17 +39,6 @@ Build a record lookup tool with Metabase
 
 Documentation Content:
 Returning to the <strong>Query Builder</strong>, we’ll select <strong>Summarize</strong>, and select <code>Sum of</code>. Under the joined <code>Orders</code>table, we’ll select <code>Total</code>. And since we want to see the sum for each user, we’ll group by each user’s <code>ID</code>.</p><img/><p>A preview shows us an updated table with just two columns: <code>ID</code>and our new column, <code>Sum of Orders → Total($)</code>. We’ll also sum the discounts (<code>Sum of Orders → Discount($)</code>), just like we did with the order totals.</p><p>Next, we’ll add the columns we want to include in our table by adding them to the <strong>Group by</strong>box of the <strong>Summarize</strong>section. Here’s our full list of columns:</p><ul><code>ID</code><code>Email</code><code>Name</code><code>City</code><code>State</code><code>Zip</code><code>Created_at: Month</code><code>Sum of Orders → Total</code><code>Sum of Orders → Discount</code></ul><img/><p>With our notebook filled out, let’s click on the <strong>Visualize button</strong>, and Metabase will present us with our list.</p><img/><p>So far so good, but let’s see if we can spruce it up a bit.
-
-
-
-Documentation Source:
-www.metabase.com/learn/getting-started/introduction.html
-
-Documentation Title:
-Getting started with Metabase
-
-Documentation Content:
-Said another way, there were 16,309 records in the <code>Orders</code>table that made it through our filter.</p><h2>Grouping our results</h2><p>That count is useful, but it would be even more useful if we knew <em>when</em>our customers placed these big orders—more specifically, if we knew how many greater-than-40 orders people placed each month.</p><p>We can return to the editor by hitting the back button, or by clicking on the <strong>Editor</strong>button in the upper right (the icon looks like a bulleted list). Alternatively, we can also click on the <strong>Filter</strong>and <strong>Summarize</strong>buttons to revise our question while staying on this page.</p><p>Since we want to group our results by month, we’ll click <strong>Summarize</strong>. If we open the <strong>Summarize sidebar</strong>, below where we picked our metric, there’s a list of all the columns that we can use to group our data together. The column we want to group by is <code>Created At</code>, because grouping by the orders’ creation date will give us separate counts of orders over $40 for each month, based on when each order was placed (or <code>Created_at</code>). We’ll select <code>Created At</code>, and Metabase immediately shows us a line chart of the orders over time. The default grouping for <code>Created_At</code>is by month, but if we wanted to group by date, week, year, or something else, we could do that by clicking <strong>by month</strong>next to <code>Created At</code>and selecting a different option from the dropdown.</p><img/><p>We can keep tweaking our question using the sidebar, or return to our notebook by clicking on the <strong>Editor</strong>button. Here’s our updated question with the new summarize step:</p><img/><h2>Changing the visualization</h2><p>Metabase can present the answers to questions in a variety of ways.
 
 
 

@@ -27,33 +27,6 @@ Legal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various tradem
 
 
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.md
-
-Documentation Title:
-Debug DAGs | Astronomer Documentation
-
-Documentation Content:
-Import errors due to dependency conflicts​
-
-A frequent cause of DAG import errors is not having the necessary packages installed in your Airflow environment. You might be missing provider packagesthat are required for using specific operators or hooks, or you might be missing Python packages used in Airflow tasks.
-
-In an Astro project, you can install OS-level packages by adding them to your `packages.txt`file. You can install Python-level packages, such as provider packages, by adding them to your `requirements.txt`file. If you need to install packages using a specific package manager, consider doing so by adding a bash command to your Dockerfile.
-
-To prevent compatibility issues when new packages are released, Astronomer recommends pinning a package version to your project. For example, adding `astronomer-providers[all]==1.14.0`to your `requirements.txt`file ensures that no future releases of `astronomer-providers`causes compatibility issues. If no version is pinned, Airflow will always use the latest available version.
-
-If you are using the Astro CLI, packages are installed in the scheduler Docker container. You can confirm that a package is installed correctly by running:
-
-astro dev bash--scheduler"pip freeze | grep "If you have conflicting package versions or need to run multiple Python versions, you can run tasks in different environments using a few different operators:
-
-* KubernetesPodOperator: Runs a task in a separate Kubernetes Pod.
-* ExternalPythonOperator: Runs a task in a predefined virtual environment.
-* PythonVirtualEnvOperator: Runs a task in a temporary virtual environment.
-
-If many Airflow tasks share a set of alternate package and version requirements a common pattern is to run them in two or more separate Airflow deployments.
-
-
-
-Documentation Source:
 docs.astronomer.io/learn/testing-airflow.md
 
 Documentation Title:
@@ -83,33 +56,34 @@ This functionality replaces the deprecated DebugExecutor. Learn more in the Airf
 
 
 Documentation Source:
-docs.astronomer.io/learn/cross-dag-dependencies.md
+docs.astronomer.io/learn/testing-airflow.md
 
 Documentation Title:
-Cross-DAG dependencies | Astronomer Documentation
+Test Airflow DAGs | Astronomer Documentation
 
 Documentation Content:
-In the example below, we use an authorization token.
+Prerequisites​
 
-!DAG dependencies view​
-----------------------
+Ensure that your testing environment has:
 
-The cross-DAG dependencies view shows all DAG dependencies in your Airflow environment as long as they are implemented using one of the following methods:
+* Airflow 2.5.0or later. You can check your version by running `airflow version`.
+* All provider packages that your DAG uses.
+* An initialized Airflow metadata database, if your DAG uses elements of the metadata database like XCom. The Airflow metadata database is created when Airflow is first run in an environment. You can check that it exists with `airflow db check`and initialize a new database with `airflow db migrate`(`airflow db init`in Airflow versions pre-2.7).
 
-* Using dataset driven scheduling
-* Using a TriggerDagRunOperator
-* Using an ExternalTaskSensor
+You may wish to install these requirements and test your DAGs in a virtualenvto avoid dependency conflicts in your local environment.
 
-To view dependencies in the UI, go to **Browse**> **DAG Dependencies**or by click **Graph**within the **Datasets**tab. The following image shows the dependencies created by the TriggerDagRunOperator and ExternalTaskSensor example DAGs.
 
-!When DAGs are scheduled depending on datasets, both the DAG containing the producing task and the dataset are shown upstream of the consuming DAG.
 
-!To see all dependencies between datasets and DAGs, click on the **Datasets**tab in the Airflow UI.
+Documentation Source:
+docs.astronomer.io/learn/testing-airflow.md
 
-!Cross-deployment dependencies​
-------------------------------
+Documentation Title:
+Test Airflow DAGs | Astronomer Documentation
 
-It is sometimes necessary to implement cross-DAG dependencies where the DAGs do not exist in the same Airflow deployment. The TriggerDagRunOperator, ExternalTaskSensor, and dataset methods are designed to work with DAGs in the same Airflow environment, so they are not ideal for cross-Airflow deployments. The Airflow API is ideal for this use case. In this section, you'll learn how to implement this method on Astro, but the general concepts are also applicable to your Airflow environments.
+Documentation Content:
+Use `dag.test()`with the Astro CLI​
+
+If you use the Astro CLI exclusively and do not have the `airflow`package installed locally, you can still debug using `dag.test()`by running `astro dev start`, entering the scheduler container with `astro dev bash -s`, and executing `python `from within the Docker container. Unlike using the base `airflow`package, this testing method requires starting up a complete Airflow environment.
 
 
 

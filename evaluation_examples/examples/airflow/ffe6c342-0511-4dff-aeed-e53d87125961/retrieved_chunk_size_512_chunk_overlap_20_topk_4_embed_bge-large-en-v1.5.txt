@@ -287,111 +287,6 @@ Documentation Title:
 Run data quality checks using SQL check operators | Astronomer Documentation
 
 Documentation Content:
-column_checks
-=
-SQLColumnCheckOperator
-(
-task_id
-=
-"column_checks"
-,
-conn_id
-=
-"MY_DB_CONNECTION"
-,
-table
-=
-"MY_TABLE"
-,
-partition_clause
-=
-"CUSTOMER_NAME IS NOT NULL"
-,
-column_mapping
-=
-{
-"MY_NUM_COL_1"
-:
-{
-"min"
-:
-{
-"equal_to"
-:
-10
-,
-"tolerance"
-:
-0.1
-}
-}
-,
-"MY_NUM_COL_2"
-:
-{
-"max"
-:
-{
-"less_than"
-:
-300
-,
-"partition_clause"
-:
-"CUSTOMER_STATUS = 'active'"
-}
-}
-,
-}
-,
-)
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-Object storage
-Next
-Use the Astro Python SDK
-Time to complete
-Assumed knowledge
-Prerequisites
-Step 1: Configure your Astro project
-Step 2: Create a connection to SQLite
-Step 3: Add a SQL file with a custom check
-Step 4: Create a DAG using SQL check operators
-How it works
-SQLColumnCheckOperator
-SQLTableCheckOperator
-SQLCheckOperator
-partition_clause
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-sql-data-quality.txt
-
-Documentation Title:
-Run data quality checks using SQL check operators | Astronomer Documentation
-
-Documentation Content:
 2020, 8),
 (NULL, 2019, 8),
 ('Indochinese green magpie (Cissa hypoleuca)', 2018, 10);
@@ -569,6 +464,111 @@ SQLColumnCheckOperator
 to run the column-level checks provided to the
 column_mapping
 dictionary.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/airflow-sql-data-quality.txt
+
+Documentation Title:
+Run data quality checks using SQL check operators | Astronomer Documentation
+
+Documentation Content:
+column_checks
+=
+SQLColumnCheckOperator
+(
+task_id
+=
+"column_checks"
+,
+conn_id
+=
+"MY_DB_CONNECTION"
+,
+table
+=
+"MY_TABLE"
+,
+partition_clause
+=
+"CUSTOMER_NAME IS NOT NULL"
+,
+column_mapping
+=
+{
+"MY_NUM_COL_1"
+:
+{
+"min"
+:
+{
+"equal_to"
+:
+10
+,
+"tolerance"
+:
+0.1
+}
+}
+,
+"MY_NUM_COL_2"
+:
+{
+"max"
+:
+{
+"less_than"
+:
+300
+,
+"partition_clause"
+:
+"CUSTOMER_STATUS = 'active'"
+}
+}
+,
+}
+,
+)
+Was this page helpful?
+Yes
+No
+Sign up for Developer Updates
+Get a summary of new Astro features once a month.
+Submit
+You can unsubscribe at any time.
+By proceeding you agree to our
+Privacy Policy
+, our
+Website Terms
+and to receive emails from Astronomer.
+Edit this page
+Previous
+Object storage
+Next
+Use the Astro Python SDK
+Time to complete
+Assumed knowledge
+Prerequisites
+Step 1: Configure your Astro project
+Step 2: Create a connection to SQLite
+Step 3: Add a SQL file with a custom check
+Step 4: Create a DAG using SQL check operators
+How it works
+SQLColumnCheckOperator
+SQLTableCheckOperator
+SQLCheckOperator
+partition_clause
+Legal
+·
+Privacy
+·
+Security
+·
+Cookie Preferences
+© Astronomer 2023. Various trademarks held by their respective owners.
 
 
 

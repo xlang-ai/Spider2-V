@@ -1,66 +1,4 @@
 Documentation Source:
-cloud.google.com/bigquery/docs/samples/bigquery-query-external-sheets-perm.txt
-
-Documentation Title:
-Query Sheets with a permanent table  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-# dataset_id = "your-project.your_dataset"
-
-# Configure the external data source.
-dataset = client.get_dataset(dataset_id)
-table_id = "us_states"
-schema = [
-    bigquery.SchemaField("name", "STRING"),
-    bigquery.SchemaField("post_abbr", "STRING"),
-]
-table = bigquery.Table(dataset.table(table_id), schema=schema)
-external_config = bigquery.ExternalConfig("GOOGLE_SHEETS")
-# Use a shareable link or grant viewing access to the email address you
-# used to authenticate with BigQuery (this example Sheet is public).
-sheet_url = (
-    "https://docs.google.com/spreadsheets"
-    "/d/1i_QCL-7HcSyUZmIbP9E6lO_T5u3HnpLe7dnpHaijg_E/edit?usp=sharing"
-)
-external_config.source_uris = [sheet_url]
-options = external_config.google_sheets_options
-assert options is not None
-options.skip_leading_rows = 1  # Optionally skip header row.
-options.range = (
-    "us-states!A20:B49"  # Optionally set range of the sheet to query from.
-)
-table.external_data_configuration = external_config
-
-# Create a permanent table linked to the Sheets file.
-table = client.create_table(table)  # Make an API request.
-
-# Example query to find states starting with "W".
-sql = 'SELECT * FROM `{}.{}` WHERE name LIKE "W%"'.format(dataset_id, table_id)
-
-results = client.query_and_wait(sql)  # Make an API request.
-
-# Wait for the query to complete.
-w_states = list(results)
-print(
-    "There are {} states with names starting with W in the selected range.".format(
-        len(w_states)
-    )
-)
-What's next
-To search and filter code samples for other Google Cloud products, see the
-Google Cloud sample browser
-.
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-
-
-
-Documentation Source:
 cloud.google.com/bigquery/docs/connected-sheets.txt
 
 Documentation Title:
@@ -146,191 +84,224 @@ Connect
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/samples/bigquery-query-external-sheets-perm.txt
+
+Documentation Title:
+Query Sheets with a permanent table  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+# dataset_id = "your-project.your_dataset"
+
+# Configure the external data source.
+dataset = client.get_dataset(dataset_id)
+table_id = "us_states"
+schema = [
+    bigquery.SchemaField("name", "STRING"),
+    bigquery.SchemaField("post_abbr", "STRING"),
+]
+table = bigquery.Table(dataset.table(table_id), schema=schema)
+external_config = bigquery.ExternalConfig("GOOGLE_SHEETS")
+# Use a shareable link or grant viewing access to the email address you
+# used to authenticate with BigQuery (this example Sheet is public).
+sheet_url = (
+    "https://docs.google.com/spreadsheets"
+    "/d/1i_QCL-7HcSyUZmIbP9E6lO_T5u3HnpLe7dnpHaijg_E/edit?usp=sharing"
+)
+external_config.source_uris = [sheet_url]
+options = external_config.google_sheets_options
+assert options is not None
+options.skip_leading_rows = 1  # Optionally skip header row.
+options.range = (
+    "us-states!A20:B49"  # Optionally set range of the sheet to query from.
+)
+table.external_data_configuration = external_config
+
+# Create a permanent table linked to the Sheets file.
+table = client.create_table(table)  # Make an API request.
+
+# Example query to find states starting with "W".
+sql = 'SELECT * FROM `{}.{}` WHERE name LIKE "W%"'.format(dataset_id, table_id)
+
+results = client.query_and_wait(sql)  # Make an API request.
+
+# Wait for the query to complete.
+w_states = list(results)
+print(
+    "There are {} states with names starting with W in the selected range.".format(
+        len(w_states)
+    )
+)
+What's next
+To search and filter code samples for other Google Cloud products, see the
+Google Cloud sample browser
+.
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/connected-sheets.txt
 
 Documentation Title:
 Using Connected Sheets  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-data quality
-Monitor Data Transfer Service
-Monitor materialized views
-Monitor reservations
-Dashboards, charts and alerts
-Audit workloads
-Introduction
-Audit policy tags
-View Data Policy audit logs
-Data Transfer Service audit logs
-Analytics Hub audit logging
-BigQuery audit logs reference
-Migrate audit logs
-BigLake API audit logs
-Optimize resources
-Control costs
-Estimate and control query costs
-Custom cost controls
-Optimize with recommendations
-View cluster and partition recommendations
-Apply cluster and partition recommendations
-Manage materialized view recommendations
-Organize with labels
-Introduction
-Add labels
-View labels
-Update labels
-Filter using labels
-Delete labels
-Manage data quality
-Monitor data quality with scans
-Data Catalog overview
-Work with Data Catalog
-Govern
-Introduction
-Control access to resources
-Introduction
-Control access to resources with IAM
-Control access with authorization
-Authorized datasets
-Authorized routines
-Authorized views
-Control access with VPC service controls
-Control table and dataset access with tags
-Control access with conditions
-Control column and row access
-Control access to table columns
-Introduction to column-level access control
-Restrict access with column-level access control
-Impact on writes
-Manage policy tags
-Manage policy tags across locations
-Best practices for using policy tags
-Control access to table rows
-Introduction to row-level security
-Work with row-level security
-Use row-level security with other BigQuery features
-Best practices for row-level security
-Protect sensitive data
-Mask data in table columns
-Introduction to data masking
-Mask column data
-Anonymize data with differential privacy
-Use differential privacy
-Extend differential privacy
-Restrict data access using analysis rules
-Use Sensitive Data Protection
-Manage encryption
-Encryption at rest
-Customer-managed encryption keys
-Column-level encryption with Cloud KMS
-AEAD encryption
-Develop
-Introduction
-BigQuery code samples
-BigQuery API basics
-BigQuery APIs and libraries overview
-Authentication
-Introduction
-Get started
-Authenticate as an end user
-Authenticate with JSON Web Tokens
-Run jobs programmatically
-Paginate with BigQuery API
-API performance tips
-Batch requests
-Choose a Python library
-BigQuery DataFrames
-Introduction
-Use BigQuery DataFrames
-Use ODBC and JDBC drivers
-AI solutions, generative AI, and ML
-Application development
-Application hosting
-Compute
-Data analytics and pipelines
-Databases
-Distributed, hybrid,
+hybrid, and multicloud
+Industry solutions
+Networking
+Observability and monitoring
+Security
+Storage
+Access and resources management
+Cloud SDK, languages, frameworks, and tools
+Costs and usage management
+Infrastructure as code
+Migration
+Google Cloud Home
+Free Trial and Free Tier
+Architecture Center
+Blog
+Contact Sales
+Google Cloud Developer Center
+Google Developer Center
+Google Cloud Marketplace (in console)
+Google Cloud Marketplace Documentation
+Google Cloud Skills Boost
+Google Cloud Solution Center
+Google Cloud Support
+Google Cloud Tech Youtube Channel
+Home
+BigQuery
+Documentation
+Guides
+Send feedback
+Stay organized with collections
+Save and categorize content based on your preferences.
+Using Connected Sheets
+With Connected Sheets, you can access, analyze, visualize, and share
+billions of rows of BigQuery data from your Google Sheets
+spreadsheet.
+You can also do the following:
+Collaborate with partners, analysts, or other stakeholders in a familiar
+spreadsheet interface.
+Ensure a single source of truth for data analysis without additional
+spreadsheet exports.
+Streamline your reporting and dashboard workflows.
+Connected Sheets runs BigQuery queries on your
+behalf either upon your request or on a defined schedule. Results of
+those queries are saved in your spreadsheet for analysis and sharing.
+Example use cases
+The following are just a few use cases that show how
+Connected Sheets lets you analyze large amounts of data within a
+sheet, without needing to know SQL.
+Business planning:
+Build and prepare datasets, then allow others to find
+insights from the data. For example, analyze sales data to determine which
+products sell better in different locations.
+Customer service:
+Find out which stores have the most complaints per
+10,000 customers.
+Sales:
+Create internal finance and sales reports, and share revenue
+reports with sales reps.
+Access control
+Direct access to BigQuery datasets and tables is still controlled
+within BigQuery. If you want to give a user Google Sheets access
+only, share a spreadsheet and don't grant BigQuery access.
+A user with Google Sheets-only access can perform analysis in the sheet and
+use other Google Sheets features, but the user won't be able to perform the
+following actions:
+Manually refresh the BigQuery data in the sheet.
+Schedule a refresh of the data in the sheet.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/managing-table-data.txt
+cloud.google.com/bigquery/docs/external-data-drive.txt
 
 Documentation Title:
-Managing table data  |  BigQuery  |  Google Cloud
+Create Google Drive external tables  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-rows_iter = client.list_rows(table_id, max_results=10)
-rows = list(rows_iter)
-print("Downloaded {} rows from table {}".format(len(rows), table_id))
-
-# Specify selected fields to limit the results to certain columns.
-table = client.get_table(table_id)  # Make an API request.
-fields = table.schema[:2]  # First two columns.
-rows_iter = client.list_rows(table_id, selected_fields=fields, max_results=10)
-rows = list(rows_iter)
-print("Selected {} columns from table {}.".format(len(rows_iter.schema), table_id))
-print("Downloaded {} rows from table {}".format(len(rows), table_id))
-
-# Print row data in tabular format.
-rows = client.list_rows(table, max_results=10)
-format_string = "{!s:<16} " * len(rows.schema)
-field_names = [field.name for field in rows.schema]
-print(format_string.format(*field_names))  # Prints column headers.
-for row in rows:
-    print(format_string.format(*row))  # Prints row data.
-Ruby
-Before trying this sample, follow the
-Ruby
-setup instructions in the
-BigQuery quickstart using
-            client libraries
+You can specify a sheet
+name, or you can specify
+sheet_name!top_left_cell_id:bottom_right_cell_id
+for a cell range; for example, "Sheet1!A1:B20". If
+Sheet range
+is not
+specified, the first sheet in the file is used.
+On the
+Create table
+page, in the
+Destination
+section:
+For
+Dataset name
+, choose the appropriate dataset, and in the
+Table name
+field, enter the name of the table you're creating in
+BigQuery.
+Verify that
+Table type
+is set to
+External table
 .
-        
-      
-      
-  For more information, see the
-BigQuery
-Ruby
-API
-    reference documentation
+In the
+Schema
+section, enter the
+schema
+definition.
+For JSON or CSV files, you can check the
+Auto-detect
+option to
+enable schema
+auto-detect
 .
-To authenticate to BigQuery, set up Application Default Credentials.
-      For more information, see
-Set up authentication for client libraries
+Auto-detect
+is not available for Datastore exports,
+Firestore exports, and Avro files. Schema information for these
+file types is automatically retrieved from the self-describing source
+data.
+Enter schema information manually by:
+Enabling
+Edit as text
+and entering the table schema as a JSON
+array.
+Note: You can view the schema of an existing table in JSON
+format by entering the following command in the bq command-line tool:
+bq show --format=prettyjson
+DATASET
 .
-Pagination happens automatically in the
-Cloud Client Libraries for Ruby
-using
-Table#data
-and
-Data#next
+TABLE
 .
-require "google/cloud/bigquery"
-
-def browse_table
-  bigquery = Google::Cloud::Bigquery.new project_id: "bigquery-public-data"
-  dataset  = bigquery.dataset "samples"
-  table    = dataset.table "shakespeare"
-
-  # Load all rows from a table
-  rows = table.data
-
-  # Load the first 10 rows
-  rows = table.data max: 10
-
-  # Print row data
-  rows.each { |row| puts row }
-end
-Querying table data
-After you load your data into BigQuery, you can
-query the data
-using one of the following query job types:
-Interactive query jobs
+Using
+Add field
+to manually input the schema.
+Click
+Create table
 .
-By
-default, BigQuery runs interactive (on-demand) query jobs as
-soon as possible.
+If necessary, select your account and then click
+Allow
+to give the
+BigQuery client tools access to Drive.
+You can then run a query against the table as if it were a standard
+BigQuery table, subject to the
+limitations
+on external data sources.
+After your query completes, you can download the results as CSV or JSON,
+save the results as a table, or save the results to Sheets. See
+Download, save, and export data
+for more information.
+bq
+You create a table in the bq command-line tool using the
+bq mk
+command.
 
 
 

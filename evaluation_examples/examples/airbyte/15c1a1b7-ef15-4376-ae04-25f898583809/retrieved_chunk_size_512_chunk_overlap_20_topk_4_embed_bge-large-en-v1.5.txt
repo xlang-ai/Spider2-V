@@ -1,170 +1,213 @@
 Documentation Source:
-airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.txt
+airbyte.com/tutorials/build-a-slack-activity-dashboard-with-apache-superset.txt
 
 Documentation Title:
-E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
+How to Build a Slack Activity Dashboard with Apache Superset | Airbyte | Airbyte
 
 Documentation Content:
-Search for “faker” using the search bar and select "Sample Data (Faker)".
-Adjust the count and optional fields as needed for your use case. You can also leave as is.
-Click on "Set up source".
-2. Create a destination
-:
-Go to the "Destinations" tab and click on "+ New destination".
-Search for “bigquery” using the search bar and select BigQuery.
-Enter the connection details as needed.
-For simplicity, you can use "Standard Inserts" as the loading method.
-In the Service Account Key JSON field, enter the contents of the JSON file. Yes, the full JSON.
-Click on Set up destination.
-3. Create a connection
-:
-Go to the "Connections" tab and click on "+ New connection".
-Select the source and destination you just created.
-Enter the connection details as needed.
-Click on "Set up connection".
-That’s it! Your connection is set up and ready to go! 🎉
-4. Setting Up the dbt Project
-dbt (data build tool)
-allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
-1. Navigate to the dbt Project Directory
-:
-Move to the directory containing the dbt configuration:
-cd ../../dbt_project
+git checkout latest
+# Install the frontend dependencies and assets.
+npm install
+# Build the assets.
+npm run build
+# Run Superset.
+docker-compose up
 ‍
-2. Update Connection Details
-:
-You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform.
-Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path, the dataset location and your BigQuery project ID.
-Provide your BigQuery project ID in the database field of the <span class="text-style-code">/models/ecommerce/sources/faker_sources.yml</span> file.
-3. Test the Connection (Optional)
-:
-You can test the connection to your BigQuery instance using the following command.
+‍
+Note: The above command assumes you have both Node and NPM installed on your machine.
+‍
+This will download the Docker images Superset needs and build containers and start services Superset needs to run locally on your machine.
+Once that’s done, you should be able to access Superset on your browser by visiting
+http://localhost:8088
+, and you should be presented with the Superset login screen.
+Enter username:
+admin
+and
+Password:
+admin
+to be taken to your Superset dashboard.
+Great! You’ve got Superset set up. Now let’s tell Superset about our Postgres Database holding the Slack data from Airbyte.
+Setting Up a Postgres Database in Superset
+To do this, on the top menu in your Superset dashboard, hover on the Data dropdown and click on
+Databases.
+‍
+‍
+In the page that opens up, click on the
++ Database
+button in the top right corner.
+‍
+‍
+Then, you will be presented with a modal to add your Database Name and the connection URI.
+‍
+‍
+Let’s call our Database
+slack_db,
+and then add the following URI as the connection URI:
+postgresql://postgres:password@docker.for.mac.localhost:2000/postgres
+‍
+If you are on a Windows Machine, yours will be:
+postgresql://postgres:password@docker.for.win.localhost:2000/postgres
+‍
+Note: We are using
+docker.for.[mac|win].localhost
+in order to access the localhost of your machine, because using just
+localhost
+will point to the Docker container network and not your machine’s network.
+Your Superset UI should look like this:
+‍
+‍
+We will need to enable some settings on this connection. Click on the
+SQL LAB SETTINGS
+and check the following boxes:
+‍
+‍
+Afterwards, click on the
+ADD
+button,
+and you will see your database on the data page of Superset.
 
 
 
 Documentation Source:
-airbyte.com/tutorials/building-an-e-commerce-data-pipeline-a-hands-on-guide-to-using-airbyte-dbt-dagster-and-bigquery.txt
+airbyte.com/tutorials/postgres-to-bigquery.txt
 
 Documentation Title:
-How to build E-commerce Data Pipeline with Airbyte? | Airbyte
+How to Connect & Load Data from Postgres to BigQuery?
 
 Documentation Content:
-Create a source:
-Go to the Sources tab and click on "+ New source".
-Search for “faker” using the search bar and select "Sample Data (Faker)".
-Adjust the Count and optional fields as needed for your use case. You can also leave as is.
-Click on "Set up source".
-Look fo Faker source connector
-Create a Faker source
-2. Create a destination:
-Go to the Destinations tab and click on "+ New destination".
-Search for “bigquery” using the search bar and select "BigQuery".
-Enter the connection details as needed.
-For simplicity, you can use "Standard Inserts" as the loading method.
-In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
-Click on "Set up destination".
-Look for BigQuery destination connector
-Create a BigQuery destination
-3. Create a connection:
-Go to the Connections tab and click on "+ New connection".
-Select the source and destination you just created.
-Enter the connection details as needed.
-For this project, leave the “replication frequency” as “Manual”, since we will orchestrate the syncs with Dagster.
-Click on "Set up connection".
-That’s it! Your connection is set up and ready to go! 🎉
-‍
-Establish a connector between Faker and BigQuery
-4. Setting Up the dbt Project
-dbt (data build tool)
-allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery.
-1. Navigate to the dbt Project Directory:
-Move to the dbt project directory in your project's file structure.
-cd ../../dbt_project
-This directory contains all the dbt-related configurations and SQL models.
-2. Update Connection Details:
-Within this directory, you'll find a <span class="text-style-code">profiles.yml file</span>. This file holds the configuration for dbt to connect to BigQuery.
+7. Test the connection to ensure that Airbyte can successfully connect to your PostgreSQL database.
+8. Select the tables or views you want to replicate and configure any necessary settings, such as the replication frequency and the replication method.
+9. Save your configuration and start the replication process.
+10. Monitor the replication process to ensure that it is running smoothly and troubleshoot any issues that arise.
+Step 2: Set up BigQuery as a destination connector
+1. First, navigate to the Airbyte dashboard and select the "Destinations" tab on the left-hand side of the screen.
+2. Scroll down until you find the "BigQuery" destination connector and click on it.
+3. Click the "Create Destination" button to begin setting up your BigQuery destination.
+4. Enter your Google Cloud Platform project ID and service account credentials in the appropriate fields.
+5. Next, select the dataset you want to use for your destination and enter the table prefix you want to use.
+6. Choose the schema mapping for your data, which will determine how your data is organized in BigQuery.
+7. Finally, review your settings and click the "Create Destination" button to complete the setup process.
+8. Once your destination is created, you can begin configuring your source connectors to start syncing data to BigQuery.
+9. To do this, navigate to the "Sources" tab on the left-hand side of the screen and select the source connector you want to use.
+10. Follow the prompts to enter your source credentials and configure your sync settings.
+11. When you reach the "Destination" step, select your BigQuery destination from the dropdown menu and choose the dataset and table prefix you want to use.
+12. Review your settings and click the "Create Connection" button to start syncing data from your source to your BigQuery destination.
+Step 3: Set up a connection to sync your Postgres data to BigQuery
+Once you've successfully connected Postgres as a data source and BigQuery as a destination in Airbyte, you can set up a data pipeline between them with the following steps:
+Create a new connection:
+On the Airbyte dashboard, navigate to the 'Connections' tab and click the '+ New Connection' button.
+Choose your source:
+Select Postgres from the dropdown list of your configured sources.
 
 
 
 Documentation Source:
-airbyte.com/quickstart/e-commerce-analytics-with-airbyte-dbt-dagster-and-bigquery.txt
+airbyte.com/tutorials/postgres-to-bigquery.txt
 
 Documentation Title:
-E-commerce Analytics Stack with Airbyte, dbt, Dagster and BigQuery | Airbyte
+How to Connect & Load Data from Postgres to BigQuery?
 
 Documentation Content:
-Setting Up Airbyte Connectors Using the UI
-Start by launching the Airbyte UI by going to
-http://localhost:8000/
-in your browser. Then:
-1. Create a source
-:
-Go to the Sources tab and click on "+ New source".
-Search for “faker” using the search bar and select "Sample Data (Faker)".
-Adjust the Count and optional fields as needed for your use case. You can also leave as is.
-Click on "Set up source".
-2. Create a destination
-:
-Go to the Destinations tab and click on "+ New destination".
-Search for “bigquery” using the search bar and select "BigQuery".
-Enter the connection details as needed.
-For simplicity, you can use "Standard Inserts" as the loading method.
-In the "Service Account Key JSON" field, enter the contents of the JSON file. Yes, the full JSON.
-Click on "Set up destination".
-3. Create a connection
-:
-Go to the Connections tab and click on "+ New connection".
-Select the source and destination you just created.
-Enter the connection details as needed.
-Click on "Set up connection".
-That’s it! Your connection is set up and ready to go! 🎉
-Setting Up the dbt Project
-dbt (data build tool)
-allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
-1. Navigate to the dbt Project Directory
-:
-Move to the directory containing the dbt configuration:
-cd ../../dbt_project
-2. Update Connection Details
-:
-You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform. Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path and your BigQuery project ID.
-Provide your BigQuery project ID in the database field of the <span class="text-style-code">dbt_project/models/sources/faker_sources.yml</span> file.
+Signing up for
+Airbyte Cloud
+or deploying
+Airbyte OSS
+.
+Methods to Move Data From Postgresql to BigQuery
+Method 1: Connecting Postgresql to BigQuery using Airbyte.
+Method 2: Connecting Postgresql to BigQuery manually.
+‍
+Method 1: Connecting Postgresql to BigQuery  using Airbyte.
+Step 1: Configure a Postgres source in Airbyte
+Before setting up your Postgres source in Airbyte, check our
+getting started documentation
+.
+To set up a new Postgres Airbyte source, go to Airbyte's UI, click on sources and add a new source. As the connector type, select
+Postgres
+. The subsequent illustrations show how we configured one of the sources at Airbyte. Fill in the following configuration fields with the details of your Postgres database.
+Then click on
+Set up source
+, and Airbyte will test the connection. If everything goes well, you should see a successful message.
+Step 2: Configure a BigQuery destination in Airbyte
+Go to destinations and add a new one. As demonstrated in the following diagram, select
+BigQuery
+as the destination type and fill in with the following details.
+If you’re in doubt regarding the meaning of any of the configuration fields, you can read our
+BigQuery setup guide
+. At the same time, you will find hints about each field and links with additional information in the UI.
+Then, click on
+Set up source
+and let Airbyte test the destination.
+Step 3: Create an Airbyte connection
+Go to connections and create a new connection. Then, select the existing Postgres source you have just created, and then do the same for the BigQuery destination. The following diagram shows how we set up the connection at Airbyte.
+As you can see, we set the replication frequency to every hour. You can change the replication frequency depending on your needs.
+At Airbyte, we load data from multiple sources to a single BigQuery project. Because we don’t want data to be held in the default dataset specified in the destination configuration (
+airbyte_raw
+), we used the “Custom format” option so the data will be stored in the
+airbyte_prod_configapi
+dataset.
 
 
 
 Documentation Source:
-airbyte.com/tutorials/build-a-github-activity-dashboard-for-your-project.txt
+airbyte.com/docs.airbyte.com/integrations/sources/postgres/cloud-sql-postgres.txt
 
 Documentation Title:
-Build a GitHub Activity Dashboard for your Project | Airbyte | Airbyte
+Cloud SQL for PostgreSQL | Airbyte Documentation
 
 Documentation Content:
-The sync should take a while to complete.
-When done, you will see the status change from running to Succeeded. Also, the byte count will be referring to the byte of data Airbyte has pulled from GitHub into your Postgres database.
-‍
-That wasn’t a lot of work, was it? You can pat yourself in the back as you just synced data from GitHub to a Postgres database.
-Let's move on to connecting that database to Metabase, so we can start creating our dashboard.
-Step 2: Connecting the PostgreSQL database to Metabase
-Installing Metabase
-‍
-Metabase is an open source analytic tool that you can get started working with in a couple of ways; using the .jar file, installing it as a Mac app or using a Docker container.
-For this tutorial we will be using the Mac app(you can alternatively look up the installation that suits you
-here
-). To do this, simply run:
-If you are on a Mac, you can download the Metabase app from
-here
-. After download, launch the app and complete registration for an account and you will see the Metabase dashboard:
-‍
-Setting Up a Postgres Database in Metabase
-In order to set up our database, we will click on the cog(settings) icon on the menu bar of the Metabase app and choose the admin option to be taken to the admin view where we can add a database:
-‍
-Click on the add a database button and you will be presented with a form where you should select PostgreSQL as your database of choice and then fill out the connection parameters which will be the one for the PostgreSQL database we created to hold the data from GitHub
-Fill out the details to match the credentials of the PostgreSQL database we created earlier.
-‍
-‍
-Afterwards, hit save when you are done entering the database credentials and your database would have been fully loaded onto Metabase ready for us to start creating our dashboard.
-Should you build or buy your data pipelines?
-Download our free guide and discover the best approach for your needs, whether it's building your ELT solution in-house or opting for Airbyte Open Source or Airbyte Cloud.
+All available
+sync modes
+, providing flexibility in how data is delivered to your destination.
+Reliable replication at any table size with
+checkpointing
+and chunking of database reads.
+Quick Start
+​
+Here is an outline of the minimum required steps to configure a connection to Postgres on Google Cloud SQL:
+Create a dedicated read-only Postgres user with permissions for replicating data
+Create a new Postgres source in the Airbyte UI using
+xmin
+system column
+(Airbyte Cloud Only) Allow inbound traffic from Airbyte IPs
+Once this is complete, you will be able to select Postgres as a source for replicating data.
+Step 1: Create a dedicated read-only Postgres user
+​
+These steps create a dedicated read-only user for replicating data. Alternatively, you can use an existing Postgres user in your database. To create a user, first
+connect to your database
+. If you are getting started, you can use
+Cloud Shell to connect directly from the UI
+.
+The following commands will create a new user:
+CREATE USER <user_name> PASSWORD 'your_password_here';
+Now, provide this user with read-only access to relevant schemas and tables. Re-run this command for each schema you expect to replicate data from (e.g.
+public
+):
+GRANT USAGE ON SCHEMA <schema_name> TO <user_name>;
+GRANT SELECT ON ALL TABLES IN SCHEMA <schema_name> TO <user_name>;
+ALTER DEFAULT PRIVILEGES IN SCHEMA <schema_name> GRANT SELECT ON TABLES TO <user_name>;
+Step 2: Create a new Postgres source in Airbyte UI
+​
+From your
+Airbyte Cloud
+or Airbyte Open Source account, select
+Sources
+from the left navigation bar, search for
+Postgres
+, then create a new Postgres source.
+To fill out the required information:
+Enter the hostname, port number, and name for your Postgres database.
+You may optionally opt to list each of the schemas you want to sync. These are case-sensitive, and multiple schemas may be entered. By default,
+public
+is the only selected schema.
+Enter the username and password you created in
+Step 1
+.
+Select an SSL mode. You will most frequently choose
+require
+or
+verify-ca
+.
 
 
 

@@ -68,58 +68,140 @@ Last updated 2024-05-13 UTC.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/quickstarts/load-data-console.md
+cloud.google.com/bigquery/docs/running-queries.md
 
 Documentation Title:
-Load and query data with the Google Cloud console  |  BigQuery
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-Optional: If you
- select an existing project, make sure that you
- enable
- the BigQuery API. The BigQuery API is automatically
- enabled in new projects.
-Create a BigQuery dataset
--------------------------
+Console
 
-Use the Google Cloud console to create a dataset that stores the data.
+1. Go to the **BigQuery**page.
 
-1. In the Google Cloud console, open the BigQuery page.
-Go to BigQuery3. In the
- **Explorer**panel, click your project name.
-4. Expand the more\_vert**View actions > Create dataset**.
-5. On the **Create dataset**page, do the following:
-1. For
- **Dataset ID**, enter `babynames`.
-2. From the **Data location**list, choose **us (multiple regions in United States)**.
- The public datasets are stored in the `us`multi-region
- location. For simplicity,
- store your
- dataset in the same location.
-3. Leave the remaining default settings as they are, and click **Create dataset**.
+Go to BigQuery
+Click add\_box**Compose a new query**.
 
-Download the source data file
------------------------------
+3. In the query editor, enter a valid GoogleSQL query.
 
-The file that you're downloading contains approximately 7 MB of data about
-popular baby names. It's provided by the US Social Security Administration.
+For example, query the
+BigQuery public dataset `usa_names`to determine the most common names in the United States between the
+years 1910 and 2013:
 
-For more information about the dataset, see the
-Social Security Administration's dataset information page.
+`SELECT
+ name, gender,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name, gender
+ORDER BY
+ total DESC
+LIMIT
+ 10;`
+Click settings**More**, and then
+click **Query settings**.
 
-1. Download the US Social Security Administration's dataset by opening the
-following URL in a new browser tab:
+In the **Resource management**section, select **Batch**.
 
-`https://www.ssa.gov/OACT/babynames/names.zip`
-2. Extract the file.
+6. Optional: Specify the destination table and
+locationfor the query results:
 
-For more information about the dataset schema, see the zip file's
-`NationalReadMe.pdf`file.
-To see what the data looks like, open the `yob2014.txt`file. This file
-contains comma-separated values for name, assigned sex at birth, and number
-of children with that name. The file has no header row.
 
-Note the location of the `yob2014.txt`file so that you can find it later.
+	1. In the **Destination**section, select
+	**Set a destination table for query results**.
+	2. For **Dataset**, enter the name of an existing dataset for the
+	destination table—for example, `myProject.myDataset`.
+	3. For **Table Id**, enter a name for the destination table—for
+	example, `myTable`.
+	4. If the destination table is an existing table, then for
+	**Destination table write preference**, select whether to append or
+	overwrite the table with the query results.
+	
+	If the destination table is a new table, then
+	BigQuery creates the table when you run your query.
+	5. In the **Additional settings**section, click the
+	**Data location**menu, and then select an option.
+	
+	In this example, the `usa_names`dataset is stored in the US
+	multi-region location. If you specify a destination table for this
+	query, the dataset that contains the destination table must also be
+	in the US multi-region. You cannot query a dataset in one location
+	and write the results to a table in another location.
+Click **Save**.
+
+8. Click play\_circle**Run**.
+
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/running-queries.md
+
+Documentation Title:
+Run a query  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+Console
+
+1. Go to the **BigQuery**page.
+
+Go to BigQuery
+Click add\_box**Compose a new query**.
+
+3. In the query editor, enter a valid GoogleSQL query.
+
+For example, query the
+BigQuery public dataset `usa_names`to determine the most common names in the United States between the
+years 1910 and 2013:
+
+`SELECT
+ name, gender,
+ SUM(number) AS total
+FROM
+ `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+ name, gender
+ORDER BY
+ total DESC
+LIMIT
+ 10;`
+4. Optional: Specify the destination table and
+locationfor the query results:
+
+
+	1. In the query editor, click
+	settings**More**, and then
+	click **Query settings**.
+	2. In the **Destination**section, select
+	**Set a destination table for query results**.
+	3. For **Dataset**, enter the name of an existing dataset for the
+	destination table—for example, `myProject.myDataset`.
+	4. For **Table Id**, enter a name for the destination table—for
+	example, `myTable`.
+	5. If the destination table is an existing table, then for
+	**Destination table write preference**, select whether to append or
+	overwrite the table with the query results.
+	
+	If the destination table is a new table, then
+	BigQuery creates the table when you run your query.
+	6. In the **Additional settings**section, click the
+	**Data location**menu, and then select an option.
+	
+	In this example, the `usa_names`dataset is stored in the US
+	multi-region location. If you specify a destination table for this
+	query, the dataset that contains the destination table must also be
+	in the US multi-region. You cannot query a dataset in one location
+	and write the results to a table in another location.
+	Click **Save**.
+5. Click play\_circle**Run**.
+
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+
+You can now explore the query results in the **Results**tab of the
+**Query results**pane.
 
 
 
@@ -191,69 +273,6 @@ except that this time, you're querying your table instead of a public table.
 
 1. Click add\_box**Compose new query**. A new **Editor**tab opens.
 2.
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/quickstarts/load-data-bq.md
-
-Documentation Title:
-Load and query data with the bq tool  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Determine the most popular girls' names in the data:
-
-`bq query --use_legacy_sql=false \
- 'SELECT
- name,
- count
- FROM
- `babynames.names2010`
- WHERE
- assigned_sex_at_birth = "F"
- ORDER BY
- count DESC
- LIMIT 5;'`The output is similar to the following:
-
-`+----------+-------+
-| name | count |
-+----------+-------+
-| Isabella | 22925 |
-| Sophia | 20648 |
-| Emma | 17354 |
-| Olivia | 17030 |
-| Ava | 15436 |
-+----------+-------+`
-2. Determine the least popular boys' names in the data:
-
-`bq query --use_legacy_sql=false \
- 'SELECT
- name,
- count
- FROM
- `babynames.names2010`
- WHERE
- assigned_sex_at_birth = "M"
- ORDER BY
- count ASC
- LIMIT 5;'`The output is similar to the following:
-
-`+----------+-------+
-| name | count |
-+----------+-------+
-| Aamarion | 5 |
-| Aarian | 5 |
-| Aaqib | 5 |
-| Aaidan | 5 |
-| Aadhavan | 5 |
-+----------+-------+`The minimum count is 5 because the source data omits names with fewer than
-5 occurrences.
-Clean up
---------
-
-To avoid incurring charges to your Google Cloud account for
- the resources used on this page, delete the Google Cloud project with the
- resources.
 
 
 

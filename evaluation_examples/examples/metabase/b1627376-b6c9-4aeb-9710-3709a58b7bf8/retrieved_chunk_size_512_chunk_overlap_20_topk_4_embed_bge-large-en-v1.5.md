@@ -87,33 +87,35 @@ Clicking on a table cell will often allow you to filter the results using a comp
 
 
 Documentation Source:
-www.metabase.com/learn/getting-started/introduction.md
+www.metabase.com/learn/dashboards/build-a-record-lookup-tool.md
 
 Documentation Title:
-Getting started with Metabase
+Build a record lookup tool with Metabase
 
 Documentation Content:
-Said another way, there were 16,309 records in the `Orders`table that made it through our filter.
+Let’s change the formatting for our aggregate columns, which we can do by clicking on the heading for that column, then clicking on the **gears icon**.
 
-Grouping our results
---------------------
+!We’ll change `Column title`to “Total money spent”, toggle `Show a mini bar chart`, and set `Where to display the unit of currency`to every cell.
 
-That count is useful, but it would be even more useful if we knew *when*our customers placed these big orders—more specifically, if we knew how many greater-than-40 orders people placed each month.
+!The **mini bar chart**will show the cell’s value relative to the range of values in the column, which makes it easy to see how much money our customers spend compared with other customers.
 
-We can return to the editor by hitting the back button, or by clicking on the **Editor**button in the upper right (the icon looks like a bulleted list). Alternatively, we can also click on the **Filter**and **Summarize**buttons to revise our question while staying on this page.
+We’ll do the same for the discount total column: add mini bar chart, rename heading, show currency in every cell.
 
-Since we want to group our results by month, we’ll click **Summarize**. If we open the **Summarize sidebar**, below where we picked our metric, there’s a list of all the columns that we can use to group our data together. The column we want to group by is `Created At`, because grouping by the orders’ creation date will give us separate counts of orders over $40 for each month, based on when each order was placed (or `Created_at`). We’ll select `Created At`, and Metabase immediately shows us a line chart of the orders over time. The default grouping for `Created_At`is by month, but if we wanted to group by date, week, year, or something else, we could do that by clicking **by month**next to `Created At`and selecting a different option from the dropdown.
+!We can also throw in some conditional formatting for the table as a whole. In the bottom left of our screen, we’ll click on the **Settings button**for the question, and Metabase will slide out the **Settings sidebar**. At the top of the sidebar, we’ll select the **Conditional formatting tab**. For example, we can highlight the row in blue for big spenders (customers who’ve dropped more than $1,000 on our products), and highlight rows in red if we’ve given them more than $30 in discounts (so we know we should probably cool it on the discounts for that customer).
 
-!We can keep tweaking our question using the sidebar, or return to our notebook by clicking on the **Editor**button. Here’s our updated question with the new summarize step:
+!With our list all dressed up, let’s save it as `Customer list`.
 
-!Changing the visualization
---------------------------
+Add our question to a dashboard
+-------------------------------
 
-Metabase can present the answers to questions in a variety of ways. To change the visualization, just select one of the options from the **Visualization sidebar**.
+To be able to look up a customer, we’ll need to be able to filter this table by ID and name. We *could*filter at the question level, but in this case it’s better to have our list be in a dashboard: it gives us more options, like being able to have a filter widget that can filter additional lists or charts we might want to add in the future, or allowing us to customize what happens when people click on a value in a column.
 
-If we want to check the results as a table, we can click the little toggle at the bottom center of the page to toggle from our chart to the table of data and back again.
+We’ll create a new dashboardand title it (literally) “Customer lookup tool.” Next, we’ll add our `Customer list`question to our new dashboard.
 
-For other visualization options, click the blue **Visualization**button in the bottom left. For example, let’s visualize our question as an **area chart**.
+Add filters to the dashboard
+----------------------------
+
+Since we want people to be able to look up customers by either their `ID`or `Name`, we’ll need to add a filter widget for each lookup method.
 
 
 

@@ -38,101 +38,102 @@ See alsoLegal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Variou
 
 
 Documentation Source:
-docs.astronomer.io/learn/debugging-dags.md
+docs.astronomer.io/learn/airflow-ui.md
 
 Documentation Title:
-Debug DAGs | Astronomer Documentation
+An introduction to the Airflow UI | Astronomer Documentation
 
 Documentation Content:
-* The full error with the error trace if applicable.
-* The full code of the DAG causing the error if applicable.
-* What you are trying to accomplish in as much detail as possible.
-* What you changed in your environment when the problem started.
-Was this page helpful?
-----------------------
+Audit Logs​
 
-YesNoSign up for Developer Updates
------------------------------
+The **Audit Logs**tab shows a list of events that have occurred in your Airflow environment relating to the DAG, DAG run or task instance you have selected.
 
-Get a summary of new Astro features once a month.
+!### Run Duration​
 
-SubmitYou can unsubscribe at any time. By proceeding you agree to our Privacy Policy, our Website Termsand to receive emails from Astronomer.
+The **Run Duration**tab shows a bar chart of the duration of each DAG run over time.
 
-Edit this pagePreviousDAG writing best practicesNextDynamic tasksAssumed knowledgeGeneral Airflow debugging approachAirflow is not starting on the Astro CLI* Common DAG issues
-	DAGs don't appear in the Airflow UIImport errors due to dependency conflictsDAGs are not running correctly
-* Common task issues
-	Tasks are not running correctlyTasks are failingIssues with dynamically mapped tasks
-Missing LogsTroubleshooting connectionsI need more helpLegal·Privacy·Security·Cookie Preferences!!© Astronomer 2023. Various trademarks held by their respective owners.
+!### Logs​
+
+To access the logsof a specific task instance, click on the **Logs**tab which appears as soon as you select a task instance. By default the logs of the task execution are shown, while the **Pre task execution logs**and the **Post task execution logs**are collapsed and can be expanded by clicking on the respective log item.
+
+!Cluster activity tab​
+---------------------
+
+The cluster activity tab shows aggregated metrics for the entire Airflow cluster. It includes live metrics, such as currently occupied slots in different pools, unpaused DAGs, and scheduler health.
+It also includes historical metrics like the states of past DAG runs and task instances, as well as how each DAG run was triggered.
+
+!Datasets tab​
+-------------
+
+The **Dataset**tab links to a page showing all datasets that have been produced in the Airflow environment, as well as all dependencies between datasets and DAGs in a graph.
+
+!Click a dataset to open the history of all updates to the dataset that were recorded in the Airflow environment. You can use the Play button to manually trigger an update to a Dataset.
+
+!Security tab​
+-------------
+
+Astro does not support the Security tabOn Astro, role-based access control is managed at the platform level. As a result, the Security tab is not needed and is not available on Airflow deployments on Astro.
+
+The **Security**tab links to multiple pages, including **List Users**and **List Roles**, that you can use to review and manage Airflow role-based access control (RBAC). For more information on working with RBAC, see Security.
+
+!If you are running Airflow on Astronomer, the Astronomer RBAC will extend into Airflow and take precedence. There is no need for you to use Airflow RBAC in addition to Astronomer RBAC. Astronomer RBAC can be managed from the Astronomer UI, so the **Security**tab might be less relevant for Astronomer users.
 
 
 
 Documentation Source:
-docs.astronomer.io/learn/logging.md
+docs.astronomer.io/learn/get-started-with-airflow.md
 
 Documentation Title:
-Airflow logging | Astronomer Documentation
+Get started with Apache Airflow, Part 1: Write and run your first DAG | Astronomer Documentation
 
 Documentation Content:
-Skip to main content!!**Docs**DocsFind what you're looking forLearn About AstronomerGet Started FreeHomeAstroAstro CLISoftwareLearnTry AstroOverviewGet started* Airflow concepts
-	BasicsDAGsInfrastructure+ Advanced
-		Airflow loggingData qualityDeferrable operatorsDynamically generate DAGsIsolated EnvironmentsKubernetesPodOperatorMLOpsPluginsPoolsSetup/ teardown tasksSharing code between multiple projectsTest DAGs
-Airflow tutorialsIntegrations & connectionsUse casesAirflow glossarySupport Knowledge BaseOffice HoursWebinarsAstro StatusAirflow conceptsAdvancedAirflow logging
-On this pageAirflow logging
-===============
+After your DAG runs, there should be a green bar representing a successful run of the DAG.
 
-Airflow provides an extensive logging system for monitoring and debugging your data pipelines. Your webserver, scheduler, metadata database, and individual tasks all generate logs. You can export these logs to a local file, your console, or to a specific remote storage solution.
+!
+The `my_astronauts_dag`is scheduled to run whenever the `current_astronauts`dataset is updated by a successful run of the `get_astronauts`task in the `example_astronauts`DAG. Trigger another manual run of the `example_astronauts`DAG to see the `my_astronauts_dag`run again after the `get_astronauts`task completes.
 
-In this guide, you'll learn the basics of Airflow logging, including:
 
-* Where to find logs for different Airflow components.
-* How to add custom task logs from within a DAG.
-* When and how to configure logging settings.
-* Remote logging.
+Step 8: View task logs​
+-----------------------
 
-You'll also use example code to:
+When one of your tasks prints something, the output appears in Airflow task logs. Task logs are an important feature for troubleshooting DAGs. If a task in your DAG fails, task logs are the best place to investigate why.
 
-* Send logs to an S3 bucket using the Astro CLI.
-* Add multiple handlers to the Airflow task logger.
+1. In the Airflow UI, open the **Grid**view.
+2. Click the `print_num_people_in_space`task to access details of the task instance.
+3. Click the **Logs**tab.
 
-In addition to standard logging, Airflow provides observability features that you can use to collect metrics, trigger callback functions with task events, monitor Airflow health status, and track errors and user activity. For more information about the monitoring options in Airflow, see Logging & Monitoring. Astro builds on these features, providing more detailed metrics about how your tasks run and use resources in your cloud. To learn more, see Deployment metrics.
+In the log output, you should see the statement telling you about the number of people currently in space. The log output should look similar to the following:
 
-Assumed knowledge​
+`[2024-02-27, 13:57:07 UTC] {logging_mixin.py:188} INFO - There are currently 7 people in space.[2024-02-27, 13:57:07 UTC] {python.py:202} INFO - Done. Returned value was: None[2024-02-27, 13:57:07 UTC] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=my_astronauts_dag, task_id=print_num_people_in_space, execution_date=20240227T135707, start_date=20240227T135707, end_date=20240227T135707`Repeat steps 1-3 for the `print_reaction`task.
+
+
+
+Documentation Source:
+docs.astronomer.io/astro/view-logs.md
+
+Documentation Title:
+View Deployment logs | Astronomer Documentation
+
+Documentation Content:
+View Airflow component logs locally​
+
+To show logs for your Airflow scheduler, webserver, or triggerer locally, run the following Astro CLI command:
+
+astro dev logsAfter you run this command, the most recent logs for these components appear in your terminal window.
+
+By default, running `astro dev logs`shows logs for all Airflow components. To see logs only for a specific component, add any of the following flags to your command:
+
+`--scheduler``--webserver``--triggerer`
+To continue monitoring logs, run `astro dev logs --follow`. The `--follow`flag ensures that the latest logs continue to appear in your terminal window. For more information about this command, see CLI Command Reference.
+
+Airflow task logs​
 ------------------
 
-To get the most out of this guide, you should have an understanding of:
+Airflow task logs can help you troubleshoot a specific task instance that failed or retried. Based on your preference, you can choose to use to access task logs in the Astro UI or the Airflow UI. Both provide filters, search, and download options for task logs and share other information about your DAG performance on the same page.
 
-* Basic Airflow concepts. See Introduction to Apache Airflow.
-* Airflow core components. See Airflow's components.
+Task logs for Astro Deployments are retained for 90 days. The task log retention policy is not currently configurable.
 
-Airflow logging​
-----------------
-
-Logging in Airflow leverages the Python stdlib `logging`module. The `logging`module includes the following classes:
-
-* Loggers (`logging.Logger`): The interface that the application code directly interacts with.
-
-
-
-Documentation Source:
-docs.astronomer.io/astro/runtime-release-notes.md
-
-Documentation Title:
-Astro Runtime release notes | Astronomer Documentation
-
-Documentation Content:
-Astronomer monitoring DAG​
-
-Astro Runtime 4.0.7 includes a monitoring DAG that is pre-installed in the Docker image and enabled for all customers. In addition to existing Deployment health and metrics functionality, this DAG allows the Astronomer team to better monitor the health of your data plane by enabling real-time visibility into whether your workers are healthy and tasks are running.
-
-The `astronomer_monitoring_dag`runs a simple bash task every 5 minutes to ensure that your Airflow scheduler and workers are functioning as expected. If the task fails twice in a row or is not scheduled within a 10-minute interval, Astronomer support receives an alert and will work with you to troubleshoot.
-
-Because this DAG is essential to Astro's managed service, your organization will not be charged for its task runs. For the same reasons, this DAG can't be modified or disabled via the Airflow UI. To modify how frequently this DAG runs, you can specify an alternate schedule as a cron expression by setting `AIRFLOW_MONITORING_DAG_SCHEDULE_INTERVAL`as an environment variable.
-
-Astro Runtime 4.0.6​
---------------------
-
-* Release date: December 2, 2021
-* Airflow version: 2.2.2
+You can also access local Airflow task logs in your local Airflow UIor printed to the terminal.
 
 
 

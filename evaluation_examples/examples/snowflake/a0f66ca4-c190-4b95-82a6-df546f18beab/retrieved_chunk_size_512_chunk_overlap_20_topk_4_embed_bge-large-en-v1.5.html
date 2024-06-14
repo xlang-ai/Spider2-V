@@ -5,6 +5,40 @@ Documentation Title:
 Create users and grant roles | Snowflake Documentation
 
 Documentation Content:
+Only grant this role to users who should
+have these privileges. For information about other system-defined roles, see
+see <span>Overview of Access Control</span>.</p><p>To grant the user access to a role and a warehouse, do the following:</p><ol><li><p>In the open worksheet, place your cursor in the <span>USE ROLE</span>line,
+then select <span>Run</span>.</p><div><pre><span>USE</span><span>ROLE</span><span>SECURITYADMIN</span><span>;</span></pre><span>Copy</span></div></li><li><p>Place your cursor in the <span>GRANT ROLE</span>line, enter the name of the user you created,
+then select <span>Run</span>.</p><div><pre><span>GRANT</span><span>ROLE</span><span>SYSADMIN</span><span>TO</span><span>USER</span><span>snowman</span><span>;</span></pre><span>Copy</span></div></li><li><p>Place your cursor in the GRANT USAGE line, then select <span>Run</span>.</p><div><pre><span>GRANT</span><span>USAGE</span><span>ON</span><span>WAREHOUSE</span><span>COMPUTE_WH</span><span>TO</span><span>ROLE</span><span>SYSADMIN</span><span>;</span></pre><span>Copy</span></div></li></ol></section><section><h2>Step 6.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.html
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
+Set the role to use<a>¶</a></h2><p>The role you use determines the privileges you have. In this tutorial, use the
+USERADMIN system role so that you can create and manage users and roles in your
+account. For more information, see <span>Overview of Access Control</span>.</p><p>To set the role to use, do the following:</p><ol><li><p>In the open worksheet, place your cursor in the <span>USE ROLE</span>line.</p><div><pre><span>USE</span><span>ROLE</span><span>USERADMIN</span><span>;</span></pre><span>Copy</span></div></li><li><p>In the upper-right corner of the worksheet, select <span>Run</span>.</p><div><p>Note</p><p>In this tutorial, run SQL statements one at a time. Do not select <span>Run All</span>.</p></div></li></ol></section><section><h2>Step 4. Create a user<a>¶</a></h2><p>A Snowflake user has login credentials. When a user is granted a role, the user can
+perform all the operations that the role allows, via the privileges that were
+granted to the role. For more information, see <span>User management</span>.</p><p>In this step of the tutorial, you create a user with a name, a password, and some
+other properties.</p><p>In the open worksheet, place your cursor in the <span>CREATE USER</span>line,
+insert a username and other parameter values of your choice (an example is shown below), and
+select <span>Run</span>.</p><p>For MUST_CHANGE_PASSWORD, set the value to <span>true</span>, which ensures that a password
+reset is requested on first login.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.html
+
+Documentation Title:
+Create users and grant roles | Snowflake Documentation
+
+Documentation Content:
 For DEFAULT_WAREHOUSE, use <span>COMPUTE_WH</span>.</p><div><pre><span>CREATE</span><span>OR</span><span>REPLACE</span><span>USER</span><span>snowman</span><span>PASSWORD</span><span>=</span><span>'sn0wf@ll'</span><span>LOGIN_NAME</span><span>=</span><span>'snowstorm'</span><span>FIRST_NAME</span><span>=</span><span>'Snow'</span><span>LAST_NAME</span><span>=</span><span>'Storm'</span><span>EMAIL</span><span>=</span><span>'snow.storm@snowflake.com'</span><span>MUST_CHANGE_PASSWORD</span><span>=</span><span>true</span><span>DEFAULT_WAREHOUSE</span><span>=</span><span>COMPUTE_WH</span><span>;</span></pre><span>Copy</span></div><p>This command returns the following output:</p><span>User SNOWMAN successfully created.</span><p>If you were creating a real user in a real Snowflake account, you would now send the
 following information in a secure manner to the person who would need to access
 this new account:</p><ul><p>Snowflake Account URL: the Snowflake account link where the user will log in.
@@ -15,37 +49,19 @@ where <span>myorg</span>is the Snowflake organization ID, and <span>myaccount</s
 
 
 Documentation Source:
-docs.snowflake.com/en/sql-reference/sql/create-user.html
+docs.snowflake.com/en/user-guide/tutorials/users-and-roles-tutorial.html
 
 Documentation Title:
-CREATE USER | Snowflake Documentation
+Create users and grant roles | Snowflake Documentation
 
 Documentation Content:
-<span>ALTER USER</span>, <span>DESCRIBE USER</span>, <span>SHOW PARAMETERS</span></p></dl><section><h2>Syntax<a>¶</a></h2><div><pre><span>CREATE</span><span>[</span><span>OR</span><span>REPLACE</span><span>]</span><span>USER</span><span>[</span><span>IF</span><span>NOT</span><span>EXISTS</span><span>]</span><span>&lt;name&gt;</span><span>[</span><span>objectProperties</span><span>]</span><span>[</span><span>objectParams</span><span>]</span><span>[</span><span>sessionParams</span><span>]</span><span>[</span><span>[</span><span>WITH</span><span>]</span><span>TAG</span><span>(</span><span>&lt;tag_name&gt;</span><span>=</span><span>'</span><span>&lt;tag_value&gt;</span><span>'</span><span>[</span><span>,</span><span>&lt;tag_name&gt;</span><span>=</span><span>'</span><span>&lt;tag_value&gt;</span><span>'</span><span>,</span><span>.</span><span>]</span><span>)</span><span>]</span></pre><span>Copy</span></div><p>Where:</p><div><div><pre><span>objectProperties</span><span>::=</span><span>PASSWORD</span><span>=</span><span>'</span><span>&lt;string&gt;</span><span>'</span><span>LOGIN_NAME</span><span>=</span><span>&lt;string&gt;</span><span>DISPLAY_NAME</span><span>=</span><span>&lt;string&gt;</span><span>FIRST_NAME</span><span>=</span><span>&lt;string&gt;</span><span>MIDDLE_NAME</span><span>=</span><span>&lt;string&gt;</span><span>LAST_NAME</span><span>=</span><span>&lt;
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/cleanrooms/getting-started.html
-
-Documentation Title:
-Getting started with Snowflake Data Clean Rooms | Snowflake Documentation
-
-Documentation Content:
-last name, and email defined for their user object. To verify whether
-these properties are defined, execute the <span>DESCRIBE USER</span>command.</p></div><p>Configuring the Snowflake account consists of the following:</p><ul><p>Creating a service account user that represents the clean room environment so clean rooms can access the Snowflake account.</p><p>Installing a Snowflake Native App that allows clean rooms to interact with data in a Snowflake account.</p><p>Registering the databases that contain the data that collaborators can access in clean rooms.</p></ul><p>To configure the Snowflake account for a clean room environment:</p><ol><li><p>Access the <span>Snowflake Admin</span>console in the clean room environment. Do the following:</p><ol><p>Navigate to the <a>sign in page</a>.</p><p>Enter your email address, and select <span>Continue</span>.</p><p>Enter your password.</p><p>If you are associated with multiple clean room environments, select the Snowflake account that you are configuring.</p><p>In the left navigation, select <span>Snowflake Admin</span>.</p><p>Select <span>Login to Snowflake</span>, and authenticate as a Snowflake user with the ACCOUNTADMIN role.</p></ol></li><li><p>Specify the details for the service account user that clean rooms use to interact with Snowflake. Be sure to remember these details as
-you will need them in a subsequent step. Do the following:</p><ol><p>Enter the email address associated with the service account user.</p><p>In the <span>New Snowflake Username</span>field, specify a name that is unique to the Snowflake account.</p><p>Specify a password.</p><p>Select <span>Create</span>to create the service account user.</p></ol></li><li><p>Verify the email of the new service account user. Do the following:</p><ol><p>Select <span>Log into your Snowflake account</span>.</p><p>Sign in to Snowsight using the credentials of the service account user.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/admin-user-management.html
-
-Documentation Title:
-User management | Snowflake Documentation
-
-Documentation Content:
-Snowflake allows users to have different user names and login names, if desired. You specify a login name for the user on the next screen.</p></div></li><p>In the <span>Password</span>and <span>Confirm Password</span>fields, enter the password for the user.</p><p>Leave the <span>Force Password Change</span>checkbox selected to force the user to change their password on their next login; otherwise, clear the checkbox.</p><p>Select <span>Next</span>. The <span>Advanced</span>screen opens.</p><li><p>Optionally enter the <span>Login Name</span>, <span>Display Name</span>, and personal information for the user.</p><div><p>Note</p><p>Users require a login name to log into Snowflake; if you don’t explicitly provide a login name, Snowflake uses their user name as the login name.</p></div></li><p>Select <span>Next</span>. The <span>Preferences</span>screen opens.</p><li><p>Optionally enter defaults for the user:</p><ul><p>Virtual warehouse</p><p>Namespace in the form of <span>db_name</span>or <code><span>db_name</span><span>.</span><span>schema_name</span></code></p><p>Role</p></ul></li><p>Select <span>Finish</span>. Snowflake displays a success message.</p></ol></section><section><h3>Using SQL<a>¶</a></h3><p>Use the <span>CREATE USER</span>command to create a user.</p><div><p>Important</p><p>When creating a user, if you assign a default role to the user, you must then explicitly grant this role to the user.
+Take a few minutes to review the key points that were covered.
+Learn more by reviewing other topics in the Snowflake Documentation.</p><section><h3>Drop the user<a>¶</a></h3><p>Assuming that it is no longer needed, you can now drop the user you created.</p><p>In the open worksheet, place your cursor in the <span>DROP USER</span>line,
+enter the name of the user you created, then select <span>Run</span>.</p><div><pre><span>DROP</span><span>USER</span><span>snowman</span><span>;</span></pre><span>Copy</span></div></section><section><h3>Review key points<a>¶</a></h3><p>In summary, you used a pre-loaded worksheet in Snowsight to complete the following steps:</p><ol><p>Set the role to use.</p><p>Create a new user.</p><p>Grant the user role privileges and access to a warehouse.</p><p>Explore the users and roles in the account.</p><p>Drop the user you created.</p></ol><p>Here are some key points to remember about users and roles:</p><ul><p>You need the required permissions to create and manage objects in your account. In this tutorial,
+you used the USERADMIN, SECURITYADMIN, SYSADMIN, and ACCOUNTADMIN system roles for different purposes.</p><p>The ACCOUNTADMIN role is not normally used to create objects. Instead, we recommend creating a
+hierarchy of roles aligned with business functions in your organization. For more information, see
+<span>Using the ACCOUNTADMIN Role</span>.</p><p>A warehouse provides the compute resources that you need to execute DML operations, load data,
+and run queries.
 
 
 

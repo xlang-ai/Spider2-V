@@ -50,277 +50,276 @@ magic command.
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/create-machine-learning-model.txt
+cloud.google.com/bigquery/docs/visualize-jupyter.txt
 
 Documentation Title:
-Quickstart: Create machine learning models in BigQuery ML  |  Google Cloud
+Visualize BigQuery data in Jupyter notebooks  |  Google Cloud
 
 Documentation Content:
-df = bpd.read_gbq_table(
-    "bigquery-public-data.google_analytics_sample.ga_sessions_*",
-    filters=[
-        ("_table_suffix", ">=", "20170701"),
-        ("_table_suffix", "<=", "20170801"),
-    ],
+To show a dataset's tables, views, and models, expand the dataset.
+To open a summary description as a tab in JupyterLab, double-click a
+table, view, or model.
+Note:
+On the summary description for a table, click the
+Preview
+tab to preview a table's data. The following image shows a preview of the
+international_top_terms
+table
+found in the
+google_trends
+dataset in the
+bigquery-public-data
+project:
+Query notebook data using the
+%%bigquery
+magic command
+In this section, you write SQL directly in notebook cells and read data from
+BigQuery into the Python notebook.
+Magic commands that use a single or double percentage character (
+%
+or
+%%
 )
-
-operating_system = df["device"].struct.field("operatingSystem")
-operating_system = operating_system.fillna("")
-is_mobile = df["device"].struct.field("isMobile")
-country = df["geoNetwork"].struct.field("country").fillna("")
-pageviews = df["totals"].struct.field("pageviews").fillna(0)
-features = bpd.DataFrame(
-    {
-        "os": operating_system,
-        "is_mobile": is_mobile,
-        "country": country,
-        "pageviews": pageviews,
-    }
-)
-# Use Logistic Regression predict method to predict results
-# using your model.
-# Find more information here in
-# [BigFrames](https://cloud.google.com/python/docs/reference/bigframes/latest/bigframes.ml.linear_model.LogisticRegression#bigframes_ml_linear_model_LogisticRegression_predict)
-
-predictions = model.predict(features)
-
-# Call groupby method to group predicted_label by country.
-# Call sum method to get the total_predicted_label by country.
-total_predicted_purchases = predictions.groupby(["country"])[
-    ["predicted_label"]
-].sum()
-
-# Call the sort_values method with the parameter
-# ascending = False to get the highest values.
-# Call head method to limit to the 10 highest values.
-total_predicted_purchases.sort_values(ascending=False).head(10)
-
-# country
-# United States    220
-# Taiwan             8
-# Canada             7
-# India              2
-# Japan              2
-# Turkey             2
-# Australia          1
-# Brazil             1
-# Germany            1
-# Guyana             1
-# Name: predicted_label, dtype: Int64
-Predict purchases per user
-In this example, you try to predict the number of transactions each website
-visitor will make.
-SQL
-This query is identical to the previous query except for the
+let you use minimal syntax to interact with BigQuery within the
+notebook. The BigQuery client library for Python is automatically
+installed in a managed notebooks instance. Behind the scenes, the
+%%bigquery
+magic
+command uses the BigQuery client library for Python to run the
+given query, convert the results to a pandas DataFrame, optionally save the
+results to a variable, and then display the results.
+Note
+: As of version 1.26.0 of the
+google-cloud-bigquery
+Python package,
+the
+BigQuery Storage API
+is used by default to download results from the
+%%bigquery
+magics.
+To open a notebook file, select
+File
+>
+New
+>
+Notebook
+.
+In the
+Select Kernel
+dialog, select
+Python (Local)
+, and then click
+Select
+.
+Your new IPYNB file opens.
+To get the number of regions by country in the
+international_top_terms
+dataset, enter the following statement:
+%%bigquery
+SELECT
+  country_code,
+  country_name,
+  COUNT(DISTINCT region_code) AS num_regions
+FROM
+  `bigquery-public-data.google_trends.international_top_terms`
+WHERE
+  refresh_date = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
 GROUP BY
-clause. Here the
-GROUP BY
-clause —
-GROUP BY fullVisitorId
-— is used to group the results by visitor ID.
+  country_code,
+  country_name
+ORDER BY
+  num_regions DESC;
+Click
+play_circle_filled
+Run cell
+.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/writing-results.txt
+cloud.google.com/bigquery/docs/running-queries.txt
 
 Documentation Title:
-Writing query results  |  BigQuery  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-You can save query results to Google Drive only in CSV or newline-delimited
-JSON format.
-What's next
-Learn how to programmatically
-export a table to a JSON file
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
+SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Click
+settings
+More
+, and then
+click
+Query settings
 .
-Learn about
-quotas for query jobs
+In the
+Resource management
+section, select
+Batch
 .
-Learn about
-BigQuery storage pricing
+Optional: Specify the destination table and
+location
+for the query results:
+In the
+Destination
+section, select
+Set a destination table for query results
 .
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
-Why Google
-Choosing Google Cloud
-Trust and security
-Open cloud
-Multicloud
-Global infrastructure
-Customers and case studies
-Analyst reports
-Whitepapers
-Blog
-Products and pricing
-Google Cloud pricing
-Google Workspace pricing
-See all products
-Solutions
-Infrastructure modernization
-Databases
-Application modernization
-Smart analytics
-Artificial Intelligence
-Security
-Productivity & work transformation
-Industry solutions
-DevOps solutions
-Small business solutions
-See all solutions
-Resources
-Google Cloud documentation
-Google Cloud quickstarts
-Google Cloud Marketplace
-Learn about cloud computing
-Support
-Code samples
-Cloud Architecture Center
-Training
-Certifications
-Google for Developers
-Google Cloud for Startups
-System status
-Release Notes
-Engage
-Contact sales
-Find a Partner
-Become a Partner
-Events
-Podcasts
-Developer Center
-Press Corner
-Google Cloud on YouTube
-Google Cloud Tech on YouTube
-Follow on X
-Join User Research
-We're hiring. Join Google Cloud!
-Google Cloud Community
-About Google
-Privacy
-Site terms
-Google Cloud terms
-Manage cookies
-Our third decade of climate action: join us
-Sign up for the Google Cloud newsletter
-Subscribe
-English
-Deutsch
-Español – América Latina
-Français
-Indonesia
-Italiano
-Português – Brasil
-中文 – 简体
-日本語
-한국어
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
+Optional: To see visualization of your query results, go to the
+Chart
+tab.
 
 
 
 Documentation Source:
-cloud.google.com/bigquery/docs/paging-results.txt
+cloud.google.com/bigquery/docs/running-queries.txt
 
 Documentation Title:
-Read data with BigQuery API using pagination  |  Google Cloud
+Run a query  |  BigQuery  |  Google Cloud
 
 Documentation Content:
-destination = client.get_table(destination)
-
-# Download rows.
-#
-# The client library automatically handles pagination.
-print("The query data:")
-rows = client.list_rows(destination, max_results=20)
-for row in rows:
-    print("name={}, count={}".format(row["name"], row["total_people"]))
-Send feedback
-Except as otherwise noted, the content of this page is licensed under the
-Creative Commons Attribution 4.0 License
-, and code samples are licensed under the
-Apache 2.0 License
-. For details, see the
-Google Developers Site Policies
-. Java is a registered trademark of Oracle and/or its affiliates.
-Last updated 2024-05-13 UTC.
-Why Google
-Choosing Google Cloud
-Trust and security
-Open cloud
-Multicloud
-Global infrastructure
-Customers and case studies
-Analyst reports
-Whitepapers
-Blog
-Products and pricing
-Google Cloud pricing
-Google Workspace pricing
-See all products
-Solutions
-Infrastructure modernization
-Databases
-Application modernization
-Smart analytics
-Artificial Intelligence
-Security
-Productivity & work transformation
-Industry solutions
-DevOps solutions
-Small business solutions
-See all solutions
-Resources
-Google Cloud documentation
-Google Cloud quickstarts
-Google Cloud Marketplace
-Learn about cloud computing
-Support
-Code samples
-Cloud Architecture Center
-Training
-Certifications
-Google for Developers
-Google Cloud for Startups
-System status
-Release Notes
-Engage
-Contact sales
-Find a Partner
-Become a Partner
-Events
-Podcasts
-Developer Center
-Press Corner
-Google Cloud on YouTube
-Google Cloud Tech on YouTube
-Follow on X
-Join User Research
-We're hiring. Join Google Cloud!
-Google Cloud Community
-About Google
-Privacy
-Site terms
-Google Cloud terms
-Manage cookies
-Our third decade of climate action: join us
-Sign up for the Google Cloud newsletter
-Subscribe
-English
-Deutsch
-Español – América Latina
-Français
-Indonesia
-Italiano
-Português – Brasil
-中文 – 简体
-日本語
-한국어
+In the query editor, enter a valid GoogleSQL query.
+For example, query the
+BigQuery public dataset
+usa_names
+to determine the most common names in the United States between the
+years 1910 and 2013:
+SELECT
+  name, gender,
+  SUM(number) AS total
+FROM
+  `bigquery-public-data.usa_names.usa_1910_2013`
+GROUP BY
+  name, gender
+ORDER BY
+  total DESC
+LIMIT
+  10;
+Optional: Specify the destination table and
+location
+for the query results:
+In the query editor, click
+settings
+More
+, and then
+click
+Query settings
+.
+In the
+Destination
+section, select
+Set a destination table for query results
+.
+For
+Dataset
+, enter the name of an existing dataset for the
+destination table—for example,
+myProject.myDataset
+.
+For
+Table Id
+, enter a name for the destination table—for
+example,
+myTable
+.
+If the destination table is an existing table, then for
+Destination table write preference
+, select whether to append or
+overwrite the table with the query results.
+If the destination table is a new table, then
+BigQuery creates the table when you run your query.
+In the
+Additional settings
+section, click the
+Data location
+menu, and then select an option.
+In this example, the
+usa_names
+dataset is stored in the US
+multi-region location. If you specify a destination table for this
+query, the dataset that contains the destination table must also be
+in the US multi-region. You cannot query a dataset in one location
+and write the results to a table in another location.
+Click
+Save
+.
+Click
+play_circle
+Run
+.
+If you don't specify a destination table, the query job writes the
+output to a temporary (cache) table.
+You can now explore the query results in the
+Results
+tab of the
+Query results
+pane.
+Optional: To sort the query results by column, click
+arrow_drop_down
+Open sort menu
+next to the column name and select a sort order. If the estimated bytes
+processed for the sort is more than zero, then the number of bytes is
+displayed at the top of the menu.
 
 
 

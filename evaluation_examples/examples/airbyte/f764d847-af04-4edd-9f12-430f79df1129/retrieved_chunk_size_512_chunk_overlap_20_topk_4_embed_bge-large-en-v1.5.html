@@ -32,23 +32,13 @@ The latest rules can be read about <a>here</a>.</p></div><p>On this page, you ca
 
 
 Documentation Source:
-airbyte.com/blog/manage-and-orchestrate-airbyte-connections-using-python.html
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.html
 
 Documentation Title:
-You Can Now Manage and Orchestrate Airbyte Connections Using Python | Airbyte
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-Document] = my_dataset.to_documents()
-
-# Retrieve SQL table for data stream
-my_sql_table: sqlalchemy.Table = my_dataset.to_sql_table()
-</code><p>When accessing data through the &lt;span class="text-style-code"&gt;streams&lt;/span&gt; dataset, you are directly accessing data from the backend SQL data store. If you are retrieving data using a past &lt;span class="text-style-code"&gt;SyncResult&lt;/span&gt;, note that this method will also include the latest data and is not necessarily specific to a certain execution.</p><h2>Advanced Options</h2><h3>Submitting Jobs Asynchronously </h3><p>By default, PyAirbyte will wait for completion when you call &lt;span class="text-style-code"&gt;run_sync()&lt;/span&gt;. You can instead return immediately by setting &lt;span class="text-style-code"&gt;wait=False&lt;/span&gt;. Then you can check on the connection yourself by calling &lt;span class="text-style-code"&gt;get_status()&lt;/span&gt; or  &lt;span class="text-style-code"&gt;is_complete()&lt;/span&gt; on the &lt;span class="text-style-code"&gt;SyncResult&lt;/span&gt; object:</p><code>sync_result = workspace.run_sync(wait=False)
-
-while not sync_result.is_complete():
-# Do other things while we wait...
-sleep(5)
-
-print(f"Sync was completed. Status is {sync_result.get_status()}.")</code><h3>Opening up Hybrid Use Cases</h3><p>Now you can harness the Power of Airbyte running locally and remotely, here as some example use cases for the “hybrid” deployment options.</p><h4>PyAirbyte as a Mini-Orchestrator</h4><p>Now with the latest version of PyAirbyte, you can use PyAirbyte as a mini-orchestrator. For instance, you can run a sequence of jobs in a specific order, and you can trigger Airbyte jobs in response to custom business logic and custom features.
+<img/></p><p>Click <strong>Next</strong>to complete your stream setup and move to the connection configuration. This is where you'll set up how often your data will sync and where it will live in the destination. For this demo, we'll set the connection to run at 8 AM every day and sync the connection to a custom namespace with a stream prefix.</p><div><div>note</div><p>To ensure your data is synced to the correct place, see our examples for <a>Destination Namespace</a></p></div><p>Once you've set up all the connection settings, click "Set up connection". You've successfully set up your first data pipeline with Airbyte. Your first sync is about to begin!</p><h2>Connection Overview<a>​</a></h2><p>Once you've finished setting up the connection, you will be automatically redirected to a connection overview containing all the tools you need to keep track of your connection.</p><img/><p>Here's a basic overview of the tabs and their use:</p><ol><li>The <strong>Status</strong>tab shows you an overview of your connector's sync health.</li><li>The <strong>Job History</strong>tab allows you to check the logs for each sync. If you encounter any errors or unexpected behaviors during a sync, checking the logs is always a good first step to finding the cause and solution.</li><li>The <strong>Schema</strong>tab allows you to modify the streams you chose during the connection setup.</li><li>The <strong>Transformation</strong>tab allows you to set up a custom post-sync transformations using dbt.</li><li>The <strong>Settings</strong>tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.</li></ol><h3>Check the data from your first sync<a>​</a></h3><p>Once the first sync has completed, you can verify the sync has completed by checking the data in your destination.
 
 
 

@@ -5,6 +5,307 @@ Documentation Title:
 Create DAG documentation in Apache Airflow | Astronomer Documentation
 
 Documentation Content:
+In your
+docs_example_dag.py
+file, add the following doc string above the definition of your DAG:
+doc_md_DAG
+=
+"""
+### The Activity DAG
+This DAG will help me decide what to do today. It uses the [BoredAPI](https://www.boredapi.com/) to do so.
+Before I get to do the activity I will have to:
+- Clean up the kitchen.
+- Check on my pipelines.
+- Water the plants.
+Here are some happy plants:
+<img src="https://www.publicdomainpictures.net/pictures/80000/velka/succulent-roses-echeveria.jpg" alt="plants" width="300"/>
+"""
+This doc string is written in Markdown. It includes a title, a link to an external website, a bulleted list, as well as an image which has been formatted using HTML. To learn more about Markdown, see
+The Markdown Guide
+.
+Add the documentation to your DAG by passing
+doc_md_DAG
+to the
+doc_md
+parameter of your DAG class as shown in the code snippet below:
+TaskFlow API
+Traditional syntax
+@dag
+(
+start_date
+=
+datetime
+(
+2022
+,
+11
+,
+1
+)
+,
+schedule
+=
+"@daily"
+,
+catchup
+=
+False
+,
+doc_md
+=
+doc_md_DAG
+)
+def
+docs_example_dag
+(
+)
+:
+with
+DAG
+(
+dag_id
+=
+"docs_example_dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+11
+,
+1
+)
+,
+schedule
+=
+"@daily"
+,
+catchup
+=
+False
+,
+doc_md
+=
+doc_md_DAG
+)
+:
+Go to the
+Grid
+view and click on the
+DAG Docs
+banner to view the rendered documentation.
+tip
+Airflow will automatically pick up a doc string written directly beneath the definition of the DAG context and add it as
+DAG Docs
+.
+Additionally, using
+with DAG():
+lets you pass the filepath of a markdown file to the
+doc_md
+parameter. This can be useful if you want to add the same documentation to several of your DAGs.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.txt
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
+AIRFLOW__WEBSERVER__ALLOW_RAW_HTML_DESCRIPTIONS=True
+Start your Airflow instance by running:
+astro dev start
+Step 2: Create a new DAG
+​
+In your
+dags
+folder, create a file named
+docs_example_dag.py
+.
+Copy and paste one of the following DAGs based on which coding style you're most comfortable with.
+TaskFlow API
+Traditional syntax
+from
+airflow
+.
+decorators
+import
+task
+,
+dag
+from
+pendulum
+import
+datetime
+import
+requests
+@dag
+(
+start_date
+=
+datetime
+(
+2022
+,
+11
+,
+1
+)
+,
+schedule
+=
+"@daily"
+,
+catchup
+=
+False
+)
+def
+docs_example_dag
+(
+)
+:
+@task
+def
+tell_me_what_to_do
+(
+)
+:
+response
+=
+requests
+.
+get
+(
+"https://www.boredapi.com/api/activity"
+)
+return
+response
+.
+json
+(
+)
+[
+"activity"
+]
+tell_me_what_to_do
+(
+)
+docs_example_dag
+(
+)
+from
+airflow
+.
+models
+.
+dag
+import
+DAG
+from
+airflow
+.
+operators
+.
+python
+import
+PythonOperator
+from
+pendulum
+import
+datetime
+import
+requests
+def
+query_api
+(
+)
+:
+response
+=
+requests
+.
+get
+(
+"https://www.boredapi.com/api/activity"
+)
+return
+response
+.
+json
+(
+)
+[
+"activity"
+]
+with
+DAG
+(
+dag_id
+=
+"docs_example_dag"
+,
+start_date
+=
+datetime
+(
+2022
+,
+11
+,
+1
+)
+,
+schedule
+=
+None
+,
+catchup
+=
+False
+,
+)
+:
+tell_me_what_to_do
+=
+PythonOperator
+(
+task_id
+=
+"tell_me_what_to_do"
+,
+python_callable
+=
+query_api
+,
+)
+This DAG has one task called
+tell_me_what_to_do
+, which queries an
+API
+that provides a random activity for the day and prints it to the logs.
+Step 3: Add docs to your DAG
+​
+You can add Markdown-based documentation to your DAGs that will render in the
+Grid
+,
+Graph
+and
+Calendar
+pages of the Airflow UI.
+
+
+
+Documentation Source:
+docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.txt
+
+Documentation Title:
+Create DAG documentation in Apache Airflow | Astronomer Documentation
+
+Documentation Content:
 get
 (
 "https://www.boredapi.com/api/activity"
@@ -101,90 +402,6 @@ Privacy Policy
 , our
 Website Terms
 and to receive emails from Astronomer.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/airflow-ui.txt
-
-Documentation Title:
-An introduction to the Airflow UI | Astronomer Documentation
-
-Documentation Content:
-Make sure you upgrade your Airflow environment frequently to ensure you are taking advantage of Airflow UI updates as they are released.
-Was this page helpful?
-Yes
-No
-Sign up for Developer Updates
-Get a summary of new Astro features once a month.
-Submit
-You can unsubscribe at any time.
-By proceeding you agree to our
-Privacy Policy
-, our
-Website Terms
-and to receive emails from Astronomer.
-Edit this page
-Previous
-Task dependencies
-Next
-Variables
-Assumed knowledge
-DAGs
-Individual DAG view
-Details
-Graph
-Code
-Audit Logs
-Run Duration
-Logs
-Cluster activity tab
-Datasets tab
-Security tab
-Browse tab
-Admin tab
-Docs
-Conclusion
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
-
-
-
-Documentation Source:
-docs.astronomer.io/learn/custom-airflow-ui-docs-tutorial.txt
-
-Documentation Title:
-Create DAG documentation in Apache Airflow | Astronomer Documentation
-
-Documentation Content:
-Edit this page
-Previous
-Use the Astro Python SDK
-Next
-Integrations & connections
-Time to complete
-Assumed knowledge
-Prerequisites
-Step 1: Create an Astro project
-Step 2: Create a new DAG
-Step 3: Add docs to your DAG
-Step 4: Add docs to a task
-Step 5: Add notes to a task instance and DAG run
-Conclusion
-Legal
-·
-Privacy
-·
-Security
-·
-Cookie Preferences
-© Astronomer 2023. Various trademarks held by their respective owners.
 
 
 

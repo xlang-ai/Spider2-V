@@ -1,33 +1,41 @@
 Documentation Source:
-docs.snowflake.com/en/user-guide/data-load-s3.md
+docs.snowflake.com/en/user-guide/tutorials/load-from-cloud-tutorial.md
 
 Documentation Title:
-Bulk loading from Amazon S3 | Snowflake Documentation
+Load data from cloud storage: Amazon S3 | Snowflake Documentation
 
 Documentation Content:
-Regardless of the method you use, this step requires a running, current virtual warehouse for the session if you execute the command
-manually or within a script. The warehouse provides the compute resources to perform the actual insertion of rows into the table.
+Summary and key points¶
 
-!Note
+In summary, you used a pre-loaded template worksheet in Snowsight to complete the following steps:
 
-Snowflake uses Amazon S3 Gateway Endpoints in each of its Amazon Virtual Private Clouds.
+Set the role and warehouse to use.
 
-If the S3 bucket referenced by your external stage is in the same region as your Snowflake account, your network traffic does not traverse the public Internet. The Amazon S3 Gateway Endpoints ensure that regional traffic stays within the AWS network.
+Create a database, schema, and table.
 
-Tip
+Create a storage integration and configure permissions on cloud storage.
 
-The instructions in this set of topics assume you have read Preparing to load dataand have created a named file format, if desired.
+Create a stage and load the data from the stage into the table.
 
-Before you begin, you may also want to read Data loading considerationsfor best practices, tips, and other guidance.
+Query the data.
 
-**Next Topics:*** **Configuration tasks (complete as needed):**
-	Allowing the Virtual Private Cloud IDsConfiguring secure access to Amazon S3AWS data file encryptionCreating an S3 stage
-* **Data loading tasks (complete for each set of files you load):**Copying data from an S3 stage
-Was this page helpful?
 
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.Related content
+Here are some key points to remember about loading and querying data:
 
-Unloading into Amazon S3SnowpipeLanguage: **English**EnglishFrançaisDeutsch日本語한국어Português
+* You need the required permissions to create and manage objects in your account. In this tutorial,
+you use the ACCOUNTADMIN system role for these privileges.
+
+This role is not normally used to create objects. Instead, we recommend creating a hierarchy of
+roles aligned with business functions in your organization. For more information, see
+Using the ACCOUNTADMIN Role.
+You need a warehouse for the resources required to create and manage objects and run SQL commands.
+This tutorial uses the compute\_whwarehouse included with your trial account.
+
+You created a database to store the data and a schema to group the database objects logically.
+
+You created a storage integration and a stage to load data from a CSV file stored in an AWS S3 bucket.
+
+After the data was loaded into your database, you queried it using a SELECT statement.
 
 
 
@@ -38,78 +46,113 @@ Documentation Title:
 Load data from cloud storage: Amazon S3 | Snowflake Documentation
 
 Documentation Content:
-What you will learn¶
+To open
+the worksheet for this tutorial, follow these steps:
 
-In this tutorial you will learn how to:
+1. If you are signing in to your Snowsight trial account for the first time,
+select Startunder Load data into Snowflakeon the
+Where do you want to start?screen.
 
-Use a role that has the privileges to create and use the Snowflake objects required by this tutorial.
+If you have left the Where do you want to start?screen, go to the
+Worksheetstab and select Continuein the banner.
+2. Click anywhere in the middle panel named Load data from cloud storage.
 
-Use a warehouse to access resources.
+The [Template] Load data from cloud storage worksheetopens, and your browser
+looks similar to the following image.
 
-Create a database and schema.
+!Step 3. Set the role and warehouse to use¶
+------------------------------------------
 
-Create a table.
+The role you use determines the privileges you have. In this tutorial, use the
+ACCOUNTADMIN system role so that you can view and manage objects in your account.
+For more information, see Using the ACCOUNTADMIN Role.
 
-Create a storage integration for your cloud platform.
+A warehouse provides the compute resources that you need to execute DML operations, load data,
+and run queries. These resources include CPU, memory, and temporary storage. Your
+trial account has a virtual warehouse (compute\_wh) that you can use for this
+tutorial. For more information, see Virtual warehouses.
 
-Create a stage for your storage integration.
+To set the role and warehouse to use, do the following:
 
-Load data into the table from the stage.
-
-Query the data in the table.
-
-Prerequisites¶
---------------
-
-This tutorial assumes the following:
-
-You have a supported browser.
-
-You have a trial account. If you do not have a trial account yet, you can sign up
-for a free trial.
-You can choose any Snowflake Cloud Region.
-
-* You have an account that you can use to bulk load data from one of the following
-cloud providers:
+1. In the open worksheet, place your cursor in the USE ROLE line.
 
 
-	AWS S3. See Bulk loading from Amazon S3.
-	
-	Microsoft Azure. See Bulk loading from Microsoft Azure.
-	
-	Google Cloud Storage. See Bulk loading from Google Cloud Storage.
+```
+USEROLEaccountadmin;
+```
+Copy
+2. In the upper-right corner of the worksheet, select Run.
 
 Note
 
-This tutorial is only available to users with a trial account. The sample worksheet is not available
-for other types of accounts.
+In this tutorial, run SQL statements one at a time. Do not select Run All.
+3. Place your cursor in the USE WAREHOUSE line, then select Run.
 
-Step 1. Sign in using Snowsight¶
---------------------------------
 
-To access Snowsight over the public Internet, do the following:
 
-In a supported web browser, navigate to https://app.snowflake.com.
+Documentation Source:
+docs.snowflake.com/en/user-guide/tutorials/tasty-bytes-sql-load.md
 
-Provide your account identifieror account URL.
-If you’ve previously signed in to Snowsight, you might see an account name that you can select.
+Documentation Title:
+Load and query sample data using SQL | Snowflake Documentation
 
-Sign in using your Snowflake account credentials.
+Documentation Content:
+```
+SELECT*FROMtasty_bytes_sample_data.raw_pos.menu;
+```
+CopyYour output shows the columns of the table you created. At this point in the tutorial, the
+table does not have any rows.
+Step 5. Create a stage and load the data¶
+-----------------------------------------
 
-Step 2. Open the Load data from cloud storage worksheet¶
---------------------------------------------------------
+A stage is a location that holds data files to load into a Snowflake database. This tutorial creates
+a stage that loads data from an Amazon S3 bucket. This tutorial uses an existing bucket with
+a CSV file that contains the data. You load the data from this CSV file into the table you created
+previously. For information, see Bulk loading from Amazon S3.
 
-You can use worksheets to write and run SQL commands on your database. Your trial
-account has access to a template worksheet for this tutorial. The worksheet has the SQL
-commands that you will run to create database objects, load data, and query the
-data. Because it is a template worksheet, you will be invited to enter your own values
-for certain SQL parameters. For more information about worksheets,
-see Getting started with worksheets.
+To create a stage, do the following:
 
-The worksheet for this tutorial is not pre-loaded into the trial account. To open
-the worksheet for this tutorial, follow these steps:
+1. In the open worksheet, place your cursor in the CREATE OR REPLACE STAGE lines, then select Run.
 
-1.
+
+```
+CREATEORREPLACESTAGEtasty_bytes_sample_data.public.blob_stageurl='s3://sfquickstarts/tastybytes/'file_format=(type=csv);
+```
+Copy
+2. To confirm that the stage was created successfully, place your cursor in the LIST line,
+then select Run.
+
+
+```
+LIST@tasty_bytes_sample_data.public.blob_stage/raw_pos/menu/;
+```
+CopyYour output looks similar to the following image.
+
+!
+3. To load the data into the table, place your cursor in the COPY INTO lines, then select Run.
+
+
+```
+COPYINTOtasty_bytes_sample_data.raw_pos.menuFROM@tasty_bytes_sample_data.public.blob_stage/raw_pos/menu/;
+```
+Copy
+Step 6. Query the data¶
+-----------------------
+
+Now that the data is loaded, you can run queries on the menutable.
+
+To run a query in the open worksheet, select the line or lines of the SELECT command,
+and then select Run.
+
+For example, to return the number of rows in the table, run the following query:
+
+
+```
+SELECTCOUNT(*)ASrow_countFROMtasty_bytes_sample_data.raw_pos.menu;
+```
+CopyYour output looks similar to the following image.
+
+!Run this query to return the top ten rows in the table:
 
 
 
@@ -120,90 +163,43 @@ Documentation Title:
 Tutorial: Bulk loading from Amazon S3 using COPY | Snowflake Documentation
 
 Documentation Content:
-DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatus### Tutorial: Bulk loading from Amazon S3 using COPY
+Creating the database, tables, and warehouse¶
 
-Getting StartedTutorialsBulk LoadingBulk Loading from Amazon S3 Using COPYTutorial: Bulk loading from Amazon S3 using COPY¶
-=================================================
-
-Introduction¶
--------------
-
-This tutorial describes how to load data from files in an existing Amazon Simple Storage Service (Amazon S3) bucket into a table. In this tutorial, you will learn how to:
-
-Create named file formats that describe your data files.
-
-Create named stage objects.
-
-Load data located in your S3 bucket into Snowflake tables.
-
-Resolve errors in your data files.
+Execute the following statements to create a database, two tables (for csv and json data),
+and a virtual warehouse needed for this tutorial. After you complete the tutorial, you can
+drop these objects.
 
 
-The tutorial covers loading of both CSV and JSON data.
+```
+CREATEORREPLACEDATABASEmydatabase;CREATEORREPLACETEMPORARYTABLEmycsvtable(idINTEGER,last_nameSTRING,first_nameSTRING,companySTRING,emailSTRING,workphoneSTRING,cellphoneSTRING,streetaddressSTRING,citySTRING,postalcodeSTRING);CREATEORREPLACETEMPORARYTABLEmyjsontable(json_dataVARIANT);CREATEORREPLACEWAREHOUSEmywarehouseWITHWAREHOUSE_SIZE='X-SMALL'AUTO_SUSPEND=120AUTO_RESUME=TRUEINITIALLY_SUSPENDED=TRUE;
+```
+CopyNote the following:
 
-Prerequisites¶
---------------
+The `CREATEDATABASE`statement creates a database. The database automatically includes a schema named ‘public’.
 
-The tutorial assumes the following:
+The `CREATETABLE`statements create target tables for CSV and JSON data. The tables are temporary, that is, they
+persist only for the duration of the user session and are not visible to other users.
 
-You have a Snowflake account that is configured to use Amazon Web Services (AWS) and a user with a role that grants the necessary
-privileges to create a database, tables, and virtual warehouse objects.
+The `CREATEWAREHOUSE`statement creates an initially suspended warehouse. The
+statement also sets `AUTO_RESUME=true`, which starts the warehouse automatically when
+you execute SQL statements that require compute resources.
 
-You have SnowSQL installed.
+Step 1. Create file format objects¶
+-----------------------------------
 
+When you load data files from an S3 bucket into a table, you must describe the format of the file
+and specify how the data in the file should be interpreted and processed. For example,
+if you are loading pipe-delimited data from a CSV file, you must specify that the file
+uses the CSV format with pipe symbols as delimiters.
 
-Refer to the Snowflake in 20 minutesfor instructions to meet these requirements.
+When you execute the COPY INTO command, you specify this format information. You can
+either specify this information as options in the command (e.g.
+`TYPE=CSV`, `FIELD_DELIMITER='|'`, etc.) or you can specify a
+file format object that contains this format information. You can create a named file
+format object using the CREATE FILE FORMATcommand.
 
-Snowflake provides sample data files in a public Amazon S3 bucket for use in this tutorial.
-But before you start, you need to create a database, tables, and a virtual warehouse for
-this tutorial. These are the basic Snowflake objects needed for most Snowflake activities.
-
-
-
-Documentation Source:
-docs.snowflake.com/en/learn-tutorials.md
-
-Documentation Title:
-Snowflake Tutorials | Snowflake Documentation
-
-Documentation Content:
-DOCUMENTATION/Getting StartedGuidesDeveloperReferenceReleasesTutorialsStatusOverviewConcepts3. TutorialsSnowflake in 20 Minutes- Load and Query Data with a Trial AccountCreate users and grant rolesLoad and query sample data using SQLLoad and query sample data using Snowpark PythonLoad data from cloud storage: Amazon S3Load data from cloud storage: Microsoft AzureLoad data from cloud storage: Google Cloud Storage
-- Bulk LoadingBulk Loading from a Local File SystemBulk Loading from Amazon S3 Using COPY
-- Semi-Structured DataJSON BasicsLoading JSON Data into a Relational TableLoading and Unloading Parquet Data
-Sample Data
-Getting StartedTutorialsSnowflake Tutorials¶
-====================
-
-To explore the tutorials listed below, you must have a Snowflake account and a user with the required roles (ACCOUNTADMIN and
-SYSADMIN) and access to a virtual warehouse:
-
-If you have signed up for a trial account, the trial account user has the required
-roles and a virtual warehouse (compute\_wh) that you can use for these tutorials.
-
-Otherwise, if you use another account to explore these tutorials, you must log in as a user that has been granted the required
-roles and that can use a virtual warehouse.
-
-
-Snowflake provides the following tutorials.
-
-For new users, Snowflake in 20 minutes. This is a simple tutorial in which you use SnowSQL (the Snowflake
-command line client) to learn about key concepts and tasks.
-
-* For tutorials that are available with a trial account, consider:
-
-
-	Create users and grant rolesLoad and query sample data using SQLLoad and query sample data using Snowpark PythonLoad data from cloud storage: Amazon S3Load data from cloud storage: Microsoft AzureLoad data from cloud storage: GCS
-* For tutorials on bulk loading, consider:
-
-
-	Bulk Loading from a Local File SystemBulk Loading from Amazon S3
-* To explore semi-structured data, consider:
-
-
-	JSON BasicsLoading JSON Data into a Relational TableLoading and Unloading Parquet Data
-Was this page helpful?
-
-YesNoVisit SnowflakeJoin the conversationDevelop with SnowflakeShare your feedbackRead the latest on our blogGet your own certificationPrivacy NoticeSite Terms© 2024Snowflake, Inc. All Rights Reserved.Language: **English**EnglishFrançaisDeutsch日本語한국어Português
+In this step, you create file format objects describing the data format of the sample CSV and
+JSON data provided for this tutorial.
 
 
 

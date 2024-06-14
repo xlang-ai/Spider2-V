@@ -12,6 +12,20 @@ dagster project scaffold --name my-dagster-project
 
 
 Documentation Source:
+release-1-7-2.dagster.dagster-docs.io/tutorial/setup.html
+
+Documentation Title:
+Tutorial, part two: Getting set up | Dagster Docs
+
+Documentation Content:
+To check that Python and <code>pip</code>(Python's package manager) are already installed in your environment or install them, follow the instructions <a>here</a>. </p><p>Dagster supports Python 3.8 through 3.12.</p></li><li><p><strong>To install Dagster</strong>. Run the following command from your terminal:</p><code>pip <span>install</span>dagster
+</code></li></ul><h2>Creating your first Dagster project<span>#</span></h2><p>To verify that you successfully installed Dagster, let's create your first Dagster project! You'll use the Dagster scaffolding command to give you an empty Dagster project that you can run locally.</p><p>To create the project, run:</p><code>dagster project from-example --example tutorial
+</code><p>After running this command, you should see a new directory called <code>tutorial</code>in your current directory. This directory contains the files that make up your Dagster project. Next, you'll install the Python dependencies you'll be using during the tutorial.</p><code><span>cd</span>tutorial
+pip <span>install</span>-e <span>".[dev]"</span></code><p>This command also installs packages that aren't necessary for every Dagster project but are used for this tutorial.
+
+
+
+Documentation Source:
 release-1-7-2.dagster.dagster-docs.io/_apidocs/cli.html
 
 Documentation Title:
@@ -39,17 +53,6 @@ including:</p><ul><li>File names</li><li>What the files do</li><li>Where files s
 ├── setup.py
 └── tox.ini
 </code><p><strong>Note</strong>: While this specific example uses a project created by scaffolding, projects created <a>using an official example</a>will also contain these files. In official examples, <code>assets.py</code>will be a subdirectory instead of a Python file.</p><p>Let's take a look at what each of these files and directories does:</p><table><tr><th>File/Directory</th><th>Description</th></tr><tbody><tr><td>my_dagster_project/</td><td>A Python module that contains Dagster code.This directory also contains the following:<table><tr><th>File/Directory</th><th>Description</th></tr><tbody><tr><td>__init__.py</td><td>The <code>__init__.py</code>file includes a<code>Definitions</code>object that contains all the definitions defined within your project. A definition can be an asset, a job, a schedule, a sensor, or a resource.
-
-
-
-Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/_apidocs/libraries/dagster-dbt.html
-
-Documentation Title:
-Dagster Docs
-
-Documentation Content:
-Default: DagsterDbtManifestPreparer</p></ul></dl><p>Examples</p><p>Creating a DbtProject with by referencing the dbt project directory:</p><pre><span>from</span><span>pathlib</span><span>import</span><span>Path</span><span>from</span><span>dagster_dbt</span><span>import</span><span>DbtProject</span><span>my_project</span><span>=</span><span>DbtProject</span><span>(</span><span>project_dir</span><span>=</span><span>Path</span><span>(</span><span>"path/to/dbt_project"</span><span>))</span></pre><p>Creating a DbtProject that changes target based on environment variables and uses manged state artifacts:</p><pre><span>import</span><span>os</span><span>from</span><span>pathlib</span><span>import</span><span>Path</span><span>from</span><span>dagster_dbt</span><span>import</span><span>DbtProject</span><span>def</span><span>get_env</span><span>():</span><span>if</span><span>os</span><span>.</span><span>getenv</span><span>(</span><span>"DAGSTER_CLOUD_IS_BRANCH_DEPLOYMENT"</span><span>,</span><span>""</span><span>)</span><span>==</span><span>"1"</span><span>:</span><span>return</span><span>"BRANCH"</span><span>if</span><span>os</span><span>.</span><span>getenv</span><span>(</span><span>"DAGSTER_CLOUD_DEPLOYMENT_NAME"</span><span>,
 
 
 

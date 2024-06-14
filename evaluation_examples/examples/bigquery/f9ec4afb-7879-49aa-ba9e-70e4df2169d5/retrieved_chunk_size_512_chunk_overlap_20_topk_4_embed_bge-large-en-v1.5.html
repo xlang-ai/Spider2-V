@@ -10,6 +10,75 @@ data quality</span><span>Monitor Data Transfer Service</span><span>Monitor mater
 
 
 Documentation Source:
+cloud.google.com/bigquery/docs/analyze-data-tableau.html
+
+Documentation Title:
+Quickstart: Analyze BigQuery data with BI Engine and Tableau  |  BigQuery: Cloud Data Warehouse  |  Google Cloud
+
+Documentation Content:
+You can explore the dataset by using the
+<a>Google Cloud console</a>.</p><h3>Create your table</h3><p>To create your table, follow these steps:</p><ol><li><p>In the Google Cloud console, go to the BigQuery page.</p><a>Go to BigQuery</a></li><p>In the <strong>Explorer</strong>panel, search for <code>san_francisco_311</code>.</p><p>In the <strong>Explorer</strong>panel, expand <strong>san_francisco_311</strong>and click the
+<strong>311_service_requests</strong>table.</p><li><p>In the Explorer toolbar, click <strong>Copy</strong>.</p><img/></li><li><p>In the <strong>Copy table</strong>dialog, in the <strong>Destination</strong>section, do the
+following:</p><ul><li>For <strong>Project name</strong>, click <strong>Browse</strong>, and then select your project.</li><li>For <strong>Dataset name</strong>, select <strong>biengine_tutorial</strong>.</li><li><p>For <strong>Table name</strong>, enter <code>311_service_requests_copy</code>.</p><img/></li></ul></li><p>Click <strong>Copy</strong>.</p><p>Optional: After the copy job is complete, verify the table contents by expanding
+<strong><var>PROJECT_NAME</var><span>&gt;</span>biengine_tutorial</strong>and
+clicking <strong>311_service_requests_copy <span>&gt;</span>Preview</strong>.
+
+
+
+Documentation Source:
+cloud.google.com/bigquery/docs/analysis-rules.html
+
+Documentation Title:
+Restrict data access using analysis rules  |  BigQuery  |  Google Cloud
+
+Documentation Content:
+CREATE TABLE mydataset.ExamTable AS (
+  SELECT "Hansen" AS last_name, "P91" AS test_id, 510 AS test_score UNION ALL
+  SELECT "Wang", "U25", 500 UNION ALL
+  SELECT "Wang", "C83", 520 UNION ALL
+  SELECT "Wang", "U25", 460 UNION ALL
+  SELECT "Hansen", "C83", 420 UNION ALL
+  SELECT "Hansen", "C83", 560 UNION ALL
+  SELECT "Devi", "U25", 580 UNION ALL
+  SELECT "Devi", "P91", 480 UNION ALL
+  SELECT "Ivanov", "U25", 490 UNION ALL
+  SELECT "Ivanov", "P91", 540 UNION ALL
+  SELECT "Silva", "U25", 550);
+
+-- Create a table called StudentTable.
+CREATE TABLE mydataset.StudentTable AS (
+  SELECT "Hansen" AS last_name, 510 AS test_score UNION ALL
+  SELECT "Wang", 500 UNION ALL
+  SELECT "Devi", 580 UNION ALL
+  SELECT "Ivanov", 490 UNION ALL
+  SELECT "Silva", 550);
+
+-- Create a view that includes ExamTable.
+CREATE VIEW mydataset.ExamView
+OPTIONS(
+  privacy_policy= '{"join_restriction_policy": {"join_condition": "JOIN_ANY", "join_allowed_columns": ["test_score"]}}'
+)
+AS ( SELECT * FROM mydataset.ExamTable );
+
+-- Query the ExamView view.
+SELECT *
+FROM mydataset.ExamView INNER JOIN mydataset.StudentTable USING (test_score)
+GROUP BY test_id;
+
+-- These results will change each time you run the query.
+-- Smaller aggregations might be removed.
+/*---------+--------------------*
+ | test_id | average_test_score |
+ +---------+--------------------+
+ | P91     | ???                |
+ | U25     | ???                |
+ *---------+--------------------*/
+</code><h4>Block a join operation with no required column</h4><p>You can block a join operation if it doesn't include at least one
+required column.
+
+
+
+Documentation Source:
 cloud.google.com/bigquery/docs/inference-tutorial-resnet.html
 
 Documentation Title:
@@ -17,32 +86,6 @@ Tutorial: Run inference on an object table by using a classification model  | 
 
 Documentation Content:
 saved queries</span></ul></div><span>Use cached results</span><span>Run parameterized queries</span><span>Query with wildcard tables</span><span>Access historical data</span><span>Schedule queries</span><span>Troubleshoot queries</span><div><span>Optimize queries</span><ul><span>Introduction</span><span>Use the query plan explanation</span><span>Get query performance insights</span><span>Optimize query computation</span><span>Use history-based optimizations</span><span>Optimize storage</span><span>Use BI Engine</span><span>Use nested and repeated data</span><span>Optimize functions</span></ul></div></ul></div><div><span>Query external data sources</span><ul><span>Manage open source metadata</span><div><span>Use external tables and datasets</span><ul><div><span>Amazon S3 data</span><ul><span>Query Amazon S3 data</span><span>Export query results to Amazon S3</span></ul></div><span>Query Apache Iceberg data</span><span>Query open table formats with manifests</span><div><span>Azure Blob Storage data</span><ul><span>Query Azure Blob Storage data</span><span>Export query results to Azure Blob Storage</span></ul></div><span>Query Cloud Bigtable data</span><div><span>Cloud Storage data</span><ul><span>Query Cloud Storage data in BigLake tables</span><span>Query Cloud Storage data in external tables</span></ul></div><span>Work with Salesforce Data Cloud data</span><span>Query Google Drive data</span><span>Create AWS Glue federated datasets</span></ul></div><div><span>Run federated queries</span><ul><span>Federated queries</span><span>Query SAP Datasphere data</span><span>Query Cloud Spanner data</span><span>Query Cloud SQL data</span></ul></div></ul></div><div><span>Analyze unstructured data</span><ul><span>Run inference</span><span>Analyze with remote
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/inference-tutorial-mobilenet.html
-
-Documentation Title:
-Tutorial: Run inference on an object table by using a feature vector model  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-Analytics Hub listings</span><span>Monitor BI Engine</span><span>Monitor data quality</span><span>Monitor Data Transfer Service</span><span>Monitor materialized views</span><span>Monitor reservations</span><span>Dashboards, charts and alerts</span></ul></div><div><span>Audit workloads</span><ul><span>Introduction</span><span>Audit policy tags</span><span>View Data Policy audit logs</span><span>Data Transfer Service audit logs</span><span>Analytics Hub audit logging</span><span>BigQuery audit logs reference</span><span>Migrate audit logs</span><span>BigLake API audit logs</span></ul></div><div><span>Optimize resources</span><ul><div><span>Control costs</span><ul><span>Estimate and control query costs</span><span>Custom cost controls</span></ul></div><div><span>Optimize with recommendations</span><ul><span>View cluster and partition recommendations</span><span>Apply cluster and partition recommendations</span><span>Manage materialized view recommendations</span></ul></div><div><span>Organize with labels</span><ul><span>Introduction</span><span>Add labels</span><span>View labels</span><span>Update labels</span><span>Filter using labels</span><span>Delete labels</span></ul></div><div><span>Manage data quality</span><ul><span>Monitor data quality with scans</span><span>Data Catalog overview</span><span>Work with Data Catalog</span></ul></div></ul></div><span>Govern</span><span>Introduction</span><div><span>Control access to resources</span><ul><span>Introduction</span><span>Control access to resources with IAM</span><div><span>Control access with authorization</span><ul><span>Authorized datasets</span><span>Authorized routines</span><span>Authorized views</span></ul></div><span>Control access with VPC service controls</span><span>Control table and dataset access with tags</span><span>Control access with
-
-
-
-Documentation Source:
-cloud.google.com/bigquery/docs/inference-tutorial-resnet.html
-
-Documentation Title:
-Tutorial: Run inference on an object table by using a classification model  |  BigQuery  |  Google Cloud
-
-Documentation Content:
-</pre><p>Replace <var>PROJECT_ID</var>with your project ID.</p></li></ol></section><section><h3>bq </h3><ol><li><p>In the Google Cloud console, activate Cloud Shell.</p><a>Activate Cloud Shell</a></li><li><p>Run the
-<a><code>bq mk</code>command</a>to create the dataset:</p><pre>bq mk --dataset --location=us <var>PROJECT_ID</var>:resnet_inference_test
-</pre><p>Replace <var>PROJECT_ID</var>with your project ID.</p></li></ol></section></div><h2>Create a connection</h2><p>Create a connection named <code>lake-connection</code>:</p><div><section><h3>Console </h3><ol><li><p>Go to the <strong>BigQuery</strong>page.</p><a>Go to BigQuery</a></li><p>Click <span>add</span><strong>Add data</strong>, and then click <strong>External data source</strong>.</p><p>In the <strong>Connection type</strong>list, select <strong>BigLake and remote functions
-(Cloud Resource)</strong>.</p><p>In the <strong>Connection ID</strong>field, type <code>lake-connection</code>.</p><p>Click <strong>Create connection</strong>.</p><p>In the <strong>Connection info</strong>pane, copy the value from the
-<strong>Service account id</strong>field and save it somewhere.
 
 
 

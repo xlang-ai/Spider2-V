@@ -63,82 +63,13 @@ No
 
 
 Documentation Source:
-airbyte.com/tutorials/extract-data-from-the-webflow-api.txt
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.txt
 
 Documentation Title:
-Build a connector to extract data from the Webflow API | Airbyte
+Set up a Connection | Airbyte Documentation
 
 Documentation Content:
-– the list of
-supported destinations
-is long and growing.
-Below I show how to replicate Webflow collections to a
-local json file
-.
-‍
-This tells Airbyte to output json data to
-/tmp/airbyte_local/webflow-blog-test
-. You will then be presented with a screen that allows you to configure the connection parameters as follows:
-Notice that there are many stream names available, all of which were
-dynamically generated based on the collections that are available in Webflow
-. Using the switch on the left side allows you to specify which of these streams you are interested in replicating to your output. For this demonstration, you may leave all settings with their default value, and then click on the
-Set up connection
-button in the bottom right corner.
-Once this is done, you will see that the first sync has already started as follows:
-‍
-And after a few minutes, if everything has gone as expected, you should see that the connection succeeded as follows:
-‍
-You can then look in the local directory at
-/tmp/airbyte_local/webflow-blog-test
-to verify that several json files have been created, with each file corresponding to a Webflow collection. In my case, the output looks as follows:
-‍
-This confirms that all of the collections have been pulled from Webflow, and copied to a directory on my local host!
-Creating a pull request (optional)
-Assuming that you wish to contribute your connector back
-to the Airbyte community, once you have validated that your connector is working as expected, you can push your local branch to github and then click on the
-Compare & pull request
-button, as shown in the image below:
-‍
-After you have created a pull request, one of Airbyte’s engineers will work with you to get your connector merged into the master branch so that it can be distributed and used by others.
-Conclusion
-Because of the open source nature of Airbyte, it is relatively easy to create your own connectors. In this article I presented the
-Webflow source connector
-implementation as an example of how to create a custom Airbyte source connector written in Python.
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/connector-development/connector-builder-ui/connector-builder-compatibility.txt
-
-Documentation Title:
-Compatibility Guide | Airbyte Documentation
-
-Documentation Content:
-Basic HTTP
-API Key
-OAuth
-Session Token
-Other
-Is the data returned as JSON?
-How are records paginated?
-Page count
-Limit-Offset (OffsetIncrement)
-Link to next page (CursorPagination)
-Are the required parameters of the integration key-value pairs?
-Was this page helpful?
-Yes
-No
-
-
-
-Documentation Source:
-airbyte.com/docs.airbyte.com/integrations/destinations/local-json.txt
-
-Documentation Title:
-Local JSON | Airbyte Documentation
-
-Documentation Content:
-Local JSON | Airbyte Documentation
+Set up a Connection | Airbyte Documentation
 Skip to main content
 About Airbyte
 Tutorials
@@ -148,84 +79,14 @@ Try Airbyte Cloud
 Search
 Airbyte Connectors
 Connector Catalog
-Sources
-Destinations
-Amazon SQS
-Astra DB Destination
-AWS Datalake
-Azure Blob Storage
-BigQuery
-Cassandra
-Chargify
-Chroma
-ClickHouse
-Convex
-Local CSV
-Cumul.io
-Databend
-Databricks Lakehouse
-Dev Null Destination
-Doris
-DuckDB
-DynamoDB
-End-to-End Testing Destination
-Elasticsearch
-Exasol
-Firebolt
-Firestore
-Google Cloud Storage (GCS)
-Google Sheets
-Iceberg
-Kafka
-Keen
-Kinesis
-KVDB
-Vector Database (powered by LangChain)
-Local JSON
-Mariadb Columnstore
-MeiliSearch
-Milvus
-MongoDB
-MQTT
-MSSQL
-MySQL
-Oracle DB
-Pinecone
-Postgres
-PubSub
-Pulsar
-Qdrant
-R2
-RabbitMQ
-Redis
-Redpanda
-Redshift
-Rockset
-S3-Glue
-S3
-Scylla
-SelectDB
-SFTP JSON
-Snowflake Cortex Destination
-Snowflake
-Sqlite
-Starburst Galaxy destination user guide
-Streamr
-Teradata
-TiDB
-Timeplus
-Typesense
-Vectara
-vertica
-Weaviate
-Xata
-Yellowbrick
-Yugabytedb
-Custom or New Connector
 Build a Connector
 Connector Support Levels
 Using Airbyte
 Getting Started
+Core Concepts
+Add a Source
+Add a Destination
+Set up a Connection
 Configuring Connections
 Managing Syncs
 Managing Airbyte
@@ -251,21 +112,180 @@ Code of Conduct
 Product Updates
 Roadmap
 Release Notes
-Connector Catalog
-Destinations
-Local JSON
+Getting Started
+Set up a Connection
 On this page
-Availability
-Not available
-Airbyte Cloud
+Set up a Connection
 Available
-Airbyte OSS
-Not available
-PyAirbyte
-Support Level
-Community
-Latest Version
-0.2.
+Cloud
+Available
+Self-Managed Community (OSS)
+Available
+Self-Managed Enterprise
+Now that you've learned how to set up your first
+source
+and
+destination
+, it's time to finish the setup by creating your very first connection!
+On the left side of your main Airbyte dashboard, select
+Connections
+. You will be prompted to choose which source and destination to use for this connection. For this example, we'll use the
+Google Sheets
+source and the destination you previously set up, either
+Local JSON
+or
+Google Sheets
+.
+Configure the connection
+​
+Once you've chosen your source and destination you can configure the connection. You'll first be asked a few questions about how your data should sync, these correlate to our sync modes which you can read more about on
+this page
+.
+Most users select "Mirror Source", which will simply copy the data from the source to the destination where you'll see one row in the destination for each row in the source. If you prefer to Append Historical Changes or take a Full Snapshot with each sync, you can optionally select those options, but keep in mind those will create duplicate records in your destination. The sync mode we choose for all the enabled streams will reflect your selection here.
+Next, you can toggle which streams you want to replicate.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/using-airbyte/getting-started/set-up-a-connection.txt
+
+Documentation Title:
+Set up a Connection | Airbyte Documentation
+
+Documentation Content:
+Next, you can toggle which streams you want to replicate. Our test data consists of three streams, which we've enabled and set to
+Incremental - Append + Deduped
+sync mode.
+Your sync mode is already determined by your selection above, but you can change the sync mode for an individual stream. You can also select a cursor or primary key to enable incremental and/or deduplication. For more information on the nature of each sync mode supported by Airbyte, see
+this page
+.
+You can also select individual fields to sync on this page. Expand the fields available by clicking any stream. This is helpful when you have security concerns or don't want to sync all the data from the source.
+Click
+Next
+to complete your stream setup and move to the connection configuration. This is where you'll set up how often your data will sync and where it will live in the destination. For this demo, we'll set the connection to run at 8 AM every day and sync the connection to a custom namespace with a stream prefix.
+note
+To ensure your data is synced to the correct place, see our examples for
+Destination Namespace
+Once you've set up all the connection settings, click "Set up connection". You've successfully set up your first data pipeline with Airbyte. Your first sync is about to begin!
+Connection Overview
+​
+Once you've finished setting up the connection, you will be automatically redirected to a connection overview containing all the tools you need to keep track of your connection.
+Here's a basic overview of the tabs and their use:
+The
+Status
+tab shows you an overview of your connector's sync health.
+The
+Job History
+tab allows you to check the logs for each sync. If you encounter any errors or unexpected behaviors during a sync, checking the logs is always a good first step to finding the cause and solution.
+The
+Schema
+tab allows you to modify the streams you chose during the connection setup.
+The
+Transformation
+tab allows you to set up a custom post-sync transformations using dbt.
+The
+Settings
+tab contains the connection settings, and the option to delete the connection if you no longer wish to use it.
+
+
+
+Documentation Source:
+airbyte.com/docs.airbyte.com/operator-guides/using-prefect-task.txt
+
+Documentation Title:
+Using the Prefect Airbyte Task | Airbyte Documentation
+
+Documentation Content:
+2. Create a Flow in Prefect to trigger your Airbyte job
+​
+Create a new Prefect Project
+​
+prefect create project "airbyte"
+Retrieving the Airbyte Connection ID
+​
+We'll need the Airbyte Connection ID so our Prefect Flow knows which Airbyte Connection to trigger.
+This ID can be seen in the URL on the connection page in the Airbyte UI. The Airbyte UI can be accessed at
+localhost:8000
+.
+Creating a simple Prefect DAG to run an Airbyte Sync Job
+​
+Create a new folder called
+airbyte_prefect
+and create a file
+airbyte_prefect_flow.py
+.
+from
+prefect
+import
+Flow
+from
+prefect
+.
+tasks
+.
+airbyte
+.
+airbyte
+import
+AirbyteConnectionTask
+airbyte_conn
+=
+AirbyteConnectionTask
+(
+airbyte_server_host
+=
+"localhost"
+,
+airbyte_server_port
+=
+8000
+,
+airbyte_api_version
+=
+"v1"
+,
+connection_id
+=
+"04e128af-1092-4a83-bf33-1b8c85395d74"
+)
+with
+Flow
+(
+"first-airbyte-task"
+)
+as
+flow
+:
+flow
+.
+add_task
+(
+airbyte_conn
+)
+# Register the flow under the "airbyte" project
+flow
+.
+register
+(
+project_name
+=
+"airbyte"
+)
+The Airbyte Prefect Task accepts the following parameters:
+airbyte_server_host
+: The host URL to your Airbyte instance.
+airbyte_server_post
+: The port value you have selected for your Airbyte instance.
+airbyte_api_version
+: default value is
+v1
+.
+connection_id
+: The ID of the Airbyte Connection to be triggered by Prefect.
+After running the file,
+python3 airbyte_prefect_flow.py
+this will register the Flow in Prefect Server.
+Access the link from the output from the previous command to see the Flow in Prefect Server, or you can navigate in Prefect UI to find the new Flow -> Access the link from the output from the previous command to see the Flow in the Prefect Server. Alternatively, you can go to the Prefect UI to find the new Flow.
 
 
 

@@ -25,32 +25,19 @@ Documentation Title:
 FAQ | Superset
 
 Documentation Content:
-Note that Superset usage has a tendency
-to occur in spikes, e.g., if everyone in a meeting loads the same dashboard at once.</p><p>Superset's application metadata does not require a very large database to store it, though
-the log file grows over time.</p><h2>Can I join / query multiple tables at one time?<a>​</a></h2><p>Not in the Explore or Visualization UI. A Superset SQLAlchemy datasource can only be a single table
-or a view.</p><p>When working with tables, the solution would be to create a table that contains all the fields
-needed for your analysis, most likely through some scheduled batch process.</p><p>A view is a simple logical layer that abstracts an arbitrary SQL queries as a virtual table. This can
-allow you to join and union multiple tables and to apply some transformation using arbitrary SQL
-expressions. The limitation there is your database performance, as Superset effectively will run a
-query on top of your query (view). A good practice may be to limit yourself to joining your main
-large table to one or many small tables only, and avoid using <em>GROUP BY</em>where possible as Superset
-will do its own <em>GROUP BY</em>and doing the work twice might slow down performance.</p><p>Whether you use a table or a view, performance depends on how fast your database can deliver
-the result to users interacting with Superset.</p><p>However, if you are using SQL Lab, there is no such limitation. You can write SQL queries to join
-multiple tables as long as your database account has access to the tables.</p><h2>How do I create my own visualization?<a>​</a></h2><p>We recommend reading the instructions in
-<a>Creating Visualization Plugins</a>.</p><h2>Can I upload and visualize CSV data?<a>​</a></h2><p>Absolutely!
-
-
-
-Documentation Source:
-superset.apache.org/docs/faq/index.html
-
-Documentation Title:
-FAQ | Superset
-
-Documentation Content:
-Then, take the .zip file and import it into the current Superset instance.</p><p>Alternatively, you can programmatically take regular exports of the assets as a backup.</p></div><a>Edit this page</a></article><nav><a><div>Previous</div><div>CVEs fixed by release</div></a><a><div>Next</div><div>API</div></a></nav></div><ul><a>How big of a dataset can Superset handle?</a><a>What are the computing specifications required to run Superset?</a><a>Can I join / query multiple tables at one time?</a><a>How do I create my own visualization?</a><a>Can I upload and visualize CSV data?</a><a>Why are my queries timing out?</a><a>Why is the map not visible in the geospatial visualization?</a><a>How to limit the timed refresh on a dashboard?</a><a>What if the table schema changed?</a><a>What database engine can I use as a backend for Superset?</a><a>How can I configure OAuth authentication and authorization?</a><a>Is there a way to force the dashboard to use specific colors?</a><a>Does Superset work with insert database engine here?</a><a>Does Superset offer a public API?</a><a>How can I see usage statistics (e.g., monthly active users)?</a><a>What Does Hours Offset in the Edit Dataset view do?</a><a>Does Superset collect any telemetry data?</a><a>Does Superset have an archive panel or trash bin from which a user can recover deleted assets?</a></ul></div></div></div><div><div>We use  <img/></div><p>Copyright © 2024,
-          The <a>Apache Software Foundation</a>,
-          Licensed under the Apache <a>License</a>.</p><small>Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+Read the instructions <a>here</a>to learn
+how to enable and use CSV upload.</p><h2>Why are my queries timing out?<a>​</a></h2><p>There are many possible causes for why a long-running query might time out.</p><p>For running long query from Sql Lab, by default Superset allows it run as long as 6 hours before it
+being killed by celery. If you want to increase the time for running query, you can specify the
+timeout in configuration. For example:</p><span>SQLLAB_ASYNC_TIME_LIMIT_SEC = 60 * 60 * 6</span><p>If you are seeing timeouts (504 Gateway Time-out) when loading dashboard or explore slice, you are
+probably behind gateway or proxy server (such as Nginx). If it did not receive a timely response
+from Superset server (which is processing long queries), these web servers will send 504 status code
+to clients directly. Superset has a client-side timeout limit to address this issue. If query didn’t
+come back within client-side timeout (60 seconds by default), Superset will display warning message
+to avoid gateway timeout message. If you have a longer gateway timeout limit, you can change the
+timeout settings in <strong>superset_config.py</strong>:</p><span>SUPERSET_WEBSERVER_TIMEOUT = 60</span><h2>Why is the map not visible in the geospatial visualization?<a>​</a></h2><p>You need to register a free account at <a>Mapbox.com</a>, obtain an API key, and add it
+to <strong>.env</strong>at the key MAPBOX_API_KEY:</p><span>MAPBOX_API_KEY = "longstringofalphanumer1c"</span><h2>How to limit the timed refresh on a dashboard?<a>​</a></h2><p>By default, the dashboard timed refresh feature allows you to automatically re-query every slice on
+a dashboard according to a set schedule. Sometimes, however, you won’t want all of the slices to be
+refreshed - especially if some data is slow moving, or run heavy queries.
 
 
 
@@ -62,6 +49,25 @@ Connecting to Databases | Superset
 
 Documentation Content:
 ].schema].table name"</span><span>;</span></span><p>For example:</p><span><span>SELECT</span><span>*</span><span>FROM</span><span>"examples.birth_names"</span><span>;</span></span><p>Spaces are allowed, but periods in the names must be replaced by <code>%2E</code>. Eg:</p><span><span>SELECT</span><span>*</span><span>FROM</span><span>"Superset meta database.examples%2Ebirth_names"</span><span>;</span></span><p>The query above returns the same rows as <code>SELECT * FROM "examples.birth_names"</code>, and also shows that the meta database can query tables from any table — even itself!</p><h4>Considerations<a>​</a></h4><p>Before enabling this feature, there are a few considerations that you should have in mind. First, the meta database enforces permissions on the queried tables, so users should only have access via the database to tables that they originally have access to. Nevertheless, the meta database is a new surface for potential attacks, and bugs could allow users to see data they should not.</p><p>Second, there are performance considerations. The meta database will push any filtering, sorting, and limiting to the underlying databases, but any aggregations and joins will happen in memory in the process running the query. Because of this, it's recommended to run the database in async mode, so queries are executed in Celery workers, instead of the web workers. Additionally, it's possible to specify a hard limit on how many rows are returned from the underlying databases.</p><h4>Enabling the meta database<a>​</a></h4><p>To enable the Superset meta database, first you need to set the <code>ENABLE_SUPERSET_META_DB</code>feature flag to true. Then, add a new database of type "Superset meta database" with the SQLAlchemy URI "superset://".</p><p>If you enable DML in the meta database users will be able to run DML queries on underlying databases <strong>as long as DML is also enabled in them</strong>.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.html
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+You’ll also explore the data you’ve exposed and add a visualization to a dashboard so that you get a
+feel for the end-to-end user experience.</p><h3>Connecting to a new database<a>​</a></h3><p>Superset itself doesn't have a storage layer to store your data but instead pairs with
+your existing SQL-speaking database or data store.</p><p>First things first, we need to add the connection credentials to your database to be able
+to query and visualize data from it. If you're using Superset locally via
+<a>Docker compose</a>, you can
+skip this step because a Postgres database, named <strong>examples</strong>, is included and
+pre-configured in Superset for you.</p><p>Under the <strong>+</strong>menu in the top right, select Data, and then the <em>Connect Database</em>option:</p><img/><p>Then select your database type in the resulting modal:</p><img/><p>Once you've selected a database, you can configure a number of advanced options in this window,
+or for the purposes of this walkthrough, you can click the link below all these fields:</p><img/><p>Once you've clicked that link you only need to specify two things (the database name and SQLAlchemy URI):</p><img/><p>As noted in the text below the form, you should refer to the SQLAlchemy documentation on
+<a>creating new connection URIs</a>for your target database.</p><p>Click the <strong>Test Connection</strong>button to confirm things work end to end.
 
 
 

@@ -4,11 +4,11 @@
 
 # documents
 evaluation_examples/documents/
+!evaluation_examples/documents/README.md
 
 # Credential files
 #uncomment the line below after making it public
-#evaluation_examples/settings/*/*.json
-evaluation_examples/settings/googledrive/credentials.json
+evaluation_examples/settings/*/*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

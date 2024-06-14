@@ -1,11 +1,22 @@
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.html
+release-1-7-2.dagster.dagster-docs.io/tutorial/writing-your-first-asset.html
 
 Documentation Title:
-Tutorial, part four: Building an asset graph | Dagster Docs
+Tutorial, part three: Writing your first asset | Dagster Docs
 
 Documentation Content:
-Replace your <code>most_frequent_words</code>asset with the following:</p><code><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>topstories<span>]</span><span>)</span><span>def</span><span>most_frequent_words</span><span>(</span><span>)</span><span>-</span><span>&gt;</span>MaterializeResult<span>:</span>stopwords <span>=</span><span>[</span><span>"a"</span><span>,</span><span>"the"</span><span>,</span><span>"an"</span><span>,</span><span>"of"</span><span>,</span><span>"to"</span><span>,</span><span>"in"</span><span>,</span><span>"for"</span><span>,</span><span>"and"</span><span>,</span><span>"with"</span><span>,</span><span>"on"</span><span>,</span><span>"is"</span><span>]</span>topstories <span>=</span>pd<span>.</span>read_csv<span>(</span><span>"data/topstories.csv"</span><span>)</span><span># loop through the titles and count the frequency of each word</span>word_counts <span>=</span><span>{</span><span>}</span><span>for</span>raw_title <span>in</span>topstories<span>[</span><span>"title"</span><span>]</span><span>:</span>title <span>=</span>raw_title<span>.</span>lower<span>(</span><span>)</span><span>for</span>word <span>in</span>title<span>.</span>split<span>(</span><span>)</span><span>:</span>cleaned_word <span>=</span>word<span>.</span>strip<span>(</span><span>".,-!?:;
+Copy and paste the following code into <code>assets.py</code>:</p><code><span>import</span>json
+<span>import</span>os
+
+<span>import</span>requests
+
+newstories_url <span>=</span><span>"https://hacker-news.firebaseio.com/v0/topstories.json"</span>top_new_story_ids <span>=</span>requests<span>.</span>get<span>(</span>newstories_url<span>)</span><span>.</span>json<span>(</span><span>)</span><span>[</span><span>:</span><span>100</span><span>]</span>os<span>.</span>makedirs<span>(</span><span>"data"</span><span>,</span>exist_ok<span>=</span><span>True</span><span>)</span><span>with</span><span>open</span><span>(</span><span>"data/topstory_ids.json"</span><span>,</span><span>"w"</span><span>)</span><span>as</span>f<span>:</span>json<span>.</span>dump<span>(</span>top_new_story_ids<span>,</span>f<span>)</span></code><p>This code creates a list of integers representing the IDs for the current top stories on Hacker News and stores them in a file called <code>data/topstory_ids.json</code>.</p><p>Next, you will work towards making this code into a software-defined asset. The first step is turning it into a function:</p><code><span>import</span>json
+<span>import</span>os
+
+<span>import</span>requests
+
+
+<span>def</span><span>topstory_ids</span><span>(</span><span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span><span># turn it into a function</span>newstories_url <span>=</span><span>"https://hacker-news.firebaseio.com/v0/topstories.json"</span>top_new_story_ids <span>=</span>requests<span>.</span>get<span>(</span>newstories_url<span>)</span><span>.
 
 
 
@@ -16,29 +27,41 @@ Documentation Title:
 Tutorial, part four: Building an asset graph | Dagster Docs
 
 Documentation Content:
-Copy and paste the code into <code>assets.py</code>:</p><code><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>topstories<span>]</span><span>)</span><span>def</span><span>most_frequent_words</span><span>(</span><span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span>stopwords <span>=</span><span>[</span><span>"a"</span><span>,</span><span>"the"</span><span>,</span><span>"an"</span><span>,</span><span>"of"</span><span>,</span><span>"to"</span><span>,</span><span>"in"</span><span>,</span><span>"for"</span><span>,</span><span>"and"</span><span>,</span><span>"with"</span><span>,</span><span>"on"</span><span>,</span><span>"is"</span><span>]</span>topstories <span>=</span>pd<span>.</span>read_csv<span>(</span><span>"data/topstories.csv"</span><span>)</span><span># loop through the titles and count the frequency of each word</span>word_counts <span>=</span><span>{</span><span>}</span><span>for</span>raw_title <span>in</span>topstories<span>[</span><span>"title"</span><span>]</span><span>:</span>title <span>=</span>raw_title<span>.</span>lower<span>(</span><span>)</span><span>for</span>word <span>in</span>title<span>.</span>split<span>(</span><span>)</span><span>:</span>cleaned_word <span>=</span>word<span>.</span>strip<span>(</span><span>".,-!?
+and manually materialized your asset.</p><p>Continuing from there, you will:</p><ul><li>Add more assets to your Dagster project</li><li>Connect them to finish creating the pipeline</li><li>Give users more knowledge about the assets by adding metadata and logging</li></ul><h2>Step 1: Adding the DataFrame asset<span>#</span></h2><p>Using the top Hacker News story IDs, you'll now look up each story by its ID, ingest that data, and make a DataFrame out of it. You'll connect your current asset with this new asset to establish dependencies and make an <em>asset graph</em>.</p><p>Modify your <code>assets.py</code>to add the <code>pandas</code>import and a new asset called <code>topstories</code>:</p><span>Add new imports, such as <code>import pandas as pd</code>, to the top of<code>assets.py</code></span><code><span>import</span>json
+<span>import</span>os
+
+<span>import</span>pandas <span>as</span>pd  <span># Add new imports to the top of `assets.py`</span><span>import</span>requests
+
+<span>from</span>dagster <span>import</span>asset
+
+<span># . Keep the `topstory_ids` asset from the previous section</span><span>@asset</span><span>(</span>deps<span>=</span><span>[</span>topstory_ids<span>]</span><span>)</span><span># this asset is dependent on topstory_ids</span><span>def</span><span>topstories</span><span>(</span><span>)</span><span>-</span><span>&gt;</span><span>None</span><span>:</span><span>with</span><span>open</span><span>(</span><span>"data/topstory_ids.json"</span><span>,
 
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.html
+release-1-7-2.dagster.dagster-docs.io/guides/dagster/ml-pipeline.html
 
 Documentation Title:
-Tutorial, part four: Building an asset graph | Dagster Docs
+Building machine learning pipelines with Dagster | Dagster Docs
 
 Documentation Content:
-:;()[]'\"-"</span><span>)</span><span>if</span>cleaned_word <span>not</span><span>in</span>stopwords <span>and</span><span>len</span><span>(</span>cleaned_word<span>)</span><span>&gt;</span><span>0</span><span>:</span>word_counts<span>[</span>cleaned_word<span>]</span><span>=</span>word_counts<span>.</span>get<span>(</span>cleaned_word<span>,</span><span>0</span><span>)</span><span>+</span><span>1</span><span># Get the top 25 most frequent words</span>top_words <span>=</span><span>{</span>pair<span>[</span><span>0</span><span>]</span><span>:</span>pair<span>[</span><span>1</span><span>]</span><span>for</span>pair <span>in</span><span>sorted</span><span>(</span>word_counts<span>.</span>items<span>(</span><span>)</span><span>,</span>key<span>=</span><span>lambda</span>x<span>:</span>x<span>[</span><span>1</span><span>]</span><span>,</span>reverse<span>=</span><span>True</span><span>)</span><span>[</span><span>:</span><span>25</span><span>]</span><span>}</span><span>with</span><span>open</span><span>(</span><span>"data/most_frequent_words.json"</span><span>,</span><span>"w"</span><span>)</span><span>as</span>f<span>:</span>json<span>.</span>dump<span>(</span>top_words<span>,</span>f<span>)</span></code><h2>Step 3: Educating users with metadata<span>#</span></h2><p>Up until now, you've annotated your asset functions with <code>None</code>, meaning the asset doesn't return anything.
+<span>@asset</span><span>def</span><span>hackernews_stories</span><span>(</span><span>)</span><span>:</span><span># Get the max ID number from hacker news</span>latest_item <span>=</span>requests<span>.</span>get<span>(</span><span>"https://hacker-news.firebaseio.com/v0/maxitem.json"</span><span>)</span><span>.</span>json<span>(</span><span>)</span><span># Get items based on story ids from the HackerNews items endpoint</span>results <span>=</span><span>[</span><span>]</span>scope <span>=</span><span>range</span><span>(</span>latest_item <span>-</span><span>1000</span><span>,</span>latest_item<span>)</span><span>for</span>item_id <span>in</span>scope<span>:</span>item <span>=</span>requests<span>.</span>get<span>(</span><span><span>f"https://hacker-news.firebaseio.com/v0/item/</span><span><span>{</span>item_id<span>}</span></span><span>.json"</span></span><span>)</span><span>.</span>json<span>(</span><span>)</span>results<span>.</span>append<span>(</span>item<span>)</span><span># Store the results in a dataframe and filter on stories with valid titles</span>df <span>=</span>pd<span>.</span>DataFrame<span>(</span>results<span>)</span><span>if</span><span>len</span><span>(</span>df<span>)</span><span>&gt;</span><span>0</span><span>:</span>df <span>=</span>df<span>[</span>df<span>.</span><span>type</span><span>==</span><span>"story"</span><span>]</span>df <span>=</span>df<span>[</span><span>~</span>df<span>.</span>title<span>.
 
 
 
 Documentation Source:
-release-1-7-2.dagster.dagster-docs.io/tutorial/building-an-asset-graph.html
+release-1-7-2.dagster.dagster-docs.io/getting-started/quickstart.html
 
 Documentation Title:
-Tutorial, part four: Building an asset graph | Dagster Docs
+Quickstart | Dagster Docs
 
 Documentation Content:
-:;()[]'\"-"</span><span>)</span><span>if</span>cleaned_word <span>not</span><span>in</span>stopwords <span>and</span><span>len</span><span>(</span>cleaned_word<span>)</span><span>&gt;</span><span>0</span><span>:</span>word_counts<span>[</span>cleaned_word<span>]</span><span>=</span>word_counts<span>.</span>get<span>(</span>cleaned_word<span>,</span><span>0</span><span>)</span><span>+</span><span>1</span><span># Get the top 25 most frequent words</span>top_words <span>=</span><span>{</span>pair<span>[</span><span>0</span><span>]</span><span>:</span>pair<span>[</span><span>1</span><span>]</span><span>for</span>pair <span>in</span><span>sorted</span><span>(</span>word_counts<span>.</span>items<span>(</span><span>)</span><span>,</span>key<span>=</span><span>lambda</span>x<span>:</span>x<span>[</span><span>1</span><span>]</span><span>,</span>reverse<span>=</span><span>True</span><span>)</span><span>[</span><span>:</span><span>25</span><span>]</span><span>}</span><span># Make a bar chart of the top 25 words</span>plt<span>.</span>figure<span>(</span>figsize<span>=</span><span>(</span><span>10</span><span>,</span><span>6</span><span>)</span><span>)</span>plt<span>.</span>bar<span>(</span><span>list</span><span>(</span>top_words<span>.</span>keys<span>(</span><span>)</span><span>)</span><span>,</span><span>list</span><span>(</span>top_words<span>.
+From here, we can run our data pipeline.</p><p>To run the pipeline, click the <strong>Materialize All</strong>button in the top right. In Dagster, <em>materialization</em>refers to executing the code associated with an asset to produce an output.</p><img/><p>Congratulations! You have successfully materialized two Dagster assets:</p><img/><p>But wait - there's more. Because the <code>hackernews_top_stories</code>asset returned some <code>metadata</code>, you can view the metadata right in the UI:</p><ol><li>Click the asset</li><li>In the sidebar, click the <strong>Show Markdown</strong>link in the <strong>Materialization in Last Run</strong>section. This opens a preview of the pipeline result, allowing you to view the top 10 HackerNews stories:</li></ol><img/><h2>Understanding the Code<span>#</span></h2><p>The Quickstart project defines two <strong>Assets</strong>using the <code>@asset</code>decorator:</p><ul><li><code>hackernews_top_story_ids</code>retrieves the top stories from the Hacker News API and saves them as a JSON file.</li><li><code>hackernews_top_stories</code>asset builds upon the first asset, retrieving data for each story as a CSV file, and returns a <code>MaterializeResult</code>with a markdown preview of the top stories.</li></ul><code><span>import</span>json
+
+<span>import</span>pandas <span>as</span>pd
+<span>import</span>requests
+
+<span>from</span>dagster <span>import</span><span>(</span>MaterializeResult<span>,</span>MetadataValue<span>,</span>asset<span>,</span><span>)</span><span>from</span><span>.</span>configurations <span>import</span>HNStoriesConfig
 
 
 

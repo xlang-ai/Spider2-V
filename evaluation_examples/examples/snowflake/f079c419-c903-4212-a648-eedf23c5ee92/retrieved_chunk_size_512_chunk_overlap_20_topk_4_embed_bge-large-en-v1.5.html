@@ -1,53 +1,57 @@
 Documentation Source:
-docs.snowflake.com/en/release-notes/bcr-bundles/2022_04_bundle.html
+docs.snowflake.com/en/user-guide/ui-snowsight-quick-tour.html
 
 Documentation Title:
-2022_04 Bundle | Snowflake Documentation
+Snowsight quick tour | Snowflake Documentation
 
 Documentation Content:
-</p></section></section><section><h2>Data Privacy Changes<a>¶</a></h2><section><h3>Classification: Updates to Data Classification Model and Revised Output<a>¶</a></h3><p>Data classification is now generally available (GA) in all Enterprise Edition (or higher) accounts on AWS and Azure.</p><p>For the GA of the feature, the data classification model has been updated to generate improved prediction model and data pattern results.
-In addition, the data classification process now includes output for every table column specified in the input, including:</p><ul><p>Columns with data types that were previously unable to be classified.</p><p>Columns with only NULL values.</p></ul><p>These improvements were introduced through the behavior change process because they likely return better, but potentially different,
-results when re-classifying data that was classified using the previous data classification model. During the opt-out phase
-for the 2022_04 bundle, you can enable/disable the bundle to test the classification improvements while also minimizing their impact
-on your production accounts until you are familiar with the new results.</p></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
+When you share or publish data products with a listing, you can use auto-fulfillment to easily provide your data
+products in other Snowflake regions.</p><p>As a consumer of data, you can access datasets and application packages shared with your account or published on the Snowflake Marketplace,
+helping you derive real time data insights without needing to set up a data pipeline or write any code.</p><img/><p>For more details, see:</p><ul><span>Working with shares</span><span>About the Snowflake Native App Framework</span><a>Access Provider Studio</a><a>About Snowflake Marketplace</a><span>Snowflake Partner Connect</span></ul></section><section><h2>Monitor activity in Snowsight<a>¶</a></h2><p>You can monitor and view query details, explore the performance of executed queries, monitor data loading status and errors, review
+task graphs, and debug and re-run them as needed. You can also monitor the refresh state of your Dynamic Tables and
+review the various tagging and security policies that you create to maintain data governance.</p><img/><p>For more information, see:</p><ul><span>Monitor query activity with Query History</span><span>Monitor data loading activity by using Copy History</span><span>Viewing tasks and task graphs in Snowsight</span><span>About monitoring dynamic tables</span><span>Data Governance in Snowflake</span></ul></section><section><h2>Perform administrative tasks in Snowsight<a>¶</a></h2><p><span>Admin</span>pages let you understand Snowflake data use, manage warehouses, monitor resources, manage users and roles,
+administer Snowflake accounts, and more.</p><img/><p>For more information, see:</p><ul><span>Exploring overall cost</span><span>Working with warehouses</span><span>Configuring access control</span></ul></section><section><h2>Get account information and update your user profile from the user menu<a>¶</a></h2><p>To open the user menu, select your username.</p><img/><p>From the user menu, you can:</p><ul><p>Change your active role.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/sample-data.html
+docs.snowflake.com/en/user-guide/data-exchange-using.html
 
 Documentation Title:
-Sample Data Sets | Snowflake Documentation
+Configuring and using a Data Exchange | Snowflake Documentation
 
 Documentation Content:
-Executing queries requires a running, current warehouse
-for your session, which consumes credits.</p><strong>Next Topics:</strong><ul><a>Using the Sample Database</a><a>Sample Data: TPC-DS</a><a>Sample Data: TPC-H</a><a>Sample Data: OpenWeatherMap — <em>Deprecated</em></a></ul></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc. All Rights Reserved.</span></div></footer></div><div><p>Related content</p><ol><a>Query Data in Snowflake</a><a>Query Syntax</a></ol></div></div></main></div><div><div>Language: <strong>English</strong></div><div><a>English</a><a>Français</a><a>Deutsch</a><a>日本語</a><a>한국어</a><a>Português</a></div></div></div>
+In such cases, you can make the necessary adjustments and resubmit your request.</p></section><section><h3>Accessing the shared data<a>¶</a></h3><p>If your request for a listing in the Data Exchange is approved:</p><ol><p>Sign in to Snowsight.</p><p>Select <span>Data Products</span>» <span>Private Sharing</span>.</p><p>Select the <span>Shared With You</span>tab.</p><p>Locate the listing you requested and select <span>Get Data</span>for the listing.</p><p>Enter the name for the database to create in your account from the share.</p><p>Select roles that you want to have access to the database created from the share.</p><li><p>Accept Snowflake’s consumer terms and the provider’s terms of use. You only need to accept the listing terms when you create a database from a share for the first time.</p><div><p>Note</p><p>Accepting terms using SQL is not supported.</p></div></li><p>Select <span>Create Database</span>.</p></ol><p>After you create the database from share, the <span>Get Data</span>button is replaced with the <span>View Database</span>button.</p><p>See also: <span>Usage metrics shared with providers</span></p></section></section></section><footer><div><p>Was this page helpful?</p><button>Yes</button><button>No</button></div><div><a>Visit Snowflake</a><a>Join the conversation</a><a>Develop with Snowflake</a><a>Share your feedback</a><a>Read the latest on our blog</a><a>Get your own certification</a></div><div><a>Privacy Notice</a><a>Site Terms</a><span>© 2024Snowflake, Inc.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/release-notes/bcr-bundles/2024_02/bcr-1516.html
+docs.snowflake.com/en/user-guide/ui-snowsight-universal-search.html
 
 Documentation Title:
-SHOW/DESC SERVICE commands and Information Schema and Account Usage SERVICES views: New IS_JOB column | Snowflake Documentation
+Search Snowflake objects and resources with Universal Search | Snowflake Documentation
 
 Documentation Content:
-DYNAMIC_TABLE_REFRESH_HISTORY, and SHOW DYNAMIC TABLES </span><span>Data Lake</span><span>GET_DDL function: Return source Iceberg data types</span><span>Iceberg tables: Updates to metadata retention period</span><span>Replication</span><span>Replication: Stages, pipes, storage integrations, and load history</span><span>Replication: Skip external and Iceberg tables during refresh operation</span><span>Replication: Changes to refresh operations that fail with dangling reference errors</span><span>Extensibility &amp; Developer</span><span>Python Snowpark Stored Procedures and UDFs: Tracing improvements in Event table</span><span>Snowpark Container Services: Error if image is not found when creating service or job</span><span>Virtual Warehouses</span><span>Query Acceleration Service: Expanded support for INSERT statements</span></div></li><li><span>Previous Bundles</span><div><span>2024_01 Bundle (Generally Enabled)</span><span>2023_08 Bundle (Generally Enabled)</span><span>2023_07 Bundle</span><span>2023_06 Bundle</span><span>2023_05 Bundle</span><span>2023_04 Bundle</span><span>2023_03 Bundle</span><span>2023_02 Bundle</span><span>2023_01 Bundle</span><span>2022_08 Bundle</span><span>2022_07 Bundle</span><span>2022_06 Bundle</span><span>2022_05 Bundle</span><span>2022_04 Bundle</span><span>2022_03 Bundle</span><span>2022_02 Bundle</span><span>2022_01 Bundle</span><span>Earlier Bundles</span></div></li><span>Unbundled Changes</span></div></li><span>Deprecated Features</span><span>Preview Features</span><span>Performance Improvements</span><li><span>Clients, Drivers, and Libraries</span><div><span>Monthly Releases</span><span>Client versions &amp;
+For example, you can use keyword search
+terms, like “opportunities” or “sales opportunities”, or use more conversational natural language search terms, like
+“sales opportunities that are likely to close” or “which opportunities came from partner referrals”.</p><img/><p>For example, if you search for “zip codes”, Universal Search returns results such as listings on the Snowflake Marketplace that mention postal
+code data and a table with the column name <span>postal_code</span>.</p><p>To make it easier to find the right data for your project, object metadata such as names, comments, and tags for objects and columns
+are searched. Universal Search searches only the object metadata, not the contents of your database objects.</p><section><h2>Search for objects in Snowsight<a>¶</a></h2><p>When you search for objects in Snowsight, you only see results that your currently active role has privileges to view.</p><p>To search, complete the following steps:</p><ol><p>Sign in to Snowsight.</p><p>In the navigation menu, select <span>Search</span>.</p><li><p>Enter search terms, and press Return to search.</p><p>Results are displayed in categories. If a category isn’t displayed, there are no results for that category or your currently active role
+doesn’t have access to those results.</p></li><p>Select a search result to view details. For a database object, you can select <span>Open in Worksheets</span>to query the object in a worksheet.</p></ol><p>To get or purchase listings offered on the Snowflake Marketplace that appear in the results, you must have agreed to the Snowflake Provider
+and Consumer Terms.
 
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/sample-data.html
+docs.snowflake.com/en/user-guide/ui-snowsight-navigation.html
 
 Documentation Title:
-Sample Data Sets | Snowflake Documentation
+Exploring the Snowsight navigation menu | Snowflake Documentation
 
 Documentation Content:
-<div><div><nav><div><span>DOCUMENTATION</span><span>/</span></div><div><a>Getting Started</a><a>Guides</a><a>Developer</a><a>Reference</a><a>Releases</a><a>Tutorials</a><a>Status</a></div></nav><main><ol><span>Overview</span><span>Concepts</span><span>Tutorials</span><li><span>Sample Data</span><div><span>Usage</span><span>TPC-DS</span><span>TPC-H</span></div></li></ol><div><div><nav><a>Getting Started</a><span>Sample Data</span></nav><section><h1>Sample Data Sets<a>¶</a></h1><p>Snowflake provides sample data sets, such as the industry-standard TPC-DS and TPC-H benchmarks, for evaluating and testing a broad range of Snowflake’s SQL support.</p><p>Sample data sets are provided in a database named SNOWFLAKE_SAMPLE_DATA that has been
-<span>shared with your account</span>from the Snowflake SFC_SAMPLES account.
-If you do not see the database, you can create it yourself. Refer to <span>Using the Sample Database</span>.</p><p>The database contains a schema for each data set, with the sample data stored in the tables in each schema. The database and schemas
-do not use any data storage so they do <span>not</span>incur storage charges for your account. You can execute queries on the tables in
-these databases just as you would with any other databases in your account.
+You can also access the <span>Add Data</span>page, which includes all the different ways of loading data into Snowflake.</p></tr><tr><span>Projects</span><p><span>Worksheets</span>, <span>Streamlit</span>, <span>Dashboards</span>, <span>App Packages</span></p></tr><tr><span>Data</span><p><span>Databases</span>, and <span>Add Data</span>.</p></tr><tr><span>Data Products</span><p><span>Marketplace</span>, <span>Apps</span>, <span>Private Sharing</span>, <span>Provider Studio</span>, and <span>Partner Connect</span>.</p></tr><tr><span>Monitoring</span><p><span>Query History</span>, <span>Copy History</span>, <span>Task History</span>, <span>Dynamic Tables</span>, and <span>Governance</span>.</p></tr><tr><span>Admin</span><p><span>Warehouses</span>, <span>Cost Management</span>, <span>Users &amp; Roles</span>, <span>Accounts</span>,
+<span>Security</span>, <span>Contacts</span>, and <span>Billing &amp; Terms</span></p></tr><tr><p>User menu</p><p>Switch your active role, sign in with another account, access your <span>Profile</span>, <span>Support</span>, and links to
+<span>Documentation</span>. You can also access your account URL and account identifier.</p></tr></tbody></table></section><section><h2>Guide to the new navigation for Snowsight users<a>¶</a></h2><p>You can refer to this table to identify the new location of items in the navigation based on where they were located in the previous version.</p><table><tr><p>Previous navigation in Snowsight</p><p>New navigation in Snowsight</p></tr><tbody><tr><p>Your user menu where you can switch your active role, update your <span>Profile</span>, get <span>Support</span>, or access <span>Documentation</span>.
 
 
 

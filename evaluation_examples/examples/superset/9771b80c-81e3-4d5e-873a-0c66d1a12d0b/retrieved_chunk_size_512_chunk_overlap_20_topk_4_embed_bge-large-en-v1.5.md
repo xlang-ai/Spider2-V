@@ -1,26 +1,4 @@
 Documentation Source:
-superset.apache.org/docs/contributing/resources/index.md
-
-Documentation Title:
-Resources | Superset
-
-Documentation Content:
-DATETIMEextra\_json: TEXTid: INTEGERdatabase\_id: INTEGERis\_physical: BOOLEANis\_managed\_externally: BOOLEANname: TEXTexpression: TEXTexternal\_url: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERuuid: BINARY(16)TableColumn (table\_columns)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERis\_active: BOOLEANtype: TEXTgroupby: BOOLEANfilterable: BOOLEANdescription: TEXTtable\_id: INTEGERis\_dttm: BOOLEANexpression: TEXTextra: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERuuid: BINARY(16)column\_name: VARCHAR(255)verbose\_name: VARCHAR(1024)advanced\_data\_type: VARCHAR(255)python\_date\_format: VARCHAR(255)DatabaseUserOAuth2Tokens (database\_user\_oauth2\_tokens)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERuser\_id: INTEGERdatabase\_id: INTEGERaccess\_token: BLOBaccess\_token\_expiration: DATETIMErefresh\_token: BLOBcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERDynamicPlugin (dynamic\_plugin)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERname: TEXTkey: TEXTbundle\_url: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERTag (tag)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERdescription: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERname: VARCHAR(250)type: VARCHAR(12)AnnotationLayer (annotation\_layer)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERdescr: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERname: VARCHAR(250)UserAttribute (user\_attribute)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERuser\_id: INTEGERwelcome\_dashboard\_id: INTEGERcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERavatar\_url: VARCHAR(100)Dashboard (dashboards)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERposition\_json: TEXTdescription: TEXTcss: TEXTcertified\_by:
-
-
-
-Documentation Source:
-superset.apache.org/docs/contributing/resources/index.md
-
-Documentation Title:
-Resources | Superset
-
-Documentation Content:
-DATETIMEchanged\_on: DATETIMEid: INTEGERpassword: BLOBcache\_timeout: INTEGERselect\_as\_create\_table\_as: BOOLEANexpose\_in\_sqllab: BOOLEANallow\_run\_async: BOOLEANallow\_file\_upload: BOOLEANallow\_ctas: BOOLEANallow\_cvas: BOOLEANallow\_dml: BOOLEANextra: TEXTencrypted\_extra: BLOBimpersonate\_user: BOOLEANserver\_cert: BLOBis\_managed\_externally: BOOLEANexternal\_url: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERuuid: BINARY(16)verbose\_name: VARCHAR(250)database\_name: VARCHAR(250)sqlalchemy\_uri: VARCHAR(1024)configuration\_method: VARCHAR(255)force\_ctas\_schema: VARCHAR(250)Table (sl\_tables)created\_on: DATETIMEchanged\_on: DATETIMEextra\_json: TEXTid: INTEGERdatabase\_id: INTEGERcatalog: TEXTschema: TEXTname: TEXTis\_managed\_externally: BOOLEANexternal\_url: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERuuid: BINARY(16)Dataset (sl\_datasets)created\_on: DATETIMEchanged\_on: DATETIMEextra\_json: TEXTid: INTEGERdatabase\_id: INTEGERis\_physical: BOOLEANis\_managed\_externally: BOOLEANname: TEXTexpression: TEXTexternal\_url: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERuuid: BINARY(16)TableColumn (table\_columns)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERis\_active: BOOLEANtype: TEXTgroupby: BOOLEANfilterable: BOOLEANdescription: TEXTtable\_id: INTEGERis\_dttm: BOOLEANexpression: TEXTextra: TEXTcreated\_by\_fk: INTEGERchanged\_by\_fk: INTEGERuuid: BINARY(16)column\_name: VARCHAR(255)verbose\_name: VARCHAR(1024)advanced\_data\_type: VARCHAR(255)python\_date\_format: VARCHAR(255)DatabaseUserOAuth2Tokens (database\_user\_oauth2\_tokens)created\_on: DATETIMEchanged\_on: DATETIMEid: INTEGERuser\_id: INTEGERdatabase\_id: INTEGERaccess\_token:
-
-
-
-Documentation Source:
 superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.md
 
 Documentation Title:
@@ -43,40 +21,119 @@ we register the **cleaned\_sales\_data**table from the **examples**database.
 
 
 Documentation Source:
-superset.apache.org/docs/configuration/sql-templating/index.md
+superset.apache.org/docs/using-superset/exploring-data/index.md
 
 Documentation Title:
-SQL Templating | Superset
+Exploring Data in Superset | Superset
 
 Documentation Content:
-By default, the following variables are
-made available in the Jinja context:
+Publishing Your Dashboard​
 
-* `columns`: columns which to group by in the query
-* `filter`: filters applied in the query
-* `from_dttm`: start `datetime`value from the selected time range (`None`if undefined)
-* `to_dttm`: end `datetime`value from the selected time range (`None`if undefined)
-* `groupby`: columns which to group by in the query (deprecated)
-* `metrics`: aggregate expressions in the query
-* `row_limit`: row limit of the query
-* `row_offset`: row offset of the query
-* `table_columns`: columns available in the dataset
-* `time_column`: temporal column of the query (`None`if undefined)
-* `time_grain`: selected time grain (`None`if undefined)
+If you have followed all of the steps outlined in the previous section, you should have a dashboard
+that looks like the below. If you would like, you can rearrange the elements of the dashboard by
+selecting **Edit dashboard**and dragging and dropping.
 
-For example, to add a time range to a virtual dataset, you can write the following:
+If you would like to make your dashboard available to other users, simply select Draft next to the
+title of your dashboard on the top left to change your dashboard to be in Published state. You can
+also favorite this dashboard by selecting the star.
 
-`SELECT*FROMtblWHEREdttm_col >'{{ from_dttm }}'anddttm_col <'{{ to_dttm }}'`You can also use Jinja's logicto make your query robust to clearing the timerange filter:
+!### Annotations​
 
-`SELECT*FROMtblWHERE({%iffrom_dttm isnotnone %}dttm_col >'{{ from_dttm }}'AND{%endif %}{%ifto_dttm isnotnone %}dttm_col <'{{ to_dttm }}'AND{%endif %}true)`Note how the Jinja parameters are called within double brackets in the query, and without in the
-logic blocks.
+Annotations allow you to add additional context to your chart. In this section, we will add an
+annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
+dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
+eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).
 
-To add custom functionality to the Jinja context, you need to overload the default Jinja
-context in your environment by defining the `JINJA_CONTEXT_ADDONS`in your superset configuration
-(`superset_config.py`). Objects referenced in this dictionary are made available for users to use
-where the Jinja context is made available.
+First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
+save. We can use this layer to refer to a number of different annotations.
 
-`JINJA_CONTEXT_ADDONS ={'my_crazy_macro':lambdax:x*2,}`Default values for jinja templates can be specified via `Parameters`menu in the SQL Lab user interface.
+Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
+selecting the green plus sign. Then, select the Volcanic Eruptions layer, add a short description
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.
+
+!Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
+dialogue:
+
+* Name the layer as Volcanic Eruptions
+* Change the Annotation Layer Type to Event
+* Set the Annotation Source as Superset annotation
+* Specify the Annotation Layer as Volcanic Eruptions
+
+!Select **Apply**to see your annotation shown on the chart.
+
+!If you wish, you can change how your annotation looks by changing the settings in the Display
+configuration section. Otherwise, select **OK**and finally **Save**to save your chart.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/creating-your-first-dashboard/index.md
+
+Documentation Title:
+Creating Your First Dashboard | Superset
+
+Documentation Content:
+Customizing column properties​
+
+Now that you've registered your dataset, you can configure column properties
+for how the column should be treated in the Explore workflow:
+
+* Is the column temporal? (should it be used for slicing & dicing in time series charts?)
+* Should the column be filterable?
+* Is the column dimensional?
+* If it's a datetime column, how should Superset parse
+the datetime format? (using the ISO-8601 string pattern)
+
+!### Superset semantic layer​
+
+Superset has a thin semantic layer that adds many quality of life improvements for analysts.
+The Superset semantic layer can store 2 types of computed data:
+
+- Virtual metrics: you can write SQL queries that aggregate values
+from multiple column (e.g. `SUM(recovered) / SUM(confirmed)`) and make them
+available as columns for (e.g. `recovery_rate`) visualization in Explore.
+Aggregate functions are allowed and encouraged for metrics.
+!You can also certify metrics if you'd like for your team in this view.
+
+- Virtual calculated columns: you can write SQL queries that
+customize the appearance and behavior
+of a specific column (e.g. `CAST(recovery_rate) as float`).
+Aggregate functions aren't allowed in calculated columns.
+!### Creating charts in Explore view​
+
+Superset has 2 main interfaces for exploring data:
+
+* **Explore**: no-code viz builder. Select your dataset, select the chart,
+customize the appearance, and publish.
+* **SQL Lab**: SQL IDE for cleaning, joining, and preparing data for Explore workflow
+
+We'll focus on the Explore view for creating charts right now.
+To start the Explore workflow from the **Datasets**tab, start by clicking the name
+of the dataset that will be powering your chart.
+
+!You're now presented with a powerful workflow for exploring data and iterating on charts.
+
+* The **Dataset**view on the left-hand side has a list of columns and metrics,
+scoped to the current dataset you selected.
+* The **Data**preview below the chart area also gives you helpful data context.
+* Using the **Data**tab and **Customize**tabs, you can change the visualization type,
+select the temporal column, select the metric to group by, and customize
+the aesthetics of the chart.
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.md
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
+Otherwise, select **OK**and finally **Save**to save your chart. If you keep
+the default selection to overwrite the chart, your annotation will be saved to the chart and also
+appear automatically in the Tutorial Dashboard.
 
 
 

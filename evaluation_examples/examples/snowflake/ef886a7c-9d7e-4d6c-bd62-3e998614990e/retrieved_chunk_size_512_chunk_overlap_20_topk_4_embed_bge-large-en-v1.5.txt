@@ -166,28 +166,79 @@ All Rights Reserved
 
 
 Documentation Source:
-docs.snowflake.com/en/user-guide/ui-snowsight-visualizations.txt
+docs.snowflake.com/en/user-guide/ui-snowsight-quick-tour.txt
 
 Documentation Title:
-Visualizing worksheet data | Snowflake Documentation
+Snowsight quick tour | Snowflake Documentation
 
 Documentation Content:
-Charts can bucket by date, week, month, and year for date columns. For numeric columns, charts can bucket by integer values.
-Charts use aggregation functions to determine a single value from multiple data points in a bucket. These functions are as follows:
-average
-count
-minimum
-maximum
-median
-mode
-sum
-Download charts
+Export the results for a selected statement, while results are still available.
+For more details, see:
+Getting started with worksheets
+Managing and using worksheets in Snowsight
+Querying data using worksheets
+Writing Snowpark Code in Python Worksheets
+Visualize query results with charts and dashboards
 ¶
-Snowsight provides PNG-formatted files of charts.
-To download a chart, select
-Download chart
-(
-).
+When you run a query in Snowsight, you can choose to view your results as a chart. You can also create a collection of charts
+as a
+Dashboard
+, allowing you to review your data more easily. Dashboards provide flexible collections of charts arranged as tiles.
+Dashboard charts start with SQL to generate results and associated charts. You can share these charts with others, modify the charts,
+and display them as dashboard tiles.
+To learn more about charts, see
+Visualizing worksheet data
+. To learn more about dashboards,
+see
+Visualizing data with dashboards
+Explore and manage your database objects
+¶
+You can explore and manage your database objects in Snowsight as follows:
+Explore databases and objects, including tables, functions, views, and more using the database object explorer.
+Create objects like databases, tables, file formats, and more.
+Search within the object explorer to browse database objects across your account.
+Preview the contents of database objects like tables, and view the files uploaded to a stage.
+Load files to an existing table, or create a table from a file so that you can start working with data in Snowflake faster.
+To learn more, see:
+Explore and manage database objects in Snowsight
+Loading data using the web interface
+Staging files using Snowsight
+Share and publish data products
+¶
+Collaborate with users in other Snowflake accounts by sharing data and application packages with them, or publishing those data products
+on the Snowflake Marketplace. When you share or publish data products with a listing, you can use auto-fulfillment to easily provide your data
+products in other Snowflake regions.
+As a consumer of data, you can access datasets and application packages shared with your account or published on the Snowflake Marketplace,
+helping you derive real time data insights without needing to set up a data pipeline or write any code.
+
+
+
+Documentation Source:
+docs.snowflake.com/en/user-guide/sample-data-using.txt
+
+Documentation Title:
+Using the Sample Database | Snowflake Documentation
+
+Documentation Content:
+You set the current warehouse in a session using the
+USE WAREHOUSE
+command (or within the Worksheet in the web interface.)
+Using the Tutorial SQL Scripts
+¶
+Snowflake provides a set of tutorials, which are annotated SQL statements that query the sample data sets to answer a set of practical business questions.
+To access the tutorials from Classic Console:
+In the
+Worksheets
+page, click on the down-arrow next to the worksheet tabs and select
+Open Tutorials
+:
+The
+Open Worksheet
+dialog displays the list of available tutorials. In the dialog, select a tutorial and click on the
+Open
+button:
+A new worksheet is created containing the contents of the tutorial:
+You can then execute the queries in the tutorial as you would in any worksheet. You can also alter the tutorial in the worksheet and save it as a custom worksheet.
 Was this page helpful?
 Yes
 No
@@ -205,17 +256,9 @@ Snowflake, Inc.
 All Rights Reserved
 .
 On this page
-Create a chart
-Modify a chart
-Charts and new query results
-Aggregate and bucket data
-Download charts
-Related content
-Getting started with Snowsight
-Managing and using worksheets in Snowsight
-Getting started with worksheets
-Querying data using worksheets
-Visualizing data with dashboards
+Viewing the Sample Database
+Querying Tables and Views in the Sample Database
+Using the Tutorial SQL Scripts
 Language
 :
 English
@@ -225,121 +268,6 @@ Deutsch
 日本語
 한국어
 Português
-
-
-
-Documentation Source:
-docs.snowflake.com/en/user-guide/querying-time-series-data.txt
-
-Documentation Title:
-Analyzing time-series data | Snowflake Documentation
-
-Documentation Content:
-stock_symbol
-=
-q
-.
-stock_symbol
-ORDER
-BY
-t
-.
-stock_symbol
-;
-Copy
-+--------------+-------------------------+----------+-------------------------+--------------+
-| STOCK_SYMBOL | TRADE_TIME              | QUANTITY | QUOTE_TIME              |        PRICE |
-|--------------+-------------------------+----------+-------------------------+--------------|
-| AAPL         | 2023-10-01 09:00:05.000 |     2000 | 2023-10-01 09:00:03.000 | 139.00000000 |
-| SNOW         | 2023-10-01 09:00:05.000 |     1000 | 2023-10-01 09:00:02.000 | 163.00000000 |
-| SNOW         | 2023-10-01 09:00:10.000 |     1500 | 2023-10-01 09:00:08.000 | 165.00000000 |
-+--------------+-------------------------+----------+-------------------------+--------------+
-The ON condition groups the matched rows by their stock symbols.
-To run this example, create and load the tables as follows:
-CREATE
-OR
-REPLACE
-TABLE
-trades
-(
-stock_symbol
-VARCHAR
-(
-4
-),
-trade_time
-TIMESTAMP_NTZ
-(
-9
-),
-quantity
-NUMBER
-(
-38
-,
-0
-)
-);
-CREATE
-OR
-REPLACE
-TABLE
-quotes
-(
-stock_symbol
-VARCHAR
-(
-4
-),
-quote_time
-TIMESTAMP_NTZ
-(
-9
-),
-price
-NUMBER
-(
-12
-,
-8
-)
-);
-INSERT
-INTO
-trades
-VALUES
-(
-'SNOW'
-,
-'2023-10-01 09:00:05.000'
-,
-1000
-),
-(
-'AAPL'
-,
-'2023-10-01 09:00:05.000'
-,
-2000
-),
-(
-'SNOW'
-,
-'2023-10-01 09:00:10.000'
-,
-1500
-);
-INSERT
-INTO
-quotes
-VALUES
-(
-'SNOW'
-,
-'2023-10-01 09:00:01.000'
-,
-166
-.
 
 
 

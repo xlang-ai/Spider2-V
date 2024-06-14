@@ -1,4 +1,51 @@
 Documentation Source:
+airbyte.com/docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections.txt
+
+Documentation Title:
+Configuring Connections | Airbyte Documentation
+
+Documentation Content:
+info
+A connection's schema consists of one or many streams. Each stream is most commonly associated with a database table or an API endpoint. Within a stream, there can be one or many fields or columns.
+To modify streams, click
+Connections
+and then click the connection you want to change. Click the
+Schema
+tab to see all the streams Airbyte can sync. To modify an individual stream:
+Toggle
+Sync
+on or off for your selected stream. To select or deselect all streams at once, use "Hide disabled streams" in the table header. To deselect an individual stream, use the toggle in its row.
+Click the
+Sync mode
+dropdown and select the sync mode you want to apply. Depending on the sync mode you select, you may need to choose a cursor or primary key.
+info
+Source-defined cursors and primary keys are selected automatically and cannot be changed in the table.
+Click on a stream to display the stream details panel. You'll see each column we detect from the source.
+Column selection is available to protect PII or sensitive data from being synced to the destination. Toggle individual fields to include or exclude them in the sync, or use the toggle in the table header to select all fields at once.
+info
+You can only deselect top-level fields. You cannot deselect nested fields.
+The Airbyte platform may read all data from the source (depending on the source), but it will only write data to the destination from fields you selected. Deselecting fields will not prevent the Airbyte platform from reading them.
+When you refresh the schema, newly added fields will be selected by default, even if you have previously deselected fields in that stream.
+Click the
+X
+to close the stream details panel.
+Click
+Save changes
+, or click
+Cancel
+to discard the changes.
+The
+Stream configuration changed
+dialog displays. This gives you the option to reset streams when you save the changes.
+tip
+When editing the stream configuration, Airbyte recommends that you reset streams. A reset will delete data in the destination of the affected streams and then re-sync that data. Skipping a reset is discouraged and might lead to unexpected behavior.
+Click
+Save connection
+.
+
+
+
+Documentation Source:
 airbyte.com/docs.airbyte.com/integrations/sources/faker.txt
 
 Documentation Title:
@@ -193,93 +240,93 @@ Declare 'id' columns as primary keys.
 
 
 Documentation Source:
-airbyte.com/quickstart/airbyte-dbt-and-airflow-stack-with-bigquery.txt
+airbyte.com/docs.airbyte.com/integrations/sources/jira-migrations.txt
 
 Documentation Title:
-E-commerce Analytics Stack with Airbyte, dbt, Airflow (ADA) and BigQuery | Airbyte
+Jira Migration Guide | Airbyte Documentation
 
 Documentation Content:
-Search for “faker” using the search bar and select "Sample Data (Faker)".
-Adjust the count and optional fields as needed for your use case. You can also leave as is.
-Click on "Set up source".
-2. Create a destination
-:
-Go to the "Destinations" tab and click on "+ New destination".
-Search for “bigquery” using the search bar and select BigQuery.
-Enter the connection details as needed.
-For simplicity, you can use "Standard Inserts" as the loading method.
-In the Service Account Key JSON field, enter the contents of the JSON file. Yes, the full JSON.
-Click on Set up destination.
-3. Create a connection
-:
-Go to the "Connections" tab and click on "+ New connection".
-Select the source and destination you just created.
-Enter the connection details as needed.
-Click on "Set up connection".
-That’s it! Your connection is set up and ready to go! 🎉
-4. Setting Up the dbt Project
-dbt (data build tool)
-allows you to transform your data by writing, documenting, and executing SQL workflows. Setting up the dbt project requires specifying connection details for your data platform, in this case, BigQuery. Here’s a step-by-step guide to help you set this up:
-1. Navigate to the dbt Project Directory
-:
-Move to the directory containing the dbt configuration:
-cd ../../dbt_project
-‍
-2. Update Connection Details
-:
-You'll find a <span class="text-style-code">profiles.yml</span> file within the directory. This file contains configurations for dbt to connect with your data platform.
-Update this file with your BigQuery connection details. Specifically, you need to update the Service Account JSON file path, the dataset location and your BigQuery project ID.
-Provide your BigQuery project ID in the database field of the <span class="text-style-code">/models/ecommerce/sources/faker_sources.yml</span> file.
-3. Test the Connection (Optional)
-:
-You can test the connection to your BigQuery instance using the following command.
-
-
-
-Documentation Source:
-airbyte.com/quickstart/airbyte-dbt-snowflake-and-looker-adsl-stack.txt
-
-Documentation Title:
-Airbyte, dbt, Snowflake and Looker (ADSL) Stack | Airbyte
-
-Documentation Content:
-Additional JDBC parameters:
-Add additional JDBC parameters from the Snowflake JDBC driver.
-Add warehouse=<YOUR WAREHOUSE NAME>.
-Additionally, by default, Looker will set the following Snowflake parameters on each session:
-TIMESTAMP_TYPE_MAPPING=TIMESTAMP_LTZ
-JDBC_TREAT_DECIMAL_AS_INT=FALSE
-TIMESTAMP_INPUT_FORMAT=AUTO
-AUTOCOMMIT=TRUE
-You can override each of these parameters by setting an alternative value in the Additional JDBC parameters field, for example: &AUTOCOMMIT=FALSE
-Click on
-Test
-to check if the connection is Successful. For troubleshooting, see
-here
+This is part of a strategic move to streamline many processes across connectors, bolstering maintainability and freeing us to focus more of our efforts on improving the performance and features of our evolving platform and growing catalog. However, due to differences between the Python and low-code CDKs, this migration constitutes a breaking change.
+To gracefully handle these changes for your existing connections, we highly recommend resetting your data before resuming your data syncs with the new version. The
+Issues
+,
+Board Issues
+and
+Sprint Issues
+streams can be manually reset in the following way:
+Select
+Connections
+in the main navbar.
+1.1 Select the connection(s) affected by the update.
+Select the
+Schema
+tab.
+Uncheck all streams except the affected ones.
+Select
+Save changes
+at the bottom of the page.
+Select the
+Settings
+tab.
+Press the
+Clear your data
+button.
+Return to the
+Schema
+tab.
+Check all your streams.
+Select
+Sync now
+to sync your data
+For more information on resetting your data in Airbyte, see
+this page
 .
-Click
-Connect
-to save these settings.
-Now that the connection to Snowflake has been created, you are good to go to explore your Snowflake data in Looker.
-Next Steps
-Once you've set up and launched this initial integration, the real power lies in its adaptability and extensibility. Here’s a roadmap to help you customize and harness this project tailored to your specific data needs:
-Create dbt Sources for Airbyte Data
-:
-Your raw data extracted via Airbyte can be represented as sources in dbt. Start by
-creating new dbt sources
-to represent this data, allowing for structured transformations down the line.
-Add Your dbt Transformations
-:
-With your dbt sources in place, you can now build upon them. Add your custom SQL transformations in dbt, ensuring that you treat the sources as an upstream dependency. This ensures that your transformations work on the most up-to-date raw data.
-Execute the Pipeline in Dagster
-:
-Navigate to the Dagster UI and click on "Materialize all". This triggers the entire pipeline, encompassing the extraction via Airbyte, transformations via dbt, and any other subsequent steps.
-Explore in Looker
-:
-You can use the SQL Runner to create queries and Explores, create and share Looks (reports and dashboards), or use LookML to create a data model that Looker will use to query your data. However way you wish to go with your Snowflake data, the choice is yours.
-Extend the Project
-:
-The real beauty of this integration is its extensibility.
+Upgrading to 1.0.0
+​
+Note: this change is only breaking if you are using the
+Boards Issues
+stream in Incremental Sync mode.
+This is a breaking change because Stream State for
+Boards Issues
+will be changed, so please follow the instructions below to migrate to version 1.0.0:
+Select
+Connections
+in the main navbar.
+1.1 Select the connection(s) affected by the update.
+Select the
+Replication
+tab.
+2.1 Select
+Refresh source schema
+.
+note Any detected schema changes will be listed for your review.
+2.2 Select
+OK
+.
+Select
+Save changes
+at the bottom of the page.
+3.1 Ensure the
+Reset affected streams
+option is checked.
+note Depending on destination type you may not be prompted to reset your data
+Select
+Save connection
+.
+note This will reset the data in your destination and initiate a fresh sync.
+For more information on resetting your data in Airbyte, see
+this page
+.
+Edit this page
+Previous
+Jira
+Next
+K6 Cloud API
+Upgrading to 2.0.0
+Upgrading to 1.0.0
+Was this page helpful?
+Yes
+No
 
 
 

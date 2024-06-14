@@ -5,87 +5,6 @@ Documentation Title:
 Exploring Data in Superset | Superset
 
 Documentation Content:
-Next, in the Time Comparison subsection of
-Advanced Analytics
-, enter the Time Shift by typing in
-“minus 1 week” (note this box accepts input in natural language). Run Query to see the new chart,
-which has an additional series with the same values, shifted a week back in time.
-Then, change the
-Calculation type
-to Absolute difference and select
-Run Query
-. We can now
-see only one series again, this time showing the difference between the two series we saw
-previously.
-Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.
-Resampling the data
-​
-In this section, we’ll resample the data so that rather than having daily data we have weekly data.
-As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
-Next, in the Python Functions subsection of
-Advanced Analytics
-, enter 7D, corresponding to seven
-days, in the Rule and median as the Method and show the chart by selecting
-Run Query
-.
-Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
-the median value within the seven daily data points. For more information on the meaning of the
-various options in this section, refer to the
-Pandas documentation
-.
-Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
-tutorial dashboard to see the four charts side by side and compare the different outputs.
-Edit this page
-Previous
-Creating Your First Dashboard
-Next
-Issue Codes
-Exploring Data in Superset
-Enabling Data Upload Functionality
-Loading CSV Data
-Table Visualization
-Dashboard Basics
-Pivot Table
-Line Chart
-Markup
-Publishing Your Dashboard
-Annotations
-Advanced Analytics
-Rolling Mean
-Time Comparison
-Resampling the data
-We use
-Copyright © 2024,
-          The
-Apache Software Foundation
-,
-          Licensed under the Apache
-License
-.
-Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
-Apache Software Foundation
-resources
-Security
-|
-Donate
-|
-Thanks
-|
-Events
-|
-License
-|
-Privacy
-
-
-
-Documentation Source:
-superset.apache.org/docs/using-superset/exploring-data/index.txt
-
-Documentation Title:
-Exploring Data in Superset | Superset
-
-Documentation Content:
 By the
 end of this section, you will have created a table that shows the monthly spend on flights for the
 first six months, by department, by travel class.
@@ -190,6 +109,87 @@ Charts
 in the top menu and then
 selecting the visualization name in the list (alternatively, find the chart in the Tutorial
 Dashboard and select Explore chart from the menu for that visualization).
+
+
+
+Documentation Source:
+superset.apache.org/docs/using-superset/exploring-data/index.txt
+
+Documentation Title:
+Exploring Data in Superset | Superset
+
+Documentation Content:
+Next, in the Time Comparison subsection of
+Advanced Analytics
+, enter the Time Shift by typing in
+“minus 1 week” (note this box accepts input in natural language). Run Query to see the new chart,
+which has an additional series with the same values, shifted a week back in time.
+Then, change the
+Calculation type
+to Absolute difference and select
+Run Query
+. We can now
+see only one series again, this time showing the difference between the two series we saw
+previously.
+Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.
+Resampling the data
+​
+In this section, we’ll resample the data so that rather than having daily data we have weekly data.
+As in the previous section, reopen the Tutorial Advanced Analytics Base chart.
+Next, in the Python Functions subsection of
+Advanced Analytics
+, enter 7D, corresponding to seven
+days, in the Rule and median as the Method and show the chart by selecting
+Run Query
+.
+Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
+the median value within the seven daily data points. For more information on the meaning of the
+various options in this section, refer to the
+Pandas documentation
+.
+Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
+tutorial dashboard to see the four charts side by side and compare the different outputs.
+Edit this page
+Previous
+Creating Your First Dashboard
+Next
+Issue Codes
+Exploring Data in Superset
+Enabling Data Upload Functionality
+Loading CSV Data
+Table Visualization
+Dashboard Basics
+Pivot Table
+Line Chart
+Markup
+Publishing Your Dashboard
+Annotations
+Advanced Analytics
+Rolling Mean
+Time Comparison
+Resampling the data
+We use
+Copyright © 2024,
+          The
+Apache Software Foundation
+,
+          Licensed under the Apache
+License
+.
+Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+Apache Software Foundation
+resources
+Security
+|
+Donate
+|
+Thanks
+|
+Events
+|
+License
+|
+Privacy
 
 
 
