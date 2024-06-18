@@ -56,21 +56,22 @@ def save_to_tmp_img_file(data_str):
 
 def get_model_pricing(model_name: str) -> Tuple[float, float]:
     pricing = {
+        'gpt-3.5-turbo': {
+            'prompt': 0.5e-6,
+            'completion': 1.5e-6
+        },
         'gpt-4-turbo': {
             'prompt': 10e-6,
             'completion': 30e-6
-        },
-        'gpt-4-32k': {
-            'prompt': 60e-6,
-            'completion': 120e-6
         },
         'gpt-4o': {
             'prompt': 5e-6,
             'completion': 15e-6
         }
     }
-    if model_name.startswith('gpt-4o'): model_name = 'gpt-4o'
-    if model_name.startswith('gpt-4-turbo'): model_name = 'gpt-4-turbo'
+    if model_name.startswith('gpt-3.5'): model_name = 'gpt-3.5-turbo'
+    elif model_name.startswith('gpt-4o'): model_name = 'gpt-4o'
+    elif model_name.startswith('gpt-4'): model_name = 'gpt-4-turbo'
     if model_name in pricing:
         return pricing[model_name]['prompt'], pricing[model_name]['completion']
     logger.warning(f"Model {model_name} is not in the pricing list.")
@@ -231,6 +232,7 @@ class PromptAgent:
             action_space="computer_13",
             observation_space="screenshot_a11y_tree",
             # observation_space can be in ["screenshot", "a11y_tree", "screenshot_a11y_tree", "som"]
+            execution_feedback=True,
             screen_size={'width': 1920, "height": 1080},
             max_trajectory_length=3,
             a11y_tree_max_tokens=5000
@@ -248,6 +250,7 @@ class PromptAgent:
         self.thoughts = []
         self.actions = []
         self.observations = []
+        self.execution_feedback = execution_feedback
         self.usages = {"prompt_tokens": 0, "completion_tokens": 0}
 
         action_key = self.action_space if 'som' not in self.observation_space else self.action_space + '_som'
@@ -309,7 +312,7 @@ class PromptAgent:
         return messages
 
 
-    def predict(self, instruction: str, verbose_instruction: str, context: str, obs: Dict) -> List:
+    def predict(self, instruction: str, obs: Dict, context: str = None) -> List:
         """
         Predict the next action(s) based on the current observation.
         """
@@ -328,18 +331,6 @@ class PromptAgent:
                 },
             ]
         })
-
-        if verbose_instruction is not None: # add step-by-step plan
-            step_by_step_message = "Here is a step-by-step tutorial from an expert instructing you how to complete it: {}\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.".format(verbose_instruction)
-            messages.append({
-                "role": "system",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": step_by_step_message
-                    },
-                ]
-            })
 
         if context is not None:
             context_message = "We also retrieve relevant documentation from the web to help you with the task:\n{}".format(context)
@@ -458,7 +449,7 @@ class PromptAgent:
             })
 
         # action execution result of previous turn
-        if len(self.actions) > 0: # if has previous action list
+        if len(self.actions) > 0 and self.execution_feedback: # if has previous action list
             infos = obs.get('infos', [])
             self.add_action_infos(messages, self.actions[-1], infos)
 
@@ -740,67 +731,6 @@ class PromptAgent:
                 
             return result
 
-        # elif self.model.startswith("claude"):
-        #     messages = payload["messages"]
-        #     max_tokens = payload["max_tokens"]
-        #     top_p = payload["top_p"]
-        #     temperature = payload["temperature"]
-
-        #     gemini_messages = []
-
-        #     for i, message in enumerate(messages):
-        #         gemini_message = {
-        #             "role": message["role"],
-        #             "content": []
-        #         }
-        #         assert len(message["content"]) in [1, 2], "One text, or one text with one image"
-        #         for part in message["content"]:
-
-        #             if part['type'] == "image_url":
-        #                 image_source = {}
-        #                 image_source["type"] = "base64"
-        #                 image_source["media_type"] = "image/png"
-        #                 image_source["data"] = part['image_url']['url'].replace("data:image/png;base64,", "")
-        #                 gemini_message['content'].append({"type": "image", "source": image_source})
-
-        #             if part['type'] == "text":
-        #                 gemini_message['content'].append({"type": "text", "text": part['text']})
-
-        #         gemini_messages.append(gemini_message)
-
-        #     headers = {
-        #         'Accept': 'application/json',
-        #         'Authorization': f'Bearer {os.environ["GEMINI_API_KEY"]}',
-        #         'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
-        #         'Content-Type': 'application/json'
-        #     }  
-            
-        #     payload = json.dumps({"model": self.model,"messages": gemini_messages,"max_tokens": max_tokens,"temperature": temperature,"top_p": top_p})
-
-        #     max_attempts = 20
-        #     attempt = 0
-        #     while attempt < max_attempts:
-        #         try:
-        #             response = requests.request("POST", "https://api2.aigcbest.top/v1/chat/completions", headers=headers, data=payload)
-        #             logger.info(f"response_code {response.status_code}")
-        #         except:
-        #             time.sleep(5)
-        #             continue
-        #         if response.status_code == 200:
-        #             result = response.json()['choices'][0]['message']['content']
-        #             break
-        #         else:
-        #             logger.error(f"Failed to call LLM")
-        #             time.sleep(5)
-        #             attempt += 1
-        #     else:
-        #         print("Exceeded maximum attempts to call LLM.")
-        #         result = ""
-                
-        #     return result
-
-
-
         elif self.model.startswith("mixtral"):
             messages = payload["messages"]
             max_tokens = payload["max_tokens"]
@@ -1035,8 +965,6 @@ class PromptAgent:
                 result = ""
                 
             return result
-
-
 
         elif self.model == "llama3-70b":
             messages = payload["messages"]

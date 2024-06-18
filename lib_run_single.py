@@ -5,14 +5,11 @@ from desktop_env.envs.desktop_env import DesktopEnv
 from mm_agents.agent import PromptAgent
 from wrapt_timeout_decorator import *
 
-
 logger = logging.getLogger("desktopenv.experiment")
 
+TIME_LIMIT = 1800 # 30 minutes for each example at most
 
-TIME_LIMIT = 3600 # 1 hour for each example at most
-
-
-# @timeout(TIME_LIMIT, use_signals=False)
+@timeout(TIME_LIMIT, use_signals=False)
 def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, result_dir: str, args: argparse.Namespace) -> float:
     done, step_idx = False, 0
     agent.reset()
@@ -23,7 +20,8 @@ def run_single_example(agent: PromptAgent, env: DesktopEnv, example: dict, resul
     a11y_tree = os.path.join(result_dir, "a11y_trees")
 
     while not done and step_idx < args.max_steps:
-        response, actions = agent.predict(example['instruction'], example['verbose_instruction'], example['context'], obs)
+        context = example['context'] if 'context' in example else None
+        response, actions = agent.predict(example['instruction'], obs, context)
         infos = []
         for action in actions:
             # Capture the timestamp before executing the action
