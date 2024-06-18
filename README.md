@@ -97,7 +97,7 @@ The entire task set contains $494$ examples (`evaluation_examples/test_all.json`
 - whether the task instruction is *verbose* or *abstract* (`evaluation_examples/test_verbose.json` and `evaluation_examples/test_abstract.json`)
 - whether a real account is needed (`evaluation_examples/test_account.json` and `evaluation_examples/test_non_account.json`)
 - etc.
-Note that, a *verbose* instruction means we explicitly tell the agent how to complete the task step-by-step. If you want to test examples which require real accounts (e.g., Snowflake and Google BigQuery), please register relevant accounts and fill credentials into templates under folder `evaluation_examples/settings` first (see [Accounts](ACCOUNT_GUIDELINE.md) for more step-by-step details).
+Note that, a *verbose* instruction means we explicitly tell the agent how to complete the task step-by-step. If you want to test examples which require real accounts (e.g., Snowflake and Google BigQuery), please register relevant accounts and fill credentials into templates under folder `evaluation_examples/settings` first (see [Account Guideline](ACCOUNT_GUIDELINE.md) for more step-by-step details).
 
 With respect to the task format, see [Task Format](evaluation_examples/README.md#task-format).
 
@@ -115,7 +115,7 @@ python run_spider2v_human.py --path_to_vm ./vm_data/Ubuntu0/Ubuntu0/Ubuntu0.vmx 
 ```
 
 ### 💻 Agent Baselines
-If you wish to run the baseline agent used in our paper, you can execute the following command as an example under the GPT4-o pure-screenshot setting:
+If you wish to run the baseline agent used in our paper, you can execute the following command as an example under the GPT4-o pyautogui+SoM+ExecutionFeedback+RAG setting:
 
 Set **OPENAI_API_KEY** environment variable with your API key
 ```bash
@@ -123,24 +123,26 @@ export OPENAI_API_KEY='changme'
 ```
 
 ```bash
-python run_spider2v_agent.py --path_to_vm ./vm_data/Ubuntu0/Ubuntu0/Ubuntu0.vmx --headless --observation_space som --action_space pyautogui --model gpt-4o-2024-05-13 --result_dir ./results
+python run_spider2v_agent.py --path_to_vm ./vm_data/Ubuntu0/Ubuntu0/Ubuntu0.vmx \
+    --snapshot snapshot_name \
+    --model gpt-4o-2024-05-13 \
+    --headless \
+    --action_space pyautogui \
+    --observation_space som \
+    --execution_feedback \
+    --rag \
+    --result_dir ./results \
+    --example evaluation_examples/test_non_account.json
 ```
-The results, which include screenshots, actions, and video recordings of the agent's task completion, will be saved in the `./results` directory in this case. You can then run the following command to obtain the result:
-```bash
-python show_result.py
-```
+The results, which include screenshots, actions, and video recordings of the agent's task completion, will be saved in the `./results` directory.
 
-### Evaluation
-Please start by reading through the [agent interface](https://github.com/xlang-ai/OSWorld/blob/main/mm_agents/README.md) and the [environment interface](https://github.com/xlang-ai/OSWorld/blob/main/desktop_env/README.md).
-Correctly implement the agent interface and import your customized version in the `run.py` file.
-Afterward, you can execute a command similar to the one in the previous section to run the benchmark on your agent.
 
 ## ❓ FAQ
 ### What is the username and password for the virtual machines?
 The username and password for the virtual machines are as follows:
 - **Ubuntu:** `user` / `password`
 
-### How to setup the account and credentials for Google and Google Drive?
+### How to setup credentials for task examples requiring accounts?
 
 See [Account Guideline](ACCOUNT_GUIDELINE.md)
 
@@ -149,21 +151,20 @@ See [Account Guideline](ACCOUNT_GUIDELINE.md)
 See [Proxy Guideline](PROXY_GUIDELINE.md).
 
 ### What are the running times and costs under different settings?
-| Setting                        | Expected Time* | Budget Cost (Full Test Set/Small Test Set) |
+| Setting                        | Expected Time* | Average Cost Per Task |
 | ------------------------------ | -------------- | ------------------------------------------ |
-| GPT-4V (screenshot)            | 10h            | $100 ($10)                                 |
-| Gemini-ProV (screenshot)       | 15h            | $0 ($0)                                    |
-| Claude-3 Opus (screenshot)     | 15h            | $150 ($15)                                 |
-| GPT-4V (a11y tree, SoM, etc.)  | 30h            | $500 ($50)                                 |
+| GPT-4o (screenshot)            | 10h            | $2                                         |
+| GPT-4o (a11y tree, SoM)        | 30h            | $2                                         |
 
-\*No environment parallelism. Calculated in April 2024.
+\*No parallelism. Calculated in June 2024.
 
 ## 📄 Citation
-If you find this environment useful, please consider citing our work:
+If you find this benchmark useful, please consider citing our work:
 ```
-@misc{OSWorld,
-      title={OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments}, 
-      author={Tianbao Xie and Danyang Zhang and Jixuan Chen and Xiaochuan Li and Siheng Zhao and Ruisheng Cao and Toh Jing Hua and Zhoujun Cheng and Dongchan Shin and Fangyu Lei and Yitao Liu and Yiheng Xu and Shuyan Zhou and Silvio Savarese and Caiming Xiong and Victor Zhong and Tao Yu},
+@misc{Spider2-V,
+      title={Spider2-V: How Far Are Multimodal Agents From
+Automating Data Science and Engineering Workflows?}, 
+      author={},
       year={2024},
       eprint={2404.07972},
       archivePrefix={arXiv},

@@ -152,7 +152,8 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    # Sample usage: python llama_index_retrieval.py --example_directory evaluation_examples/examples/ --doc_directory evaluation_examples/documents/doc_txt/
+    # Sample usage:
+    # python llama_index_retrieval.py --example_directory evaluation_examples/examples/ --doc_directory evaluation_examples/documents/doc_txt/ --embed_model_name_or_path evaluation_examples/documents/bge-large-en-v1.5
 
     args = parse_args()
 

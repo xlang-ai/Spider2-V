@@ -27,7 +27,7 @@ from mm_agents.agent import PromptAgent
 
 agent = PromptAgent(
     model="gpt-4-vision-preview",
-    observation_type="screenshot",
+    observation_space="screenshot",
 )
 agent.reset()
 # say we have an instruction and observation

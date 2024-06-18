@@ -22,7 +22,6 @@ from PIL import Image
 from google.api_core.exceptions import InvalidArgument, ResourceExhausted, InternalServerError, BadRequest
 
 from mm_agents.accessibility_tree_wrap.heuristic_retrieve import filter_nodes, draw_bounding_boxes
-# from mm_agents.prompts import *
 from mm_agents.prompt_templates import ACTION_SPACE_PROMPTS, OBSERVATION_SPACE_PROMPTS, SYSTEM_PROMPT
 
 logger = logging.getLogger("desktopenv.agent")
@@ -225,7 +224,7 @@ class PromptAgent:
     def __init__(
             self,
             platform="ubuntu",
-            model="gpt-4-vision-preview",
+            model="gpt-4o",
             max_tokens=1500,
             top_p=0.9,
             temperature=0.5,
