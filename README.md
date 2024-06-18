@@ -63,14 +63,12 @@ If the installation along with the environment variable set is successful, you w
 ```bash
 playwright install chromium
 ```
-All set! Now, you/agent can interact with the environment via the Quick Start below.
+All set! Now, you/agent can interact with the environment via the [Quick Start](#-quick-start) below.
 
-<!-- ### On AWS or Azure (Virtualized platform)
-We are working on supporting it 👷. Please hold tight! -->
 
 ### 🚀 Quick Start
 Run the following minimal example to interact with the environment:
-- It will automatically download the prepared virtual machines from [Huggingface](https://huggingface.co/datasets/xlangai/) into `./vm_data`, configure the environment, and take one snapshot called `init_state` for you.
+- It will automatically download the prepared virtual machine from [Huggingface](https://huggingface.co/datasets/xlangai/) into `./vm_data`, configure the environment, and take one snapshot called `init_state` for you.
 ```python
 from desktop_env.envs.desktop_env import DesktopEnv
 
@@ -97,7 +95,8 @@ The entire task set contains $494$ examples (`evaluation_examples/test_all.json`
 - whether the task instruction is *verbose* or *abstract* (`evaluation_examples/test_verbose.json` and `evaluation_examples/test_abstract.json`)
 - whether a real account is needed (`evaluation_examples/test_account.json` and `evaluation_examples/test_non_account.json`)
 - etc.
-Note that, a *verbose* instruction means we explicitly tell the agent how to complete the task step-by-step. If you want to test examples which require real accounts (e.g., Snowflake and Google BigQuery), please register relevant accounts and fill credentials into templates under folder `evaluation_examples/settings` first (see [Account Guideline](ACCOUNT_GUIDELINE.md) for more step-by-step details).
+
+Note that, *verbose* instruction means we explicitly tell the agent how to complete the task step-by-step. If you want to test examples which require real accounts (e.g., Snowflake and Google BigQuery), please register relevant accounts and fill credentials into templates under folder `evaluation_examples/settings` first (see [Account Guideline](ACCOUNT_GUIDELINE.md) for more step-by-step details).
 
 With respect to the task format, see [Task Format](evaluation_examples/README.md#task-format).
 
@@ -111,7 +110,7 @@ you can run the following interactive script:
 - the snapshot name is default to `init_state`.
 - if the `--example` argument is not specified, we will randomly sample one example from `evaluation_examples/test_all.json`
 ```bash
-python run_spider2v_human.py --path_to_vm ./vm_data/Ubuntu0/Ubuntu0/Ubuntu0.vmx --snapshot init_state --example evaluation_examples/test_non_account.json
+python run_spider2v_human.py --snapshot init_state --example evaluation_examples/test_non_account.json
 ```
 
 ### 💻 Agent Baselines
@@ -123,8 +122,7 @@ export OPENAI_API_KEY='changme'
 ```
 
 ```bash
-python run_spider2v_agent.py --path_to_vm ./vm_data/Ubuntu0/Ubuntu0/Ubuntu0.vmx \
-    --snapshot snapshot_name \
+python run_spider2v_agent.py --snapshot init_state \
     --model gpt-4o-2024-05-13 \
     --headless \
     --action_space pyautogui \
@@ -135,6 +133,8 @@ python run_spider2v_agent.py --path_to_vm ./vm_data/Ubuntu0/Ubuntu0/Ubuntu0.vmx 
     --example evaluation_examples/test_non_account.json
 ```
 The results, which include screenshots, actions, and video recordings of the agent's task completion, will be saved in the `./results` directory.
+
+> If you want to use other models, you can revise the code file `mm_agents/agent.py`.
 
 
 ## ❓ FAQ
@@ -149,6 +149,9 @@ See [Account Guideline](ACCOUNT_GUIDELINE.md)
 ### How can I configure a proxy for the VM if I'm behind a GFW?
 
 See [Proxy Guideline](PROXY_GUIDELINE.md).
+
+### Where to download the documents for retrieval?
+The preprocessed documents can be downloaded from [GoogleDrive](https://drive.usercontent.google.com/download?id=1aGaHXDkBeoUZ9EOIPj7iIRFra_2FjJoZ&export=download&authuser=0&confirm=t). See [Documents](evaluation_examples/documents/README.md) for details.
 
 ### What are the running times and costs under different settings?
 | Setting                        | Expected Time* | Average Cost Per Task |
