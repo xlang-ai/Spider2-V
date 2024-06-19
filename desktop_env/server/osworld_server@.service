@@ -1,5 +1,5 @@
 [Unit]
-Description=OSBench Server
+Description=OSWorld Server
 StartLimitIntervalSec=60
 StartLimitBurst=4
 After=network.target auditd.service

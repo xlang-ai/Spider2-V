@@ -19,18 +19,12 @@
     <a href="https://opensource.org/licenses/Apache-2.0">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
     </a>
-    <!-- <a href="https://badge.fury.io/py/Spider2-V">
-        <img src="https://badge.fury.io/py/Spider2-V.svg">
-    </a>
-    <a href="https://pepy.tech/project/Spider2-V">
-        <img src="https://static.pepy.tech/badge/Spider2-V">
-    </a> -->
     <br/>
 </p>
 
 
 ## 📢 Updates
-- 2024-06-23: We released our [paper](https://arxiv.org/abs/), [environment and benchmark](https://github.com/xlang-ai/Spider2-V), and [project page](https://spider2-v.github.io/). Check it out!
+- 2024-06-20: We released our [environment and benchmark](https://github.com/xlang-ai/Spider2-V). Check it out!
 
 ## 🏗️ Installation
 ### 💾 On Your Desktop or Server
@@ -105,9 +99,9 @@ If you want to check more examples manually in the virtual machine on a GUI scre
 2. completing the task in the virtual machine by yourself;
 3. invoking the customized evaluation function after completion,
 you can run the following interactive script:
-- if you do not specify the parameter `--path_to_vm`, the script will automatically find available virtual machines under folder `./vm_data`. If not found, it will download our prepared VM from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip)) into `./vm_data` and use it.
-- the snapshot name is default to `init_state`.
-- if the `--example` argument is not specified, we will randomly sample one example from `evaluation_examples/test_all.json`
+- if the `--path_to_vm` argument is not specified, the script will automatically find available virtual machines under folder `./vm_data`. If not found, it will download our prepared VM from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip)) into `./vm_data` and use it
+- if the `--snapshot` argument is not specified, it will use snapshot with name `init_state` by default
+- if the `--example` argument is not specified, it will test on one example `evaluation_examples/test_one.json` by default
 ```bash
 python run_spider2v_human.py --snapshot init_state --example evaluation_examples/test_non_account.json
 ```
@@ -152,24 +146,22 @@ See [Proxy Guideline](PROXY_GUIDELINE.md).
 ### Where to download the documents for retrieval?
 The preprocessed documents can be downloaded from [GoogleDrive](https://drive.usercontent.google.com/download?id=1aGaHXDkBeoUZ9EOIPj7iIRFra_2FjJoZ&export=download&authuser=0&confirm=t). See [Documents](evaluation_examples/documents/README.md) for details.
 
-### What are the running times and costs under different settings?
-| Setting                        | Expected Time* | Average Cost Per Task |
-| ------------------------------ | -------------- | ------------------------------------------ |
-| GPT-4o (screenshot)            | 10h            | $2                                         |
-| GPT-4o (a11y tree, SoM)        | 30h            | $2                                         |
+### What are the running times and costs?
+| Setting | Expected Time | Average Prompt Tokens | Average Completion Tokens | Average Cost |
+| --------| ------------- | --------------------- | ------------------------- | ------------ |
+| GPT-4o  | 26.2m         | 0.32M                 | 1.6K                      | $1.64        |
+| GPT-4V  | 24.0m         | 0.32M                 | 1.8K                      | $3.29        |
 
-\*No parallelism. Calculated in June 2024.
+- action_space = pyautogui, observation_space = SoM
+- history_trajectory_length = 3, max_steps = 15, RAG = True
+- prompt tokens include image pixels. Calculated per task in June 2024.
 
 ## 📄 Citation
 If you find this benchmark useful, please consider citing our work:
 ```
 @misc{Spider2-V,
       title={Spider2-V: How Far Are Multimodal Agents From
-Automating Data Science and Engineering Workflows?}, 
-      author={},
-      year={2024},
-      eprint={2404.07972},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI}
+Automating Data Science and Engineering Workflows?},
+      year={2024}
 }
 ```
