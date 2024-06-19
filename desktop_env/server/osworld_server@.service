@@ -2,7 +2,7 @@
 Description=OSWorld Server
 StartLimitIntervalSec=60
 StartLimitBurst=4
-After=network.target auditd.service
+After=network.target auditd.service graphical.target
 
 [Service]
 ExecStart=/usr/bin/python3 /home/user/server/main.py

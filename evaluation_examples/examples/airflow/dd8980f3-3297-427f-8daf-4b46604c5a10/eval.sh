@@ -49,14 +49,27 @@ else
 fi
 
 # check whether the DAG can run successfully
-astro run ${DAG_ID} >/dev/null 2>/dev/null # manually run it
-flag=$(docker exec -i $CONTAINER airflow dags list-runs -o plain --dag-id ${DAG_ID} --no-backfill | grep "${DAG_id}" | grep -m 1 "manual" | awk '{print $3}')
-if [ "$flag" = "success" ]; then
-    echo "astro run dag succeed"
-else
-    echo "astro run dag failed"
-    exit 0
-fi
+# astro run ${DAG_ID} >/dev/null 2>/dev/null # manually run it, but it is not working in this case
+run_id=$(docker exec -i $CONTAINER airflow dags trigger ${DAG_ID} -o plain | grep "${DAG_ID}" | awk '{print $3}')
+count=0
+while true; do
+    sleep 5
+    count=$(expr $count + 1)
+    flag=$(docker exec -i $CONTAINER airflow dags list-runs -o plain --dag-id ${DAG_ID} --no-backfill | grep "${run_id}" | awk '{print $3}')
+    if [ "$flag" = "success" ] || [ "$flag" == "failed" ]; then
+        if [ "$flag" = "success" ]; then
+            echo "astro run dag succeed"
+            break
+        else
+            echo "astro run dag failed"
+            exit 0
+        fi
+    fi
+    if [ $count -gt 10 ]; then
+        echo "astro run dag failed after 50 seconds"
+        exit 0
+    fi
+done
 
 # check whether the interval is set correctly
 interval_flag=$(docker exec -i $CONTAINER airflow dags details -o plain ${DAG_ID} | grep "schedule_interval" | grep "0 10 \* \* \*")

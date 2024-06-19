@@ -50,27 +50,9 @@ docker exec -i airbyte-source psql -U postgres -d postgres -c "CREATE TABLE basi
 docker exec -i airbyte-source psql -U postgres -d postgres -c "INSERT INTO basic_file(id, name) VALUES(1, 'Mary X');"
 docker exec -i airbyte-source psql -U postgres -d postgres -c "INSERT INTO basic_file(id, name) VALUES(2, 'John D');"
 
-
-echo password | sudo -S apt-get install -y expect
-expect -c '
-set timeout -1
-spawn bash -c "curl -s -o- https://raw.githubusercontent.com/observablehq/airbyte/master/octavia-cli/install.sh | bash"
-expect {
-    "❓ - Allow Airbyte to collect telemetry to improve the CLI? (Y/n)" {
-        send "Y\r"
-        exp_continue
-    }
-    eof {
-        puts "Installation complete."
-    }
-}
-'
-sleep 10
-
 source /home/user/.bashrc
-echo "OCTAVIA_ENABLE_TELEMETRY=True" >> ~/.octavia
-echo "AIRBYTE_USERNAME=airbyte" >> ~/.octavia
-echo "AIRBYTE_PASSWORD=password" >> ~/.octavia
+echo "AIRBYTE_USERNAME=\"\"" >> ~/.octavia
+echo "AIRBYTE_PASSWORD=\"\"" >> ~/.octavia
 mkdir airbyte-configuration && cd airbyte-configuration
 
 gnome-terminal --maximize --working-directory=/home/user/projects/airbyte/airbyte-configuration/

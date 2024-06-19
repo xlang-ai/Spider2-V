@@ -123,6 +123,24 @@ BASIC_AUTH_USERNAME=""
 BASIC_AUTH_PASSWORD=""
 ' .env
     conda deactivate
+    # install octavia-cli
+    cd /home/user/
+    echo $PASSWORD | sudo -S apt-get install -y expect
+    curl -o install.sh https://raw.githubusercontent.com/observablehq/airbyte/master/octavia-cli/install.sh
+    expect -c '
+set timeout -1
+spawn bash install.sh
+expect {
+    "❓ - Allow Airbyte to collect telemetry to improve the CLI? (Y/n)" {
+        send "Y\r"
+        exp_continue
+    }
+    eof {
+        puts "Installation complete."
+    }
+}
+'
+    rm -rf install.sh
 }
 setup_airbyte
 
@@ -137,6 +155,21 @@ function setup_airflow() {
     conda activate airflow
     pip install apache-airflow==2.9.1 apache-airflow-providers-airbyte==3.8.0
     conda deactivate
+    cd /home/user/projects
+    mkdir -p airflow_temp && cd airflow_temp
+    cat >> Dockerfile <<EOF
+FROM quay.io/astronomer/astro-runtime:10.5.0
+RUN python -m venv dbt_venv && source dbt_venv/bin/activate && \
+pip install --no-cache-dir dbt-postgres==1.7.10 && deactivate
+EOF
+    touch packages.txt
+    cat >> requirements.txt <<EOF
+astronomer-cosmos==1.0.4
+apache-airflow-providers-postgres==5.6.0
+EOF
+    docker build -t my-astro:1.0 .
+    cd /home/user/projects
+    rm -rf airflow_temp/
 }
 setup_airflow
 
