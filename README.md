@@ -136,7 +136,7 @@ The results, which include screenshots, a11y trees, actions, and video recording
 The username and password for the virtual machines are as follows:
 - **Ubuntu:** `user` / `password`
 
-### How to setup credentials for task examples requiring accounts?
+### How to tackle task examples requiring accounts?
 
 See [Account Guideline](ACCOUNT_GUIDELINE.md)
 
