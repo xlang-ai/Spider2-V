@@ -17,8 +17,8 @@ __version__ = "0.1.12"
 MAX_RETRY_TIMES = 10
 LOCAL_ARM_FILE_PATH = "vm_data/ubuntu-arm.zip"
 LOCAL_X86_FILE_PATH = "vm_data/ubuntu-x86.zip"
-UBUNTU_ARM_URL = "https://huggingface.co/datasets/xlangai/ubuntu_arm/resolve/main/Ubuntu.zip"
-UBUNTU_X86_URL = "https://huggingface.co/datasets/xlangai/ubuntu_x86/resolve/main/Ubuntu.zip"
+UBUNTU_ARM_URL = "https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip"
+UBUNTU_X86_URL = "https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip"
 DOWNLOADED_FILE_NAME = "Ubuntu.zip"
 REGISTRY_PATH = '.vms'
 VMS_DIR = "./vm_data"
@@ -221,7 +221,7 @@ def _install_virtual_machine(vm_name, vms_dir, downloaded_file_name):
 
         if not os.path.exists(downloaded_file_name):
             # Download the virtual machine image
-            print("Downloading the virtual machine image...")
+            print(f"Downloading the virtual machine image from {downloaded_file_name}...")
             downloaded_size = 0
 
             while True:

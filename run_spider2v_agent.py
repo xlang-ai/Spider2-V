@@ -76,7 +76,7 @@ def config() -> argparse.Namespace:
     parser.add_argument("--max_tokens", type=int, default=1500)
 
     # example config
-    parser.add_argument('-e', "--example", type=str, default=os.path.join('evaluation_examples', 'test_all.json'), help="JSON dict containing example ids to run")
+    parser.add_argument('-e', "--example", type=str, default=os.path.join('evaluation_examples', 'test_one.json'), help="JSON dict containing example ids to run")
     parser.add_argument("--exclude_account", action='store_true', help="Whether to use RAG for the agent")
     parser.add_argument("--execution_feedback", action='store_true', help="whether to use execution feedback for the agent")
     parser.add_argument("--rag", action='store_true', help="Whether to use RAG for the agent")
@@ -275,10 +275,10 @@ def get_result(result_dir: dict) -> str:
             if not os.path.isdir(example_path): continue
             if "result.txt" in os.listdir(example_path):
                 all_result[domain].append(float(open(os.path.join(example_path, "result.txt"), "r").read()))
-    if not all_result:
+    total = sum([len(all_result[domain]) for domain in all_result])
+    if total == 0:
         return "New experiment, no result yet."
     else:
-        total = sum([len(all_result[domain]) for domain in all_result])
         total_success = sum([sum(all_result[domain]) for domain in all_result])
         msg = f"Current Success Rate: {total_success} / {total} = { total_success / total * 100:.2f}%"
         return msg

@@ -141,7 +141,7 @@ class LlamaIndexRetrieval:
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--doc_directory', type=str, default='evaluation_examples/documents/doc_txt')
+    parser.add_argument('--doc_directory', type=str, default='evaluation_examples/documents/docs/doc_txt')
     parser.add_argument('--example_directory', type=str, default='evaluation_examples/examples')
     parser.add_argument('--chunk_size', type=int, default=512)
     parser.add_argument('--chunk_overlap', type=int, default=20)
@@ -153,7 +153,7 @@ def parse_args():
 
 if __name__ == '__main__':
     # Sample usage:
-    # python llama_index_retrieval.py --example_directory evaluation_examples/examples/ --doc_directory evaluation_examples/documents/doc_txt/ --embed_model_name_or_path evaluation_examples/documents/bge-large-en-v1.5
+    # python llama_index_retrieval.py --example_directory evaluation_examples/examples/ --doc_directory evaluation_examples/documents/docs/doc_txt/ --embed_model_name_or_path evaluation_examples/documents/bge-large-en-v1.5
 
     args = parse_args()
 
@@ -167,13 +167,13 @@ if __name__ == '__main__':
             if example_path.exists() and example_path.is_file():
                 all_examples_path.append(example_path)
 
+    suffix = args.doc_directory.rstrip(os.sep).split('_')[-1]
+    retrieved_filename = f'retrieved_chunk_size_{args.chunk_size}_chunk_overlap_{args.chunk_overlap}_' \
+                            f'topk_{args.topk}_embed_{Path(args.embed_model_name_or_path).name}.{suffix}'
     for example_path in all_examples_path:
         print(f'retrieving documents for {example_path}...')
         with open(example_path, 'r') as f:
             query_data = json.load(f)
         retrieved_data = retrieval.retrieve_docs_by_instruction_data(query_data, args.topk)
-        suffix = args.doc_directory.rstrip(os.sep).split('_')[-1]
-        retrieved_filename = f'retrieved_chunk_size_{args.chunk_size}_chunk_overlap_{args.chunk_overlap}_' \
-                             f'topk_{args.topk}_embed_{Path(args.embed_model_name_or_path).name}.{suffix}'
         with open(example_path.parent / (retrieved_filename), 'w') as f:
             f.write(retrieved_data)

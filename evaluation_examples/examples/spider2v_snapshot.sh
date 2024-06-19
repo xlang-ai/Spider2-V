@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# This is the Shell script creating the snapshot from raw Ubuntu 22.04 LST image for Spider2-V dataset.
 # Before running the following setup, please ensure that:
 # 1. Chromium/Google Chrome is installed and can be started via chromium-browser or google-chrome command in the terminal.
 # 2. Docker is installed and the current user is in the docker group. It is also configured to start on boot.

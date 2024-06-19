@@ -6,8 +6,7 @@
   <a href="https://spider2-v.github.io/">Website</a> •
   <a href="https://arxiv.org/abs/">Paper</a> •
   <a href="https://github.com/xlang-ai/Spider2-V/tree/main/evaluation_examples">Data</a> •
-  <a href="https://spider2-v.github.io/explorer.html">Data Viewer</a> •
-  <!-- <a href="https://discord.gg/4Gnw7eTEZR">Discord</a> -->
+  <a href="https://spider2-v.github.io/explorer.html">Data Viewer</a>
 </p>
 
 <p align="center">
@@ -31,7 +30,7 @@
 
 
 ## 📢 Updates
-- 2024-06-20: We released our [paper](https://arxiv.org/abs/), [environment and benchmark](https://github.com/xlang-ai/Spider2-V), and [project page](https://spider2-v.github.io/). Check it out!
+- 2024-06-23: We released our [paper](https://arxiv.org/abs/), [environment and benchmark](https://github.com/xlang-ai/Spider2-V), and [project page](https://spider2-v.github.io/). Check it out!
 
 ## 🏗️ Installation
 ### 💾 On Your Desktop or Server
@@ -57,7 +56,7 @@ pip install -r requirements.txt
 vmrun -T ws list
 ```
 If the installation along with the environment variable set is successful, you will see the message showing the current running virtual machines.
-> **Note:** We will also support using [VirtualBox](https://www.virtualbox.org/) in the near future if you have issues with VMware Pro. However, features such as parallelism and macOS on Apple chips are not supported.
+> **Note:** We will also support using [VirtualBox](https://www.virtualbox.org/) in the near future if you have issues with VMware Pro.
 
 3. Install other dependencies like Playwright.
 ```bash
@@ -68,13 +67,13 @@ All set! Now, you/agent can interact with the environment via the [Quick Start](
 
 ### 🚀 Quick Start
 Run the following minimal example to interact with the environment:
-- It will automatically download the prepared virtual machine from [Huggingface](https://huggingface.co/datasets/xlangai/) into `./vm_data`, configure the environment, and take one snapshot called `init_state` for you.
+- It will automatically download the prepared virtual machine from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip)) into `./vm_data`, configure the environment, and take one snapshot called `init_state` for you.
 ```python
 from desktop_env.envs.desktop_env import DesktopEnv
 
 # feel free to change the example!
-# task instruction: Help me run all cells in this jupyter notebook. I hope to check the results.
-example_path = 'evlauation_examples/examples/jupyter/8ecc0ac2-3083-4be0-ace9-43079288d717/8ecc0ac2-3083-4be0-ace9-43079288d717.json'
+# task instruction: Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets.
+example_path = 'evlauation_examples/examples/dagster/22ef9058-6188-422a-9c12-e6934e4ed936/22ef9058-6188-422a-9c12-e6934e4ed936.json'
 with open(example_path, 'r') as infile:
     example = json.load(infile)
 
@@ -96,7 +95,7 @@ The entire task set contains $494$ examples (`evaluation_examples/test_all.json`
 - whether a real account is needed (`evaluation_examples/test_account.json` and `evaluation_examples/test_non_account.json`)
 - etc.
 
-Note that, *verbose* instruction means we explicitly tell the agent how to complete the task step-by-step. If you want to test examples which require real accounts (e.g., Snowflake and Google BigQuery), please register relevant accounts and fill credentials into templates under folder `evaluation_examples/settings` first (see [Account Guideline](ACCOUNT_GUIDELINE.md) for more step-by-step details).
+Note that, *verbose* instruction means we explicitly tell the agent how to complete the task step-by-step. If you want to test examples which require real accounts (e.g., Snowflake and Google BigQuery), please register relevant accounts and fill credentials into template files under folder `evaluation_examples/settings` first (see [Account Guideline](ACCOUNT_GUIDELINE.md) for more step-by-step details).
 
 With respect to the task format, see [Task Format](evaluation_examples/README.md#task-format).
 
@@ -106,7 +105,7 @@ If you want to check more examples manually in the virtual machine on a GUI scre
 2. completing the task in the virtual machine by yourself;
 3. invoking the customized evaluation function after completion,
 you can run the following interactive script:
-- if you do not specify the parameter `--path_to_vm`, the script will automatically find available virtual machines under folder `./vm_data`. If not found, it will download our prepared snapshot from [Huggingface](https://huggingface.co/datasets/xlangai/) into `./vm_data` and use it.
+- if you do not specify the parameter `--path_to_vm`, the script will automatically find available virtual machines under folder `./vm_data`. If not found, it will download our prepared VM from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip)) into `./vm_data` and use it.
 - the snapshot name is default to `init_state`.
 - if the `--example` argument is not specified, we will randomly sample one example from `evaluation_examples/test_all.json`
 ```bash
@@ -116,7 +115,7 @@ python run_spider2v_human.py --snapshot init_state --example evaluation_examples
 ### 💻 Agent Baselines
 If you wish to run the baseline agent used in our paper, you can execute the following command as an example under the GPT4-o pyautogui+SoM+ExecutionFeedback+RAG setting:
 
-Set **OPENAI_API_KEY** environment variable with your API key
+Set **OPENAI_API_KEY** environment variable with your API key:
 ```bash
 export OPENAI_API_KEY='changme'
 ```
@@ -132,7 +131,7 @@ python run_spider2v_agent.py --snapshot init_state \
     --result_dir ./results \
     --example evaluation_examples/test_non_account.json
 ```
-The results, which include screenshots, actions, and video recordings of the agent's task completion, will be saved in the `./results` directory.
+The results, which include screenshots, a11y trees, actions, and video recordings of the agent's task completion, will be saved in the `./results` directory.
 
 > If you want to use other models, you can revise the code file `mm_agents/agent.py`.
 

@@ -36,18 +36,14 @@ def run_human_agent():
     parser.add_argument('-e', '--example', type=str, help='.json file path to examples')
     parser.add_argument('-r', '--recording', default='recordings', help='folder to save trajectory videos')
     args = parser.parse_args()
-    os.makedirs('recordings', exist_ok=True)
+    os.makedirs(args.recording, exist_ok=True)
 
-    if args.example:
-        with open(args.example, 'r') as infile:
-            examples = json.load(infile)
-        checking_list = [os.path.join('evaluation_examples', 'examples', tool, uid, f'{uid}.json') for tool in examples for uid in examples[tool]]
-    else:
-        logger.warning('[WARNING]: No example provided. Will randomly choose one from all.')
-        with open(os.path.join('evaluation_examples', 'test_all.json'), 'r') as infile:
-            examples = json.load(infile)
-        tool, uid = random.choice(list(examples.items()))
-        checking_list = [os.path.join('evaluation_examples', 'examples', tool, uid, f'{uid}.json')]
+    if not args.example:
+        args.example = os.path.join('evaluation_examples', 'test_one.json')
+        logger.warning(f'[WARNING]: No example provided. Will use {args.example} by default.')
+    with open(args.example, 'r') as infile:
+        examples = json.load(infile)
+    checking_list = [os.path.join('evaluation_examples', 'examples', tool, uid, f'{uid}.json') for tool in examples for uid in examples[tool]]
 
     env = DesktopEnv(
         path_to_vm=args.path_to_vm,
