@@ -79,6 +79,7 @@ obs, reward, done, info = env.step("pyautogui.rightClick()")
 input('Now, you can finish the task in the virtual machine manually and Press ENTER to evaluate ...')
 score = env.evaluate()
 print(f'Evaluation score: {float(score):.1f}')
+env.close()
 ```
 You will see all the logs of the system running normally, including the successful creation of the environment, completion of setup, and successful execution of a `rightClick` action on the screen, which means you are ready to continue.
 
