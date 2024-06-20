@@ -10,7 +10,7 @@
     "related_apps": [
         "chromium",
         "snowflake",
-        "hasura",
+        "hasura_cloud",
         "vscode"
     ],
     "tags": [

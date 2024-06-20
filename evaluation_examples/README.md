@@ -83,7 +83,7 @@ Here we introduce the format of task examples. Take the BigQuery task `bigquery/
 - `source`: the list of URLs based on which we construct the current example
 - `action_number`: under the folder of each task example, we also provide a special file `verbose_instruction.txt`, which indicates how to complete the current task step-by-step. This field is exactly the number of actions based on `verbose_instruction.txt`
 - `related_apps`: the list of professional applications used in the current example. The complete set includes $21$ applications:
-    - `{'airflow', 'dagster', 'snowflake', 'duckdb', 'bigquery', 'jupyter', 'dbt', 'mysql', 'servicenow', 'terminal', 'metabase', 'airbyte', 'docker', 'hasura', 'sqlite3', 'vscode', 'chromium', 'postgresql', 'superset', 'dbt-cloud', 'excel'}`
+    - `{'airflow', 'dagster', 'snowflake', 'duckdb', 'bigquery', 'jupyter', 'dbt', 'mysql', 'servicenow', 'terminal', 'metabase', 'airbyte', 'docker', 'hasura_cloud', 'sqlite3', 'vscode', 'chromium', 'postgresql', 'superset', 'dbt_cloud', 'excel'}`
 - `tags`: different categories to label the current example
     - `verbose`/`abstract`: whether the `instruction` field offers a detailed step-by-step solution
     - `cli`/`gui`/`cli+gui`: whether a command line interface (cli) or a graphical user interface (gui) is necessary to finish the current task

@@ -1,6 +1,8 @@
 # Real Accounts
 
-For tasks including Snowflake, BigQuery, Google Grive, ServiceNow, dbt Cloud or Hasura Cloud, we need to register real accounts and configure the credentials under folder `evaluation_examples/settings`.
+For tasks including Snowflake, BigQuery, Google Grive, ServiceNow, dbt Cloud or Hasura Cloud, we need to register real accounts and configure the credentials under folder `evaluation_examples/settings`. These task examples are summarized in `evaluation_examples/test_account.json`, or can be distinguished by `tags` or `related_apps` fields:
+- for `tags` field, it must contain the tag `account`;
+- for `related_apps` field, it must contain at least one of the following applications: `{'snowflake', 'bigquery', 'servicenow', 'hasura_cloud', 'dbt_cloud'}`
 
 > Attention: to prevent conflicts between environment reset and result evaluation which are caused by multiple people using the same account simultaneously, we will not provide public test accounts. Please register empty personal private accounts.
 
