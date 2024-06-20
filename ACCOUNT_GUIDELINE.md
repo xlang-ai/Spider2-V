@@ -1,8 +1,8 @@
 # Real Accounts
 
-For tasks including Snowflake, BigQuery, Google Grive, ServiceNow, dbt-cloud or Hasura Cloud, we need to register real accounts and configure the credentials under folder `evaluation_examples/settings`.
+For tasks including Snowflake, BigQuery, Google Grive, ServiceNow, dbt Cloud or Hasura Cloud, we need to register real accounts and configure the credentials under folder `evaluation_examples/settings`.
 
-> Attention: to prevent environment reset and result evaluation conflicts caused by multiple people using the same account simultaneously, we will not provide the public test accounts available. Please register empty personal private accounts.
+> Attention: to prevent conflicts between environment reset and result evaluation which are caused by multiple people using the same account simultaneously, we will not provide public test accounts. Please register empty personal private accounts.
 
 ## Table of Contents
 1. [google](#google)
@@ -13,9 +13,9 @@ For tasks including Snowflake, BigQuery, Google Grive, ServiceNow, dbt-cloud or 
 6. [hasura_cloud](#hasura_cloud)
 
 ## google
-To fill in template files `evaluation_examples/settings/settings.json` and `evaluation_examples/settings/gcp_config.json`, please follow the steps below:
+To fill in template files `evaluation_examples/settings/settings.json.template` and `evaluation_examples/settings/gcp_config.json.template`, please follow the steps below:
 1. Register a **blank** new Google account and disable the [2-Step Verification](https://support.google.com/accounts/answer/1064203?hl=en&co=GENIE.Platform%3DDesktop#:~:text=Open%20your%20Google%20Account.,Select%20Turn%20off.).
-- Note that, disable the 2-Step Verification is significant!
+- Note that, disabling the 2-Step Verification is significant!
 2. Next, copy and rename the template file `settings.json.template` into `settings.json` under folder `evaluation_examples/settings/google/`. And fill in the template file `settings.json` with concrete values:
 ```json
 {
@@ -24,7 +24,7 @@ To fill in template files `evaluation_examples/settings/settings.json` and `eval
 }
 ```
 3. Go to [Google Cloud Project Creation](https://console.cloud.google.com/projectcreate) page and create a new GCP (see [Create a Google Cloud Project](https://developers.google.com/workspace/guides/create-project) for detailed steps) with project name `bigquery-project`.
-4. Go to the [Google API Library](https://console.cloud.google.com/apis/library) page and enable APIs `Google Cloud APIs` and `Google Drive API` for the created GCP `bigquery-project` (see [Enable and disable APIs](https://support.google.com/googleapi/answer/6158841?hl=en) for detailed steps).
+4. Go to the [Google API Library](https://console.cloud.google.com/apis/library) page and enable APIs `Google Cloud APIs` and `Google Drive API` for the created GCP `bigquery-project` (see [Enable and disable APIs](https://support.google.com/googleapi/answer/6158841?hl=en) for details).
 5. Go to [Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts/create?) page, create a new service account for GCP `bigquery-project` with the role `Owner`. And generate a new key file for this service account. Download the JSON key file to local folder `evaluation_examples/settings/google/`.
 6. Finally, copy and rename the template file `gcp_config.json.template` into `gcp_config.json` under folder `evaluation_examples/settings/google/`. And fill in the template file `gcp_config.json` with concrete values:
 ```json
@@ -48,17 +48,24 @@ To fill in template files `evaluation_examples/settings/settings.json` and `eval
 ## googledrive
 Using exactly the same Google account above, to access private data in Google Drive, we need to configure OAuth2.0. Please follow the steps below:
 1. Configure OAuth consent screen. Go to page [OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent?):
-- For User Type, choose "External" and click "Create"
-- For App information, type in any App name, and choose the current Google account as user support email
-- For Developer information, also fill in the current gmail account. Leave other fields blank and click button "SAVE AND CONTINUE"
-- For `Scopes`, add the restricted scope `.../auth/drive` via clicking button "ADD OR REMOVE SCOPES".
-- For `Test Users`, add the current gmail account via clicking button "+ ADD USERS".
-2. Finish all configuration and we will come to the configured OAuth consent screen. There is another thing, "PUBLISH APP" to extend the lifecycle of credentials (just ignore the pop-up dialog). Otherwise, the refresh token is only valid in 7 days (refer to [google offical doc](https://developers.google.com/identity/protocols/oauth2#expiration) and [stackoverflow post](https://stackoverflow.com/questions/74659774/google-oauth-2-0-refresh-token-expiry-how-many-days) for details).
+- For `User Type`, choose `External` and click button `Create`
+- For `App information`, type in any App name you like, and choose the current Google account as `user support email`
+- For `Developer information`, also fill in the current gmail account. Leave other fields blank and click button `SAVE AND CONTINUE`
+- For `Scopes`, add the restricted scope `.../auth/drive` via clicking button `ADD OR REMOVE SCOPES` (see Figure below).
+- For `Test Users`, add the current gmail account via clicking button `+ ADD USERS`.
+
+<p align="center">
+  <img src="assets/oauth-scopes.png" width="50%" alt="Scopes">
+</p>
+
+2. Finish all configuration and we will come to the configured OAuth consent screen. There is another thing, click button `PUBLISH APP` to extend the lifecycle of credentials (just ignore the pop-up dialog). Otherwise, the refresh token is only valid in 7 days (refer to [google offical doc](https://developers.google.com/identity/protocols/oauth2#expiration) and [stackoverflow post](https://stackoverflow.com/questions/74659774/google-oauth-2-0-refresh-token-expiry-how-many-days) for details).
 <p align="center">
   <img src="assets/publishapp.png" width="50%" alt="Publish APP">
 </p>
+
 3. Create OAuth2.0 credentials. Go to page [OAuth client ID](https://console.cloud.google.com/apis/credentials/oauthclient):
-- For Application type, please choose "Desktop app". You can use any Name. And click "CREATE".
+- For `Application type`, please choose `Desktop app`. You can use any `Name`. And click button `CREATE`.
+
 4. Now, in the pop-up window, you can download the JSON file `client_secret_xxxxx.json`. Move and rename this .json file to file path `evaluation_examples/settings/googledrive/client_secrets.json`. The folder should look like:
 ```
 - evaluation_examples/
@@ -68,12 +75,13 @@ Using exactly the same Google account above, to access private data in Google Dr
       - settings.json.template
       - gcp_config.json
       - gcp_config.json.template
+      - ${project_id}.json # downloaded service account key file
     - googledrive/
       - settings.yml
       - client_secrets.json
 ```
 
-> Attention that, when we first run a task including Google Drive, there will be a url requesting your permission. Open the link in unsafe mode using the gmail you filled in `evaluation_examples/settings/google/settings.json`, authorize and confirm your choice once for all. Eventually, you will see a prompt message "The authentication flow has completed." in a blank web page.
+> Attention that, when we first run a task including Google Drive, there will be a url requesting your permission. Open the link in unsafe mode using the gmail you filled in `evaluation_examples/settings/google/settings.json`, authorize and confirm your choice once for all (see Figures below). Eventually, you will see a prompt message "The authentication flow has completed." in a blank web page.
 
 <p align="center">
   <img src="assets/unsafemode.png" width="45%" style="margin-right: 5%;" alt="Unsafe mode">
@@ -105,7 +113,7 @@ In this case, Google does not give you the chance to use phone verification code
 > Sadly, we do not have a permanent solution. The only suggestion is not to frequently change your login IP or device. If you encounter any problem above, Google may urge you to change the password. Also remember to update the password in `evaluation_examples/settings/google/settings.json`.
 
 ## servicenow
-To test examples involving ServiceNow application (adapted from [WorkArena](https://github.com/ServiceNow/WorkArena)), please:
+To test examples involving ServiceNow application (this part is adapted from [WorkArena](https://github.com/ServiceNow/WorkArena)), please:
 1. Go to [ServiceNow](https://developer.servicenow.com/) and create an account.
 2. Click on Request an instance and select the `Washington` release. Once the instance is ready, you should see your instance URL and credentials.
 3. Next, copy and rename template file `settings.json.template` into `settings.json` under folder `evaluation_examples/settings/servicenow/`. And fill information from step 2 into `settings.json`:
@@ -117,7 +125,7 @@ To test examples involving ServiceNow application (adapted from [WorkArena](http
     "SNOW_INSTANCE_PWD": "your_instance_password"
 }
 ```
-4. Upload the benchmark data to your ServiceNow instance.
+4. Upload the benchmark data to your ServiceNow instance (this step may take some time).
 ```bash
 export SNOW_INSTANCE_URL="https://{your_instance_id}.service-now.com/"
 export SNOW_INSTANCE_UNAME="admin"
@@ -129,11 +137,12 @@ workarena-install
 ## snowflake
 To test examples involving Snowflake application, please:
 1. Go to page [Snowflake](https://signup.snowflake.com/) to sign up a new account.
-- choose "Enterprise" version
+- choose `Enterprise` version
 - choose any cloud provider you like
-2. Activate your account and create a username and password.
-3. Get the account URL (ending with ".snowflakecomputing.com") for the current account (see [how to get account url](https://docs.snowflake.com/en/user-guide/admin-account-identifier#finding-the-organization-and-account-name-for-an-account)).
-4. Copy and rename `settings.json.template` into `settings.json` under folder `evaluation_examples/settings/snowflake/`. And fill concrete values into `settings.json`:
+2. Activate your account and create a `Username` and `Password`.
+3. Sign in this account, close any pop-up windows for the first login (*e.g.*, choosing the background color).
+4. Get the `Account URL` (ending with `.snowflakecomputing.com`) for the current account (see [how to get account url](https://docs.snowflake.com/en/user-guide/admin-account-identifier#finding-the-organization-and-account-name-for-an-account)).
+5. Copy and rename `settings.json.template` into `settings.json` under folder `evaluation_examples/settings/snowflake/`. And fill concrete values into `settings.json`:
 ```json
 {
     "account": "https://xxxxxxxx.snowflakecomputing.com",
@@ -145,8 +154,8 @@ To test examples involving Snowflake application, please:
 ## dbt_cloud
 To test examples involving dbt Cloud application, please:
 1. Go to page [dbt-cloud](https://www.getdbt.com/signup) to sign up a new account.
-2. Log in and navigate to `Settings -> Account`, get the "Account ID" and "Access URL".
-3. Navigate to `Settings -> API tokens -> Personal tokens`, and generate one personal access token.
+2. Log in and navigate to `Settings -> Account`, get the `Account ID` and `Access URL` (the `cloud_host` field in the template file).
+3. Navigate to `Settings -> API tokens -> Personal tokens`, and generate the personal access token.
 4. Copy and rename `settings.json.template` into `settings.json` under folder `evaluation_examples/settings/dbt_cloud/`. And fill concrete values above into `settings.json`:
 ```json
 {
