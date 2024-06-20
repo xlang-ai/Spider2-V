@@ -61,7 +61,7 @@ All set! Now, you/agent can interact with the environment via the [Quick Start](
 
 ### 🚀 Quick Start
 Run the following minimal example to interact with the environment:
-- It will automatically download the prepared virtual machine from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip)) into `./vm_data`, configure the environment, and take one snapshot called `init_state` for you.
+- It will automatically download the prepared virtual machine from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_spider2v/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_spider2v/blob/main/ubuntu-x86.zip)) into `./vm_data`, configure the environment, and take one snapshot called `init_state` for you.
 ```python
 from desktop_env.envs.desktop_env import DesktopEnv
 
@@ -100,7 +100,7 @@ If you want to check more examples manually in the virtual machine on a GUI scre
 2. completing the task in the virtual machine by yourself;
 3. invoking the customized evaluation function after completion,
 you can run the following interactive script:
-- if the `--path_to_vm` argument is not specified, the script will automatically find available virtual machines under folder `./vm_data`. If not found, it will download our prepared VM from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_arm_spider2.0/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_x86_spider2.0/blob/main/ubuntu-x86.zip)) into `./vm_data` and use it
+- if the `--path_to_vm` argument is not specified, the script will automatically find available virtual machines under folder `./vm_data`. If not found, it will download our prepared VM from Huggingface (for [arm64](https://huggingface.co/datasets/xlangai/ubuntu_spider2v/blob/main/ubuntu-arm.zip) and for [x86](https://huggingface.co/datasets/xlangai/ubuntu_spider2v/blob/main/ubuntu-x86.zip)) into `./vm_data` and use it
 - if the `--snapshot` argument is not specified, it will use snapshot with name `init_state` by default
 - if the `--example` argument is not specified, it will test on one example `evaluation_examples/test_one.json` by default
 ```bash
