@@ -15,4 +15,4 @@ StandardOutput=file:/home/user/server/output.log
 StandardError=file:/home/user/server/error.log
 
 [Install]
-WantedBy=multi-user.target graphical.target
+WantedBy=graphical.target
