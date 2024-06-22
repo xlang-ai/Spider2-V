@@ -21,10 +21,11 @@ echo $PASSWORD | sudo -S systemctl stop postgresql
 # configure Postgres
 POSTGRES_VERSION=16-alpine
 # Start a source Postgres container running at port 2000 on localhost
-docker run --rm --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
+docker run --name airbyte-source -e POSTGRES_PASSWORD=password -p 2000:5432 -d postgres:${POSTGRES_VERSION}
 # Start a destination Postgres container running at port 3000 on localhost
-docker run --rm --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres:${POSTGRES_VERSION}
-docker exec -i airbyte-source bash -c "sed -i '/^#*wal_level/c\
+docker run --name airbyte-destination -e POSTGRES_PASSWORD=password -p 3000:5432 -d postgres:${POSTGRES_VERSION}
+sleep 3
+docker exec -i airbyte-source bash -c "sed -i '/^#wal_level/c\
 wal_level = logical
 ' /var/lib/postgresql/data/postgresql.conf"
 docker restart airbyte-source
