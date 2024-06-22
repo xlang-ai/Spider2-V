@@ -1,6 +1,6 @@
 {
     "id": "e67d315c-8c1f-451b-baec-aba50ce88166",
-    "snapshot": "airbyte",
+    "snapshot": "dagster",
     "instruction": "I have an Airbyte connection from MySQL to Local JSON. However, my team now wants to use Dagster to facilitate the pipeline. Please help me migrate this connection to Dagster. Name the connection \"mysql_to_json\". Run the job in the Dagster UI after migration.",
     "source": [
         "https://docs.airbyte.com/operator-guides/using-dagster-integration"

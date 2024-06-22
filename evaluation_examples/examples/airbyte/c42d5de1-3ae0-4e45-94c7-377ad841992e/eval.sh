@@ -24,7 +24,8 @@ for workspaceid in ${workspaces}; do
         source_name=$(echo $source_config | jq -rM ".sourceName")
         database=$(echo $source_config | jq -rM ".connectionConfiguration.database")
         username=$(echo $source_config | jq -rM ".connectionConfiguration.username")
-        if [ "${source_name}" = "MySQL" ] && [ "${database}" = "CARS" ] && [ "${username}" = "alice" ] ; then
+        replication_method=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.method")
+        if [ "${source_name}" = "MySQL" ] && [ "${database}" = "CARS" ] && [ "${username}" = "alice" ] && [ "${replication_method}" = "STANDARD" ] ; then
             echo "Airbyte Connection from MySQL, succeed"
         else
             continue
@@ -43,10 +44,9 @@ for workspaceid in ${workspaces}; do
 
         # check the connection config
         connection_config=$(echo $connections | jq -rM ".connections | .[${i}] | .")
-        incremental=$(echo $connection_config | grep "\"syncMode\": \"incremental\"")
         schedule=$(echo $connection_config | jq -rM ".scheduleData.basicSchedule.timeUnit")
         interval=$(echo $connection_config | jq -rM ".scheduleData.basicSchedule.units")
-        if [ -n "$incremental" ] && [ "$schedule" = "hours" ] && [ "$interval" = "12" ]; then
+        if [ "$schedule" = "hours" ] && [ "$interval" = "12" ]; then
             echo "Airbyte Connection config, succeed"
             airbyte_connection=true
             break

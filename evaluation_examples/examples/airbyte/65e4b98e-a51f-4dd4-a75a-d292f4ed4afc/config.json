@@ -4,7 +4,8 @@
         "port": 3306,
         "user": "alice",
         "password": "xbCad9dg",
-        "database": "CARS"
+        "database": "CARS",
+        "update_method": "user defined cursor"
     },
     "LocalJSON": {
         "path": "/json_data"

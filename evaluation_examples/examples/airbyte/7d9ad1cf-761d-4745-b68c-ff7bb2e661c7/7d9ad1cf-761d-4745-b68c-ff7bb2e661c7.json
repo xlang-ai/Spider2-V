@@ -1,14 +1,16 @@
 {
     "id": "7d9ad1cf-761d-4745-b68c-ff7bb2e661c7",
     "snapshot": "airbyte",
-    "instruction": "I want to construct an airbyte connection from Postgres to Snowflake in the Airbyte local UI with incremental append sync mode and choose 'id' of the stream as cursor. Could you help me finish this task?",
+    "instruction": "I want to construct an airbyte connection from Postgres to Local SQLite in the Airbyte local UI with incremental append sync mode and choose 'id' of the stream as cursor. Could you help me finish this task?",
     "source": [
         "https://docs.airbyte.com/using-airbyte/core-concepts/sync-modes/incremental-append"
     ],
     "related_apps": [
         "chromium",
         "airbyte",
-        "docker"
+        "docker",
+        "postgresql",
+        "sqlite3"
     ],
     "tags": [
         "gui",

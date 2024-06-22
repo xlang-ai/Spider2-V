@@ -8,7 +8,8 @@
     "related_apps": [
         "chromium",
         "airbyte",
-        "docker"
+        "docker",
+        "postgresql"
     ],
     "tags": [
         "gui",

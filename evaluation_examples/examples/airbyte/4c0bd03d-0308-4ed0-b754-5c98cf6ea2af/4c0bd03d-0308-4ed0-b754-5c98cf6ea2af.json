@@ -8,12 +8,14 @@
     "related_apps": [
         "chromium",
         "airbyte",
-        "docker"
+        "docker",
+        "snowflake"
     ],
     "tags": [
         "gui",
         "data_ingestion_and_integration",
-        "verbose"
+        "verbose",
+        "account"
     ],
     "action_number": 4,
     "config": [

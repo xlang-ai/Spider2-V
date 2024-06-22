@@ -23,8 +23,12 @@ for workspaceid in ${workspaces}; do
         source_id=${source_ids[$i]}
         source_config=$(curl -X POST http://localhost:8000/api/v1/sources/get -H "Content-Type: application/json" -d "{\"sourceId\": \"${source_id}\"}")
         source_name=$(echo $source_config | jq -rM ".sourceName")
+        source_host=$(echo $source_config | jq -rM ".connectionConfiguration.host")
         source_port=$(echo $source_config | jq -rM ".connectionConfiguration.port")
-        if [ "${source_name}" = "Postgres" ] &&[ "${source_port}" = "2000" ]; then
+        source_database=$(echo $source_config | jq -rM ".connectionConfiguration.database")
+        source_username=$(echo $source_config | jq -rM ".connectionConfiguration.username")
+        replication_method=$(echo $source_config | jq -rM ".connectionConfiguration.replication_method.method")
+        if [ "${source_name}" = "Postgres" ] && [ "${source_host}" = "localhost" ] && [ "${source_port}" = "2000" ] && [ "${source_database}" = "postgres" ] && [ "${source_username}" = "postgres" ] && [ "${replication_method}" = "Standard" ]; then
             echo "Airbyte Connection from source Postgres, succeed"
         else
             continue
@@ -34,8 +38,9 @@ for workspaceid in ${workspaces}; do
         destination_id=${destination_ids[$i]}
         destination_config=$(curl -X POST http://localhost:8000/api/v1/destinations/get -H "Content-Type: application/json" -d "{\"destinationId\": \"${destination_id}\"}")
         destination_name=$(echo $destination_config | jq -rM ".destinationName")
-        if [ "${destination_name}" = "Local SQLite" ]; then
-            echo "Airbyte Connection to destination Snowflake, succeed"
+        destination_path=$(echo $destination_config | jq -rM ".connectionConfiguration.destination_path")
+        if [ "${destination_name}" = "Local SQLite" ] && [ "${destination_path}" = "/local/obesity.sqlite" ] ; then
+            echo "Airbyte Connection to destination Local SQLite, succeed"
         else
             continue
         fi
@@ -53,6 +58,6 @@ for workspaceid in ${workspaces}; do
     done
 done
 if [ ${airbyte_connection} = false ] ; then
-    echo "Airbyte Connection from source Postgres to destination Snowflake, failed"
+    echo "Airbyte Connection from source Postgres to destination Local SQLite, failed"
     exit 0
 fi

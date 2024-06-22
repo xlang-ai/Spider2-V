@@ -11,10 +11,5 @@
     "destination Local SQLite": {
         "destination name": "Local SQLite",
         "destination_path": "/local/obesity.sqlite"
-    },
-    "connection config": {
-        "schedule type": "Scheduled",
-        "replication namespace": "every 24 hour",
-        "detect and propagate schema changes": "Propagate field changes only"
     }
 }

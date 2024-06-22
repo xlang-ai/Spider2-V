@@ -9,7 +9,8 @@
         "chromium",
         "docker",
         "airbyte",
-        "superset"
+        "superset",
+        "postgresql"
     ],
     "tags": [
         "gui",

@@ -8,13 +8,12 @@ port: 3306
 user: alice
 password: xbCad9dg
 database: CARS
-5. Leave the other fields unchanged, and scroll down to the bottom;
+5. As for Update Method, click and choose "Scan Changes with User Defined Cursor". Then, scroll down to the bottom;
 6. Click the button "Set up source", it will cost some time for Airbyte to check the connection;
 7. Next, we need to configure the destination. In the search box, type in "local json";
 8. Select and click the filtered item "Local JSON";
 9. Type in value "/json_data" for the field "destination_path";
 10. Click the button "Set up destination" and wait for the system response;
 11. Now, we come to the configuration page for the connection. Firstly, replace the value in "Replication frequency" from "Every 24 hours" to a shorter period "Every 12 hours", such that the connection can handle more frequent data changes;
-12. Besides, scroll down to the bottom of the web page, and pinpoint the data stream called "cars_info";
-13. In the selector called "Sync mode", select a value "Incremental | Append" such that only the data changes will be transferred. This incremental mode will greatly reduce the total volume of transferred data;
-14. Eventually, click the button "Set up connection" to finish the entire task.
+12. Next, scroll down to the bottom of this web page;
+13. Eventually, click the button "Set up connection" to finish the entire task.
