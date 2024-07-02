@@ -22,6 +22,9 @@
     <br/>
 </p>
 
+<p align="center">
+  <img src="assets/overall.png" alt="Tasks">
+</p>
 
 ## 📢 Updates
 - 2024-06-20: We released our [environment and benchmark](https://github.com/xlang-ai/Spider2-V). Check it out!
