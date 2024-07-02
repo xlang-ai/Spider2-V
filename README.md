@@ -22,36 +22,13 @@
     <br/>
 </p>
 
-<style>
-    .image-container-wrapper {
-        position: relative;
-        max-height: 320px;
-    }
-    .image-container {
-        max-height: 320px;
-        overflow-y: scroll;
-    }
-    .responsive-image {
-        width: 100%;
-        height: auto;
-    }
-    .scroll-hint {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        z-index: 10;
-    }
-</style>
-<div class="image-container-wrapper">
-    <div class="image-container">
-        <img src="assets/overall.png" width="100%" alt="Spider2-V Overview" class="responsive-image">
+<div style="position: relative; width: 100%; margin: 0 auto; overflow: hidden;">
+  <div style="overflow-y: scroll; max-height: 320px;">
+    <img src="assets/overall.png" alt="Spider2-V Overview" style="width: 100%;">
+    <div style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px;">
+      scroll down to view more
     </div>
-    <div class="scroll-hint">scroll down to view more</div>
+  </div>
 </div>
 
 ## 📢 Updates
