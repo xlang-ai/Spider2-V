@@ -22,13 +22,17 @@
     <br/>
 </p>
 
-<div style="position: relative; width: 100%; margin: 0 auto; overflow: hidden;">
+<!-- <div style="position: relative; width: 100%; margin: 0 auto; overflow: hidden;">
   <div style="overflow-y: scroll; max-height: 320px;">
     <img src="assets/overall.png" alt="Spider2-V Overview" style="width: 100%;">
     <div style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px;">
       scroll down to view more
     </div>
   </div>
+</div> -->
+
+<div style="overflow-y: auto; max-height: 200px; border: 1px solid #ddd;">
+  <img src="assets/overall.png" alt="Spider2-V Overview" style="width: 100%;">
 </div>
 
 ## 📢 Updates
