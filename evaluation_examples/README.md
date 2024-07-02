@@ -5,7 +5,7 @@ In this file, we will briefly introduce the usage of each sub-folder:
 3. real accounts: `settings/`
 
 ## Document Warehouse
-To support retrieval augmented generation framework, we crawl and pre-process HTML from official documentation of various applications. For detailed information, see [Documents](evaluation_examples/documents/README.md).
+To support retrieval augmented generation framework, we crawl and pre-process HTML from official documentation of various applications. For detailed information, see [Documents](../evaluation_examples/documents/README.md).
 
 ## Task Format
 Here we introduce the format of task examples. Take the BigQuery task `bigquery/3363a913-d3e9-42c2-9d76-9cd9e9bafec7` as an example, the `.json` configuration file is:
