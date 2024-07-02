@@ -22,9 +22,37 @@
     <br/>
 </p>
 
-<p align="center">
-  <img src="assets/overall.png" alt="Tasks">
-</p>
+<style>
+    .image-container-wrapper {
+        position: relative;
+        max-height: 320px;
+    }
+    .image-container {
+        max-height: 320px;
+        overflow-y: scroll;
+    }
+    .responsive-image {
+        width: 100%;
+        height: auto;
+    }
+    .scroll-hint {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        z-index: 10;
+    }
+</style>
+<div class="image-container-wrapper">
+    <div class="image-container">
+        <img src="assets/overall.png" width="100%" alt="Spider2-V Overview" class="responsive-image">
+    </div>
+    <div class="scroll-hint">scroll down to view more</div>
+</div>
 
 ## 📢 Updates
 - 2024-06-20: We released our [environment and benchmark](https://github.com/xlang-ai/Spider2-V). Check it out!
