@@ -28,7 +28,7 @@
 </p>
 
 ## 📢 Updates
-- 2024-06-20: We released our [environment and benchmark](https://github.com/xlang-ai/Spider2-V). Check it out!
+- 2024-07-15: We released our [environment and benchmark](https://github.com/xlang-ai/Spider2-V). Check it out!
 
 ## 🏗️ Installation
 ### 💾 On Your Desktop or Server
