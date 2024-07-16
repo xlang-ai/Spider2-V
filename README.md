@@ -1,13 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 <p align="center">
   <img src="assets/spider2v-overview.png" alt="Spider2-V">
 </p>
 
 <p align="center">
-  <a href="https://spider2-v.github.io/">Website</a> •
-  <a href="https://arxiv.org/abs/">Paper</a> •
+  <a href="https://spider2-v.github.io/"><i class="fab fa-github"></i> Website</a> •
+  <a href="https://arxiv.org/abs/2407.10956">Paper</a> •
   <a href="https://github.com/xlang-ai/Spider2-V/tree/main/evaluation_examples">Data</a> •
-  <!-- Task Viewer not available currently -->
-  <!-- <a href="https://spider2-v.github.io/explorer.html">Data Viewer</a> -->
+  <a href="https://spider2-v.github.io/explorer.html">Task Viewer</a>
 </p>
 
 <p align="center">
@@ -28,7 +29,8 @@
 </p>
 
 ## 📢 Updates
-- 2024-06-20: We released our [environment and benchmark](https://github.com/xlang-ai/Spider2-V). Check it out!
+- 2024-07-16: We released our [environment and dataset](https://github.com/xlang-ai/Spider2-V), [website](https://spider2-v.github.io/) and [arxiv paper](https://arxiv.org/abs/2407.10956). Check it out!
+
 
 ## 🏗️ Installation
 ### 💾 On Your Desktop or Server
@@ -164,9 +166,14 @@ The preprocessed documents can be downloaded from [GoogleDrive](https://drive.us
 ## 📄 Citation
 If you find this benchmark useful, please consider citing our work:
 ```
-@misc{Spider2-V,
-      title={Spider2-V: How Far Are Multimodal Agents From
-Automating Data Science and Engineering Workflows?},
-      year={2024}
+@article{2024-spider2v,
+    title={Spider2-V: How Far Are Multimodal Agents From Automating Data Science and Engineering Workflows?},
+    author={Ruisheng Cao and Fangyu Lei and Haoyuan Wu and Jixuan Chen and Yeqiao Fu and Hongcheng Gao and Xinzhuang Xiong and Hanchong Zhang and Yuchen Mao and Wenjing Hu and Tianbao Xie and Hongshen Xu and Danyang Zhang and Sida Wang and Ruoxi Sun and Pengcheng Yin and Caiming Xiong and Ansong Ni and Qian Liu and Victor Zhong and Lu Chen and Kai Yu and Tao Yu},
+    year={2024},
+    journal={CoRR},
+    volume={abs/2407.10956},
+    eprint={2407.10956},
+    eprinttype={arXiv},
+    url={https://arxiv.org/abs/2407.10956},
 }
 ```
