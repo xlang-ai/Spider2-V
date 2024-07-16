@@ -1,14 +1,12 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 <p align="center">
   <img src="assets/spider2v-overview.png" alt="Spider2-V">
 </p>
 
 <p align="center">
-  <a href="https://spider2-v.github.io/"><i class="fab fa-github"></i> Website</a> •
-  <a href="https://arxiv.org/abs/2407.10956">Paper</a> •
-  <a href="https://github.com/xlang-ai/Spider2-V/tree/main/evaluation_examples">Data</a> •
-  <a href="https://spider2-v.github.io/explorer.html">Task Viewer</a>
+  <a href="https://spider2-v.github.io/">🌏 Website</a> •
+  <a href="https://arxiv.org/abs/2407.10956">📝 Paper</a> •
+  <a href="https://github.com/xlang-ai/Spider2-V/tree/main/evaluation_examples">🔍 Data</a> •
+  <a href="https://spider2-v.github.io/explorer.html">📸 Task Viewer</a>
 </p>
 
 <p align="center">
@@ -90,6 +88,16 @@ env.close()
 You will see all the logs of the system running normally, including the successful creation of the environment, completion of setup, and successful execution of a `rightClick` action on the screen, which means you are ready to continue.
 
 ## 🧪 Experiments
+
+A quick glance on the success rates of state-of-the-art VLM agents.
+
+| VLM            | Abstract | Verbose | Account | Non-Account | Overall  |
+| -------------- | -------- | ------- | ------- | ----------- | -------- |
+| Claude-3-Opus  | 5.3      | 10.9    | 5.9     | 9.3         | 8.1      |
+| Gemini-Pro-1.5 | 6.1      | 12.1    | 8.8     | 9.3         | 9.1      |
+| GPT-4o         | 11.3     | 16.2    | 10.6    | 15.6        | 13.8     |
+| GPT-4V         | 11.3     | 16.6    | 11.2    | 15.4        | **14.0** |
+
 ### 🕸️ Different Data Splits
 The entire task set contains $494$ examples (`evaluation_examples/test_all.json`) covering $20$ applications. There are different categories to split the entire task set into subsets, depending on:
 - whether the task instruction is *verbose* or *abstract* (`evaluation_examples/test_verbose.json` and `evaluation_examples/test_abstract.json`)
