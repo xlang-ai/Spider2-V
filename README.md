@@ -29,8 +29,8 @@
 </p>
 
 ## 📢 Updates
-- 2024-07-16: We released our [environment and dataset](https://github.com/xlang-ai/Spider2-V), [website](https://spider2-v.github.io/) and [arxiv paper](https://arxiv.org/abs/2407.10956). Check it out!
 
+- 2024-07-16: We released our [environment and dataset](https://github.com/xlang-ai/Spider2-V), [website](https://spider2-v.github.io/) and [arxiv paper](https://arxiv.org/abs/2407.10956). Check it out!
 
 ## 🏗️ Installation
 ### 💾 On Your Desktop or Server
