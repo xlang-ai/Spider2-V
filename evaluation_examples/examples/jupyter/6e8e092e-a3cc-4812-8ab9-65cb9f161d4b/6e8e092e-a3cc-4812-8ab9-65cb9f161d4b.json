@@ -1,7 +1,7 @@
 {
     "id": "6e8e092e-a3cc-4812-8ab9-65cb9f161d4b",
     "snapshot": "jupyter",
-    "instruction": "I have finished editing this JupyterLab. Please help me save this opened file as submission.ipynb on the Desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To finish this task, follow the steps below:\n\n1. In the opened web page, on the left side panel right click on the opened file sports-products.ipynb.\n2. Click Download.\n3. Switch to /home/user/Downloads in file manager.\n4. Rename the downloaded file as submission.ipynb.\n5. Cut and paste it to Desktop.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I have finished editing this JupyterLab. Please help me save this opened file as submission.ipynb on the Desktop.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo finish this task, follow the steps below:\n\n1. In the opened web page, on the left side panel right click on the opened file sports-products.ipynb.\n2. Click Download.\n3. Switch to /home/user/Downloads in file manager.\n4. Rename the downloaded file as submission.ipynb.\n5. Cut and paste it to Desktop.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://jupyterlab.readthedocs.io/en/4.1.x/user/files.html#uploading-and-downloading"
     ],

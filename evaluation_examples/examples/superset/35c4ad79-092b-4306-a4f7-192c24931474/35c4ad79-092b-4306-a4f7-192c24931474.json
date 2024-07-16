@@ -1,7 +1,7 @@
 {
     "id": "35c4ad79-092b-4306-a4f7-192c24931474",
     "snapshot": "superset",
-    "instruction": "I don't need to use the chart Mychart, delete it right now.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To delete the chart Mychart right now, we can follow these steps:\n1. In the opened web page, select \"Charts\" in the top menu;\n2. Click the action icon 'delete' for the chart \"Mychart\";\n3. In the new pop-up window, type \"DELETE\" in the typing box;\n4. Click \"DELETE\" buttom and back to the main panel;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I don't need to use the chart Mychart, delete it right now.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo delete the chart Mychart right now, we can follow these steps:\n1. In the opened web page, select \"Charts\" in the top menu;\n2. Click the action icon 'delete' for the chart \"Mychart\";\n3. In the new pop-up window, type \"DELETE\" in the typing box;\n4. Click \"DELETE\" buttom and back to the main panel;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://superset.apache.org/docs/using-superset/exploring-data"
     ],

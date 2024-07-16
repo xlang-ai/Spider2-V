@@ -1,7 +1,7 @@
 {
     "id": "ef62361a-9863-475b-9ee2-497bfe673cea",
     "snapshot": "snowflake",
-    "instruction": "For some reason, my table CUSTOMERS in snowflake with database as MALL, schema as PUBLIC has been dropped. Please help me to recover this table.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to recover the dropped table. In the opened Snowsight web page,\n1. Click \"Projects >> Worksheets\" on the left menu panel.\n2. Click \"+\" button on the right;\n3. In the drop-down menu, select \"SQL Worksheet\".\n4. Copy the code below to the worksheet.\n```\nUNDROP TABLE MALL.PUBLIC.CUSTOMERS;\n```\n5. Click the \"Run\" button on the top-right of the worksheet.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "For some reason, my table CUSTOMERS in snowflake with database as MALL, schema as PUBLIC has been dropped. Please help me to recover this table.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task is to recover the dropped table. In the opened Snowsight web page,\n1. Click \"Projects >> Worksheets\" on the left menu panel.\n2. Click \"+\" button on the right;\n3. In the drop-down menu, select \"SQL Worksheet\".\n4. Copy the code below to the worksheet.\n```\nUNDROP TABLE MALL.PUBLIC.CUSTOMERS;\n```\n5. Click the \"Run\" button on the top-right of the worksheet.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://quickstarts.snowflake.com/guide/getting_started_with_snowflake/index.html#6"
     ],

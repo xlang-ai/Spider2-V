@@ -1,7 +1,7 @@
 {
     "id": "ebd283e5-3672-404b-bc73-b0f36b99e36f",
     "snapshot": "metabase",
-    "instruction": "I have logged in to Metabase and I deleted the Sample Database by accident. Please help me restore the Metabase Sample Database.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To restore the metabase sample database, please follow these steps:\n\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click \"Databases\" button in the top of the page;\n4. Click \"Bring the Sample Database back\".\n5. Wait until the Sample Database is restored on the panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I have logged in to Metabase and I deleted the Sample Database by accident. Please help me restore the Metabase Sample Database.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo restore the metabase sample database, please follow these steps:\n\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click \"Databases\" button in the top of the page;\n4. Click \"Bring the Sample Database back\".\n5. Wait until the Sample Database is restored on the panel.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://www.metabase.com/docs/latest/databases/connecting#restoring-the-sample-database"
     ],

@@ -1,7 +1,7 @@
 {
     "id": "a627dc80-0cad-4799-8cd3-543af6c9bdda",
     "snapshot": "dagster",
-    "instruction": "I want to create a scaffold dagster project called \"dagster-proj\" at the current directory.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I want to create a scaffold dagster project called \"dagster-proj\" at the current directory. Please run the following commands in the terminal:\n1. pip install dagster dagster-webserver # to install dagster\n2. dagster project scaffold --name dagster-proj # to create a scaffold project\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I want to create a scaffold dagster project called \"dagster-proj\" at the current directory.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nI want to create a scaffold dagster project called \"dagster-proj\" at the current directory. Please run the following commands in the terminal:\n1. pip install dagster dagster-webserver # to install dagster\n2. dagster project scaffold --name dagster-proj # to create a scaffold project\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.dagster.io/getting-started/create-new-project"
     ],

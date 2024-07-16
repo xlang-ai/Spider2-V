@@ -1,7 +1,7 @@
 {
     "id": "9c5de46f-5fcc-458d-9a91-6c7a6b937a8a",
     "snapshot": "airbyte",
-    "instruction": "I want to transfer data from Faker to a target database. Could you help me setup the source?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we want to set up the data source as Faker:\n1. In the opened homepage of Airbyte, click the \"Sources\" link on the left panel;\n2. Then, in the search bar on the right, type in \"faker\" and you should see one panel with name \"Sample Data (Faker)\" below;\n3. Click this panel;\n4. After that, click the \"Set up source\" button in the pop-up window;\n5. Waiting for some time, the source will be verified and successfully configured.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I want to transfer data from Faker to a target database. Could you help me setup the source?\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nIn this task, we want to set up the data source as Faker:\n1. In the opened homepage of Airbyte, click the \"Sources\" link on the left panel;\n2. Then, in the search bar on the right, type in \"faker\" and you should see one panel with name \"Sample Data (Faker)\" below;\n3. Click this panel;\n4. After that, click the \"Set up source\" button in the pop-up window;\n5. Waiting for some time, the source will be verified and successfully configured.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.airbyte.com/using-airbyte/getting-started/add-a-source"
     ],

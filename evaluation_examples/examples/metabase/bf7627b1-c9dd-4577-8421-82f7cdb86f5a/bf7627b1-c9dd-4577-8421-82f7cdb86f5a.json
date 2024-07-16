@@ -1,7 +1,7 @@
 {
     "id": "bf7627b1-c9dd-4577-8421-82f7cdb86f5a",
     "snapshot": "metabase",
-    "instruction": "I have logged in to Metabase and I want to clear my databases panel. Please help me delete the Metabase Sample Database.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To delete the metabase sample database, please follow these steps:\n\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click \"Databases\" button in the top of the page;\n4. Click \"Sample Database\".\n5. Click \"Remove this database\".\n6. Type \"Sample Database\" in the box that appears on the screen.\n7. Click the \"Delete\" button on the bottom.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I have logged in to Metabase and I want to clear my databases panel. Please help me delete the Metabase Sample Database.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo delete the metabase sample database, please follow these steps:\n\n1. Click the gear icon on the top right;\n2. Choose \"Admin settings\" in the drop-down panel;\n3. Click \"Databases\" button in the top of the page;\n4. Click \"Sample Database\".\n5. Click \"Remove this database\".\n6. Type \"Sample Database\" in the box that appears on the screen.\n7. Click the \"Delete\" button on the bottom.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://www.metabase.com/docs/latest/databases/connecting#deleting-databases"
     ],

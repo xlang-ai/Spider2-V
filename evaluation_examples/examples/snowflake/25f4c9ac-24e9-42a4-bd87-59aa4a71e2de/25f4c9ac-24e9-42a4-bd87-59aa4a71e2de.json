@@ -1,7 +1,7 @@
 {
     "id": "25f4c9ac-24e9-42a4-bd87-59aa4a71e2de",
     "snapshot": "snowflake",
-    "instruction": "I want to roll back the SQL to the second version in the opened worksheet. Can you help me with that? Please do not close the webpage after the rollback.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To roll back the SQL to the second version, please follow these steps:\n1. Click the \"Code Versions\" button on the top right of the worksheet;\n2. Click the second item in the list of code versions;\n3. Copy the SQL shown in the panel;\n4. Click the \"Close\" button on the bottom right of the panel;\n5. Replace the SQL in the worksheet with the copied one.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I want to roll back the SQL to the second version in the opened worksheet. Can you help me with that? Please do not close the webpage after the rollback.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo roll back the SQL to the second version, please follow these steps:\n1. Click the \"Code Versions\" button on the top right of the worksheet;\n2. Click the second item in the list of code versions;\n3. Copy the SQL shown in the panel;\n4. Click the \"Close\" button on the bottom right of the panel;\n5. Replace the SQL in the worksheet with the copied one.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.snowflake.com/en/user-guide/ui-snowsight-worksheets"
     ],

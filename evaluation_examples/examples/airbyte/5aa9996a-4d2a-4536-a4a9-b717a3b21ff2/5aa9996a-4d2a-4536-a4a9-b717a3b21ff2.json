@@ -1,7 +1,7 @@
 {
     "id": "5aa9996a-4d2a-4536-a4a9-b717a3b21ff2",
     "snapshot": "airbyte",
-    "instruction": "I have constructed an airbyte connection from an HTTP file to Local JSON but it's disabled. Could you help me to enable it?\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we aim to enable an existing disabled Airbyte connection. To complete this:\n1. Click the connection row in the main panel;\n2. Next, click the toggle button with label \"Disabled\" on the top right corner to enable this connection.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I have constructed an airbyte connection from an HTTP file to Local JSON but it's disabled. Could you help me to enable it?\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nIn this task, we aim to enable an existing disabled Airbyte connection. To complete this:\n1. Click the connection row in the main panel;\n2. Next, click the toggle button with label \"Disabled\" on the top right corner to enable this connection.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.airbyte.com/using-airbyte/core-concepts/sync-schedules"
     ],

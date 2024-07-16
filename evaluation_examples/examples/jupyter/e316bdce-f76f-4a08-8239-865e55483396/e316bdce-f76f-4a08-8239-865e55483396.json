@@ -1,7 +1,7 @@
 {
     "id": "e316bdce-f76f-4a08-8239-865e55483396",
     "snapshot": "jupyter",
-    "instruction": "This is a jupyter notebook that has been run and I want to clear all its output. Please help me with this task.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to clear all outputs in the current jupyter notebook. On the opened web ui:\n1. Click the button \"Edit\" in the menu bar on the top.\n2. In the drop-down menu, select and click \"Clear Outputs of All Cells\".\n3. Wait for a short time and all outputs will be cleared.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "This is a jupyter notebook that has been run and I want to clear all its output. Please help me with this task.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task is to clear all outputs in the current jupyter notebook. On the opened web ui:\n1. Click the button \"Edit\" in the menu bar on the top.\n2. In the drop-down menu, select and click \"Clear Outputs of All Cells\".\n3. Wait for a short time and all outputs will be cleared.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://www.geeksforgeeks.org/keyboard-shortcuts-to-clear-cell-output-in-jupyter-notebook/"
     ],

@@ -1,7 +1,7 @@
 {
     "id": "a1b22ca8-14f8-45d9-b00d-492d4502fb45",
     "snapshot": "superset",
-    "instruction": "I want to create a global annotation layer named Myannotation, help me do it!\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To create a global annotation layer named Myannotation, we can follow these steps:\n1. In the opened web page, click \"Setting\" in the top right corner;\n2. In the pop-up window, select \"annotation layers\";\n3. Click the \"+ANNOTATION LAYER\" in top right corner;\n4. In the new pop-up window, type \"Myannotation\" in ANNOTATION LAYER NAME box;\n5. Click \"ADD\" and return the main panel;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I want to create a global annotation layer named Myannotation, help me do it!\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo create a global annotation layer named Myannotation, we can follow these steps:\n1. In the opened web page, click \"Setting\" in the top right corner;\n2. In the pop-up window, select \"annotation layers\";\n3. Click the \"+ANNOTATION LAYER\" in top right corner;\n4. In the new pop-up window, type \"Myannotation\" in ANNOTATION LAYER NAME box;\n5. Click \"ADD\" and return the main panel;\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://superset.apache.org/docs/using-superset/exploring-data/#annotations"
     ],

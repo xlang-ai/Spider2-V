@@ -1,7 +1,7 @@
 {
     "id": "f74d87d5-8ea0-4ade-aeab-45eb3173f9bb",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. Show me the first DAG project in graph view. I need to check it now.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy airflow\nTo show the first DAG project in graph view, we can follow the steps:\n1. In the DAG list, click the first DAG item' name\n2. In the detailed information box of DAG(the largest box in the middle of the webpage), click the \"Graph\" bottom in the top of the box\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I am using Astronomer to deploy Airflow. Show me the first DAG project in graph view. I need to check it now.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nI am using Astronomer to deploy airflow\nTo show the first DAG project in graph view, we can follow the steps:\n1. In the DAG list, click the first DAG item' name\n2. In the detailed information box of DAG(the largest box in the middle of the webpage), click the \"Graph\" bottom in the top of the box\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-ui"
     ],

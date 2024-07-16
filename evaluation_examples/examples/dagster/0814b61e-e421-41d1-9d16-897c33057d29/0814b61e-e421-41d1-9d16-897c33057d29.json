@@ -1,7 +1,7 @@
 {
     "id": "0814b61e-e421-41d1-9d16-897c33057d29",
     "snapshot": "dagster",
-    "instruction": "Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets. You may do so with the following steps:\n1. In the opened lineage graph, navigate to the asset \"top10_story_ids\" at the top of the graph and click it.\n2. Click \"Materialize selected\" on the top-right of the lineage graph.\n3. Wait until the materialization is finished.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Help me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nHelp me materialize the asset top10_story_ids in this dagster project in the UI. Do NOT materialize other assets. You may do so with the following steps:\n1. In the opened lineage graph, navigate to the asset \"top10_story_ids\" at the top of the graph and click it.\n2. Click \"Materialize selected\" on the top-right of the lineage graph.\n3. Wait until the materialization is finished.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.dagster.io/tutorial/writing-your-first-asset#step-2-materialize-your-asset"
     ],

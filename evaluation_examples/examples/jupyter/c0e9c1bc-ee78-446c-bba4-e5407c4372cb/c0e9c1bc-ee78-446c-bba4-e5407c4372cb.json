@@ -1,7 +1,7 @@
 {
     "id": "c0e9c1bc-ee78-446c-bba4-e5407c4372cb",
     "snapshot": "jupyter",
-    "instruction": "I want to delete the jupyter notebook kernel \"Python (jupyterlab)\", please help me.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task is to remove the kernel on a Jupyter Notebook. You need to:\n1. In the opened terminal, use the following command to remove the jupyterlab kernel:\n```\njupyter kernelspec remove jupyterlab\n```\n2. Type in \"y\" to confirm the remove action.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I want to delete the jupyter notebook kernel \"Python (jupyterlab)\", please help me.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task is to remove the kernel on a Jupyter Notebook. You need to:\n1. In the opened terminal, use the following command to remove the jupyterlab kernel:\n```\njupyter kernelspec remove jupyterlab\n```\n2. Type in \"y\" to confirm the remove action.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://stackoverflow.com/questions/42635310/remove-the-kernel-on-a-jupyter-notebook"
     ],

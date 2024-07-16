@@ -1,7 +1,7 @@
 {
     "id": "106f0830-4734-4ada-8eb1-7031e49380e3",
     "snapshot": "excel",
-    "instruction": "Summarize revenue by week as a pivot table in a new sheet and display it as a line chart in the new sheet.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to create a pivot table and a line chart.\n1. Select all columns from column A to G.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Week\" into \"Raw Fields\", and drag \"Revenue ($)\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Line chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Summarize revenue by week as a pivot table in a new sheet and display it as a line chart in the new sheet.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task requires you to create a pivot table and a line chart.\n1. Select all columns from column A to G.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Week\" into \"Raw Fields\", and drag \"Revenue ($)\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Line chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "SheetCopilot@182"
     ],

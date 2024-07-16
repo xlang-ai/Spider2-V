@@ -1,7 +1,7 @@
 {
     "id": "e7f961bb-26b9-414b-9250-7c5e56e1a6fb",
     "snapshot": "excel",
-    "instruction": "Copy the \"Revenue\" column along with the header to a new sheet.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: In this task, we will copy and paste a column to another sheet:\n1. Click the column \"A\" cell (on the top of cell A1) to choose the entire column;\n2. Press hotkey \"Ctrl+C\" to copy all contents in this column A;\n3. Click the `create sheet` button at the bottom of the opened file, which looks like a blank document icon and is on the left side of \"Sheet1\" text panel;\n4. In the new \"Sheet2\", click cell A1 and press hotkey \"Ctrl+V\";\n5. Save the file via pressing \"Ctrl+S\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Copy the \"Revenue\" column along with the header to a new sheet.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nIn this task, we will copy and paste a column to another sheet:\n1. Click the column \"A\" cell (on the top of cell A1) to choose the entire column;\n2. Press hotkey \"Ctrl+C\" to copy all contents in this column A;\n3. Click the `create sheet` button at the bottom of the opened file, which looks like a blank document icon and is on the left side of \"Sheet1\" text panel;\n4. In the new \"Sheet2\", click cell A1 and press hotkey \"Ctrl+V\";\n5. Save the file via pressing \"Ctrl+S\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "SheetCopilot@123"
     ],

@@ -1,7 +1,7 @@
 {
     "id": "4f9794ae-d508-416f-af3b-10e449ebd083",
     "snapshot": "jupyter",
-    "instruction": "Help me run all cells in this jupyter notebook. I hope to check the results.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: To run all cells in a jupyter notebook, one method is to run each cell one-by-one. Another simple method is to run all cells using one operation. To achieve this:\n1. In the opened web page, firstly locate and click the button \"Run\" in the menu bar on the top.\n2. In the drop-down menu, select and click \"Run All Cells\".\n3. Wait for a short time and all cells should be executed.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Help me run all cells in this jupyter notebook. I hope to check the results.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nTo run all cells in a jupyter notebook, one method is to run each cell one-by-one. Another simple method is to run all cells using one operation. To achieve this:\n1. In the opened web page, firstly locate and click the button \"Run\" in the menu bar on the top.\n2. In the drop-down menu, select and click \"Run All Cells\".\n3. Wait for a short time and all cells should be executed.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://jupyterlab.readthedocs.io/en/latest/user/code_console.html"
     ],

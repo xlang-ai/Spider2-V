@@ -1,7 +1,7 @@
 {
     "id": "993d5740-5480-4d99-972c-4c96898bf4b0",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I have finished my work today on Airflow. For safety, please help me log out my account.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo log out the account, we can follow the steps:\n1. Hover over the account name in the upper right corner;\n2. Then, click 'Log Out' button\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I am using Astronomer to deploy Airflow. I have finished my work today on Airflow. For safety, please help me log out my account.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nI am using Astronomer to deploy Airflow\nTo log out the account, we can follow the steps:\n1. Hover over the account name in the upper right corner;\n2. Then, click 'Log Out' button\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://www.astronomer.io/docs/astro/security"
     ],

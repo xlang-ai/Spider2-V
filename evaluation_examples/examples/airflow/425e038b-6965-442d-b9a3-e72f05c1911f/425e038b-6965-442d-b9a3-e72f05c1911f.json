@@ -1,7 +1,7 @@
 {
     "id": "425e038b-6965-442d-b9a3-e72f05c1911f",
     "snapshot": "airflow",
-    "instruction": "I am using Astronomer to deploy Airflow. I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: I am using Astronomer to deploy Airflow\nTo show the DAG dependencies views for checking the DAG dependencies on airflow website, we can follow the steps:\n1. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;\n2. Click the DAG dependencies in the dropdown menu\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "I am using Astronomer to deploy Airflow. I would like to check the DAG dependencies on airflow website. Please show me the DAG dependencies views.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nI am using Astronomer to deploy Airflow\nTo show the DAG dependencies views for checking the DAG dependencies on airflow website, we can follow the steps:\n1. Hover over the 'Browse' menu in the top menu bar in the webpage until the corresponding dropdown menu appears;\n2. Click the DAG dependencies in the dropdown menu\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.astronomer.io/learn/airflow-ui"
     ],

@@ -1,7 +1,7 @@
 {
     "id": "deb61207-c5e3-4474-bd29-9349ef04741f",
     "snapshot": "dbt",
-    "instruction": "Please help me materialize the two test example models as tables, then execute them.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to edit the model materialization settings.\n1. Open ``dbt_project.yml`` file in the VSCode editor.\n2. Replace the code ``+materialized: view`` with ``+materialized: table``.\n3. Open ``models/test/my_first_dbt_model.sql`` file in the VSCode editor,\n4. Replace the code ``{{ config(materialized='view') }}`` with ``{{ config(materialized='table') }}``.\n5. Switch to the terminal.\n6. Run ``dbt run`` to execute models.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Please help me materialize the two test example models as tables, then execute them.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task requires you to edit the model materialization settings.\n1. Open ``dbt_project.yml`` file in the VSCode editor.\n2. Replace the code ``+materialized: view`` with ``+materialized: table``.\n3. Open ``models/test/my_first_dbt_model.sql`` file in the VSCode editor,\n4. Replace the code ``{{ config(materialized='view') }}`` with ``{{ config(materialized='table') }}``.\n5. Switch to the terminal.\n6. Run ``dbt run`` to execute models.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "https://docs.getdbt.com/guides/manual-install?step=11"
     ],

@@ -1,7 +1,7 @@
 {
     "id": "2cb129af-84bc-4542-8c4c-b35fb3ea6156",
     "snapshot": "excel",
-    "instruction": "Add a new column named \"Profit\" and calculate the profit for each week by subtracting \"COGS\" from \"Sales\" in that column.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: We will add one new column in the current excel table. To do this:\n1. Click cell D1;\n2. Type in \"Profit\" and press ENTER;\n3. Click cell D2;\n4. Type in text \"=$B2-$C2\" and press ENTER;\n5. Click the bottom right corner of cell D2 (you will see a cross symbol);\n6. Keep the mouse down and drage it to cell D11;\n7. Release the mouse and you will see contents from cell D2 to D11;\n8. Save the results via pressing hotkey \"Ctrl+S\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Add a new column named \"Profit\" and calculate the profit for each week by subtracting \"COGS\" from \"Sales\" in that column.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nWe will add one new column in the current excel table. To do this:\n1. Click cell D1;\n2. Type in \"Profit\" and press ENTER;\n3. Click cell D2;\n4. Type in text \"=$B2-$C2\" and press ENTER;\n5. Click the bottom right corner of cell D2 (you will see a cross symbol);\n6. Keep the mouse down and drage it to cell D11;\n7. Release the mouse and you will see contents from cell D2 to D11;\n8. Save the results via pressing hotkey \"Ctrl+S\".\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "SheetCopilot@203"
     ],

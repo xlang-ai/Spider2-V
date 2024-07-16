@@ -1,7 +1,7 @@
 {
     "id": "87a7e6b0-665a-4aa8-80e0-7b6b8a4c5c8b",
     "snapshot": "excel",
-    "instruction": "Summarize the total subtotals for each Expense Account as a pivot table in a new sheet. Display the results in a bar chart.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to create a pivot table and a bar chart.\n1. Select all columns from column A to D.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Expense Account\" into \"Raw Fields\", and drag \"Subtotal\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Bar chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Summarize the total subtotals for each Expense Account as a pivot table in a new sheet. Display the results in a bar chart.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task requires you to create a pivot table and a bar chart.\n1. Select all columns from column A to D.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Expense Account\" into \"Raw Fields\", and drag \"Subtotal\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Bar chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "SheetCopilot@68"
     ],

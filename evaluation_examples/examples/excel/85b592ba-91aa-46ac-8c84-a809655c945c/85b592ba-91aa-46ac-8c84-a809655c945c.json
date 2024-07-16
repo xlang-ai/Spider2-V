@@ -1,7 +1,7 @@
 {
     "id": "85b592ba-91aa-46ac-8c84-a809655c945c",
     "snapshot": "excel",
-    "instruction": "Calculate the total revenue for each month as a pivot table in a new sheet and draw a bar chart for the results.\nHere is a step-by-step tutorial from an expert instructing you how to complete it: This task requires you to create a pivot table and a bar chart.\n1. Select all columns from column A to G.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Month\" into \"Raw Fields\", and drag \"Revenue\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Bar chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
+    "instruction": "Calculate the total revenue for each month as a pivot table in a new sheet and draw a bar chart for the results.\nHere is a step-by-step tutorial from an expert instructing you how to complete it:\nThis task requires you to create a pivot table and a bar chart.\n1. Select all columns from column A to G.\n2. Click \"Insert\", and choose \"Pivot Table\".\n3. Click \"OK\".\n4. Drag \"Month\" into \"Raw Fields\", and drag \"Revenue\" into \"Data Fields\".\n5. Click \"OK\".\n6. Click \"Insert\", and choose \"Chart\".\n7. Choose \"Bar chart\", and click \"Finish\".\n8. Save the sheet using Excel 2007-365 format.\nYou can exactly follow the detailed plan above or proactively tackle the task based on the real-time environment interaction by yourself.",
     "source": [
         "SheetCopilot@61"
     ],
