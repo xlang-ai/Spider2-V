@@ -174,14 +174,24 @@ The preprocessed documents can be downloaded from [GoogleDrive](https://drive.us
 ## 📄 Citation
 If you find this benchmark useful, please consider citing our work:
 ```
-@article{2024-spider2v,
-    title={Spider2-V: How Far Are Multimodal Agents From Automating Data Science and Engineering Workflows?},
-    author={Ruisheng Cao and Fangyu Lei and Haoyuan Wu and Jixuan Chen and Yeqiao Fu and Hongcheng Gao and Xinzhuang Xiong and Hanchong Zhang and Yuchen Mao and Wenjing Hu and Tianbao Xie and Hongshen Xu and Danyang Zhang and Sida Wang and Ruoxi Sun and Pengcheng Yin and Caiming Xiong and Ansong Ni and Qian Liu and Victor Zhong and Lu Chen and Kai Yu and Tao Yu},
-    year={2024},
-    journal={CoRR},
-    volume={abs/2407.10956},
-    eprint={2407.10956},
-    eprinttype={arXiv},
-    url={https://arxiv.org/abs/2407.10956},
+@misc{Spider2-V,
+      title={Spider2-V: How Far Are Multimodal Agents From Automating Data Science and Engineering Workflows?}, 
+      author={Ruisheng Cao and Fangyu Lei and Haoyuan Wu and Jixuan Chen and Yeqiao Fu and Hongcheng Gao and Xinzhuang Xiong and Hanchong Zhang and Yuchen Mao and Wenjing Hu and Tianbao Xie and Hongshen Xu and Danyang Zhang and Sida Wang and Ruoxi Sun and Pengcheng Yin and Caiming Xiong and Ansong Ni and Qian Liu and Victor Zhong and Lu Chen and Kai Yu and Tao Yu},
+      year={2024},
+      eprint={2407.10956},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2407.10956}, 
+}
+```
+
+```
+@misc{OSWorld,
+      title={OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments}, 
+      author={Tianbao Xie and Danyang Zhang and Jixuan Chen and Xiaochuan Li and Siheng Zhao and Ruisheng Cao and Toh Jing Hua and Zhoujun Cheng and Dongchan Shin and Fangyu Lei and Yitao Liu and Yiheng Xu and Shuyan Zhou and Silvio Savarese and Caiming Xiong and Victor Zhong and Tao Yu},
+      year={2024},
+      eprint={2404.07972},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI}
 }
 ```
