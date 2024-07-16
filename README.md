@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://spider2-v.github.io/">Website</a> •
-  <a href="https://arxiv.org/abs/">Paper</a> •
+  <a href="https://arxiv.org/abs/2407.10956">Paper</a> •
   <a href="https://github.com/xlang-ai/Spider2-V/tree/main/evaluation_examples">Data</a> •
   <!-- Task Viewer not available currently -->
   <!-- <a href="https://spider2-v.github.io/explorer.html">Data Viewer</a> -->
