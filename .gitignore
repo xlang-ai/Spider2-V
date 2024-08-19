@@ -5,6 +5,10 @@
 # Credential files
 evaluation_examples/settings/*/*.json
 
+# Documents
+evaluation_examples/documents/*
+!evaluation_examples/documents/README.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

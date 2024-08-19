@@ -164,8 +164,8 @@ The preprocessed documents can be downloaded from [GoogleDrive](https://drive.us
 ### What are the running times and costs?
 | Setting | Expected Time | Average Prompt Tokens | Average Completion Tokens | Average Cost |
 | --------| ------------- | --------------------- | ------------------------- | ------------ |
-| GPT-4o  | 26.2m         | 0.32M                 | 1.6K                      | $1.64        |
-| GPT-4V  | 24.0m         | 0.32M                 | 1.8K                      | $3.29        |
+| GPT-4o  | 8.7m         | 0.32M                 | 1.6K                      | $1.64        |
+| GPT-4V  | 9.1m         | 0.32M                 | 1.8K                      | $3.29        |
 
 - action_space = pyautogui, observation_space = SoM
 - history_trajectory_length = 3, max_steps = 15, RAG = True
